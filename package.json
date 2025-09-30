@@ -1,0 +1,30 @@
+{
+  "name": "chg-uds",
+  "version": "0.1.0",
+  "description": "CHG UDS (blank scaffold): add your tokens/mixins/functions and build for @use.",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist/scss",
+    "dist/css",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    "sass": "./dist/scss/index.scss",
+    "style": "./dist/css/tokens.css"
+  },
+  "style": "dist/css/tokens.css",
+  "scripts": {
+    "pull:figma": "node scripts/pull-variables.js",
+    "prebuild": "node -e \"require('fs').rmSync('dist', {recursive:true, force:true}); require('fs').mkdirSync('dist/scss', {recursive:true}); require('fs').mkdirSync('dist/css', {recursive:true});\"",
+    "build:scss": "node -e \"require('fs').cpSync('src/scss', 'dist/scss', {recursive:true});\"",
+    "build:css": "sass src/scss/css-vars.scss:dist/css/tokens.css --no-source-map --style=expanded || node -e \"require('fs').writeFileSync('dist/css/tokens.css','/* empty */')\"",
+    "build": "npm run prebuild && npm run build:scss && npm run build:css",
+    "publish:dry": "npm publish --dry-run"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^10.0.0",
+    "sass": "^1.80.0"
+  }
+}
