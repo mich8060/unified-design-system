@@ -1,6 +1,6 @@
 @use "../../scss/utils/space" as sp;
 @use "../../scss/_text-styles" as type;   // or "../../scss/text-styles" if that’s the file name you use
-@use "../../scss/variables" as v;
+@use "../../scss/design-tokens" as v;
 
 .uds-btn {
     all: unset;
@@ -16,7 +16,7 @@
 
     @include type.uds-type("body-16-semibold");
     @include sp.radius(4);
-    @include sp.p(10, 16);
+    @include sp.p(8, 16);
     @include sp.gap(4);
 
     transition:

@@ -2,7 +2,7 @@
 @use "sass:map";
 @use "sass:math";
 @use "sass:meta";
-@use "../variables" as v;
+@use "../design-tokens" as v;
 
 // ---- Spacing tokens (number -> value) ----
 $__space: (

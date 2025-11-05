@@ -6,63 +6,97 @@ function Button({
     icon,
     iconPlacement = "leading",
     iconOnly = false,
-    size,
-    ariaLabel,
+    size,                               // "xs" | "sm" | "lg" | undefined
+    variant = "default",                 // "default" | "ghost" | "soft" | "outline"
     className = "",
     ...rest
 }) {
-    const hasIcon = Boolean(icon);
+    const hasIcon = !!icon;
     const placement = iconPlacement === "tailing" ? "trailing" : iconPlacement;
     const isIconOnly = iconOnly && hasIcon;
-    const ariaLabelFromUser = rest["aria-label"];
-    const titleFromUser = rest.title;
 
-    if (isIconOnly && !rest["aria-label"] && !rest.title) {
+    // pull user props we might need, and prevent them from overwriting ours
+    const {
+        onClick: userOnClick,
+        onKeyDown: userOnKeyDown,
+        className: _omitClassName,
+        title: titleFromUser,
+        ["aria-label"]: ariaLabelFromUser,
+        tabIndex: userTabIndex,
+        type: userType,
+        ...buttonProps
+    } = rest;
+
+    // a11y: icon only must have a name
+    if (isIconOnly && !ariaLabelFromUser && !titleFromUser) {
         console.warn("Button (iconOnly) requires aria-label or title for accessibility.");
     }
 
-    const ariaDisabled = rest["aria-disabled"] === true || rest["aria-disabled"] === "true";
-    const onClick = ariaDisabled ? undefined : rest.onClick;
-    const tabIndex = ariaDisabled ? -1 : rest.tabIndex;
+    // support aria-disabled (for <a role="button"> cases)
+    const ariaDisabled =
+        buttonProps["aria-disabled"] === true || buttonProps["aria-disabled"] === "true";
 
+    const onClick = ariaDisabled ? undefined : userOnClick;
+    const tabIndex = ariaDisabled ? -1 : userTabIndex;
+
+    // ---- classes -----------------------------------------------------------
+    const validVariants = ["ghost", "soft", "outline", "default"];
     const validSizes = ["xs", "sm", "lg"];
-    const sizeClass = size && validSizes.includes(size) ? `uds-btn-${size}` : null;
-    if (size && !sizeClass) {
+
+    // BEM: variants use double hyphen, default = no modifier class
+    const variantClass =
+        variant && validVariants.includes(variant) && variant !== "default"
+            ? `uds-btn--${variant}`
+            : null;
+
+    // sizes use single hyphen per your earlier convention
+    const sizeClass =
+        size && validSizes.includes(size) ? `uds-btn-${size}` : null;
+
+    if (variant && !validVariants.includes(variant)) {
+        console.warn(`Button: invalid variant "${variant}". Allowed: ${validVariants.join(", ")}`);
+    }
+    if (size && !validSizes.includes(size)) {
         console.warn(`Button: invalid size "${size}". Allowed: ${validSizes.join(", ")}`);
     }
 
-    const { ["aria-label"]: _omitAriaLabel, ...restSansAriaLabel } = rest;
+    const classes = [
+        "uds-btn",
+        sizeClass,
+        variantClass,
+        isIconOnly
+            ? "uds-btn--icon-only"
+            : hasIcon
+              ? (placement === "trailing" ? "uds-btn--icon-trailing" : "uds-btn--icon-leading")
+              : null,
+        className,
+    ]
+        .filter(Boolean)
+        .join(" ");
 
-    // Only add aria-label when icon-only; otherwise omit it
-    const a11yNameProps = isIconOnly
-        ? { "aria-label": ariaLabelFromUser || titleFromUser }
-        : {};
-
-    const classes = ["uds-btn", sizeClass, className];
-    if (isIconOnly) classes.push("uds-btn--icon-only");
-    else if (hasIcon) classes.push(placement === "trailing" ? "uds-btn--icon-trailing" : "uds-btn--icon-leading");
-
+    // key handling (do not call undefined)
     function handleKeyDown(e) {
         if (ariaDisabled && (e.key === "Enter" || e.key === " ")) {
             e.preventDefault();
             e.stopPropagation();
             return;
         }
-        onKeyDown?.(e);
+        userOnKeyDown?.(e);
     }
 
     return (
         <button
-            type={rest.type || "button"}
-            disabled={rest.disabled}
+            {...buttonProps}                      // spread FIRST so we can override below
+            type={userType || "button"}
+            className={classes}
+            disabled={buttonProps.disabled}
             aria-disabled={ariaDisabled || undefined}
             onClick={onClick}
-            tabIndex={tabIndex}
-            className={classes.filter(Boolean).join(" ")}
             onKeyDown={handleKeyDown}
-            {...restSansAriaLabel}
-            {...a11yNameProps}
-            {...rest}
+            tabIndex={tabIndex}
+            // only add an accessible name when icon-only
+            aria-label={isIconOnly ? (ariaLabelFromUser || titleFromUser) : undefined}
+            title={titleFromUser}
         >
             {isIconOnly ? (
                 <>
