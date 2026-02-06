@@ -1,70 +1,177 @@
-# Getting Started with Create React App
+# CHG Design System (UDS)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A unified design system for CHG Healthcare brands, featuring React components, design tokens synced from Figma, and comprehensive documentation.
+
+## Overview
+
+This design system provides:
+
+- **40+ React Components** — Fully styled, accessible UI components
+- **Design Tokens** — Colors, spacing, typography, and more synced directly from Figma
+- **Multi-Brand Support** — Theming for CompHealth, Connect, LocumSmart, Modio, and Weatherby
+- **Figma Code Connect** — Bridge between design and development
+- **Documentation Site** — Interactive component demos and usage guidelines
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Start the documentation site
+npm start
+```
+
+The development server runs at [http://localhost:3000](http://localhost:3000).
 
 ## Available Scripts
 
-In the project directory, you can run:
+### Development
 
-### `npm start`
+| Command | Description |
+|---------|-------------|
+| `npm start` | Start the documentation site in development mode |
+| `npm test` | Run tests in watch mode |
+| `npm run sass:watch` | Watch and compile SCSS files |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Design Tokens
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Command | Description |
+|---------|-------------|
+| `npm run tokens:generate` | Fetch and generate tokens from Figma |
+| `npm run tokens:validate` | Validate token references |
+| `npm run tokens:compile` | Compile SCSS tokens to CSS |
+| `npm run tokens:watch` | Watch and compile token changes |
 
-### `npm test`
+### Library Build
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Command | Description |
+|---------|-------------|
+| `npm run build:lib` | Build the component library for distribution |
+| `npm run build:lib:watch` | Build library in watch mode |
+| `npm run publish:lib` | Publish the library package |
 
-### `npm run build`
+### Figma Code Connect
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Command | Description |
+|---------|-------------|
+| `npm run codeconnect:publish` | Publish Code Connect mappings to Figma |
+| `npm run codeconnect:unpublish` | Remove Code Connect mappings |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Production
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Command | Description |
+|---------|-------------|
+| `npm run build` | Build the documentation site for production |
 
-### `npm run eject`
+## Project Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+├── src/
+│   ├── ui/                    # Component library
+│   │   ├── Accordion/
+│   │   ├── Button/
+│   │   ├── Card/
+│   │   └── ...
+│   ├── pages/                 # Documentation pages
+│   ├── styles/                # Global styles and tokens
+│   │   ├── _variables.scss    # Generated Figma variables
+│   │   ├── tokens.scss        # CSS custom properties
+│   │   └── _typography.scss   # Typography utilities
+│   └── assets/                # Images and static assets
+├── scripts/
+│   ├── index.js               # Token generation script
+│   ├── validate.js            # Token validation
+│   └── publish-lib.js         # Library publishing
+├── dist/                      # Built library output
+└── build/                     # Built documentation site
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The design system includes a comprehensive set of components:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Form Controls:** Button, Checkbox, Datepicker, Dropdown, Field, FileUpload, Input, Radio, Slider, Textarea, Toggle
 
-## Learn More
+**Data Display:** Accordion, Avatar, Badge, Card, Chip, DotStatus, Icon, ImageAspect, Key, Status, Table, Tag, Tooltip
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Navigation:** ActionMenu, Breadcrumb, Menu, Pagination, PillToggle, Steps, Tabs
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Feedback:** ProgressCircle, ProgressIndicator, Toast
 
-### Code Splitting
+**Layout:** Divider, Flex
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Design Tokens
 
-### Analyzing the Bundle Size
+Tokens are synced from Figma and include:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Colors** — Brand colors, semantic colors, neutrals
+- **Spacing** — Consistent spacing scale
+- **Typography** — Font families, sizes, weights, line heights
+- **Border Radius** — Corner radius values
+- **Shadows** — Elevation and depth
+- **Animation** — Timing and duration values
 
-### Making a Progressive Web App
+### Syncing Tokens from Figma
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. Create a `.env` file with your Figma credentials:
 
-### Advanced Configuration
+```env
+FIGMA_ACCESS_TOKEN=your_figma_token
+FIGMA_FILE_KEY=your_file_key
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. Run the token generation script:
 
-### Deployment
+```bash
+npm run tokens:generate
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Using the Component Library
 
-### `npm run build` fails to minify
+### Installation in Your Project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm install @chg/uds-components
+```
+
+### Usage
+
+```jsx
+import { Button, Card, Input } from '@chg/uds-components';
+import '@chg/uds-components/styles.css';
+
+function App() {
+  return (
+    <Card>
+      <Input label="Email" type="email" />
+      <Button variant="primary">Submit</Button>
+    </Card>
+  );
+}
+```
+
+## Browser Support
+
+- Chrome (last 2 versions)
+- Firefox (last 2 versions)
+- Safari (last 2 versions)
+- Edge (last 2 versions)
+
+## Contributing
+
+1. Create a feature branch from `main`
+2. Make your changes
+3. Ensure tests pass and components render correctly
+4. Submit a pull request
+
+## License
+
+See [LICENSE](./LICENSE) for details.
