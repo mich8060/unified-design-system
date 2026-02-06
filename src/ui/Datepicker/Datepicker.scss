@@ -1,0 +1,187 @@
+@use "../../styles/typography" as *;
+
+.uds-datepicker {
+  display: inline-flex;
+  flex-direction: column;
+  width: fit-content;
+  min-width: 280px;
+  gap: 0px;
+  background: var(--uds-surface-primary);
+  border: var(--uds-border-width-1) solid var(--uds-border-primary);
+  border-radius: var(--uds-radius-8);
+  width: 450px;
+
+  &--mobile {
+    width: 375px;
+  }
+
+  &__header {
+    border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--uds-spacing-12) var(--uds-spacing-16);
+  }
+
+  &__title {
+    @include uds-body-16-semibold;
+    margin: 0;
+    color: var(--uds-text-primary);
+  }
+
+  &__weekdays {
+    display: flex;
+    flex-direction: row;
+    padding: var(--uds-spacing-8) 0;
+    border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
+  }
+
+  &__weekday {
+    @include uds-body-12-medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
+    color: var(--uds-text-secondary);
+    text-align: center;
+  }
+
+  &__grid {
+    background: var(--uds-surface-secondary);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  &__day {
+    all: unset;
+    @include uds-body-14;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1 1 calc(100% / 7);
+    aspect-ratio: 1;
+    min-width: 0;
+    border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
+    border-left: var(--uds-border-width-1) solid var(--uds-border-primary);
+    background: var(--uds-surface-primary);
+    color: var(--uds-text-primary);
+    cursor: pointer;
+    padding: var(--uds-spacing-8);
+    transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+    max-width: calc(100% / 7);
+    gap: var(--uds-gap-8);
+    
+    &:nth-child(7n + 1) {
+      border-left: none;
+    }
+
+    &:hover:not(:disabled):not(&--selected):not(&--range):not(&--on-assignment) {
+      background: var(--uds-surface-secondary);
+    }
+
+    &:focus-visible {
+      outline: solid 2px var(--uds-border-focus);
+      outline-offset: 2px;
+    }
+
+    &--empty {
+      cursor: default;
+      pointer-events: none;
+      background: transparent;
+      border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
+      border-left: var(--uds-border-width-1) solid var(--uds-border-primary);
+    }
+
+    &--selected {
+      background: var(--uds-system-action-primary);
+      color: var(--uds-text-inverse);
+      font-weight: 600;
+    }
+
+    &--range {
+      background: var(--uds-color-primary-100);
+      color: var(--uds-text-primary);
+    }
+
+    &--range-start {
+      background: var(--uds-system-action-primary);
+      color: var(--uds-text-inverse);
+      font-weight: 600;
+    }
+
+    &--range-end {
+      background: var(--uds-system-action-primary);
+      color: var(--uds-text-inverse);
+      font-weight: 600;
+    }
+
+    &--today {
+      background: var(--uds-system-action-quaternary);
+    }
+
+    &--unavailable {
+      background: var(--uds-system-destructive-quaternary);
+      cursor: not-allowed;
+    }
+
+    &--on-assignment {
+      background: var(--uds-color-primary-600);
+      color: var(--uds-text-inverse);
+    }
+  }
+
+  &__day-number {
+    @include uds-body-14;
+    color: inherit;
+    z-index: 1;
+  }
+
+  &__day-unavailable-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--uds-system-destructive-primary);
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+
+  &__icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--uds-spacing-2);
+    z-index: 1;
+  }
+
+  &__icon {
+    &--travel {
+      svg {
+        width: 19px;
+        height: 16px;
+        display: block;
+      }
+    }
+
+    &--assignment {
+      svg {
+        width: 16px;
+        height: 16px;
+        display: block;
+      }
+    }
+  }
+
+  // Mobile size adjustments
+  &--mobile {
+    width: 375px;
+
+    &__day {
+      min-height: 48px;
+    }
+  }
+}

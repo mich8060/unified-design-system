@@ -1,0 +1,277 @@
+@use "../../styles/typography" as *;
+
+.uds-micro-calendar {
+  display: inline-flex;
+  flex-direction: column;
+  width: fit-content;
+  min-width: 280px;
+  gap: 0px;
+  overflow: hidden;
+  background: var(--uds-surface-primary);
+  border: var(--uds-border-width-1) solid var(--uds-border-primary);
+  border-radius: var(--uds-radius-8);
+  width: 450px;
+
+  &__header {
+    border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--uds-spacing-12) var(--uds-spacing-16);
+  }
+
+  &__title {
+    @include uds-body-16-semibold;
+    margin: 0;
+    color: var(--uds-text-primary);
+  }
+
+  &__weekdays {
+    display: flex;
+    flex-direction: row;
+    padding: var(--uds-spacing-8) 0;
+  }
+
+  &__weekday {
+    @include uds-body-12-medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
+    color: var(--uds-text-secondary);
+    text-align: center;
+  }
+
+  &__grid-wrapper {
+    overflow: hidden;
+    position: relative;
+    height: 64px; // Default collapsed height (one row)
+    transition: height 0.3s ease;
+  }
+
+  &__grid-wrapper--expanded {
+    height: 320px; // Full month height (5 rows × 64px)
+  }
+
+  &__grid-wrapper--collapsed {
+    height: 64px; // One row height
+  }
+
+  &__grid {
+    background: var(--uds-surface-secondary);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    transition: transform 0.3s ease;
+  }
+
+  &__day {
+    all: unset;
+    @include uds-body-14;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1 1 calc(100% / 7);
+    aspect-ratio: 1;
+    min-width: 0;
+    border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
+    border-left: var(--uds-border-width-1) solid var(--uds-border-primary);
+    background: var(--uds-surface-primary);
+    color: var(--uds-text-primary);
+    cursor: pointer;
+    padding: var(--uds-spacing-8);
+    transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+    max-width: calc(100% / 7);
+    gap: var(--uds-gap-8);
+    
+    &:nth-child(7n + 1) {
+      border-left: none;
+    }
+
+    &:hover:not(:disabled):not(&--selected):not(&--on-assignment) {
+      background: var(--uds-surface-secondary);
+    }
+
+    &:focus-visible {
+      outline: solid 2px var(--uds-border-focus);
+      outline-offset: 2px;
+    }
+
+    &--empty {
+      cursor: default;
+      pointer-events: none;
+      background: transparent;
+      border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
+      border-left: var(--uds-border-width-1) solid var(--uds-border-primary);
+    }
+
+    &--selected {
+      background: var(--uds-system-action-primary);
+      color: var(--uds-text-inverse);
+      font-weight: 600;
+    }
+
+    &--today {
+        background: var(--uds-system-action-quaternary);
+    }
+
+    &--unavailable {
+      background: var(--uds-system-destructive-quaternary);
+      cursor: not-allowed;
+    }
+  }
+
+  &__day-unavailable-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--uds-system-destructive-primary);
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+
+  &__icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--uds-spacing-2);
+    z-index: 1;
+  }
+
+  &__icon {
+    &--travel {
+      svg {
+        width: 19px;
+        height: 16px;
+        display: block;
+      }
+    }
+
+    &--assignment {
+      svg {
+        width: 16px;
+        height: 16px;
+        display: block;
+      }
+    }
+  }
+
+  &__legend {
+    display: flex;
+    flex-direction: row;
+    gap: var(--uds-spacing-24);
+    padding: var(--uds-spacing-16) var(--uds-spacing-24);
+    border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
+  }
+
+  &__legend-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--uds-spacing-8);
+  }
+
+  &__legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--uds-spacing-8);
+  }
+
+  &__legend-square {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 16px;
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    background: var(--uds-surface-primary);
+
+    &--available {
+      background: var(--uds-surface-primary);
+      
+      // Remove border for travel icon (when it's in an available square)
+      &:has(svg) {
+        border: none;
+        background: transparent;
+      }
+    }
+
+    &--assignment {
+      background: transparent;
+      border: none;
+    }
+
+    &--unavailable {
+      background: var(--uds-system-destructive-quaternary);
+    }
+  }
+
+  &__legend-icon {
+    position: absolute;
+    z-index: 1;
+    
+    svg {
+      display: block;
+    }
+    
+    &--assignment {
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    
+    &:not(&--assignment) {
+      
+      svg {
+        width: 19px;
+        height: 16px;
+      }
+    }
+  }
+
+  &__legend-unavailable-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--uds-color-accent-red-600);
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+
+  &__legend-label {
+    @include uds-body-14;
+    color: var(--uds-text-primary);
+  }
+
+  &__toggle {
+    all: unset;
+    background: var(--uds-surface-tertiary);
+    border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 32px;
+    cursor: pointer;
+    border-radius: var(--uds-radius-4);
+    color: var(--uds-text-secondary);
+    transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+
+    &:hover {
+      background: var(--uds-surface-secondary);
+      color: var(--uds-text-primary);
+    }
+
+    &:focus-visible {
+      outline: solid 2px var(--uds-border-focus);
+      outline-offset: 2px;
+    }
+  }
+}

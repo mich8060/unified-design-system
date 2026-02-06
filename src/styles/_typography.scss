@@ -1,0 +1,932 @@
+:root {
+    --uds-font-family:
+        "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial;
+    --uds-font-weight: 400;
+    --uds-font-weight-medium: 500;
+    --uds-font-weight-semibold: 600;
+    --uds-font-weight-bold: 700;
+    --uds-font-size-12: 12px;
+    --uds-font-size-14: 14px;
+    --uds-font-size-16: 16px;
+    --uds-font-size-18: 18px;
+    --uds-font-size-20: 20px;
+    --uds-font-size-24: 24px;
+    --uds-font-size-28: 28px;
+    --uds-font-size-32: 32px;
+    --uds-font-size-36: 36px;
+    --uds-font-size-48: 48px;
+    --uds-font-size-60: 60px;
+    --uds-font-size-72: 72px;
+    --uds-font-size-96: 96px;
+    --uds-font-size-128: 128px;
+    --uds-line-12: 16px;
+    --uds-line-14: 20px;
+    --uds-line-16: 24px;
+    --uds-line-18: 27px;
+    --uds-line-20: 28px;
+    --uds-line-24: 32px;
+    --uds-line-28: 36px;
+    --uds-line-32: 40px;
+    --uds-line-36: 48px;
+    --uds-line-40: 40px;
+    --uds-line-48: 64px;
+    --uds-line-60: 80px;
+    --uds-line-72: 96px;
+    --uds-line-96: 128px;
+    --uds-line-128: 160px;
+    --uds-lhu-12: 1.333;
+    --uds-lhu-14: 1.429;
+    --uds-lhu-16: 1.5;
+    --uds-lhu-20: 1.4;
+    --uds-lhu-24: 1.333;
+    --uds-lhu-32: 1.25;
+    --uds-label-12-line: var(--uds-line-12);
+    --uds-label-16-line: var(--uds-line-16);
+    --uds-label-20-line: var(--uds-line-20);
+    --uds-label-24-line: var(--uds-line-24);
+    --uds-lhu-label-12: var(--uds-lhu-12);
+    --uds-lhu-label-16: var(--uds-lhu-16);
+    --uds-lhu-label-20: var(--uds-lhu-20);
+    --uds-lhu-label-24: var(--uds-lhu-24);
+    --uds-paragraph-12-size: var(--uds-font-size-12);
+    --uds-paragraph-16-size: var(--uds-font-size-16);
+    --uds-paragraph-20-size: var(--uds-font-size-20);
+    --uds-paragraph-24-size: var(--uds-font-size-24);
+    --uds-paragraph-12-line: 18px;
+    --uds-paragraph-16-line: 26px;
+    --uds-paragraph-20-line: 30px;
+    --uds-paragraph-24-line: 36px;
+    --uds-lhu-body-12: 1.5;
+    --uds-lhu-body-16: 1.625;
+    --uds-lhu-body-20: 1.5;
+    --uds-lhu-body-24: 1.5;
+    --uds-line-heading-20: var(--uds-line-32);
+    --uds-line-heading-24: var(--uds-line-32);
+    --uds-line-heading-32: var(--uds-line-40);
+    --uds-lhu-heading-20: 1.6;
+    --uds-lhu-heading-24: 1.333;
+    --uds-lhu-heading-32: 1.25;
+    --uds-letter-spacing-tight: -0.02em;
+    --uds-letter-spacing-medium: -0.01em;
+    --uds-letter-spacing-normal: 0em;
+    --uds-letter-spacing-loose: 0.01em;
+}
+
+.uds {
+    &-display {
+        &-128 {
+            font-size: var(--uds-font-size-128);
+            line-height: var(--uds-line-128);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-96 {
+            font-size: var(--uds-font-size-96);
+            line-height: var(--uds-line-96);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-72 {
+            font-size: var(--uds-font-size-72);
+            line-height: var(--uds-line-72);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-60 {
+            font-size: var(--uds-font-size-60);
+            line-height: var(--uds-line-60);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-48 {
+            font-size: var(--uds-font-size-48);
+            line-height: var(--uds-line-48);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-36 {
+            font-size: var(--uds-font-size-36);
+            line-height: var(--uds-line-36);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+    }
+
+    &-heading {
+        &-32 {
+            font-size: var(--uds-font-size-32);
+            line-height: var(--uds-line-32);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0em;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-28 {
+            font-size: var(--uds-font-size-28);
+            line-height: var(--uds-line-28);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0em;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-24 {
+            font-size: var(--uds-font-size-24);
+            line-height: var(--uds-line-24);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0em;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+    }
+
+    &-body {
+        &-20 {
+            font-size: var(--uds-font-size-20);
+            line-height: var(--uds-line-20);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0px;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+                letter-spacing: 0em;
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-16 {
+            font-size: var(--uds-font-size-16);
+            line-height: var(--uds-line-16);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0px;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+                letter-spacing: 0em;
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-14 {
+            font-size: var(--uds-font-size-14);
+            line-height: var(--uds-line-14);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0em;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-12 {
+            font-size: var(--uds-font-size-12);
+            line-height: var(--uds-line-12);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0px;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+                letter-spacing: 0em;
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+    }
+
+    &-paragraph {
+        &-20 {
+            font-size: var(--uds-font-size-20);
+            line-height: var(--uds-line-20);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0px;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+                letter-spacing: 0em;
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+                letter-spacing: 0em;
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+                letter-spacing: 0em;
+            }
+        }
+
+        &-18 {
+            font-size: var(--uds-font-size-18);
+            line-height: var(--uds-line-18);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0px;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+                letter-spacing: 0em;
+            }
+
+            &-semi-bold {
+                font-weight: var(--uds-font-weight-semibold);
+                letter-spacing: 0em;
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+                letter-spacing: 0em;
+            }
+        }
+
+        &-16 {
+            font-size: var(--uds-font-size-16);
+            line-height: var(--uds-line-16);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0px;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+                letter-spacing: 0em;
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+                letter-spacing: 0em;
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+                letter-spacing: 0em;
+            }
+        }
+
+        &-14 {
+            font-size: var(--uds-font-size-14);
+            line-height: var(--uds-line-14);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0em;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+            }
+        }
+
+        &-12 {
+            font-size: var(--uds-font-size-12);
+            line-height: var(--uds-line-12);
+            font-family: var(--uds-font-family);
+            font-weight: var(--uds-font-weight);
+            letter-spacing: 0px;
+
+            &-medium {
+                font-weight: var(--uds-font-weight-medium);
+                letter-spacing: 0em;
+            }
+
+            &-semibold {
+                font-weight: var(--uds-font-weight-semibold);
+                letter-spacing: 0em;
+            }
+
+            &-bold {
+                font-weight: var(--uds-font-weight-bold);
+                letter-spacing: 0em;
+            }
+        }
+    }
+}
+
+// =============================================================================
+// SCSS Mixins for Typography
+// These mixins allow @include usage in component SCSS files
+// =============================================================================
+
+// Display mixins
+@mixin uds-display-128 {
+    font-size: var(--uds-font-size-128);
+    line-height: var(--uds-line-128);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+}
+
+@mixin uds-display-128-medium {
+    @include uds-display-128;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-display-128-semibold {
+    @include uds-display-128;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-display-128-bold {
+    @include uds-display-128;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-display-96 {
+    font-size: var(--uds-font-size-96);
+    line-height: var(--uds-line-96);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+@mixin uds-display-96-medium {
+    @include uds-display-96;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-display-96-semibold {
+    @include uds-display-96;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-display-96-bold {
+    @include uds-display-96;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-display-72 {
+    font-size: var(--uds-font-size-72);
+    line-height: var(--uds-line-72);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+@mixin uds-display-72-medium {
+    @include uds-display-72;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-display-72-semibold {
+    @include uds-display-72;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-display-72-bold {
+    @include uds-display-72;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-display-60 {
+    font-size: var(--uds-font-size-60);
+    line-height: var(--uds-line-60);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+@mixin uds-display-60-medium {
+    @include uds-display-60;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-display-60-semibold {
+    @include uds-display-60;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-display-60-bold {
+    @include uds-display-60;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-display-48 {
+    font-size: var(--uds-font-size-48);
+    line-height: var(--uds-line-48);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+@mixin uds-display-48-medium {
+    @include uds-display-48;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-display-48-semibold {
+    @include uds-display-48;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-display-48-bold {
+    @include uds-display-48;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-display-36 {
+    font-size: var(--uds-font-size-36);
+    line-height: var(--uds-line-36);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+@mixin uds-display-36-medium {
+    @include uds-display-36;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-display-36-semibold {
+    @include uds-display-36;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-display-36-bold {
+    @include uds-display-36;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+// Heading mixins
+@mixin uds-heading-32 {
+    font-size: var(--uds-font-size-32);
+    line-height: var(--uds-line-32);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0em;
+}
+
+@mixin uds-heading-32-medium {
+    @include uds-heading-32;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-heading-32-semibold {
+    @include uds-heading-32;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-heading-32-bold {
+    @include uds-heading-32;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-heading-28 {
+    font-size: var(--uds-font-size-28);
+    line-height: var(--uds-line-28);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0em;
+}
+
+@mixin uds-heading-28-medium {
+    @include uds-heading-28;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-heading-28-semibold {
+    @include uds-heading-28;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-heading-28-bold {
+    @include uds-heading-28;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-heading-24 {
+    font-size: var(--uds-font-size-24);
+    line-height: var(--uds-line-24);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0em;
+}
+
+@mixin uds-heading-24-medium {
+    @include uds-heading-24;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-heading-24-semibold {
+    @include uds-heading-24;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-heading-24-bold {
+    @include uds-heading-24;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-heading-20 {
+    font-size: var(--uds-font-size-20);
+    line-height: var(--uds-line-heading-20);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0em;
+}
+
+@mixin uds-heading-20-medium {
+    @include uds-heading-20;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-heading-20-semibold {
+    @include uds-heading-20;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-heading-20-bold {
+    @include uds-heading-20;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+// Body mixins
+@mixin uds-body-20 {
+    font-size: var(--uds-font-size-20);
+    line-height: var(--uds-line-20);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0px;
+}
+
+@mixin uds-body-20-medium {
+    @include uds-body-20;
+    font-weight: var(--uds-font-weight-medium);
+    letter-spacing: 0em;
+}
+
+@mixin uds-body-20-semibold {
+    @include uds-body-20;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-body-20-bold {
+    @include uds-body-20;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-body-16 {
+    font-size: var(--uds-font-size-16);
+    line-height: var(--uds-line-16);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0px;
+}
+
+@mixin uds-body-16-medium {
+    @include uds-body-16;
+    font-weight: var(--uds-font-weight-medium);
+    letter-spacing: 0em;
+}
+
+@mixin uds-body-16-semibold {
+    @include uds-body-16;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-body-16-bold {
+    @include uds-body-16;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-body-14 {
+    font-size: var(--uds-font-size-14);
+    line-height: var(--uds-line-14);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0em;
+}
+
+@mixin uds-body-14-medium {
+    @include uds-body-14;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-body-14-semibold {
+    @include uds-body-14;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-body-14-bold {
+    @include uds-body-14;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-body-12 {
+    font-size: var(--uds-font-size-12);
+    line-height: var(--uds-line-12);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0px;
+}
+
+@mixin uds-body-12-medium {
+    @include uds-body-12;
+    font-weight: var(--uds-font-weight-medium);
+    letter-spacing: 0em;
+}
+
+@mixin uds-body-12-semibold {
+    @include uds-body-12;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-body-12-bold {
+    @include uds-body-12;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+// Paragraph mixins
+@mixin uds-paragraph-20 {
+    font-size: var(--uds-font-size-20);
+    line-height: var(--uds-line-20);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0px;
+}
+
+@mixin uds-paragraph-20-medium {
+    @include uds-paragraph-20;
+    font-weight: var(--uds-font-weight-medium);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-20-semibold {
+    @include uds-paragraph-20;
+    font-weight: var(--uds-font-weight-semibold);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-20-bold {
+    @include uds-paragraph-20;
+    font-weight: var(--uds-font-weight-bold);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-18 {
+    font-size: var(--uds-font-size-18);
+    line-height: var(--uds-line-18);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0px;
+}
+
+@mixin uds-paragraph-18-medium {
+    @include uds-paragraph-18;
+    font-weight: var(--uds-font-weight-medium);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-18-semibold {
+    @include uds-paragraph-18;
+    font-weight: var(--uds-font-weight-semibold);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-18-bold {
+    @include uds-paragraph-18;
+    font-weight: var(--uds-font-weight-bold);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-16 {
+    font-size: var(--uds-font-size-16);
+    line-height: var(--uds-line-16);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0px;
+}
+
+@mixin uds-paragraph-16-medium {
+    @include uds-paragraph-16;
+    font-weight: var(--uds-font-weight-medium);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-16-semibold {
+    @include uds-paragraph-16;
+    font-weight: var(--uds-font-weight-semibold);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-16-bold {
+    @include uds-paragraph-16;
+    font-weight: var(--uds-font-weight-bold);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-14 {
+    font-size: var(--uds-font-size-14);
+    line-height: var(--uds-line-14);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-14-medium {
+    @include uds-paragraph-14;
+    font-weight: var(--uds-font-weight-medium);
+}
+
+@mixin uds-paragraph-14-semibold {
+    @include uds-paragraph-14;
+    font-weight: var(--uds-font-weight-semibold);
+}
+
+@mixin uds-paragraph-14-bold {
+    @include uds-paragraph-14;
+    font-weight: var(--uds-font-weight-bold);
+}
+
+@mixin uds-paragraph-12 {
+    font-size: var(--uds-font-size-12);
+    line-height: var(--uds-line-12);
+    font-family: var(--uds-font-family);
+    font-weight: var(--uds-font-weight);
+    letter-spacing: 0px;
+}
+
+@mixin uds-paragraph-12-medium {
+    @include uds-paragraph-12;
+    font-weight: var(--uds-font-weight-medium);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-12-semibold {
+    @include uds-paragraph-12;
+    font-weight: var(--uds-font-weight-semibold);
+    letter-spacing: 0em;
+}
+
+@mixin uds-paragraph-12-bold {
+    @include uds-paragraph-12;
+    font-weight: var(--uds-font-weight-bold);
+    letter-spacing: 0em;
+}

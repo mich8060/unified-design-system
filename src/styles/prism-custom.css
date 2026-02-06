@@ -1,0 +1,206 @@
+/* Prism.js Custom Theme - Code Syntax Highlighting */
+.code-block {
+  background: var(--uds-code-bg, #111828);
+  border-radius: var(--uds-radius-8, 8px);
+  padding: var(--uds-spacing-16, 16px);
+  overflow-x: auto;
+  margin: var(--uds-spacing-16, 16px) 0;
+}
+
+.code-block code[class*=language-],
+.code-block pre[class*=language-] {
+  color: var(--uds-code-fg, #f3f4f6);
+  background: none;
+  font-family: var(--uds-font-family-mono, Monaco, Menlo, "Ubuntu Mono", monospace);
+  font-size: var(--uds-font-size-14, 14px);
+  line-height: var(--uds-line-20, 20px);
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  tab-size: 2;
+  hyphens: none;
+}
+
+code[class*=language-],
+pre[class*=language-] {
+  color: var(--uds-code-fg, #f3f4f6);
+  background: var(--uds-code-bg, #111828);
+  font-family: var(--uds-font-family-mono, Monaco, Menlo, "Ubuntu Mono", monospace);
+  font-size: var(--uds-font-size-14, 14px);
+  line-height: var(--uds-line-20, 20px);
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  tab-size: 2;
+  hyphens: none;
+}
+
+pre[class*=language-] {
+  padding: var(--uds-spacing-16, 16px);
+  margin: var(--uds-spacing-16, 16px) 0;
+  overflow: auto;
+  border-radius: var(--uds-radius-8, 8px);
+}
+
+:not(pre) > code[class*=language-] {
+  padding: 0.1em 0.3em;
+  border-radius: var(--uds-radius-4, 4px);
+  white-space: normal;
+}
+
+/* Token Colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--uds-code-comment, #6b7380);
+}
+
+.token.punctuation {
+  color: var(--uds-code-punctuation, #9ca2ae);
+}
+
+.token.namespace {
+  opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--uds-code-number, #fbbf24);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--uds-code-string, #34d399);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: var(--uds-code-operator, #fb7286);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: var(--uds-code-keyword, #38bdf8);
+}
+
+.token.function,
+.token.class-name {
+  color: var(--uds-code-function, #a78bfa);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--uds-code-class, #e879f9);
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* Line Numbers */
+pre[class*=language-].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+pre[class*=language-].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em;
+  letter-spacing: -1px;
+  border-right: 1px solid var(--uds-border-tertiary, #333);
+  user-select: none;
+}
+
+.line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: var(--uds-code-comment, #6b7380);
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
+}
+
+/* Toolbar */
+div.code-toolbar {
+  position: relative;
+}
+
+div.code-toolbar > .toolbar {
+  position: absolute;
+  top: 0.3em;
+  right: 0.2em;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+div.code-toolbar:hover > .toolbar {
+  opacity: 1;
+}
+
+div.code-toolbar > .toolbar > .toolbar-item {
+  display: inline-block;
+}
+
+div.code-toolbar > .toolbar > .toolbar-item > a,
+div.code-toolbar > .toolbar > .toolbar-item > button,
+div.code-toolbar > .toolbar > .toolbar-item > span {
+  color: var(--uds-code-comment, #6b7380);
+  font-size: var(--uds-font-size-12, 12px);
+  padding: 0 0.5em;
+  background: var(--uds-surface-tertiary, #1f2937);
+  border-radius: var(--uds-radius-4, 4px);
+  cursor: pointer;
+}
+
+div.code-toolbar > .toolbar > .toolbar-item > a:hover,
+div.code-toolbar > .toolbar > .toolbar-item > a:focus,
+div.code-toolbar > .toolbar > .toolbar-item > button:hover,
+div.code-toolbar > .toolbar > .toolbar-item > button:focus,
+div.code-toolbar > .toolbar > .toolbar-item > span:hover,
+div.code-toolbar > .toolbar > .toolbar-item > span:focus {
+  color: var(--uds-code-fg, #f3f4f6);
+}
+
+/*# sourceMappingURL=prism-custom.css.map */

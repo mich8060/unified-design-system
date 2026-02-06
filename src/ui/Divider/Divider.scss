@@ -1,0 +1,112 @@
+@use "../../styles/typography" as *;
+
+.uds-divider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: var(--uds-gap-16) 0;
+
+  // Solid variant - 8px tall box that goes edge to edge
+  &--solid {
+    align-items: stretch;
+    height: 8px;
+    margin: var(--uds-spacing-24) 0;
+    background-color: var(--uds-color-neutrals-100);
+    border-top:solid var(--uds-border-width-1) var(--uds-border-secondary);
+    border-bottom:solid var(--uds-border-width-1) var(--uds-border-secondary);
+    width: 100%;
+  }
+
+  // Line variant (default) - horizontal line with optional content
+  &--line,
+  &:not(&--solid) {
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: var(--uds-border-width-1);
+      background-color: var(--uds-border-primary);
+      z-index: 0;
+    }
+  }
+
+  // Alignment variants
+  &--left {
+    .uds-divider__content {
+    }
+  }
+
+  &--center {
+    display: flex;
+    align-items: center;
+
+    .uds-divider__content {
+        margin: 0 auto;
+    }
+  }
+
+  &--right {
+    .uds-divider__content {
+        margin-left: auto;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--uds-gap-8);
+    background-color: var(--uds-surface-primary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    padding-inline: var(--uds-spacing-12);
+    padding-block: var(--uds-spacing-4);
+
+    // Icon-only variant
+    &--icon-only {
+      border-radius: var(--uds-radius-9999);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width:28px;
+      padding:0;
+      height:28px;
+    }
+
+    // Label variant (with or without icon)
+    &--with-label {
+      border-radius: var(--uds-radius-9999);
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--uds-text-primary);
+    flex: 0;
+    width: 20px;
+    height: 28px;
+  }
+
+  &__label {
+    @include uds-body-14-medium;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--uds-gap-6);
+    color: var(--uds-text-primary);
+    background-color: var(--uds-surface-primary);
+    padding-inline: var(--uds-spacing-8);
+    padding-block: var(--uds-spacing-4);
+    border-radius: var(--uds-radius-4);
+    white-space: nowrap;
+  }
+
+  &__label-icon {
+    flex-shrink: 0;
+    color: var(--uds-text-primary);
+  }
+}

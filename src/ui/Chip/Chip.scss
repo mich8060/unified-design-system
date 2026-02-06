@@ -1,0 +1,118 @@
+@use "../../styles/typography" as *;
+
+.uds-chip {
+  @include uds-body-14-medium;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--uds-gap-8);
+  padding-inline: var(--uds-spacing-12);
+  padding-block: var(--uds-spacing-6);
+  border: var(--uds-border-width-1) solid;
+  background-color: var(--uds-surface-primary);
+  color: var(--uds-text-primary);
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+  box-sizing: border-box;
+  white-space: nowrap;
+  width: fit-content;
+  min-width: fit-content;
+  max-width: fit-content;
+  height: fit-content;
+
+  // When used as button, remove default button styles but inherit chip styles
+  &:is(button) {
+    font: inherit;
+    background: none;
+    border: var(--uds-border-width-1) solid;
+  }
+
+  // Shape variants
+  &--pill {
+    border-radius: 999px; // Fully rounded pill shape
+  }
+
+  &--rounded {
+    border-radius: var(--uds-radius-4); // Slightly rounded rectangular
+  }
+
+  // Appearance variants
+  &--outline {
+    background-color: var(--uds-surface-primary);
+    border-color: var(--uds-border-primary);
+    color: var(--uds-text-primary);
+
+    &:hover:not(.uds-chip--disabled) {
+      border-color: var(--uds-border-secondary);
+      background-color: var(--uds-surface-secondary);
+    }
+
+    &:active:not(.uds-chip--disabled) {
+      border-color: var(--uds-border-tertiary);
+      background-color: var(--uds-surface-tertiary);
+    }
+  }
+
+  &--primary {
+    background-color: var(--uds-surface-brand-primary);
+    border-color: var(--uds-border-brand-tertiary);
+    color: var(--uds-text-primary);
+
+    &:hover:not(.uds-chip--disabled) {
+      background-color: var(--uds-surface-brand-primary);
+      border-color: var(--uds-border-brand-primary);
+      color: var(--uds-text-brand-primary);
+    }
+
+    &:active:not(.uds-chip--disabled) {
+      background-color: var(--uds-surface-brand-tertiary);
+      border-color: var(--uds-border-brand-primary);
+    }
+  }
+
+  // Icon placement
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 0;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &--left {
+      order: -1;
+    }
+
+    &--right {
+      order: 1;
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  &__badge {
+    margin-left: var(--uds-gap-4);
+    flex-shrink: 0;
+  }
+
+  // Disabled state
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  // Focus state
+  &:focus-visible {
+    outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
+    outline-offset: var(--uds-focus-ring-offset);
+  }
+}

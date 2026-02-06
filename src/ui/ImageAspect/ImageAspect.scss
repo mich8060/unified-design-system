@@ -1,0 +1,62 @@
+@use "../../styles/typography" as *;
+
+.uds-image-aspect {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--uds-surface-tertiary);
+  border-radius: var(--uds-radius-4);
+
+  // Aspect ratio variants
+  &--square {
+    aspect-ratio: var(--uds-aspect-ratio-square, 1 / 1);
+  }
+
+  &--video {
+    aspect-ratio: var(--uds-aspect-ratio-video, 16 / 9);
+  }
+
+  &--4-3 {
+    aspect-ratio: var(--uds-aspect-ratio-4-3, 4 / 3);
+  }
+
+  &--3-2 {
+    aspect-ratio: var(--uds-aspect-ratio-3-2, 3 / 2);
+  }
+
+  &--21-9 {
+    aspect-ratio: var(--uds-aspect-ratio-21-9, 21 / 9);
+  }
+
+  &--portrait {
+    aspect-ratio: var(--uds-aspect-ratio-portrait, 3 / 4);
+  }
+
+  &--auto {
+    aspect-ratio: var(--uds-aspect-ratio-auto, auto);
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  &__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--uds-surface-tertiary);
+    border: var(--uds-border-width-1) dashed var(--uds-border-primary);
+    color: var(--uds-text-secondary);
+  }
+
+  &__placeholder-text {
+    @include uds-body-14;
+    color: var(--uds-text-secondary);
+  }
+}

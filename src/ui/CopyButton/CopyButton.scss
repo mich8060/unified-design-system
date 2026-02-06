@@ -1,0 +1,56 @@
+.copy-button {
+  position: absolute;
+  top: var(--uds-spacing-8);
+  right: var(--uds-spacing-8);
+  display: flex;
+  align-items: center;
+  gap: var(--uds-spacing-4);
+  padding: var(--uds-spacing-6) var(--uds-spacing-12);
+  background: var(--uds-surface-primary);
+  border: var(--uds-border-width-1) solid var(--uds-border-primary);
+  border-radius: var(--uds-radius-6);
+  color: var(--uds-text-primary);
+  font-size: var(--uds-font-size-12);
+  font-family: var(--uds-font-family);
+  font-weight: var(--uds-font-weight-medium);
+  cursor: pointer;
+  transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+
+  &__icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    background: var(--uds-surface-secondary);
+    border-color: var(--uds-border-secondary);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus-visible {
+    outline: var(--uds-focus-ring-width) solid var(--uds-focus-ring-border);
+    outline-offset: var(--uds-focus-ring-offset);
+  }
+
+  &--copied {
+    background: var(--uds-color-accent-emerald-50);
+    border-color: var(--uds-color-accent-emerald-400);
+    color: var(--uds-color-accent-emerald-700);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+// Show copy button on hover of code block container
+.button-demo__code-block-wrapper:hover .copy-button,
+.action-menu-demo__code-block-wrapper:hover .copy-button {
+  opacity: 1;
+  pointer-events: auto;
+}

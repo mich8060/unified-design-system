@@ -1,0 +1,96 @@
+@use "../../styles/typography" as *;
+
+.checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--uds-gap-8);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.checkbox__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+
+  &:focus-visible + .checkbox__box {
+    outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
+    outline-offset: var(--uds-focus-ring-offset);
+  }
+}
+
+.checkbox__box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  border: var(--uds-border-width-1) solid var(--uds-border-tertiary);
+  border-radius: var(--uds-radius-4);
+  background-color: var(--uds-surface-brand-tertiary);
+  transition:
+    background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+    border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+    box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+  flex-shrink: 0;
+}
+
+.checkbox__input:checked + .checkbox__box {
+  background-color: var(--uds-surface-brand-tertiary);
+  border-color: var(--uds-border-brand-tertiary);
+  color: var(--uds-text-inverse);
+}
+
+.checkbox__input:not(:checked):not(:disabled) + .checkbox__box:hover {
+  border-color: var(--uds-border-brand-primary);
+  background-color: var(--uds-surface-tertiary);
+}
+
+.checkbox__input:disabled + .checkbox__box {
+  background-color: var(--uds-surface-tertiary);
+  border-color: var(--uds-border-primary);
+  cursor: not-allowed;
+}
+
+.checkbox__icon {
+  color: var(--uds-text-inverse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.checkbox__indeterminate {
+  width: 10px;
+  height: 2px;
+  background-color: var(--uds-color-white);
+  border-radius: 1px;
+}
+
+.checkbox__label {
+  @include uds-body-14-medium;
+  color: var(--uds-text-primary);
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.checkbox--disabled .checkbox__label {
+  cursor: not-allowed;
+  color: var(--uds-text-secondary);
+}
+
+.checkbox__input:disabled + .checkbox__box + .checkbox__label {
+  color: var(--uds-text-secondary);
+}

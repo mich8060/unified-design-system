@@ -1,0 +1,229 @@
+@use "../../styles/typography" as *;
+
+.uds-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--uds-gap-0);
+  padding-inline: var(--uds-spacing-4);
+  padding-block: var(--uds-spacing-0);
+  box-sizing: border-box;
+  white-space: nowrap;
+  width: fit-content;
+  height: fit-content;
+  user-select: none;
+
+  // When used as button, remove default button styles
+  &:is(button) {
+    all: unset;
+    display: inline-flex;
+    cursor: pointer;
+  }
+
+  // Size variants
+  &--compact {
+    @include uds-body-12-semibold;
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  &--default {
+    @include uds-body-12-semibold;
+  }
+
+  // Rounded variant
+  &--rounded {
+    border-radius: 9999px;
+  }
+
+  &:not(&--rounded) {
+    border-radius: 0;
+  }
+
+  // Icon
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 0;
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    .uds-tag--default & {
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  // Color variants (non-solid)
+  &--transparent:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-text-primary);
+  }
+
+  &--neutral:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-text-primary);
+  }
+
+  &--red:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-red-600);
+  }
+
+  &--orange:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-orange-600);
+  }
+
+  &--yellow:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-yellow-600);
+  }
+
+  &--emerald:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-emerald-600);
+  }
+
+  &--green:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-green-600);
+  }
+
+  &--sky:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-sky-600);
+  }
+
+  &--cyan:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-cyan-600);
+  }
+
+  &--blue:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-blue-600);
+  }
+
+  &--indigo:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-indigo-600);
+  }
+
+  &--purple:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-purple-600);
+  }
+
+  &--fuchsia:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-fuchsia-600);
+  }
+
+  &--magenta:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-color-accent-magenta-600);
+  }
+
+  &--inverse:not(&--solid) {
+    background-color: transparent;
+    color: var(--uds-text-inverse);
+  }
+
+  // Color variants (solid)
+  &--transparent.uds-tag--solid {
+    background-color: var(--uds-surface-primary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    color: var(--uds-text-primary);
+  }
+
+  &--neutral.uds-tag--solid {
+    background-color: var(--uds-surface-primary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    color: var(--uds-text-primary);
+  }
+
+  &--red.uds-tag--solid {
+    background-color: var(--uds-color-accent-red-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--orange.uds-tag--solid {
+    background-color: var(--uds-color-accent-orange-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--yellow.uds-tag--solid {
+    background-color: var(--uds-color-accent-yellow-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--emerald.uds-tag--solid {
+    background-color: var(--uds-color-accent-emerald-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--green.uds-tag--solid {
+    background-color: var(--uds-color-accent-green-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--sky.uds-tag--solid {
+    background-color: var(--uds-color-accent-sky-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--cyan.uds-tag--solid {
+    background-color: var(--uds-color-accent-cyan-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--blue.uds-tag--solid {
+    background-color: var(--uds-color-accent-blue-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--indigo.uds-tag--solid {
+    background-color: var(--uds-color-accent-indigo-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--purple.uds-tag--solid {
+    background-color: var(--uds-color-accent-purple-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--fuchsia.uds-tag--solid {
+    background-color: var(--uds-color-accent-fuchsia-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--magenta.uds-tag--solid {
+    background-color: var(--uds-color-accent-magenta-600);
+    color: var(--uds-text-inverse);
+  }
+
+  &--inverse.uds-tag--solid {
+    background-color: var(--uds-surface-inverse);
+    color: var(--uds-text-inverse);
+  }
+
+  // Focus state
+  &:focus-visible {
+    outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
+    outline-offset: var(--uds-focus-ring-offset);
+  }
+}

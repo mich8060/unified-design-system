@@ -1,0 +1,78 @@
+@use "../../styles/typography" as *;
+
+.uds-file-upload {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: var(--uds-spacing-48);
+  background: var(--uds-surface-primary, #ffffff);
+  border: var(--uds-border-width-2) dashed var(--uds-border-primary, #d1d5db);
+  border-radius: var(--uds-radius-8);
+  cursor: pointer;
+  transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+
+  &:hover:not(&--disabled) {
+    border-color: var(--uds-border-brand-primary, #3b82f6);
+    background: var(--uds-surface-secondary, #f9fafb);
+  }
+
+  &--dragging {
+    border-color: var(--uds-border-brand-primary, #3b82f6);
+    background: var(--uds-surface-brand-tertiary, #eff6ff);
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--uds-gap-12);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--uds-text-secondary, #6b7280);
+    transition: color var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+
+    .uds-file-upload:hover:not(.uds-file-upload--disabled) & {
+      color: var(--uds-text-brand-primary, #3b82f6);
+    }
+
+    .uds-file-upload--dragging & {
+      color: var(--uds-text-brand-primary, #3b82f6);
+    }
+  }
+
+  &__instruction {
+    @include uds-body-16;
+    margin: 0;
+    color: var(--uds-text-primary, #111827);
+    font-weight: var(--uds-font-weight-medium);
+  }
+
+  &__accept {
+    @include uds-body-14;
+    margin: 0;
+    color: var(--uds-text-secondary, #6b7280);
+  }
+}

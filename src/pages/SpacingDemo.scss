@@ -1,0 +1,107 @@
+@import "../styles/typography";
+
+.spacing-demo {
+  &__rules {
+    margin-bottom: var(--uds-spacing-48);
+    background: white;
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    padding: var(--uds-spacing-24);
+    border-radius: var(--uds-radius-8);
+  }
+
+  &__rules-title,
+  &__tokens-title {
+    @include uds-heading-24-semibold;
+    margin: 0 0 var(--uds-spacing-12) 0;
+    color: var(--uds-text-primary);
+  }
+
+  &__rules-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--uds-gap-16);
+  }
+
+  &__rule {
+    background: var(--uds-surface-secondary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    border-radius: var(--uds-radius-8);
+    padding: var(--uds-spacing-16);
+    display: flex;
+    flex-direction: column;
+    gap: var(--uds-gap-8);
+  }
+
+  &__rule-title {
+    @include uds-heading-20-semibold;
+    margin: 0;
+    color: var(--uds-text-primary);
+  }
+
+  &__rule-description {
+    @include uds-body-16-medium;
+    margin: 0;
+    color: var(--uds-text-secondary);
+
+    strong {
+      color: var(--uds-text-primary);
+    }
+  }
+
+  &__tokens {
+    margin-bottom: 0;
+    background: white;
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    padding: var(--uds-spacing-24);
+    border-radius: var(--uds-radius-8);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--uds-gap-24);
+  }
+
+  &__spacing-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--uds-gap-12);
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--uds-gap-4);
+  }
+
+  &__spacing-preview {
+    background: var(--uds-surface-brand-tertiary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    border-radius: var(--uds-radius-4);
+    width: 100%;
+    min-height: 40px;
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__token {
+    @include uds-body-12-medium;
+    font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+    background: var(--uds-surface-tertiary);
+    color: var(--uds-text-secondary);
+    padding: var(--uds-spacing-4) var(--uds-spacing-8);
+    border-radius: var(--uds-radius-4);
+    display: inline-block;
+    width: fit-content;
+    word-break: break-all;
+  }
+
+  &__value {
+    @include uds-body-14-medium;
+    color: var(--uds-text-secondary);
+  }
+}

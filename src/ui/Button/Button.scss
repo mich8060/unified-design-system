@@ -1,0 +1,188 @@
+@use "../../styles/typography" as *;
+
+.uds-button {
+  all: unset;
+  @include uds-body-16-semibold;
+  align-items: center;
+  background: var(--uds-button-surface-primary-default);
+  border: var(--uds-border-width-1) solid var(--uds-button-border-primary-default);
+  border-radius: var(--uds-radius-4);
+  box-sizing: border-box;
+  color: var(--uds-button-text-default);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  gap: var(--uds-gap-4);
+  height: fit-content;
+  padding-inline: var(--uds-spacing-16);
+  padding-block: var(--uds-spacing-10);
+  text-transform: capitalize;
+  width: fit-content;
+  transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+
+  &:hover:not(:disabled) {
+    background: var(--uds-button-surface-primary-hover);
+    border-color: var(--uds-button-border-primary-hover);
+    color: var(--uds-button-text-default);
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    padding: 0 var(--uds-spacing-4);
+    white-space: nowrap;
+  }
+
+  &:focus-visible {
+    outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
+    outline-offset: var(--uds-focus-ring-offset);
+  }
+
+  &.large {
+    @include uds-body-20-semibold;
+    padding: var(--uds-spacing-12) var(--uds-spacing-18);
+
+    .uds-button__icon svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &.small {
+    @include uds-body-14-semibold;
+    padding: var(--uds-spacing-8) var(--uds-spacing-12);
+
+    .uds-button__icon svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &.xsmall {
+    @include uds-body-12-semibold;
+    padding: var(--uds-spacing-8) var(--uds-spacing-10);
+
+    .uds-button__icon svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &.icon {
+    &-only {
+      padding: var(--uds-spacing-12);
+
+      &.large {
+        padding: var(--uds-spacing-14);
+
+        .uds-button__icon svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      &.small {
+        padding: var(--uds-spacing-10);
+
+        .uds-button__icon svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      &.xsmall {
+        padding: var(--uds-spacing-8);
+
+        .uds-button__icon svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+
+  &.soft {
+    background: var(--uds-button-surface-secondary-default);
+    border-color: var(--uds-button-border-secondary-default);
+    color: var(--uds-button-text-secondary);
+
+    &:hover:not(:disabled) {
+      background: var(--uds-button-surface-secondary-hover);
+      border-color: var(--uds-button-border-secondary-hover);
+      color: var(--uds-button-text-secondary);
+    }
+  }
+
+  &.outline {
+    background: var(--uds-color-transparent);
+    border: solid 1px var(--uds-border-primary);
+    color: var(--uds-text-primary);
+
+    &:hover:not(:disabled) {
+      background: var(--uds-color-transparent);
+      border-color: var(--uds-border-brand-primary);
+      color: var(--uds-text-primary);
+    }
+  }
+
+  &.text {
+    background: var(--uds-surface-transparent);
+    color: var(--uds-text-primary);
+    border-color: var(--uds-border-transparent);
+
+    &:hover:not(:disabled) {
+      background: var(--uds-surface-transparent);
+      color: var(--uds-text-brand-primary);
+      border-color: var(--uds-border-transparent);
+    }
+  }
+
+  &.ghost {
+    background: var(--uds-surface-transparent);
+    color: var(--uds-text-brand-primary);
+    border-color: var(--uds-border-transparent);
+
+    &:hover:not(:disabled) {
+      background: var(--uds-surface-transparent);
+      color: var(--uds-text-brand-primary);
+      border-color: var(--uds-border-transparent);
+    }
+  }
+
+  &.destructive {
+    background: var(--uds-button-surface-primary-destructive);
+    color: var(--uds-button-text-default);
+    border-color: var(--uds-button-border-primary-destructive);
+
+    &:hover:not(:disabled) {
+      background: var(--uds-button-surface-primary-destructive);
+      color: var(--uds-button-text-default);
+      border-color: var(--uds-button-border-primary-destructive);
+    }
+  }
+
+  &.disabled {
+    background: var(--uds-button-surface-primary-disabled);
+    color: var(--uds-button-text-disabled);
+    cursor: not-allowed;
+    border-color: var(--uds-button-border-primary-disabled);
+    box-shadow: none;
+    pointer-events: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

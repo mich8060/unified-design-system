@@ -1,0 +1,105 @@
+@import "../styles/typography";
+
+.typography-demo {
+  &__group {
+    margin-bottom: var(--uds-spacing-48);
+    background: white;
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    padding: var(--uds-spacing-24);
+    border-radius: var(--uds-radius-8);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__category {
+    @include uds-heading-24-semibold;
+    margin: 0 0 var(--uds-spacing-12) 0;
+    color: var(--uds-text-primary);
+  }
+
+  &__grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+
+  &__item {
+    background: var(--uds-surface-primary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    border-radius: var(--uds-radius-8);
+    padding: var(--uds-spacing-16);
+    display: flex;
+    flex-direction: column;
+    gap: var(--uds-gap-12);
+  }
+
+  &__preview {
+    background: var(--uds-surface-secondary);
+    border-radius: var(--uds-radius-4);
+    padding: var(--uds-spacing-16);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+
+    p {
+      margin: 0;
+      color: var(--uds-text-primary);
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--uds-gap-4);
+  }
+
+  &__class {
+    @include uds-body-12-medium;
+    font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+    background: var(--uds-surface-tertiary);
+    color: var(--uds-text-secondary);
+    padding: var(--uds-spacing-4) var(--uds-spacing-8);
+    border-radius: var(--uds-radius-4);
+    display: inline-block;
+    width: fit-content;
+  }
+
+  &__label {
+    @include uds-body-14-medium;
+    color: var(--uds-text-secondary);
+  }
+
+  &__code-block-wrapper {
+    position: relative;
+    margin: var(--uds-spacing-16) 0;
+  }
+
+  &__code-block {
+    background: var(--uds-code-bg);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    border-radius: var(--uds-radius-8);
+    padding: var(--uds-spacing-16);
+    overflow-x: auto;
+    max-width: 100%;
+    word-break: break-word;
+    margin: 0;
+    
+    code[class*="language-"] {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: var(--uds-font-size-14);
+      line-height: var(--uds-line-20);
+      white-space: pre;
+      word-wrap: normal;
+      display: block;
+      overflow-x: auto;
+      background: transparent;
+    }
+  }
+}
+
+.typography-demo__code-block-wrapper:hover .copy-button {
+  opacity: 1;
+  pointer-events: auto;
+}

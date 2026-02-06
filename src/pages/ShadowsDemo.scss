@@ -1,0 +1,93 @@
+@import "../styles/typography";
+
+.shadows-demo {
+  &__section {
+    margin-bottom: var(--uds-spacing-48);
+    background: white;
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    padding: var(--uds-spacing-24);
+    border-radius: var(--uds-radius-8);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+    @include uds-heading-24-semibold;
+    margin: 0 0 var(--uds-spacing-12) 0;
+    color: var(--uds-text-primary);
+  }
+
+  &__description {
+    @include uds-body-16-medium;
+    margin: 0 0 var(--uds-spacing-12) 0;
+    color: var(--uds-text-secondary);
+
+    code {
+      @include uds-body-14-medium;
+      font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+      background: var(--uds-surface-tertiary);
+      color: var(--uds-text-secondary);
+      padding: 2px 6px;
+      border-radius: var(--uds-radius-4);
+    }
+  }
+
+  &__shadow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--uds-gap-24);
+  }
+
+  &__shadow-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--uds-gap-12);
+  }
+
+  &__shadow-preview {
+    background: var(--uds-surface-primary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    border-radius: var(--uds-radius-8);
+    width: 100%;
+    height: 100px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--dark {
+      background: var(--uds-surface-800);
+    }
+
+    &::before {
+      content: "Preview";
+      @include uds-body-14-medium;
+      color: var(--uds-text-secondary);
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__token {
+    @include uds-body-12-medium;
+    font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+    background: var(--uds-surface-tertiary);
+    color: var(--uds-text-secondary);
+    padding: var(--uds-spacing-4) var(--uds-spacing-8);
+    border-radius: var(--uds-radius-4);
+    display: inline-block;
+    width: fit-content;
+    word-break: break-all;
+  }
+
+  &__label {
+    @include uds-body-14-medium;
+    color: var(--uds-text-secondary);
+  }
+}

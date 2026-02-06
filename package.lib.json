@@ -1,0 +1,49 @@
+{
+  "name": "@chg/uds-components",
+  "version": "1.0.0",
+  "description": "CHG Healthcare Unified Design System - React Component Library",
+  "author": "Michael Stevens",
+  "license": "MIT",
+  "main": "uds-components.umd.js",
+  "module": "uds-components.es.js",
+  "exports": {
+    ".": {
+      "import": "./uds-components.es.js",
+      "require": "./uds-components.umd.js"
+    },
+    "./styles.css": "./styles.css"
+  },
+  "files": [
+    "uds-components.es.js",
+    "uds-components.es.js.map",
+    "uds-components.umd.js",
+    "uds-components.umd.js.map",
+    "styles.css",
+    "README.md"
+  ],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chg-healthcare/uds-components.git"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "design-system",
+    "uds",
+    "chg"
+  ],
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-router-dom": {
+      "optional": true
+    }
+  }
+}

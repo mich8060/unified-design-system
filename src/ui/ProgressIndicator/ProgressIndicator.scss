@@ -1,0 +1,133 @@
+@use "../../styles/typography" as *;
+
+.uds-progress-indicator {
+  display: flex;
+  flex-direction: column;
+  gap: var(--uds-gap-8);
+  width: 100%;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--uds-gap-8);
+  }
+
+  &__label {
+    @include uds-body-14-medium;
+    color: var(--uds-text-primary);
+  }
+
+  &__value {
+    @include uds-body-14-medium;
+    color: var(--uds-text-secondary);
+    white-space: nowrap;
+  }
+
+  &__track {
+    position: relative;
+    width: 100%;
+    background-color: var(--uds-surface-tertiary);
+    border-radius: var(--uds-radius-4);
+    overflow: hidden;
+  }
+
+  &__fill {
+    height: 100%;
+    background-color: var(--uds-surface-brand-primary);
+    border-radius: var(--uds-radius-4);
+    transition: width var(--uds-animation-duration-300) var(--uds-animation-ease-standard);
+    position: relative;
+    overflow: hidden;
+
+    // Animated shimmer effect (optional, can be enabled via class)
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+  }
+
+  // Size variants
+  &--small {
+    .uds-progress-indicator__track {
+      height: 4px;
+    }
+  }
+
+  &--medium {
+    .uds-progress-indicator__track {
+      height: 8px;
+    }
+  }
+
+  &--large {
+    .uds-progress-indicator__track {
+      height: 12px;
+    }
+  }
+
+  // Variant colors
+  &--default,
+  &--blue {
+    .uds-progress-indicator__fill {
+      background-color: var(--uds-surface-brand-primary);
+    }
+  }
+
+  &--green,
+  &--success {
+    .uds-progress-indicator__fill {
+      background-color: #22c55e; // Green
+    }
+  }
+
+  &--orange,
+  &--warning {
+    .uds-progress-indicator__fill {
+      background-color: #f97316; // Orange
+    }
+  }
+
+  &--red,
+  &--error {
+    .uds-progress-indicator__fill {
+      background-color: #ef4444; // Red
+    }
+  }
+
+  &--purple {
+    .uds-progress-indicator__fill {
+      background-color: #a855f7; // Purple
+    }
+  }
+
+  // Animated state (for indeterminate/loading progress)
+  &--animated {
+    .uds-progress-indicator__fill {
+      &::after {
+        animation: progress-shimmer 1.5s infinite;
+      }
+    }
+  }
+}
+
+@keyframes progress-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

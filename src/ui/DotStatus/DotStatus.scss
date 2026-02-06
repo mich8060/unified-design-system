@@ -1,0 +1,87 @@
+@use "../../styles/typography" as *;
+
+.uds-dot-status {
+  display: inline-block;
+  border-radius: 50%;
+  flex-shrink: 0;
+  vertical-align: middle;
+
+  // Size variants
+  &--small {
+    width: 8px;
+    height: 8px;
+  }
+
+  &--medium {
+    width: 12px;
+    height: 12px;
+  }
+
+  &--large {
+    width: 16px;
+    height: 16px;
+  }
+
+  // Variant colors
+  &--light-gray {
+    background-color: #f3f4f6; // Very light gray
+  }
+
+  &--red {
+    background-color: #ef4444; // Bright red
+  }
+
+  &--orange {
+    background-color: #f97316; // Bright orange
+  }
+
+  &--yellow {
+    background-color: #eab308; // Bright yellow
+  }
+
+  &--light-green {
+    background-color: #84cc16; // Light green (lime)
+  }
+
+  &--green {
+    background-color: #22c55e; // Darker green
+  }
+
+  &--blue {
+    background-color: #3b82f6; // Medium blue
+  }
+
+  &--dark-blue {
+    background-color: #2563eb; // Dark blue
+  }
+
+  &--teal {
+    background-color: #14b8a6; // Teal/Cyan
+  }
+
+  &--purple {
+    background-color: #a855f7; // Medium purple
+  }
+
+  &--pink {
+    background-color: #ec4899; // Bright pink
+  }
+
+  &--magenta {
+    background-color: #d946ef; // Darker pink/magenta
+  }
+
+  &--dark-red {
+    background-color: #dc2626; // Dark red/maroon
+  }
+
+  &--dark-gray {
+    background-color: #1f2937; // Dark gray (almost black)
+  }
+
+  // Outline variant
+  &--outline {
+    border: var(--uds-border-width-1) solid var(--uds-border-inverse); // Light gray border/ring
+    // Background colors remain the same as defined above
+  }
+}

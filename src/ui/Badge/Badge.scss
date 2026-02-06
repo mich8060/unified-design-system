@@ -1,0 +1,84 @@
+@use "../../styles/typography" as *;
+
+.uds-badge {
+  @include uds-body-12-semibold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 20px;
+  padding-inline: var(--uds-spacing-6);
+  padding-block: var(--uds-spacing-2);
+  border-radius: 999px; // Fully rounded pill shape
+  white-space: nowrap;
+  box-sizing: border-box;
+  line-height: 1;
+  flex-shrink: 0;
+
+  // Variant styles
+  &--red {
+    background-color: #ef4444; // Red
+    color: #ffffff;
+    border: none;
+  }
+
+  &--orange {
+    background-color: #f97316; // Orange
+    color: #ffffff;
+    border: none;
+  }
+
+  &--yellow {
+    background-color: #eab308; // Yellow
+    color: #000000;
+    border: none;
+  }
+
+  &--green {
+    background-color: #22c55e; // Light green
+    color: #000000;
+    border: none;
+  }
+
+  &--dark-green {
+    background-color: #16a34a; // Dark green
+    color: #ffffff;
+    border: none;
+  }
+
+  &--blue {
+    background-color: #3b82f6; // Light blue
+    color: #ffffff;
+    border: none;
+  }
+
+  &--dark-blue {
+    background-color: #2563eb; // Dark blue
+    color: #ffffff;
+    border: none;
+  }
+
+  &--purple {
+    background-color: #a855f7; // Purple
+    color: #ffffff;
+    border: none;
+  }
+
+  &--pink {
+    background-color: #ec4899; // Pink/Magenta
+    color: #ffffff;
+    border: none;
+  }
+
+  &--gray {
+    background-color: #1f2937; // Dark gray/Black
+    color: #ffffff;
+    border: none;
+  }
+
+  &--outline {
+    background-color: #f3f4f6; // Light gray
+    color: #111827; // Dark gray/black
+    border: var(--uds-border-width-1) solid #d1d5db; // Slightly darker gray
+  }
+}

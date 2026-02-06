@@ -1,0 +1,46 @@
+@use "../../styles/typography" as *;
+
+.breadcrumb {
+  @include uds-body-14;
+  color: var(--uds-text-primary);
+  margin-bottom: 0;
+  position: relative;
+  z-index: 1;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--uds-gap-8);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__link {
+    color: var(--uds-text-link-secondary-default);
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--uds-text-link-secondary-hover);
+    }
+  }
+
+  &__text {
+  }
+
+  &__item--current &__text {
+    @include uds-body-14-semibold;
+  }
+
+  &__separator {
+    color: var(--uds-text-secondary);
+    margin: 0;
+  }
+}

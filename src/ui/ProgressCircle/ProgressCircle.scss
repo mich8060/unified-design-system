@@ -1,0 +1,143 @@
+@use "../../styles/typography" as *;
+
+.uds-progress-circle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &__svg {
+    display: block;
+  }
+
+  &__track {
+    stroke: #e6e7eb; // Light gray track
+    transition: stroke-dashoffset var(--uds-animation-duration-300)
+      var(--uds-animation-ease-standard);
+  }
+
+  &__fill {
+    stroke: var(--uds-surface-brand-primary, #0c6bb0); // Brand blue
+    transition: stroke-dashoffset var(--uds-animation-duration-300)
+      var(--uds-animation-ease-standard);
+  }
+
+  &__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--uds-gap-4);
+  }
+
+  &__label {
+    @include uds-body-12-medium;
+    color: var(--uds-text-tertiary, #6b7380);
+    white-space: nowrap;
+  }
+
+  &__value {
+    @include uds-body-14-semibold;
+    color: var(--uds-text-primary, #202938);
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  // Size variants
+  &--xxs {
+    width: 64px;
+    height: 64px;
+
+    .uds-progress-circle__value {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--uds-text-secondary, #4c5564);
+    }
+
+    .uds-progress-circle__label {
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    &.uds-progress-circle--half-circle {
+      height: 36px;
+    }
+  }
+
+  &--xs {
+    width: 160px;
+    height: 160px;
+
+    .uds-progress-circle__value {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    &.uds-progress-circle--half-circle {
+      height: 88px;
+    }
+  }
+
+  &--sm {
+    width: 200px;
+    height: 200px;
+
+    .uds-progress-circle__value {
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    &.uds-progress-circle--half-circle {
+      height: 110px;
+    }
+  }
+
+  &--md {
+    width: 240px;
+    height: 240px;
+
+    .uds-progress-circle__value {
+      font-size: 36px;
+      line-height: 44px;
+      letter-spacing: -0.72px;
+    }
+
+    &.uds-progress-circle--half-circle {
+      height: 132px;
+    }
+  }
+
+  &--lg {
+    width: 280px;
+    height: 280px;
+
+    .uds-progress-circle__value {
+      font-size: 48px;
+      line-height: 60px;
+      letter-spacing: -0.96px;
+    }
+
+    &.uds-progress-circle--half-circle {
+      height: 154px;
+    }
+  }
+
+  // Half circle adjustments
+  &--half-circle {
+    .uds-progress-circle__content {
+      top: auto;
+      bottom: 0;
+      transform: translateX(-50%);
+    }
+
+    .uds-progress-circle__svg {
+      overflow: visible;
+    }
+  }
+}
