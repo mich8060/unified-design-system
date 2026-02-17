@@ -1,3 +1,5 @@
+@use "../styles/typography" as *;
+
 .uds-demo {
   &__main {
     display: flex;
@@ -128,8 +130,7 @@
   }
 
   &__control-label {
-    font-size: var(--uds-font-size-14);
-    font-weight: var(--uds-font-weight-medium);
+    @include uds-body-14-medium;
     color: var(--uds-text-primary);
   }
 
@@ -138,15 +139,15 @@
     align-items: center;
     border-bottom: 1px solid var(--uds-border-primary);
     display: flex;
+    height: 64px;
     gap: var(--uds-gap-8);
     justify-content: space-between;
-    padding: 24px var(--uds-spacing-24);
+    padding: var(--uds-spacing-16) var(--uds-spacing-24);
   }
 
   &__listview-title {
+    @include uds-body-16-semibold;
     color: var(--uds-text-primary);
-    font-size: var(--uds-font-size-16);
-    font-weight: var(--uds-font-weight-semibold);
   }
 
   &__listview-items {
@@ -191,22 +192,21 @@
   }
 
   &__listview-item-name {
+    @include uds-body-14-semibold;
     color: var(--uds-text-primary);
-    font-size: var(--uds-font-size-14);
-    font-weight: var(--uds-font-weight-semibold);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   &__listview-item-meta {
+    @include uds-body-12;
     color: var(--uds-text-tertiary);
-    font-size: var(--uds-font-size-12);
   }
 
   &__listview-item-date {
+    @include uds-body-12;
     color: var(--uds-text-tertiary);
-    font-size: var(--uds-font-size-12);
   }
 
   // ── Detail view (Main content) ────────────────────────────
@@ -214,22 +214,22 @@
     align-items: center;
     border-bottom: 1px solid var(--uds-border-primary);
     display: flex;
-    gap: var(--uds-gap-16);
+    height: 64px;
+    gap: var(--uds-gap-8);
     justify-content: space-between;
-    padding: var(--uds-spacing-18) var(--uds-spacing-24);
+    padding: var(--uds-spacing-8) var(--uds-spacing-24);
   }
 
   &__detail-name {
+    @include uds-body-16-bold;
     color: var(--uds-text-primary);
-    font-size: var(--uds-font-size-20);
-    font-weight: var(--uds-font-weight-bold);
     margin: 0;
   }
 
   &__detail-subtitle {
+    @include uds-body-12;
     color: var(--uds-text-secondary);
-    font-size: var(--uds-font-size-14);
-    margin: var(--uds-spacing-4) 0 0;
+    margin: 0;
   }
 
   &__detail-body {
@@ -242,8 +242,7 @@
 
   &__detail-section-title {
     color: var(--uds-text-primary);
-    font-size: var(--uds-font-size-16);
-    font-weight: var(--uds-font-weight-semibold);
+    @include uds-heading-24-semibold;
     margin: 0 0 var(--uds-spacing-16);
   }
 
@@ -260,17 +259,15 @@
   }
 
   &__detail-label {
+    @include uds-body-12-medium;
     color: var(--uds-text-tertiary);
-    font-size: var(--uds-font-size-12);
-    font-weight: var(--uds-font-weight-medium);
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
 
   &__detail-value {
+    @include uds-body-14-medium;
     color: var(--uds-text-primary);
-    font-size: var(--uds-font-size-14);
-    font-weight: var(--uds-font-weight-medium);
   }
 
   // ── Panel content ─────────────────────────────────────────
@@ -283,9 +280,8 @@
   }
 
   &__panel-title {
+    @include uds-body-16-semibold;
     color: var(--uds-text-primary);
-    font-size: var(--uds-font-size-16);
-    font-weight: var(--uds-font-weight-semibold);
   }
 
   &__panel-body {
@@ -308,14 +304,13 @@
   }
 
   &__activity-text {
+    @include uds-body-14-medium;
     color: var(--uds-text-primary);
-    font-size: var(--uds-font-size-13);
-    font-weight: var(--uds-font-weight-medium);
   }
 
   &__activity-time {
+    @include uds-body-12;
     color: var(--uds-text-tertiary);
-    font-size: var(--uds-font-size-12);
   }
 
   // ── Placeholder lines ─────────────────────────────────────
@@ -355,24 +350,22 @@
   }
 
   &__section-title {
+    @include uds-heading-28-bold;
     color: var(--uds-text-primary);
-    font-size: var(--uds-font-size-28);
-    font-weight: var(--uds-font-weight-bold);
     letter-spacing: -0.02em;
     margin-bottom: var(--uds-spacing-16);
   }
 
   &__subsection-title {
+    @include uds-paragraph-18-semibold;
     color: var(--uds-text-primary);
-    font-size: var(--uds-font-size-18);
-    font-weight: var(--uds-font-weight-semibold);
     margin-bottom: var(--uds-spacing-12);
     margin-top: var(--uds-spacing-32);
   }
 
   &__text {
+    @include uds-body-16;
     color: var(--uds-text-secondary);
-    font-size: var(--uds-font-size-16);
     line-height: var(--uds-line-24);
     margin-bottom: var(--uds-spacing-16);
     max-width: 720px;
@@ -542,9 +535,8 @@
   }
 
   &__arch-label {
+    @include uds-body-12-semibold;
     color: var(--uds-text-brand-primary);
-    font-size: var(--uds-font-size-12);
-    font-weight: var(--uds-font-weight-semibold);
     text-align: center;
   }
 
@@ -581,16 +573,15 @@
   }
 
   &__component-name {
+    @include uds-body-16-semibold;
     color: var(--uds-text-brand-primary);
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: var(--uds-font-size-16);
-    font-weight: var(--uds-font-weight-semibold);
     margin-bottom: var(--uds-spacing-8);
   }
 
   &__component-desc {
+    @include uds-body-14;
     color: var(--uds-text-secondary);
-    font-size: var(--uds-font-size-14);
     line-height: var(--uds-line-20);
     margin: 0;
   }
@@ -604,8 +595,8 @@
   }
 
   &__table {
+    @include uds-body-14;
     border-collapse: collapse;
-    font-size: var(--uds-font-size-14);
     width: 100%;
 
     th {
@@ -671,19 +662,18 @@
   }
 
   &__fullmodal-sidebar-title {
+    @include uds-body-14-semibold;
     color: var(--uds-text-primary);
-    font-size: var(--uds-font-size-14);
-    font-weight: var(--uds-font-weight-semibold);
     margin: 0 0 var(--uds-spacing-8);
   }
 
   &__fullmodal-doc-item {
     align-items: center;
     border-radius: var(--uds-radius-8);
+    @include uds-body-14;
     color: var(--uds-text-secondary);
     cursor: pointer;
     display: flex;
-    font-size: var(--uds-font-size-14);
     gap: var(--uds-gap-8);
     padding: var(--uds-spacing-8) var(--uds-spacing-12);
     transition: background-color 150ms ease;
@@ -714,14 +704,13 @@
     gap: var(--uds-spacing-8);
 
     p {
+      @include uds-body-16-semibold;
       color: var(--uds-text-primary);
-      font-size: var(--uds-font-size-16);
-      font-weight: var(--uds-font-weight-semibold);
       margin: 0;
     }
 
     span {
-      font-size: var(--uds-font-size-14);
+      @include uds-body-14;
     }
   }
 
@@ -742,15 +731,14 @@
     padding: var(--uds-spacing-20);
 
     h4 {
+      @include uds-body-16-semibold;
       color: var(--uds-text-primary);
-      font-size: var(--uds-font-size-16);
-      font-weight: var(--uds-font-weight-semibold);
       margin: 0 0 var(--uds-spacing-8);
     }
 
     p {
+      @include uds-body-14;
       color: var(--uds-text-secondary);
-      font-size: var(--uds-font-size-14);
       line-height: var(--uds-line-20);
       margin: 0;
 

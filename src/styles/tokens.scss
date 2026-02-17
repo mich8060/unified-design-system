@@ -94,6 +94,18 @@
     --uds-spacing-64: #{vars.$uds-spacing-64};
     --uds-spacing-80: #{vars.$uds-spacing-80};
 
+    /* Container Sizes */
+    --uds-container-xs: #{vars.$uds-container-xs};
+    --uds-container-sm: #{vars.$uds-container-sm};
+    --uds-container-md: #{vars.$uds-container-md};
+    --uds-container-lg: #{vars.$uds-container-lg};
+    --uds-container-xl: #{vars.$uds-container-xl};
+    --uds-container-2xl: #{vars.$uds-container-2xl};
+    --uds-container-narrow: #{vars.$uds-container-narrow};
+    --uds-container-prose: #{vars.$uds-container-prose};
+    --uds-container-content: #{vars.$uds-container-content};
+    --uds-container-wide: #{vars.$uds-container-wide};
+
     /* Aspect Ratio */
     --uds-aspect-ratio-21-9: #{vars.$uds-aspect-ratio-21-9};
     --uds-aspect-ratio-3-2: #{vars.$uds-aspect-ratio-3-2};
@@ -929,6 +941,7 @@
 
     --uds-brands-comphealth-orange: #{vars.$uds-brands-comphealth-orange};
     --uds-brands-comphealth-purple: #{vars.$uds-brands-comphealth-purple};
+    --uds-brands-comphealth-white: #{vars.$uds-brands-comphealth-white};
     --uds-brands-connect-dark-blue: #{vars.$uds-brands-connect-dark-blue};
     --uds-brands-connect-light-blue: #{vars.$uds-brands-connect-light-blue};
     --uds-brands-locumsmart-black: #{vars.$uds-brands-locumsmart-black};
@@ -940,6 +953,7 @@
     --uds-brands-ds-purple: #{vars.$uds-brands-ds-gray};
     --uds-brands-weatherby-red: #{vars.$uds-brands-weatherby-red};
     --uds-brands-weatherby-teal: #{vars.$uds-brands-weatherby-teal};
+    --uds-brands-weatherby-white: #{vars.$uds-brands-weatherby-white};
     --uds-brands-wireframe-black: #{vars.$uds-brands-wireframe-black};
     --uds-brands-wireframe-blue: #{vars.$uds-brands-wireframe-blue};
     --uds-brands-wireframe-green: #{vars.$uds-brands-wireframe-green};
@@ -1301,7 +1315,7 @@
     --uds-system-warning-quaternary: var(--uds-color-accent-yellow-600);
 
     --uds-surface-primary: var(--uds-color-black);
-    --uds-surface-secondary: var(--uds-color-neutrals-700);
+    --uds-surface-secondary: var(--uds-color-neutrals-800);
     --uds-surface-tertiary: var(--uds-color-neutrals-600);
     --uds-surface-quaternary: var(--uds-color-neutrals-500);
     --uds-surface-transparent: var(--uds-color-transparent);
@@ -1421,6 +1435,7 @@
 
     --uds-brands-comphealth-orange: var(--uds-color-white);
     --uds-brands-comphealth-purple: var(--uds-color-white);
+    --uds-brands-comphealth-white: var(--uds-color-black);
     --uds-brands-connect-dark-blue: var(--uds-color-white);
     --uds-brands-connect-light-blue: var(--uds-color-white);
     --uds-brands-locumsmart-black: var(--uds-color-white);
@@ -1429,9 +1444,9 @@
     --uds-brands-modio-black: var(--uds-color-white);
     --uds-brands-modio-blue: var(--uds-color-white);
     --uds-brands-ds-black: var(--uds-color-white);
-    --uds-brands-ds-purple: var(--uds-color-white);
     --uds-brands-weatherby-red: var(--uds-color-white);
     --uds-brands-weatherby-teal: var(--uds-color-white);
+    --uds-brands-weatherby-white: var(--uds-color-black);
     --uds-brands-wireframe-black: var(--uds-color-white);
     --uds-brands-wireframe-blue: var(--uds-color-white);
     --uds-brands-wireframe-green: var(--uds-color-white);

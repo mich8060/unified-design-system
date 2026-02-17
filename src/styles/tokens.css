@@ -3282,15 +3282,15 @@
   --uds-spacing-48: 48px;
   --uds-spacing-64: 64px;
   --uds-spacing-80: 80px;
-  /* Containers */
-  --uds-container-xs: 480px;
+  /* Container Sizes */
+  --uds-container-xs: 320px;
   --uds-container-sm: 640px;
   --uds-container-md: 768px;
   --uds-container-lg: 1024px;
   --uds-container-xl: 1280px;
-  --uds-container-2xl: 1536px;
-  --uds-container-narrow: 640px;
-  --uds-container-prose: 65ch;
+  --uds-container-2xl: 1600px;
+  --uds-container-narrow: 512px;
+  --uds-container-prose: 640px;
   --uds-container-content: 960px;
   --uds-container-wide: 1440px;
   /* Aspect Ratio */
@@ -4048,8 +4048,9 @@
   --uds-text-link-secondary-hover: var(--uds-color-neutrals-700);
   --uds-text-link-secondary-active: var(--uds-color-black);
   --uds-text-link-secondary-visited: var(--uds-color-neutrals-500);
-  --uds-brands-comphealth-orange: #ea6852;
-  --uds-brands-comphealth-purple: #624b78;
+  --uds-brands-comphealth-orange: #ef681f;
+  --uds-brands-comphealth-purple: #644d7b;
+  --uds-brands-comphealth-white: #ffffff;
   --uds-brands-connect-dark-blue: #0075c9;
   --uds-brands-connect-light-blue: #00a7e1;
   --uds-brands-locumsmart-black: #231f20;
@@ -4058,9 +4059,10 @@
   --uds-brands-modio-black: #202938;
   --uds-brands-modio-blue: #36a5ce;
   --uds-brands-ds-black: #111111;
-  --uds-brands-ds-purple: #738ac6;
-  --uds-brands-weatherby-red: #db0032;
-  --uds-brands-weatherby-teal: #74c9ba;
+  --uds-brands-ds-purple: ;
+  --uds-brands-weatherby-red: #ff4338;
+  --uds-brands-weatherby-teal: #00a385;
+  --uds-brands-weatherby-white: #ffffff;
   --uds-brands-wireframe-black: #3d3935;
   --uds-brands-wireframe-blue: #00a7e1;
   --uds-brands-wireframe-green: #80bc00;
@@ -4388,7 +4390,7 @@
   --uds-system-warning-tertiary: var(--uds-color-accent-yellow-400);
   --uds-system-warning-quaternary: var(--uds-color-accent-yellow-600);
   --uds-surface-primary: var(--uds-color-black);
-  --uds-surface-secondary: var(--uds-color-neutrals-700);
+  --uds-surface-secondary: var(--uds-color-neutrals-800);
   --uds-surface-tertiary: var(--uds-color-neutrals-600);
   --uds-surface-quaternary: var(--uds-color-neutrals-500);
   --uds-surface-transparent: var(--uds-color-transparent);
@@ -4496,6 +4498,7 @@
   --uds-code-string: var(--uds-color-accent-emerald-400);
   --uds-brands-comphealth-orange: var(--uds-color-white);
   --uds-brands-comphealth-purple: var(--uds-color-white);
+  --uds-brands-comphealth-white: var(--uds-color-black);
   --uds-brands-connect-dark-blue: var(--uds-color-white);
   --uds-brands-connect-light-blue: var(--uds-color-white);
   --uds-brands-locumsmart-black: var(--uds-color-white);
@@ -4504,9 +4507,9 @@
   --uds-brands-modio-black: var(--uds-color-white);
   --uds-brands-modio-blue: var(--uds-color-white);
   --uds-brands-ds-black: var(--uds-color-white);
-  --uds-brands-ds-purple: var(--uds-color-white);
   --uds-brands-weatherby-red: var(--uds-color-white);
   --uds-brands-weatherby-teal: var(--uds-color-white);
+  --uds-brands-weatherby-white: var(--uds-color-black);
   --uds-brands-wireframe-black: var(--uds-color-white);
   --uds-brands-wireframe-blue: var(--uds-color-white);
   --uds-brands-wireframe-green: var(--uds-color-white);

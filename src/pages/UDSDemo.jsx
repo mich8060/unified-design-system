@@ -303,10 +303,10 @@ export default function UDSDemo() {
               )}
               <UDS.Main>
                 <div className="uds-demo__detail-header">
-                  <Flex gap="16" alignItems="center">
+                  <Flex gap="8" alignItems="center">
                     <Avatar
                       initials={selectedItem.name.split(" ").map(n => n[0]).join("")}
-                      size="large"
+
                     />
                     <div>
                       <h2 className="uds-demo__detail-name">{selectedItem.name}</h2>
