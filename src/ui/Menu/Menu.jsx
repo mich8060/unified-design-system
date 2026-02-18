@@ -19,6 +19,13 @@ export default function Menu({
     onBrandChange,
     activeMode,
     onModeChange,
+    showBrand = true,
+    showSearch = true,
+    showBrandSwitcher = true,
+    showNav = true,
+    showModeToggle = true,
+    showUser = true,
+    identity = "design-system",
 }) {
     const location = useLocation();
     const [openAccordions, setOpenAccordions] = useState({});
@@ -58,14 +65,17 @@ export default function Menu({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
     >
-        <div className="uds-menu_brand">
-            <div className="uds-menu_brand__symbol">
-                <Branding inherit symbol />
+        {showBrand && (
+            <div className="uds-menu_brand">
+                <div className="uds-menu_brand__symbol">
+                    <Branding brand={identity} symbol />
+                </div>
+                <div className="uds-menu_brand__full">
+                    <Branding brand={identity} />
+                </div>
             </div>
-            <div className="uds-menu_brand__full">
-                <Branding inherit symbol={false} />
-            </div>
-        </div>
+        )}
+        {showSearch && (
         <div className="uds-menu_search">
             <Button 
                 appearance="text"
@@ -78,7 +88,8 @@ export default function Menu({
             />
             <Input type="text" placeholder="Search" icon="MagnifyingGlass" iconPosition="right" className="uds-menu_search__input" />
         </div>
-        {brands.length > 0 && onBrandChange && (
+        )}
+        {showBrandSwitcher && brands.length > 0 && onBrandChange && (
             <div className="uds-menu_brands">
                 <Button
                     appearance="text"
@@ -99,6 +110,7 @@ export default function Menu({
                 </div>
             </div>
         )}
+        {showNav && (
         <nav className="uds-menu_nav">
             {navItems.map((item) => {
                 const hasChildren = item.children && item.children.length > 0;
@@ -150,8 +162,9 @@ export default function Menu({
                 );
             })}
         </nav>
+        )}
         <div className="uds-menu_footer">
-            {onModeChange && (
+            {showModeToggle && onModeChange && (
                 <div className="uds-menu_mode">
                     <Button
                         appearance="text"
@@ -176,9 +189,11 @@ export default function Menu({
                 </div>
             )}
         </div>
-        <div className="uds-menu_user">
-            <Avatar initials="EB" size="default" />
-        </div>
+        {showUser && (
+            <div className="uds-menu_user">
+                <Avatar initials="EB" size="default" />
+            </div>
+        )}
     </aside>
   );
 }
@@ -199,6 +214,17 @@ Menu.propTypes = {
       ),
     })
   ),
+  brands: PropTypes.arrayOf(PropTypes.string),
+  activeBrand: PropTypes.string,
+  onBrandChange: PropTypes.func,
+  activeMode: PropTypes.string,
+  onModeChange: PropTypes.func,
+  showBrand: PropTypes.bool,
+  showSearch: PropTypes.bool,
+  showBrandSwitcher: PropTypes.bool,
+  showNav: PropTypes.bool,
+  showModeToggle: PropTypes.bool,
+  showUser: PropTypes.bool,
 };
 
 Menu.defaultProps = {

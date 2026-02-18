@@ -1,0 +1,94 @@
+@use "../styles/typography" as *;
+
+.home-section {
+  padding: 0 var(--uds-spacing-48);
+  margin-bottom: var(--uds-spacing-48);
+
+  &__title {
+    @include uds-heading-24-semibold;
+    color: var(--uds-text-primary);
+    margin: 0 0 var(--uds-spacing-4);
+  }
+
+  &__description {
+    @include uds-body-16;
+    color: var(--uds-text-secondary);
+    margin: 0 0 var(--uds-spacing-24);
+  }
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--uds-gap-12);
+
+  &--components {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+.home-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--uds-gap-12);
+  padding: var(--uds-spacing-12) var(--uds-spacing-16);
+  background: var(--uds-surface-primary);
+  border: var(--uds-border-width-1) solid var(--uds-border-primary);
+  border-radius: var(--uds-radius-8);
+  text-decoration: none;
+  color: var(--uds-text-primary);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+
+  &:hover {
+    border-color: var(--uds-border-brand-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+
+    .home-card__icon {
+      background: var(--uds-surface-brand-primary);
+      color: var(--uds-text-inverse);
+    }
+
+    .home-card__arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--uds-radius-8);
+    background: var(--uds-surface-secondary);
+    color: var(--uds-text-brand-primary);
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  &__label {
+    @include uds-body-14-semibold;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    color: var(--uds-text-tertiary);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+}

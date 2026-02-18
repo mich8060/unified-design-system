@@ -47,7 +47,7 @@ function App() {
       <UDS.Menu>
         <Menu
           navigation={navigation}
-          activeBrand="comphealth"
+          identity="comphealth"
           user={{ name: "Jane Doe", initials: "JD" }}
         />
       </UDS.Menu>
@@ -65,7 +65,7 @@ function App() {
 
 const WITH_PANEL_CODE = `<UDS>
   <UDS.Menu>
-    <Menu navigation={navigation} activeBrand="comphealth" />
+    <Menu navigation={navigation} identity="comphealth" />
   </UDS.Menu>
   <UDS.Content>
     <UDS.Main>
@@ -273,7 +273,7 @@ export default function UDSDemo() {
         <div className="uds-demo__main" data-brand="comphealth" ref={previewRef}>
           <UDS>
             <UDS.Menu>
-              <Menu navItems={DEMO_NAV_ITEMS} />
+              <Menu navItems={DEMO_NAV_ITEMS} identity="comphealth" />
             </UDS.Menu>
             <UDS.Content>
               {showListview && (
