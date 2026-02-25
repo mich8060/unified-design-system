@@ -3681,10 +3681,10 @@
   --uds-icon-brand-secondary: var(--uds-color-primary-50);
   --uds-icon-brand-tertiary: var(--uds-color-primary-700);
   --uds-icon-brand-quaternary: var(--uds-color-primary-900);
-  --uds-icon-link-primary-default: var(--uds-color-sky-600);
-  --uds-icon-link-primary-hover: var(--uds-color-sky-800);
-  --uds-icon-link-primary-active: var(--uds-color-sky-800);
-  --uds-icon-link-primary-visited: var(--uds-color-sky-800);
+  --uds-icon-link-primary-default: var(--uds-color-accent-sky-600);
+  --uds-icon-link-primary-hover: var(--uds-color-accent-sky-800);
+  --uds-icon-link-primary-active: var(--uds-color-accent-sky-800);
+  --uds-icon-link-primary-visited: var(--uds-color-accent-sky-800);
   --uds-icon-link-secondary-default: var(--uds-color-black);
   --uds-icon-link-secondary-hover: var(--uds-color-neutrals-700);
   --uds-icon-link-secondary-active: var(--uds-color-black);
@@ -3704,10 +3704,10 @@
   --uds-text-brand-secondary: var(--uds-color-primary-50);
   --uds-text-brand-tertiary: var(--uds-color-primary-700);
   --uds-text-brand-quaternary: var(--uds-color-primary-900);
-  --uds-text-link-primary-default: var(--uds-color-sky-600);
-  --uds-text-link-primary-hover: var(--uds-color-sky-800);
-  --uds-text-link-primary-active: var(--uds-color-sky-800);
-  --uds-text-link-primary-visited: var(--uds-color-sky-800);
+  --uds-text-link-primary-default: var(--uds-color-accent-sky-600);
+  --uds-text-link-primary-hover: var(--uds-color-accent-sky-800);
+  --uds-text-link-primary-active: var(--uds-color-accent-sky-800);
+  --uds-text-link-primary-visited: var(--uds-color-accent-sky-800);
   --uds-text-link-secondary-default: var(--uds-color-black);
   --uds-text-link-secondary-hover: var(--uds-color-neutrals-700);
   --uds-text-link-secondary-active: var(--uds-color-black);
@@ -5999,6 +5999,50 @@
 }
 .uds-calendar--week .uds-calendar__timed-col {
   min-height: 120px;
+}.uds--container {
+  display: flex;
+  flex-direction: row;
+  min-height: 800px;
+  width: 100%;
+  font-family: var(--uds-font-family, "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial);
+  font-weight: var(--uds-font-weight, 400);
+}
+.uds--content {
+  display: flex;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-left: 64px;
+}
+.uds--listview {
+  background-color: var(--uds-surface-primary);
+  border-right: solid var(--uds-border-width-1) var(--uds-border-primary);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  width: 360px;
+}
+.uds--main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  overflow-y: auto;
+}
+.uds--panel {
+  background-color: var(--uds-surface-secondary);
+  border-left: solid var(--uds-border-width-1) var(--uds-border-primary);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 360px;
+  z-index: 100;
 }:root {
   --uds-font-family:
       "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,

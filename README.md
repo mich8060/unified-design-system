@@ -174,6 +174,12 @@ function App() {
 }
 ```
 
+### Runtime Export Guarantees
+
+- Runtime package exports resolve to built `dist` artifacts (not `src` files).
+- Component subpath imports (for example `@mich8060/unified-design-system/UDS`) do not require consumer Sass preprocessing.
+- `styles.css` includes compiled shell/component styles; `tokens.css` resolves to a built token artifact in `dist`.
+
 ## AI Context Files
 
 Every component in the design system ships with a dedicated `.ai.md` file that provides structured, AI-friendly documentation. These files are the fastest way for any AI assistant to understand a component's API, usage patterns, and constraints.

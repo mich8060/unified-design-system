@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MemoryRouter } from "react-router-dom";
-import Menu from "./Menu.jsx";
+import Menu from "./Menu";
 
 const NAV_ITEMS = [
   { label: "Dashboard", icon: "House", path: "/" },

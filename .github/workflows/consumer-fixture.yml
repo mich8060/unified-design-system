@@ -1,0 +1,23 @@
+name: Consumer Fixture
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify-consumer-fixture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build library and validate runtime exports
+        run: npm run build:lib
+      - name: Build Vite consumer fixture
+        run: npm run test:consumer-fixture
