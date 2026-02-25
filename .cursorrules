@@ -53,6 +53,12 @@ The `UDS` component is a comprehensive application shell. When building full app
 
 Use the `useUDS()` hook to programmatically control panels: `openSidePanel()`, `closeModal()`, `toggleListView()`, etc.
 
+### Mandatory UDS Shell Rule (All AI Agents)
+
+- Treat `UDS` as the required top-level application shell, not a leaf widget.
+- Build application pages and layouts inside `<UDS>` and compose with `UDS.Menu`, `UDS.Content`, `UDS.Main`, `UDS.Listview`, and `UDS.Panel`.
+- Do not propose app-level layouts that bypass `UDS` unless the user explicitly asks for a non-UDS layout.
+
 ## Design Token Usage
 
 When writing custom CSS that should match the design system:

@@ -5,10 +5,10 @@
 /* Core Styles */
 :root {
     /* Animation */
-    --uds-animation-duration-100: #{vars.$uds-animation-duration-100}ms;
-    --uds-animation-duration-200: #{vars.$uds-animation-duration-200}ms;
-    --uds-animation-duration-300: #{vars.$uds-animation-duration-300}ms;
-    --uds-animation-duration-500: #{vars.$uds-animation-duration-500}ms;
+    --uds-animation-duration-100: #{vars.$uds-animation-duration-100};
+    --uds-animation-duration-200: #{vars.$uds-animation-duration-200};
+    --uds-animation-duration-300: #{vars.$uds-animation-duration-300};
+    --uds-animation-duration-500: #{vars.$uds-animation-duration-500};
     --uds-animation-ease-accelerate: #{vars.$uds-animation-ease-accelerate};
     --uds-animation-ease-decelerate: #{vars.$uds-animation-ease-decelerate};
     --uds-animation-ease-emphasized: #{vars.$uds-animation-ease-emphasized};
@@ -424,6 +424,20 @@
     --uds-color-neutrals-800: #{vars.$uds-color-neutrals-800};
     --uds-color-neutrals-900: #{vars.$uds-color-neutrals-900};
     --uds-color-neutrals-1000: #{vars.$uds-color-neutrals-1000};
+
+    /* Backward-compatible neutrals aliases (deprecated: use --uds-color-neutrals-*) */
+    --uds-color-gray-25: var(--uds-color-neutrals-25);
+    --uds-color-gray-50: var(--uds-color-neutrals-50);
+    --uds-color-gray-100: var(--uds-color-neutrals-100);
+    --uds-color-gray-200: var(--uds-color-neutrals-200);
+    --uds-color-gray-300: var(--uds-color-neutrals-300);
+    --uds-color-gray-400: var(--uds-color-neutrals-400);
+    --uds-color-gray-500: var(--uds-color-neutrals-500);
+    --uds-color-gray-600: var(--uds-color-neutrals-600);
+    --uds-color-gray-700: var(--uds-color-neutrals-700);
+    --uds-color-gray-800: var(--uds-color-neutrals-800);
+    --uds-color-gray-900: var(--uds-color-neutrals-900);
+    --uds-color-gray-1000: var(--uds-color-neutrals-1000);
 
 
     --uds-system-action-primary: var(--uds-color-accent-blue-600);

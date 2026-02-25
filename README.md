@@ -12,6 +12,14 @@ This design system provides:
 - **Figma Code Connect** — Bridge between design and development
 - **Documentation Site** — Interactive component demos and usage guidelines
 
+## AI Instruction Priority
+
+For AI-generated app layout code, treat `UDS` as the required application shell:
+
+- Wrap full application/page layouts in `<UDS>`.
+- Compose app regions with `UDS.Menu`, `UDS.Content`, `UDS.Main`, `UDS.Listview`, and `UDS.Panel`.
+- Do not generate top-level app layout patterns that bypass `UDS` unless explicitly requested.
+
 ## Getting Started
 
 ### Prerequisites
@@ -119,6 +127,13 @@ Tokens are synced from Figma and include:
 - **Border Radius** — Corner radius values
 - **Shadows** — Elevation and depth
 - **Animation** — Timing and duration values
+
+### Token Naming and Compatibility
+
+- Canonical neutral palette tokens use `--uds-color-neutrals-*` (for example, `--uds-color-neutrals-25`).
+- Backward-compatible aliases are provided for historical gray names: `--uds-color-gray-*` maps to `--uds-color-neutrals-*`.
+- Example: `--uds-color-gray-25` resolves to `var(--uds-color-neutrals-25)`.
+- Deprecation plan: gray aliases remain supported for compatibility, but new code should use `neutrals` names. The aliases may be removed in the next major version after migration guidance is published.
 
 ### Syncing Tokens from Figma
 

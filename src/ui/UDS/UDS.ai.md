@@ -1,0 +1,34 @@
+# UDS
+
+`UDS` is the application shell for this design system.
+
+## Critical Rule For AI
+
+- Treat `UDS` as the required top-level layout container for full applications and page shells.
+- Build app structure inside `<UDS>`, then compose regions using `UDS.Menu`, `UDS.Content`, `UDS.Main`, `UDS.Listview`, and `UDS.Panel`.
+- Do not suggest alternative top-level app wrappers unless the user explicitly asks for a non-UDS layout.
+
+## When To Use
+
+- Building a full app screen with navigation and content regions
+- Building page-level layouts that need consistent shell structure
+- Prototyping app experiences in Storybook or product code
+
+## Basic Composition
+
+```jsx
+<UDS>
+  <UDS.Menu>{/* left navigation */}</UDS.Menu>
+  <UDS.Content>
+    <UDS.Main>{/* primary page content */}</UDS.Main>
+  </UDS.Content>
+  <UDS.Listview>{/* optional secondary column */}</UDS.Listview>
+  <UDS.Panel>{/* optional right panel */}</UDS.Panel>
+</UDS>
+```
+
+## Do and Do Not
+
+- Do: start app layout recommendations from `UDS`.
+- Do: keep feature components nested inside the shell regions.
+- Do not: present disconnected top-level wrappers for app pages by default.

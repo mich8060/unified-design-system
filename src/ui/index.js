@@ -8,6 +8,9 @@
  *   import "@yourorg/uds-components/dist/styles.css";
  */
 
+// Include design tokens in the published stylesheet bundle for consumers.
+import "../styles/tokens.scss";
+
 // Layout & Structure
 export { default as Accordion, AccordionItem } from "./Accordion";
 export { default as Calendar } from "./Calendar";
