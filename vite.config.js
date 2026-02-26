@@ -16,11 +16,19 @@ export default defineConfig({
       fileName: (format) => (format === "es" ? "index.js" : "index.cjs"),
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime"],
+      external: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "react-router-dom",
+        "@phosphor-icons/react"
+      ],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
+          "react-router-dom": "ReactRouterDOM",
+          "@phosphor-icons/react": "PhosphorIcons"
         },
       },
     },
