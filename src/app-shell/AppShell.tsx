@@ -11,16 +11,32 @@ export interface AppShellSlots {
     SubNav?: React.ReactNode;
 }
 
-type AppShellRootProps = {
+/**
+ * Public props for the AppShell root component.
+ *
+ * @example
+ * ```tsx
+ * <AppShell brand="comphealth" theme="dark">
+ *   <AppShell.Menu>...</AppShell.Menu>
+ *   <AppShell.Content>
+ *     <AppShell.Main>...</AppShell.Main>
+ *   </AppShell.Content>
+ * </AppShell>
+ * ```
+ */
+export interface AppShellProps {
     layout?: ShellLayoutConfig;
     slots?: AppShellSlots;
     children?: React.ReactNode;
     brand?: string;
     theme?: "light" | "dark";
     className?: string;
-};
+}
 
-type AppShellSectionProps = { children?: React.ReactNode };
+/** Slot wrapper props used by AppShell compound regions. */
+export interface AppShellSectionProps {
+    children?: React.ReactNode;
+}
 
 const AppShellMenuSlot = ({ children }: AppShellSectionProps) => <>{children}</>;
 const AppShellContentSlot = ({ children }: AppShellSectionProps) => <>{children}</>;
@@ -34,7 +50,7 @@ function AppShellComponent({
     brand = "default",
     theme = "light",
     className = "",
-}: AppShellRootProps) {
+}: AppShellProps) {
     const config = useMemo(() => ({ ...defaultLayout, ...layout }), [layout]);
 
     const shellClass = [
@@ -106,7 +122,7 @@ function AppShellComponent({
     );
 }
 
-type AppShellCompound = React.FC<AppShellRootProps> & {
+type AppShellCompound = React.FC<AppShellProps> & {
     Menu: typeof AppShellMenuSlot;
     Content: typeof AppShellContentSlot;
     Listview: typeof AppShellListviewSlot;

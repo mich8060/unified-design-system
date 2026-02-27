@@ -91,6 +91,8 @@ export default function Input({
   }
 
   const iconSize = size === "compact" ? 16 : 20;
+  const iconVisual =
+    typeof icon === "string" ? <Icon name={icon} size={iconSize} /> : icon;
 
   const iconElement = onIconClick ? (
     <button
@@ -101,11 +103,11 @@ export default function Input({
       tabIndex={-1}
       aria-label="Input action"
     >
-      <Icon name={icon} size={iconSize} />
+      {iconVisual}
     </button>
   ) : (
     <span className={`${BASE_CLASS}__icon ${BASE_CLASS}__icon--${iconPosition}`}>
-      <Icon name={icon} size={iconSize} />
+      {iconVisual}
     </span>
   );
 

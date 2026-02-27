@@ -1,7 +1,29 @@
-import type { HTMLAttributes } from "react";
+import type { SVGAttributes } from "react";
 
-export interface IconProps extends HTMLAttributes<HTMLDivElement> {
-  name?: unknown;
+/** Supported icon render styles mapped to Phosphor weights. */
+export type IconAppearance =
+  | "regular"
+  | "bold"
+  | "thin"
+  | "light"
+  | "duotone"
+  | "fill"
+  | "solid"
+  | "outline";
+
+/**
+ * Public props for the UDS Icon component.
+ *
+ * @example
+ * ```tsx
+ * <Icon name="House" size={20} appearance="duotone" />
+ * ```
+ */
+export interface IconProps extends SVGAttributes<SVGSVGElement> {
+  /** Phosphor icon name, e.g. "House", "Gear", "MagnifyingGlass". */
+  name?: string;
+  /** Icon size in pixels. */
   size?: number;
-  appearance?: string;
+  /** Icon style variant. */
+  appearance?: IconAppearance;
 }

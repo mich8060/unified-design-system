@@ -9,9 +9,7 @@ import TextInput from "../TextInput/TextInput";
 import Branding from "../Branding/Branding";
 import Dropdown from "../Dropdown/Dropdown";
 import Toggle from "../Toggle/Toggle";
-import type { MenuProps } from "./Menu.types";
-
-type MenuMode = "light" | "dark";
+import type { MenuProps, MenuMode } from "./Menu.types";
 
 interface MenuChildItem {
     label: string;
@@ -154,7 +152,9 @@ export default function Menu({
                         <Dropdown
                             options={normalizedBrands.map((brand) => ({ value: brand, label: brand }))}
                             value={resolvedActiveBrand}
-                            onChange={(value) => onBrandChange(value)}
+                            onChange={(value) => {
+                                if (typeof value === "string") onBrandChange(value);
+                            }}
                             placeholder="Select brand"
                             placement="bottom-start"
                             size="compact"

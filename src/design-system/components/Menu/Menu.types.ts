@@ -1,14 +1,43 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
-export interface MenuProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  title?: unknown;
-  className?: string;
-  navItems?: unknown[];
-  brands?: unknown[];
-  activeBrand?: unknown;
-  onBrandChange?: (...args: unknown[]) => void;
-  activeMode?: unknown;
-  onModeChange?: (...args: unknown[]) => void;
+/** Menu visual mode. */
+export type MenuMode = "light" | "dark";
+
+/** Child link item used inside accordion-style menu sections. */
+export interface MenuChildItem {
+  label: string;
+  path: string;
+}
+
+/** Top-level menu item. */
+export interface MenuNavItem {
+  label: string;
+  icon: string;
+  path?: string;
+  children?: MenuChildItem[];
+}
+
+/**
+ * Public props for the UDS Menu component.
+ *
+ * @example
+ * ```tsx
+ * <Menu
+ *   navItems={[{ label: "Dashboard", icon: "House", path: "/" }]}
+ *   brands={["default", "comphealth"]}
+ *   activeBrand="default"
+ *   onBrandChange={(brand) => setBrand(brand)}
+ * />
+ * ```
+ */
+export interface MenuProps extends Omit<HTMLAttributes<HTMLElement>, "onChange"> {
+  title?: string;
+  navItems?: MenuNavItem[];
+  brands?: string[];
+  activeBrand?: string;
+  onBrandChange?: (brand: string) => void;
+  activeMode?: MenuMode;
+  onModeChange?: (mode: MenuMode) => void;
   showBrand?: boolean;
   showSearch?: boolean;
   showBrandSwitcher?: boolean;

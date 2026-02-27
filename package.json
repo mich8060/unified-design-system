@@ -17,8 +17,10 @@
   "homepage": "https://github.com/chghealthcare/unified-design-system#readme",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
+  "types": "./dist/design-system/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/design-system/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
@@ -34,7 +36,8 @@
   ],
   "scripts": {
     "dev": "vite --configLoader native",
-    "build": "vite build --configLoader native",
+    "build": "vite build --configLoader native && npm run build:types",
+    "build:types": "tsc -p tsconfig.build.json",
     "preview": "vite preview --configLoader native",
     "lint": "eslint .",
     "lint:styles": "stylelint \"src/**/*.scss\"",
