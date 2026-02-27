@@ -2,7 +2,24 @@ import React from "react";
 import "./_flex.scss";
 import type { FlexProps } from "./Flex.types";
 
-const GAP_TOKEN_VALUES = new Set(["0", "2", "4", "8", "12", "16", "24", "32"]);
+const GAP_TOKEN_VALUES = new Set([
+  "0",
+  "2",
+  "4",
+  "6",
+  "8",
+  "10",
+  "12",
+  "14",
+  "16",
+  "18",
+  "24",
+  "32",
+  "48",
+  "64",
+  "80",
+]);
+const warnedGapValues = new Set<string>();
 
 function normalizeWrap(wrap: FlexProps["wrap"]): "nowrap" | "wrap" | "wrap-reverse" {
   if (wrap === true) return "wrap";
@@ -12,6 +29,44 @@ function normalizeWrap(wrap: FlexProps["wrap"]): "nowrap" | "wrap" | "wrap-rever
 
 function toKebab(value: string): string {
   return value.replace(/\s+/g, "-");
+}
+
+function normalizeGap(gap: FlexProps["gap"]): string | number | undefined {
+  if (gap == null) return undefined;
+
+  const rawGap = String(gap).trim();
+  const tokenSuffix = rawGap.match(/^spacing-(\d+)$/)?.[1] ?? rawGap;
+  if (GAP_TOKEN_VALUES.has(tokenSuffix)) {
+    return `var(--uds-spacing-${tokenSuffix})`;
+  }
+
+  return gap;
+}
+
+function warnInvalidGap(gap: FlexProps["gap"]) {
+  if (
+    gap == null ||
+    typeof import.meta === "undefined" ||
+    !import.meta.env?.DEV
+  ) {
+    return;
+  }
+
+  const rawGap = String(gap).trim();
+  const tokenSuffix = rawGap.match(/^spacing-(\d+)$/)?.[1] ?? rawGap;
+  const isProbablyToken = /^\d+$/.test(tokenSuffix);
+
+  if (isProbablyToken && !GAP_TOKEN_VALUES.has(tokenSuffix)) {
+    const warningKey = `token:${tokenSuffix}`;
+    if (!warnedGapValues.has(warningKey)) {
+      warnedGapValues.add(warningKey);
+      console.warn(
+        `Flex gap "${gap}" is not a supported spacing token. Use one of: ${Array.from(
+          GAP_TOKEN_VALUES
+        ).join(", ")} or "spacing-<token>".`
+      );
+    }
+  }
 }
 
 export const Flex = React.forwardRef<HTMLElement, FlexProps>(function Flex(
@@ -48,8 +103,8 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(function Flex(
 
   const computedStyle: React.CSSProperties = {};
   if (gap != null && style?.gap == null) {
-    const gapString = String(gap);
-    computedStyle.gap = GAP_TOKEN_VALUES.has(gapString) ? `var(--uds-spacing-${gapString})` : gap;
+    warnInvalidGap(gap);
+    computedStyle.gap = normalizeGap(gap);
   }
   if (fullWidth && style?.width == null) {
     computedStyle.width = "100%";

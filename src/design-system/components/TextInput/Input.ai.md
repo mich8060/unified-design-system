@@ -20,6 +20,9 @@ Single-line text input component with size, state, and icon variants.
 | `icon` | `string` | — | Any Phosphor icon name (e.g. `"MagnifyingGlass"`, `"Eye"`) | Displays an icon inside the input |
 | `iconPosition` | `string` | `"right"` | `"left"`, `"right"` | Which side to place the icon |
 | `onIconClick` | `function` | — | `() => void` | Makes the icon clickable |
+| `label` | `node` | — | — | Visible label associated to the input via `htmlFor/id` |
+| `helperText` | `node` | — | — | Supporting text shown below the input in non-error states |
+| `errorText` | `node` | — | — | Error message shown below the input when `state="error"` |
 | `id` | `string` | — | — | Unique identifier |
 | `className` | `string` | `""` | — | Additional CSS classes |
 
@@ -60,9 +63,13 @@ Single-line text input component with size, state, and icon variants.
 
 ### With validation error
 ```jsx
-<Field label="Username" helperMessage="Username is already taken">
-  <Input value={username} onChange={(e) => setUsername(e.target.value)} state="error" />
-</Field>
+<Input
+  label="Username"
+  value={username}
+  onChange={(e) => setUsername(e.target.value)}
+  state="error"
+  errorText="Username is already taken"
+/>
 ```
 
 ### Compact size

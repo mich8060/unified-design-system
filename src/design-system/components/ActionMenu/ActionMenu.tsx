@@ -14,7 +14,6 @@ const BASE_CLASS = "uds-action-menu";
 function Submenu({ item, onItemClick, parentRef }) {
   const [isOpen, setIsOpen] = useState(false);
   const submenuRef = useRef(null);
-  const itemRef = useRef(null);
   const timeoutRef = useRef(null);
 
   const handleMouseEnter = () => {
@@ -49,7 +48,6 @@ function Submenu({ item, onItemClick, parentRef }) {
       className={`${BASE_CLASS}__item-wrapper`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      ref={itemRef}
     >
       <button
         className={`${BASE_CLASS}__item ${BASE_CLASS}__item--has-submenu ${item.disabled ? `${BASE_CLASS}__item--disabled` : ""}`}
@@ -161,6 +159,12 @@ export default function ActionMenu({
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
   const triggerRef = useRef(null);
+  const handleEscape = (event) => {
+    if (event.key === "Escape") {
+      updateOpen(false);
+      triggerRef.current?.focus();
+    }
+  };
 
   // Wrapper that also fires the onOpenChange callback
   const updateOpen = (nextOpen) => {
@@ -192,63 +196,46 @@ export default function ActionMenu({
     };
   }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Handle keyboard navigation
-  useEffect(() => {
-    if (!isOpen) return;
+  const handleMenuKeyDown = (event) => {
+    const menuItems = menuRef.current?.querySelectorAll(
+      '[role="menuitem"]:not([disabled])',
+    );
+    if (!menuItems || menuItems.length === 0) return;
 
-    const handleKeyDown = (event) => {
-      const menuItems = menuRef.current?.querySelectorAll(
-        '[role="menuitem"]:not([disabled])',
-      );
-      if (!menuItems || menuItems.length === 0) return;
+    const currentIndex = Array.from(menuItems).findIndex(
+      (item) => item === document.activeElement,
+    );
 
-      const currentIndex = Array.from(menuItems).findIndex(
-        (item) => item === document.activeElement,
-      );
-
-      switch (event.key) {
-        case "ArrowDown":
-          event.preventDefault();
-          const nextIndex =
-            currentIndex < menuItems.length - 1 ? currentIndex + 1 : 0;
-          menuItems[nextIndex]?.focus();
-          break;
-        case "ArrowUp":
-          event.preventDefault();
-          const prevIndex =
-            currentIndex > 0 ? currentIndex - 1 : menuItems.length - 1;
-          menuItems[prevIndex]?.focus();
-          break;
-        case "Home":
-          event.preventDefault();
-          menuItems[0]?.focus();
-          break;
-        case "End":
-          event.preventDefault();
-          menuItems[menuItems.length - 1]?.focus();
-          break;
-        case "Enter":
-        case " ":
-          event.preventDefault();
-          if (document.activeElement) {
-            document.activeElement.click();
-          }
-          break;
-        default:
-          break;
+    switch (event.key) {
+      case "ArrowDown": {
+        event.preventDefault();
+        const nextIndex = currentIndex < menuItems.length - 1 ? currentIndex + 1 : 0;
+        menuItems[nextIndex]?.focus();
+        break;
       }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen]);
-
-  const handleEscape = (event) => {
-    if (event.key === "Escape") {
-      updateOpen(false);
-      triggerRef.current?.focus();
+      case "ArrowUp": {
+        event.preventDefault();
+        const prevIndex = currentIndex > 0 ? currentIndex - 1 : menuItems.length - 1;
+        menuItems[prevIndex]?.focus();
+        break;
+      }
+      case "Home":
+        event.preventDefault();
+        menuItems[0]?.focus();
+        break;
+      case "End":
+        event.preventDefault();
+        menuItems[menuItems.length - 1]?.focus();
+        break;
+      case "Enter":
+      case " ":
+        event.preventDefault();
+        if (document.activeElement) {
+          document.activeElement.click();
+        }
+        break;
+      default:
+        break;
     }
   };
 
@@ -349,6 +336,7 @@ export default function ActionMenu({
           className={menuClassNames}
           role="menu"
           aria-orientation="vertical"
+          onKeyDown={handleMenuKeyDown}
         >
           {items.map((item, index) => {
             if (item.divider) {

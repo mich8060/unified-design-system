@@ -5,7 +5,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--uds-gap-8);
+  gap: var(--uds-gap-32);
   padding-inline: var(--uds-spacing-12);
   padding-block: var(--uds-spacing-6);
   border: var(--uds-border-width-1) solid;
@@ -99,7 +99,7 @@
   }
 
   &__badge {
-    margin-left: var(--uds-gap-4);
+    margin-left: var(--uds-gap-16);
     flex-shrink: 0;
   }
 

@@ -8,7 +8,7 @@
   &-outer {
     display: flex;
     flex-direction: column;
-    gap: var(--uds-gap-8);
+    gap: var(--uds-gap-32);
     width: 100%;
   }
 
@@ -17,7 +17,7 @@
     @include uds-body-14-medium;
     color: var(--uds-text-primary);
     display: block;
-    margin-bottom: var(--uds-gap-8);
+    margin-bottom: var(--uds-gap-32);
   }
 
   // ── Element: trigger button (default = 44px) ────────
@@ -60,7 +60,7 @@
   // ── Element: caret icon ─────────────────────────────
   &__icon {
     flex-shrink: 0;
-    margin-left: var(--uds-gap-8);
+    margin-left: var(--uds-gap-32);
     transition: transform var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
     color: var(--uds-text-secondary);
 

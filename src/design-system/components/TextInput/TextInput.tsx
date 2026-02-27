@@ -46,10 +46,21 @@ export default function Input({
   iconPosition = "right",
   onIconClick,
   id,
+  label,
+  helperText,
+  errorText,
   className = "",
+  "aria-describedby": ariaDescribedBy,
   ...props
 }: TextInputProps) {
   const effectiveState = disabled ? "disabled" : state;
+  const generatedId = React.useId().replace(/:/g, "");
+  const needsGeneratedId = Boolean(label) || Boolean(helperText) || Boolean(errorText);
+  const inputId = id ?? (needsGeneratedId ? `${BASE_CLASS}-${generatedId}` : undefined);
+  const helperTextId = helperText ? `${inputId}-helper-text` : undefined;
+  const errorTextId = errorText ? `${inputId}-error-text` : undefined;
+  const supportingTextId = effectiveState === "error" ? errorTextId : helperTextId;
+  const describedByIds = [ariaDescribedBy, supportingTextId].filter(Boolean).join(" ") || undefined;
 
   const inputClassNames = [
     BASE_CLASS,
@@ -71,50 +82,75 @@ export default function Input({
 
   const inputElement = (
     <input
-      id={id}
+      id={inputId}
       type={type}
       className={inputClassNames}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
       disabled={disabled || effectiveState === "disabled"}
+      aria-invalid={effectiveState === "error" ? true : undefined}
+      aria-describedby={describedByIds}
       {...props}
     />
   );
 
-  if (!icon) {
+  const renderInputWithOptionalIcon = () => {
+    if (!icon) {
+      return <div className={wrapperClassNames}>{inputElement}</div>;
+    }
+
+    const iconSize = size === "compact" ? 16 : 20;
+    const iconVisual =
+      typeof icon === "string" ? <Icon name={icon} size={iconSize} /> : icon;
+
+    const iconElement = onIconClick ? (
+      <button
+        type="button"
+        className={`${BASE_CLASS}__icon ${BASE_CLASS}__icon--${iconPosition} ${BASE_CLASS}__icon--clickable`}
+        onClick={onIconClick}
+        disabled={disabled || effectiveState === "disabled"}
+        tabIndex={-1}
+        aria-label="Input action"
+      >
+        {iconVisual}
+      </button>
+    ) : (
+      <span className={`${BASE_CLASS}__icon ${BASE_CLASS}__icon--${iconPosition}`}>
+        {iconVisual}
+      </span>
+    );
+
     return (
       <div className={wrapperClassNames}>
         {inputElement}
+        {iconElement}
       </div>
     );
+  };
+
+  if (!label && !helperText && !errorText) {
+    return renderInputWithOptionalIcon();
   }
 
-  const iconSize = size === "compact" ? 16 : 20;
-  const iconVisual =
-    typeof icon === "string" ? <Icon name={icon} size={iconSize} /> : icon;
-
-  const iconElement = onIconClick ? (
-    <button
-      type="button"
-      className={`${BASE_CLASS}__icon ${BASE_CLASS}__icon--${iconPosition} ${BASE_CLASS}__icon--clickable`}
-      onClick={onIconClick}
-      disabled={disabled || effectiveState === "disabled"}
-      tabIndex={-1}
-      aria-label="Input action"
-    >
-      {iconVisual}
-    </button>
-  ) : (
-    <span className={`${BASE_CLASS}__icon ${BASE_CLASS}__icon--${iconPosition}`}>
-      {iconVisual}
-    </span>
-  );
-
   return (
-    <div className={wrapperClassNames}>
-      {inputElement}
-      {iconElement}
+    <div className={`${BASE_CLASS}-field`}>
+      {label ? (
+        <label className={`${BASE_CLASS}__label`} htmlFor={inputId}>
+          {label}
+        </label>
+      ) : null}
+      {renderInputWithOptionalIcon()}
+      {effectiveState === "error" && errorText ? (
+        <p id={errorTextId} className={`${BASE_CLASS}__supporting-text ${BASE_CLASS}__supporting-text--error`}>
+          {errorText}
+        </p>
+      ) : null}
+      {effectiveState !== "error" && helperText ? (
+        <p id={helperTextId} className={`${BASE_CLASS}__supporting-text`}>
+          {helperText}
+        </p>
+      ) : null}
     </div>
   );
 }

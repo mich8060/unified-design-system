@@ -411,6 +411,7 @@
   --uds-color-primary-700: var(--brand-primary-700);
   --uds-color-primary-800: var(--brand-primary-800);
   --uds-color-primary-900: var(--brand-primary-900);
+  --uds-color-primary: var(--uds-color-primary-500);
   --uds-color-secondary-25: var(--brand-secondary-25);
   --uds-color-secondary-50: var(--brand-secondary-50);
   --uds-color-secondary-100: var(--brand-secondary-100);
@@ -422,6 +423,7 @@
   --uds-color-secondary-700: var(--brand-secondary-700);
   --uds-color-secondary-800: var(--brand-secondary-800);
   --uds-color-secondary-900: var(--brand-secondary-900);
+  --uds-color-secondary: var(--uds-color-secondary-500);
   --uds-color-tertiary-25: var(--brand-tertiary-25);
   --uds-color-tertiary-50: var(--brand-tertiary-50);
   --uds-color-tertiary-100: var(--brand-tertiary-100);
@@ -433,6 +435,7 @@
   --uds-color-tertiary-700: var(--brand-tertiary-700);
   --uds-color-tertiary-800: var(--brand-tertiary-800);
   --uds-color-tertiary-900: var(--brand-tertiary-900);
+  --uds-color-tertiary: var(--uds-color-tertiary-500);
   --uds-color-quaternary-25: var(--brand-quaternary-25);
   --uds-color-quaternary-50: var(--brand-quaternary-50);
   --uds-color-quaternary-100: var(--brand-quaternary-100);
@@ -444,6 +447,8 @@
   --uds-color-quaternary-700: var(--brand-quaternary-700);
   --uds-color-quaternary-800: var(--brand-quaternary-800);
   --uds-color-quaternary-900: var(--brand-quaternary-900);
+  --uds-color-quaternary: var(--uds-color-quaternary-500);
+  --uds-color-neutrals: var(--uds-color-neutrals-500);
   /* Accent Colors - Amber */
   --uds-color-accent-amber-25: var(--system-color-accent-amber-25);
   --uds-color-accent-amber-50: var(--system-color-accent-amber-50);
@@ -752,6 +757,7 @@
   --uds-color-primary-700: var(--brand-primary-100);
   --uds-color-primary-800: var(--brand-primary-50);
   --uds-color-primary-900: var(--brand-primary-25);
+  --uds-color-primary: var(--uds-color-primary-500);
   --uds-color-secondary-25: var(--brand-secondary-900);
   --uds-color-secondary-50: var(--brand-secondary-800);
   --uds-color-secondary-100: var(--brand-secondary-700);
@@ -763,6 +769,7 @@
   --uds-color-secondary-700: var(--brand-secondary-100);
   --uds-color-secondary-800: var(--brand-secondary-50);
   --uds-color-secondary-900: var(--brand-secondary-25);
+  --uds-color-secondary: var(--uds-color-secondary-500);
   --uds-color-tertiary-25: var(--brand-tertiary-900);
   --uds-color-tertiary-50: var(--brand-tertiary-800);
   --uds-color-tertiary-100: var(--brand-tertiary-700);
@@ -774,6 +781,7 @@
   --uds-color-tertiary-700: var(--brand-tertiary-100);
   --uds-color-tertiary-800: var(--brand-tertiary-50);
   --uds-color-tertiary-900: var(--brand-tertiary-25);
+  --uds-color-tertiary: var(--uds-color-tertiary-500);
   --uds-color-quaternary-25: var(--brand-quaternary-900);
   --uds-color-quaternary-50: var(--brand-quaternary-800);
   --uds-color-quaternary-100: var(--brand-quaternary-700);
@@ -785,6 +793,8 @@
   --uds-color-quaternary-700: var(--brand-quaternary-100);
   --uds-color-quaternary-800: var(--brand-quaternary-50);
   --uds-color-quaternary-900: var(--brand-quaternary-25);
+  --uds-color-quaternary: var(--uds-color-quaternary-500);
+  --uds-color-neutrals: var(--uds-color-neutrals-500);
   /* Accent Colors - Amber */
   --uds-color-accent-amber-25: var(--system-color-accent-amber-1000);
   --uds-color-accent-amber-50: var(--system-color-accent-amber-900);
@@ -1335,14 +1345,14 @@
 }
 
 :root {
-  --uds-gap-1: 4px;
-  --uds-gap-2: 8px;
-  --uds-gap-3: 12px;
-  --uds-gap-4: 16px;
-  --uds-gap-5: 20px;
-  --uds-gap-6: 24px;
-  --uds-gap-8: 32px;
-  --uds-gap-10: 40px;
+  --uds-gap-4: 4px;
+  --uds-gap-8: 8px;
+  --uds-gap-12: 12px;
+  --uds-gap-16: 16px;
+  --uds-gap-20: 20px;
+  --uds-gap-24: 24px;
+  --uds-gap-32: 32px;
+  --uds-gap-40: 40px;
 }
 
 :root {

@@ -1,4 +1,9 @@
-import type { ChangeEventHandler, InputHTMLAttributes, MouseEventHandler, ReactNode } from "react";
+import type {
+  ChangeEventHandler,
+  InputHTMLAttributes,
+  MouseEventHandler,
+  ReactNode,
+} from "react";
 
 /** Supported input sizes. */
 export type TextInputSize = "default" | "compact";
@@ -41,4 +46,10 @@ export interface TextInputProps
   iconPosition?: TextInputIconPosition;
   /** Optional click handler for icon button mode. */
   onIconClick?: MouseEventHandler<HTMLButtonElement>;
+  /** Optional visible label rendered with htmlFor/id linkage. */
+  label?: ReactNode;
+  /** Helper text rendered below the input. */
+  helperText?: ReactNode;
+  /** Error text rendered below the input when in error state. */
+  errorText?: ReactNode;
 }

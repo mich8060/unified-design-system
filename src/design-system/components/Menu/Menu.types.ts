@@ -47,5 +47,6 @@ export interface MenuProps extends Omit<HTMLAttributes<HTMLElement>, "onChange">
   userName?: string;
   userInitials?: string;
   userAvatarSrc?: string;
+  accountMenuItems?: unknown[];
   identity?: string;
 }

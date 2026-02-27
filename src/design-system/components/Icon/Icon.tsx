@@ -13,6 +13,85 @@ type PhosphorIconModule = Record<string, PhosphorIconComponent>;
 let phosphorIconsCache: PhosphorIconModule | null = null;
 let phosphorIconsLoadError: Error | null = null;
 let phosphorIconsPromise: Promise<PhosphorIconModule> | null = null;
+const warnedInvalidIcons = new Set<string>();
+
+const isDevEnvironment = (): boolean => {
+  if (typeof import.meta !== "undefined" && import.meta.env) {
+    return Boolean(import.meta.env.DEV);
+  }
+  if (typeof process !== "undefined" && process.env) {
+    return process.env.NODE_ENV !== "production";
+  }
+  return false;
+};
+
+const normalizeIconName = (value: string): string =>
+  value.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+const toPascalCase = (value: string): string =>
+  value
+    .split(/(?=[A-Z])|[-_\s]/)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join("");
+
+const getPhosphorIconNames = (iconsModule: PhosphorIconModule): string[] =>
+  Object.entries(iconsModule)
+    .filter(([key, value]) => /^[A-Z]/.test(key) && typeof value === "function")
+    .map(([key]) => key);
+
+const levenshteinDistance = (a: string, b: string): number => {
+  const rows = a.length + 1;
+  const cols = b.length + 1;
+  const matrix: number[][] = Array.from({ length: rows }, () =>
+    Array.from({ length: cols }, () => 0)
+  );
+
+  for (let i = 0; i < rows; i += 1) matrix[i][0] = i;
+  for (let j = 0; j < cols; j += 1) matrix[0][j] = j;
+
+  for (let i = 1; i < rows; i += 1) {
+    for (let j = 1; j < cols; j += 1) {
+      const substitutionCost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + substitutionCost
+      );
+    }
+  }
+
+  return matrix[a.length][b.length];
+};
+
+const getIconSuggestions = (
+  requestedName: string,
+  iconsModule: PhosphorIconModule
+): string[] => {
+  const candidates = getPhosphorIconNames(iconsModule);
+  const requestedNormalized = normalizeIconName(requestedName);
+
+  const directMatches = candidates.filter((candidate) => {
+    const normalized = normalizeIconName(candidate);
+    return (
+      normalized.startsWith(requestedNormalized) ||
+      normalized.includes(requestedNormalized) ||
+      requestedNormalized.includes(normalized)
+    );
+  });
+  if (directMatches.length > 0) return directMatches.slice(0, 3);
+
+  return candidates
+    .map((candidate) => ({
+      candidate,
+      distance: levenshteinDistance(
+        requestedNormalized,
+        normalizeIconName(candidate)
+      ),
+    }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 3)
+    .map((entry) => entry.candidate);
+};
 
 const loadPhosphorIcons = async (): Promise<PhosphorIconModule> => {
   if (phosphorIconsCache) return phosphorIconsCache;
@@ -85,16 +164,24 @@ export default function Icon({
   const IconComponent = useMemo(() => {
     if (!name || !iconsModule) return null;
     const nameString = typeof name === "string" ? name : String(name);
-    const iconName = nameString
-      .split(/(?=[A-Z])|[-_\s]/)
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-      .join("");
+    const iconName = toPascalCase(nameString);
     return iconsModule[iconName] || null;
   }, [iconsModule, name]);
 
   if (!IconComponent) {
-    if (name && iconsModule) {
-      console.warn(`Icon "${name}" not found in Phosphor icons.`);
+    if (name && iconsModule && isDevEnvironment()) {
+      const iconName = toPascalCase(String(name));
+      if (!warnedInvalidIcons.has(iconName)) {
+        warnedInvalidIcons.add(iconName);
+        const suggestions = getIconSuggestions(iconName, iconsModule);
+        const suggestionMessage =
+          suggestions.length > 0
+            ? ` Did you mean: ${suggestions.join(", ")}?`
+            : "";
+        console.warn(
+          `Icon "${name}" not found in Phosphor icons.${suggestionMessage}`
+        );
+      }
     }
     return null;
   }

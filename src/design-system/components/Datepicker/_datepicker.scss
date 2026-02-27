@@ -75,7 +75,7 @@
     padding: var(--uds-spacing-8);
     transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
     max-width: calc(100% / 7);
-    gap: var(--uds-gap-8);
+    gap: var(--uds-gap-32);
     
     &:nth-child(7n) {
       border-right: none;

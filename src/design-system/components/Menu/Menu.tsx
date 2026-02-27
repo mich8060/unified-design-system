@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import "./_menu.scss";
 import { Link, useLocation } from "react-router-dom";
@@ -9,6 +9,7 @@ import TextInput from "../TextInput/TextInput";
 import Branding from "../Branding/Branding";
 import Dropdown from "../Dropdown/Dropdown";
 import Toggle from "../Toggle/Toggle";
+import ActionMenu from "../ActionMenu/ActionMenu";
 import { Text } from "../Text/Text";
 import type { MenuProps, MenuMode } from "./Menu.types";
 
@@ -44,7 +45,7 @@ const isMenuNavItem = (value: unknown): value is MenuNavItem => {
 
 const toMenuMode = (value: unknown): MenuMode => (value === "dark" ? "dark" : "light");
 
-export default function Menu({
+function Menu({
     title,
     className = "",
     navItems = [],
@@ -62,29 +63,48 @@ export default function Menu({
     userName = "Jane Doe",
     userInitials = "JD",
     userAvatarSrc,
+    accountMenuItems = [],
     identity = "design-system",
 }: MenuProps) {
     const location = useLocation();
     const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
     const [isMenuOpen, setIsMenuOpen] = useState(true);
-    const normalizedNavItems = navItems.filter(isMenuNavItem);
+    const normalizedNavItems = useMemo(() => navItems.filter(isMenuNavItem), [navItems]);
     const normalizedBrands = brands.filter((brand): brand is string => typeof brand === "string");
     const resolvedTitle = typeof title === "string" ? title : "Menu";
     const resolvedActiveBrand =
         typeof activeBrand === "string" ? activeBrand : normalizedBrands[0];
+    const resolvedIdentity =
+        resolvedActiveBrand === "default"
+            ? "design-system"
+            : (resolvedActiveBrand ?? identity);
     const activeMenuMode = toMenuMode(activeMode);
+    const normalizedAccountMenuItems = Array.isArray(accountMenuItems) ? accountMenuItems : [];
 
     // Auto-expand accordion whose child matches the current route
     useEffect(() => {
-        normalizedNavItems.forEach((item) => {
-            if (item.children) {
-                const hasActiveChild = item.children.some(
-                    (child: MenuChildItem) => location.pathname === child.path
-                );
-                if (hasActiveChild) {
-                    setOpenAccordions((prev) => ({ ...prev, [item.label]: true }));
+        const activeAccordionLabels = normalizedNavItems
+            .filter(
+                (item) =>
+                    Array.isArray(item.children) &&
+                    item.children.some((child: MenuChildItem) => location.pathname === child.path)
+            )
+            .map((item) => item.label);
+
+        if (activeAccordionLabels.length === 0) return;
+
+        setOpenAccordions((prev) => {
+            let hasChanges = false;
+            const next = { ...prev };
+
+            activeAccordionLabels.forEach((label) => {
+                if (!next[label]) {
+                    next[label] = true;
+                    hasChanges = true;
                 }
-            }
+            });
+
+            return hasChanges ? next : prev;
         });
     }, [location.pathname, normalizedNavItems]);
 
@@ -92,12 +112,35 @@ export default function Menu({
         setOpenAccordions((prev) => ({ ...prev, [label]: !prev[label] }));
     };
     const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+    const expandMenu = () => setIsMenuOpen(true);
+    const handleCollapsedMenuClickCapture = (event: React.MouseEvent<HTMLElement>) => {
+        if (!isMenuOpen) {
+            // When collapsed, first click should only expand the menu.
+            event.preventDefault();
+            event.stopPropagation();
+            expandMenu();
+        }
+    };
+    const handleAccordionClick = (label: string) => {
+        if (!isMenuOpen) {
+            expandMenu();
+            setOpenAccordions((prev) => ({ ...prev, [label]: true }));
+            return;
+        }
+        toggleAccordion(label);
+    };
+    const handleNavItemClick = () => {
+        if (!isMenuOpen) {
+            expandMenu();
+        }
+    };
     const handleModeChange = (mode: MenuMode) => onModeChange?.(mode);
 
     return (
         <aside
             className={`uds-menu${isMenuOpen ? " uds-menu--expanded" : ""} ${className}`}
             aria-label={resolvedTitle}
+            onClickCapture={handleCollapsedMenuClickCapture}
         >
             {showBrand && (
                 <div className="uds-menu_brand">
@@ -112,10 +155,10 @@ export default function Menu({
                         onClick={toggleMenu}
                     />
                     <div className="uds-menu_brand__symbol">
-                        <Branding brand={identity} symbol />
+                        <Branding brand={resolvedIdentity} symbol />
                     </div>
                     <div className="uds-menu_brand__full">
-                        <Branding brand={identity} />
+                        <Branding brand={resolvedIdentity} />
                     </div>
                 </div>
             )}
@@ -180,7 +223,7 @@ export default function Menu({
                                     <button
                                         type="button"
                                         className="uds-menu_nav__item-link"
-                                        onClick={() => toggleAccordion(item.label)}
+                                        onClick={() => handleAccordionClick(item.label)}
                                         title={item.label}
                                     >
                                         <span className="uds-menu_nav__item-icon">
@@ -191,25 +234,28 @@ export default function Menu({
                                             <Icon name="CaretDown" size={16} />
                                         </span>
                                     </button>
-                                    <div className={`uds-menu_nav__children${isExpanded ? " uds-menu_nav__children--open" : ""}`}>
-                                        {children.map((child: MenuChildItem) => (
-                                            <Link
-                                                key={child.path}
-                                                className={`uds-menu_nav__child-link${location.pathname === child.path ? " uds-menu_nav__child-link--active" : ""}`}
-                                                to={child.path}
-                                                title={child.label}
-                                            >
-                                                {child.label}
-                                            </Link>
-                                        ))}
-                                    </div>
+                                    {isExpanded ? (
+                                        <div className="uds-menu_nav__children uds-menu_nav__children--open">
+                                            {children.map((child: MenuChildItem) => (
+                                                <Link
+                                                    key={child.path}
+                                                    className={`uds-menu_nav__child-link${location.pathname === child.path ? " uds-menu_nav__child-link--active" : ""}`}
+                                                    to={child.path}
+                                                    onClick={handleNavItemClick}
+                                                    title={child.label}
+                                                >
+                                                    {child.label}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    ) : null}
                                 </div>
                             );
                         }
 
                         return (
                             <div className={`uds-menu_nav__item${location.pathname === item.path ? " uds-menu_nav__item--active" : ""}`} key={item.path ?? item.label}>
-                                <Link className="uds-menu_nav__item-link" to={item.path ?? "/"} title={item.label}>
+                                <Link className="uds-menu_nav__item-link" to={item.path ?? "/"} onClick={handleNavItemClick} title={item.label}>
                                     <span className="uds-menu_nav__item-icon">
                                         <Icon name={item.icon} size={24} appearance="duotone" />
                                     </span>
@@ -254,16 +300,26 @@ export default function Menu({
                         alt={userName ? `${userName} avatar` : "User avatar"}
                         size="default"
                     />
-                    <Text as="p" variant="body-16" weight="semibold" leading="regular" className="uds-menu_account__name">
-                        {userName}
-                    </Text>
-                    <Button
-                        appearance="text"
-                        icon={<Icon name="DotsThreeVertical" appearance="bold" />}
-                        label="Account Menu"
-                        layout="icon-only"
-                        aria-label="Account menu"
-                    />
+                    {isMenuOpen && (
+                        <>
+                            <Text as="p" variant="body-16" weight="semibold" leading="regular" className="uds-menu_account__name">
+                                {userName}
+                            </Text>
+                            <ActionMenu
+                                placement="top-start"
+                                items={normalizedAccountMenuItems}
+                                trigger={
+                                    <Button
+                                        appearance="text"
+                                        icon={<Icon name="DotsThreeVertical" appearance="bold" />}
+                                        label="Account Menu"
+                                        layout="icon-only"
+                                        aria-label="Account menu"
+                                    />
+                                }
+                            />
+                        </>
+                    )}
                 </div>
             )}
         </aside>
@@ -300,8 +356,11 @@ Menu.propTypes = {
     userName: PropTypes.string,
     userInitials: PropTypes.string,
     userAvatarSrc: PropTypes.string,
+    accountMenuItems: PropTypes.array,
 };
 
 Menu.defaultProps = {
     title: "Menu",
 };
+
+export default React.memo(Menu);

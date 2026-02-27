@@ -12,6 +12,11 @@ import { ToggleDemoPage } from "./pages/components/ToggleDemoPage";
 import { IconDemoPage } from "./pages/components/IconDemoPage";
 import { AccordionDemoPage } from "./pages/components/AccordionDemoPage";
 import { BrandingDemoPage } from "./pages/components/BrandingDemoPage";
+import { GettingStartedPage } from "./pages/docs/GettingStartedPage";
+import { DesignTokensPage } from "./pages/docs/DesignTokensPage";
+import { ThemingPage } from "./pages/docs/ThemingPage";
+import { LayoutConventionsPage } from "./pages/docs/LayoutConventionsPage";
+import { SampleItemPage } from "./pages/docs/SampleItemPage";
 
 type Brand =
     | "default"
@@ -37,6 +42,21 @@ const BRAND_OPTIONS: Brand[] = [
 
 const NAV_ITEMS = [
     {
+        label: "Sample Item",
+        icon: "FileText",
+        path: "/sample-item",
+    },
+    {
+        label: "Getting Started",
+        icon: "Layout",
+        children: [
+            { label: "Overview", path: "/getting-started" },
+            { label: "Design Tokens", path: "/docs/tokens" },
+            { label: "Theming", path: "/docs/theming" },
+            { label: "Layout Conventions", path: "/docs/layout-conventions" },
+        ],
+    },
+    {
         label: "Components",
         icon: "SquaresFour",
         children: [
@@ -51,29 +71,40 @@ const NAV_ITEMS = [
     },
 ];
 
+const ACCOUNT_MENU_ITEMS = [
+    { label: "View profile", icon: "UserCircle" },
+    { label: "Account settings", icon: "Gear" },
+    { divider: true },
+    { label: "Sign out", icon: "SignOut", destructive: true },
+];
+
 function App() {
     const [brand, setBrand] = React.useState<Brand>("default");
     const [theme, setTheme] = React.useState<Theme>("light");
 
-    const handleBrandChange = (nextBrand: unknown) => {
+    const handleBrandChange = React.useCallback((nextBrand: unknown) => {
         if (typeof nextBrand === "string" && BRAND_OPTIONS.includes(nextBrand as Brand)) {
             setBrand(nextBrand as Brand);
         }
-    };
+    }, []);
 
-    const handleModeChange = (nextMode: unknown) => {
+    const handleModeChange = React.useCallback((nextMode: unknown) => {
         if (nextMode === "light" || nextMode === "dark") {
             setTheme(nextMode);
         }
-    };
+    }, []);
 
-    const identity = brand === "default" ? "design-system" : brand;
+    const identity = React.useMemo(
+        () => (brand === "default" ? "design-system" : brand),
+        [brand]
+    );
 
     return (
         <AppShell brand={brand} theme={theme}>
             <AppShell.Menu>
                 <Menu
                     navItems={NAV_ITEMS}
+                    accountMenuItems={ACCOUNT_MENU_ITEMS}
                     identity={identity}
                     brands={BRAND_OPTIONS}
                     activeBrand={brand}
@@ -89,7 +120,15 @@ function App() {
             <AppShell.Content>
                 <AppShell.Main>
                     <Routes>
-                        <Route path="/" element={<Navigate to="/components/button" replace />} />
+                        <Route path="/" element={<Navigate to="/getting-started" replace />} />
+                        <Route path="/getting-started" element={<GettingStartedPage />} />
+                        <Route path="/sample-item" element={<SampleItemPage />} />
+                        <Route path="/docs/tokens" element={<DesignTokensPage />} />
+                        <Route path="/docs/theming" element={<ThemingPage />} />
+                        <Route
+                            path="/docs/layout-conventions"
+                            element={<LayoutConventionsPage />}
+                        />
                         <Route path="/components/button" element={<ButtonDemoPage />} />
                         <Route path="/components/text" element={<TextDemoPage />} />
                         <Route path="/components/text-input" element={<TextInputDemoPage />} />

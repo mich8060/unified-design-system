@@ -3,13 +3,13 @@
 .uds-field {
   display: flex;
   flex-direction: column;
-  gap: var(--uds-gap-8);
+  gap: var(--uds-gap-32);
   width: 100%;
 
   &__label-row {
     display: flex;
     align-items: center;
-    gap: var(--uds-gap-8);
+    gap: var(--uds-gap-32);
     justify-content: space-between;
   }
 
@@ -71,6 +71,6 @@
     @include uds-body-14;
     color: var(--uds-text-secondary);
     line-height: 20px;
-    margin-top: calc(var(--uds-gap-8) * -1);
+    margin-top: calc(var(--uds-gap-32) * -1);
   }
 }

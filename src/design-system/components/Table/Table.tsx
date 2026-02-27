@@ -16,9 +16,16 @@ export default function Table({
   columns = [],
   data = [],
   className = "",
+  bodyWeight = "medium",
   ...props
 }: TableProps) {
-  const classNames = [BASE_CLASS, className].filter(Boolean).join(" ");
+  const classNames = [
+    BASE_CLASS,
+    `${BASE_CLASS}--body-weight-${bodyWeight}`,
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={`${BASE_CLASS}__wrapper`}>

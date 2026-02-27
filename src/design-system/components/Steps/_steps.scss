@@ -179,8 +179,8 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-top: var(--uds-gap-8);
-    gap: var(--uds-gap-4);
+    margin-top: var(--uds-gap-32);
+    gap: var(--uds-gap-16);
   }
 
   // Vertical label container
@@ -218,7 +218,7 @@
     }
 
     .uds-steps__label-container {
-      margin-top: var(--uds-gap-4);
+      margin-top: var(--uds-gap-16);
     }
 
     &--vertical .uds-steps__label-container {
