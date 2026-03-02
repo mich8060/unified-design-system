@@ -34,6 +34,8 @@ See `/docs` for the full methodology and governance model.
 - [AI Implementation Learnings](docs/08-ai-implementation-learnings.md) – validated integration guidance and corrected component API assumptions
 - [Project Learnings Log](docs/09-project-learnings-log.md) – living, prompt-by-prompt implementation constraints and guardrails
 - [Consumer Project Setup](docs/10-consumer-project-setup.md) – copy-paste setup guide for integrating UDS in a new app
+- [Runtime Tokens Migration](docs/11-runtime-tokens-migration.md) – typed token exports and generated token CSS usage
+- [Theming Engine API](docs/12-theming-engine.md) – createTheme/createBrand/ThemeProvider architecture and usage
 
 ## NPM package quick start
 
@@ -48,6 +50,14 @@ Import components and styles:
 ```tsx
 import { AppShell, Button, Flex, Menu, Text, TextInput } from "@mich8060/unified-design-system";
 import "@mich8060/unified-design-system/styles.css";
+```
+
+Runtime token primitives are also available as typed exports:
+
+```ts
+import { spacingTokens } from "@mich8060/unified-design-system/tokens/spacing";
+import { runtimeTokens } from "@mich8060/unified-design-system/tokens";
+import "@mich8060/unified-design-system/tokens.css";
 ```
 
 ## Common prop pitfalls

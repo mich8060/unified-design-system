@@ -14,6 +14,7 @@ import { AccordionDemoPage } from "./pages/components/AccordionDemoPage";
 import { BrandingDemoPage } from "./pages/components/BrandingDemoPage";
 import { AvatarDemoPage } from "./pages/components/AvatarDemoPage";
 import { DividerDemoPage } from "./pages/components/DividerDemoPage";
+import { TabsDemoPage } from "./pages/components/TabsDemoPage";
 import { ComponentPlaceholderDemoPage } from "./pages/components/ComponentPlaceholderDemoPage";
 import { GettingStartedPage } from "./pages/docs/GettingStartedPage";
 import { DesignTokensPage } from "./pages/docs/DesignTokensPage";
@@ -121,7 +122,6 @@ const PLACEHOLDER_COMPONENT_PAGES = [
     { componentName: "Status", path: "/components/status" },
     { componentName: "Steps", path: "/components/steps" },
     { componentName: "Table", path: "/components/table" },
-    { componentName: "Tabs", path: "/components/tabs" },
     { componentName: "Tag", path: "/components/tag" },
     { componentName: "Textarea", path: "/components/textarea" },
     { componentName: "Toast", path: "/components/toast" },
@@ -218,6 +218,7 @@ function App() {
                         <Route path="/components/icon" element={<IconDemoPage />} />
                         <Route path="/components/text" element={<TextDemoPage />} />
                         <Route path="/components/text-input" element={<TextInputDemoPage />} />
+                        <Route path="/components/tabs" element={<TabsDemoPage />} />
                         <Route path="/components/toggle" element={<ToggleDemoPage />} />
                         {PLACEHOLDER_COMPONENT_PAGES.map(({ componentName, path }) => (
                             <Route

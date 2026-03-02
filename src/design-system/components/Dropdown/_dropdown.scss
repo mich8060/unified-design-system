@@ -22,8 +22,8 @@
 
   // ── Element: trigger button (default = 44px) ────────
   &__trigger {
-    @include uds-body-16;
     all: unset;
+    @include uds-body-16;
     display: flex;
     align-items: center;
     justify-content: space-between;

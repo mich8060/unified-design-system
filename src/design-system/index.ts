@@ -54,3 +54,4 @@ export type {
   DensityMode,
   PaddingMode,
 } from "../app-shell/layout.types";
+export * from "./theme";

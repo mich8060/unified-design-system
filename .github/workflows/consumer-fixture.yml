@@ -17,6 +17,8 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
+      - name: Build and enforce bundle size budget
+        run: npm run ci:bundle
       - name: Build library and validate runtime exports
         run: npm run build:lib
       - name: Build Vite consumer fixture

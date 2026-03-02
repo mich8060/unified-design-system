@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [react()],
   server: { port: 5173 },
   build: {
+    cssCodeSplit: false,
     lib: {
       entry: resolve(__dirname, "src/design-system/index.ts"),
       name: "UnifiedDesignSystem",
@@ -16,10 +17,15 @@ export default defineConfig({
       fileName: (format) => (format === "es" ? "index.js" : "index.cjs"),
     },
     rollupOptions: {
+      treeshake: {
+        moduleSideEffects: false,
+        propertyReadSideEffects: false,
+      },
       external: [
         "react",
         "react-dom",
         "react/jsx-runtime",
+        "react/jsx-dev-runtime",
         "react-router-dom",
         "@phosphor-icons/react"
       ],
