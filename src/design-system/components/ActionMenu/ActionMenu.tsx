@@ -265,9 +265,14 @@ export default function ActionMenu({
     if (React.isValidElement(trigger)) {
       const originalOnClick = trigger.props?.onClick;
       const triggerElement = React.cloneElement(trigger, {
+        disabled: disabled || trigger.props?.disabled,
+        "aria-disabled": disabled || undefined,
         onClick: (e) => {
           e.preventDefault();
           e.stopPropagation();
+          if (disabled) {
+            return;
+          }
           // Call the trigger's original onClick if it exists
           if (originalOnClick) {
             originalOnClick(e);

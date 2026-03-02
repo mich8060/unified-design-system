@@ -14,7 +14,6 @@ const sizeClassMap = {
  * @param {boolean} checked - Whether the toggle is checked (on/off)
  * @param {string} state - Toggle state: 'off', 'on', or 'indeterminate' (default: 'off')
  * @param {string} size - Toggle size: 'large' or 'small' (default: 'large')
- * @param {boolean} bordered - Whether to show border (default: false)
  * @param {function} onChange - Callback function when toggle state changes
  * @param {boolean} disabled - Whether the toggle is disabled
  * @param {string} id - Unique identifier for the toggle input
@@ -25,7 +24,6 @@ export default function Toggle({
   checked,
   state,
   size = "large",
-  bordered = false,
   onChange,
   disabled = false,
   id,
@@ -49,7 +47,6 @@ export default function Toggle({
   const classNames = [
     BASE_CLASS,
     sizeClassMap[size] && `${BASE_CLASS}--${sizeClassMap[size]}`,
-    bordered && `${BASE_CLASS}--bordered`,
     toggleState === "indeterminate" && `${BASE_CLASS}--indeterminate`,
     disabled && `${BASE_CLASS}--disabled`,
     className,

@@ -13,8 +13,8 @@
 
   // ── Size: small ─────────────────────────────────────
   &--small {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
 
     .avatar__initials {
       font-size: 12px;
@@ -22,11 +22,24 @@
     }
 
     .avatar__status {
-      width: 8px;
-      height: 8px;
+      width: 16px;
+      height: 16px;
       border-width: 1.5px;
       bottom: 1px;
       right: 1px;
+    }
+
+    .avatar__camera-button {
+      width: 24px;
+      height: 24px;
+      border-width: var(--uds-border-width-1);
+      right: -8px;
+      bottom: -8px;
+    }
+
+    .avatar__camera-icon {
+      width: 16px;
+      height: 16px;
     }
   }
 
@@ -46,6 +59,19 @@
       border-width: 2.5px;
       bottom: 3px;
       right: 3px;
+    }
+
+    .avatar__camera-button {
+      width: 32px;
+      height: 32px;
+      border-width: var(--uds-border-width-1);
+      right: -8px;
+      bottom: -8px;
+    }
+
+    .avatar__camera-icon {
+      width: 16px;
+      height: 16px;
     }
   }
 
@@ -84,5 +110,29 @@
     background-color: var(--uds-color-accent-green-500, #23c55e);
     border: 2px solid var(--uds-border-inverse, #ffffff);
     box-sizing: border-box;
+  }
+
+  &__camera-button {
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    background-color: var(--uds-surface-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    color: var(--uds-icon-primary);
+    box-sizing: border-box;
+  }
+
+  &__camera-icon {
+    width: 16px;
+    height: 16px;
+    color: currentColor;
   }
 }

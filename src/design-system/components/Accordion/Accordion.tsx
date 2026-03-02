@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useId, useMemo, useState } from "react";
 import Icon from "../Icon/Icon";
 import "./_accordion.scss";
-import type { AccordionProps } from "./Accordion.types";
+import type { AccordionItemProps, AccordionProps } from "./Accordion.types";
+
+const toSafeIdPart = (value: string): string => {
+  const normalized = value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return normalized || "item";
+};
 
 /**
  * AccordionItem component - individual accordion item
@@ -18,9 +27,22 @@ export function AccordionItem({
   children,
   className = "",
   onToggle,
+  id,
   ...props
-}) {
+}: AccordionItemProps) {
   const [expanded, setExpanded] = useState(defaultExpanded);
+  const generatedId = useId();
+  const baseId = useMemo(() => {
+    if (typeof id === "string" && id.trim()) {
+      return toSafeIdPart(id);
+    }
+    if (typeof label === "string" && label.trim()) {
+      return toSafeIdPart(label);
+    }
+    return toSafeIdPart(generatedId);
+  }, [generatedId, id, label]);
+  const headerId = `accordion-header-${baseId}`;
+  const contentId = `accordion-content-${baseId}`;
 
   const handleToggle = () => {
     const newExpanded = !expanded;
@@ -31,10 +53,12 @@ export function AccordionItem({
   return (
     <div className={`accordion-item ${className}`} {...props}>
       <button
+        type="button"
+        id={headerId}
         className="accordion-item__header"
         onClick={handleToggle}
         aria-expanded={expanded}
-        aria-controls={`accordion-content-${props.id || label}`}
+        aria-controls={contentId}
       >
         <span className="accordion-item__label">{label}</span>
         <Icon
@@ -45,7 +69,9 @@ export function AccordionItem({
         />
       </button>
       <div
-        id={`accordion-content-${props.id || label}`}
+        id={contentId}
+        role="region"
+        aria-labelledby={headerId}
         className={`accordion-item__body ${expanded ? "accordion-item__body--expanded" : ""}`}
       >
         <div className="accordion-item__body-inner">
@@ -63,8 +89,12 @@ export function AccordionItem({
  * @param {object} props - Additional props to pass to the accordion container
  */
 export default function Accordion({ children, className = "", ...props }: AccordionProps) {
+  const { variant = "default", ...rest } = props;
+  const variantClass = variant === "secondary" ? "accordion--secondary" : "";
+  const accordionClassName = ["accordion", variantClass, className].filter(Boolean).join(" ");
+
   return (
-    <div className={`accordion ${className}`} {...props}>
+    <div className={accordionClassName} {...rest}>
       {children}
     </div>
   );

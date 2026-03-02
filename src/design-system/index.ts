@@ -10,6 +10,7 @@ export * from "./components/Calendar";
 export * from "./components/Card";
 export * from "./components/Checkbox";
 export * from "./components/Chip";
+export * from "./components/Code";
 export * from "./components/Datepicker";
 export * from "./components/Dialog";
 export * from "./components/Divider";

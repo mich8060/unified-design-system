@@ -1,5 +1,49 @@
-import { Flex, Text } from "../../design-system";
+import { Divider, Flex, Text } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
+import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
+
+const TEXT_VARIANTS = [
+  "display-128",
+  "display-96",
+  "display-72",
+  "display-60",
+  "display-48",
+  "display-36",
+  "heading-32",
+  "heading-28",
+  "heading-24",
+  "body-20",
+  "body-16",
+  "body-14",
+  "body-12",
+] as const;
+
+const TEXT_PROPS: ComponentPropRow[] = [
+  {
+    prop: "variant",
+    type: [
+      '"display-128"',
+      '"display-96"',
+      '"display-72"',
+      '"display-60"',
+      '"display-48"',
+      '"display-36"',
+      '"heading-32"',
+      '"heading-28"',
+      '"heading-24"',
+      '"body-20"',
+      '"body-16"',
+      '"body-14"',
+      '"body-12"',
+    ].join(" | "),
+    defaultValue: "-",
+    description: "Type scale variant token.",
+  },
+  { prop: "weight", type: '"regular" | "medium" | "semibold" | "bold"', defaultValue: '"regular"', description: "Font weight token." },
+  { prop: "leading", type: '"tight" | "regular" | "loose"', defaultValue: '"regular"', description: "Line-height token." },
+  { prop: "as", type: "ElementType", defaultValue: '"p"', description: "Semantic element to render." },
+  { prop: "className", type: "string", defaultValue: '""', description: "Additional classes on text root." },
+];
 
 export function TextDemoPage() {
   return (
@@ -9,27 +53,56 @@ export function TextDemoPage() {
     >
       <Flex direction="column" gap="8">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
-          Heading Styles
+          Typography Scale
         </Text>
-        <Text as="p" variant="heading-32" weight="medium" leading="regular">
-          Heading 32
-        </Text>
-        <Text as="p" variant="heading-24" weight="medium" leading="regular">
-          Heading 24
-        </Text>
+        <Flex direction="column" gap="4">
+          {TEXT_VARIANTS.map((variant) => (
+            <Text key={variant} as="p" variant={variant} weight="regular" leading="regular">
+              {variant}
+            </Text>
+          ))}
+        </Flex>
       </Flex>
+      <Divider variant="solid" />
 
       <Flex direction="column" gap="8">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
-          Body Styles
+          Weight Variants
         </Text>
-        <Text as="p" variant="body-16" weight="regular" leading="regular">
-          Body 16: Use for primary descriptive copy and supporting documentation text.
-        </Text>
-        <Text as="p" variant="body-14" weight="regular" leading="regular">
-          Body 14: Use for denser content areas like lists, compact forms, and metadata.
-        </Text>
+        <Flex direction="column" gap="4">
+          <Text as="p" variant="body-16" weight="regular" leading="regular">Regular body-16</Text>
+          <Text as="p" variant="body-16" weight="medium" leading="regular">Medium body-16</Text>
+          <Text as="p" variant="body-16" weight="semibold" leading="regular">Semibold body-16</Text>
+          <Text as="p" variant="body-16" weight="bold" leading="regular">Bold body-16</Text>
+        </Flex>
       </Flex>
+      <Divider variant="solid" />
+
+      <Flex direction="column" gap="8">
+        <Text as="h2" variant="heading-24" weight="medium" leading="regular">
+          Leading Variants
+        </Text>
+        <Flex direction="column" gap="4">
+          <Text as="p" variant="body-16" weight="regular" leading="tight">Tight leading body text sample.</Text>
+          <Text as="p" variant="body-16" weight="regular" leading="regular">Regular leading body text sample.</Text>
+          <Text as="p" variant="body-16" weight="regular" leading="loose">Loose leading body text sample.</Text>
+        </Flex>
+      </Flex>
+      <Divider variant="solid" />
+
+      <Flex direction="column" gap="8">
+        <Text as="h2" variant="heading-24" weight="medium" leading="regular">
+          Semantic Element Variants
+        </Text>
+        <Flex direction="column" gap="4">
+          <Text as="h1" variant="heading-32" weight="semibold" leading="regular">Rendered as h1</Text>
+          <Text as="h3" variant="heading-24" weight="semibold" leading="regular">Rendered as h3</Text>
+          <Text as="span" variant="body-14" weight="regular" leading="regular">Rendered as span</Text>
+        </Flex>
+      </Flex>
+
+      <Divider variant="solid" />
+      <ComponentPropsTable rows={TEXT_PROPS} />
     </DocPageLayout>
   );
 }

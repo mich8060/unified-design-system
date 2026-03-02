@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from "../../design-system";
+import { Button, Divider, Flex, Text } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -35,6 +35,37 @@ const BUTTON_PROPS: ComponentPropRow[] = [
     },
 ];
 
+const BUTTON_SIZES = ["large", "default", "small", "xsmall"] as const;
+
+const BUTTON_LAYOUT_EXAMPLES = [
+    {
+        layout: "label-only" as const,
+        label: "Label only",
+    },
+    {
+        layout: "icon-left" as const,
+        label: "Add User",
+        icon: "Plus",
+    },
+    {
+        layout: "icon-right" as const,
+        label: "Continue",
+        icon: "ArrowRight",
+    },
+    {
+        layout: "icon-only" as const,
+        label: "Delete",
+        icon: "Trash",
+        ariaLabel: "Delete item",
+    },
+    {
+        layout: "only" as const,
+        label: "More actions",
+        icon: "DotsThree",
+        ariaLabel: "More actions",
+    },
+];
+
 export function ButtonDemoPage() {
     return (
         <DocPageLayout
@@ -56,18 +87,46 @@ export function ButtonDemoPage() {
                         <Button appearance="disabled" label="Disabled" />
                     </Flex>
                 </Flex>
+                <Divider variant="solid" />
+
+                <Flex direction="column" gap="16">
+                    <Text as="h2" variant="heading-24" weight="medium" leading="regular">
+                        Layout Variants by Size
+                    </Text>
+                    {BUTTON_SIZES.map((size) => (
+                        <Flex key={size} direction="column" gap="8">
+                            <Text as="h3" variant="body-16" weight="semibold" leading="regular">
+                                {size}
+                            </Text>
+                            <Flex alignItems="center" gap="12" wrap>
+                                {BUTTON_LAYOUT_EXAMPLES.map((example) => (
+                                    <Button
+                                        key={`${size}-${example.layout}`}
+                                        size={size}
+                                        layout={example.layout}
+                                        label={example.label}
+                                        icon={example.icon}
+                                        aria-label={example.ariaLabel}
+                                    />
+                                ))}
+                            </Flex>
+                        </Flex>
+                    ))}
+                </Flex>
+                <Divider variant="solid" />
 
                 <Flex direction="column" gap="12">
                     <Text as="h2" variant="heading-24" weight="medium" leading="regular">
-                        Common Patterns
+                        Interaction States
                     </Text>
                     <Flex alignItems="center" gap="12" wrap>
-                        <Button icon="Plus" layout="icon-left" label="Add User" />
-                        <Button icon="ArrowRight" layout="icon-right" label="Continue" />
-                        <Button icon="Trash" layout="icon-only" label="Delete" aria-label="Delete item" />
+                        <Button label="Disabled prop" disabled />
+                        <Button label="Tracking Event" tracking="button-demo-click" />
+                        <Button label="Tracking Payload" tracking={{ event: "demo_click", section: "button" }} />
                     </Flex>
                 </Flex>
             </Flex>
+            <Divider variant="solid" />
             <ComponentPropsTable rows={BUTTON_PROPS} />
         </DocPageLayout>
     );

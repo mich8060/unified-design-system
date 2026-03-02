@@ -5,6 +5,17 @@
   flex-direction: column;
   width: 100%;
 
+  &--secondary {
+    background-color: var(--uds-surface-secondary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    border-radius: var(--uds-radius-4);
+    overflow: hidden;
+
+    .accordion-item__header {
+      background-color: var(--uds-surface-secondary);
+    }
+  }
+
   // ── Block: accordion-item ───────────────────────────
   &-item {
     display: flex;

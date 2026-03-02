@@ -48,6 +48,7 @@
     "sass:watch": "sass --watch src/design-system:src/design-system"
   },
   "dependencies": {
+    "prismjs": "^1.30.0",
     "prop-types": "^15.8.1"
   },
   "peerDependencies": {
@@ -70,21 +71,21 @@
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "dotenv": "^16.6.1",
     "eslint": "^9.9.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^17.3.0",
     "prettier": "^3.3.3",
-    "dotenv": "^16.6.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
     "sass": "^1.78.0",
     "storybook": "^8.6.0",
     "stylelint": "^16.9.0",
     "stylelint-config-standard-scss": "^13.1.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1",
-    "vite": "^6.4.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.2"
+    "vite": "^6.4.1"
   }
 }

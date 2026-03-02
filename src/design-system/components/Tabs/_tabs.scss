@@ -53,7 +53,11 @@
       cursor: pointer;
       position: relative;
       user-select: none;
-      transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+      transition:
+        background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+        border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+        color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+        box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
       white-space: nowrap;
       flex-shrink: 0; // Prevent tabs from shrinking
     }

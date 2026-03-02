@@ -1,0 +1,81 @@
+.ds-code {
+  display: block;
+  margin: 0;
+  padding: var(--uds-spacing-16);
+  border-radius: var(--uds-radius-8);
+  overflow-x: auto;
+  background: var(--uds-code-bg);
+  color: var(--uds-code-fg);
+  font-family:
+    ui-monospace,
+    "SFMono-Regular",
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    "Courier New",
+    monospace;
+  font-size: var(--uds-font-size-14);
+  line-height: var(--uds-line-20);
+  tab-size: 2;
+
+  code {
+    font: inherit;
+    color: inherit;
+    white-space: pre;
+  }
+
+  &--inline {
+    display: inline;
+    padding: var(--uds-spacing-2) var(--uds-spacing-6);
+    border-radius: var(--uds-radius-4);
+    font-size: var(--uds-font-size-12);
+    line-height: var(--uds-line-16);
+    white-space: pre-wrap;
+
+    code {
+      white-space: pre-wrap;
+    }
+  }
+
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: var(--uds-code-comment);
+  }
+
+  .token.punctuation {
+    color: var(--uds-code-punctuation);
+  }
+
+  .token.operator {
+    color: var(--uds-code-operator);
+  }
+
+  .token.number,
+  .token.boolean,
+  .token.constant {
+    color: var(--uds-code-number);
+  }
+
+  .token.string,
+  .token.char,
+  .token.attr-value {
+    color: var(--uds-code-string);
+  }
+
+  .token.keyword,
+  .token.selector {
+    color: var(--uds-code-keyword);
+  }
+
+  .token.function {
+    color: var(--uds-code-function);
+  }
+
+  .token.class-name,
+  .token.tag {
+    color: var(--uds-code-class);
+  }
+}

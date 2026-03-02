@@ -31,6 +31,9 @@ npm run dev
 See `/docs` for the full methodology and governance model.
 
 - [Claude Rules](docs/claude-rules.md) – conventions and constraints for AI-assisted development in this repo
+- [AI Implementation Learnings](docs/08-ai-implementation-learnings.md) – validated integration guidance and corrected component API assumptions
+- [Project Learnings Log](docs/09-project-learnings-log.md) – living, prompt-by-prompt implementation constraints and guardrails
+- [Consumer Project Setup](docs/10-consumer-project-setup.md) – copy-paste setup guide for integrating UDS in a new app
 
 ## NPM package quick start
 

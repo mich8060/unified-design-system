@@ -1,6 +1,7 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
 .uds-textarea {
+  all: unset;
   @include uds-body-16;
   width: 100%;
   padding: var(--uds-spacing-10) var(--uds-spacing-12);

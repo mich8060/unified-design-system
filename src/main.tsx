@@ -12,6 +12,9 @@ import { ToggleDemoPage } from "./pages/components/ToggleDemoPage";
 import { IconDemoPage } from "./pages/components/IconDemoPage";
 import { AccordionDemoPage } from "./pages/components/AccordionDemoPage";
 import { BrandingDemoPage } from "./pages/components/BrandingDemoPage";
+import { AvatarDemoPage } from "./pages/components/AvatarDemoPage";
+import { DividerDemoPage } from "./pages/components/DividerDemoPage";
+import { ComponentPlaceholderDemoPage } from "./pages/components/ComponentPlaceholderDemoPage";
 import { GettingStartedPage } from "./pages/docs/GettingStartedPage";
 import { DesignTokensPage } from "./pages/docs/DesignTokensPage";
 import { ThemingPage } from "./pages/docs/ThemingPage";
@@ -40,6 +43,91 @@ const BRAND_OPTIONS: Brand[] = [
     "wireframe",
 ];
 
+const COMPONENT_NAV_ITEMS = [
+    { label: "Accordion", path: "/components/accordion" },
+    { label: "ActionMenu", path: "/components/action-menu" },
+    { label: "Avatar", path: "/components/avatar" },
+    { label: "Badge", path: "/components/badge" },
+    { label: "Branding", path: "/components/branding" },
+    { label: "Breadcrumb", path: "/components/breadcrumb" },
+    { label: "Button", path: "/components/button" },
+    { label: "Calendar", path: "/components/calendar" },
+    { label: "Card", path: "/components/card" },
+    { label: "Checkbox", path: "/components/checkbox" },
+    { label: "Chip", path: "/components/chip" },
+    { label: "Datepicker", path: "/components/datepicker" },
+    { label: "Dialog", path: "/components/dialog" },
+    { label: "Divider", path: "/components/divider" },
+    { label: "DotStatus", path: "/components/dot-status" },
+    { label: "Dropdown", path: "/components/dropdown" },
+    { label: "EventCard", path: "/components/event-card" },
+    { label: "Field", path: "/components/field" },
+    { label: "FileUpload", path: "/components/file-upload" },
+    { label: "Flex", path: "/components/flex" },
+    { label: "Icon", path: "/components/icon" },
+    { label: "ImageAspect", path: "/components/image-aspect" },
+    { label: "Key", path: "/components/key" },
+    { label: "Menu", path: "/components/menu" },
+    { label: "MicroCalendar", path: "/components/micro-calendar" },
+    { label: "Modal", path: "/components/modal" },
+    { label: "Pagination", path: "/components/pagination" },
+    { label: "PillToggle", path: "/components/pill-toggle" },
+    { label: "Playground", path: "/components/playground" },
+    { label: "ProgressCircle", path: "/components/progress-circle" },
+    { label: "ProgressIndicator", path: "/components/progress-indicator" },
+    { label: "Radio", path: "/components/radio" },
+    { label: "Slider", path: "/components/slider" },
+    { label: "Status", path: "/components/status" },
+    { label: "Steps", path: "/components/steps" },
+    { label: "Table", path: "/components/table" },
+    { label: "Tabs", path: "/components/tabs" },
+    { label: "Tag", path: "/components/tag" },
+    { label: "Text", path: "/components/text" },
+    { label: "TextInput", path: "/components/text-input" },
+    { label: "Textarea", path: "/components/textarea" },
+    { label: "Toast", path: "/components/toast" },
+    { label: "Toggle", path: "/components/toggle" },
+    { label: "Tooltip", path: "/components/tooltip" },
+];
+
+const PLACEHOLDER_COMPONENT_PAGES = [
+    { componentName: "ActionMenu", path: "/components/action-menu" },
+    { componentName: "Badge", path: "/components/badge" },
+    { componentName: "Breadcrumb", path: "/components/breadcrumb" },
+    { componentName: "Calendar", path: "/components/calendar" },
+    { componentName: "Card", path: "/components/card" },
+    { componentName: "Checkbox", path: "/components/checkbox" },
+    { componentName: "Chip", path: "/components/chip" },
+    { componentName: "Datepicker", path: "/components/datepicker" },
+    { componentName: "Dialog", path: "/components/dialog" },
+    { componentName: "DotStatus", path: "/components/dot-status" },
+    { componentName: "Dropdown", path: "/components/dropdown" },
+    { componentName: "EventCard", path: "/components/event-card" },
+    { componentName: "Field", path: "/components/field" },
+    { componentName: "FileUpload", path: "/components/file-upload" },
+    { componentName: "Flex", path: "/components/flex" },
+    { componentName: "ImageAspect", path: "/components/image-aspect" },
+    { componentName: "Key", path: "/components/key" },
+    { componentName: "Menu", path: "/components/menu" },
+    { componentName: "MicroCalendar", path: "/components/micro-calendar" },
+    { componentName: "Modal", path: "/components/modal" },
+    { componentName: "Pagination", path: "/components/pagination" },
+    { componentName: "PillToggle", path: "/components/pill-toggle" },
+    { componentName: "Playground", path: "/components/playground" },
+    { componentName: "ProgressCircle", path: "/components/progress-circle" },
+    { componentName: "ProgressIndicator", path: "/components/progress-indicator" },
+    { componentName: "Radio", path: "/components/radio" },
+    { componentName: "Slider", path: "/components/slider" },
+    { componentName: "Status", path: "/components/status" },
+    { componentName: "Steps", path: "/components/steps" },
+    { componentName: "Table", path: "/components/table" },
+    { componentName: "Tabs", path: "/components/tabs" },
+    { componentName: "Tag", path: "/components/tag" },
+    { componentName: "Textarea", path: "/components/textarea" },
+    { componentName: "Toast", path: "/components/toast" },
+    { componentName: "Tooltip", path: "/components/tooltip" },
+];
+
 const NAV_ITEMS = [
     {
         label: "Sample Item",
@@ -50,24 +138,16 @@ const NAV_ITEMS = [
         label: "Getting Started",
         icon: "Layout",
         children: [
-            { label: "Overview", path: "/getting-started" },
             { label: "Design Tokens", path: "/docs/tokens" },
-            { label: "Theming", path: "/docs/theming" },
             { label: "Layout Conventions", path: "/docs/layout-conventions" },
+            { label: "Overview", path: "/getting-started" },
+            { label: "Theming", path: "/docs/theming" },
         ],
     },
     {
         label: "Components",
         icon: "SquaresFour",
-        children: [
-            { label: "Button", path: "/components/button" },
-            { label: "Text", path: "/components/text" },
-            { label: "TextInput", path: "/components/text-input" },
-            { label: "Toggle", path: "/components/toggle" },
-            { label: "Icon", path: "/components/icon" },
-            { label: "Accordion", path: "/components/accordion" },
-            { label: "Branding", path: "/components/branding" },
-        ],
+        children: COMPONENT_NAV_ITEMS,
     },
 ];
 
@@ -112,6 +192,7 @@ function App() {
                     activeMode={theme}
                     onModeChange={handleModeChange}
                     showBrandSwitcher
+                    showSearch={false}
                     showModeToggle
                     userName="Emily Brown"
                     userInitials="EB"
@@ -121,21 +202,30 @@ function App() {
                 <AppShell.Main>
                     <Routes>
                         <Route path="/" element={<Navigate to="/getting-started" replace />} />
-                        <Route path="/getting-started" element={<GettingStartedPage />} />
-                        <Route path="/sample-item" element={<SampleItemPage />} />
                         <Route path="/docs/tokens" element={<DesignTokensPage />} />
-                        <Route path="/docs/theming" element={<ThemingPage />} />
                         <Route
                             path="/docs/layout-conventions"
                             element={<LayoutConventionsPage />}
                         />
+                        <Route path="/getting-started" element={<GettingStartedPage />} />
+                        <Route path="/docs/theming" element={<ThemingPage />} />
+                        <Route path="/sample-item" element={<SampleItemPage />} />
+                        <Route path="/components/accordion" element={<AccordionDemoPage />} />
+                        <Route path="/components/avatar" element={<AvatarDemoPage />} />
+                        <Route path="/components/branding" element={<BrandingDemoPage />} />
                         <Route path="/components/button" element={<ButtonDemoPage />} />
+                        <Route path="/components/divider" element={<DividerDemoPage />} />
+                        <Route path="/components/icon" element={<IconDemoPage />} />
                         <Route path="/components/text" element={<TextDemoPage />} />
                         <Route path="/components/text-input" element={<TextInputDemoPage />} />
                         <Route path="/components/toggle" element={<ToggleDemoPage />} />
-                        <Route path="/components/icon" element={<IconDemoPage />} />
-                        <Route path="/components/accordion" element={<AccordionDemoPage />} />
-                        <Route path="/components/branding" element={<BrandingDemoPage />} />
+                        {PLACEHOLDER_COMPONENT_PAGES.map(({ componentName, path }) => (
+                            <Route
+                                key={path}
+                                path={path}
+                                element={<ComponentPlaceholderDemoPage componentName={componentName} />}
+                            />
+                        ))}
                     </Routes>
                 </AppShell.Main>
             </AppShell.Content>

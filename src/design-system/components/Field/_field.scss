@@ -37,7 +37,11 @@
     color: var(--uds-text-secondary);
     cursor: pointer;
     flex-shrink: 0;
-    transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+    transition:
+      background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+      border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+      color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+      box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
 
     &:hover {
       background-color: var(--uds-surface-quaternary);

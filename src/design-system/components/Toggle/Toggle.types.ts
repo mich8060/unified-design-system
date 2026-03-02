@@ -4,7 +4,6 @@ export interface ToggleProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
   checked?: boolean;
   state?: "off" | "on" | "indeterminate";
   size?: "large" | "small";
-  bordered?: boolean;
   onChange?: (checked: boolean) => void;
   disabled?: boolean;
   id?: string;

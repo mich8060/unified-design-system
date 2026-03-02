@@ -117,9 +117,17 @@
         }
 
         &--disabled {
-            opacity: 0.5;
+            background-color: var(--uds-surface-disabled);
+            color: var(--uds-text-secondary);
             cursor: not-allowed;
             pointer-events: none;
+
+            .uds-action-menu__item-icon,
+            .uds-action-menu__item-label,
+            .uds-action-menu__item-shortcut,
+            .uds-action-menu__item-arrow {
+                color: var(--uds-text-secondary);
+            }
         }
 
         &--active {

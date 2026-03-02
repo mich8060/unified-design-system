@@ -35,7 +35,11 @@
     border-radius: var(--uds-radius-4);
     color: var(--uds-text-primary);
     cursor: pointer;
-    transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+    transition:
+      background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+      border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+      color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+      box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
     box-sizing: border-box;
     text-align: left;
 

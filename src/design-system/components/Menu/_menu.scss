@@ -256,7 +256,7 @@
             display: flex;
             flex-direction: column;
             gap: var(--uds-gap-0);
-            padding-left: var(--uds-spacing-24);
+            padding-left: 29px;
 
             &--open {
                 overflow: visible;
@@ -270,7 +270,7 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            padding: var(--uds-spacing-8) var(--uds-spacing-18);
+            padding: var(--uds-spacing-8) var(--uds-spacing-24);
             color: var(--uds-text-primary);
             white-space: nowrap;
             border-left: var(--uds-border-width-1) solid var(--uds-border-primary);

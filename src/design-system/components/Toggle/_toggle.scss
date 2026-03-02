@@ -2,6 +2,7 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-toggle {
+    all: unset;
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -53,10 +54,6 @@
         }
     }
 
-    &--bordered &__slider {
-        border: var(--uds-border-width-1) solid var(--uds-border-brand-primary, #3b82f6);
-    }
-
     &__thumb {
         position: absolute;
         content: "";
@@ -75,10 +72,6 @@
         border: none;
     }
 
-    &--bordered &__thumb {
-        border: var(--uds-border-width-1) solid var(--uds-border-brand-primary, #3b82f6);
-    }
-
     &__dash {
         position: absolute;
         top: 50%;
@@ -89,10 +82,6 @@
         background-color: var(--uds-surface-primary, #ffffff);
         border-radius: 1px;
         border: none;
-    }
-
-    &--bordered &__dash {
-        border: var(--uds-border-width-1) solid var(--uds-border-brand-primary, #3b82f6);
     }
 
     // Small size adjustments
@@ -110,10 +99,6 @@
     // Off state (default)
     &__input:not(:checked)+&__slider {
         background-color: var(--uds-color-neutrals-400);
-    }
-
-    &--bordered &__input:not(:checked)+&__slider {
-        background-color: var(--uds-surface-primary, #ffffff);
     }
 
     // On state

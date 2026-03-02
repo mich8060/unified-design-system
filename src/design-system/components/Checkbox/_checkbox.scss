@@ -1,6 +1,7 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
 .checkbox {
+  all: unset;
   position: relative;
   display: inline-flex;
   align-items: center;

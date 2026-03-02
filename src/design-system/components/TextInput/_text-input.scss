@@ -3,6 +3,7 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-input {
+  all: unset;
   &-field {
     display: flex;
     flex-direction: column;
@@ -32,7 +33,11 @@
   border-radius: var(--uds-radius-4);
   background-color: var(--uds-input-surface);
   color: var(--uds-text-primary);
-  transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+  transition:
+    background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+    border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+    color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+    box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
   box-sizing: border-box;
   height: 44px;
 
