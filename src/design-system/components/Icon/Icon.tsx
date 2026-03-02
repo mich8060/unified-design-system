@@ -3,7 +3,7 @@ import * as PhosphorIcons from "@phosphor-icons/react";
 import "./_icon.scss";
 import type { IconProps } from "./Icon.types";
 
-type PhosphorIconComponent = React.ComponentType<{
+type PhosphorIconComponent = React.ElementType<{
   size?: number;
   weight?: string;
   className?: string;
@@ -11,6 +11,9 @@ type PhosphorIconComponent = React.ComponentType<{
 
 const warnedInvalidIcons = new Set<string>();
 const __DEV__ = import.meta.env.DEV;
+
+const isRenderableIcon = (value: unknown): value is PhosphorIconComponent =>
+  typeof value === "function" || (typeof value === "object" && value !== null);
 
 const toPascalCase = (value: string): string =>
   value
@@ -20,10 +23,10 @@ const toPascalCase = (value: string): string =>
 
 const resolveIconComponent = (iconName: string): PhosphorIconComponent | null => {
   const candidate = PhosphorIcons[iconName as keyof typeof PhosphorIcons];
-  if (typeof candidate === "function") return candidate as PhosphorIconComponent;
+  if (isRenderableIcon(candidate)) return candidate as PhosphorIconComponent;
 
   const fallbackCandidate = PhosphorIcons[`${iconName}Icon` as keyof typeof PhosphorIcons];
-  if (typeof fallbackCandidate === "function") {
+  if (isRenderableIcon(fallbackCandidate)) {
     return fallbackCandidate as PhosphorIconComponent;
   }
 

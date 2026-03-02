@@ -64,16 +64,10 @@
 
         .uds-menu_brands__dropdown {
             opacity: 1;
-            position: relative;
-            top: auto;
-            left: auto;
-            right: auto;
-            width: 100%;
-            max-width: 100%;
             pointer-events: auto;
         }
         .uds-menu_brands__button {
-            opacity: 0;
+            display: none;
         }
 
         .uds-menu_mode__controls {
@@ -353,21 +347,25 @@
         align-items: stretch;
         align-self: stretch;
         position: relative;
+        box-sizing: border-box;
         padding: var(--uds-spacing-8);
-        overflow: hidden;
+        height: calc(var(--uds-spacing-8) * 2 + 36px);
+        overflow: visible;
 
         &__button {
+            display: inline-flex;
+            min-height: 36px;
             opacity: 1;
             transition: opacity 0.3s ease;
             align-self: center;
         }
 
         &__dropdown {
-            width: 100%;
             position: absolute;
             top: var(--uds-spacing-8);
             left: var(--uds-spacing-8);
             right: var(--uds-spacing-8);
+            width: auto;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
