@@ -1,7 +1,7 @@
 {
   "name": "@mich8060/unified-design-system",
   "private": false,
-  "version": "0.2.12",
+  "version": "0.2.13",
   "type": "module",
   "license": "MIT",
   "publishConfig": {
@@ -26,7 +26,12 @@
       "require": "./dist/index.cjs",
       "default": "./dist/index.js"
     },
-    "./ai": "./dist/ai/index.js",
+    "./ai": {
+      "types": "./dist/design-system/ai/index.d.ts",
+      "import": "./dist/ai/index.js",
+      "require": "./dist/ai/index.cjs",
+      "default": "./dist/ai/index.js"
+    },
     "./ai/schema": "./dist/ai/schemas/ai-output.schema.json",
     "./Accordion": {
       "types": "./dist/design-system/components/Accordion/Accordion.d.ts",
@@ -315,12 +320,6 @@
       "import": "./dist/components/Tooltip/Tooltip.js",
       "require": "./dist/components/Tooltip/Tooltip.cjs",
       "default": "./dist/components/Tooltip/Tooltip.js"
-    },
-    "./ai": {
-      "types": "./dist/design-system/ai/index.d.ts",
-      "import": "./dist/ai/index.js",
-      "require": "./dist/ai/index.cjs",
-      "default": "./dist/ai/index.js"
     },
     "./ai/manifest": {
       "types": "./dist/design-system/ai/manifest/index.d.ts",
