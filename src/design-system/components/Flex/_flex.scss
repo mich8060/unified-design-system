@@ -15,11 +15,6 @@
 
 .ds-flex--direction-row {
   flex-direction: row;
-
-  > * {
-    flex: 1 1 0;
-    min-width: 0;
-  }
 }
 
 .ds-flex--direction-column {

@@ -9,5 +9,8 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "include": ["src/design-system/index.ts"]
+  "include": [
+    "src/design-system/index.ts",
+    "src/design-system/ai/index.ts"
+  ]
 }

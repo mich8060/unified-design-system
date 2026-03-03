@@ -2,259 +2,255 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-tag {
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  border: var(--uds-border-width-1) solid transparent;
-  box-sizing: border-box;
-  min-width: 24px;
-  white-space: nowrap;
-  width: fit-content;
-  height: fit-content;
-  user-select: none;
-
-  // When used as button, remove default button styles
-  &:is(button) {
-    background: none;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-  }
-
-  // ── Size: Compact (16px tall) ──────────────────────────────────────
-  &--compact {
-    font-size: 10px;
-    font-weight: var(--uds-font-weight-semibold);
-    line-height: 12px;
-    padding: var(--uds-spacing-2) var(--uds-spacing-4);
-  }
-
-  // ── Size: Default (24px tall) ──────────────────────────────────────
-  &--default {
-    font-size: var(--uds-font-size-12);
-    font-weight: var(--uds-font-weight-semibold);
-    line-height: var(--uds-line-16);
-    padding: var(--uds-spacing-4) var(--uds-spacing-8);
-  }
-
-  // ── Icon-left: compact gets slightly wider outer padding ───────────
-  &--icon-left.uds-tag--compact {
-    padding-inline: var(--uds-spacing-6);
-  }
-
-  // ── Rounded variant ────────────────────────────────────────────────
-  &--rounded {
-    border-radius: 9999px;
-  }
-
-  &:not(&--rounded) {
-    border-radius: 0;
-  }
-
-  // ── Icon ───────────────────────────────────────────────────────────
-  &__icon {
-    display: inline-flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    line-height: 0;
-
-    svg {
-      width: 10px;
-      height: 10px;
-    }
-
-    .uds-tag--default & {
-      svg {
-        width: 12px;
-        height: 12px;
-      }
-    }
-  }
-
-  // ── Label ──────────────────────────────────────────────────────────
-  &__label {
-    display: inline-block;
+    gap: 0;
+    border: var(--uds-border-width-1) solid transparent;
+    box-sizing: border-box;
+    min-width: 24px;
     white-space: nowrap;
-    text-align: center;
-    padding-inline: var(--uds-spacing-4);
-  }
+    width: fit-content;
+    height: fit-content;
+    user-select: none;
 
-  // Icon-left compact: tighter inner label padding
-  &--icon-left.uds-tag--compact &__label {
-    padding-inline: var(--uds-spacing-2);
-  }
+    // When used as button, remove default button styles
+    &:is(button) {
+        background: none;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+    }
 
-  // ── Color variants (non-solid) ─────────────────────────────────────
-  &--transparent:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-text-primary);
-  }
+    // ── Size: Compact (16px tall) ──────────────────────────────────────
+    &--compact {
+        @include uds-body-10-semibold;
+        padding: var(--uds-spacing-2) var(--uds-spacing-4);
+    }
 
-  &--neutral:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-text-primary);
-  }
+    // ── Size: Default (24px tall) ──────────────────────────────────────
+    &--default {
+        @include uds-body-12-semibold;
+        padding: var(--uds-spacing-4) var(--uds-spacing-8);
+    }
 
-  &--red:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-red-600);
-  }
+    // ── Icon-left: compact gets slightly wider outer padding ───────────
+    &--icon-left.uds-tag--compact {
+        padding-inline: var(--uds-spacing-6);
+    }
 
-  &--orange:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-orange-600);
-  }
+    // ── Rounded variant ────────────────────────────────────────────────
+    &--rounded {
+        border-radius: 9999px;
+    }
 
-  &--yellow:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-yellow-600);
-  }
+    &:not(&--rounded) {
+        border-radius: 0;
+    }
 
-  &--emerald:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-emerald-600);
-  }
+    // ── Icon ───────────────────────────────────────────────────────────
+    &__icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        line-height: 0;
 
-  &--green:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-green-600);
-  }
+        svg {
+            width: 10px;
+            height: 10px;
+        }
 
-  &--sky:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-sky-600);
-  }
+        .uds-tag--default & {
+            svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
 
-  &--cyan:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-cyan-600);
-  }
+    // ── Label ──────────────────────────────────────────────────────────
+    &__label {
+        display: inline-block;
+        white-space: nowrap;
+        text-align: center;
+        padding-inline: var(--uds-spacing-4);
+    }
 
-  &--blue:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-blue-600);
-  }
+    // Icon-left compact: tighter inner label padding
+    &--icon-left.uds-tag--compact &__label {
+        padding-inline: var(--uds-spacing-2);
+    }
 
-  &--indigo:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-indigo-600);
-  }
+    // ── Color variants (non-solid) ─────────────────────────────────────
+    &--transparent:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-text-primary);
+    }
 
-  &--purple:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-purple-600);
-  }
+    &--neutral:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-text-primary);
+    }
 
-  &--fuchsia:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-fuchsia-600);
-  }
+    &--red:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-red-600);
+    }
 
-  &--magenta:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-color-accent-magenta-600);
-  }
+    &--orange:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-orange-600);
+    }
 
-  &--inverse:not(&--solid) {
-    background-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--yellow:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-yellow-600);
+    }
 
-  // ── Color variants (solid) ─────────────────────────────────────────
-  &--transparent.uds-tag--solid {
-    background-color: var(--uds-surface-primary);
-    border-color: var(--uds-border-primary);
-    color: var(--uds-text-primary);
-  }
+    &--emerald:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-emerald-600);
+    }
 
-  &--neutral.uds-tag--solid {
-    background-color: var(--uds-surface-primary);
-    border-color: var(--uds-border-primary);
-    color: var(--uds-text-primary);
-  }
+    &--green:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-green-600);
+    }
 
-  &--red.uds-tag--solid {
-    background-color: var(--uds-color-accent-red-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--sky:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-sky-600);
+    }
 
-  &--orange.uds-tag--solid {
-    background-color: var(--uds-color-accent-orange-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--cyan:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-cyan-600);
+    }
 
-  &--yellow.uds-tag--solid {
-    background-color: var(--uds-color-accent-yellow-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--blue:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-blue-600);
+    }
 
-  &--emerald.uds-tag--solid {
-    background-color: var(--uds-color-accent-emerald-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--indigo:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-indigo-600);
+    }
 
-  &--green.uds-tag--solid {
-    background-color: var(--uds-color-accent-green-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--purple:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-purple-600);
+    }
 
-  &--sky.uds-tag--solid {
-    background-color: var(--uds-color-accent-sky-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--fuchsia:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-fuchsia-600);
+    }
 
-  &--cyan.uds-tag--solid {
-    background-color: var(--uds-color-accent-cyan-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--magenta:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-color-accent-magenta-600);
+    }
 
-  &--blue.uds-tag--solid {
-    background-color: var(--uds-color-accent-blue-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--inverse:not(&--solid) {
+        background-color: transparent;
+        color: var(--uds-text-inverse);
+    }
 
-  &--indigo.uds-tag--solid {
-    background-color: var(--uds-color-accent-indigo-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    // ── Color variants (solid) ─────────────────────────────────────────
+    &--transparent.uds-tag--solid {
+        background-color: var(--uds-surface-primary);
+        border-color: var(--uds-border-primary);
+        color: var(--uds-text-primary);
+    }
 
-  &--purple.uds-tag--solid {
-    background-color: var(--uds-color-accent-purple-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--neutral.uds-tag--solid {
+        background-color: var(--uds-surface-primary);
+        border-color: var(--uds-border-primary);
+        color: var(--uds-text-primary);
+    }
 
-  &--fuchsia.uds-tag--solid {
-    background-color: var(--uds-color-accent-fuchsia-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--red.uds-tag--solid {
+        background-color: var(--uds-color-accent-red-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
 
-  &--magenta.uds-tag--solid {
-    background-color: var(--uds-color-accent-magenta-600);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--orange.uds-tag--solid {
+        background-color: var(--uds-color-accent-orange-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
 
-  &--inverse.uds-tag--solid {
-    background-color: var(--uds-surface-inverse);
-    border-color: transparent;
-    color: var(--uds-text-inverse);
-  }
+    &--yellow.uds-tag--solid {
+        background-color: var(--uds-color-accent-yellow-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
 
-  // ── Focus state ────────────────────────────────────────────────────
-  &:focus-visible {
-    outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
-    outline-offset: var(--uds-focus-ring-offset);
-  }
+    &--emerald.uds-tag--solid {
+        background-color: var(--uds-color-accent-emerald-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
+
+    &--green.uds-tag--solid {
+        background-color: var(--uds-color-accent-green-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
+
+    &--sky.uds-tag--solid {
+        background-color: var(--uds-color-accent-sky-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
+
+    &--cyan.uds-tag--solid {
+        background-color: var(--uds-color-accent-cyan-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
+
+    &--blue.uds-tag--solid {
+        background-color: var(--uds-color-accent-blue-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
+
+    &--indigo.uds-tag--solid {
+        background-color: var(--uds-color-accent-indigo-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
+
+    &--purple.uds-tag--solid {
+        background-color: var(--uds-color-accent-purple-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
+
+    &--fuchsia.uds-tag--solid {
+        background-color: var(--uds-color-accent-fuchsia-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
+
+    &--magenta.uds-tag--solid {
+        background-color: var(--uds-color-accent-magenta-600);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
+
+    &--inverse.uds-tag--solid {
+        background-color: var(--uds-surface-inverse);
+        border-color: transparent;
+        color: var(--uds-text-inverse);
+    }
+
+    // ── Focus state ────────────────────────────────────────────────────
+    &:focus-visible {
+        outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
+        outline-offset: var(--uds-focus-ring-offset);
+    }
 }

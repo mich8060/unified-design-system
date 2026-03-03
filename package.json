@@ -1,7 +1,7 @@
 {
   "name": "@mich8060/unified-design-system",
   "private": false,
-  "version": "0.2.10",
+  "version": "0.2.12",
   "type": "module",
   "license": "MIT",
   "publishConfig": {
@@ -26,6 +26,8 @@
       "require": "./dist/index.cjs",
       "default": "./dist/index.js"
     },
+    "./ai": "./dist/ai/index.js",
+    "./ai/schema": "./dist/ai/schemas/ai-output.schema.json",
     "./Accordion": {
       "types": "./dist/design-system/components/Accordion/Accordion.d.ts",
       "import": "./dist/components/Accordion/Accordion.js",
@@ -314,6 +316,54 @@
       "require": "./dist/components/Tooltip/Tooltip.cjs",
       "default": "./dist/components/Tooltip/Tooltip.js"
     },
+    "./ai": {
+      "types": "./dist/design-system/ai/index.d.ts",
+      "import": "./dist/ai/index.js",
+      "require": "./dist/ai/index.cjs",
+      "default": "./dist/ai/index.js"
+    },
+    "./ai/manifest": {
+      "types": "./dist/design-system/ai/manifest/index.d.ts",
+      "import": "./dist/ai/manifest/index.js",
+      "require": "./dist/ai/manifest/index.cjs",
+      "default": "./dist/ai/manifest/index.js"
+    },
+    "./ai/validate": {
+      "types": "./dist/design-system/ai/validation/validateAIOutput.d.ts",
+      "import": "./dist/ai/validation/validateAIOutput.js",
+      "require": "./dist/ai/validation/validateAIOutput.cjs",
+      "default": "./dist/ai/validation/validateAIOutput.js"
+    },
+    "./ai/policy": {
+      "types": "./dist/design-system/ai/policies/policy.engine.d.ts",
+      "import": "./dist/ai/policies/policy.engine.js",
+      "require": "./dist/ai/policies/policy.engine.cjs",
+      "default": "./dist/ai/policies/policy.engine.js"
+    },
+    "./ai/audit": {
+      "types": "./dist/design-system/ai/audit/auditLogger.d.ts",
+      "import": "./dist/ai/audit/auditLogger.js",
+      "require": "./dist/ai/audit/auditLogger.cjs",
+      "default": "./dist/ai/audit/auditLogger.js"
+    },
+    "./ai/validation": {
+      "types": "./dist/design-system/ai/validation/index.d.ts",
+      "import": "./dist/ai/validation/index.js",
+      "require": "./dist/ai/validation/index.cjs",
+      "default": "./dist/ai/validation/index.js"
+    },
+    "./ai/examples": {
+      "types": "./dist/design-system/ai/examples/index.d.ts",
+      "import": "./dist/ai/examples/index.js",
+      "require": "./dist/ai/examples/index.cjs",
+      "default": "./dist/ai/examples/index.js"
+    },
+    "./ai/*": {
+      "types": "./dist/design-system/ai/*.d.ts",
+      "import": "./dist/ai/*.js",
+      "require": "./dist/ai/*.cjs",
+      "default": "./dist/ai/*.js"
+    },
     "./styles.css": "./dist/style.css",
     "./tokens": {
       "types": "./dist/tokens/index.d.ts",
@@ -356,6 +406,11 @@
     "build": "vite build --configLoader native && npm run build:types && npm run build:tokens",
     "build:types": "tsc -p tsconfig.build.json",
     "build:tokens": "tsc -p tsconfig.tokens.json && node --experimental-specifier-resolution=node scripts/generate-tokens-css.mjs",
+    "ai:validate": "node scripts/validate-ai-output.mjs",
+    "ai:enforce": "node scripts/enforce-ai-usage.mjs",
+    "ai:token-diff": "node scripts/diff-token-usage.mjs",
+    "ai:generate-ui": "node --experimental-strip-types scripts/ai/generate-ui.ts",
+    "ci:ai": "npm run ai:validate && npm run ai:enforce && npm run ai:token-diff",
     "size:check": "node scripts/check-bundle-size.mjs",
     "ci:bundle": "npm run build && npm run size:check",
     "preview": "vite preview --configLoader native",
@@ -365,7 +420,8 @@
     "generate:component": "node scripts/create-component.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "sass:watch": "sass --watch src/design-system:src/design-system"
+    "sass:watch": "sass --watch src/design-system:src/design-system",
+    "prepare": "husky install"
   },
   "dependencies": {
     "prismjs": "^1.30.0"
@@ -405,6 +461,7 @@
     "stylelint-config-standard-scss": "^13.1.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1",
-    "vite": "^6.4.1"
+    "vite": "^6.4.1",
+    "husky": "^8.0.0"
   }
 }

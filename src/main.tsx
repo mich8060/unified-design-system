@@ -15,6 +15,7 @@ import { ActionMenuDemoPage } from "./pages/components/ActionMenuDemoPage";
 import { BrandingDemoPage } from "./pages/components/BrandingDemoPage";
 import { AvatarDemoPage } from "./pages/components/AvatarDemoPage";
 import { BadgeDemoPage } from "./pages/components/BadgeDemoPage";
+import { CheckboxDemoPage } from "./pages/components/CheckboxDemoPage";
 import { DividerDemoPage } from "./pages/components/DividerDemoPage";
 import { AppShellDemoPage } from "./pages/components/AppShellDemoPage";
 import { ThemeDemoPage } from "./pages/components/ThemeDemoPage";
@@ -24,6 +25,7 @@ import { GettingStartedPage } from "./pages/docs/GettingStartedPage";
 import { DesignTokensPage } from "./pages/docs/DesignTokensPage";
 import { ThemingPage } from "./pages/docs/ThemingPage";
 import { LayoutConventionsPage } from "./pages/docs/LayoutConventionsPage";
+import { FoundationsPage } from "./pages/docs/FoundationsPage";
 import { SampleItemPage } from "./pages/docs/SampleItemPage";
 
 type Brand =
@@ -104,7 +106,6 @@ const PLACEHOLDER_COMPONENT_PAGES = [
     { componentName: "Calendar", path: "/components/calendar" },
     { componentName: "Card", path: "/components/card" },
     { componentName: "Container", path: "/components/container" },
-    { componentName: "Checkbox", path: "/components/checkbox" },
     { componentName: "Chip", path: "/components/chip" },
     { componentName: "Datepicker", path: "/components/datepicker" },
     { componentName: "Dialog", path: "/components/dialog" },
@@ -151,6 +152,11 @@ const NAV_ITEMS = [
             { label: "Overview", path: "/getting-started" },
             { label: "Theming", path: "/docs/theming" },
         ],
+    },
+    {
+        label: "Foundations",
+        icon: "Palette",
+        children: [{ label: "Colors & Primitives", path: "/foundations/colors-primitives" }],
     },
     {
         label: "Components",
@@ -217,6 +223,7 @@ function App() {
                         />
                         <Route path="/getting-started" element={<GettingStartedPage />} />
                         <Route path="/docs/theming" element={<ThemingPage />} />
+                        <Route path="/foundations/colors-primitives" element={<FoundationsPage />} />
                         <Route path="/sample-item" element={<SampleItemPage />} />
                         <Route path="/components/accordion" element={<AccordionDemoPage />} />
                         <Route path="/components/action-menu" element={<ActionMenuDemoPage />} />
@@ -225,6 +232,7 @@ function App() {
                         <Route path="/components/badge" element={<BadgeDemoPage />} />
                         <Route path="/components/branding" element={<BrandingDemoPage />} />
                         <Route path="/components/button" element={<ButtonDemoPage />} />
+                        <Route path="/components/checkbox" element={<CheckboxDemoPage />} />
                         <Route path="/components/divider" element={<DividerDemoPage />} />
                         <Route path="/components/icon" element={<IconDemoPage />} />
                         <Route path="/components/text" element={<TextDemoPage />} />

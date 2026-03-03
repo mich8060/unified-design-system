@@ -1,0 +1,60 @@
+import type { LayoutManifestRules } from "./types";
+
+export const LayoutRules: LayoutManifestRules = {
+  spacingSystem: {
+    unit: 4,
+    allowedTokens: [
+      "--uds-spacing-0",
+      "--uds-spacing-2",
+      "--uds-spacing-4",
+      "--uds-spacing-6",
+      "--uds-spacing-8",
+      "--uds-spacing-10",
+      "--uds-spacing-12",
+      "--uds-spacing-14",
+      "--uds-spacing-16",
+      "--uds-spacing-18",
+      "--uds-spacing-24",
+      "--uds-spacing-32",
+      "--uds-spacing-36",
+      "--uds-spacing-40",
+      "--uds-spacing-48",
+      "--uds-spacing-64",
+      "--uds-spacing-80",
+    ],
+    defaultToken: "--uds-spacing-16",
+  },
+  verticalRhythm: {
+    sectionGapToken: "--uds-spacing-24",
+    contentGapToken: "--uds-spacing-16",
+    compactGapToken: "--uds-spacing-8",
+  },
+  allowedComposition: {
+    AppShell: ["Menu", "Container", "Flex", "Card", "Text", "Button"],
+    Container: ["Flex", "Card", "Table", "Text", "Button", "Field", "Divider", "Tag"],
+    Field: ["TextInput", "Input", "Dropdown", "Datepicker", "Textarea", "Checkbox", "Radio", "Toggle", "Slider", "PillToggle", "FileUpload"],
+    Modal: ["Text", "Button", "Divider", "Field", "TextInput", "Dropdown", "Datepicker", "Textarea", "Tag"],
+    Card: ["Text", "Flex", "Button", "Tag", "Status", "Table", "Divider", "Avatar", "ActionMenu"],
+    Table: ["Tag", "Status", "Avatar", "Button", "ActionMenu", "ProgressIndicator", "DotStatus"],
+    Tabs: ["Text", "Tag", "Button", "Card", "Table", "Field"],
+    Menu: ["ActionMenu", "Dropdown", "Toggle", "Text", "Icon"],
+  },
+  disallowedNesting: [
+    { parent: "Modal", child: "Modal" },
+    { parent: "Dialog", child: "Dialog" },
+    { parent: "Toast", child: "Modal" },
+    { parent: "Toast", child: "Dialog" },
+    { parent: "Table", child: "Table" },
+    { parent: "Button", child: "Button" },
+  ],
+  maxWidth: {
+    content: "1280px",
+    form: "640px",
+    dialog: "720px",
+  },
+  actionPlacement: {
+    primaryActionPosition: "end",
+    secondaryActionPosition: "start",
+    maxPrimaryActionsPerSection: 1,
+  },
+};

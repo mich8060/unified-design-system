@@ -15,6 +15,8 @@ export { motionTokens } from "./motion.js";
 export { generateRuntimeTokensCss } from "./generateCss.js";
 export type { CssVarMap, RuntimeTokens, TokenCategory, TypographyCategory } from "./types.js";
 
+export const tokenVersion = "1.0.0";
+
 export const runtimeTokens: RuntimeTokens = {
   color: colorCategory,
   spacing: spacingCategory,

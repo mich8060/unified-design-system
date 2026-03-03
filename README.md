@@ -37,6 +37,8 @@ See `/docs` for the full methodology and governance model.
 - [Runtime Tokens Migration](docs/11-runtime-tokens-migration.md) – typed token exports and generated token CSS usage
 - [Theming Engine API](docs/12-theming-engine.md) – createTheme/createBrand/ThemeProvider architecture and usage
 - [Theming Platform API](docs/13-theming-platform-api.md) – formal public theming layer, architecture, and usage
+- [AI-Native Architecture](docs/15-ai-native-architecture.md) – machine-readable metadata, patterns, and AI export strategy
+- [AI CI Enforcement](docs/16-ai-ci-enforcement.md) – governance pipeline and merge-blocking validation flow
 
 ## NPM package quick start
 
@@ -59,6 +61,12 @@ Runtime token primitives are also available as typed exports:
 import { spacingTokens } from "@mich8060/unified-design-system/tokens/spacing";
 import { runtimeTokens } from "@mich8060/unified-design-system/tokens";
 import "@mich8060/unified-design-system/tokens.css";
+```
+
+AI metadata is available from a dedicated subpath:
+
+```ts
+import { UDS_AI_MANIFEST, UDS_FLOW_PATTERNS } from "@mich8060/unified-design-system/ai";
 ```
 
 ## Common prop pitfalls

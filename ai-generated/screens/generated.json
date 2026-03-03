@@ -1,0 +1,67 @@
+{
+  "manifestVersion": "1.0.0",
+  "governanceVersion": "1.0.0",
+  "policyVersion": "1.0.0",
+  "tree": {
+    "type": "Container",
+    "props": {
+      "gap": "--uds-spacing-24"
+    },
+    "children": [
+      {
+        "type": "Card",
+        "props": {
+          "gap": "--uds-spacing-16"
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "variant": "heading-24"
+            }
+          },
+          {
+            "type": "Field",
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "type": "email"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Button",
+            "props": {
+              "appearance": "primary",
+              "label": "Click Me"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "audit": {
+    "timestamp": "2026-03-03T17:50:36.917Z",
+    "model": "claude-stub",
+    "promptHash": "stubbed-generate-ui",
+    "udsVersion": "0.2.12",
+    "manifestVersion": "1.0.0",
+    "policyVersion": "1.0.0",
+    "componentsUsed": [
+      "Container",
+      "Card",
+      "Text",
+      "Field",
+      "TextInput",
+      "Button"
+    ],
+    "tokensUsed": [
+      "--uds-spacing-16",
+      "--uds-spacing-24"
+    ],
+    "violationsCount": 0,
+    "validationStatus": "pass"
+  }
+}

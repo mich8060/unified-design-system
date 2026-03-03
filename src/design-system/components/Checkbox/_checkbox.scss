@@ -1,116 +1,117 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
+
 .checkbox {
-  all: unset;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--uds-gap-32);
-  cursor: pointer;
-  user-select: none;
-
-  // ── Modifier: disabled ──────────────────────────────
-  &--disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-
-    .checkbox__label {
-      cursor: not-allowed;
-      color: var(--uds-text-secondary);
-    }
-  }
-
-  // ── Modifier: indeterminate ─────────────────────────
-  &--indeterminate {
-    .checkbox__box {
-      background-color: var(--uds-surface-brand-tertiary);
-      border-color: var(--uds-border-brand-tertiary);
-    }
-
-    .checkbox__input:not(:disabled) + .checkbox__box:hover {
-      background-color: var(--uds-surface-brand-secondary);
-      border-color: var(--uds-border-brand-secondary);
-    }
-  }
-
-  // ── Element: hidden input ───────────────────────────
-  &__input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-    margin: 0;
-
-    &:focus-visible + .checkbox__box {
-      outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
-      outline-offset: var(--uds-focus-ring-offset);
-    }
-
-    &:checked + .checkbox__box {
-      background-color: var(--uds-surface-brand-tertiary);
-      border-color: var(--uds-border-brand-tertiary);
-      color: var(--uds-text-inverse);
-    }
-
-    &:not(:checked):not(:disabled) + .checkbox__box:hover {
-      border-color: var(--uds-border-brand-primary);
-      background-color: var(--uds-surface-tertiary);
-    }
-
-    &:disabled + .checkbox__box {
-      background-color: var(--uds-surface-tertiary);
-      border-color: var(--uds-border-primary);
-      cursor: not-allowed;
-    }
-
-    &:disabled + .checkbox__box + .checkbox__label {
-      color: var(--uds-text-secondary);
-    }
-  }
-
-  // ── Element: visual box ─────────────────────────────
-  &__box {
+    all: unset;
     position: relative;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    min-height: 20px;
-    border: var(--uds-border-width-1) solid var(--uds-border-primary);
-    border-radius: var(--uds-radius-4);
-    background-color: var(--uds-surface-tertiary);
-    transition:
-      background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
-      border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
-      box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
-    flex-shrink: 0;
-  }
-
-  // ── Element: check icon ─────────────────────────────
-  &__icon {
-    color: var(--uds-text-inverse);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px;
-    height: 16px;
-  }
-
-  // ── Element: indeterminate dash ─────────────────────
-  &__indeterminate {
-    width: 10px;
-    height: 2px;
-    background-color: var(--uds-color-white);
-    border-radius: 1px;
-  }
-
-  // ── Element: label ──────────────────────────────────
-  &__label {
-    @include uds-body-14-medium;
-    color: var(--uds-text-primary);
-    line-height: 20px;
+    gap: var(--uds-gap-12);
     cursor: pointer;
-  }
+    user-select: none;
+
+    // ── Modifier: disabled ──────────────────────────────
+    &--disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+
+        .checkbox__label {
+            cursor: not-allowed;
+            color: var(--uds-text-secondary);
+        }
+    }
+
+    // ── Modifier: indeterminate ─────────────────────────
+    &--indeterminate {
+        .checkbox__box {
+            background-color: var(--uds-surface-brand-tertiary, var(--uds-color-primary-700));
+            border-color: var(--uds-border-brand-tertiary, var(--uds-color-primary-700));
+        }
+
+        .checkbox__input:not(:disabled)+.checkbox__box:hover {
+            background-color: var(--uds-surface-brand-secondary);
+            border-color: var(--uds-border-brand-secondary);
+        }
+    }
+
+    // ── Element: hidden input ───────────────────────────
+    &__input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        margin: 0;
+
+        &:focus-visible+.checkbox__box {
+            outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
+            outline-offset: var(--uds-focus-ring-offset);
+        }
+
+        &:checked+.checkbox__box {
+            background-color: var(--uds-surface-brand-tertiary, var(--uds-color-primary-700));
+            border-color: var(--uds-border-brand-tertiary, var(--uds-color-primary-700));
+            color: var(--uds-text-inverse);
+        }
+
+        &:not(:checked):not(:disabled)+.checkbox__box:hover {
+            border-color: var(--uds-border-brand-primary);
+            background-color: var(--uds-surface-tertiary);
+        }
+
+        &:disabled+.checkbox__box {
+            background-color: var(--uds-surface-disabled);
+            border-color: var(--uds-border-disabled);
+            cursor: not-allowed;
+        }
+
+        &:disabled+.checkbox__box+.checkbox__label {
+            color: var(--uds-text-secondary);
+        }
+    }
+
+    // ── Element: visual box ─────────────────────────────
+    &__box {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        min-height: 20px;
+        border: var(--uds-border-width-1) solid var(--uds-border-primary);
+        border-radius: var(--uds-radius-4);
+        background-color: var(--uds-surface-tertiary);
+        transition:
+            background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+            border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+            box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+        flex-shrink: 0;
+    }
+
+    // ── Element: check icon ─────────────────────────────
+    &__icon {
+        color: var(--uds-text-inverse);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+    }
+
+    // ── Element: indeterminate dash ─────────────────────
+    &__indeterminate {
+        width: 10px;
+        height: 2px;
+        background-color: var(--uds-color-white);
+        border-radius: 1px;
+    }
+
+    // ── Element: label ──────────────────────────────────
+    &__label {
+        @include uds-body-14-medium;
+        color: var(--uds-text-primary);
+        line-height: 20px;
+        cursor: pointer;
+    }
 }

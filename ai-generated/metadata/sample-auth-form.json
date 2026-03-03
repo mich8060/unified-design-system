@@ -1,0 +1,78 @@
+{
+  "manifestVersion": "1.0.0",
+  "governanceVersion": "1.0.0",
+  "policyVersion": "1.0.0",
+  "tree": {
+    "type": "Container",
+    "props": {
+      "gap": "--uds-spacing-24"
+    },
+    "children": [
+      {
+        "type": "Card",
+        "props": {
+          "gap": "--uds-spacing-16"
+        },
+        "children": [
+          {
+            "type": "Text",
+            "props": {
+              "variant": "heading-24"
+            }
+          },
+          {
+            "type": "Field",
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "type": "email"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Field",
+            "children": [
+              {
+                "type": "TextInput",
+                "props": {
+                  "type": "password"
+                }
+              }
+            ]
+          },
+          {
+            "type": "Button",
+            "props": {
+              "appearance": "primary",
+              "label": "Sign in"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "audit": {
+    "timestamp": "2026-03-03T00:00:00.000Z",
+    "model": "governed-ai",
+    "promptHash": "sample-auth-form-v1",
+    "udsVersion": "0.2.12",
+    "manifestVersion": "1.0.0",
+    "policyVersion": "1.0.0",
+    "componentsUsed": [
+      "Container",
+      "Card",
+      "Text",
+      "Field",
+      "TextInput",
+      "Button"
+    ],
+    "tokensUsed": [
+      "--uds-spacing-24",
+      "--uds-spacing-16"
+    ],
+    "violationsCount": 0,
+    "validationStatus": "pass"
+  }
+}

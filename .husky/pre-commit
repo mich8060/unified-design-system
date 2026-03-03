@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Ensure npm is available when Git runs from GUI apps
+export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.volta/bin:$PATH"
+
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+  . "$HOME/.nvm/nvm.sh"
+  nvm use --silent >/dev/null 2>&1 || true
+fi
+
+if ! command -v npm >/dev/null 2>&1; then
+  echo "husky/pre-commit: npm not found in PATH=$PATH"
+  exit 127
+fi
+
+if node -e "const fs=require('fs');const p=JSON.parse(fs.readFileSync('package.json','utf8'));process.exit(p.scripts&&p.scripts.test?0:1)"; then
+  npm test
+else
+  echo "husky/pre-commit: skipping npm test (no test script)"
+fi
+
+npm run ai:validate

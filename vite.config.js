@@ -15,7 +15,10 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     rollupOptions: {
-      input: resolve(__dirname, "src/design-system/index.ts"),
+      input: {
+        index: resolve(__dirname, "src/design-system/index.ts"),
+        "ai/index": resolve(__dirname, "src/design-system/ai/index.ts"),
+      },
       preserveEntrySignatures: "exports-only",
       treeshake: {
         moduleSideEffects: false,

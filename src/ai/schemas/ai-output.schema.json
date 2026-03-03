@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UDS AI Output",
+  "type": "object",
+  "required": [
+    "manifestVersion",
+    "governanceVersion",
+    "policyVersion",
+    "tree",
+    "audit"
+  ],
+  "properties": {
+    "manifestVersion": { "type": "string", "minLength": 1 },
+    "governanceVersion": { "type": "string", "minLength": 1 },
+    "policyVersion": { "type": "string", "minLength": 1 },
+    "tree": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "props": { "type": "object" },
+        "children": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/node" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "audit": {
+      "type": "object",
+      "required": [
+        "timestamp",
+        "model",
+        "promptHash",
+        "udsVersion",
+        "manifestVersion",
+        "policyVersion",
+        "componentsUsed",
+        "tokensUsed",
+        "violationsCount",
+        "validationStatus"
+      ],
+      "properties": {
+        "timestamp": { "type": "string" },
+        "model": { "type": "string" },
+        "promptHash": { "type": "string" },
+        "udsVersion": { "type": "string" },
+        "manifestVersion": { "type": "string" },
+        "policyVersion": { "type": "string" },
+        "componentsUsed": { "type": "array", "items": { "type": "string" } },
+        "tokensUsed": { "type": "array", "items": { "type": "string" } },
+        "violationsCount": { "type": "number", "minimum": 0 },
+        "validationStatus": { "type": "string", "enum": ["pass", "fail"] }
+      },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "type": "string", "minLength": 1 },
+        "props": { "type": "object" },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

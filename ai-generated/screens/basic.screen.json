@@ -1,0 +1,38 @@
+{
+  "manifestVersion": "1.0.0",
+  "governanceVersion": "1.0.0",
+  "policyVersion": "1.0.0",
+  "tree": {
+    "type": "Container",
+    "props": {
+      "gap": "--uds-spacing-24"
+    },
+    "children": [
+      {
+        "type": "Text",
+        "props": {
+          "variant": "heading-24",
+          "value": "Basic Screen"
+        },
+        "children": []
+      }
+    ]
+  },
+  "audit": {
+    "timestamp": "2026-03-03T00:00:00.000Z",
+    "model": "assistant",
+    "promptHash": "basic-screen-example",
+    "udsVersion": "0.2.12",
+    "manifestVersion": "1.0.0",
+    "policyVersion": "1.0.0",
+    "componentsUsed": [
+      "Container",
+      "Text"
+    ],
+    "tokensUsed": [
+      "--uds-spacing-24"
+    ],
+    "violationsCount": 0,
+    "validationStatus": "pass"
+  }
+}

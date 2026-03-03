@@ -6,10 +6,10 @@
     --uds-border-disabled: var(--system-color-neutrals-300);
     --uds-border-transparent: var(--system-color-transparent);
     --uds-border-inverse: var(--system-color-white);
-    --uds-border-brand-primary: var(--system-color-primary-500);
-    --uds-border-brand-secondary: var(--system-color-primary-100);
-    --uds-border-brand-tertiary: var(--system-color-primary-700);
-    --uds-border-brand-quaternary: var(--system-color-primary-900);
+    --uds-border-brand-primary: var(--uds-color-primary-500);
+    --uds-border-brand-secondary: var(--uds-color-primary-100);
+    --uds-border-brand-tertiary: var(--uds-color-primary-700);
+    --uds-border-brand-quaternary: var(--uds-color-primary-900);
 
     --uds-border-width-1: 1px;
     --uds-border-width-2: 2px;
@@ -30,8 +30,8 @@
     --uds-border-disabled: var(--system-color-neutrals-400);
     --uds-border-transparent: var(--system-color-transparent);
     --uds-border-inverse: var(--system-color-white);
-    --uds-border-brand-primary: var(--system-color-primary-500);
-    --uds-border-brand-secondary: var(--system-color-primary-100);
-    --uds-border-brand-tertiary: var(--system-color-primary-700);
-    --uds-border-brand-quaternary: var(--system-color-primary-900);
+    --uds-border-brand-primary: var(--uds-color-primary-500);
+    --uds-border-brand-secondary: var(--uds-color-primary-100);
+    --uds-border-brand-tertiary: var(--uds-color-primary-700);
+    --uds-border-brand-quaternary: var(--uds-color-primary-900);
 }

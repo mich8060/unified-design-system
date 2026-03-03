@@ -1,0 +1,145 @@
+export const ComponentRegistry = {
+  Accordion: { category: "layout", intent: "Progressive disclosure for grouped content", roles: ["region"], preferredParent: ["Container", "Card"] },
+  ActionMenu: { category: "navigation", intent: "Contextual action list for local operations", roles: ["menu"], preferredParent: ["Table", "Card"] },
+  AppShell: { category: "layout", intent: "Top-level application shell and page structure", roles: ["application"], preferredParent: ["root"] },
+  Avatar: { category: "data-display", intent: "Visual identity for people or entities", roles: ["img"], preferredParent: ["Table", "Card", "Flex"] },
+  Badge: {
+    category: "data-display",
+    intent: "Compact count/status indicator",
+    roles: ["status"],
+    preferredParent: ["Tabs", "Card", "Button"],
+    props: {
+      appearance: {
+        type: "enum",
+        values: ["solid", "outlined"],
+      },
+    },
+  },
+  Branding: { category: "branding", intent: "Brand identity and logo presentation", roles: ["banner"], preferredParent: ["Menu", "AppShell"] },
+  Breadcrumb: { category: "navigation", intent: "Hierarchy-aware location trail", roles: ["navigation"], preferredParent: ["Container"] },
+  Button: {
+    category: "action",
+    intent: "Primary and secondary user actions",
+    roles: ["button"],
+    preferredParent: ["Field", "Card", "Dialog", "Modal", "Container", "Flex"],
+    props: {
+      appearance: {
+        type: "enum",
+        values: ["primary", "soft", "outline", "text", "ghost", "disabled", "destructive"],
+      },
+      size: {
+        type: "enum",
+        values: ["xsmall", "small", "default", "large"],
+      },
+      disabled: {
+        type: "boolean",
+      },
+    },
+    constraints: { onlyOnePrimaryPerSection: true },
+  },
+  Calendar: { category: "form", intent: "Calendar grid date selection", roles: ["grid"], preferredParent: ["Datepicker", "Card"] },
+  Card: { category: "layout", intent: "Contained content section", roles: ["region"], preferredParent: ["Container", "Flex"] },
+  Checkbox: { category: "form", intent: "Multi-select boolean input", roles: ["checkbox"], preferredParent: ["Field", "Form"] },
+  Chip: { category: "form", intent: "Compact selectable/tag item", roles: ["button"], preferredParent: ["Field", "Flex"] },
+  Code: { category: "data-display", intent: "Formatted code snippet block", roles: ["code"], preferredParent: ["Card", "Container"] },
+  Container: {
+    category: "layout",
+    intent: "Width-constrained page/content wrapper",
+    roles: ["region"],
+    preferredParent: ["AppShell", "root"],
+    props: {
+      appearance: {
+        type: "enum",
+        values: ["default", "transparent"],
+      },
+    },
+  },
+  Datepicker: { category: "form", intent: "Date input and picker interaction", roles: ["combobox"], preferredParent: ["Field", "Form"] },
+  Dialog: { category: "feedback", intent: "Structured confirmation/message surface", roles: ["dialog"], preferredParent: ["Container", "Card"] },
+  Divider: { category: "layout", intent: "Semantic section separator", roles: ["separator"], preferredParent: ["Container", "Card", "Flex"] },
+  DotStatus: { category: "data-display", intent: "Small status indicator dot", roles: ["status"], preferredParent: ["Table", "Card", "Flex"] },
+  Dropdown: {
+    category: "form",
+    intent: "Single-select list input",
+    roles: ["combobox"],
+    preferredParent: ["Field", "Form", "Menu"],
+    props: {
+      size: {
+        type: "enum",
+        values: ["compact", "default"],
+      },
+      disabled: {
+        type: "boolean",
+      },
+    },
+  },
+  EmptyState: { category: "feedback", intent: "Guidance for empty data scenarios", roles: ["status"], preferredParent: ["Container", "Card", "Table"] },
+  EventCard: { category: "data-display", intent: "Event summary in a compact card", roles: ["article"], preferredParent: ["Container", "Flex"] },
+  Field: { category: "form", intent: "Label/helper/error wrapper for controls", roles: ["group"], preferredParent: ["Form", "Card", "Container"] },
+  FileUpload: { category: "form", intent: "File selection and upload interaction", roles: ["group"], preferredParent: ["Field", "Form"] },
+  Flex: { category: "layout", intent: "Primary flexbox layout primitive", roles: ["group"], preferredParent: ["Container", "Card", "AppShell"] },
+  Icon: {
+    category: "data-display",
+    intent: "Consistent icon rendering wrapper",
+    roles: ["img"],
+    preferredParent: ["Button", "Tag", "Status", "Text"],
+    props: {
+      appearance: {
+        type: "enum",
+        values: ["regular", "bold", "thin", "light", "duotone", "fill", "solid", "outline"],
+      },
+    },
+  },
+  ImageAspect: { category: "layout", intent: "Image with stable aspect ratio", roles: ["img"], preferredParent: ["Card", "Container"] },
+  Input: { category: "form", intent: "Alias of TextInput for text entry", roles: ["textbox"], preferredParent: ["Field", "Form"] },
+  Key: { category: "data-display", intent: "Keyboard shortcut representation", roles: ["note"], preferredParent: ["Tooltip", "Card", "Text"] },
+  Menu: { category: "navigation", intent: "Main app navigation and mode controls", roles: ["navigation"], preferredParent: ["AppShell"] },
+  MicroCalendar: { category: "data-display", intent: "Compact calendar visualization", roles: ["grid"], preferredParent: ["Card", "Container"] },
+  Modal: { category: "feedback", intent: "Blocking overlay for focused tasks", roles: ["dialog"], preferredParent: ["AppShell", "root"] },
+  Pagination: { category: "navigation", intent: "Paged navigation controls", roles: ["navigation"], preferredParent: ["Table", "Container"] },
+  PillToggle: { category: "form", intent: "Segmented single-choice switcher", roles: ["tablist"], preferredParent: ["Field", "Card"] },
+  Playground: { category: "utility", intent: "Interactive experimentation surface", roles: ["region"], preferredParent: ["Container", "root"] },
+  ProgressCircle: { category: "data-display", intent: "Circular progress visualization", roles: ["progressbar"], preferredParent: ["Card", "Container"] },
+  ProgressIndicator: { category: "data-display", intent: "Linear progress visualization", roles: ["progressbar"], preferredParent: ["Card", "Container", "Table"] },
+  Radio: { category: "form", intent: "Single-choice option input", roles: ["radio"], preferredParent: ["Field", "Form"] },
+  Slider: { category: "form", intent: "Range/value slider input", roles: ["slider"], preferredParent: ["Field", "Form"] },
+  Status: { category: "data-display", intent: "Status label with semantic tone", roles: ["status"], preferredParent: ["Table", "Card", "Flex"] },
+  Steps: { category: "navigation", intent: "Multi-step progress navigation", roles: ["navigation"], preferredParent: ["Container", "Card"] },
+  Table: { category: "data-display", intent: "Structured tabular data rendering", roles: ["table"], preferredParent: ["Container", "Card"] },
+  Tabs: { category: "navigation", intent: "Switch between content sections", roles: ["tablist"], preferredParent: ["Container", "Card"] },
+  Tag: { category: "data-display", intent: "Categorical metadata label", roles: ["status"], preferredParent: ["Table", "Card", "Flex"] },
+  Text: { category: "data-display", intent: "Typography primitive for semantic text", roles: ["text"], preferredParent: ["Container", "Card", "Field", "Dialog"] },
+  TextInput: {
+    category: "form",
+    intent: "Single-line text input control",
+    roles: ["textbox"],
+    preferredParent: ["Field", "Form"],
+    props: {
+      size: {
+        type: "enum",
+        values: ["default", "compact"],
+      },
+      disabled: {
+        type: "boolean",
+      },
+    },
+  },
+  Textarea: { category: "form", intent: "Multi-line text input control", roles: ["textbox"], preferredParent: ["Field", "Form"] },
+  Toast: { category: "feedback", intent: "Transient notification message", roles: ["status"], preferredParent: ["AppShell", "root"] },
+  Toggle: {
+    category: "form",
+    intent: "Binary switch control",
+    roles: ["switch"],
+    preferredParent: ["Field", "Form", "Menu"],
+    props: {
+      size: {
+        type: "enum",
+        values: ["large", "small"],
+      },
+      disabled: {
+        type: "boolean",
+      },
+    },
+  },
+  Tooltip: { category: "feedback", intent: "Contextual helper text on hover/focus", roles: ["tooltip"], preferredParent: ["Button", "Icon", "Text"] },
+} as const;

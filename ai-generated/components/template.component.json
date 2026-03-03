@@ -1,0 +1,24 @@
+{
+  "manifestVersion": "1.0.0",
+  "governanceVersion": "1.0.0",
+  "policyVersion": "1.0.0",
+  "tree": {
+    "type": "Card",
+    "props": {
+      "gap": "--uds-spacing-16"
+    },
+    "children": []
+  },
+  "audit": {
+    "timestamp": "2026-03-03T00:00:00.000Z",
+    "model": "claude",
+    "promptHash": "replace-me",
+    "udsVersion": "0.2.12",
+    "manifestVersion": "1.0.0",
+    "policyVersion": "1.0.0",
+    "componentsUsed": [],
+    "tokensUsed": [],
+    "violationsCount": 0,
+    "validationStatus": "pass"
+  }
+}
