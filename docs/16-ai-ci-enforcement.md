@@ -25,6 +25,10 @@ Example file: `ai-generated/metadata/sample-auth-form.json`.
 - `npm run ai:token-diff`
   - detects raw color/hard spacing additions
   - blocks new token categories unless `ALLOW_NEW_TOKEN_CATEGORIES=true`
+- `npm run ai:gate:contracts`
+  - validates AI contract integrity and naming/version consistency
+  - enforces required package AI subpath exports
+  - ensures generated component API has no ambiguous prop collisions or leaked alias props
 - `npm run ci:ai`
   - executes the full AI gate sequence
 
@@ -60,5 +64,6 @@ Behavior:
 - `warnings`
 - `governanceVersionUsed`
 - `manifestVersionUsed`
+- `policyVersionUsed`
 - `timestamp`
-- `versionLineage` (`udsVersion`, `tokenVersion`, `manifestVersion`, `policyVersion`)
+- `versionLineage` (`udsVersion`, `tokenVersion`, `manifestVersion`, `governanceVersion`, `policyVersion`)

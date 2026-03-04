@@ -4,6 +4,7 @@ export interface AuditEvent {
   promptHash: string;
   udsVersion: string;
   manifestVersion: string;
+  governanceVersion?: string;
   policyVersion: string;
   componentsUsed: string[];
   tokensUsed: string[];

@@ -1,14 +1,17 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
-export interface FieldProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  label?: unknown;
+export type FieldState = "default" | "error";
+
+export interface FieldProps extends HTMLAttributes<HTMLDivElement> {
+  label?: ReactNode;
+  state?: FieldState;
   required?: boolean;
-  helperMessage?: unknown;
-  infoIcon?: unknown;
-  onInfoClick?: (...args: unknown[]) => void;
-  maxLength?: unknown;
-  value?: unknown;
-  id?: unknown;
+  helperMessage?: ReactNode;
+  maxLength?: number;
+  value?: string | number;
+  infoIcon?: string;
+  onInfoClick?: () => void;
+  id?: string;
   className?: string;
   children?: ReactNode;
 }

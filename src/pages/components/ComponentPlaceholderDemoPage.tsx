@@ -27,10 +27,14 @@ const COMPONENT_VARIANTS: Record<string, VariantConfig> = {
   ImageAspect: { aspectratio: ["square", "video", "4-3", "3-2", "21-9", "portrait", "auto"] },
   Key: { appearance: ["light", "dark"] },
   Modal: { size: ["small", "default", "large", "fullscreen"] },
-  ProgressCircle: { size: ["xxs", "xs", "sm", "md", "lg"], shape: ["circle", "half-circle"] },
-  ProgressIndicator: { variant: ["default", "blue", "green", "success", "orange", "warning", "red", "error", "purple"], size: ["small", "medium", "large"] },
+  ProgressCircle: { shape: ["circle", "half-circle"], size: ["xxs", "xs", "sm", "md", "lg"] },
+  ProgressIndicator: {
+    labelPosition: ["false", "right", "bottom", "top-floating", "bottom-floating"],
+    variant: ["default", "blue", "green", "success", "orange", "warning", "red", "error", "purple"],
+    size: ["small", "medium", "large"],
+  },
   Status: { appearance: ["light-gray", "white"], shape: ["pill", "rounded"] },
-  Steps: { orientation: ["horizontal", "vertical"], status: ["complete", "active", "incomplete", "disabled", "error", "warning"], size: ["default", "compact"] },
+  Steps: { orientation: ["horizontal", "vertical"], status: ["complete", "active", "incomplete", "disabled", "error"], size: ["default", "compact"] },
   Tag: { appearance: ["label-only", "icon-left"], size: ["compact", "default"], color: ["transparent", "neutral", "red", "orange", "yellow", "emerald", "green", "sky", "cyan", "blue", "indigo", "purple", "fuchsia", "magenta", "inverse"] },
   TextInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
   Textarea: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
@@ -68,8 +72,6 @@ const COMPONENTS: Record<string, React.ComponentType<Record<string, unknown>>> =
   MicroCalendar: DesignSystem.MicroCalendar as React.ComponentType<Record<string, unknown>>,
   Modal: DesignSystem.Modal as React.ComponentType<Record<string, unknown>>,
   Pagination: DesignSystem.Pagination as React.ComponentType<Record<string, unknown>>,
-  PillToggle: DesignSystem.PillToggle as React.ComponentType<Record<string, unknown>>,
-  Playground: DesignSystem.Playground as React.ComponentType<Record<string, unknown>>,
   ProgressCircle: DesignSystem.ProgressCircle as React.ComponentType<Record<string, unknown>>,
   ProgressIndicator: DesignSystem.ProgressIndicator as React.ComponentType<Record<string, unknown>>,
   Radio: DesignSystem.Radio as React.ComponentType<Record<string, unknown>>,
@@ -120,13 +122,76 @@ const BASE_PROPS: Record<string, Record<string, unknown>> = {
   Flex: { direction: "row", gap: "8", children: <Text as="span" variant="body-14" leading="regular">Flex content</Text> },
   ImageAspect: { src: "https://picsum.photos/640/360", alt: "Example image", ratio: "video" },
   Key: { label: "Cmd+K" },
-  Menu: { navItems: [{ label: "Overview", icon: "House", path: "/" }], showBrandSwitcher: false, showModeToggle: false, showSearch: false, showUser: false, showBrand: false },
+  Menu: {
+    navItems: [
+      { label: "Overview", icon: "House", path: "/getting-started" },
+      {
+        label: "Foundations",
+        icon: "Palette",
+        children: [
+          { label: "Colors & Primitives", path: "/foundations/colors-primitives" },
+          { label: "Theming", path: "/docs/theming" },
+        ],
+      },
+      {
+        label: "Components",
+        icon: "SquaresFour",
+        children: [
+          { label: "Button", path: "/components/button" },
+          { label: "Flex", path: "/components/flex" },
+          { label: "Field", path: "/components/field" },
+          { label: "Menu", path: "/components/menu" },
+        ],
+      },
+    ],
+    brands: ["default", "comphealth", "weatherby", "connect", "wireframe"],
+    activeBrand: "default",
+    onBrandChange: () => {},
+    showBrandSwitcher: true,
+    showModeToggle: true,
+    showSearch: true,
+    showUser: true,
+    showBrand: true,
+    userName: "Emily Brown",
+    userInitials: "EB",
+    identity: "design-system",
+    accountMenuItems: [
+      {
+        label: "Profile",
+        icon: "UserCircle",
+        onClick: () => {
+          window.location.assign("/sample-item");
+        },
+      },
+      {
+        label: "Settings",
+        icon: "Gear",
+        onClick: () => {
+          window.location.assign("/docs/theming");
+        },
+      },
+      { divider: true },
+      {
+        label: "View Components",
+        icon: "SquaresFour",
+        onClick: () => {
+          window.location.assign("/components/button");
+        },
+      },
+      {
+        label: "Sign out",
+        icon: "SignOut",
+        destructive: true,
+        onClick: () => {
+          window.location.assign("/getting-started");
+        },
+      },
+    ],
+  },
   MicroCalendar: { defaultDate: new Date() },
   Pagination: { currentPage: 3, totalPages: 10 },
-  PillToggle: { label: "Selected", selected: true },
-  Playground: {},
   ProgressCircle: { value: 65, max: 100, label: "Progress", showLabel: true },
-  ProgressIndicator: { value: 45, max: 100, label: "Loading", showLabel: true },
+  ProgressIndicator: { value: 45, max: 100, label: "Loading", showLabel: false },
   Radio: { label: "Radio option", checked: true },
   Slider: { value: 40, min: 0, max: 100 },
   Status: { label: "In Progress" },
@@ -370,6 +435,28 @@ function InteractiveDropdownPreview({ props }: { props: GenericComponentProps })
   );
 }
 
+function MenuPreview({ props }: { props: GenericComponentProps }) {
+  const existingClassName = typeof props.className === "string" ? props.className : "";
+  const frameStyle: React.CSSProperties = {
+    position: "relative",
+    width: "100%",
+    minHeight: "720px",
+    border: "var(--uds-border-width-1) solid var(--uds-border-primary)",
+    borderRadius: "var(--uds-radius-4)",
+    overflow: "hidden",
+    background: "var(--uds-surface-primary)",
+  };
+
+  return (
+    <div style={frameStyle}>
+      <DesignSystem.Menu
+        {...props}
+        className={[existingClassName, "example"].filter(Boolean).join(" ")}
+      />
+    </div>
+  );
+}
+
 const toTitleCase = (value: string): string =>
   value
     .replace(/[-_]/g, " ")
@@ -452,6 +539,14 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
       );
     }
 
+    if (componentName === "Menu") {
+      return (
+        <PreviewErrorBoundary>
+          <MenuPreview props={props} />
+        </PreviewErrorBoundary>
+      );
+    }
+
     return (
       <PreviewErrorBoundary>
         <Component {...props} />
@@ -504,6 +599,70 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
                     </Flex>
                   ))}
                 </Flex>
+              </Flex>
+            ) : componentName === "ProgressCircle" && variantKey === "shape" ? (
+              <Flex direction="column" gap="16">
+                <Flex alignItems="center" gap="16" wrap>
+                  {values.map((value) => (
+                    <Flex key={`${variantKey}-${value}`} direction="column" gap="8">
+                      {renderPreview(buildVariantProps(variantKey, value))}
+                      <Text as="span" variant="body-12" leading="regular">
+                        {value}
+                      </Text>
+                    </Flex>
+                  ))}
+                </Flex>
+
+                <Flex direction="column" gap="8">
+                  <Text as="span" variant="body-12" leading="regular">
+                    Circle sizes
+                  </Text>
+                  <Flex alignItems="center" gap="16" wrap>
+                    {(variantConfig.size ?? ["xxs", "xs", "sm", "md", "lg"]).map((size) => (
+                      <Flex key={`circle-${size}`} direction="column" gap="8">
+                        {renderPreview({
+                          ...baseProps,
+                          shape: "circle",
+                          size,
+                        })}
+                        <Text as="span" variant="body-12" leading="regular">
+                          {size}
+                        </Text>
+                      </Flex>
+                    ))}
+                  </Flex>
+                </Flex>
+
+                <Flex direction="column" gap="8">
+                  <Text as="span" variant="body-12" leading="regular">
+                    Half-circle sizes
+                  </Text>
+                  <Flex alignItems="center" gap="16" wrap>
+                    {(variantConfig.size ?? ["xxs", "xs", "sm", "md", "lg"]).map((size) => (
+                      <Flex key={`half-circle-${size}`} direction="column" gap="8">
+                        {renderPreview({
+                          ...baseProps,
+                          shape: "half-circle",
+                          size,
+                        })}
+                        <Text as="span" variant="body-12" leading="regular">
+                          {size}
+                        </Text>
+                      </Flex>
+                    ))}
+                  </Flex>
+                </Flex>
+              </Flex>
+            ) : componentName === "Steps" ? (
+              <Flex direction="column" gap="16" style={{ width: "100%" }}>
+                {values.map((value) => (
+                  <Flex key={`${variantKey}-${value}`} direction="column" gap="8" style={{ width: "100%" }}>
+                    {renderPreview(buildVariantProps(variantKey, value))}
+                    <Text as="span" variant="body-12" leading="regular">
+                      {value}
+                    </Text>
+                  </Flex>
+                ))}
               </Flex>
             ) : (
               <Flex alignItems="center" gap="16" wrap>

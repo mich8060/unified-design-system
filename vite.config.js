@@ -18,6 +18,10 @@ export default defineConfig({
       input: {
         index: resolve(__dirname, "src/design-system/index.ts"),
         "ai/index": resolve(__dirname, "src/design-system/ai/index.ts"),
+        "ai/manifest/index": resolve(__dirname, "src/design-system/ai/manifest/index.ts"),
+        "ai/validation/index": resolve(__dirname, "src/design-system/ai/validation/index.ts"),
+        "ai/sdk/index": resolve(__dirname, "src/design-system/ai/sdk/index.ts"),
+        "ai/examples/index": resolve(__dirname, "src/design-system/ai/examples/index.ts"),
       },
       preserveEntrySignatures: "exports-only",
       treeshake: {

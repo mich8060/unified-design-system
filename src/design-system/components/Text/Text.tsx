@@ -1,6 +1,5 @@
 import React from "react";
 import type { TextLeading, TextProps, TextWeight } from "./Text.types";
-import { TextSpec } from "./Text.spec";
 import "./_text.scss";
 
 const weightClass: Record<TextWeight, string> = {
@@ -19,8 +18,8 @@ const leadingClass: Record<TextLeading, string> = {
 export function Text<T extends React.ElementType = "p">({
   as,
   variant,
-  weight = TextSpec.variants.weight.default as TextWeight,
-  leading = TextSpec.variants.leading.default as TextLeading,
+  weight = "regular" as TextWeight,
+  leading = "regular" as TextLeading,
   className = "",
   children,
   ...rest

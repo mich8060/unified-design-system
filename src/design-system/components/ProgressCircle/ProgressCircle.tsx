@@ -1,10 +1,12 @@
 import React from "react";
 import "./_progress-circle.scss";
 import type { ProgressCircleProps } from "./ProgressCircle.types";
+import type { ProgressCircleSize } from "./ProgressCircle.types";
+import type { ProgressCircleShape } from "./ProgressCircle.types";
 
 const BASE_CLASS = "uds-progress-circle";
 
-const sizeClassMap = {
+const sizeClassMap: Record<ProgressCircleSize, string> = {
   xxs: "xxs",
   xs: "xs",
   sm: "sm",
@@ -12,7 +14,7 @@ const sizeClassMap = {
   lg: "lg",
 };
 
-const shapeClassMap = {
+const shapeClassMap: Record<ProgressCircleShape, string> = {
   circle: "circle",
   "half-circle": "half-circle",
 };
@@ -22,8 +24,9 @@ const shapeClassMap = {
  * @param {number} value - Progress value (0-100)
  * @param {number} max - Maximum value (default: 100)
  * @param {string} size - Size variant: 'xxs', 'xs', 'sm', 'md', or 'lg'
- * @param {string} shape - Shape variant: 'circle' (full circle) or 'half-circle' (semi-circle)
+ * @param {string} shape - Shape variant: 'circle' or 'half-circle'
  * @param {string} label - Optional label text to display
+ * @param {string} valueLabel - Optional custom center value text
  * @param {boolean} showLabel - Whether to show the label (if provided)
  * @param {string} className - Additional CSS classes
  * @param {string} 'aria-label' - Accessible label for screen readers
@@ -35,6 +38,7 @@ export default function ProgressCircle({
   size = "md",
   shape = "circle",
   label,
+  valueLabel,
   showLabel = true,
   className = "",
   "aria-label": ariaLabel,
@@ -42,9 +46,13 @@ export default function ProgressCircle({
 }: ProgressCircleProps) {
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
   const displayValue = Math.round(percentage);
+  const isHalfCircle = shape === "half-circle";
 
   // Calculate SVG properties based on size
-  const sizeConfig = {
+  const sizeConfig: Record<
+    ProgressCircleSize,
+    { size: number; strokeWidth: number; fontSize: number; labelFontSize: number }
+  > = {
     xxs: { size: 64, strokeWidth: 3, fontSize: 14, labelFontSize: 12 },
     xs: { size: 160, strokeWidth: 8, fontSize: 24, labelFontSize: 12 },
     sm: { size: 200, strokeWidth: 10, fontSize: 32, labelFontSize: 12 },
@@ -52,13 +60,10 @@ export default function ProgressCircle({
     lg: { size: 280, strokeWidth: 14, fontSize: 48, labelFontSize: 12 },
   };
 
-  const config = sizeConfig[size] || sizeConfig.md;
+  const config = sizeConfig[size];
   const radius = (config.size - config.strokeWidth) / 2;
-  const circumference =
-    shape === "half-circle"
-      ? Math.PI * radius // Half circle
-      : 2 * Math.PI * radius; // Full circle
-  const offset = circumference - (percentage / 100) * circumference;
+  const fullCircleOffset = 100 - percentage;
+  const halfCircleOffset = 100 - percentage;
 
   const classNames = [
     BASE_CLASS,
@@ -71,15 +76,20 @@ export default function ProgressCircle({
 
   const progressId = `progress-circle-${Math.random().toString(36).substr(2, 9)}`;
   const labelId = label ? `${progressId}-label` : undefined;
+  const resolvedAriaLabel =
+    ariaLabel ??
+    (typeof label === "string" || typeof label === "number"
+      ? String(label)
+      : `Progress: ${displayValue}%`);
 
   // SVG viewBox and dimensions
   const viewBoxSize = config.size;
   const centerX = viewBoxSize / 2;
   const centerY = viewBoxSize / 2;
 
-  // For half-circle, we need to adjust the SVG
-  const svgHeight = shape === "half-circle" ? viewBoxSize / 2 : viewBoxSize;
-  const svgCenterY = shape === "half-circle" ? viewBoxSize : centerY;
+  const svgHeight = isHalfCircle ? viewBoxSize / 2 + config.strokeWidth : viewBoxSize;
+  const svgCenterY = centerY;
+  const halfCirclePath = `M ${centerX - radius} ${svgCenterY} A ${radius} ${radius} 0 0 1 ${centerX + radius} ${svgCenterY}`;
 
   return (
     <div
@@ -88,7 +98,7 @@ export default function ProgressCircle({
       aria-valuenow={value}
       aria-valuemin={0}
       aria-valuemax={max}
-      aria-label={ariaLabel || label || `Progress: ${displayValue}%`}
+      aria-label={resolvedAriaLabel}
       aria-labelledby={labelId}
       {...props}
     >
@@ -96,37 +106,65 @@ export default function ProgressCircle({
         className={`${BASE_CLASS}__svg`}
         width={config.size}
         height={svgHeight}
-        viewBox={`0 ${shape === "half-circle" ? viewBoxSize / 2 : 0} ${viewBoxSize} ${svgHeight}`}
+        viewBox={`0 0 ${viewBoxSize} ${svgHeight}`}
       >
-        {/* Background track */}
-        <circle
-          className={`${BASE_CLASS}__track`}
-          cx={centerX}
-          cy={svgCenterY}
-          r={radius}
-          fill="none"
-          strokeWidth={config.strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={shape === "half-circle" ? circumference / 2 : 0}
-          pathLength={circumference}
-        />
+        {isHalfCircle ? (
+          <>
+            {/* Top half track (left to right arc) */}
+            <path
+              className={`${BASE_CLASS}__track`}
+              d={halfCirclePath}
+              fill="none"
+              strokeWidth={config.strokeWidth}
+              pathLength={100}
+              strokeDasharray={100}
+              strokeDashoffset={0}
+              strokeLinecap="round"
+            />
 
-        {/* Progress fill */}
-        <circle
-          className={`${BASE_CLASS}__fill`}
-          cx={centerX}
-          cy={svgCenterY}
-          r={radius}
-          fill="none"
-          strokeWidth={config.strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={
-            shape === "half-circle" ? circumference / 2 + offset : offset
-          }
-          pathLength={circumference}
-          strokeLinecap="round"
-          transform={`rotate(-90 ${centerX} ${svgCenterY})`}
-        />
+            {/* Top half fill (left to right) */}
+            <path
+              className={`${BASE_CLASS}__fill`}
+              d={halfCirclePath}
+              fill="none"
+              strokeWidth={config.strokeWidth}
+              pathLength={100}
+              strokeDasharray={100}
+              strokeDashoffset={halfCircleOffset}
+              strokeLinecap="round"
+            />
+          </>
+        ) : (
+          <>
+            {/* Full circle track */}
+            <circle
+              className={`${BASE_CLASS}__track`}
+              cx={centerX}
+              cy={svgCenterY}
+              r={radius}
+              fill="none"
+              strokeWidth={config.strokeWidth}
+              pathLength={100}
+              strokeDasharray={100}
+              strokeDashoffset={0}
+            />
+
+            {/* Full circle fill */}
+            <circle
+              className={`${BASE_CLASS}__fill`}
+              cx={centerX}
+              cy={svgCenterY}
+              r={radius}
+              fill="none"
+              strokeWidth={config.strokeWidth}
+              pathLength={100}
+              strokeDasharray={100}
+              strokeDashoffset={fullCircleOffset}
+              strokeLinecap="round"
+              transform={`rotate(-90 ${centerX} ${svgCenterY})`}
+            />
+          </>
+        )}
       </svg>
 
       {/* Content overlay */}
@@ -138,9 +176,8 @@ export default function ProgressCircle({
         )}
         <span
           className={`${BASE_CLASS}__value`}
-          style={{ fontSize: `${config.fontSize}px` }}
         >
-          {displayValue}%
+          {valueLabel ?? `${displayValue}%`}
         </span>
       </div>
     </div>

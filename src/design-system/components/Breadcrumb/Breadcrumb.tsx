@@ -40,7 +40,6 @@ const COMPONENTS_ITEMS = [
   { path: "/image-aspect", label: "Image Aspect" },
   { path: "/input", label: "Text Input" },
   { path: "/key", label: "Key" },
-  { path: "/pill-toggle", label: "Pill Toggle" },
   { path: "/progress-indicator", label: "Progress Indicator" },
   { path: "/progress-circle", label: "Progress Circle" },
   { path: "/radio", label: "Radio" },

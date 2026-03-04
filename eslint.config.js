@@ -5,6 +5,17 @@ import reactHooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 
 export default [
+  {
+    ignores: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/storybook-static/**",
+      "**/.consumer-perf/**",
+      "**/.audit/**",
+      "**/.tmp/**",
+      "**/coverage/**"
+    ]
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -62,7 +73,7 @@ export default [
     }
   },
   {
-    files: ["scripts/**/*.js"],
+    files: ["scripts/**/*.{js,mjs,cjs,ts}"],
     languageOptions: {
       globals: {
         ...globals.node

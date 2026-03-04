@@ -11,6 +11,10 @@
   },
   "include": [
     "src/design-system/index.ts",
-    "src/design-system/ai/index.ts"
+    "src/design-system/ai/index.ts",
+    "src/design-system/ai/manifest/index.ts",
+    "src/design-system/ai/validation/index.ts",
+    "src/design-system/ai/sdk/index.ts",
+    "src/design-system/ai/examples/index.ts"
   ]
 }

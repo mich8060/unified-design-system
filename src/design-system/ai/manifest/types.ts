@@ -65,6 +65,7 @@ export interface LayoutManifestRules {
     compactGapToken: string;
   };
   allowedComposition: Record<string, string[]>;
+  allowedParents: Record<string, string[]>;
   disallowedNesting: Array<{ parent: string; child: string }>;
   maxWidth: {
     content: string;
@@ -122,6 +123,7 @@ export interface GovernanceConfig {
   systemVersion: string;
   tokenVersion: string;
   manifestVersion: string;
+  governanceVersion: string;
   policyVersion: string;
   enforcement: {
     strictMode: boolean;
@@ -144,5 +146,6 @@ export interface VersionLineage {
   udsVersion: string;
   tokenVersion: string;
   manifestVersion: string;
+  governanceVersion: string;
   policyVersion: string;
 }

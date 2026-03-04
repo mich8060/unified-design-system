@@ -1,16 +1,17 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
+
 .uds-key {
-    @include uds-body-14-medium;
+    all: unset;
+    @include uds-body-12;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     min-width: 24px;
     height: 24px;
-    padding: var(--uds-spacing-4);
+    padding: var(--uds-spacing-2) var(--uds-spacing-8);
     border-radius: var(--uds-radius-4);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    @include uds-body-12;
+    width: fit-content;
     white-space: nowrap;
     user-select: none;
     box-sizing: border-box;
@@ -24,8 +25,8 @@
     }
 
     &--dark {
-        background-color: #374151; // Dark blue-gray
+        background-color: var(--uds-surface-inverse);
         border: none;
-        color: #FFFFFF;
+        color: var(--uds-text-inverse);
     }
 }

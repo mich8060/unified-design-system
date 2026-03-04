@@ -9,8 +9,7 @@ export const StepsSpec = {
     "active",
     "incomplete",
     "disabled",
-    "error",
-    "warning"
+    "error"
   ],
   "size": [
     "default",

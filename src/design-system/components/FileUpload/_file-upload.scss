@@ -13,6 +13,28 @@
   cursor: pointer;
   transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
 
+  &--default {
+    min-height: 200px;
+    padding: var(--uds-spacing-48);
+  }
+
+  &--small {
+    min-height: 132px;
+    padding: var(--uds-spacing-20);
+
+    .uds-file-upload__content {
+      gap: var(--uds-gap-8);
+    }
+
+    .uds-file-upload__instruction {
+      @include uds-body-14-medium;
+    }
+
+    .uds-file-upload__accept {
+      @include uds-body-12;
+    }
+  }
+
   &:hover:not(&--disabled) {
     border-color: var(--uds-border-brand-primary, #3b82f6);
     background: var(--uds-surface-secondary, #f9fafb);

@@ -48,6 +48,7 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+
         .uds-menu_brand__full {
             opacity: 1;
             transition: opacity 0.3s ease;
@@ -57,6 +58,7 @@
             opacity: 1;
             pointer-events: auto;
         }
+
         .uds-menu_search__button {
             opacity: 0;
             pointer-events: none;
@@ -66,6 +68,7 @@
             opacity: 1;
             pointer-events: auto;
         }
+
         .uds-menu_brands__button {
             display: none;
         }
@@ -73,7 +76,9 @@
         .uds-menu_mode__controls {
             opacity: 1;
         }
+
         .uds-menu_mode__button {
+            display: none;
             opacity: 0;
         }
     }
@@ -89,7 +94,7 @@
             transition: opacity 0.3s ease;
             pointer-events: none;
         }
-        
+
         .uds-menu_brand__full {
             opacity: 1;
             transition: opacity 0.3s ease;
@@ -137,7 +142,7 @@
             transition: opacity 0.3s ease;
             height: 64px;
             position: absolute;
-            left:50%;
+            left: 50%;
             transform: translateX(-50%);
             z-index: 2;
             pointer-events: none;
@@ -168,7 +173,7 @@
         overflow-y: auto;
         overflow-x: hidden;
 
-        
+
         &__item {
             display: flex;
             align-items: center;
@@ -224,7 +229,7 @@
             }
         }
 
-        &__item--open > .uds-menu_nav__item-link {
+        &__item--open>.uds-menu_nav__item-link {
             position: sticky;
             top: -24px;
             z-index: 1;
@@ -281,7 +286,7 @@
                 background-color 0.15s ease,
                 color 0.15s ease;
 
-        
+
             &:hover {
                 background-color: var(--uds-surface-tertiary);
             }
@@ -293,8 +298,8 @@
             }
         }
 
-        &__item--active > .uds-menu_nav__item-link {
-            background-color: var(--uds-surface-inverse);
+        &__item--active>.uds-menu_nav__item-link {
+            background-color: var(--uds-surface-brand-tertiary);
             color: var(--uds-text-inverse);
         }
     }
@@ -307,16 +312,20 @@
         align-items: center;
         align-self: stretch;
         position: relative;
+        box-sizing: border-box;
+        padding: var(--uds-spacing-8);
+        height: calc(var(--uds-spacing-8) * 2 + 36px);
 
         &__field {
-            width: calc(100% - 16px);
             position: absolute;
-            top: 8px;
-            left: 8px;
-            right: 8px;
+            inset: var(--uds-spacing-8);
+            width: auto;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
         }
 
         &__input {
@@ -324,8 +333,9 @@
         }
 
         &__button {
+            display: inline-flex;
             opacity: 1;
-            transition: opacity 0.3s ease;  
+            transition: opacity 0.3s ease;
         }
     }
 
@@ -362,14 +372,14 @@
 
         &__dropdown {
             position: absolute;
-            top: var(--uds-spacing-8);
-            left: var(--uds-spacing-8);
-            right: var(--uds-spacing-8);
+            inset: var(--uds-spacing-8);
             width: auto;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
             box-sizing: border-box;
+            display: flex;
+            align-items: center;
 
             .uds-dropdown-outer,
             .uds-dropdown,
@@ -404,8 +414,12 @@
         align-items: center;
         align-self: stretch;
         position: relative;
+        box-sizing: border-box;
+        height: calc(var(--uds-spacing-8) * 2 + 36px);
 
         &__button {
+            display: inline-flex;
+            min-height: 36px;
             opacity: 1;
             transition: opacity 0.3s ease;
         }
@@ -447,7 +461,7 @@
         align-self: stretch;
         gap: var(--uds-spacing-8);
 
-        > .avatar {
+        >.avatar {
             flex: 0 0 auto;
             flex-shrink: 0;
         }

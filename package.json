@@ -33,6 +33,9 @@
       "default": "./dist/ai/index.js"
     },
     "./ai/schema": "./dist/ai/schemas/ai-output.schema.json",
+    "./ai/manifest.json": "./dist/ai/manifest.json",
+    "./ai/discovery.json": "./dist/ai/discovery.json",
+    "./ai/discovery": "./dist/ai/discovery.json",
     "./Accordion": {
       "types": "./dist/design-system/components/Accordion/Accordion.d.ts",
       "import": "./dist/components/Accordion/Accordion.js",
@@ -219,18 +222,6 @@
       "require": "./dist/components/Pagination/Pagination.cjs",
       "default": "./dist/components/Pagination/Pagination.js"
     },
-    "./PillToggle": {
-      "types": "./dist/design-system/components/PillToggle/PillToggle.d.ts",
-      "import": "./dist/components/PillToggle/PillToggle.js",
-      "require": "./dist/components/PillToggle/PillToggle.cjs",
-      "default": "./dist/components/PillToggle/PillToggle.js"
-    },
-    "./Playground": {
-      "types": "./dist/design-system/components/Playground/Playground.d.ts",
-      "import": "./dist/components/Playground/Playground.js",
-      "require": "./dist/components/Playground/Playground.cjs",
-      "default": "./dist/components/Playground/Playground.js"
-    },
     "./ProgressCircle": {
       "types": "./dist/design-system/components/ProgressCircle/ProgressCircle.d.ts",
       "import": "./dist/components/ProgressCircle/ProgressCircle.js",
@@ -351,6 +342,12 @@
       "require": "./dist/ai/validation/index.cjs",
       "default": "./dist/ai/validation/index.js"
     },
+    "./ai/sdk": {
+      "types": "./dist/design-system/ai/sdk/index.d.ts",
+      "import": "./dist/ai/sdk/index.js",
+      "require": "./dist/ai/sdk/index.cjs",
+      "default": "./dist/ai/sdk/index.js"
+    },
     "./ai/examples": {
       "types": "./dist/design-system/ai/examples/index.d.ts",
       "import": "./dist/ai/examples/index.js",
@@ -402,14 +399,20 @@
   "sideEffects": false,
   "scripts": {
     "dev": "vite --configLoader native",
-    "build": "vite build --configLoader native && npm run build:types && npm run build:tokens",
+    "build": "vite build --configLoader native && npm run build:types && npm run build:tokens && npm run build:ai:schema && npm run build:api && npm run build:ai:manifest && npm run build:ai:discovery",
     "build:types": "tsc -p tsconfig.build.json",
     "build:tokens": "tsc -p tsconfig.tokens.json && node --experimental-specifier-resolution=node scripts/generate-tokens-css.mjs",
+    "build:ai:schema": "node scripts/copy-ai-schema.mjs",
+    "build:api": "node --experimental-strip-types scripts/generate-api-artifacts.ts",
+    "build:ai:manifest": "node --experimental-strip-types --experimental-specifier-resolution=node scripts/generate-ai-manifest.ts",
+    "build:ai:discovery": "node --experimental-strip-types --experimental-specifier-resolution=node scripts/generate-ai-discovery.ts",
     "ai:validate": "node scripts/validate-ai-output.mjs",
+    "ai:validate:examples": "node --experimental-strip-types --experimental-specifier-resolution=node scripts/validate-ai-training-examples.ts",
+    "ai:gate:contracts": "node scripts/check-ai-contract-integrity.mjs",
     "ai:enforce": "node scripts/enforce-ai-usage.mjs",
     "ai:token-diff": "node scripts/diff-token-usage.mjs",
     "ai:generate-ui": "node --experimental-strip-types scripts/ai/generate-ui.ts",
-    "ci:ai": "npm run ai:validate && npm run ai:enforce && npm run ai:token-diff",
+    "ci:ai": "npm run ai:validate && npm run ai:validate:examples && npm run ai:gate:contracts && npm run ai:enforce && npm run ai:token-diff",
     "size:check": "node scripts/check-bundle-size.mjs",
     "ci:bundle": "npm run build && npm run size:check",
     "preview": "vite preview --configLoader native",

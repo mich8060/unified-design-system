@@ -1,0 +1,2802 @@
+{
+  "contractName": "uds.ai.contract",
+  "schemaVersion": "1.0.0",
+  "systemVersion": "0.2.12",
+  "tokenVersion": "1.0.0",
+  "manifestVersion": "1.0.0",
+  "governanceVersion": "1.0.0",
+  "policyVersion": "1.0.0",
+  "versioning": {
+    "schema": "1.0.0",
+    "manifest": "1.0.0",
+    "governance": "1.0.0",
+    "policy": "1.0.0",
+    "token": "1.0.0",
+    "system": "0.2.12"
+  },
+  "components": {
+    "Accordion": {
+      "name": "Accordion",
+      "category": "layout",
+      "intent": "Progressive disclosure for grouped content",
+      "purpose": null,
+      "tier": null,
+      "description": "A vertically stacked disclosure component that allows users to expand and collapse sections of related content. It manages state visibility, keyboard accessibility, and animation timing, and should not be used for navigation or page transitions.",
+      "roles": [
+        "region"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Card"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-16",
+          "--uds-spacing-24",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "ActionMenu": {
+      "name": "ActionMenu",
+      "category": "navigation",
+      "intent": "Contextual action list for local operations",
+      "purpose": null,
+      "tier": null,
+      "description": "A contextual action surface triggered by a button or icon that exposes secondary, object-specific actions. It manages positioning, keyboard navigation, focus behavior, and dismissal, and is not intended for primary navigation.",
+      "roles": [
+        "menu"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Table",
+          "Card"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Card",
+          "Menu",
+          "Table"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-600",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "AppShell": {
+      "name": "AppShell",
+      "category": "layout",
+      "intent": "Top-level application shell and page structure",
+      "purpose": null,
+      "tier": null,
+      "description": "The structural application layout framework that governs global regions such as header, sidebar, breadcrumb, sub-navigation, and main content. It enforces consistent structure, theme/brand application, and layout configuration.",
+      "roles": [
+        "application"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "root"
+        ],
+        "allowedChildren": [
+          "Menu",
+          "Container",
+          "Flex",
+          "Card",
+          "Text",
+          "Button"
+        ],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-16",
+          "--uds-color-neutral-50",
+          "--uds-elevation-overlay"
+        ]
+      }
+    },
+    "Avatar": {
+      "name": "Avatar",
+      "category": "data-display",
+      "intent": "Visual identity for people or entities",
+      "purpose": null,
+      "tier": null,
+      "description": "A visual identity component representing a person, organization, or system entity via image, initials, or fallback icon. It manages size, shape, and status indicators but not profile interactions.",
+      "roles": [
+        "img"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "size": {
+          "type": "string",
+          "default": "default"
+        }
+      },
+      "defaults": {
+        "size": "default"
+      },
+      "composition": {
+        "preferredParents": [
+          "Table",
+          "Card",
+          "Flex"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Card",
+          "Table"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Badge": {
+      "name": "Badge",
+      "category": "data-display",
+      "intent": "Compact count/status indicator",
+      "purpose": null,
+      "tier": null,
+      "description": "A compact visual indicator for status, counts, or contextual metadata, typically attached to another UI element. It manages semantic state color and sizing.",
+      "roles": [
+        "status"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "blue",
+            "cyan",
+            "green",
+            "magenta",
+            "indigo",
+            "rose",
+            "neutral",
+            "orange",
+            "purple",
+            "red",
+            "sky",
+            "yellow",
+            "inverse",
+            "lime"
+          ],
+          "default": "red"
+        },
+        "appearance": {
+          "type": "enum",
+          "values": [
+            "solid",
+            "outlined"
+          ],
+          "default": "solid"
+        },
+        "rounded": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "defaults": {
+        "variant": "red",
+        "appearance": "solid",
+        "rounded": true
+      },
+      "composition": {
+        "preferredParents": [
+          "Tabs",
+          "Card",
+          "Button"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Branding": {
+      "name": "Branding",
+      "category": "branding",
+      "intent": "Brand identity and logo presentation",
+      "purpose": null,
+      "tier": null,
+      "description": "A brand-aware component for rendering logos, wordmarks, and brand identifiers based on active brand and theme context.",
+      "roles": [
+        "banner"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "size": {
+          "type": "string",
+          "default": "default"
+        }
+      },
+      "defaults": {
+        "size": "default"
+      },
+      "composition": {
+        "preferredParents": [
+          "Menu",
+          "AppShell"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Breadcrumb": {
+      "name": "Breadcrumb",
+      "category": "navigation",
+      "intent": "Hierarchy-aware location trail",
+      "purpose": null,
+      "tier": null,
+      "description": "A hierarchical navigation aid that communicates location within application structure with consistent spacing and truncation.",
+      "roles": [
+        "navigation"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Container"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-600",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Button": {
+      "name": "Button",
+      "category": "action",
+      "intent": "Primary and secondary user actions",
+      "purpose": null,
+      "tier": null,
+      "description": "An interactive control for triggering actions such as submissions, navigation, or state changes, with support for multiple variants, sizes, icon placements, and disabled states.",
+      "roles": [
+        "button"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "layout": {
+          "type": "enum",
+          "values": [
+            "label-only",
+            "icon-left",
+            "icon-right",
+            "icon-only",
+            "only"
+          ],
+          "default": "label-only"
+        },
+        "appearance": {
+          "type": "enum",
+          "values": [
+            "primary",
+            "soft",
+            "outline",
+            "text",
+            "ghost",
+            "disabled",
+            "destructive"
+          ],
+          "default": "primary"
+        },
+        "size": {
+          "type": "enum",
+          "values": [
+            "large",
+            "default",
+            "small",
+            "xsmall"
+          ],
+          "default": "default"
+        }
+      },
+      "defaults": {
+        "layout": "label-only",
+        "appearance": "primary",
+        "size": "default"
+      },
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Card",
+          "Dialog",
+          "Modal",
+          "Container",
+          "Flex"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "AppShell",
+          "Card",
+          "Container",
+          "Flex",
+          "Modal",
+          "Table",
+          "Tabs"
+        ],
+        "disallowedChildren": [
+          "Button"
+        ],
+        "constraints": {
+          "onlyOnePrimaryPerSection": true
+        }
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-blue-600",
+          "--uds-color-red-600",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Calendar": {
+      "name": "Calendar",
+      "category": "form",
+      "intent": "Calendar grid date selection",
+      "purpose": null,
+      "tier": null,
+      "description": "A full calendar visualization for selecting and viewing dates across weeks and months, with keyboard interaction and focus handling.",
+      "roles": [
+        "grid"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Datepicker",
+          "Card"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Card": {
+      "name": "Card",
+      "category": "layout",
+      "intent": "Contained content section",
+      "purpose": null,
+      "tier": null,
+      "description": "A surface container for grouping related content and actions within a visual boundary, managing elevation, padding, and spacing.",
+      "roles": [
+        "region"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Flex"
+        ],
+        "allowedChildren": [
+          "Text",
+          "Flex",
+          "Button",
+          "Tag",
+          "Status",
+          "Table",
+          "Divider",
+          "Avatar",
+          "ActionMenu",
+          "Field"
+        ],
+        "allowedParents": [
+          "AppShell",
+          "Container",
+          "Tabs"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-16",
+          "--uds-spacing-24",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Checkbox": {
+      "name": "Checkbox",
+      "category": "form",
+      "intent": "Multi-select boolean input",
+      "purpose": null,
+      "tier": null,
+      "description": "A binary selection control for independently selecting multiple options, including checked, unchecked, and indeterminate states.",
+      "roles": [
+        "checkbox"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Form"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Field"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Chip": {
+      "name": "Chip",
+      "category": "form",
+      "intent": "Compact selectable/tag item",
+      "purpose": null,
+      "tier": null,
+      "description": "A compact, optionally removable element representing user input, filter criteria, or selected values.",
+      "roles": [
+        "button"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "selected": {
+          "type": "boolean",
+          "default": false
+        },
+        "shape": {
+          "type": "enum",
+          "values": [
+            "pill",
+            "rounded"
+          ],
+          "default": "pill"
+        },
+        "size": {
+          "type": "enum",
+          "values": [
+            "default",
+            "compact"
+          ],
+          "default": "default"
+        },
+        "iconPlacement": {
+          "type": "enum",
+          "values": [
+            "both",
+            "left",
+            "right",
+            "none"
+          ],
+          "default": "none"
+        },
+        "badgeVariant": {
+          "type": "string",
+          "default": "sky"
+        }
+      },
+      "defaults": {
+        "selected": false,
+        "shape": "pill",
+        "size": "default",
+        "iconPlacement": "none",
+        "badgeVariant": "sky"
+      },
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Flex"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Code": {
+      "name": "Code",
+      "category": "data-display",
+      "intent": "Formatted code snippet block",
+      "purpose": null,
+      "tier": null,
+      "description": null,
+      "roles": [
+        "code"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "language": {
+          "type": "enum",
+          "values": [
+            "markup",
+            "css",
+            "clike",
+            "javascript",
+            "typescript",
+            "tsx",
+            "jsx",
+            "json",
+            "bash",
+            "sql"
+          ],
+          "default": "javascript"
+        },
+        "inline": {
+          "type": "enum",
+          "values": [
+            true,
+            false
+          ],
+          "default": false
+        }
+      },
+      "defaults": {
+        "language": "javascript",
+        "inline": false
+      },
+      "composition": {
+        "preferredParents": [
+          "Card",
+          "Container"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-12",
+          "--uds-color-neutral-900",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Container": {
+      "name": "Container",
+      "category": "layout",
+      "intent": "Width-constrained page/content wrapper",
+      "purpose": "Provides a reusable content wrapper with optional filled or transparent surface styles and standardized padding.",
+      "tier": 2,
+      "description": "A structural layout wrapper that enforces width constraints, horizontal padding, and alignment rhythm for consistent page sections.",
+      "roles": [
+        "region"
+      ],
+      "slots": null,
+      "states": [
+        "default"
+      ],
+      "props": {
+        "appearance": {
+          "type": "enum",
+          "values": [
+            "default",
+            "transparent"
+          ],
+          "default": "default"
+        },
+        "padding": {
+          "type": "enum",
+          "values": [
+            "none",
+            "xsmall",
+            "small",
+            "default",
+            "large",
+            "xlarge"
+          ],
+          "default": "default"
+        }
+      },
+      "defaults": {
+        "appearance": "default",
+        "padding": "default"
+      },
+      "composition": {
+        "preferredParents": [
+          "AppShell",
+          "root"
+        ],
+        "allowedChildren": [
+          "Flex",
+          "Card",
+          "Table",
+          "Text",
+          "Button",
+          "Field",
+          "Divider",
+          "Tag"
+        ],
+        "allowedParents": [
+          "AppShell",
+          "root"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-16",
+          "--uds-spacing-24",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Datepicker": {
+      "name": "Datepicker",
+      "category": "form",
+      "intent": "Date input and picker interaction",
+      "purpose": null,
+      "tier": null,
+      "description": "A composite input component combining text entry and calendar selection for date input, including formatting and accessibility behavior.",
+      "roles": [
+        "combobox"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "size": {
+          "type": "string",
+          "default": "desktop"
+        }
+      },
+      "defaults": {
+        "size": "desktop"
+      },
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Form"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Field",
+          "Modal"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Dialog": {
+      "name": "Dialog",
+      "category": "feedback",
+      "intent": "Structured confirmation/message surface",
+      "purpose": null,
+      "tier": null,
+      "description": "A modal interaction surface requiring user attention before proceeding, with focus trapping, overlay behavior, and escape dismissal.",
+      "roles": [
+        "dialog"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "intent": {
+          "type": "string",
+          "default": "info"
+        },
+        "confirmLabel": {
+          "type": "string",
+          "default": "Confirm"
+        },
+        "cancelLabel": {
+          "type": "string",
+          "default": "Cancel"
+        }
+      },
+      "defaults": {
+        "intent": "info",
+        "confirmLabel": "Confirm",
+        "cancelLabel": "Cancel"
+      },
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Card"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [
+          "Dialog"
+        ],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-green-600",
+          "--uds-color-red-600"
+        ]
+      }
+    },
+    "Divider": {
+      "name": "Divider",
+      "category": "layout",
+      "intent": "Semantic section separator",
+      "purpose": null,
+      "tier": null,
+      "description": "A non-interactive visual separator for distinguishing sections of content with consistent spacing and alignment.",
+      "roles": [
+        "separator"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "alignment": {
+          "type": "enum",
+          "values": [
+            "left",
+            "center",
+            "right"
+          ],
+          "default": "center"
+        },
+        "variant": {
+          "type": "enum",
+          "values": [
+            "line",
+            "solid"
+          ],
+          "default": "line"
+        }
+      },
+      "defaults": {
+        "alignment": "center",
+        "variant": "line"
+      },
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Card",
+          "Flex"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Card",
+          "Container",
+          "Modal"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-16",
+          "--uds-spacing-24",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "DotStatus": {
+      "name": "DotStatus",
+      "category": "data-display",
+      "intent": "Small status indicator dot",
+      "purpose": null,
+      "tier": null,
+      "description": "A minimal color-coded dot used to communicate state visually and intended to be paired with accessible text.",
+      "roles": [
+        "status"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "red",
+            "blue",
+            "inverse",
+            "orange",
+            "sky",
+            "indigo",
+            "rose",
+            "neutral",
+            "celery",
+            "lime",
+            "yellow",
+            "green",
+            "cyan",
+            "purple",
+            "fuchsia"
+          ],
+          "default": "blue"
+        },
+        "size": {
+          "type": "enum",
+          "values": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "default": "medium"
+        },
+        "outline": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "defaults": {
+        "variant": "blue",
+        "size": "medium",
+        "outline": false
+      },
+      "composition": {
+        "preferredParents": [
+          "Table",
+          "Card",
+          "Flex"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Table"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Dropdown": {
+      "name": "Dropdown",
+      "category": "form",
+      "intent": "Single-select list input",
+      "purpose": null,
+      "tier": null,
+      "description": "A selectable list component that expands from a trigger to allow single-option selection, including open/close behavior and keyboard navigation.",
+      "roles": [
+        "combobox"
+      ],
+      "slots": null,
+      "states": [
+        "default",
+        "focused",
+        "error",
+        "disabled"
+      ],
+      "props": {
+        "size": {
+          "type": "enum",
+          "values": [
+            "compact",
+            "default"
+          ],
+          "default": "default"
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "focused",
+            "error",
+            "disabled"
+          ],
+          "default": "default"
+        },
+        "placeholder": {
+          "type": "string",
+          "default": "Select an option"
+        },
+        "placement": {
+          "type": "string",
+          "default": "bottom-start"
+        }
+      },
+      "defaults": {
+        "size": "default",
+        "state": "default",
+        "placeholder": "Select an option",
+        "placement": "bottom-start"
+      },
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Form",
+          "Menu"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Field",
+          "Menu",
+          "Modal"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "EmptyState": {
+      "name": "EmptyState",
+      "category": "feedback",
+      "intent": "Guidance for empty data scenarios",
+      "purpose": "Provide a clear, branded fallback when a section has no content, data, or search results.",
+      "tier": 2,
+      "description": "A structured placeholder pattern shown when no data exists, providing context and guidance so users can move forward instead of seeing a blank interface.",
+      "roles": [
+        "status"
+      ],
+      "slots": null,
+      "states": [
+        "default"
+      ],
+      "props": {
+        "align": {
+          "type": "enum",
+          "values": [
+            "left",
+            "center"
+          ],
+          "default": "center"
+        }
+      },
+      "defaults": {
+        "align": "center"
+      },
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Card",
+          "Table"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-green-600",
+          "--uds-color-red-600"
+        ]
+      }
+    },
+    "EventCard": {
+      "name": "EventCard",
+      "category": "data-display",
+      "intent": "Event summary in a compact card",
+      "purpose": null,
+      "tier": null,
+      "description": "A specialized content container optimized for presenting event metadata such as date, time, location, and status.",
+      "roles": [
+        "article"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "title": {
+          "type": "string",
+          "default": "Title"
+        },
+        "type": {
+          "type": "string",
+          "default": "travel"
+        },
+        "status": {
+          "type": "string",
+          "default": "active"
+        }
+      },
+      "defaults": {
+        "title": "Title",
+        "type": "travel",
+        "status": "active"
+      },
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Flex"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Field": {
+      "name": "Field",
+      "category": "form",
+      "intent": "Label/helper/error wrapper for controls",
+      "purpose": null,
+      "tier": null,
+      "description": "A compositional wrapper that pairs form controls with label, helper text, validation messaging, and accessibility relationships.",
+      "roles": [
+        "group"
+      ],
+      "slots": {
+        "control": {
+          "required": true,
+          "description": "Input-like child control."
+        },
+        "helper": {
+          "required": false
+        },
+        "error": {
+          "required": false
+        }
+      },
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Form",
+          "Card",
+          "Container"
+        ],
+        "allowedChildren": [
+          "TextInput",
+          "Input",
+          "Dropdown",
+          "Datepicker",
+          "Textarea",
+          "Checkbox",
+          "Radio",
+          "Toggle",
+          "Slider",
+          "FileUpload"
+        ],
+        "allowedParents": [
+          "Card",
+          "Container",
+          "Modal",
+          "Tabs"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-red-600"
+        ]
+      }
+    },
+    "FileUpload": {
+      "name": "FileUpload",
+      "category": "form",
+      "intent": "File selection and upload interaction",
+      "purpose": null,
+      "tier": null,
+      "description": "An input for uploading files via drag-and-drop or system picker with visual states for progress, selected files, and errors.",
+      "roles": [
+        "group"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "instructionText": {
+          "type": "string",
+          "default": "Drop files here or click to upload"
+        }
+      },
+      "defaults": {
+        "instructionText": "Drop files here or click to upload"
+      },
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Form"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Field"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Flex": {
+      "name": "Flex",
+      "category": "layout",
+      "intent": "Primary flexbox layout primitive",
+      "purpose": "Creates token-driven flexbox layouts with controlled direction, alignment, wrapping, and width behavior.",
+      "tier": 2,
+      "description": "A flexbox-based layout primitive for direction, alignment, spacing, and wrapping using system tokens for predictable layout behavior.",
+      "roles": [
+        "group"
+      ],
+      "slots": null,
+      "states": [
+        "default"
+      ],
+      "props": {
+        "fullWidth": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "defaults": {
+        "fullWidth": false
+      },
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Card",
+          "AppShell"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "AppShell",
+          "Card",
+          "Container"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-16",
+          "--uds-spacing-24"
+        ]
+      }
+    },
+    "Icon": {
+      "name": "Icon",
+      "category": "data-display",
+      "intent": "Consistent icon rendering wrapper",
+      "purpose": null,
+      "tier": null,
+      "description": "A scalable vector icon component enforcing consistent sizing, alignment, color token usage, and accessibility semantics.",
+      "roles": [
+        "img"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "appearance": {
+          "type": "string",
+          "default": "regular"
+        }
+      },
+      "defaults": {
+        "appearance": "regular"
+      },
+      "composition": {
+        "preferredParents": [
+          "Button",
+          "Tag",
+          "Status",
+          "Text"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Menu"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "ImageAspect": {
+      "name": "ImageAspect",
+      "category": "layout",
+      "intent": "Image with stable aspect ratio",
+      "purpose": null,
+      "tier": null,
+      "description": "A responsive image container that preserves a predefined aspect ratio across screen sizes without distortion.",
+      "roles": [
+        "img"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "aspectratio": {
+          "type": "enum",
+          "values": [
+            "square",
+            "video",
+            "4-3",
+            "3-2",
+            "21-9",
+            "portrait",
+            "auto"
+          ]
+        },
+        "ratio": {
+          "type": "string",
+          "default": "square"
+        }
+      },
+      "defaults": {
+        "ratio": "square"
+      },
+      "composition": {
+        "preferredParents": [
+          "Card",
+          "Container"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-16",
+          "--uds-spacing-24",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Input": {
+      "name": "Input",
+      "category": "form",
+      "intent": "Alias of TextInput for text entry",
+      "purpose": null,
+      "tier": null,
+      "description": null,
+      "roles": [
+        "textbox"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Form"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Field"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Key": {
+      "name": "Key",
+      "category": "data-display",
+      "intent": "Keyboard shortcut representation",
+      "purpose": null,
+      "tier": null,
+      "description": "A structured key-value style component for labeled metadata such as properties, details, and compact information pairs.",
+      "roles": [
+        "note"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "appearance": {
+          "type": "enum",
+          "values": [
+            "light",
+            "dark"
+          ],
+          "default": "light"
+        }
+      },
+      "defaults": {
+        "appearance": "light"
+      },
+      "composition": {
+        "preferredParents": [
+          "Tooltip",
+          "Card",
+          "Text"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Menu": {
+      "name": "Menu",
+      "category": "navigation",
+      "intent": "Main app navigation and mode controls",
+      "purpose": null,
+      "tier": null,
+      "description": "A structured vertical list of navigation options or actions with active states, keyboard support, and optional hierarchy.",
+      "roles": [
+        "navigation"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "identity": {
+          "type": "string",
+          "default": "design-system"
+        }
+      },
+      "defaults": {
+        "identity": "design-system"
+      },
+      "composition": {
+        "preferredParents": [
+          "AppShell"
+        ],
+        "allowedChildren": [
+          "ActionMenu",
+          "Dropdown",
+          "Toggle",
+          "Text",
+          "Icon"
+        ],
+        "allowedParents": [
+          "AppShell",
+          "root"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-600",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "MicroCalendar": {
+      "name": "MicroCalendar",
+      "category": "data-display",
+      "intent": "Compact calendar visualization",
+      "purpose": null,
+      "tier": null,
+      "description": "A compact calendar view for dashboards and side panels where full calendar interaction is unnecessary.",
+      "roles": [
+        "grid"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Card",
+          "Container"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Modal": {
+      "name": "Modal",
+      "category": "feedback",
+      "intent": "Blocking overlay for focused tasks",
+      "purpose": null,
+      "tier": null,
+      "description": "A centered or full-screen overlay surface for focused interactions, managing stacking, overlay behavior, and dismissal.",
+      "roles": [
+        "dialog"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "size": {
+          "type": "enum",
+          "values": [
+            "small",
+            "default",
+            "large",
+            "fullscreen"
+          ],
+          "default": "default"
+        }
+      },
+      "defaults": {
+        "size": "default"
+      },
+      "composition": {
+        "preferredParents": [
+          "AppShell",
+          "root"
+        ],
+        "allowedChildren": [
+          "Text",
+          "Button",
+          "Divider",
+          "Field",
+          "TextInput",
+          "Dropdown",
+          "Datepicker",
+          "Textarea",
+          "Tag"
+        ],
+        "allowedParents": [
+          "AppShell",
+          "Container",
+          "root"
+        ],
+        "disallowedChildren": [
+          "Modal"
+        ],
+        "constraints": {
+          "disallowedChildren": [
+            "Modal"
+          ]
+        }
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-elevation-overlay",
+          "--uds-spacing-16",
+          "--uds-radius-12"
+        ]
+      }
+    },
+    "Pagination": {
+      "name": "Pagination",
+      "category": "navigation",
+      "intent": "Paged navigation controls",
+      "purpose": null,
+      "tier": null,
+      "description": "A control for navigating large datasets split across pages while preserving context of current and total pages.",
+      "roles": [
+        "navigation"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "variant": {
+          "type": "string",
+          "default": "default"
+        }
+      },
+      "defaults": {
+        "variant": "default"
+      },
+      "composition": {
+        "preferredParents": [
+          "Table",
+          "Container"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-600",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "ProgressCircle": {
+      "name": "ProgressCircle",
+      "category": "data-display",
+      "intent": "Circular progress visualization",
+      "purpose": null,
+      "tier": null,
+      "description": "A circular progress visualization for determinate completion percentages or indeterminate loading activity.",
+      "roles": [
+        "progressbar"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "shape": {
+          "type": "enum",
+          "values": [
+            "circle",
+            "half-circle"
+          ],
+          "default": "circle"
+        },
+        "size": {
+          "type": "enum",
+          "values": [
+            "xxs",
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        }
+      },
+      "defaults": {
+        "shape": "circle",
+        "size": "md"
+      },
+      "composition": {
+        "preferredParents": [
+          "Card",
+          "Container"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "ProgressIndicator": {
+      "name": "ProgressIndicator",
+      "category": "data-display",
+      "intent": "Linear progress visualization",
+      "purpose": null,
+      "tier": null,
+      "description": "A visual indicator for workflow progress, typically rendered as a linear bar or staged sequence.",
+      "roles": [
+        "progressbar"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "labelPosition": {
+          "type": "enum",
+          "values": [
+            "false",
+            "right",
+            "bottom",
+            "top-floating",
+            "bottom-floating"
+          ],
+          "default": false
+        },
+        "variant": {
+          "type": "enum",
+          "values": [
+            "default",
+            "blue",
+            "green",
+            "success",
+            "orange",
+            "warning",
+            "red",
+            "error",
+            "purple"
+          ],
+          "default": "default"
+        },
+        "size": {
+          "type": "enum",
+          "values": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "default": "medium"
+        }
+      },
+      "defaults": {
+        "labelPosition": false,
+        "variant": "default",
+        "size": "medium"
+      },
+      "composition": {
+        "preferredParents": [
+          "Card",
+          "Container",
+          "Table"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Table"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Radio": {
+      "name": "Radio",
+      "category": "form",
+      "intent": "Single-choice option input",
+      "purpose": null,
+      "tier": null,
+      "description": "A mutually exclusive selection control for grouped choices where only one option can be selected.",
+      "roles": [
+        "radio"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Form"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Field"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Slider": {
+      "name": "Slider",
+      "category": "form",
+      "intent": "Range/value slider input",
+      "purpose": null,
+      "tier": null,
+      "description": "A draggable range control for selecting numeric values with continuous or stepped adjustments.",
+      "roles": [
+        "slider"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Form"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Field"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Status": {
+      "name": "Status",
+      "category": "data-display",
+      "intent": "Status label with semantic tone",
+      "purpose": null,
+      "tier": null,
+      "description": "A semantic indicator communicating system, object, or process condition with color, iconography, and text.",
+      "roles": [
+        "status"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "appearance": {
+          "type": "enum",
+          "values": [
+            "light-gray",
+            "white"
+          ],
+          "default": "light-gray"
+        },
+        "shape": {
+          "type": "enum",
+          "values": [
+            "pill",
+            "rounded"
+          ],
+          "default": "pill"
+        },
+        "variant": {
+          "type": "string",
+          "default": "blue"
+        }
+      },
+      "defaults": {
+        "appearance": "light-gray",
+        "shape": "pill",
+        "variant": "blue"
+      },
+      "composition": {
+        "preferredParents": [
+          "Table",
+          "Card",
+          "Flex"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Card",
+          "Table"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Steps": {
+      "name": "Steps",
+      "category": "navigation",
+      "intent": "Multi-step progress navigation",
+      "purpose": null,
+      "tier": null,
+      "description": "A structured sequence component for multi-step workflows showing completed, current, and upcoming stages.",
+      "roles": [
+        "navigation"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "orientation": {
+          "type": "enum",
+          "values": [
+            "horizontal",
+            "vertical"
+          ],
+          "default": "horizontal"
+        },
+        "status": {
+          "type": "enum",
+          "values": [
+            "complete",
+            "active",
+            "incomplete",
+            "disabled",
+            "error",
+            "warning"
+          ]
+        },
+        "size": {
+          "type": "enum",
+          "values": [
+            "default",
+            "compact"
+          ],
+          "default": "default"
+        }
+      },
+      "defaults": {
+        "orientation": "horizontal",
+        "size": "default"
+      },
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Card"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-600",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Table": {
+      "name": "Table",
+      "category": "data-display",
+      "intent": "Structured tabular data rendering",
+      "purpose": null,
+      "tier": null,
+      "description": "A row-and-column data grid supporting sorting/filtering hooks and row-level actions with accessible structure.",
+      "roles": [
+        "table"
+      ],
+      "slots": {
+        "row": {
+          "required": true
+        },
+        "cell": {
+          "required": true
+        },
+        "header": {
+          "required": true
+        }
+      },
+      "states": [],
+      "props": {},
+      "defaults": {},
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Card"
+        ],
+        "allowedChildren": [
+          "Tag",
+          "Status",
+          "Avatar",
+          "Button",
+          "ActionMenu",
+          "ProgressIndicator",
+          "DotStatus"
+        ],
+        "allowedParents": [
+          "Card",
+          "Container",
+          "Tabs"
+        ],
+        "disallowedChildren": [
+          "Table"
+        ],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-100",
+          "--uds-color-neutral-700"
+        ]
+      }
+    },
+    "Tabs": {
+      "name": "Tabs",
+      "category": "navigation",
+      "intent": "Switch between content sections",
+      "purpose": null,
+      "tier": null,
+      "description": "A segmented navigation pattern for switching between related content areas within a shared container.",
+      "roles": [
+        "tablist"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "appearance": {
+          "type": "string",
+          "default": "underline"
+        },
+        "tagVariant": {
+          "type": "string",
+          "default": "red"
+        }
+      },
+      "defaults": {
+        "appearance": "underline",
+        "tagVariant": "red"
+      },
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Card"
+        ],
+        "allowedChildren": [
+          "Text",
+          "Tag",
+          "Button",
+          "Card",
+          "Table",
+          "Field"
+        ],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-600",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Tag": {
+      "name": "Tag",
+      "category": "data-display",
+      "intent": "Categorical metadata label",
+      "purpose": null,
+      "tier": null,
+      "description": "A compact metadata label for categorization, filtering, and visual grouping of related elements.",
+      "roles": [
+        "status"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "appearance": {
+          "type": "enum",
+          "values": [
+            "label-only",
+            "icon-left"
+          ],
+          "default": "label-only"
+        },
+        "size": {
+          "type": "enum",
+          "values": [
+            "compact",
+            "default"
+          ],
+          "default": "compact"
+        },
+        "color": {
+          "type": "enum",
+          "values": [
+            "transparent",
+            "neutral",
+            "red",
+            "orange",
+            "yellow",
+            "emerald",
+            "green",
+            "sky",
+            "cyan",
+            "blue",
+            "indigo",
+            "purple",
+            "fuchsia",
+            "magenta",
+            "inverse"
+          ],
+          "default": "transparent"
+        },
+        "label": {
+          "type": "string",
+          "default": "Label"
+        }
+      },
+      "defaults": {
+        "appearance": "label-only",
+        "size": "compact",
+        "color": "transparent",
+        "label": "Label"
+      },
+      "composition": {
+        "preferredParents": [
+          "Table",
+          "Card",
+          "Flex"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Card",
+          "Container",
+          "Modal",
+          "Table",
+          "Tabs"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "Text": {
+      "name": "Text",
+      "category": "data-display",
+      "intent": "Typography primitive for semantic text",
+      "purpose": "Applies UDS typography variants with governed weight and leading options while preserving semantic tags via `as`.",
+      "tier": 2,
+      "description": "A typography component that adapts semantic styling and theme-aware text contrast across active brand and mode.",
+      "roles": [
+        "text"
+      ],
+      "slots": null,
+      "states": [
+        "default"
+      ],
+      "props": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "display-128",
+            "display-96",
+            "display-72",
+            "display-60",
+            "display-48",
+            "display-36",
+            "heading-32",
+            "heading-28",
+            "heading-24",
+            "body-20",
+            "body-16",
+            "body-14",
+            "body-12"
+          ],
+          "default": "body-16"
+        },
+        "weight": {
+          "type": "enum",
+          "values": [
+            "regular",
+            "medium",
+            "semibold",
+            "bold"
+          ],
+          "default": "regular"
+        },
+        "leading": {
+          "type": "enum",
+          "values": [
+            "tight",
+            "regular",
+            "loose"
+          ],
+          "default": "regular"
+        }
+      },
+      "defaults": {
+        "variant": "body-16",
+        "weight": "regular",
+        "leading": "regular"
+      },
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Card",
+          "Field",
+          "Dialog"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "AppShell",
+          "Card",
+          "Container",
+          "Flex",
+          "Menu",
+          "Modal",
+          "Tabs"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
+    "TextInput": {
+      "name": "TextInput",
+      "category": "form",
+      "intent": "Single-line text input control",
+      "purpose": null,
+      "tier": null,
+      "description": "A single-line input used for textual values such as names, titles, and search queries.",
+      "roles": [
+        "textbox"
+      ],
+      "slots": null,
+      "states": [
+        "default",
+        "focused",
+        "error",
+        "disabled"
+      ],
+      "props": {
+        "size": {
+          "type": "enum",
+          "values": [
+            "compact",
+            "default"
+          ],
+          "default": "default"
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "focused",
+            "error",
+            "disabled"
+          ],
+          "default": "default"
+        },
+        "type": {
+          "type": "string",
+          "default": "text"
+        },
+        "iconPosition": {
+          "type": "string",
+          "default": "right"
+        }
+      },
+      "defaults": {
+        "size": "default",
+        "state": "default",
+        "type": "text",
+        "iconPosition": "right"
+      },
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Form"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Field",
+          "Modal"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Textarea": {
+      "name": "Textarea",
+      "category": "form",
+      "intent": "Multi-line text input control",
+      "purpose": null,
+      "tier": null,
+      "description": "A multi-line text input for longer content such as descriptions, comments, and notes.",
+      "roles": [
+        "textbox"
+      ],
+      "slots": null,
+      "states": [
+        "default",
+        "focused",
+        "error",
+        "disabled"
+      ],
+      "props": {
+        "size": {
+          "type": "enum",
+          "values": [
+            "compact",
+            "default"
+          ],
+          "default": "default"
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "default",
+            "focused",
+            "error",
+            "disabled"
+          ],
+          "default": "default"
+        }
+      },
+      "defaults": {
+        "size": "default",
+        "state": "default"
+      },
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Form"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Field",
+          "Modal"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Toast": {
+      "name": "Toast",
+      "category": "feedback",
+      "intent": "Transient notification message",
+      "purpose": null,
+      "tier": null,
+      "description": "A temporary, non-blocking notification surface that provides brief system feedback and auto-dismisses.",
+      "roles": [
+        "status"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "success",
+            "error",
+            "warning",
+            "info"
+          ],
+          "default": "info"
+        }
+      },
+      "defaults": {
+        "variant": "info"
+      },
+      "composition": {
+        "preferredParents": [
+          "AppShell",
+          "root"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [
+          "Modal",
+          "Dialog"
+        ],
+        "constraints": {
+          "disallowedChildren": [
+            "Modal",
+            "Dialog"
+          ]
+        }
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-green-600",
+          "--uds-color-red-600"
+        ]
+      }
+    },
+    "Toggle": {
+      "name": "Toggle",
+      "category": "form",
+      "intent": "Binary switch control",
+      "purpose": null,
+      "tier": null,
+      "description": "A binary switch for enabling or disabling a persistent setting or feature state.",
+      "roles": [
+        "switch"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "size": {
+          "type": "enum",
+          "values": [
+            "large",
+            "small"
+          ],
+          "default": "large"
+        }
+      },
+      "defaults": {
+        "size": "large"
+      },
+      "composition": {
+        "preferredParents": [
+          "Field",
+          "Form",
+          "Menu"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [
+          "Field",
+          "Menu"
+        ],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-12",
+          "--uds-color-neutral-700",
+          "--uds-color-blue-600"
+        ]
+      }
+    },
+    "Tooltip": {
+      "name": "Tooltip",
+      "category": "feedback",
+      "intent": "Contextual helper text on hover/focus",
+      "purpose": null,
+      "tier": null,
+      "description": "A contextual overlay shown on hover or focus to provide supplemental information without interrupting workflow.",
+      "roles": [
+        "tooltip"
+      ],
+      "slots": null,
+      "states": [],
+      "props": {
+        "placement": {
+          "type": "enum",
+          "values": [
+            "top",
+            "bottom",
+            "left",
+            "right"
+          ],
+          "default": "top"
+        }
+      },
+      "defaults": {
+        "placement": "top"
+      },
+      "composition": {
+        "preferredParents": [
+          "Button",
+          "Icon",
+          "Text"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-green-600",
+          "--uds-color-red-600"
+        ]
+      }
+    }
+  },
+  "compositionRules": {
+    "spacingSystem": {
+      "unit": 4,
+      "allowedTokens": [
+        "--uds-spacing-0",
+        "--uds-spacing-2",
+        "--uds-spacing-4",
+        "--uds-spacing-6",
+        "--uds-spacing-8",
+        "--uds-spacing-10",
+        "--uds-spacing-12",
+        "--uds-spacing-14",
+        "--uds-spacing-16",
+        "--uds-spacing-18",
+        "--uds-spacing-24",
+        "--uds-spacing-32",
+        "--uds-spacing-36",
+        "--uds-spacing-40",
+        "--uds-spacing-48",
+        "--uds-spacing-64",
+        "--uds-spacing-80"
+      ],
+      "defaultToken": "--uds-spacing-16"
+    },
+    "verticalRhythm": {
+      "sectionGapToken": "--uds-spacing-24",
+      "contentGapToken": "--uds-spacing-16",
+      "compactGapToken": "--uds-spacing-8"
+    },
+    "allowedComposition": {
+      "AppShell": [
+        "Menu",
+        "Container",
+        "Flex",
+        "Card",
+        "Text",
+        "Button"
+      ],
+      "Container": [
+        "Flex",
+        "Card",
+        "Table",
+        "Text",
+        "Button",
+        "Field",
+        "Divider",
+        "Tag"
+      ],
+      "Field": [
+        "TextInput",
+        "Input",
+        "Dropdown",
+        "Datepicker",
+        "Textarea",
+        "Checkbox",
+        "Radio",
+        "Toggle",
+        "Slider",
+        "FileUpload"
+      ],
+      "Modal": [
+        "Text",
+        "Button",
+        "Divider",
+        "Field",
+        "TextInput",
+        "Dropdown",
+        "Datepicker",
+        "Textarea",
+        "Tag"
+      ],
+      "Card": [
+        "Text",
+        "Flex",
+        "Button",
+        "Tag",
+        "Status",
+        "Table",
+        "Divider",
+        "Avatar",
+        "ActionMenu",
+        "Field"
+      ],
+      "Table": [
+        "Tag",
+        "Status",
+        "Avatar",
+        "Button",
+        "ActionMenu",
+        "ProgressIndicator",
+        "DotStatus"
+      ],
+      "Tabs": [
+        "Text",
+        "Tag",
+        "Button",
+        "Card",
+        "Table",
+        "Field"
+      ],
+      "Menu": [
+        "ActionMenu",
+        "Dropdown",
+        "Toggle",
+        "Text",
+        "Icon"
+      ]
+    },
+    "allowedParents": {
+      "ActionMenu": [
+        "Card",
+        "Menu",
+        "Table"
+      ],
+      "Avatar": [
+        "Card",
+        "Table"
+      ],
+      "Button": [
+        "AppShell",
+        "Card",
+        "Container",
+        "Flex",
+        "Modal",
+        "Table",
+        "Tabs"
+      ],
+      "Card": [
+        "AppShell",
+        "Container",
+        "Tabs"
+      ],
+      "Checkbox": [
+        "Field"
+      ],
+      "Container": [
+        "AppShell",
+        "root"
+      ],
+      "Datepicker": [
+        "Field",
+        "Modal"
+      ],
+      "Divider": [
+        "Card",
+        "Container",
+        "Modal"
+      ],
+      "DotStatus": [
+        "Table"
+      ],
+      "Dropdown": [
+        "Field",
+        "Menu",
+        "Modal"
+      ],
+      "Field": [
+        "Card",
+        "Container",
+        "Modal",
+        "Tabs"
+      ],
+      "FileUpload": [
+        "Field"
+      ],
+      "Flex": [
+        "AppShell",
+        "Card",
+        "Container"
+      ],
+      "Icon": [
+        "Menu"
+      ],
+      "Input": [
+        "Field"
+      ],
+      "Menu": [
+        "AppShell",
+        "root"
+      ],
+      "Modal": [
+        "AppShell",
+        "Container",
+        "root"
+      ],
+      "ProgressIndicator": [
+        "Table"
+      ],
+      "Radio": [
+        "Field"
+      ],
+      "Slider": [
+        "Field"
+      ],
+      "Status": [
+        "Card",
+        "Table"
+      ],
+      "Table": [
+        "Card",
+        "Container",
+        "Tabs"
+      ],
+      "Tag": [
+        "Card",
+        "Container",
+        "Modal",
+        "Table",
+        "Tabs"
+      ],
+      "Text": [
+        "AppShell",
+        "Card",
+        "Container",
+        "Flex",
+        "Menu",
+        "Modal",
+        "Tabs"
+      ],
+      "TextInput": [
+        "Field",
+        "Modal"
+      ],
+      "Textarea": [
+        "Field",
+        "Modal"
+      ],
+      "Toggle": [
+        "Field",
+        "Menu"
+      ]
+    },
+    "disallowedNesting": [
+      {
+        "parent": "Modal",
+        "child": "Modal"
+      },
+      {
+        "parent": "Dialog",
+        "child": "Dialog"
+      },
+      {
+        "parent": "Toast",
+        "child": "Modal"
+      },
+      {
+        "parent": "Toast",
+        "child": "Dialog"
+      },
+      {
+        "parent": "Table",
+        "child": "Table"
+      },
+      {
+        "parent": "Button",
+        "child": "Button"
+      }
+    ],
+    "actionPlacement": {
+      "primaryActionPosition": "end",
+      "secondaryActionPosition": "start",
+      "maxPrimaryActionsPerSection": 1
+    },
+    "maxWidth": {
+      "content": "1280px",
+      "form": "640px",
+      "dialog": "720px"
+    },
+    "maxNestingDepth": 8
+  },
+  "tokenIntents": {
+    "surface/background": [
+      "--uds-color-neutral-0",
+      "--uds-color-neutral-50",
+      "--uds-color-neutral-100"
+    ],
+    "text hierarchy": [
+      "--uds-color-neutral-900",
+      "--uds-color-neutral-700",
+      "--uds-color-neutral-600"
+    ],
+    "interactive emphasis": [
+      "--uds-color-blue-600",
+      "--uds-color-blue-700",
+      "--uds-color-blue-50"
+    ],
+    "error and warning": [
+      "--uds-color-red-600",
+      "--uds-color-amber-600"
+    ],
+    "layout spacing rhythm": [
+      "--uds-spacing-8",
+      "--uds-spacing-12",
+      "--uds-spacing-16",
+      "--uds-spacing-24",
+      "--uds-spacing-32"
+    ]
+  }
+}

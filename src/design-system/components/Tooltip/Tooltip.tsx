@@ -25,12 +25,17 @@ export default function Tooltip({
   content,
   placement = "top",
   disabled = false,
+  defaultVisible = false,
   className = "",
   ...props
 }: TooltipProps) {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(defaultVisible);
   const wrapperRef = useRef(null);
   const tooltipRef = useRef(null);
+
+  useEffect(() => {
+    setIsVisible(defaultVisible);
+  }, [defaultVisible]);
 
   useEffect(() => {
     if (!isVisible || !tooltipRef.current || !wrapperRef.current) return;
@@ -40,42 +45,51 @@ export default function Tooltip({
     const rect = wrapper.getBoundingClientRect();
     const tooltipRect = tooltip.getBoundingClientRect();
 
-    // Position the tooltip based on placement
+    // Position tooltip relative to wrapper first.
     let top = 0;
     let left = 0;
 
     switch (placement) {
       case "top":
-        top = rect.top - tooltipRect.height - 8;
-        left = rect.left + rect.width / 2 - tooltipRect.width / 2;
+        top = -tooltipRect.height - 8;
+        left = rect.width / 2 - tooltipRect.width / 2;
         break;
       case "bottom":
-        top = rect.bottom + 8;
-        left = rect.left + rect.width / 2 - tooltipRect.width / 2;
+        top = rect.height + 8;
+        left = rect.width / 2 - tooltipRect.width / 2;
         break;
       case "left":
-        top = rect.top + rect.height / 2 - tooltipRect.height / 2;
-        left = rect.left - tooltipRect.width - 8;
+        top = rect.height / 2 - tooltipRect.height / 2;
+        left = -tooltipRect.width - 8;
         break;
       case "right":
-        top = rect.top + rect.height / 2 - tooltipRect.height / 2;
-        left = rect.right + 8;
+        top = rect.height / 2 - tooltipRect.height / 2;
+        left = rect.width + 8;
         break;
       default:
         break;
     }
 
-    // Keep tooltip within viewport
+    // Keep tooltip within viewport while still using wrapper-relative coordinates.
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
+    let absoluteLeft = rect.left + left;
+    let absoluteTop = rect.top + top;
 
-    if (left < 8) left = 8;
-    if (left + tooltipRect.width > viewportWidth - 8) {
-      left = viewportWidth - tooltipRect.width - 8;
+    if (absoluteLeft < 8) {
+      left += 8 - absoluteLeft;
+      absoluteLeft = 8;
     }
-    if (top < 8) top = 8;
-    if (top + tooltipRect.height > viewportHeight - 8) {
-      top = viewportHeight - tooltipRect.height - 8;
+    if (absoluteLeft + tooltipRect.width > viewportWidth - 8) {
+      left -= absoluteLeft + tooltipRect.width - (viewportWidth - 8);
+    }
+
+    if (absoluteTop < 8) {
+      top += 8 - absoluteTop;
+      absoluteTop = 8;
+    }
+    if (absoluteTop + tooltipRect.height > viewportHeight - 8) {
+      top -= absoluteTop + tooltipRect.height - (viewportHeight - 8);
     }
 
     tooltip.style.top = `${top}px`;
@@ -91,6 +105,7 @@ export default function Tooltip({
   };
 
   const handleMouseLeave = () => {
+    if (defaultVisible) return;
     setIsVisible(false);
   };
 

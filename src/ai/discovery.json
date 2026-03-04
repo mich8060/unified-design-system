@@ -1,0 +1,31 @@
+{
+  "contractName": "uds.ai.discovery",
+  "schemaVersion": "1.0.0",
+  "package": "@mich8060/unified-design-system",
+  "recommendedReadOrder": [
+    "@mich8060/unified-design-system/ai/discovery.json",
+    "@mich8060/unified-design-system/ai/manifest.json",
+    "@mich8060/unified-design-system/ai/schema",
+    "@mich8060/unified-design-system/ai/examples",
+    "@mich8060/unified-design-system/ai/validation",
+    "@mich8060/unified-design-system/ai/sdk"
+  ],
+  "entrypoints": {
+    "discovery": "@mich8060/unified-design-system/ai/discovery.json",
+    "contractManifest": "@mich8060/unified-design-system/ai/manifest.json",
+    "schema": "@mich8060/unified-design-system/ai/schema",
+    "runtimeApi": "@mich8060/unified-design-system/ai",
+    "manifestModule": "@mich8060/unified-design-system/ai/manifest",
+    "validationModule": "@mich8060/unified-design-system/ai/validation",
+    "helperSdk": "@mich8060/unified-design-system/ai/sdk",
+    "examplesModule": "@mich8060/unified-design-system/ai/examples",
+    "validateAlias": "@mich8060/unified-design-system/ai/validate"
+  },
+  "versioning": {
+    "system": "0.2.12",
+    "token": "1.0.0",
+    "manifest": "1.0.0",
+    "governance": "1.0.0",
+    "policy": "1.0.0"
+  }
+}

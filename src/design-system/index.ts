@@ -28,8 +28,6 @@ export * from "./components/Key";
 export * from "./components/MicroCalendar";
 export * from "./components/Modal";
 export * from "./components/Pagination";
-export * from "./components/PillToggle";
-export * from "./components/Playground";
 export * from "./components/ProgressCircle";
 export * from "./components/ProgressIndicator";
 export * from "./components/Radio";
@@ -57,3 +55,4 @@ export type {
   PaddingMode,
 } from "../app-shell/layout.types";
 export * from "./theme";
+export * from "./generated/component-api";

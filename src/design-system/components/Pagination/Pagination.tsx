@@ -3,13 +3,17 @@ import Icon from "../Icon/Icon";
 import "./_pagination.scss";
 import type { PaginationProps } from "./Pagination.types";
 
+type PageToken = number | "ellipsis-start" | "ellipsis-end";
+
 /**
  * Pagination component
  * @param {number} currentPage - Current active page (1-indexed)
  * @param {number} totalPages - Total number of pages
  * @param {function} onPageChange - Callback when page changes: (page: number) => void
- * @param {string} variant - Variant style: "default" | "underline" | "with-jump" | "underline-with-jump" | "underline-double"
- * @param {boolean} showFirstLast - Show first/last page buttons (for variants with double buttons)
+ * @param {string} variant - Variant style: "default" | "line"
+ * @param {boolean} showJumpInput - Toggle jump-to-page input
+ * @param {boolean} showDoubleButtons - Toggle first/last page buttons
+ * @param {boolean} showFirstLast - Backward-compatible alias for showDoubleButtons
  * @param {string} className - Additional CSS classes
  */
 export default function Pagination({
@@ -17,6 +21,8 @@ export default function Pagination({
   totalPages = 10,
   onPageChange,
   variant = "default",
+  showJumpInput = false,
+  showDoubleButtons = false,
   showFirstLast = false,
   className = "",
 }: PaginationProps) {
@@ -27,7 +33,7 @@ export default function Pagination({
 
   // Calculate which page numbers to show
   const getPageNumbers = () => {
-    const pages = [];
+    const pages: PageToken[] = [];
     const maxVisible = 5; // Show up to 5 page numbers
 
     if (totalPages <= maxVisible) {
@@ -77,7 +83,7 @@ export default function Pagination({
     return pages;
   };
 
-  const handlePageClick = (page) => {
+  const handlePageClick = (page: number) => {
     if (page !== safeCurrentPage && page >= 1 && page <= totalPages && onPageChange) {
       onPageChange(page);
     }
@@ -103,7 +109,7 @@ export default function Pagination({
     handlePageClick(totalPages);
   };
 
-  const handleJumpSubmit = (e) => {
+  const handleJumpSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const page = parseInt(jumpToPage, 10);
     if (page >= 1 && page <= totalPages) {
@@ -113,31 +119,49 @@ export default function Pagination({
     }
   };
 
-  const handleJumpChange = (e) => {
+  const handleJumpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setJumpToPage(e.target.value);
   };
 
   const pageNumbers = getPageNumbers();
-  const isUnderlineVariant =
-    variant === "underline" ||
-    variant === "underline-with-jump" ||
-    variant === "underline-double";
-  const showJumpInput =
-    variant === "with-jump" || variant === "underline-with-jump";
-  const showDoubleButtons =
-    variant === "with-jump" ||
-    variant === "underline-with-jump" ||
-    variant === "underline-double" ||
-    showFirstLast;
+  const isLineVariant = variant === "line";
+  const hasJumpInput = showJumpInput;
+  const hasDoubleButtons = showDoubleButtons || showFirstLast;
+  const hasEllipsis = pageNumbers.some(
+    (page) => page === "ellipsis-start" || page === "ellipsis-end"
+  );
+
+  const centerItems = (() => {
+    if (!hasJumpInput || !hasEllipsis) {
+      return pageNumbers;
+    }
+
+    let jumpInserted = false;
+    return pageNumbers.reduce<(PageToken | "jump")[]>(
+      (accumulator, page) => {
+        if (page === "ellipsis-start" || page === "ellipsis-end") {
+          if (!jumpInserted) {
+            accumulator.push("jump");
+            jumpInserted = true;
+          }
+          return accumulator;
+        }
+
+        accumulator.push(page);
+        return accumulator;
+      },
+      []
+    );
+  })();
 
   return (
-    <nav className={`pagination ${className}`} aria-label="Pagination">
-      <div className={`pagination__container ${isUnderlineVariant ? "pagination__container--underline" : ""} ${showDoubleButtons ? "pagination__container--double" : ""}`}>
+    <nav className={`uds-pagination ${className}`} aria-label="Pagination">
+      <div className={`uds-pagination__container ${isLineVariant ? "uds-pagination__container--underline" : ""} ${hasDoubleButtons ? "uds-pagination__container--double" : ""}`}>
         {/* First page button (only for double button variants) */}
-        {showDoubleButtons && (
+        {hasDoubleButtons && (
           <button
             type="button"
-            className="pagination__cap pagination__cap--first"
+            className="uds-pagination__cap uds-pagination__cap--first"
             onClick={handleFirst}
             disabled={safeCurrentPage === 1}
             aria-label="First page"
@@ -149,7 +173,7 @@ export default function Pagination({
         {/* Previous page button */}
         <button
           type="button"
-          className="pagination__cap pagination__cap--prev"
+          className="uds-pagination__cap uds-pagination__cap--prev"
           onClick={handlePrevious}
           disabled={safeCurrentPage === 1}
           aria-label="Previous page"
@@ -158,13 +182,32 @@ export default function Pagination({
         </button>
 
         {/* Page numbers */}
-        {pageNumbers.map((page, index) => {
+        {centerItems.map((page, index) => {
+          if (page === "jump") {
+            return (
+              <div key={`jump-${index}`} className="uds-pagination__jump">
+                <form onSubmit={handleJumpSubmit}>
+                  <input
+                    type="number"
+                    className="uds-pagination__jump-input"
+                    value={jumpToPage}
+                    onChange={handleJumpChange}
+                    min="1"
+                    max={totalPages}
+                    aria-label="Jump to page"
+                  />
+                </form>
+                <span className="uds-pagination__jump-label">of {totalPages}</span>
+              </div>
+            );
+          }
+
           if (page === "ellipsis-start" || page === "ellipsis-end") {
             return (
               <button
                 key={`ellipsis-${index}`}
                 type="button"
-                className="pagination__item pagination__item--ellipsis"
+                className="uds-pagination__item uds-pagination__item--ellipsis"
                 disabled
                 aria-hidden="true"
               >
@@ -179,9 +222,9 @@ export default function Pagination({
             <button
               key={page}
               type="button"
-              className={`pagination__item ${
-                isActive ? "pagination__item--active" : ""
-              } ${isUnderlineVariant ? "pagination__item--underline" : ""}`}
+              className={`uds-pagination__item ${
+                isActive ? "uds-pagination__item--active" : ""
+              } ${isLineVariant ? "uds-pagination__item--underline" : ""}`}
               onClick={() => handlePageClick(page)}
               aria-label={`Page ${page}`}
               aria-current={isActive ? "page" : undefined}
@@ -191,28 +234,10 @@ export default function Pagination({
           );
         })}
 
-        {/* Jump to page input (for variants that include it) */}
-        {showJumpInput && (
-          <div className="pagination__jump">
-            <form onSubmit={handleJumpSubmit}>
-              <input
-                type="number"
-                className="pagination__jump-input"
-                value={jumpToPage}
-                onChange={handleJumpChange}
-                min="1"
-                max={totalPages}
-                aria-label="Jump to page"
-              />
-            </form>
-            <span className="pagination__jump-label">of {totalPages}</span>
-          </div>
-        )}
-
         {/* Next page button */}
         <button
           type="button"
-          className="pagination__cap pagination__cap--next"
+          className="uds-pagination__cap uds-pagination__cap--next"
           onClick={handleNext}
           disabled={safeCurrentPage === totalPages}
           aria-label="Next page"
@@ -221,10 +246,10 @@ export default function Pagination({
         </button>
 
         {/* Last page button (only for double button variants) */}
-        {showDoubleButtons && (
+        {hasDoubleButtons && (
           <button
             type="button"
-            className="pagination__cap pagination__cap--last"
+            className="uds-pagination__cap uds-pagination__cap--last"
             onClick={handleLast}
             disabled={safeCurrentPage === totalPages}
             aria-label="Last page"

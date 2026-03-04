@@ -1,80 +1,109 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
+
 .uds-field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--uds-gap-32);
-  width: 100%;
-
-  &__label-row {
-    display: flex;
-    align-items: center;
-    gap: var(--uds-gap-32);
-    justify-content: space-between;
-  }
-
-  &__label {
-    @include uds-body-14-medium;
-    color: var(--uds-text-primary);
-    display: inline-block;
-    line-height: 20px;
-  }
-
-  &__required {
-    color: var(--uds-text-error, #ef4444);
-    margin-left: 2px;
-  }
-
-  &__info-icon {
     all: unset;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: var(--uds-surface-tertiary);
-    color: var(--uds-text-secondary);
-    cursor: pointer;
-    flex-shrink: 0;
-    transition:
-      background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
-      border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
-      color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
-      box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
-
-    &:hover {
-      background-color: var(--uds-surface-quaternary);
-      color: var(--uds-text-primary);
-    }
-
-    &:focus-visible {
-      outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
-      outline-offset: var(--uds-focus-ring-offset);
-    }
-  }
-
-  &__input-wrapper {
-    position: relative;
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--uds-gap-4);
     width: 100%;
-  }
 
-  &__character-count {
-    @include uds-body-12;
-    position: absolute;
-    bottom: var(--uds-spacing-8);
-    right: var(--uds-spacing-12);
-    color: var(--uds-text-secondary);
-    pointer-events: none;
-    line-height: 1;
-  }
+    &__label-row {
+        display: flex;
+        align-items: center;
+        gap: var(--uds-gap-24);
+        justify-content: space-between;
+        position: relative;
+    }
 
-  &__helper {
-    @include uds-body-14;
-    color: var(--uds-text-secondary);
-    line-height: 20px;
-    margin-top: calc(var(--uds-gap-32) * -1);
-  }
+    &__label {
+        @include uds-body-14;
+        color: var(--uds-text-primary);
+        gap: var(--uds-gap-4);
+        display: flex;
+        line-height: 20px;
+        flex: 1;
+    }
+
+    &__required {
+        color: var(--uds-system-destructive-primary);
+        display: inline-block;
+    }
+
+    &__info {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--uds-gap-4);
+        flex-shrink: 0;
+    }
+
+    &__info-text {
+        @include uds-body-14;
+        color: var(--uds-text-secondary);
+    }
+
+    &__info-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: var(--uds-surface-tertiary);
+        color: var(--uds-text-secondary);
+        cursor: help;
+        transition:
+            background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+            color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+            box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+
+        &:hover {
+            background-color: var(--uds-surface-quaternary);
+            color: var(--uds-text-primary);
+        }
+
+        &:focus-visible {
+            outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
+            outline-offset: var(--uds-focus-ring-offset);
+        }
+    }
+
+
+    &__input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    &__meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--uds-gap-8);
+    }
+
+    &__helper {
+        @include uds-body-12;
+        color: var(--uds-text-secondary);
+        line-height: 20px;
+    }
+
+    &__character-count {
+        @include uds-body-12;
+        color: var(--uds-text-secondary);
+        line-height: 20px;
+        white-space: nowrap;
+    }
+
+    &--error {
+        .uds-field__label,
+        .uds-field__required,
+        .uds-field__helper,
+        .uds-field__character-count,
+        .uds-field__info-text,
+        .uds-field__info-icon {
+            color: var(--uds-system-destructive-primary);
+        }
+    }
 }

@@ -2,20 +2,24 @@ import { ComponentRegistry } from "./manifest/components.manifest";
 import { getVersionLineage, UDSGovernance } from "./manifest/governance.manifest";
 import { LayoutRules } from "./manifest/layout.manifest";
 import { PatternRegistry } from "./manifest/patterns.manifest";
-import { UDSManifest, UDS_AI_MANIFEST } from "./manifest/system.manifest";
+import { PropAliasRules } from "./manifest/prop-aliases.manifest";
+import { UDSAIContract, UDSManifest, UDS_AI_CONTRACT, UDS_AI_MANIFEST } from "./manifest/system.manifest";
 import { TokenIntentMap } from "./manifest/tokens.intent.manifest";
 
-export { UDSManifest, UDS_AI_MANIFEST };
-export { ComponentRegistry, PatternRegistry, LayoutRules, TokenIntentMap, UDSGovernance, getVersionLineage };
+export { UDSManifest, UDSAIContract, UDS_AI_CONTRACT, UDS_AI_MANIFEST };
+export { ComponentRegistry, PatternRegistry, LayoutRules, PropAliasRules, TokenIntentMap, UDSGovernance, getVersionLineage };
 export { runPolicyEngine } from "./policies/policy.engine";
+export { createUDSRuntimeHelperSDK } from "./sdk";
 export { validateTree } from "./validation/validateTree";
 export { validateAIOutput } from "./validation/validateAIOutput";
 export { validateSchema } from "./validation/schemaValidation";
 export { detectDrift } from "./validation/driftDetection";
+export { buildDeterministicFeedback, sortAndDedupeViolations } from "./validation/deterministicFeedback";
 export { logAIGeneration } from "./audit/auditLogger";
 export { recordUsageMetric, getUsageMetrics, resetUsageMetrics } from "./telemetry/usageMetrics";
 export { ValidAuthFormTree, InvalidPrimaryActionTree } from "./examples/trees.example";
 export { StrictModeFailureTree, strictModeFailureExample } from "./examples/validation-run.example";
+export { UDS_TRAINING_EXAMPLES } from "./examples/training.examples";
 
 // Legacy aliases maintained for compatibility with previous AI metadata naming.
 export const AI_COMPONENT_METADATA = ComponentRegistry;
@@ -60,6 +64,8 @@ export type {
   VersionLineage,
 } from "./manifest/types";
 export type { PolicyViolation } from "./policies/policy.types";
+export type { UDSRuntimeHelperSDK, CreateUDSRuntimeHelperSDKOptions, CanonicalizedPropsResult } from "./sdk";
 export type { AuditEvent, AuditTransport } from "./audit/audit.types";
 export type { AIValidationResult } from "./validation/validateAIOutput";
 export type { UsageMetric } from "./telemetry/usageMetrics";
+export type { AITrainingExample } from "./examples/training.examples";

@@ -7,6 +7,8 @@ export type NodeTree = {
 export type ComponentManifest = {
   category: string;
   intent: string;
+  description?: string;
+  alsoKnownAs?: string[];
   roles?: string[];
   preferredParent?: string[];
   props?: Record<
@@ -37,6 +39,7 @@ export type GovernanceManifest = {
   systemVersion: string;
   tokenVersion: string;
   manifestVersion: string;
+  governanceVersion: string;
   policyVersion: string;
   enforcement: {
     strictMode: boolean;

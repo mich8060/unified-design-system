@@ -1,0 +1,331 @@
+[
+  {
+    "component": "Accordion",
+    "props": {},
+    "jsx": "<Accordion />"
+  },
+  {
+    "component": "ActionMenu",
+    "props": {},
+    "jsx": "<ActionMenu />"
+  },
+  {
+    "component": "Avatar",
+    "props": {
+      "size": "default"
+    },
+    "jsx": "<Avatar size=\"default\" />"
+  },
+  {
+    "component": "Badge",
+    "props": {
+      "variant": "red",
+      "appearance": "solid",
+      "rounded": true
+    },
+    "jsx": "<Badge variant=\"red\" appearance=\"solid\" rounded />"
+  },
+  {
+    "component": "Branding",
+    "props": {
+      "size": "default"
+    },
+    "jsx": "<Branding size=\"default\" />"
+  },
+  {
+    "component": "Breadcrumb",
+    "props": {},
+    "jsx": "<Breadcrumb />"
+  },
+  {
+    "component": "Button",
+    "props": {
+      "layout": "label-only",
+      "appearance": "primary",
+      "size": "default"
+    },
+    "jsx": "<Button layout=\"label-only\" appearance=\"primary\" size=\"default\" />"
+  },
+  {
+    "component": "Calendar",
+    "props": {},
+    "jsx": "<Calendar />"
+  },
+  {
+    "component": "Card",
+    "props": {},
+    "jsx": "<Card />"
+  },
+  {
+    "component": "Checkbox",
+    "props": {},
+    "jsx": "<Checkbox />"
+  },
+  {
+    "component": "Chip",
+    "props": {
+      "selected": false,
+      "shape": "pill",
+      "size": "default",
+      "iconPlacement": "none",
+      "badgeVariant": "sky"
+    },
+    "jsx": "<Chip selected={false} shape=\"pill\" size=\"default\" iconPlacement=\"none\" badgeVariant=\"sky\" />"
+  },
+  {
+    "component": "Code",
+    "props": {
+      "language": "javascript",
+      "inline": false
+    },
+    "jsx": "<Code language=\"javascript\" inline={false} />"
+  },
+  {
+    "component": "Container",
+    "props": {
+      "appearance": "default",
+      "padding": "default"
+    },
+    "jsx": "<Container appearance=\"default\" padding=\"default\" />"
+  },
+  {
+    "component": "Datepicker",
+    "props": {
+      "size": "desktop"
+    },
+    "jsx": "<Datepicker size=\"desktop\" />"
+  },
+  {
+    "component": "Dialog",
+    "props": {
+      "intent": "info",
+      "confirmLabel": "Confirm",
+      "cancelLabel": "Cancel"
+    },
+    "jsx": "<Dialog intent=\"info\" confirmLabel=\"Confirm\" cancelLabel=\"Cancel\" />"
+  },
+  {
+    "component": "Divider",
+    "props": {
+      "alignment": "center",
+      "variant": "line"
+    },
+    "jsx": "<Divider alignment=\"center\" variant=\"line\" />"
+  },
+  {
+    "component": "DotStatus",
+    "props": {
+      "variant": "blue",
+      "size": "medium",
+      "outline": false
+    },
+    "jsx": "<DotStatus variant=\"blue\" size=\"medium\" outline={false} />"
+  },
+  {
+    "component": "Dropdown",
+    "props": {
+      "size": "default",
+      "state": "default",
+      "placeholder": "Select an option",
+      "placement": "bottom-start"
+    },
+    "jsx": "<Dropdown size=\"default\" state=\"default\" placeholder=\"Select an option\" placement=\"bottom-start\" />"
+  },
+  {
+    "component": "EmptyState",
+    "props": {
+      "align": "center"
+    },
+    "jsx": "<EmptyState align=\"center\" />"
+  },
+  {
+    "component": "EventCard",
+    "props": {
+      "title": "Title",
+      "type": "travel",
+      "status": "active"
+    },
+    "jsx": "<EventCard title=\"Title\" type=\"travel\" status=\"active\" />"
+  },
+  {
+    "component": "Field",
+    "props": {},
+    "jsx": "<Field />"
+  },
+  {
+    "component": "FileUpload",
+    "props": {
+      "instructionText": "Drop files here or click to upload"
+    },
+    "jsx": "<FileUpload instructionText=\"Drop files here or click to upload\" />"
+  },
+  {
+    "component": "Flex",
+    "props": {
+      "fullWidth": false
+    },
+    "jsx": "<Flex fullWidth={false} />"
+  },
+  {
+    "component": "Icon",
+    "props": {
+      "appearance": "regular"
+    },
+    "jsx": "<Icon appearance=\"regular\" />"
+  },
+  {
+    "component": "ImageAspect",
+    "props": {
+      "ratio": "square"
+    },
+    "jsx": "<ImageAspect ratio=\"square\" />"
+  },
+  {
+    "component": "Key",
+    "props": {
+      "appearance": "light"
+    },
+    "jsx": "<Key appearance=\"light\" />"
+  },
+  {
+    "component": "Menu",
+    "props": {
+      "identity": "design-system"
+    },
+    "jsx": "<Menu identity=\"design-system\" />"
+  },
+  {
+    "component": "MicroCalendar",
+    "props": {},
+    "jsx": "<MicroCalendar />"
+  },
+  {
+    "component": "Modal",
+    "props": {
+      "size": "default"
+    },
+    "jsx": "<Modal size=\"default\" />"
+  },
+  {
+    "component": "Pagination",
+    "props": {
+      "variant": "default"
+    },
+    "jsx": "<Pagination variant=\"default\" />"
+  },
+  {
+    "component": "ProgressCircle",
+    "props": {
+      "shape": "circle",
+      "size": "md"
+    },
+    "jsx": "<ProgressCircle shape=\"circle\" size=\"md\" />"
+  },
+  {
+    "component": "ProgressIndicator",
+    "props": {
+      "labelPosition": false,
+      "variant": "default",
+      "size": "medium"
+    },
+    "jsx": "<ProgressIndicator labelPosition={false} variant=\"default\" size=\"medium\" />"
+  },
+  {
+    "component": "Radio",
+    "props": {},
+    "jsx": "<Radio />"
+  },
+  {
+    "component": "Slider",
+    "props": {},
+    "jsx": "<Slider />"
+  },
+  {
+    "component": "Status",
+    "props": {
+      "appearance": "light-gray",
+      "shape": "pill",
+      "variant": "blue"
+    },
+    "jsx": "<Status appearance=\"light-gray\" shape=\"pill\" variant=\"blue\" />"
+  },
+  {
+    "component": "Steps",
+    "props": {
+      "orientation": "horizontal",
+      "size": "default"
+    },
+    "jsx": "<Steps orientation=\"horizontal\" size=\"default\" />"
+  },
+  {
+    "component": "Table",
+    "props": {},
+    "jsx": "<Table />"
+  },
+  {
+    "component": "Tabs",
+    "props": {
+      "appearance": "underline",
+      "tagVariant": "red"
+    },
+    "jsx": "<Tabs appearance=\"underline\" tagVariant=\"red\" />"
+  },
+  {
+    "component": "Tag",
+    "props": {
+      "appearance": "label-only",
+      "size": "compact",
+      "color": "transparent",
+      "label": "Label"
+    },
+    "jsx": "<Tag appearance=\"label-only\" size=\"compact\" color=\"transparent\" label=\"Label\" />"
+  },
+  {
+    "component": "Text",
+    "props": {
+      "variant": "body-16",
+      "weight": "regular",
+      "leading": "regular"
+    },
+    "jsx": "<Text variant=\"body-16\" weight=\"regular\" leading=\"regular\" />"
+  },
+  {
+    "component": "Textarea",
+    "props": {
+      "size": "default",
+      "state": "default"
+    },
+    "jsx": "<Textarea size=\"default\" state=\"default\" />"
+  },
+  {
+    "component": "TextInput",
+    "props": {
+      "size": "default",
+      "state": "default",
+      "type": "text",
+      "iconPosition": "right"
+    },
+    "jsx": "<TextInput size=\"default\" state=\"default\" type=\"text\" iconPosition=\"right\" />"
+  },
+  {
+    "component": "Toast",
+    "props": {
+      "variant": "info"
+    },
+    "jsx": "<Toast variant=\"info\" />"
+  },
+  {
+    "component": "Toggle",
+    "props": {
+      "size": "large"
+    },
+    "jsx": "<Toggle size=\"large\" />"
+  },
+  {
+    "component": "Tooltip",
+    "props": {
+      "placement": "top"
+    },
+    "jsx": "<Tooltip placement=\"top\" />"
+  }
+]

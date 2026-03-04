@@ -153,7 +153,7 @@ function Menu({
                     <Button
                         appearance="text"
                         icon="List"
-                        size="xsmall"
+                            size="default"
                         label={isMenuOpen ? "Collapse menu" : "Expand menu"}
                         layout="icon-only"
                         aria-label={isMenuOpen ? "Collapse menu" : "Expand menu"}
@@ -271,14 +271,15 @@ function Menu({
                     })}
                 </nav>
             )}
-            <div className="uds-menu_footer">
-                {showModeToggle && onModeChange && (
+            {showModeToggle && onModeChange && (
+                <div className="uds-menu_footer">
                     <div className="uds-menu_mode">
                         <Button
                             appearance="text"
                             icon={activeMenuMode === "light" ? "Sun" : "Moon"}
                             label={activeMenuMode === "light" ? "Light mode" : "Dark mode"}
                             layout="icon-only"
+                            size="default"
                             aria-label="Toggle light/dark mode"
                             className="uds-menu_mode__button"
                             onClick={() => handleModeChange(activeMenuMode === "light" ? "dark" : "light")}
@@ -295,8 +296,8 @@ function Menu({
                             />
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
             {showUser && (
                 <div className="uds-menu_account">
                     <Avatar

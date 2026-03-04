@@ -1,143 +1,132 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
+
 .uds-progress-circle {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  &__svg {
-    display: block;
-  }
-
-  &__track {
-    stroke: #e6e7eb; // Light gray track
-    transition: stroke-dashoffset var(--uds-animation-duration-300)
-      var(--uds-animation-ease-standard);
-  }
-
-  &__fill {
-    stroke: var(--uds-surface-brand-primary, #0c6bb0); // Brand blue
-    transition: stroke-dashoffset var(--uds-animation-duration-300)
-      var(--uds-animation-ease-standard);
-  }
-
-  &__content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    gap: var(--uds-gap-16);
-  }
 
-  &__label {
-    @include uds-body-12-medium;
-    color: var(--uds-text-tertiary, #6b7380);
-    white-space: nowrap;
-  }
-
-  &__value {
-    @include uds-body-14-semibold;
-    color: var(--uds-text-primary, #202938);
-    font-weight: 600;
-    line-height: 1;
-    white-space: nowrap;
-  }
-
-  // Size variants
-  &--xxs {
-    width: 64px;
-    height: 64px;
-
-    .uds-progress-circle__value {
-      font-size: 14px;
-      line-height: 20px;
-      color: var(--uds-text-secondary, #4c5564);
+    &__svg {
+        display: block;
     }
 
-    .uds-progress-circle__label {
-      font-size: 12px;
-      line-height: 18px;
+    &__track {
+        stroke: var(--uds-color-neutrals-200); // Light gray track
+        transition: stroke-dashoffset var(--uds-animation-duration-300) var(--uds-animation-ease-standard);
     }
 
-    &.uds-progress-circle--half-circle {
-      height: 36px;
-    }
-  }
-
-  &--xs {
-    width: 160px;
-    height: 160px;
-
-    .uds-progress-circle__value {
-      font-size: 24px;
-      line-height: 32px;
+    &__fill {
+        stroke: var(--uds-surface-brand-tertiary); // Brand blue
+        transition: stroke-dashoffset var(--uds-animation-duration-300) var(--uds-animation-ease-standard);
     }
 
-    &.uds-progress-circle--half-circle {
-      height: 88px;
-    }
-  }
-
-  &--sm {
-    width: 200px;
-    height: 200px;
-
-    .uds-progress-circle__value {
-      font-size: 32px;
-      line-height: 40px;
+    &__content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 
-    &.uds-progress-circle--half-circle {
-      height: 110px;
-    }
-  }
-
-  &--md {
-    width: 240px;
-    height: 240px;
-
-    .uds-progress-circle__value {
-      font-size: 36px;
-      line-height: 44px;
-      letter-spacing: -0.72px;
+    &__label {
+        @include uds-body-12-medium;
+        color: var(--uds-text-tertiary);
+        white-space: nowrap;
     }
 
-    &.uds-progress-circle--half-circle {
-      height: 132px;
-    }
-  }
-
-  &--lg {
-    width: 280px;
-    height: 280px;
-
-    .uds-progress-circle__value {
-      font-size: 48px;
-      line-height: 60px;
-      letter-spacing: -0.96px;
+    &__value {
+        @include uds-body-14-semibold;
+        color: var(--uds-text-primary);
+        white-space: nowrap;
     }
 
-    &.uds-progress-circle--half-circle {
-      height: 154px;
-    }
-  }
+    // Size variants
+    &--xxs {
+        width: 64px;
+        height: 64px;
 
-  // Half circle adjustments
-  &--half-circle {
-    .uds-progress-circle__content {
-      top: auto;
-      bottom: 0;
-      transform: translateX(-50%);
+        .uds-progress-circle__value {
+            @include uds-body-16-bold;
+            color: var(--uds-text-secondary);
+        }
+
+        .uds-progress-circle__label {
+            display: none;
+        }
+
+        &.uds-progress-circle--half-circle {
+            height: 36px;
+        }
     }
 
-    .uds-progress-circle__svg {
-      overflow: visible;
+    &--xs {
+        width: 120px;
+        height: 120px;
+
+        .uds-progress-circle__value {
+            @include uds-heading-32-bold;
+        }
+
+        &.uds-progress-circle--half-circle {
+            height: 68px;
+        }
     }
-  }
+
+    &--sm {
+        width: 160px;
+        height: 160px;
+
+        .uds-progress-circle__value {
+            @include uds-display-48-bold;
+        }
+
+        &.uds-progress-circle--half-circle {
+            height: 90px;
+        }
+    }
+
+    &--md {
+        width: 240px;
+        height: 240px;
+
+        .uds-progress-circle__value {
+            @include uds-display-48-bold;
+        }
+
+        &.uds-progress-circle--half-circle {
+            height: 132px;
+        }
+    }
+
+    &--lg {
+        width: 280px;
+        height: 280px;
+
+        .uds-progress-circle__value {
+            @include uds-display-48-bold;
+        }
+
+        &.uds-progress-circle--half-circle {
+            height: 154px;
+        }
+    }
+
+    &--half-circle {
+        align-items: flex-end;
+
+        .uds-progress-circle__content {
+            top: auto;
+            bottom: 0;
+            transform: translate(-50%, 0);
+        }
+
+        .uds-progress-circle__svg {
+            overflow: visible;
+        }
+    }
 }

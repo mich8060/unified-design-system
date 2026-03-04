@@ -1,5 +1,6 @@
 import React from "react";
 import Icon from "../Icon/Icon";
+import Tooltip from "../Tooltip/Tooltip";
 import "./_field.scss";
 import type { FieldProps } from "./Field.types";
 
@@ -21,24 +22,25 @@ const BASE_CLASS = "uds-field";
  */
 export default function Field({
   label,
+  state = "default",
   required = false,
   helperMessage,
-  infoIcon,
-  onInfoClick,
   maxLength,
   value,
+  infoIcon,
+  onInfoClick,
   id,
   className = "",
   children,
   ...props
 }: FieldProps) {
   const fieldId = id || `field-${Math.random().toString(36).substr(2, 9)}`;
+  const isInfoInteractive = typeof onInfoClick === "function";
+  const showCharacterCount = typeof maxLength === "number";
+  const currentLength =
+    value === undefined || value === null ? 0 : String(value).length;
 
-  // Calculate character count if maxLength is provided
-  const currentLength = value ? String(value).length : 0;
-  const showCharacterCount = maxLength !== undefined && maxLength !== null;
-
-  const classNames = [BASE_CLASS, className].filter(Boolean).join(" ");
+  const classNames = [BASE_CLASS, `${BASE_CLASS}--${state}`, className].filter(Boolean).join(" ");
 
   return (
     <div className={classNames} {...props}>
@@ -52,15 +54,27 @@ export default function Field({
             </label>
           )}
           {infoIcon && (
-            <button
-              type="button"
-              className={`${BASE_CLASS}__info-icon`}
-              onClick={onInfoClick}
-              aria-label="More information"
-              tabIndex={0}
-            >
-              <Icon name={infoIcon} size={16} appearance="regular" />
-            </button>
+            <div className={`${BASE_CLASS}__info`}>
+              <span className={`${BASE_CLASS}__info-text`}>Info</span>
+              <Tooltip content="More information">
+                <span
+                  className={`${BASE_CLASS}__info-icon`}
+                  role={isInfoInteractive ? "button" : undefined}
+                  tabIndex={isInfoInteractive ? 0 : undefined}
+                  aria-label={isInfoInteractive ? "More information" : undefined}
+                  onClick={onInfoClick}
+                  onKeyDown={(event) => {
+                    if (!isInfoInteractive) return;
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      onInfoClick();
+                    }
+                  }}
+                >
+                  <Icon name={infoIcon} size={16} appearance="regular" />
+                </span>
+              </Tooltip>
+            </div>
           )}
         </div>
       )}
@@ -70,20 +84,24 @@ export default function Field({
         {React.isValidElement(children) && fieldId
           ? React.cloneElement(children, {
               id: fieldId,
-              maxLength: maxLength || children.props.maxLength,
               ...children.props,
             })
           : children}
-        {showCharacterCount && (
-          <span className={`${BASE_CLASS}__character-count`}>
-            {currentLength}/{maxLength}
-          </span>
-        )}
       </div>
 
-      {/* Helper Message */}
-      {helperMessage && (
-        <div className={`${BASE_CLASS}__helper`}>{helperMessage}</div>
+      {(helperMessage || showCharacterCount) && (
+        <div className={`${BASE_CLASS}__meta`}>
+          {helperMessage ? (
+            <div className={`${BASE_CLASS}__helper`}>{helperMessage}</div>
+          ) : (
+            <span />
+          )}
+          {showCharacterCount && (
+            <div className={`${BASE_CLASS}__character-count`}>
+              {currentLength}/{maxLength}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

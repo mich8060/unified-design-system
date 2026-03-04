@@ -20,6 +20,15 @@ import { DividerDemoPage } from "./pages/components/DividerDemoPage";
 import { AppShellDemoPage } from "./pages/components/AppShellDemoPage";
 import { ThemeDemoPage } from "./pages/components/ThemeDemoPage";
 import { TabsDemoPage } from "./pages/components/TabsDemoPage";
+import { FieldDemoPage } from "./pages/components/FieldDemoPage";
+import { FileUploadDemoPage } from "./pages/components/FileUploadDemoPage";
+import { FlexDemoPage } from "./pages/components/FlexDemoPage";
+import { MenuDemoPage } from "./pages/components/MenuDemoPage";
+import { ModalDemoPage } from "./pages/components/ModalDemoPage";
+import { PaginationDemoPage } from "./pages/components/PaginationDemoPage";
+import { ProgressIndicatorDemoPage } from "./pages/components/ProgressIndicatorDemoPage";
+import { SliderDemoPage } from "./pages/components/SliderDemoPage";
+import { TooltipDemoPage } from "./pages/components/TooltipDemoPage";
 import { ComponentPlaceholderDemoPage } from "./pages/components/ComponentPlaceholderDemoPage";
 import { GettingStartedPage } from "./pages/docs/GettingStartedPage";
 import { DesignTokensPage } from "./pages/docs/DesignTokensPage";
@@ -74,16 +83,12 @@ const COMPONENT_NAV_ITEMS = [
     { label: "EventCard", path: "/components/event-card" },
     { label: "Field", path: "/components/field" },
     { label: "FileUpload", path: "/components/file-upload" },
-    { label: "Flex", path: "/components/flex" },
     { label: "Icon", path: "/components/icon" },
     { label: "ImageAspect", path: "/components/image-aspect" },
     { label: "Key", path: "/components/key" },
-    { label: "Menu", path: "/components/menu" },
     { label: "MicroCalendar", path: "/components/micro-calendar" },
     { label: "Modal", path: "/components/modal" },
     { label: "Pagination", path: "/components/pagination" },
-    { label: "PillToggle", path: "/components/pill-toggle" },
-    { label: "Playground", path: "/components/playground" },
     { label: "ProgressCircle", path: "/components/progress-circle" },
     { label: "ProgressIndicator", path: "/components/progress-indicator" },
     { label: "Radio", path: "/components/radio" },
@@ -93,13 +98,16 @@ const COMPONENT_NAV_ITEMS = [
     { label: "Table", path: "/components/table" },
     { label: "Tabs", path: "/components/tabs" },
     { label: "Tag", path: "/components/tag" },
-    { label: "Theme API", path: "/components/theme" },
     { label: "Text", path: "/components/text" },
     { label: "TextInput", path: "/components/text-input" },
     { label: "Textarea", path: "/components/textarea" },
     { label: "Toast", path: "/components/toast" },
     { label: "Toggle", path: "/components/toggle" },
     { label: "Tooltip", path: "/components/tooltip" },
+];
+
+const PATTERN_NAV_ITEMS = [
+    { label: "Menu", path: "/components/menu" },
 ];
 
 const PLACEHOLDER_COMPONENT_PAGES = [
@@ -114,28 +122,17 @@ const PLACEHOLDER_COMPONENT_PAGES = [
     { componentName: "Dropdown", path: "/components/dropdown" },
     { componentName: "EmptyState", path: "/components/empty-state" },
     { componentName: "EventCard", path: "/components/event-card" },
-    { componentName: "Field", path: "/components/field" },
-    { componentName: "FileUpload", path: "/components/file-upload" },
-    { componentName: "Flex", path: "/components/flex" },
     { componentName: "ImageAspect", path: "/components/image-aspect" },
     { componentName: "Key", path: "/components/key" },
-    { componentName: "Menu", path: "/components/menu" },
     { componentName: "MicroCalendar", path: "/components/micro-calendar" },
-    { componentName: "Modal", path: "/components/modal" },
-    { componentName: "Pagination", path: "/components/pagination" },
-    { componentName: "PillToggle", path: "/components/pill-toggle" },
-    { componentName: "Playground", path: "/components/playground" },
     { componentName: "ProgressCircle", path: "/components/progress-circle" },
-    { componentName: "ProgressIndicator", path: "/components/progress-indicator" },
     { componentName: "Radio", path: "/components/radio" },
-    { componentName: "Slider", path: "/components/slider" },
     { componentName: "Status", path: "/components/status" },
     { componentName: "Steps", path: "/components/steps" },
     { componentName: "Table", path: "/components/table" },
     { componentName: "Tag", path: "/components/tag" },
     { componentName: "Textarea", path: "/components/textarea" },
     { componentName: "Toast", path: "/components/toast" },
-    { componentName: "Tooltip", path: "/components/tooltip" },
 ];
 
 const NAV_ITEMS = [
@@ -153,12 +150,21 @@ const NAV_ITEMS = [
             { label: "Overview", path: "/getting-started" },
             { label: "Template Canvas", path: "/template-canvas" },
             { label: "Theming", path: "/docs/theming" },
+            { label: "Theme API", path: "/components/theme" },
         ],
     },
     {
         label: "Foundations",
         icon: "Palette",
-        children: [{ label: "Colors & Primitives", path: "/foundations/colors-primitives" }],
+        children: [
+            { label: "Colors & Primitives", path: "/foundations/colors-primitives" },
+            { label: "Flex", path: "/components/flex" },
+        ],
+    },
+    {
+        label: "Patterns",
+        icon: "SquaresFour",
+        children: PATTERN_NAV_ITEMS,
     },
     {
         label: "Components",
@@ -245,12 +251,21 @@ function App() {
                         <Route path="/components/button" element={<ButtonDemoPage />} />
                         <Route path="/components/checkbox" element={<CheckboxDemoPage />} />
                         <Route path="/components/divider" element={<DividerDemoPage />} />
+                        <Route path="/components/field" element={<FieldDemoPage />} />
+                        <Route path="/components/file-upload" element={<FileUploadDemoPage />} />
+                        <Route path="/components/flex" element={<FlexDemoPage />} />
                         <Route path="/components/icon" element={<IconDemoPage />} />
+                        <Route path="/components/menu" element={<MenuDemoPage />} />
+                        <Route path="/components/modal" element={<ModalDemoPage />} />
+                        <Route path="/components/pagination" element={<PaginationDemoPage />} />
+                        <Route path="/components/progress-indicator" element={<ProgressIndicatorDemoPage />} />
+                        <Route path="/components/slider" element={<SliderDemoPage />} />
                         <Route path="/components/text" element={<TextDemoPage />} />
                         <Route path="/components/text-input" element={<TextInputDemoPage />} />
                         <Route path="/components/tabs" element={<TabsDemoPage />} />
                         <Route path="/components/theme" element={<ThemeDemoPage />} />
                         <Route path="/components/toggle" element={<ToggleDemoPage />} />
+                        <Route path="/components/tooltip" element={<TooltipDemoPage />} />
                         {PLACEHOLDER_COMPONENT_PAGES.map(({ componentName, path }) => (
                             <Route
                                 key={path}

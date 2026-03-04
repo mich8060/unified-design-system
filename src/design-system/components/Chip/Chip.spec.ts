@@ -12,7 +12,7 @@ export const ChipSpec = {
     "default",
     "compact"
   ],
-  "iconplacement": [
+  "iconPlacement": [
     "both",
     "left",
     "right",
@@ -24,6 +24,6 @@ export const ChipSpec = {
   "shape": "pill",
   "size": "default",
   "iconPlacement": "none",
-  "badgeVariant": "red"
+  "badgeVariant": "sky"
 }
 } as const;

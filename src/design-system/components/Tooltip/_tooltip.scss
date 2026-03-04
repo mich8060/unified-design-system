@@ -6,7 +6,7 @@
 
   &__content {
     @include uds-body-14;
-    position: fixed;
+    position: absolute;
     z-index: var(--uds-elevation-tooltip);
     padding: var(--uds-spacing-8) var(--uds-spacing-12);
     background: var(--uds-surface-inverse, #1f2937);

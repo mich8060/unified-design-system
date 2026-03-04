@@ -5,12 +5,14 @@ import { enforceCompositionRule } from "./rules/composition.rules";
 import { enforcePrimaryActionLimitRule } from "./rules/action.rules";
 import { enforceSpacingTokenRule } from "./rules/spacing.rules";
 import { enforceAccessibilityRule } from "./rules/accessibility.rules";
+import { enforceCanonicalPropsRule } from "./rules/props.rules";
 
 const POLICY_RULES = [
   enforceCompositionRule,
   enforcePrimaryActionLimitRule,
   enforceSpacingTokenRule,
   enforceAccessibilityRule,
+  enforceCanonicalPropsRule,
 ] as const;
 
 export function runPolicyEngine(

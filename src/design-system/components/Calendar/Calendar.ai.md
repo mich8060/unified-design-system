@@ -133,7 +133,7 @@ const [selected, setSelected] = useState(null);
 ## Composition
 - Renders its own inline event bars (no dependency on EventCard)
 - Uses `Button` for navigation controls
-- Combine with `PillToggle` for view switching
+- Combine with `Tabs` for view switching
 - For standalone event display in lists/dashboards, use `EventCard`
 
 ## Do's and Don'ts

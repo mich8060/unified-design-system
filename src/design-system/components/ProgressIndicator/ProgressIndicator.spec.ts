@@ -1,5 +1,12 @@
 export const ProgressIndicatorSpec = {
   allowedVariants: {
+  "labelPosition": [
+    "false",
+    "right",
+    "bottom",
+    "top-floating",
+    "bottom-floating"
+  ],
   "variant": [
     "default",
     "blue",
@@ -18,6 +25,7 @@ export const ProgressIndicatorSpec = {
   ]
 },
   defaults: {
+  "labelPosition": "false",
   "variant": "default",
   "size": "medium"
 }

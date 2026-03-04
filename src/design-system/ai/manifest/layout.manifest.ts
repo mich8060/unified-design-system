@@ -1,4 +1,5 @@
 import type { LayoutManifestRules } from "./types";
+import { CompositionRules } from "./composition.manifest.ts";
 
 export const LayoutRules: LayoutManifestRules = {
   spacingSystem: {
@@ -29,24 +30,9 @@ export const LayoutRules: LayoutManifestRules = {
     contentGapToken: "--uds-spacing-16",
     compactGapToken: "--uds-spacing-8",
   },
-  allowedComposition: {
-    AppShell: ["Menu", "Container", "Flex", "Card", "Text", "Button"],
-    Container: ["Flex", "Card", "Table", "Text", "Button", "Field", "Divider", "Tag"],
-    Field: ["TextInput", "Input", "Dropdown", "Datepicker", "Textarea", "Checkbox", "Radio", "Toggle", "Slider", "PillToggle", "FileUpload"],
-    Modal: ["Text", "Button", "Divider", "Field", "TextInput", "Dropdown", "Datepicker", "Textarea", "Tag"],
-    Card: ["Text", "Flex", "Button", "Tag", "Status", "Table", "Divider", "Avatar", "ActionMenu"],
-    Table: ["Tag", "Status", "Avatar", "Button", "ActionMenu", "ProgressIndicator", "DotStatus"],
-    Tabs: ["Text", "Tag", "Button", "Card", "Table", "Field"],
-    Menu: ["ActionMenu", "Dropdown", "Toggle", "Text", "Icon"],
-  },
-  disallowedNesting: [
-    { parent: "Modal", child: "Modal" },
-    { parent: "Dialog", child: "Dialog" },
-    { parent: "Toast", child: "Modal" },
-    { parent: "Toast", child: "Dialog" },
-    { parent: "Table", child: "Table" },
-    { parent: "Button", child: "Button" },
-  ],
+  allowedComposition: CompositionRules.allowedChildrenByParent,
+  allowedParents: CompositionRules.allowedParentsByChild,
+  disallowedNesting: CompositionRules.disallowedPairs.map(({ parent, child }) => ({ parent, child })),
   maxWidth: {
     content: "1280px",
     form: "640px",

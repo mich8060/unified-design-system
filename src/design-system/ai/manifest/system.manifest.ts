@@ -21,5 +21,9 @@ export const UDSManifest: UDSManifestType = {
   },
 };
 
+// Canonical AI contract names.
+export const UDSAIContract = UDSManifest;
+export const UDS_AI_CONTRACT = UDSAIContract;
+
 // Backward-compatible alias for existing AI consumers.
 export const UDS_AI_MANIFEST = UDSManifest;

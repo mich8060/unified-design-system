@@ -1,19 +1,19 @@
 export const ProgressCircleSpec = {
   allowedVariants: {
+  "shape": [
+    "circle",
+    "half-circle"
+  ],
   "size": [
     "xxs",
     "xs",
     "sm",
     "md",
     "lg"
-  ],
-  "shape": [
-    "circle",
-    "half-circle"
   ]
 },
   defaults: {
-  "size": "md",
-  "shape": "circle"
+  "shape": "circle",
+  "size": "md"
 }
 } as const;

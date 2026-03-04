@@ -9,9 +9,10 @@ const buildAudit = (status: "pass" | "fail", violationsCount: number) => ({
   timestamp: new Date().toISOString(),
   model: "claude-stub",
   promptHash: "stubbed-generate-ui",
-  udsVersion: "0.2.12",
-  manifestVersion: "1.0.0",
-  policyVersion: "1.0.0",
+  udsVersion: UDSGovernance.systemVersion,
+  manifestVersion: UDSGovernance.manifestVersion,
+  governanceVersion: UDSGovernance.governanceVersion,
+  policyVersion: UDSGovernance.policyVersion,
   componentsUsed: ["Container", "Card", "Text", "Field", "TextInput", "Button"],
   tokensUsed: ["--uds-spacing-16", "--uds-spacing-24"],
   violationsCount,
@@ -23,9 +24,9 @@ async function callClaude(prompt: string) {
 
     if (callCount === 1) {
         return {
-            manifestVersion: "1.0.0",
-            governanceVersion: "1.0.0",
-            policyVersion: "1.0.0",
+            manifestVersion: UDSGovernance.manifestVersion,
+            governanceVersion: UDSGovernance.governanceVersion,
+            policyVersion: UDSGovernance.policyVersion,
             tree: {
                 type: "UnknownComponent"
             },
@@ -34,9 +35,9 @@ async function callClaude(prompt: string) {
     }
 
     return {
-        manifestVersion: "1.0.0",
-        governanceVersion: "1.0.0",
-        policyVersion: "1.0.0",
+        manifestVersion: UDSGovernance.manifestVersion,
+        governanceVersion: UDSGovernance.governanceVersion,
+        policyVersion: UDSGovernance.policyVersion,
         tree: {
             type: "Container",
             props: { gap: "--uds-spacing-24" },
@@ -77,10 +78,16 @@ async function main() {
     while (result.status === "fail" && attempts < MAX_ATTEMPTS) {
         console.log(`Validation failed. Attempt ${attempts + 1}`);
 
-        aiResponse = await callClaude(
-            `Fix these validation errors and return corrected JSON only:
+        const repairFeedback = result.deterministicFeedback ?? {
+            summary: "Fallback validation report",
+            items: result.violations,
+        };
 
-${JSON.stringify(result.violations, null, 2)}`
+        aiResponse = await callClaude(
+            `Fix these validation errors and return corrected JSON only.
+Feedback summary: ${repairFeedback.summary}
+
+${JSON.stringify(repairFeedback.items, null, 2)}`
         )
 
         result = validateAIOutput(aiResponse, UDSGovernance);

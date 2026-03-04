@@ -13,8 +13,9 @@ Page navigation control for paginated data sets.
 | `totalPages` | `number` | — | Total number of pages |
 | `currentPage` | `number` | `1` | Current active page |
 | `onPageChange` | `function` | — | Callback `(page: number) => void` |
-| `siblingCount` | `number` | `1` | Number of pages shown on each side of current |
-| `showFirstLast` | `boolean` | `true` | Show first/last page buttons |
+| `variant` | `"default" \| "line"` | `"default"` | Visual style of the pagination control |
+| `showJumpInput` | `boolean` | `false` | Shows jump-to-page input |
+| `showDoubleButtons` | `boolean` | `false` | Shows first/last buttons |
 | `className` | `string` | `""` | Additional CSS classes |
 
 ## Examples

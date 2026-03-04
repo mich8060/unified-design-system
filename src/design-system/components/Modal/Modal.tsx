@@ -1,17 +1,25 @@
 import React, { useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
-import Icon from "../Icon/Icon";
+import Button from "../Button/Button";
 import "./_modal.scss";
 import type { ModalProps } from "./Modal.types";
 
 const BASE_CLASS = "uds-modal";
 
 const sizeClassMap = {
-  small: "small",
-  default: "default",
-  large: "large",
-  fullscreen: "fullscreen",
+    small: "small",
+    default: "default",
+    large: "large",
+    fullscreen: "fullscreen",
 };
+
+function toReactNode(value: unknown): React.ReactNode {
+    if (value === null || value === undefined || typeof value === "boolean") return null;
+    if (React.isValidElement(value) || typeof value === "string" || typeof value === "number") {
+        return value;
+    }
+    return null;
+}
 
 /**
  * Modal component — Accessible dialog overlay
@@ -36,141 +44,155 @@ const sizeClassMap = {
  * @param {object}        props            - Additional props spread onto the dialog element
  */
 function Modal({
-  open = false,
-  onClose,
-  title,
-  subtitle,
-  badge,
-  header,
-  footer,
-  size = "default",
-  closeOnBackdrop = true,
-  closeOnEscape = true,
-  container,
-  className = "",
-  children,
-  ...props
+    open = false,
+    onClose,
+    title,
+    subtitle,
+    badge,
+    header,
+    footer,
+    size = "default",
+    closeOnBackdrop = true,
+    closeOnEscape = true,
+    container,
+    className = "",
+    children,
+    ...props
 }: ModalProps) {
-  const dialogRef = useRef(null);
-  const previousActiveElement = useRef(null);
+    const dialogRef = useRef<HTMLDivElement | null>(null);
+    const previousActiveElement = useRef<HTMLElement | null>(null);
+    const resolvedHeader = toReactNode(header);
+    const resolvedTitle = toReactNode(title);
+    const resolvedSubtitle = toReactNode(subtitle);
+    const resolvedBadge = toReactNode(badge);
+    const resolvedFooter = toReactNode(footer);
+    const resolvedChildren = toReactNode(children);
+    const dialogProps = props as React.HTMLAttributes<HTMLDivElement>;
 
-  // Lock body scroll and trap focus when open
-  useEffect(() => {
-    if (open) {
-      previousActiveElement.current = document.activeElement;
-      document.body.style.overflow = "hidden";
+    // Lock body scroll and trap focus when open
+    useEffect(() => {
+        if (open) {
+            previousActiveElement.current =
+                document.activeElement instanceof HTMLElement ? document.activeElement : null;
+            document.body.style.overflow = "hidden";
 
-      // Focus the dialog panel for keyboard accessibility
-      requestAnimationFrame(() => {
-        dialogRef.current?.focus();
-      });
+            // Focus the dialog panel for keyboard accessibility
+            requestAnimationFrame(() => {
+                dialogRef.current?.focus();
+            });
 
-      return () => {
-        document.body.style.overflow = "";
-        // Restore focus to previously active element
-        previousActiveElement.current?.focus?.();
-      };
-    }
-  }, [open]);
+            return () => {
+                document.body.style.overflow = "";
+                // Restore focus to previously active element
+                previousActiveElement.current?.focus();
+            };
+        }
+    }, [open]);
 
-  // Escape key handler
-  const handleKeyDown = useCallback(
-    (e) => {
-      if (e.key === "Escape" && closeOnEscape && onClose) {
-        e.stopPropagation();
-        onClose();
-      }
-    },
-    [closeOnEscape, onClose],
-  );
+    // Escape key handler
+    const handleKeyDown = useCallback(
+        (e: React.KeyboardEvent<HTMLDivElement>) => {
+            if (e.key === "Escape" && closeOnEscape && onClose) {
+                e.stopPropagation();
+                onClose();
+            }
+        },
+        [closeOnEscape, onClose],
+    );
 
-  // Backdrop click handler
-  const handleBackdropClick = useCallback(
-    (e) => {
-      if (e.target === e.currentTarget && closeOnBackdrop && onClose) {
-        onClose();
-      }
-    },
-    [closeOnBackdrop, onClose],
-  );
+    // Backdrop click handler
+    const handleBackdropClick = useCallback(
+        (e: React.MouseEvent<HTMLDivElement>) => {
+            if (e.target === e.currentTarget && closeOnBackdrop && onClose) {
+                onClose();
+            }
+        },
+        [closeOnBackdrop, onClose],
+    );
 
-  if (!open) return null;
+    if (!open) return null;
 
-  const sizeClass = sizeClassMap[size] || sizeClassMap.default;
+    const sizeClass =
+        typeof size === "string" && size in sizeClassMap
+            ? sizeClassMap[size as keyof typeof sizeClassMap]
+            : sizeClassMap.default;
 
-  const dialogClasses = [
-    BASE_CLASS,
-    `${BASE_CLASS}--${sizeClass}`,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+    const dialogClasses = [
+        BASE_CLASS,
+        `${BASE_CLASS}--${sizeClass}`,
+        className,
+    ]
+        .filter(Boolean)
+        .join(" ");
 
-  const overlayClasses = [
-    `${BASE_CLASS}__overlay`,
-    size === "fullscreen" && `${BASE_CLASS}__overlay--fullscreen`,
-  ]
-    .filter(Boolean)
-    .join(" ");
+    const overlayClasses = [
+        `${BASE_CLASS}__overlay`,
+        size === "fullscreen" && `${BASE_CLASS}__overlay--fullscreen`,
+    ]
+        .filter(Boolean)
+        .join(" ");
 
-  const modal = (
-    <div
-      className={overlayClasses}
-      onClick={handleBackdropClick}
-      aria-hidden="true"
-    >
-      <div
-        ref={dialogRef}
-        className={dialogClasses}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={title ? `${BASE_CLASS}-title` : undefined}
-        aria-describedby={subtitle ? `${BASE_CLASS}-subtitle` : undefined}
-        tabIndex={-1}
-        onKeyDown={handleKeyDown}
-        {...props}
-      >
-        {/* Header */}
-        <div className={`${BASE_CLASS}__header`}>
-          {header || (
-            <div className={`${BASE_CLASS}__header-content`}>
-              <div className={`${BASE_CLASS}__header-info`}>
-                <div className={`${BASE_CLASS}__header-title-row`}>
-                  {title && (
-                    <h2 id={`${BASE_CLASS}-title`} className={`${BASE_CLASS}__title`}>
-                      {title}
-                    </h2>
-                  )}
-                  {badge && <span className={`${BASE_CLASS}__badge`}>{badge}</span>}
+    const modal = (
+        <div
+            className={overlayClasses}
+            onClick={handleBackdropClick}
+            aria-hidden="true"
+        >
+            <div
+                ref={dialogRef}
+                className={dialogClasses}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={resolvedTitle ? `${BASE_CLASS}-title` : undefined}
+                aria-describedby={resolvedSubtitle ? `${BASE_CLASS}-subtitle` : undefined}
+                tabIndex={-1}
+                onKeyDown={handleKeyDown}
+                {...dialogProps}
+            >
+                {/* Header */}
+                <div className={`${BASE_CLASS}__header`}>
+                    {resolvedHeader || (
+                        <div className={`${BASE_CLASS}__header-content`}>
+                            <div className={`${BASE_CLASS}__header-info`}>
+                                <div className={`${BASE_CLASS}__header-title-row`}>
+                                    {resolvedTitle && (
+                                        <h2 id={`${BASE_CLASS}-title`} className={`${BASE_CLASS}__title`}>
+                                            {resolvedTitle}
+                                        </h2>
+                                    )}
+                                    {resolvedBadge && (
+                                        <span className={`${BASE_CLASS}__badge`}>{resolvedBadge}</span>
+                                    )}
+                                </div>
+                                {resolvedSubtitle && (
+                                    <p id={`${BASE_CLASS}-subtitle`} className={`${BASE_CLASS}__subtitle`}>
+                                        {resolvedSubtitle}
+                                    </p>
+                                )}
+                            </div>
+                            <Button
+                                appearance="text"
+                                layout="icon-only"
+                                size="default"
+                                icon="X"
+                                label="Close modal"
+                                onClick={() => onClose?.()}
+                            />
+                        </div>
+                    )}
                 </div>
-                {subtitle && (
-                  <p id={`${BASE_CLASS}-subtitle`} className={`${BASE_CLASS}__subtitle`}>
-                    {subtitle}
-                  </p>
-                )}
-              </div>
-              <button
-                type="button"
-                className={`${BASE_CLASS}__close`}
-                onClick={onClose}
-                aria-label="Close modal"
-              >
-                <Icon name="X" size={16} appearance="regular" />
-              </button>
+
+                {/* Body */}
+                <div className={`${BASE_CLASS}__body`}>{resolvedChildren}</div>
+
+                {/* Footer */}
+                {resolvedFooter && <div className={`${BASE_CLASS}__footer`}>{resolvedFooter}</div>}
             </div>
-          )}
         </div>
+    );
 
-        {/* Body */}
-        <div className={`${BASE_CLASS}__body`}>{children}</div>
-
-        {/* Footer */}
-        {footer && <div className={`${BASE_CLASS}__footer`}>{footer}</div>}
-      </div>
-    </div>
-  );
-
-  return createPortal(modal, container || document.body);
+    const portalContainer = container instanceof HTMLElement ? container : document.body;
+    return createPortal(modal, portalContainer);
 }
 
 export default React.memo(Modal);

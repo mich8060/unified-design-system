@@ -23,6 +23,7 @@ export default function FileUpload({
   maxSize = 10,
   acceptText,
   instructionText = "Drop files here or click to upload",
+  size = "default",
   multiple = false,
   disabled = false,
   className = "",
@@ -33,6 +34,7 @@ export default function FileUpload({
 
   const classNames = [
     BASE_CLASS,
+    `${BASE_CLASS}--${size}`,
     isDragging && `${BASE_CLASS}--dragging`,
     disabled && `${BASE_CLASS}--disabled`,
     className,
@@ -142,7 +144,7 @@ export default function FileUpload({
       />
       <div className={`${BASE_CLASS}__content`}>
         <div className={`${BASE_CLASS}__icon`}>
-          <Icon name="Upload" size={32} appearance="regular" />
+          <Icon name="Upload" size={size === "small" ? 24 : 32} appearance="regular" />
         </div>
         <p className={`${BASE_CLASS}__instruction`}>{instructionText}</p>
         <p className={`${BASE_CLASS}__accept`}>
