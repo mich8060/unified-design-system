@@ -108,6 +108,7 @@
 }
 
 .app-shell__main-content {
+    background: var(--uds-surface-secondary);
     min-width: 0;
     flex: 1;
     overflow-x: hidden;
