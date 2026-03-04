@@ -1756,8 +1756,7 @@
             "active",
             "incomplete",
             "disabled",
-            "error",
-            "warning"
+            "error"
           ]
         },
         "size": {

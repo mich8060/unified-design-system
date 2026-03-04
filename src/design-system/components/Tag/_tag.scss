@@ -6,6 +6,7 @@
     justify-content: center;
     gap: 0;
     border: var(--uds-border-width-1) solid transparent;
+    border-radius: var(--uds-radius-2);
     box-sizing: border-box;
     min-width: 24px;
     white-space: nowrap;
@@ -23,13 +24,13 @@
 
     // ── Size: Compact (16px tall) ──────────────────────────────────────
     &--compact {
-        @include uds-body-10-semibold;
+        @include uds-body-12-medium;
         padding: var(--uds-spacing-2) var(--uds-spacing-4);
     }
 
     // ── Size: Default (24px tall) ──────────────────────────────────────
     &--default {
-        @include uds-body-12-semibold;
+        @include uds-body-14-medium;
         padding: var(--uds-spacing-4) var(--uds-spacing-8);
     }
 

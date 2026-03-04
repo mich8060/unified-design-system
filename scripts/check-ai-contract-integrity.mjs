@@ -17,12 +17,14 @@ const packageJsonPath = resolve(rootDir, "package.json");
 const componentApiPath = resolve(rootDir, "src", "design-system", "generated", "component-api.json");
 const manifestPath = resolve(rootDir, "src", "ai", "manifest", "manifest.json");
 const discoveryPath = resolve(rootDir, "src", "ai", "discovery.json");
+const templatesPath = resolve(rootDir, "src", "ai", "templates", "layouts.json");
 const governanceSourcePath = resolve(rootDir, "src", "ai", "manifest", "governance.manifest.ts");
 
 const pkg = readJson(packageJsonPath);
 const componentApi = readJson(componentApiPath);
 const aiManifest = readJson(manifestPath);
 const aiDiscovery = readJson(discoveryPath);
+const aiTemplates = readJson(templatesPath);
 const governanceSource = readText(governanceSourcePath);
 
 const readConstString = (name) => {
@@ -44,6 +46,8 @@ if (!manifestVersion || !governanceVersion || !policyVersion || !contractSchemaV
 const requiredAiExports = [
   "./ai",
   "./ai/schema",
+  "./ai/templates.json",
+  "./ai/templates",
   "./ai/manifest.json",
   "./ai/discovery.json",
   "./ai/discovery",
@@ -102,11 +106,28 @@ if (aiDiscovery.entrypoints?.contractManifest !== `${pkg.name}/ai/manifest.json`
 if (aiDiscovery.entrypoints?.schema !== `${pkg.name}/ai/schema`) {
   fail("ai discovery entrypoints.schema must point to package /ai/schema export.");
 }
+if (aiDiscovery.entrypoints?.templatesCatalog !== `${pkg.name}/ai/templates`) {
+  fail("ai discovery entrypoints.templatesCatalog must point to package /ai/templates export.");
+}
 if (aiDiscovery.entrypoints?.validationModule !== `${pkg.name}/ai/validation`) {
   fail("ai discovery entrypoints.validationModule must point to package /ai/validation export.");
 }
 if (aiDiscovery.entrypoints?.helperSdk !== `${pkg.name}/ai/sdk`) {
   fail("ai discovery entrypoints.helperSdk must point to package /ai/sdk export.");
+}
+
+if (aiTemplates.contractName !== "uds.ai.layout-templates") {
+  fail(
+    `ai templates contractName must be "uds.ai.layout-templates", got "${aiTemplates.contractName ?? "undefined"}".`
+  );
+}
+if (aiTemplates.schemaVersion !== contractSchemaVersion) {
+  fail(
+    `ai templates schemaVersion "${aiTemplates.schemaVersion}" does not match AI_CONTRACT_SCHEMA_VERSION "${contractSchemaVersion}".`
+  );
+}
+if (!Array.isArray(aiTemplates.templates) || aiTemplates.templates.length === 0) {
+  fail("ai templates must include a non-empty templates array.");
 }
 
 const versioning = aiManifest.versioning ?? {};

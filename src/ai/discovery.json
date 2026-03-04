@@ -6,6 +6,7 @@
     "@mich8060/unified-design-system/ai/discovery.json",
     "@mich8060/unified-design-system/ai/manifest.json",
     "@mich8060/unified-design-system/ai/schema",
+    "@mich8060/unified-design-system/ai/templates",
     "@mich8060/unified-design-system/ai/examples",
     "@mich8060/unified-design-system/ai/validation",
     "@mich8060/unified-design-system/ai/sdk"
@@ -14,6 +15,7 @@
     "discovery": "@mich8060/unified-design-system/ai/discovery.json",
     "contractManifest": "@mich8060/unified-design-system/ai/manifest.json",
     "schema": "@mich8060/unified-design-system/ai/schema",
+    "templatesCatalog": "@mich8060/unified-design-system/ai/templates",
     "runtimeApi": "@mich8060/unified-design-system/ai",
     "manifestModule": "@mich8060/unified-design-system/ai/manifest",
     "validationModule": "@mich8060/unified-design-system/ai/validation",

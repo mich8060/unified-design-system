@@ -7,6 +7,7 @@ This folder is the **authoring workspace** for Claude/Cursor AI generation, sepa
 - `manifest/` — machine-readable generation contracts and constraints
 - `discovery.json` — single machine-readable entrypoint index for all model integrations
 - `schemas/` — JSON schema for generated artifacts
+- `templates/` — layout starter templates with placeholders and constraints
 - `prompts/` — reusable prompt templates for generation and repair flows
 - `examples/` — curated valid/invalid generation examples for model guidance
 
@@ -17,9 +18,22 @@ For any model/tooling integration, read in this order:
 1. `@mich8060/unified-design-system/ai/discovery.json`
 2. `@mich8060/unified-design-system/ai/manifest.json`
 3. `@mich8060/unified-design-system/ai/schema`
-4. `@mich8060/unified-design-system/ai/examples`
-5. `@mich8060/unified-design-system/ai/validation`
-6. `@mich8060/unified-design-system/ai/sdk`
+4. `@mich8060/unified-design-system/ai/templates`
+5. `@mich8060/unified-design-system/ai/examples`
+6. `@mich8060/unified-design-system/ai/validation`
+7. `@mich8060/unified-design-system/ai/sdk`
+
+## Layout templates
+
+Use `@mich8060/unified-design-system/ai/templates` as starter structure for common screens.
+
+- Template IDs:
+  - `auth-form-card`
+  - `dashboard-table-summary`
+  - `settings-two-column`
+  - `modal-confirmation`
+  - `wizard-steps-form`
+- Fill placeholder slot values (for example `{{title}}`, `{{primaryActionLabel}}`) before validation.
 
 ## Runtime helper SDK (small integration surface)
 

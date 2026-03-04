@@ -1520,8 +1520,7 @@ export const COMPONENT_API = {
           "active",
           "incomplete",
           "disabled",
-          "error",
-          "warning"
+          "error"
         ]
       },
       "size": {

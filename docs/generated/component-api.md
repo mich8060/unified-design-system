@@ -360,7 +360,7 @@ Creates token-driven flexbox layouts with controlled direction, alignment, wrapp
 | --- | --- | --- | --- |
 | `orientation` | `enum` | horizontal, vertical | `horizontal` |
 | `size` | `enum` | default, compact | `default` |
-| `status` | `enum` | complete, active, incomplete, disabled, error, warning | `-` |
+| `status` | `enum` | complete, active, incomplete, disabled, error | `-` |
 
 ### Table
 

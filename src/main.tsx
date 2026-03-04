@@ -28,6 +28,7 @@ import { ModalDemoPage } from "./pages/components/ModalDemoPage";
 import { PaginationDemoPage } from "./pages/components/PaginationDemoPage";
 import { ProgressIndicatorDemoPage } from "./pages/components/ProgressIndicatorDemoPage";
 import { SliderDemoPage } from "./pages/components/SliderDemoPage";
+import { TagDemoPage } from "./pages/components/TagDemoPage";
 import { TooltipDemoPage } from "./pages/components/TooltipDemoPage";
 import { ComponentPlaceholderDemoPage } from "./pages/components/ComponentPlaceholderDemoPage";
 import { GettingStartedPage } from "./pages/docs/GettingStartedPage";
@@ -130,7 +131,6 @@ const PLACEHOLDER_COMPONENT_PAGES = [
     { componentName: "Status", path: "/components/status" },
     { componentName: "Steps", path: "/components/steps" },
     { componentName: "Table", path: "/components/table" },
-    { componentName: "Tag", path: "/components/tag" },
     { componentName: "Textarea", path: "/components/textarea" },
     { componentName: "Toast", path: "/components/toast" },
 ];
@@ -263,6 +263,7 @@ function App() {
                         <Route path="/components/text" element={<TextDemoPage />} />
                         <Route path="/components/text-input" element={<TextInputDemoPage />} />
                         <Route path="/components/tabs" element={<TabsDemoPage />} />
+                        <Route path="/components/tag" element={<TagDemoPage />} />
                         <Route path="/components/theme" element={<ThemeDemoPage />} />
                         <Route path="/components/toggle" element={<ToggleDemoPage />} />
                         <Route path="/components/tooltip" element={<TooltipDemoPage />} />
