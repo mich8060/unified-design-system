@@ -29,6 +29,10 @@ const copies = [
     source: `${rootDir}/src/ai/prompts/starter.prompt.md`,
     destination: `${rootDir}/dist/ai/prompts/starter.prompt.md`,
   },
+  {
+    source: `${rootDir}/src/ai/navigation/brand-menus.json`,
+    destination: `${rootDir}/dist/ai/navigation/brand-menus.json`,
+  },
 ];
 
 for (const item of copies) {

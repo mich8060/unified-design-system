@@ -897,7 +897,7 @@
             "default",
             "transparent"
           ],
-          "default": "default"
+          "default": "transparent"
         },
         "padding": {
           "type": "enum",
@@ -909,12 +909,12 @@
             "large",
             "xlarge"
           ],
-          "default": "default"
+          "default": "large"
         }
       },
       "defaults": {
-        "appearance": "default",
-        "padding": "default"
+        "appearance": "transparent",
+        "padding": "large"
       },
       "states": [
         "default"

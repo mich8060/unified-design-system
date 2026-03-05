@@ -10,6 +10,7 @@ This folder is the **authoring workspace** for Claude/Cursor AI generation, sepa
 - `icons/` — machine-readable icon catalog and icon usage rules
 - `figma-make.contract.json` — machine-readable Figma Make contract
 - `figma-make.md` — Figma Make specific UDS-only generation contract
+- `navigation/brand-menus.json` — canonical brand menu navigation contract
 - `templates/` — layout starter templates with placeholders and constraints
 - `prompts/` — reusable prompt templates for generation and repair flows
 - `examples/` — curated valid/invalid generation examples for model guidance
@@ -28,10 +29,11 @@ For any model/tooling integration, read in this order:
 8. `@mich8060/unified-design-system/ai/prompts/system`
 9. `@mich8060/unified-design-system/ai/prompts/repair`
 10. `@mich8060/unified-design-system/ai/prompts/starter`
-11. `@mich8060/unified-design-system/ai/templates`
-12. `@mich8060/unified-design-system/ai/examples`
-13. `@mich8060/unified-design-system/ai/validation`
-14. `@mich8060/unified-design-system/ai/sdk`
+11. `@mich8060/unified-design-system/ai/navigation`
+12. `@mich8060/unified-design-system/ai/templates`
+13. `@mich8060/unified-design-system/ai/examples`
+14. `@mich8060/unified-design-system/ai/validation`
+15. `@mich8060/unified-design-system/ai/sdk`
 
 ## Icon options for AI
 

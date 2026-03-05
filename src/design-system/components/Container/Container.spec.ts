@@ -9,12 +9,12 @@ export const ContainerSpec: ComponentSpec = {
     appearance: {
       type: "enum",
       values: ["default", "transparent"],
-      default: "default",
+      default: "transparent",
     },
     padding: {
       type: "enum",
       values: ["none", "xsmall", "small", "default", "large", "xlarge"],
-      default: "default",
+      default: "large",
     },
   },
   states: ["default"],

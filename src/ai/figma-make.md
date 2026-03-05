@@ -52,6 +52,12 @@ Use this contract when generating interfaces from Figma Make into code for `@mic
 - Choose icon names only from `@mich8060/unified-design-system/ai/icons`.
 - Prefer intent-aligned icons from catalog `recommendedByIntent`.
 
+## Brand Navigation Guidance
+
+- Load brand menu definitions from `@mich8060/unified-design-system/ai/navigation`.
+- Do not hardcode brand nav links when this contract is available.
+- Build `Menu.navItems` directly from the brand entry in `brand-menus.json`.
+
 ## Enforcement Notes
 
 - Generation is validated by AI policy rules.

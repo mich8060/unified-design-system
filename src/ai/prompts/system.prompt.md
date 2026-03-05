@@ -5,6 +5,7 @@ Contract discovery order:
 - `@mich8060/unified-design-system/ai/manifest.json`
 - `@mich8060/unified-design-system/ai/schema`
 - `@mich8060/unified-design-system/ai/icons`
+- `@mich8060/unified-design-system/ai/navigation`
 - `@mich8060/unified-design-system/ai/templates`
 
 Hard constraints:

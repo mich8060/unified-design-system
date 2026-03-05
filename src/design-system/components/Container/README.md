@@ -5,3 +5,4 @@ Tier: 2
 Purpose:
 - Wrap content with optional surface treatment (`default` or `transparent`).
 - Apply standardized token-based padding values without custom spacing utilities.
+- Default behavior is `appearance="transparent"` with `padding="large"` (24px).

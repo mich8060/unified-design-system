@@ -661,7 +661,7 @@ export const COMPONENT_API = {
           "default",
           "transparent"
         ],
-        "default": "default"
+        "default": "transparent"
       },
       "padding": {
         "type": "enum",
@@ -673,12 +673,12 @@ export const COMPONENT_API = {
           "large",
           "xlarge"
         ],
-        "default": "default"
+        "default": "large"
       }
     },
     "defaults": {
-      "appearance": "default",
-      "padding": "default"
+      "appearance": "transparent",
+      "padding": "large"
     },
     "states": [
       "default"

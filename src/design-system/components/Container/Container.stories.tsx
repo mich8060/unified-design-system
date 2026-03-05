@@ -17,8 +17,8 @@ const meta = {
     },
   },
   args: {
-    appearance: "default",
-    padding: "default",
+    appearance: "transparent",
+    padding: "large",
     children: (
       <Text as="p" variant="body-14" leading="regular">
         Container content

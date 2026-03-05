@@ -11,8 +11,8 @@ export const IntentComponentMappings = {
   },
   sectionContainer: {
     component: "Container",
-    props: { gap: "--uds-spacing-24" },
-    notes: "Default section wrapper with governed spacing.",
+    props: { appearance: "transparent", padding: "large" },
+    notes: "Default section wrapper: transparent surface with 24px padding.",
   },
   contentStack: {
     component: "Flex",

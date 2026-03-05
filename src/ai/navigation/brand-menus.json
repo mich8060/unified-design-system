@@ -1,0 +1,75 @@
+{
+  "contractName": "uds.ai.brand-menus",
+  "schemaVersion": "1.0.0",
+  "brands": {
+    "comphealth": [
+      { "label": "Dashboard", "icon": "Layout" },
+      { "label": "Schedule", "icon": "CalendarBlank" },
+      { "label": "Job Board", "icon": "Briefcase" },
+      { "label": "Application", "icon": "NotePencil" },
+      {
+        "label": "Documents",
+        "icon": "FolderOpen",
+        "children": [{ "label": "Credentialing" }, { "label": "Financial" }]
+      },
+      { "label": "Time Entry", "icon": "Clock" },
+      { "label": "Travel", "icon": "Airplane" }
+    ],
+    "gms": [
+      { "label": "Dashboard", "icon": "Layout" },
+      { "label": "Schedule", "icon": "CalendarBlank" },
+      { "label": "Job Board", "icon": "Briefcase" },
+      { "label": "Application", "icon": "NotePencil" },
+      {
+        "label": "Documents",
+        "icon": "FolderOpen",
+        "children": [{ "label": "Credentialing" }, { "label": "Financial" }]
+      },
+      { "label": "Time Entry", "icon": "Clock" },
+      { "label": "Travel", "icon": "Airplane" }
+    ],
+    "weatherby": [
+      { "label": "Dashboard", "icon": "Layout" },
+      { "label": "Schedule", "icon": "CalendarBlank" },
+      { "label": "Job Board", "icon": "Briefcase" },
+      { "label": "Application", "icon": "NotePencil" },
+      {
+        "label": "Documents",
+        "icon": "FolderOpen",
+        "children": [{ "label": "Credentialing" }, { "label": "Financial" }]
+      },
+      { "label": "Time Entry", "icon": "Clock" },
+      { "label": "Travel", "icon": "Airplane" }
+    ],
+    "locumsmart": [
+      { "label": "Dashboard", "icon": "Layout" },
+      { "label": "Workflow", "icon": "FolderOpen" },
+      { "label": "CRM", "icon": "Users" },
+      { "label": "Analytics", "icon": "ChartBar" },
+      { "label": "Administration", "icon": "BuildingApartment" }
+    ],
+    "modio": [
+      { "label": "Dashboard", "icon": "Layout" },
+      { "label": "Reports", "icon": "FolderOpen" },
+      { "label": "Providers", "icon": "Users" },
+      { "label": "Facilities", "icon": "Buildings" },
+      { "label": "Payors", "icon": "Wallet" },
+      { "label": "Tracking", "icon": "GpsFix" }
+    ],
+    "connect": [
+      { "label": "Dashboard", "icon": "Layout" },
+      { "label": "Requests", "icon": "Briefcase" },
+      { "label": "Providers", "icon": "Users" },
+      { "label": "Calendar", "icon": "CalendarBlank" },
+      { "label": "Invoices", "icon": "Invoice" },
+      { "label": "Reporting", "icon": "ChartBar" }
+    ],
+    "wireframe": [
+      { "label": "Menu Item" },
+      { "label": "Menu Item" },
+      { "label": "Menu Item" },
+      { "label": "Menu Item" },
+      { "label": "Menu Item" }
+    ]
+  }
+}

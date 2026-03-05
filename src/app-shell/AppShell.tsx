@@ -56,6 +56,12 @@ const AppShellContentSlot = ({ children }: AppShellSectionProps) => <>{children}
 const AppShellListviewSlot = ({ children }: AppShellSectionProps) => <>{children}</>;
 const AppShellMainSlot = ({ children }: AppShellSectionProps) => <>{children}</>;
 
+const hasRenderableContent = (node: React.ReactNode): boolean =>
+    React.Children.toArray(node).some((child) => {
+        if (typeof child === "string") return child.trim().length > 0;
+        return child !== null && child !== undefined && child !== false;
+    });
+
 function AppShellComponent({
     layout,
     slots,
@@ -148,6 +154,7 @@ function AppShellComponent({
             customMain = child.props.children;
         }
     }
+    const hasSidebarMenu = config.sidebar && hasRenderableContent(customMenu);
 
     return (
         <div className={shellClass}>
@@ -156,7 +163,7 @@ function AppShellComponent({
                     {skipToContentLabel}
                 </a>
             ) : null}
-            {config.sidebar ? (
+            {hasSidebarMenu ? (
                 <div className="app-shell__mobile-toolbar-wrap">
                     <Toolbar
                         className="app-shell__mobile-toolbar"
@@ -193,7 +200,7 @@ function AppShellComponent({
                 </div>
             ) : null}
             <div className="app-shell__body">
-                {config.sidebar ? (
+                {hasSidebarMenu ? (
                     <aside className="app-shell__sidebar" aria-label="Primary" onClickCapture={handleSidebarClickCapture}>
                         {customMenu}
                     </aside>
@@ -210,7 +217,7 @@ function AppShellComponent({
                     {config.footer ? Footer : null}
                 </div>
             </div>
-            {config.sidebar ? (
+            {hasSidebarMenu ? (
                 <button
                     type="button"
                     className="app-shell__mobile-backdrop"

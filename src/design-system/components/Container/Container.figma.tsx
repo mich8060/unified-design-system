@@ -6,8 +6,8 @@ export default {
   figmaNodeUrl,
   component: Container,
   props: {
-    appearance: "default",
-    padding: "default",
+    appearance: "transparent",
+    padding: "large",
     children: "Container content",
   },
 };

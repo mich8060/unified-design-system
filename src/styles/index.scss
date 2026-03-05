@@ -1,7 +1,52 @@
 @use "../design-system/tokens/index.scss" as *;
 
-// Optional: app-level baseline styles (kept minimal)
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-body { margin: 0; font-family: var(--uds-font-family); background: var(--uds-colors-neutrals-50, var(--uds-color-neutrals-50)); color: var(--uds-text-primary); }
-a { color: inherit; text-decoration: none; }
+// Baseline reset
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--uds-font-family);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background: var(--uds-colors-neutrals-50, var(--uds-color-neutrals-50));
+  color: var(--uds-text-primary);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  isolation: isolate;
+}

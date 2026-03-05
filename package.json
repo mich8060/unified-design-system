@@ -43,6 +43,8 @@
     "./ai/prompts/system": "./dist/ai/prompts/system.prompt.md",
     "./ai/prompts/repair": "./dist/ai/prompts/repair.prompt.md",
     "./ai/prompts/starter": "./dist/ai/prompts/starter.prompt.md",
+    "./ai/navigation": "./dist/ai/navigation/brand-menus.json",
+    "./ai/navigation/brand-menus.json": "./dist/ai/navigation/brand-menus.json",
     "./ai/manifest.json": "./dist/ai/manifest.json",
     "./ai/discovery.json": "./dist/ai/discovery.json",
     "./ai/discovery": "./dist/ai/discovery.json",
@@ -406,6 +408,7 @@
       "require": "./dist/ai/*.cjs",
       "default": "./dist/ai/*.js"
     },
+    "./dist/style.css": "./dist/style.css",
     "./styles.css": "./dist/style.css",
     "./tokens": {
       "types": "./dist/tokens/index.d.ts",

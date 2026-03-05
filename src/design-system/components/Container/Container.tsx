@@ -3,8 +3,8 @@ import "./_container.scss";
 import type { ContainerProps } from "./Container.types";
 
 export function Container({
-  appearance = "default",
-  padding = "default",
+  appearance = "transparent",
+  padding = "large",
   className = "",
   children,
   ...rest

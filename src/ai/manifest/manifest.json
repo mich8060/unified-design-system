@@ -818,7 +818,7 @@
             "default",
             "transparent"
           ],
-          "default": "default"
+          "default": "transparent"
         },
         "padding": {
           "type": "enum",
@@ -830,12 +830,12 @@
             "large",
             "xlarge"
           ],
-          "default": "default"
+          "default": "large"
         }
       },
       "defaults": {
-        "appearance": "default",
-        "padding": "default"
+        "appearance": "transparent",
+        "padding": "large"
       },
       "composition": {
         "preferredParents": [
@@ -3089,9 +3089,10 @@
     "sectionContainer": {
       "component": "Container",
       "props": {
-        "gap": "--uds-spacing-24"
+        "appearance": "transparent",
+        "padding": "large"
       },
-      "notes": "Default section wrapper with governed spacing."
+      "notes": "Default section wrapper: transparent surface with 24px padding."
     },
     "contentStack": {
       "component": "Flex",

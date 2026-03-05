@@ -167,8 +167,8 @@ Provides a reusable content wrapper with optional filled or transparent surface 
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
-| `appearance` | `enum` | default, transparent | `default` |
-| `padding` | `enum` | none, xsmall, small, default, large, xlarge | `default` |
+| `appearance` | `enum` | default, transparent | `transparent` |
+| `padding` | `enum` | none, xsmall, small, default, large, xlarge | `large` |
 
 ### CurrencyInput
 

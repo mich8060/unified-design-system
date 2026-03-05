@@ -12,6 +12,7 @@ Hard rules:
 - Never use Tailwind classes/utilities.
 - Never invent CSS variables. Use `--uds-*` tokens or hardcoded literals.
 - Prefer canonical props from the AI manifest and component contracts.
+- Default `Container` to `appearance=\"transparent\"` and `padding=\"large\"` (24px) unless overridden by explicit requirements.
 
 Required layout scaffold:
 - Root must be:
@@ -22,36 +23,11 @@ Required layout scaffold:
 - Place route/page content in `AppShell.Main`.
 
 Brand menu requirements:
-- `comphealth`, `gms`, `weatherby`:
-  - Dashboard (`Layout`)
-  - Schedule (`CalendarBlank`)
-  - Job Board (`Briefcase`)
-  - Application (`NotePencil`)
-  - Documents (`FolderOpen`) -> Credentialing, Financial
-  - Time Entry (`Clock`)
-  - Travel (`Airplane`)
-- `locumsmart`:
-  - Dashboard (`Layout`)
-  - Workflow (`FolderOpen`)
-  - CRM (`Users`)
-  - Analytics (`ChartBar`)
-  - Administration (`BuildingApartment`)
-- `modio`:
-  - Dashboard (`Layout`)
-  - Reports (`FolderOpen`)
-  - Providers (`Users`)
-  - Facilities (`Buildings`)
-  - Payors (`Wallet`)
-  - Tracking (`GpsFix`)
-- `connect`:
-  - Dashboard (`Layout`)
-  - Requests (`Briefcase`)
-  - Providers (`Users`)
-  - Calendar (`CalendarBlank`)
-  - Invoices (`Invoice`)
-  - Reporting (`ChartBar`)
-- `wireframe`:
-  - Five placeholder links labeled `Menu Item`.
+- Load and apply the canonical menu map from:
+  - `@mich8060/unified-design-system/ai/navigation`
+  - (alias) `@mich8060/unified-design-system/ai/navigation/brand-menus.json`
+- Never inline or invent brand navigation when this contract is available.
+- Build `Menu.navItems` from the selected brand entry in the JSON contract.
 
 Output guidance:
 - Return code that imports UDS components directly from package exports.

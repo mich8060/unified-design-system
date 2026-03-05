@@ -9,14 +9,16 @@ Hard requirements:
 - Do not create custom CSS variables.
 - Use only `--uds-*` variables or hardcoded literals.
 - Use canonical prop names only (reject Ant-style aliases like `Menu.items`, `Flex.vertical`, `Button.type`).
+- Default `Container` to `appearance=\"transparent\"` and `padding=\"large\"` (24px) unless a different requirement is explicit.
 - Return deterministic JSON only.
 
 Preferred flow:
 1. Start from `@mich8060/unified-design-system/ai/templates`.
 2. Resolve remaining intent decisions using `@mich8060/unified-design-system/ai/manifest.json` -> `intentComponentMappings`.
-3. Fill template slots.
-4. Keep canonical prop names.
-5. Validate against `@mich8060/unified-design-system/ai/validation`.
+3. Load brand menu definitions from `@mich8060/unified-design-system/ai/navigation`.
+4. Fill template slots.
+5. Keep canonical prop names.
+6. Validate against `@mich8060/unified-design-system/ai/validation`.
 
 Invalid to valid prop examples:
 - `Menu.items` -> `Menu.navItems`

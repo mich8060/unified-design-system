@@ -19,6 +19,7 @@ const manifestPath = resolve(rootDir, "src", "ai", "manifest", "manifest.json");
 const discoveryPath = resolve(rootDir, "src", "ai", "discovery.json");
 const iconCatalogPath = resolve(rootDir, "src", "ai", "icons", "catalog.json");
 const templatesPath = resolve(rootDir, "src", "ai", "templates", "layouts.json");
+const brandMenusPath = resolve(rootDir, "src", "ai", "navigation", "brand-menus.json");
 const governanceSourcePath = resolve(rootDir, "src", "ai", "manifest", "governance.manifest.ts");
 const figmaContractPath = resolve(rootDir, "src", "ai", "figma-make.contract.json");
 const figmaPromptPath = resolve(rootDir, "src", "ai", "prompts", "figma-make.prompt.md");
@@ -30,6 +31,7 @@ const aiManifest = readJson(manifestPath);
 const aiDiscovery = readJson(discoveryPath);
 const aiIconCatalog = readJson(iconCatalogPath);
 const aiTemplates = readJson(templatesPath);
+const aiBrandMenus = readJson(brandMenusPath);
 const governanceSource = readText(governanceSourcePath);
 const figmaContract = readJson(figmaContractPath);
 const figmaPrompt = readText(figmaPromptPath);
@@ -65,6 +67,8 @@ const requiredAiExports = [
   "./ai/prompts/system",
   "./ai/prompts/repair",
   "./ai/prompts/starter",
+  "./ai/navigation",
+  "./ai/navigation/brand-menus.json",
   "./ai/manifest.json",
   "./ai/discovery.json",
   "./ai/discovery",
@@ -78,6 +82,16 @@ for (const key of requiredAiExports) {
   if (!pkg.exports || !(key in pkg.exports)) {
     fail(`package.json exports missing required AI subpath: ${key}`);
   }
+}
+
+const requiredStyleExports = ["./styles.css", "./dist/style.css"];
+for (const key of requiredStyleExports) {
+  if (!pkg.exports || !(key in pkg.exports)) {
+    fail(`package.json exports missing required style subpath: ${key}`);
+  }
+}
+if (pkg.style !== "./dist/style.css") {
+  fail(`package.json style must be "./dist/style.css", got "${pkg.style ?? "undefined"}".`);
 }
 
 if (componentApi.contractName !== "uds.ai.component-api") {
@@ -144,6 +158,9 @@ if (aiDiscovery.entrypoints?.repairPrompt !== `${pkg.name}/ai/prompts/repair`) {
 if (aiDiscovery.entrypoints?.starterPrompt !== `${pkg.name}/ai/prompts/starter`) {
   fail("ai discovery entrypoints.starterPrompt must point to package /ai/prompts/starter export.");
 }
+if (aiDiscovery.entrypoints?.brandMenus !== `${pkg.name}/ai/navigation`) {
+  fail("ai discovery entrypoints.brandMenus must point to package /ai/navigation export.");
+}
 if (aiDiscovery.entrypoints?.templatesCatalog !== `${pkg.name}/ai/templates`) {
   fail("ai discovery entrypoints.templatesCatalog must point to package /ai/templates export.");
 }
@@ -166,6 +183,20 @@ if (aiTemplates.schemaVersion !== contractSchemaVersion) {
 }
 if (!Array.isArray(aiTemplates.templates) || aiTemplates.templates.length === 0) {
   fail("ai templates must include a non-empty templates array.");
+}
+
+if (aiBrandMenus.contractName !== "uds.ai.brand-menus") {
+  fail(
+    `ai brand menus contractName must be "uds.ai.brand-menus", got "${aiBrandMenus.contractName ?? "undefined"}".`
+  );
+}
+if (aiBrandMenus.schemaVersion !== contractSchemaVersion) {
+  fail(
+    `ai brand menus schemaVersion "${aiBrandMenus.schemaVersion}" does not match AI_CONTRACT_SCHEMA_VERSION "${contractSchemaVersion}".`
+  );
+}
+if (!aiBrandMenus.brands || typeof aiBrandMenus.brands !== "object") {
+  fail("ai brand menus must include a brands object.");
 }
 
 if (aiIconCatalog.contractName !== "uds.ai.icon-catalog") {
@@ -217,6 +248,7 @@ if (!forbiddenPropsByComponent || typeof forbiddenPropsByComponent !== "object")
 
 const requiredPromptSnippets = [
   "Never deep import `@/.../components/*`.",
+  "@mich8060/unified-design-system/ai/navigation",
   "Menu.items",
   "Flex.vertical",
   "Button.type",
