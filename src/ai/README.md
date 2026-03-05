@@ -87,6 +87,8 @@ Generation policy also requires:
 
 - Never define custom CSS variables in output.
 - Use only `--uds-*` variable references or hardcoded literal values.
+- Never use deep imports like `@/.../components/*`; stick to package exports.
+- Avoid non-UDS prop APIs (for example `Menu.items`, `Flex.vertical`, `Button.type`).
 
 See `schemas/ai-output.schema.json` and `ai-generated/screens/template.screen.json`.
 

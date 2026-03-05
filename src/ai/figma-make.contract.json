@@ -15,6 +15,10 @@
             "@mich8060/unified-design-system",
             "@mich8060/unified-design-system/figma-make"
         ],
+        "importRules": {
+            "allowPackageLevelImportsOnly": true,
+            "disallowDeepComponentImports": true
+        },
         "disallowedPatterns": [
             "tailwind-utility-class",
             "className-utility-styling",
@@ -29,6 +33,14 @@
         "layoutGovernance": {
             "useAppShellForRootLayout": true,
             "maxPrimaryActionsPerSection": 1
+        },
+        "forbiddenPropsByComponent": {
+            "Menu": ["items", "selectedKeys", "mode"],
+            "Flex": ["vertical", "justify", "align"],
+            "Text": ["type", "strong"],
+            "Button": ["type"],
+            "Badge": ["status", "color"],
+            "Statistics": ["title", "prefix", "suffix", "valueStyle"]
         }
     },
     "componentContracts": {

@@ -196,6 +196,49 @@ export const UDS_TRAINING_EXAMPLES: readonly AITrainingExample[] = [
     }
   },
   {
+    id: "invalid-menu-ant-props",
+    scenario: "Menu uses Ant-style props that are not part of the UDS contract.",
+    kind: "invalid",
+    tags: ["menu", "props", "contract-drift"],
+    output: {
+      tree: {
+        type: "Menu",
+        props: {
+          items: [{ label: "Dashboard", icon: "House", path: "/" }],
+          selectedKeys: ["/"],
+          mode: "inline",
+        }
+      }
+    },
+    expected: { status: "fail", violationCodes: ["RULE_FORBIDDEN_PROP"] },
+    rationale: {
+      why: "Menu must use UDS canonical props, not Ant-style API props.",
+      fix: "Use navItems plus activeMode/app state driven selection."
+    }
+  },
+  {
+    id: "invalid-flex-ant-props",
+    scenario: "Flex uses vertical/justify/align aliases from non-UDS APIs.",
+    kind: "invalid",
+    tags: ["flex", "props", "contract-drift"],
+    output: {
+      tree: {
+        type: "Flex",
+        props: {
+          vertical: true,
+          justify: "space-between",
+          align: "center",
+        },
+        children: [{ type: "Text", props: { variant: "body-16" } }]
+      }
+    },
+    expected: { status: "fail", violationCodes: ["RULE_FORBIDDEN_PROP"] },
+    rationale: {
+      why: "Flex layout must use canonical props for deterministic cross-model behavior.",
+      fix: "Use direction, justifyContent, and alignItems props."
+    }
+  },
+  {
     id: "invalid-composition-parent-child",
     scenario: "Composition places a form field directly inside Menu.",
     kind: "invalid",

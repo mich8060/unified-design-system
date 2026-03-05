@@ -25,6 +25,7 @@ const FIX_HINTS: Record<string, string> = {
   RULE_CUSTOM_CSS_VAR_DISALLOWED: "Use only --uds-* CSS variables or hardcoded literals.",
   RULE_CSS_VAR_DEFINITION_DISALLOWED: "Do not define CSS custom properties in generated output.",
   RULE_TAILWIND_CLASS_DISALLOWED: "Remove Tailwind utilities and use UDS components/tokens instead.",
+  RULE_FORBIDDEN_PROP: "Replace forbidden props with UDS canonical contract props for that component.",
   RULE_AMBIGUOUS_PROP_ALIAS: "Replace ambiguous alias props with canonical prop names.",
   RULE_VERSION_MISMATCH_MANIFESTVERSION: "Set manifestVersion to the current manifest contract version.",
   RULE_VERSION_MISMATCH_GOVERNANCEVERSION: "Set governanceVersion to the current governance version.",

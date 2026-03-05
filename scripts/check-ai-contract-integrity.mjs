@@ -20,6 +20,9 @@ const discoveryPath = resolve(rootDir, "src", "ai", "discovery.json");
 const iconCatalogPath = resolve(rootDir, "src", "ai", "icons", "catalog.json");
 const templatesPath = resolve(rootDir, "src", "ai", "templates", "layouts.json");
 const governanceSourcePath = resolve(rootDir, "src", "ai", "manifest", "governance.manifest.ts");
+const figmaContractPath = resolve(rootDir, "src", "ai", "figma-make.contract.json");
+const figmaPromptPath = resolve(rootDir, "src", "ai", "prompts", "figma-make.prompt.md");
+const figmaDocPath = resolve(rootDir, "src", "ai", "figma-make.md");
 
 const pkg = readJson(packageJsonPath);
 const componentApi = readJson(componentApiPath);
@@ -28,6 +31,9 @@ const aiDiscovery = readJson(discoveryPath);
 const aiIconCatalog = readJson(iconCatalogPath);
 const aiTemplates = readJson(templatesPath);
 const governanceSource = readText(governanceSourcePath);
+const figmaContract = readJson(figmaContractPath);
+const figmaPrompt = readText(figmaPromptPath);
+const figmaDoc = readText(figmaDocPath);
 
 const readConstString = (name) => {
   const pattern = new RegExp(`export const ${name} = "([^"]+)"`);
@@ -165,6 +171,60 @@ if (!Array.isArray(aiIconCatalog.appearanceOptions) || aiIconCatalog.appearanceO
 }
 if (!aiIconCatalog.recommendedByIntent || typeof aiIconCatalog.recommendedByIntent !== "object") {
   fail("ai icon catalog must include recommendedByIntent mappings.");
+}
+
+if (!figmaContract.hardConstraints?.importRules?.allowPackageLevelImportsOnly) {
+  fail("figma contract must require package-level imports only.");
+}
+if (!figmaContract.hardConstraints?.importRules?.disallowDeepComponentImports) {
+  fail("figma contract must disallow deep component imports.");
+}
+
+const forbiddenPropsByComponent = figmaContract.hardConstraints?.forbiddenPropsByComponent;
+if (!forbiddenPropsByComponent || typeof forbiddenPropsByComponent !== "object") {
+  fail("figma contract must declare forbiddenPropsByComponent.");
+} else {
+  const requiredForbiddenProps = {
+    Menu: ["items", "selectedKeys", "mode"],
+    Flex: ["vertical", "justify", "align"],
+    Button: ["type"],
+  };
+  for (const [componentName, propList] of Object.entries(requiredForbiddenProps)) {
+    const actual = forbiddenPropsByComponent[componentName];
+    if (!Array.isArray(actual)) {
+      fail(`figma contract missing forbidden props list for ${componentName}.`);
+      continue;
+    }
+    for (const propName of propList) {
+      if (!actual.includes(propName)) {
+        fail(`figma contract must list "${componentName}.${propName}" as forbidden.`);
+      }
+    }
+  }
+}
+
+const requiredPromptSnippets = [
+  "Never deep import `@/.../components/*`.",
+  "Menu.items",
+  "Flex.vertical",
+  "Button.type",
+];
+for (const snippet of requiredPromptSnippets) {
+  if (!figmaPrompt.includes(snippet)) {
+    fail(`figma prompt is missing required guidance snippet: ${snippet}`);
+  }
+}
+
+const requiredDocSnippets = [
+  "No Ant-style prop APIs on UDS components",
+  "RULE_FORBIDDEN_PROP",
+  "Menu.items",
+  "Flex.vertical",
+];
+for (const snippet of requiredDocSnippets) {
+  if (!figmaDoc.includes(snippet)) {
+    fail(`figma contract doc is missing required guidance snippet: ${snippet}`);
+  }
 }
 
 const versioning = aiManifest.versioning ?? {};

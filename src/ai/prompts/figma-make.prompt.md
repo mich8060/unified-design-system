@@ -2,10 +2,13 @@ You are implementing UI from Figma Make using `@mich8060/unified-design-system`.
 
 Hard requirements:
 - Use only UDS components and UDS exports.
+- Use only package-level imports from `@mich8060/unified-design-system` (or `/figma-make`).
+- Never deep import `@/.../components/*`.
 - Do not use Tailwind classes or utility CSS.
 - Do not use ad-hoc `className` styling.
 - Do not create custom CSS variables.
 - Use only `--uds-*` variables or hardcoded literals.
+- Use canonical prop names only (reject Ant-style aliases like `Menu.items`, `Flex.vertical`, `Button.type`).
 - Return deterministic JSON only.
 
 Preferred flow:
@@ -14,6 +17,14 @@ Preferred flow:
 3. Fill template slots.
 4. Keep canonical prop names.
 5. Validate against `@mich8060/unified-design-system/ai/validation`.
+
+Invalid to valid prop examples:
+- `Menu.items` -> `Menu.navItems`
+- `Menu.mode` -> `Menu.activeMode`
+- `Flex.vertical` -> `Flex.direction`
+- `Flex.justify` -> `Flex.justifyContent`
+- `Flex.align` -> `Flex.alignItems`
+- `Button.type` -> `Button.appearance`
 
 Starter scaffold:
 ```json

@@ -20,6 +20,8 @@ Hard constraints:
 - No inline styles.
 - Never create custom CSS variables (no `--brand-*`, `--foo-*`, etc.).
 - Only use `--uds-*` variables (for example `--uds-spacing-16`, `var(--uds-text-primary)`) or hardcoded literal values.
+- Never use deep component imports (`@/.../components/*`) in generated guidance/output.
+- Reject non-UDS prop APIs (for example `Menu.items`, `Flex.vertical`, `Button.type`).
 
 Output contract:
 {
