@@ -1902,14 +1902,33 @@ export const COMPONENT_API = {
         ],
         "default": "neutral"
       },
-      "hideAccentRail": {
-        "type": "boolean",
-        "default": false
+      "iconAccent": {
+        "type": "enum",
+        "values": [
+          "amber",
+          "aqua",
+          "blue",
+          "cyan",
+          "emerald",
+          "fuchsia",
+          "green",
+          "indigo",
+          "lime",
+          "magenta",
+          "orange",
+          "purple",
+          "red",
+          "rose",
+          "sky",
+          "violet",
+          "yellow"
+        ],
+        "default": "blue"
       }
     },
     "defaults": {
       "trend": "neutral",
-      "hideAccentRail": false
+      "iconAccent": "blue"
     },
     "states": [
       "default"

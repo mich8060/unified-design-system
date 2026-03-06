@@ -313,9 +313,9 @@
     "component": "Statistics",
     "props": {
       "trend": "neutral",
-      "hideAccentRail": false
+      "iconAccent": "blue"
     },
-    "jsx": "<Statistics trend=\"neutral\" hideAccentRail={false} />"
+    "jsx": "<Statistics trend=\"neutral\" iconAccent=\"blue\" />"
   },
   {
     "component": "Status",

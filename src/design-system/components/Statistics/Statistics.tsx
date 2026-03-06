@@ -73,7 +73,7 @@ export function Statistics({
                         <div className="uds-statistics__text">
                             {hasValue ? (
                                 <div className="uds-statistics__value">
-                                    <Text as="p" variant="heading-32" weight="bold" leading="regular">
+                                    <Text as="p" variant="display-48" weight="bold" leading="regular">
                                         {value}
                                     </Text>
                                 </div>

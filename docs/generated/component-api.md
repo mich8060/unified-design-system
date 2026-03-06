@@ -488,7 +488,7 @@ Displays a KPI value with optional context, trend, and icon.
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
-| `hideAccentRail` | `boolean` | - | `false` |
+| `iconAccent` | `enum` | amber, aqua, blue, cyan, emerald, fuchsia, green, indigo, lime, magenta, orange, purple, red, rose, sky, violet, yellow | `blue` |
 | `trend` | `enum` | up, down, neutral | `neutral` |
 
 ### Status
