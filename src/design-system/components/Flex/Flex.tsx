@@ -90,7 +90,7 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(function Flex(
   ref
 ) {
   const wrapValue = normalizeWrap(wrap);
-  const hasAutoGap = String(gap).trim() === "auto" && justifyContent == null;
+  const hasAutoGap = String(gap).trim() === "auto";
 
   const classes = [
     "ds-flex",
