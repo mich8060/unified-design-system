@@ -50,15 +50,13 @@ export function ProvidersCard({
 }: ProvidersCardProps) {
     const finalPrimaryAction =
         primaryAction ?? <Button label="Request Assignment" appearance="ghost" />;
-    const finalSecondaryAction =
-        secondaryAction ?? <Button label="View Profile" appearance="outline" />;
 
     const classNames = ["uds-providers-card", className].filter(Boolean).join(" ");
 
     return (
         <div className={classNames} {...rest}>
-            <Flex direction="column" gap="8">
-                <Flex className="uds-providers-card__header" alignItems="center" justifyContent="space-between" gap="12" wrap>
+            <Flex direction="column" gap="16">
+                <Flex className="uds-providers-card__header" alignItems="flex-start" justifyContent="space-between" gap="12" wrap>
                     <Flex className="uds-providers-card__identity" alignItems="flex-start" justifyContent="flex-start" gap="10">
                         <Flex direction="column" gap="2">
                             <Text as="h3" variant="body-16" weight="bold" leading="regular">
@@ -98,10 +96,12 @@ export function ProvidersCard({
                         </Flex>
                     </Flex>
                 ) : null}
-                <Divider />
-                <Flex className="uds-providers-card__actions" alignItems="center" gap="8" wrap>
-                    {finalPrimaryAction}
-                    {finalSecondaryAction}
+                <Flex direction="column" gap="8">
+                    <Divider />
+                    <Flex className="uds-providers-card__actions" alignItems="center" gap="8" wrap>
+                        {finalPrimaryAction}
+                        {secondaryAction ? secondaryAction : null}
+                    </Flex>
                 </Flex>
             </Flex>
         </div>

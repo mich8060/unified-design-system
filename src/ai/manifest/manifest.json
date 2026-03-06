@@ -780,11 +780,37 @@
             "xlarge"
           ],
           "default": "large"
+        },
+        "paddingX": {
+          "type": "enum",
+          "values": [
+            "none",
+            "xsmall",
+            "small",
+            "default",
+            "large",
+            "xlarge"
+          ],
+          "default": "large"
+        },
+        "paddingY": {
+          "type": "enum",
+          "values": [
+            "none",
+            "xsmall",
+            "small",
+            "default",
+            "large",
+            "xlarge"
+          ],
+          "default": "large"
         }
       },
       "defaults": {
         "appearance": "transparent",
-        "padding": "large"
+        "padding": "large",
+        "paddingX": "large",
+        "paddingY": "large"
       },
       "composition": {
         "preferredParents": [

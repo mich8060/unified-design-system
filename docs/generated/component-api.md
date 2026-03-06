@@ -159,6 +159,8 @@ Provides a reusable content wrapper with optional filled or transparent surface 
 | --- | --- | --- | --- |
 | `appearance` | `enum` | default, transparent | `transparent` |
 | `padding` | `enum` | none, xsmall, small, default, large, xlarge | `large` |
+| `paddingX` | `enum` | none, xsmall, small, default, large, xlarge | `large` |
+| `paddingY` | `enum` | none, xsmall, small, default, large, xlarge | `large` |
 
 ### CurrencyInput
 
@@ -422,6 +424,18 @@ Describe purpose.
 | `labelPosition` | `enum` | false, right, bottom, top-floating, bottom-floating | `false` |
 | `size` | `enum` | small, medium, large | `medium` |
 | `variant` | `enum` | default, blue, green, success, orange, warning, red, error, purple | `default` |
+
+### ProvidersCard
+
+Displays provider identity, status, metadata, tags, and quick actions in a compact card.
+
+- Source: `src/design-system/components/ProvidersCard/ProvidersCard.spec.ts`
+- Tier: `3`
+- States: `default`
+
+| Prop | Type | Allowed Values | Default |
+| --- | --- | --- | --- |
+| `statusVariant` | `enum` | green, orange, red, blue, neutral | `green` |
 
 ### Radio
 

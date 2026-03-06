@@ -100,9 +100,11 @@
     "component": "Container",
     "props": {
       "appearance": "transparent",
-      "padding": "large"
+      "padding": "large",
+      "paddingX": "large",
+      "paddingY": "large"
     },
-    "jsx": "<Container appearance=\"transparent\" padding=\"large\" />"
+    "jsx": "<Container appearance=\"transparent\" padding=\"large\" paddingX=\"large\" paddingY=\"large\" />"
   },
   {
     "component": "CurrencyInput",
@@ -280,6 +282,13 @@
       "size": "medium"
     },
     "jsx": "<ProgressIndicator labelPosition={false} variant=\"default\" size=\"medium\" />"
+  },
+  {
+    "component": "ProvidersCard",
+    "props": {
+      "statusVariant": "green"
+    },
+    "jsx": "<ProvidersCard statusVariant=\"green\" />"
   },
   {
     "component": "Radio",

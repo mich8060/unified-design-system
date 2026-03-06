@@ -632,11 +632,37 @@ export const COMPONENT_API = {
           "xlarge"
         ],
         "default": "large"
+      },
+      "paddingX": {
+        "type": "enum",
+        "values": [
+          "none",
+          "xsmall",
+          "small",
+          "default",
+          "large",
+          "xlarge"
+        ],
+        "default": "large"
+      },
+      "paddingY": {
+        "type": "enum",
+        "values": [
+          "none",
+          "xsmall",
+          "small",
+          "default",
+          "large",
+          "xlarge"
+        ],
+        "default": "large"
       }
     },
     "defaults": {
       "appearance": "transparent",
-      "padding": "large"
+      "padding": "large",
+      "paddingX": "large",
+      "paddingY": "large"
     },
     "states": [
       "default"
@@ -1719,6 +1745,63 @@ export const COMPONENT_API = {
       "hadAliasNormalization": false
     },
     "antiPatterns": []
+  },
+  "ProvidersCard": {
+    "name": "ProvidersCard",
+    "source": "src/design-system/components/ProvidersCard/ProvidersCard.spec.ts",
+    "tier": 3,
+    "purpose": "Displays provider identity, status, metadata, tags, and quick actions in a compact card.",
+    "props": {
+      "statusVariant": {
+        "type": "enum",
+        "values": [
+          "green",
+          "orange",
+          "red",
+          "blue",
+          "neutral"
+        ],
+        "default": "green"
+      }
+    },
+    "defaults": {
+      "statusVariant": "green"
+    },
+    "states": [
+      "default"
+    ],
+    "tokensUsed": [
+      "--uds-spacing-16",
+      "--uds-spacing-12",
+      "--uds-border-width-1",
+      "--uds-border-primary",
+      "--uds-radius-8",
+      "--uds-surface-primary"
+    ],
+    "accessibility": {
+      "role": "group",
+      "keyboard": [
+        "Tab",
+        "Enter",
+        "Space"
+      ]
+    },
+    "composition": {
+      "allowedChildren": [],
+      "allowedParents": [],
+      "disallowedChildren": []
+    },
+    "aliases": {
+      "props": {}
+    },
+    "ambiguity": {
+      "propNameCollisions": [],
+      "hadAliasNormalization": false
+    },
+    "antiPatterns": [
+      "Do not use ProvidersCard for tabular datasets where rows and sorting are required.",
+      "Do not replace action buttons with non-interactive text when actions are expected."
+    ]
   },
   "Radio": {
     "name": "Radio",
