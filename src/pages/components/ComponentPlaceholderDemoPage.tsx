@@ -23,7 +23,12 @@ const COMPONENT_VARIANTS: Record<string, VariantConfig> = {
   },
   Button: { layout: ["label-only", "icon-left", "icon-right", "icon-only", "only"], appearance: ["primary", "soft", "outline", "text", "ghost", "disabled", "destructive"], size: ["large", "default", "small", "xsmall"] },
   Chip: { selected: ["false", "true"], rounded: ["false", "true"], size: ["default", "compact"], iconplacement: ["both", "left", "right", "none"] },
-  Container: { appearance: ["default", "transparent"], padding: ["none", "xsmall", "small", "default", "large", "xlarge"] },
+  Container: {
+    appearance: ["default", "transparent"],
+    padding: ["none", "xsmall", "small", "default", "large", "xlarge"],
+    paddingX: ["none", "xsmall", "small", "default", "large", "xlarge"],
+    paddingY: ["none", "xsmall", "small", "default", "large", "xlarge"],
+  },
   CurrencyInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
   DateInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
   DateRangeInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"], disabled: ["false", "true"] },
@@ -313,6 +318,13 @@ const CONTAINER_PADDING_SNIPPET = `<Container padding="none">No padding</Contain
 <Container padding="default">Default padding</Container>
 <Container padding="large">Large padding</Container>`;
 
+const CONTAINER_AXIS_PADDING_SNIPPET = `<Container appearance="default" paddingX="large" paddingY="small">
+  Horizontal: large, Vertical: small
+</Container>
+<Container appearance="default" paddingX="small" paddingY="xlarge">
+  Horizontal: small, Vertical: xlarge
+</Container>`;
+
 const DROPDOWN_BASIC_SNIPPET = `<Dropdown
   options={[
     { value: "all", label: "All Departments" },
@@ -578,7 +590,7 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
       ];
     }
 
-    if (componentName === "Container" && key === "padding") {
+    if (componentName === "Container" && (key === "padding" || key === "paddingX" || key === "paddingY")) {
       nextProps.appearance = "default";
     }
 
@@ -666,6 +678,7 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
                   <Code language="tsx" code={CONTAINER_BASIC_SNIPPET} />
                   <Code language="tsx" code={CONTAINER_APPEARANCE_SNIPPET} />
                   <Code language="tsx" code={CONTAINER_PADDING_SNIPPET} />
+                  <Code language="tsx" code={CONTAINER_AXIS_PADDING_SNIPPET} />
                 </>
               )}
               {componentName === "Dropdown" && (

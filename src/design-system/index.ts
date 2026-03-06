@@ -40,6 +40,7 @@ export * from "./components/PasswordInput";
 export * from "./components/PhoneInput";
 export * from "./components/ProgressCircle";
 export * from "./components/ProgressIndicator";
+export * from "./components/ProvidersCard";
 export * from "./components/Radio";
 export * from "./components/RadioGroup";
 export * from "./components/Slider";

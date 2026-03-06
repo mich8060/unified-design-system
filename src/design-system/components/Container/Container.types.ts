@@ -6,4 +6,6 @@ export type ContainerPadding = "none" | "xsmall" | "small" | "default" | "large"
 export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   appearance?: ContainerAppearance;
   padding?: ContainerPadding;
+  paddingX?: ContainerPadding;
+  paddingY?: ContainerPadding;
 }

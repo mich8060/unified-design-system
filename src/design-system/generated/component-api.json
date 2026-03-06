@@ -2009,6 +2009,46 @@
         "Do not omit visible labels when context is unclear."
       ]
     },
+    "ScrollView": {
+      "name": "ScrollView",
+      "source": "src/design-system/components/ScrollView/ScrollView.spec.ts",
+      "tier": 2,
+      "purpose": "Provides a container with controlled scroll direction.",
+      "props": {
+        "direction": {
+          "type": "enum",
+          "values": [
+            "vertical",
+            "horizontal"
+          ],
+          "default": "vertical"
+        }
+      },
+      "defaults": {
+        "direction": "vertical"
+      },
+      "states": [
+        "default"
+      ],
+      "tokensUsed": [],
+      "accessibility": {
+        "role": "generic",
+        "keyboard": []
+      },
+      "composition": {
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": []
+      },
+      "aliases": {
+        "props": {}
+      },
+      "ambiguity": {
+        "propNameCollisions": [],
+        "hadAliasNormalization": false
+      },
+      "antiPatterns": []
+    },
     "SearchInput": {
       "name": "SearchInput",
       "source": "src/design-system/components/SearchInput/SearchInput.spec.ts",

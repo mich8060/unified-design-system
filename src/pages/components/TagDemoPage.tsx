@@ -1,3 +1,4 @@
+import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
 import { Flex } from "../../design-system/components/Flex";
 import { Tag } from "../../design-system/components/Tag";
@@ -40,6 +41,22 @@ const TAG_PROPS: ComponentPropRow[] = [
   { prop: "className", type: "string", defaultValue: '""', description: "Additional classes for tag root." },
 ];
 
+const BASIC_SNIPPET = `<Tag label="Default tag" />
+<Tag label="Icon tag" appearance="icon-left" icon="Tag" />
+<Tag label="Interactive tag" onClick={() => undefined} />`;
+
+const SIZE_SNIPPET = `<Tag label="Compact" size="compact" appearance="icon-left" icon="Tag" />
+<Tag label="Default" size="default" appearance="icon-left" icon="Tag" />`;
+
+const SHAPE_FILL_SNIPPET = `<Tag label="Rounded + Outline" color="blue" rounded solid={false} />
+<Tag label="Rounded + Solid" color="blue" rounded solid />
+<Tag label="Square + Outline" color="blue" rounded={false} solid={false} />
+<Tag label="Square + Solid" color="blue" rounded={false} solid />`;
+
+const COLOR_SNIPPET = `{TAG_COLORS.map((color) => (
+  <Tag key={color} label={color} color={color} solid />
+))}`;
+
 export function TagDemoPage() {
   return (
     <DocPageLayout
@@ -56,6 +73,7 @@ export function TagDemoPage() {
             <Tag label="Icon tag" appearance="icon-left" icon="Tag" />
             <Tag label="Interactive tag" onClick={() => undefined} />
           </Flex>
+          <Code language="tsx" code={BASIC_SNIPPET} />
         </Flex>
 
         <Divider variant="solid" />
@@ -68,6 +86,7 @@ export function TagDemoPage() {
             <Tag label="Compact" size="compact" appearance="icon-left" icon="Tag" />
             <Tag label="Default" size="default" appearance="icon-left" icon="Tag" />
           </Flex>
+          <Code language="tsx" code={SIZE_SNIPPET} />
         </Flex>
 
         <Divider variant="solid" />
@@ -82,6 +101,7 @@ export function TagDemoPage() {
             <Tag label="Square + Outline" color="blue" rounded={false} solid={false} />
             <Tag label="Square + Solid" color="blue" rounded={false} solid />
           </Flex>
+          <Code language="tsx" code={SHAPE_FILL_SNIPPET} />
         </Flex>
 
         <Divider variant="solid" />
@@ -95,6 +115,7 @@ export function TagDemoPage() {
               <Tag key={color} label={color} color={color} solid />
             ))}
           </Flex>
+          <Code language="tsx" code={COLOR_SNIPPET} />
         </Flex>
       </Flex>
 

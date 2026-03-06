@@ -15,6 +15,14 @@ const meta = {
       control: "select",
       options: ["none", "xsmall", "small", "default", "large", "xlarge"],
     },
+    paddingX: {
+      control: "select",
+      options: ["none", "xsmall", "small", "default", "large", "xlarge"],
+    },
+    paddingY: {
+      control: "select",
+      options: ["none", "xsmall", "small", "default", "large", "xlarge"],
+    },
   },
   args: {
     appearance: "transparent",
@@ -41,5 +49,13 @@ export const Transparent: Story = {
 export const LargePadding: Story = {
   args: {
     padding: "large",
+  },
+};
+
+export const AxisPadding: Story = {
+  args: {
+    appearance: "default",
+    paddingX: "large",
+    paddingY: "small",
   },
 };

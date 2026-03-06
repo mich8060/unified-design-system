@@ -1,0 +1,9 @@
+// Map semantic tokens to component-local vars
+@use "../../tokens/index" as *;
+
+$providers-card-padding: var(--uds-spacing-16);
+$providers-card-gap: var(--uds-spacing-12);
+$providers-card-border-width: var(--uds-border-width-1);
+$providers-card-border-color: var(--uds-border-primary);
+$providers-card-radius: var(--uds-radius-8);
+$providers-card-surface: var(--uds-surface-primary);

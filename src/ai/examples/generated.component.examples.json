@@ -295,6 +295,13 @@
     "jsx": "<RadioGroup orientation=\"vertical\" disabled={false} />"
   },
   {
+    "component": "ScrollView",
+    "props": {
+      "direction": "vertical"
+    },
+    "jsx": "<ScrollView direction=\"vertical\" />"
+  },
+  {
     "component": "SearchInput",
     "props": {},
     "jsx": "<SearchInput />"

@@ -16,6 +16,16 @@ export const ContainerSpec: ComponentSpec = {
       values: ["none", "xsmall", "small", "default", "large", "xlarge"],
       default: "large",
     },
+    paddingX: {
+      type: "enum",
+      values: ["none", "xsmall", "small", "default", "large", "xlarge"],
+      default: "large",
+    },
+    paddingY: {
+      type: "enum",
+      values: ["none", "xsmall", "small", "default", "large", "xlarge"],
+      default: "large",
+    },
   },
   states: ["default"],
   tokensUsed: [

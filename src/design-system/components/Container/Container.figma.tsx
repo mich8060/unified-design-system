@@ -8,6 +8,8 @@ export default {
   props: {
     appearance: "transparent",
     padding: "large",
+    paddingX: "large",
+    paddingY: "small",
     children: "Container content",
   },
 };

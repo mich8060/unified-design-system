@@ -445,6 +445,18 @@ Provides grouped single-select choices using Radio controls.
 | `disabled` | `boolean` | - | `false` |
 | `orientation` | `enum` | vertical, horizontal | `vertical` |
 
+### ScrollView
+
+Provides a container with controlled scroll direction.
+
+- Source: `src/design-system/components/ScrollView/ScrollView.spec.ts`
+- Tier: `2`
+- States: `default`
+
+| Prop | Type | Allowed Values | Default |
+| --- | --- | --- | --- |
+| `direction` | `enum` | vertical, horizontal | `vertical` |
+
 ### SearchInput
 
 Describe purpose.

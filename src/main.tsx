@@ -83,6 +83,10 @@ const ChecklistPatternPage = lazyNamed(
     () => import("./pages/patterns/ChecklistPatternPage"),
     "ChecklistPatternPage"
 );
+const ProvidersCardPatternPage = lazyNamed(
+    () => import("./pages/patterns/ProvidersCardPatternPage"),
+    "ProvidersCardPatternPage"
+);
 const GettingStartedPage = lazyNamed(() => import("./pages/docs/GettingStartedPage"), "GettingStartedPage");
 const DesignTokensPage = lazyNamed(() => import("./pages/docs/DesignTokensPage"), "DesignTokensPage");
 const ThemingPage = lazyNamed(() => import("./pages/docs/ThemingPage"), "ThemingPage");
@@ -164,6 +168,7 @@ const COMPONENT_NAV_ITEMS = [
     { label: "Status", path: "/components/status" },
     { label: "Steps", path: "/components/steps" },
     { label: "Tabs", path: "/components/tabs" },
+    { label: "Tag", path: "/components/tag" },
     { label: "Table", path: "/components/table" },
     { label: "Text", path: "/components/text" },
     { label: "TextInput", path: "/components/text-input" },
@@ -180,6 +185,7 @@ const COMPONENT_NAV_ITEMS = [
 const PATTERN_NAV_ITEMS = [
     { label: "Menu", path: "/components/menu" },
     { label: "Checklist", path: "/patterns/checklist" },
+    { label: "Providers Card", path: "/patterns/providers-card" },
     { label: "Section Header", path: "/patterns/section-header" },
     { label: "Statistics", path: "/components/statistics" },
 ];
@@ -376,6 +382,7 @@ function App() {
                             <Route path="/components/toggle" element={<ToggleDemoPage />} />
                             <Route path="/components/tooltip" element={<TooltipDemoPage />} />
                             <Route path="/patterns/checklist" element={<ChecklistPatternPage />} />
+                            <Route path="/patterns/providers-card" element={<ProvidersCardPatternPage />} />
                             <Route path="/patterns/section-header" element={<SectionHeaderPatternPage />} />
                             {PLACEHOLDER_COMPONENT_PAGES.map(({ componentName, path }) => (
                                 <Route
