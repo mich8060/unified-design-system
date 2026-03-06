@@ -9,10 +9,13 @@ const STATISTICS_PROPS: ComponentPropRow[] = [
   { prop: "changeText", type: "ReactNode", defaultValue: "-", description: "Optional change indicator text." },
   { prop: "trend", type: '"up" | "down" | "neutral"', defaultValue: '"neutral"', description: "Color and icon direction for change row." },
   { prop: "icon", type: "string", defaultValue: "-", description: "Optional icon name shown in the leading icon tile." },
-  { prop: "iconAccent", type: '"amber" | "aqua" | "blue" | "cyan" | "emerald" | "fuchsia" | "green" | "indigo" | "lime" | "magenta" | "orange" | "purple" | "red" | "rose" | "sky" | "violet" | "yellow"', defaultValue: "-", description: "Named accent style for icon tile (50 background + 600 icon)." },
-  { prop: "labelBoxColor", type: "string", defaultValue: "-", description: "Optional CSS color value for the label icon tile background." },
+  { prop: "iconAccent", type: '"amber" | "aqua" | "blue" | "cyan" | "emerald" | "fuchsia" | "green" | "indigo" | "lime" | "magenta" | "orange" | "purple" | "red" | "rose" | "sky" | "violet" | "yellow"', defaultValue: "-", description: "Named icon-tile accent style (50 background + 600 icon)." },
+  { prop: "labelBoxColor", type: "string", defaultValue: "-", description: "Custom icon-tile background color. Overrides iconAccent background when provided." },
   { prop: "progressValue", type: "number", defaultValue: "-", description: "Optional progress bar percentage (0-100)." },
   { prop: "progressLabel", type: "ReactNode", defaultValue: "-", description: "Label shown next to the progress bar." },
+  { prop: "className", type: "string", defaultValue: '""', description: "Additional classes for the root container." },
+  { prop: "style", type: "CSSProperties", defaultValue: "-", description: "Inline styles for the root container." },
+  { prop: "...rest", type: "HTMLAttributes<HTMLDivElement>", defaultValue: "-", description: "Standard div attributes (id, data-*, aria-*, etc.)." },
 ];
 
 const FULL_CARD_SNIPPET = `<Statistics
