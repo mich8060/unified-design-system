@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = resolve(new URL("..", import.meta.url).pathname);
@@ -30,16 +30,6 @@ if (!existsSync(stylePath)) {
   } else {
     pass(`dist/style.css budget OK (${(cssBytes / 1024).toFixed(2)} KiB)`);
   }
-}
-
-const allDistFiles = readdirSync(distDir, { recursive: true }).map((entry) => String(entry));
-const bizchartsBundleLeak = allDistFiles.find(
-  (entry) => entry.includes("node_modules") && entry.toLowerCase().includes("bizcharts")
-);
-if (bizchartsBundleLeak) {
-  fail(`Unexpected bundled bizcharts artifact found in dist: ${bizchartsBundleLeak}`);
-} else {
-  pass("No bundled bizcharts artifacts in dist");
 }
 
 const manifestPath = resolve(distDir, "ai", "manifest.json");

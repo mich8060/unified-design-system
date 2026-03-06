@@ -72,6 +72,5 @@ export type {
   DensityMode,
   PaddingMode,
 } from "../app-shell/layout.types";
-export * from "./charts";
 export * from "./theme";
 export * from "./generated/component-api";

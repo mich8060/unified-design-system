@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
+const cssSideEffectPattern = /\.(css|scss|sass)$/;
 const assetFileNames = (assetInfo) =>
   assetInfo.name?.endsWith(".css")
     ? "style.css"
@@ -39,7 +40,6 @@ export default defineConfig(() => {
       rollupOptions: {
         input: {
           index: resolve(__dirname, "src/design-system/index.ts"),
-          "charts-bizcharts/index": resolve(__dirname, "src/design-system/charts/index.ts"),
           "figma-make/index": resolve(__dirname, "src/design-system/figma-make/index.ts"),
           "ai/index": resolve(__dirname, "src/design-system/ai/index.ts"),
           "ai/manifest/index": resolve(__dirname, "src/design-system/ai/manifest/index.ts"),
@@ -49,7 +49,7 @@ export default defineConfig(() => {
         },
         preserveEntrySignatures: "exports-only",
         treeshake: {
-          moduleSideEffects: false,
+          moduleSideEffects: (id) => cssSideEffectPattern.test(id),
           propertyReadSideEffects: false,
         },
         external: [
@@ -59,7 +59,6 @@ export default defineConfig(() => {
           "react/jsx-dev-runtime",
           "react-router-dom",
           "@phosphor-icons/react",
-          "bizcharts",
         ],
         output: [
           {

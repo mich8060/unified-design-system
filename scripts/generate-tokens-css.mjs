@@ -9,7 +9,11 @@ const distTokensDir = resolve(root, "dist/tokens");
 const moduleUrl = pathToFileURL(resolve(distTokensDir, "index.js")).href;
 const runtime = await import(moduleUrl);
 
+const resetCss = [
+  "*,*::before,*::after{box-sizing:border-box}",
+  "html,body{margin:0;padding:0}",
+].join("");
 const css = runtime.generateRuntimeTokensCss(runtime.runtimeTokens);
-writeFileSync(resolve(distTokensDir, "tokens.css"), css, "utf8");
+writeFileSync(resolve(distTokensDir, "tokens.css"), `${resetCss}${css}`, "utf8");
 
 process.stdout.write("Generated dist/tokens/tokens.css from runtime token source.\n");

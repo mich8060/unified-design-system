@@ -66,7 +66,6 @@ const StatusDemoPage = lazyNamed(() => import("./pages/components/StatusDemoPage
 const StatisticsDemoPage = lazyNamed(() => import("./pages/components/StatisticsDemoPage"), "StatisticsDemoPage");
 const TagDemoPage = lazyNamed(() => import("./pages/components/TagDemoPage"), "TagDemoPage");
 const TooltipDemoPage = lazyNamed(() => import("./pages/components/TooltipDemoPage"), "TooltipDemoPage");
-const ChartsDemoPage = lazyNamed(() => import("./pages/components/ChartsDemoPage"), "ChartsDemoPage");
 const RadioGroupDemoPage = lazyNamed(
     () => import("./pages/components/RadioGroupDemoPage"),
     "RadioGroupDemoPage"
@@ -128,7 +127,6 @@ const COMPONENT_NAV_ITEMS = [
     { label: "ButtonGroup", path: "/components/button-group" },
     { label: "Calendar", path: "/components/calendar" },
     { label: "Card", path: "/components/card" },
-    { label: "Charts", path: "/components/charts" },
     { label: "Checkbox", path: "/components/checkbox" },
     { label: "CheckboxGroup", path: "/components/checkbox-group" },
     { label: "Chip", path: "/components/chip" },
@@ -354,7 +352,6 @@ function App() {
                             <Route path="/components/slider" element={<SliderDemoPage />} />
                             <Route path="/components/status" element={<StatusDemoPage />} />
                             <Route path="/components/statistics" element={<StatisticsDemoPage />} />
-                            <Route path="/components/charts" element={<ChartsDemoPage />} />
                             <Route path="/components/text" element={<TextDemoPage />} />
                             <Route path="/components/text-input" element={<TextInputDemoPage />} />
                             <Route path="/components/date-input" element={<DateInputDemoPage />} />

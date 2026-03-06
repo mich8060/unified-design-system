@@ -52,7 +52,6 @@ const MENU_NAV_ITEMS = [
     icon: "SquaresFour",
     children: [
       { label: "Button", path: "/components/button" },
-      { label: "Charts", path: "/components/charts" },
       { label: "Field", path: "/components/field" },
       { label: "Flex", path: "/components/flex" },
       { label: "Menu", path: "/components/menu" },

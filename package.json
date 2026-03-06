@@ -312,12 +312,6 @@
       "require": "./dist/components/Tabs/Tabs.cjs",
       "default": "./dist/components/Tabs/Tabs.js"
     },
-    "./charts-bizcharts": {
-      "types": "./dist/design-system/charts/index.d.ts",
-      "import": "./dist/charts-bizcharts/index.js",
-      "require": "./dist/charts-bizcharts/index.cjs",
-      "default": "./dist/charts-bizcharts/index.js"
-    },
     "./Tag": {
       "types": "./dist/design-system/components/Tag/Tag.d.ts",
       "import": "./dist/components/Tag/Tag.js",
@@ -445,7 +439,10 @@
     "README.md",
     "LICENSE"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "scripts": {
     "dev": "vite --configLoader native",
     "dev:preact": "UDS_USE_PREACT_COMPAT=1 vite --configLoader native",
@@ -480,7 +477,6 @@
     "sass:watch": "sass --watch src/design-system:src/design-system"
   },
   "dependencies": {
-    "bizcharts": "^4.1.23",
     "prismjs": "^1.30.0"
   },
   "peerDependencies": {
