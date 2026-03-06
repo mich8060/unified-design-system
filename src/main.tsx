@@ -126,7 +126,6 @@ const COMPONENT_NAV_ITEMS = [
     { label: "Button", path: "/components/button" },
     { label: "ButtonGroup", path: "/components/button-group" },
     { label: "Calendar", path: "/components/calendar" },
-    { label: "Card", path: "/components/card" },
     { label: "Checkbox", path: "/components/checkbox" },
     { label: "CheckboxGroup", path: "/components/checkbox-group" },
     { label: "Chip", path: "/components/chip" },
@@ -186,7 +185,6 @@ const PATTERN_NAV_ITEMS = [
 const PLACEHOLDER_COMPONENT_PAGES = [
     { componentName: "Breadcrumb", path: "/components/breadcrumb" },
     { componentName: "Calendar", path: "/components/calendar" },
-    { componentName: "Card", path: "/components/card" },
     { componentName: "Container", path: "/components/container" },
     { componentName: "Chip", path: "/components/chip" },
     { componentName: "Datepicker", path: "/components/datepicker" },
@@ -279,6 +277,10 @@ function App() {
         () => (brand === "default" ? "design-system" : brand),
         [brand]
     );
+
+    React.useEffect(() => {
+        document.documentElement.setAttribute("data-brand", identity);
+    }, [identity]);
 
     if (location.pathname === "/template-canvas") {
         return (

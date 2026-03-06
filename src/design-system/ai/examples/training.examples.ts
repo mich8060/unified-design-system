@@ -24,7 +24,7 @@ export interface AITrainingExample {
 export const UDS_TRAINING_EXAMPLES: readonly AITrainingExample[] = [
   {
     id: "valid-auth-form",
-    scenario: "Simple authentication card with semantic layout and one primary action.",
+    scenario: "Simple authentication container with semantic layout and one primary action.",
     kind: "valid",
     tags: ["form", "auth", "field-wrapping"],
     output: {
@@ -33,7 +33,7 @@ export const UDS_TRAINING_EXAMPLES: readonly AITrainingExample[] = [
         props: { gap: "--uds-spacing-24" },
         children: [
           {
-            type: "Card",
+            type: "Container",
             children: [
               { type: "Text", props: { variant: "heading-24" } },
               { type: "Field", children: [{ type: "TextInput", props: { type: "email", iconPosition: "left" } }] },
@@ -52,7 +52,7 @@ export const UDS_TRAINING_EXAMPLES: readonly AITrainingExample[] = [
     },
     expected: { status: "pass" },
     rationale: {
-      why: "Uses allowed composition (Container > Card > Field/Text/Button), valid spacing token, and a single primary action."
+      why: "Uses allowed composition (Container > Field/Text/Button), valid spacing token, and a single primary action."
     }
   },
   {
@@ -255,7 +255,7 @@ export const UDS_TRAINING_EXAMPLES: readonly AITrainingExample[] = [
     },
     rationale: {
       why: "Field is not an allowed Menu child and Field requires a form/container context.",
-      fix: "Use Menu-approved children or move Field under Container/Card/Modal/Tabs."
+      fix: "Use Menu-approved children or move Field under Container/Modal/Tabs."
     }
   },
   {

@@ -126,15 +126,6 @@ export const ComponentRegistry = {
     roles: ["grid"],
     preferredParent: ["Datepicker", "Card"],
   },
-  Card: {
-    category: "layout",
-    intent: "Contained content section",
-    description:
-      "A surface container for grouping related content and actions within a visual boundary, managing elevation, padding, and spacing.",
-    alsoKnownAs: ["Surface", "Panel", "Content Block", "Tile"],
-    roles: ["region"],
-    preferredParent: ["Container", "Flex"],
-  },
   Checkbox: {
     category: "form",
     intent: "Multi-select boolean input",

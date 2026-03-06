@@ -55,7 +55,6 @@ const componentSeeds: ComponentSeed[] = [
   { name: "Button", category: "action", intent: "Primary and secondary user actions.", preferredContexts: ["forms", "toolbars", "dialogs"], constraints: { onlyOnePrimaryPerSection: true }, tokenDependencies: ["--uds-spacing-8", "--uds-spacing-12", "--uds-color-blue-600", "--uds-color-red-600", "--uds-radius-8"], accessibilityRole: "button", keyboardSupport: ["Tab", "Enter", "Space"] },
   { name: "ButtonGroup", category: "action", intent: "Grouped related button actions.", preferredContexts: ["forms", "dialogs", "cards"], accessibilityRole: "group", keyboardSupport: ["Tab", "Enter", "Space"] },
   { name: "Calendar", category: "form", intent: "Calendar date grid interactions.", preferredContexts: ["scheduling", "date-selection"] },
-  { name: "Card", category: "layout", intent: "Contained content region with optional actions.", preferredContexts: ["dashboards", "details"] },
   { name: "Checkbox", category: "form", intent: "Multi-select boolean control.", preferredContexts: ["forms", "filters"], accessibilityRole: "checkbox", keyboardSupport: ["Tab", "Space"] },
   { name: "CheckboxGroup", category: "form", intent: "Grouped multi-select checkboxes.", preferredContexts: ["forms", "filters"], accessibilityRole: "group", keyboardSupport: ["Tab", "Space"] },
   {

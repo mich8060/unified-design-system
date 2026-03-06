@@ -15,7 +15,7 @@ This file is generated from `src/design-system/components/*/*.spec.ts`.
 ### ActionMenu
 
 - Source: `src/design-system/components/ActionMenu/ActionMenu.spec.ts`
-- Allowed parents: `Card`, `Menu`, `Table`
+- Allowed parents: `Menu`, `Table`
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
@@ -24,7 +24,7 @@ This file is generated from `src/design-system/components/*/*.spec.ts`.
 ### Avatar
 
 - Source: `src/design-system/components/Avatar/Avatar.spec.ts`
-- Allowed parents: `Card`, `Table`
+- Allowed parents: `Table`
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
@@ -59,7 +59,7 @@ This file is generated from `src/design-system/components/*/*.spec.ts`.
 ### Button
 
 - Source: `src/design-system/components/Button/Button.spec.ts`
-- Allowed parents: `AppShell`, `Card`, `Container`, `Flex`, `Modal`, `Table`, `Tabs`
+- Allowed parents: `AppShell`, `Container`, `Flex`, `Modal`, `Table`, `Tabs`
 - Disallowed children: `Button`
 
 | Prop | Type | Allowed Values | Default |
@@ -84,16 +84,6 @@ Groups related button actions with consistent spacing and orientation.
 ### Calendar
 
 - Source: `src/design-system/components/Calendar/Calendar.spec.ts`
-
-| Prop | Type | Allowed Values | Default |
-| --- | --- | --- | --- |
-| _none_ | - | - | - |
-
-### Card
-
-- Source: `src/design-system/components/Card/Card.spec.ts`
-- Allowed parents: `AppShell`, `Container`, `Tabs`
-- Allowed children: `Text`, `Flex`, `Button`, `Tag`, `Status`, `Table`, `Divider`, `Avatar`, `ActionMenu`, `Field`
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
@@ -163,7 +153,7 @@ Provides a reusable content wrapper with optional filled or transparent surface 
 - Tier: `2`
 - States: `default`
 - Allowed parents: `AppShell`, `root`
-- Allowed children: `Flex`, `Card`, `Table`, `Text`, `Button`, `Field`, `Divider`, `Tag`
+- Allowed children: `Flex`, `Table`, `Text`, `Button`, `Field`, `Divider`, `Tag`
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
@@ -229,7 +219,7 @@ Describe purpose.
 ### Divider
 
 - Source: `src/design-system/components/Divider/Divider.spec.ts`
-- Allowed parents: `Card`, `Container`, `Modal`
+- Allowed parents: `Container`, `Modal`
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
@@ -285,7 +275,7 @@ Provide a clear, branded fallback when a section has no content, data, or search
 ### Field
 
 - Source: `src/design-system/components/Field/Field.spec.ts`
-- Allowed parents: `Card`, `Container`, `Modal`, `Tabs`
+- Allowed parents: `Container`, `Modal`, `Tabs`
 - Allowed children: `TextInput`, `Input`, `Dropdown`, `Datepicker`, `Textarea`, `Checkbox`, `Radio`, `Toggle`, `Slider`, `FileUpload`
 
 | Prop | Type | Allowed Values | Default |
@@ -308,7 +298,7 @@ Creates token-driven flexbox layouts with controlled direction, alignment, wrapp
 - Source: `src/design-system/components/Flex/Flex.spec.ts`
 - Tier: `2`
 - States: `default`
-- Allowed parents: `AppShell`, `Card`, `Container`
+- Allowed parents: `AppShell`, `Container`
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
@@ -502,7 +492,7 @@ Displays a KPI value with optional context, trend, and icon.
 ### Status
 
 - Source: `src/design-system/components/Status/Status.spec.ts`
-- Allowed parents: `Card`, `Table`
+- Allowed parents: `Table`
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
@@ -523,7 +513,7 @@ Displays a KPI value with optional context, trend, and icon.
 ### Table
 
 - Source: `src/design-system/components/Table/Table.spec.ts`
-- Allowed parents: `Card`, `Container`, `Tabs`
+- Allowed parents: `Container`, `Tabs`
 - Allowed children: `Tag`, `Status`, `Avatar`, `Button`, `ActionMenu`, `ProgressIndicator`, `DotStatus`
 - Disallowed children: `Table`
 
@@ -534,7 +524,7 @@ Displays a KPI value with optional context, trend, and icon.
 ### Tabs
 
 - Source: `src/design-system/components/Tabs/Tabs.spec.ts`
-- Allowed children: `Text`, `Tag`, `Button`, `Card`, `Table`, `Field`
+- Allowed children: `Text`, `Tag`, `Button`, `Table`, `Field`
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
@@ -545,7 +535,7 @@ Displays a KPI value with optional context, trend, and icon.
 ### Tag
 
 - Source: `src/design-system/components/Tag/Tag.spec.ts`
-- Allowed parents: `Card`, `Container`, `Modal`, `Table`, `Tabs`
+- Allowed parents: `Container`, `Modal`, `Table`, `Tabs`
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
@@ -561,7 +551,7 @@ Applies UDS typography variants with governed weight and leading options while p
 - Source: `src/design-system/components/Text/Text.spec.ts`
 - Tier: `2`
 - States: `default`
-- Allowed parents: `AppShell`, `Card`, `Container`, `Flex`, `Menu`, `Modal`, `Tabs`
+- Allowed parents: `AppShell`, `Container`, `Flex`, `Menu`, `Modal`, `Tabs`
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |

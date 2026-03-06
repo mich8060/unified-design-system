@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { Link, UNSAFE_LocationContext } from "react-router-dom";
 import "./_breadcrumb.scss";
 import type { BreadcrumbProps } from "./Breadcrumb.types";
 
@@ -66,8 +66,11 @@ const PATTERNS_ITEMS = [
  *                        If href is provided, the item will be a link. The last item is always the current page (no link).
  */
 export default function Breadcrumb({ items }: BreadcrumbProps) {
-  const location = useLocation();
-  const pathname = location.pathname;
+  const locationContext = React.useContext(UNSAFE_LocationContext);
+  const isRouterAvailable = Boolean(locationContext);
+  const pathname =
+    locationContext?.location?.pathname ??
+    (typeof window !== "undefined" ? window.location.pathname : "/");
 
   // If custom items are provided, use them
   if (items && items.length > 0) {
@@ -90,9 +93,15 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
                         <span className="breadcrumb__text">{item.label}</span>
                       </a>
                     ) : (
-                      <Link to={item.href} className="breadcrumb__link">
-                        <span className="breadcrumb__text">{item.label}</span>
-                      </Link>
+                      isRouterAvailable ? (
+                        <Link to={item.href} className="breadcrumb__link">
+                          <span className="breadcrumb__text">{item.label}</span>
+                        </Link>
+                      ) : (
+                        <a href={item.href} className="breadcrumb__link">
+                          <span className="breadcrumb__text">{item.label}</span>
+                        </a>
+                      )
                     )
                   ) : (
                     <span className="breadcrumb__text">{item.label}</span>

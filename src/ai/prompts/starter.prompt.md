@@ -15,6 +15,7 @@ Hard rules:
 - Default `Container` to `appearance=\"transparent\"` and `padding=\"large\"` (24px) unless overridden by explicit requirements.
 
 Required layout scaffold:
+- App root must be wrapped in `BrowserRouter` (or `RouterProvider`) before rendering any UDS component that consumes routing.
 - Root must be:
   - `AppShell`
   - `AppShell.Menu`

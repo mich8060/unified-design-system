@@ -40,7 +40,6 @@ export const COMPONENT_API = {
     "composition": {
       "allowedChildren": [],
       "allowedParents": [
-        "Card",
         "Menu",
         "Table"
       ],
@@ -75,7 +74,6 @@ export const COMPONENT_API = {
     "composition": {
       "allowedChildren": [],
       "allowedParents": [
-        "Card",
         "Table"
       ],
       "disallowedChildren": []
@@ -258,7 +256,6 @@ export const COMPONENT_API = {
       "allowedChildren": [],
       "allowedParents": [
         "AppShell",
-        "Card",
         "Container",
         "Flex",
         "Modal",
@@ -352,45 +349,6 @@ export const COMPONENT_API = {
     "composition": {
       "allowedChildren": [],
       "allowedParents": [],
-      "disallowedChildren": []
-    },
-    "aliases": {
-      "props": {}
-    },
-    "ambiguity": {
-      "propNameCollisions": [],
-      "hadAliasNormalization": false
-    },
-    "antiPatterns": []
-  },
-  "Card": {
-    "name": "Card",
-    "source": "src/design-system/components/Card/Card.spec.ts",
-    "props": {},
-    "defaults": {},
-    "states": [],
-    "tokensUsed": [],
-    "accessibility": {
-      "keyboard": []
-    },
-    "composition": {
-      "allowedChildren": [
-        "Text",
-        "Flex",
-        "Button",
-        "Tag",
-        "Status",
-        "Table",
-        "Divider",
-        "Avatar",
-        "ActionMenu",
-        "Field"
-      ],
-      "allowedParents": [
-        "AppShell",
-        "Container",
-        "Tabs"
-      ],
       "disallowedChildren": []
     },
     "aliases": {
@@ -702,7 +660,6 @@ export const COMPONENT_API = {
     "composition": {
       "allowedChildren": [
         "Flex",
-        "Card",
         "Table",
         "Text",
         "Button",
@@ -926,7 +883,6 @@ export const COMPONENT_API = {
     "composition": {
       "allowedChildren": [],
       "allowedParents": [
-        "Card",
         "Container",
         "Modal"
       ],
@@ -1186,7 +1142,6 @@ export const COMPONENT_API = {
         "FileUpload"
       ],
       "allowedParents": [
-        "Card",
         "Container",
         "Modal",
         "Tabs"
@@ -1261,7 +1216,6 @@ export const COMPONENT_API = {
       "allowedChildren": [],
       "allowedParents": [
         "AppShell",
-        "Card",
         "Container"
       ],
       "disallowedChildren": []
@@ -2019,7 +1973,6 @@ export const COMPONENT_API = {
     "composition": {
       "allowedChildren": [],
       "allowedParents": [
-        "Card",
         "Table"
       ],
       "disallowedChildren": []
@@ -2108,7 +2061,6 @@ export const COMPONENT_API = {
         "DotStatus"
       ],
       "allowedParents": [
-        "Card",
         "Container",
         "Tabs"
       ],
@@ -2161,7 +2113,6 @@ export const COMPONENT_API = {
         "Text",
         "Tag",
         "Button",
-        "Card",
         "Table",
         "Field"
       ],
@@ -2237,7 +2188,6 @@ export const COMPONENT_API = {
     "composition": {
       "allowedChildren": [],
       "allowedParents": [
-        "Card",
         "Container",
         "Modal",
         "Table",
@@ -2322,7 +2272,6 @@ export const COMPONENT_API = {
       "allowedChildren": [],
       "allowedParents": [
         "AppShell",
-        "Card",
         "Container",
         "Flex",
         "Menu",

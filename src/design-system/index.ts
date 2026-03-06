@@ -10,7 +10,6 @@ export * from "./components/ButtonGroup";
 export * from "./components/Text";
 export * from "./components/Button";
 export * from "./components/Calendar";
-export * from "./components/Card";
 export * from "./components/Checkbox";
 export * from "./components/CheckboxGroup";
 export * from "./components/Chip";

@@ -27,6 +27,7 @@ export type FlexGapToken =
   | "64"
   | "80";
 export type FlexGapTokenName = `spacing-${FlexGapToken}`;
+export type FlexGapSpecial = "auto";
 
 export interface FlexProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
@@ -34,7 +35,7 @@ export interface FlexProps extends React.HTMLAttributes<HTMLElement> {
   justifyContent?: FlexJustifyContent;
   alignItems?: FlexAlignItems;
   wrap?: boolean | FlexWrap;
-  gap?: FlexGapToken | FlexGapTokenName | number | string;
+  gap?: FlexGapToken | FlexGapTokenName | FlexGapSpecial | number | string;
   fullWidth?: boolean;
   inline?: boolean;
 }

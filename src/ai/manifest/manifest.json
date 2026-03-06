@@ -68,7 +68,6 @@
         ],
         "allowedChildren": [],
         "allowedParents": [
-          "Card",
           "Menu",
           "Table"
         ],
@@ -105,7 +104,6 @@
           "Menu",
           "Container",
           "Flex",
-          "Card",
           "Text",
           "Button"
         ],
@@ -150,7 +148,6 @@
         ],
         "allowedChildren": [],
         "allowedParents": [
-          "Card",
           "Table"
         ],
         "disallowedChildren": [],
@@ -369,7 +366,6 @@
         "allowedChildren": [],
         "allowedParents": [
           "AppShell",
-          "Card",
           "Container",
           "Flex",
           "Modal",
@@ -481,53 +477,6 @@
           "--uds-spacing-12",
           "--uds-color-neutral-700",
           "--uds-color-blue-600"
-        ]
-      }
-    },
-    "Card": {
-      "name": "Card",
-      "category": "layout",
-      "intent": "Contained content section",
-      "purpose": null,
-      "tier": null,
-      "description": "A surface container for grouping related content and actions within a visual boundary, managing elevation, padding, and spacing.",
-      "roles": [
-        "region"
-      ],
-      "slots": null,
-      "states": [],
-      "props": {},
-      "defaults": {},
-      "composition": {
-        "preferredParents": [
-          "Container",
-          "Flex"
-        ],
-        "allowedChildren": [
-          "Text",
-          "Flex",
-          "Button",
-          "Tag",
-          "Status",
-          "Table",
-          "Divider",
-          "Avatar",
-          "ActionMenu",
-          "Field"
-        ],
-        "allowedParents": [
-          "AppShell",
-          "Container",
-          "Tabs"
-        ],
-        "disallowedChildren": [],
-        "constraints": null
-      },
-      "tokens": {
-        "allowed": [
-          "--uds-spacing-16",
-          "--uds-spacing-24",
-          "--uds-radius-8"
         ]
       }
     },
@@ -844,7 +793,6 @@
         ],
         "allowedChildren": [
           "Flex",
-          "Card",
           "Table",
           "Text",
           "Button",
@@ -1004,7 +952,6 @@
         ],
         "allowedChildren": [],
         "allowedParents": [
-          "Card",
           "Container",
           "Modal"
         ],
@@ -1307,7 +1254,6 @@
           "FileUpload"
         ],
         "allowedParents": [
-          "Card",
           "Container",
           "Modal",
           "Tabs"
@@ -1398,7 +1344,6 @@
         "allowedChildren": [],
         "allowedParents": [
           "AppShell",
-          "Card",
           "Container"
         ],
         "disallowedChildren": [],
@@ -2114,7 +2059,6 @@
         ],
         "allowedChildren": [],
         "allowedParents": [
-          "Card",
           "Table"
         ],
         "disallowedChildren": [],
@@ -2229,7 +2173,6 @@
           "DotStatus"
         ],
         "allowedParents": [
-          "Card",
           "Container",
           "Tabs"
         ],
@@ -2291,7 +2234,6 @@
           "Text",
           "Tag",
           "Button",
-          "Card",
           "Table",
           "Field"
         ],
@@ -2376,7 +2318,6 @@
         ],
         "allowedChildren": [],
         "allowedParents": [
-          "Card",
           "Container",
           "Modal",
           "Table",
@@ -2462,7 +2403,6 @@
         "allowedChildren": [],
         "allowedParents": [
           "AppShell",
-          "Card",
           "Container",
           "Flex",
           "Menu",
@@ -2835,13 +2775,11 @@
         "Menu",
         "Container",
         "Flex",
-        "Card",
         "Text",
         "Button"
       ],
       "Container": [
         "Flex",
-        "Card",
         "Table",
         "Text",
         "Button",
@@ -2872,18 +2810,6 @@
         "Textarea",
         "Tag"
       ],
-      "Card": [
-        "Text",
-        "Flex",
-        "Button",
-        "Tag",
-        "Status",
-        "Table",
-        "Divider",
-        "Avatar",
-        "ActionMenu",
-        "Field"
-      ],
       "Table": [
         "Tag",
         "Status",
@@ -2897,7 +2823,6 @@
         "Text",
         "Tag",
         "Button",
-        "Card",
         "Table",
         "Field"
       ],
@@ -2911,26 +2836,18 @@
     },
     "allowedParents": {
       "ActionMenu": [
-        "Card",
         "Menu",
         "Table"
       ],
       "Avatar": [
-        "Card",
         "Table"
       ],
       "Button": [
         "AppShell",
-        "Card",
         "Container",
         "Flex",
         "Modal",
         "Table",
-        "Tabs"
-      ],
-      "Card": [
-        "AppShell",
-        "Container",
         "Tabs"
       ],
       "Checkbox": [
@@ -2945,7 +2862,6 @@
         "Modal"
       ],
       "Divider": [
-        "Card",
         "Container",
         "Modal"
       ],
@@ -2958,7 +2874,6 @@
         "Modal"
       ],
       "Field": [
-        "Card",
         "Container",
         "Modal",
         "Tabs"
@@ -2968,7 +2883,6 @@
       ],
       "Flex": [
         "AppShell",
-        "Card",
         "Container"
       ],
       "Icon": [
@@ -2996,16 +2910,13 @@
         "Field"
       ],
       "Status": [
-        "Card",
         "Table"
       ],
       "Table": [
-        "Card",
         "Container",
         "Tabs"
       ],
       "Tag": [
-        "Card",
         "Container",
         "Modal",
         "Table",
@@ -3013,7 +2924,6 @@
       ],
       "Text": [
         "AppShell",
-        "Card",
         "Container",
         "Flex",
         "Menu",

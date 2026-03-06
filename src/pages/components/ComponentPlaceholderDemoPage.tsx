@@ -3,7 +3,6 @@ import { Button } from "../../design-system/components/Button";
 import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
 import { Flex } from "../../design-system/components/Flex";
-import { Icon } from "../../design-system/components/Icon";
 import { Text } from "../../design-system/components/Text";
 import * as DesignSystem from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -67,7 +66,6 @@ const COMPONENTS: Record<string, React.ComponentType<Record<string, unknown>>> =
   Badge: DesignSystem.Badge as React.ComponentType<Record<string, unknown>>,
   Breadcrumb: DesignSystem.Breadcrumb as React.ComponentType<Record<string, unknown>>,
   Calendar: DesignSystem.Calendar as React.ComponentType<Record<string, unknown>>,
-  Card: DesignSystem.Card as React.ComponentType<Record<string, unknown>>,
   Checkbox: DesignSystem.Checkbox as React.ComponentType<Record<string, unknown>>,
   Chip: DesignSystem.Chip as React.ComponentType<Record<string, unknown>>,
   Container: DesignSystem.Container as React.ComponentType<Record<string, unknown>>,
@@ -117,7 +115,6 @@ const BASE_PROPS: Record<string, Record<string, unknown>> = {
   Badge: { count: 8 },
   Breadcrumb: { items: [{ label: "Home", href: "/" }, { label: "Components", href: "/components/button" }, { label: "Current Page" }] },
   Calendar: { events: [{ id: "1", title: "Interview", date: new Date(), type: "assignment", status: "active" }], size: "compact" },
-  Card: { to: "/components/button", title: "Card Title", description: "Card description", icon: <Icon name="SquaresFour" size={20} /> },
   Checkbox: { label: "Checkbox option" },
   Chip: { label: "Chip label", icon: "Star", badge: "2" },
   Container: { children: <Text as="span" variant="body-14" leading="regular">Container content</Text> },

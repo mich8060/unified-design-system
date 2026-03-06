@@ -4,9 +4,9 @@ export const PatternRegistry: PatternRegistryType = {
   AuthForm: {
     name: "AuthForm",
     layout: "vertical",
-    requiredComponents: ["Card", "Field", "TextInput", "Button", "Text"],
+    requiredComponents: ["Container", "Field", "TextInput", "Button", "Text"],
     structure: [
-      { type: "Card", role: "container" },
+      { type: "Container", role: "container" },
       { type: "Text", role: "heading", props: { variant: "heading-24" } },
       { type: "Field", role: "email-field" },
       { type: "TextInput", role: "email-input", props: { type: "email" } },
@@ -61,9 +61,9 @@ export const PatternRegistry: PatternRegistryType = {
   FilterPanel: {
     name: "FilterPanel",
     layout: "vertical",
-    requiredComponents: ["Card", "Field", "Dropdown", "Datepicker", "Button"],
+    requiredComponents: ["Container", "Field", "Dropdown", "Datepicker", "Button"],
     structure: [
-      { type: "Card", role: "panel" },
+      { type: "Container", role: "panel" },
       { type: "Field", role: "status-filter" },
       { type: "Dropdown", role: "status-select" },
       { type: "Field", role: "date-filter" },
@@ -80,12 +80,12 @@ export const PatternRegistry: PatternRegistryType = {
   DashboardSection: {
     name: "DashboardSection",
     layout: "grid",
-    requiredComponents: ["Container", "Card", "Text", "Tag", "ProgressIndicator"],
+    requiredComponents: ["Container", "Text", "Tag", "ProgressIndicator"],
     structure: [
       { type: "Container", role: "dashboard-container" },
       { type: "Flex", role: "section-header" },
       { type: "Text", role: "section-title", props: { variant: "heading-20" } },
-      { type: "Card", role: "metric-card" },
+      { type: "Container", role: "metric-card" },
       { type: "Tag", role: "metric-status" },
       { type: "ProgressIndicator", role: "metric-progress" },
     ],

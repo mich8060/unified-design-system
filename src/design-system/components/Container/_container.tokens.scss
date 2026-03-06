@@ -1,6 +1,6 @@
 @use "../../tokens/index" as *;
 
-$container-surface-default: var(--uds-surface-secondary);
+$container-surface-default: var(--uds-surface-primary);
 $container-border-default: var(--uds-border-width-1) solid var(--uds-border-primary);
 $container-radius-default: var(--uds-radius-8);
 $container-padding-none: var(--uds-spacing-0);

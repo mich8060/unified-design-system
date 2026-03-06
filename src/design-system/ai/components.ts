@@ -36,7 +36,7 @@ export const TABLE_METADATA: ComponentMetadata = {
     { name: "onSort", type: "(columnKey: string) => void", description: "Sort callback for sortable columns." },
   ],
   tokensUsed: ["--uds-color-*", "--uds-spacing-*", "--uds-font-size-*", "--uds-line-*"],
-  composition: ["Combine with Pagination for large datasets.", "Wrap with Card for contained sections."],
+  composition: ["Combine with Pagination for large datasets.", "Wrap with Container for contained sections."],
   antiPatterns: ["Do not use Table for fewer than two columns.", "Do not render unbounded datasets without pagination or virtualization."],
 };
 

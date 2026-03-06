@@ -12,7 +12,7 @@ export const UDS_FLOW_PATTERNS: readonly FlowPattern[] = [
       "Expose contextual actions via ActionMenu or Button group.",
       "Use Modal for destructive or irreversible actions.",
     ],
-    recommendedComponents: ["Table", "Card", "ActionMenu", "Button", "Modal", "Tag", "Avatar"],
+    recommendedComponents: ["Table", "ActionMenu", "Button", "Modal", "Tag", "Avatar"],
     accessibilityChecks: [
       "Ensure row selection is keyboard reachable.",
       "Ensure detail region updates are announced when needed.",

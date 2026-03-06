@@ -5,7 +5,7 @@ export const ValidAuthFormTree: UINodeTree = {
   props: { gap: "--uds-spacing-24" },
   children: [
     {
-      type: "Card",
+      type: "Container",
       props: { gap: "--uds-spacing-16" },
       children: [
         { type: "Text", props: { variant: "heading-24" } },

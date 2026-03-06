@@ -114,12 +114,6 @@
       "require": "./dist/components/Calendar/Calendar.cjs",
       "default": "./dist/components/Calendar/Calendar.js"
     },
-    "./Card": {
-      "types": "./dist/design-system/components/Card/Card.d.ts",
-      "import": "./dist/components/Card/Card.js",
-      "require": "./dist/components/Card/Card.cjs",
-      "default": "./dist/components/Card/Card.js"
-    },
     "./Checkbox": {
       "types": "./dist/design-system/components/Checkbox/Checkbox.d.ts",
       "import": "./dist/components/Checkbox/Checkbox.js",

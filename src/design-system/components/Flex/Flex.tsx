@@ -35,6 +35,9 @@ function normalizeGap(gap: FlexProps["gap"]): string | number | undefined {
   if (gap == null) return undefined;
 
   const rawGap = String(gap).trim();
+  if (rawGap === "auto") {
+    return undefined;
+  }
   const tokenSuffix = rawGap.match(/^spacing-(\d+)$/)?.[1] ?? rawGap;
   if (GAP_TOKEN_VALUES.has(tokenSuffix)) {
     return `var(--uds-spacing-${tokenSuffix})`;
@@ -87,6 +90,7 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(function Flex(
   ref
 ) {
   const wrapValue = normalizeWrap(wrap);
+  const hasAutoGap = String(gap).trim() === "auto" && justifyContent == null;
 
   const classes = [
     "ds-flex",
@@ -96,6 +100,7 @@ export const Flex = React.forwardRef<HTMLElement, FlexProps>(function Flex(
     `ds-flex--wrap-${toKebab(wrapValue)}`,
     inline && "ds-flex--inline",
     fullWidth && "ds-flex--full-width",
+    hasAutoGap && "ds-flex--gap-auto",
     className
   ]
     .filter(Boolean)

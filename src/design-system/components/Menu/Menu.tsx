@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import "./_menu.scss";
-import { Link, useLocation } from "react-router-dom";
+import { Link, UNSAFE_LocationContext } from "react-router-dom";
 import Icon from "../Icon/Icon";
 import Avatar from "../Avatar/Avatar";
 import Button from "../Button/Button";
@@ -66,7 +66,11 @@ function Menu({
     identity = "design-system",
     defaultExpanded = true,
 }: MenuProps) {
-    const location = useLocation();
+    const locationContext = React.useContext(UNSAFE_LocationContext);
+    const isRouterAvailable = Boolean(locationContext);
+    const pathname =
+        locationContext?.location?.pathname ??
+        (typeof window !== "undefined" ? window.location.pathname : "/");
     const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({});
     const [isMenuOpen, setIsMenuOpen] = useState(defaultExpanded);
     const [visibleNavCount, setVisibleNavCount] = useState(24);
@@ -107,7 +111,7 @@ function Menu({
             .filter(
                 (item) =>
                     Array.isArray(item.children) &&
-                    item.children.some((child: MenuChildItem) => location.pathname === child.path)
+                    item.children.some((child: MenuChildItem) => pathname === child.path)
             )
             .map((item) => item.label);
 
@@ -126,7 +130,7 @@ function Menu({
 
             return hasChanges ? next : prev;
         });
-    }, [location.pathname, normalizedNavItems]);
+    }, [normalizedNavItems, pathname]);
 
     const toggleAccordion = useCallback((label: string) => {
         setOpenAccordions((prev) => ({ ...prev, [label]: !prev[label] }));
@@ -183,15 +187,27 @@ function Menu({
                             {isExpanded ? (
                                 <div className="uds-menu_nav__children uds-menu_nav__children--open">
                                     {children.map((child: MenuChildItem) => (
-                                        <Link
-                                            key={child.path}
-                                            className={`uds-menu_nav__child-link${location.pathname === child.path ? " uds-menu_nav__child-link--active" : ""}`}
-                                            to={child.path}
-                                            onClick={handleNavItemClick}
-                                            title={child.label}
-                                        >
-                                            {child.label}
-                                        </Link>
+                                        isRouterAvailable ? (
+                                            <Link
+                                                key={child.path}
+                                                className={`uds-menu_nav__child-link${pathname === child.path ? " uds-menu_nav__child-link--active" : ""}`}
+                                                to={child.path}
+                                                onClick={handleNavItemClick}
+                                                title={child.label}
+                                            >
+                                                {child.label}
+                                            </Link>
+                                        ) : (
+                                            <a
+                                                key={child.path}
+                                                className={`uds-menu_nav__child-link${pathname === child.path ? " uds-menu_nav__child-link--active" : ""}`}
+                                                href={child.path}
+                                                onClick={handleNavItemClick}
+                                                title={child.label}
+                                            >
+                                                {child.label}
+                                            </a>
+                                        )
                                     ))}
                                 </div>
                             ) : null}
@@ -200,17 +216,26 @@ function Menu({
                 }
 
                 return (
-                    <div className={`uds-menu_nav__item${location.pathname === item.path ? " uds-menu_nav__item--active" : ""}`} key={item.path ?? item.label}>
-                        <Link className="uds-menu_nav__item-link" to={item.path ?? "/"} onClick={handleNavItemClick} title={item.label}>
-                            <span className="uds-menu_nav__item-icon">
-                                <Icon name={item.icon} size={24} appearance="duotone" />
-                            </span>
-                            <div className="uds-menu_nav__item-label">{item.label}</div>
-                        </Link>
+                    <div className={`uds-menu_nav__item${pathname === item.path ? " uds-menu_nav__item--active" : ""}`} key={item.path ?? item.label}>
+                        {isRouterAvailable ? (
+                            <Link className="uds-menu_nav__item-link" to={item.path ?? "/"} onClick={handleNavItemClick} title={item.label}>
+                                <span className="uds-menu_nav__item-icon">
+                                    <Icon name={item.icon} size={24} appearance="duotone" />
+                                </span>
+                                <div className="uds-menu_nav__item-label">{item.label}</div>
+                            </Link>
+                        ) : (
+                            <a className="uds-menu_nav__item-link" href={item.path ?? "/"} onClick={handleNavItemClick} title={item.label}>
+                                <span className="uds-menu_nav__item-icon">
+                                    <Icon name={item.icon} size={24} appearance="duotone" />
+                                </span>
+                                <div className="uds-menu_nav__item-label">{item.label}</div>
+                            </a>
+                        )}
                     </div>
                 );
             }),
-        [normalizedNavItems, visibleNavCount, openAccordions, isMenuOpen, handleAccordionClick, location.pathname, handleNavItemClick]
+        [normalizedNavItems, visibleNavCount, openAccordions, isMenuOpen, handleAccordionClick, handleNavItemClick, isRouterAvailable, pathname]
     );
 
     return (

@@ -60,11 +60,6 @@
     "jsx": "<Calendar />"
   },
   {
-    "component": "Card",
-    "props": {},
-    "jsx": "<Card />"
-  },
-  {
     "component": "Checkbox",
     "props": {},
     "jsx": "<Checkbox />"
