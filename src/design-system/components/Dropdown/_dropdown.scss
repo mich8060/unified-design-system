@@ -20,14 +20,6 @@
         width: 100%;
     }
 
-    &__label {
-        @include uds-body-14-medium;
-        color: var(--uds-text-primary);
-        display: block;
-        margin-bottom: var(--uds-gap-32);
-        width: 100%;
-    }
-
     &__trigger {
         all: unset;
         @include uds-body-16;

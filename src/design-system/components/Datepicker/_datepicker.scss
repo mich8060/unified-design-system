@@ -3,16 +3,16 @@
 .uds-datepicker {
   display: inline-flex;
   flex-direction: column;
-  width: fit-content;
-  min-width: 280px;
+  width: min(100%, 450px);
+  min-width: 0;
+  box-sizing: border-box;
   gap: 0px;
   background: var(--uds-surface-primary);
   border: var(--uds-border-width-1) solid var(--uds-border-primary);
   border-radius: var(--uds-radius-8);
-  width: 450px;
 
   &--mobile {
-    width: 375px;
+    width: min(100%, 375px);
   }
 
   &__header {
@@ -196,11 +196,49 @@
   }
 
   // Mobile size adjustments
-  &--mobile {
-    width: 375px;
+  &--mobile .uds-datepicker__day {
+    min-height: 48px;
+  }
+}
 
-    &__day {
-      min-height: 48px;
+@media (max-width: 480px) {
+  .uds-datepicker {
+    .uds-datepicker__header {
+      padding: var(--uds-spacing-8) var(--uds-spacing-12);
+    }
+
+    .uds-datepicker__title {
+      @include uds-body-14-semibold;
+    }
+
+    .uds-datepicker__day {
+      padding: var(--uds-spacing-6);
+      gap: var(--uds-spacing-2);
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .uds-datepicker {
+    min-width: 0;
+
+    .uds-datepicker__header {
+      padding: var(--uds-spacing-8) var(--uds-spacing-10);
+    }
+
+    .uds-datepicker__day {
+      padding: var(--uds-spacing-4);
+      gap: var(--uds-spacing-2);
+    }
+
+    .uds-datepicker__icon--travel svg {
+      width: 16px;
+      height: 14px;
+    }
+
+    .uds-datepicker__icon--assignment svg {
+      width: 14px;
+      height: 14px;
     }
   }
 }

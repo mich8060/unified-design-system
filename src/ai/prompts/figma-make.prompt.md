@@ -12,6 +12,7 @@ Hard requirements:
 - Use only `--uds-*` variables or hardcoded literals.
 - Use canonical prop names only (reject Ant-style aliases like `Menu.items`, `Flex.vertical`, `Button.type`).
 - Default `Container` to `appearance=\"transparent\"` and `padding=\"large\"` (24px) unless a different requirement is explicit.
+- Default `Menu.showSearch` to `false` unless search is explicitly required.
 - Return deterministic JSON only.
 
 Preferred flow:

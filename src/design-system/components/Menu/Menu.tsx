@@ -54,7 +54,7 @@ function Menu({
     activeMode,
     onModeChange,
     showBrand = true,
-    showSearch = true,
+    showSearch = false,
     showBrandSwitcher = true,
     showNav = true,
     showModeToggle = true,

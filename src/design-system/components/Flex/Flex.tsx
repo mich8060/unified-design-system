@@ -58,6 +58,18 @@ function normalizeGap(gap: FlexProps["gap"]): string | number | undefined {
   return gap;
 }
 
+function toCssLengthValue(value: string | number | undefined): string {
+  if (typeof value === "number") return `${value}px`;
+  if (typeof value === "string" && value.trim().length > 0) return value;
+  return "0px";
+}
+
+function normalizeItemsPerRow(value: unknown): number | undefined {
+  if (typeof value !== "number" || !Number.isFinite(value)) return undefined;
+  const normalized = Math.floor(value);
+  return normalized > 0 ? normalized : undefined;
+}
+
 function warnInvalidGap(gap: FlexProps["gap"]) {
   if (
     gap == null ||
@@ -94,6 +106,8 @@ const FlexBase = React.forwardRef<HTMLElement, FlexProps>(function Flex(
     bottom = false,
     left = false,
     right = false,
+    itemsPerRow,
+    ItemsPerRow,
     wrap = false,
     gap,
     fullWidth = false,
@@ -106,7 +120,9 @@ const FlexBase = React.forwardRef<HTMLElement, FlexProps>(function Flex(
   },
   ref
 ) {
-  const wrapValue = normalizeWrap(wrap);
+  const resolvedItemsPerRow = normalizeItemsPerRow(itemsPerRow ?? ItemsPerRow);
+  const shouldApplyItemsPerRow = direction === "row" && resolvedItemsPerRow !== undefined;
+  const wrapValue = normalizeWrap(shouldApplyItemsPerRow ? true : wrap);
   const hasAutoGap = String(gap).trim() === "auto";
   const verticalAlignment = resolveTopBottom(top, bottom);
   const horizontalAlignment = resolveLeftRight(left, right);
@@ -126,17 +142,30 @@ const FlexBase = React.forwardRef<HTMLElement, FlexProps>(function Flex(
     inline && "uds-flex--inline",
     fullWidth && "uds-flex--full-width",
     span && "uds-flex--span",
+    shouldApplyItemsPerRow && "uds-flex--items-per-row",
     hasAutoGap && "uds-flex--gap-auto",
     className
   ]
     .filter(Boolean)
     .join(" ");
 
-  const computedStyle: React.CSSProperties = {};
-  if (gap != null && style?.gap == null) {
+  const computedStyle: React.CSSProperties & Record<string, string | number> = {};
+  const normalizedGap = normalizeGap(gap);
+  const hasStyleGap = style?.gap != null;
+  const resolvedGapValue = hasStyleGap ? style?.gap : normalizedGap;
+
+  if (gap != null && !hasStyleGap) {
     warnInvalidGap(gap);
-    computedStyle.gap = normalizeGap(gap);
+    computedStyle.gap = normalizedGap;
   }
+
+  if (shouldApplyItemsPerRow) {
+    computedStyle["--uds-flex-items-per-row"] = String(resolvedItemsPerRow);
+    computedStyle["--uds-flex-gap-resolved"] = toCssLengthValue(
+      resolvedGapValue as string | number | undefined
+    );
+  }
+
   if (fullWidth && style?.width == null) {
     computedStyle.width = "100%";
   }

@@ -17,6 +17,22 @@
   flex: 1;
 }
 
+.uds-flex--items-per-row {
+  flex-wrap: wrap;
+
+  > * {
+    flex: 0 0 calc(
+      (100% - ((var(--uds-flex-items-per-row) - 1) * var(--uds-flex-gap-resolved, 0px))) /
+        var(--uds-flex-items-per-row)
+    );
+    max-width: calc(
+      (100% - ((var(--uds-flex-items-per-row) - 1) * var(--uds-flex-gap-resolved, 0px))) /
+        var(--uds-flex-items-per-row)
+    );
+    min-width: 0;
+  }
+}
+
 .uds-flex--direction-row {
   flex-direction: row;
 }

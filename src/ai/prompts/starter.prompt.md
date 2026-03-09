@@ -14,6 +14,7 @@ Hard rules:
 - Prefer canonical props from the AI manifest and component contracts.
 - Load icon options from `@mich8060/unified-design-system/ai/icons` (alias: `@mich8060/unified-design-system/ai/icons.json`) before assigning any icon prop.
 - Default `Container` to `appearance=\"transparent\"` and `padding=\"large\"` (24px) unless overridden by explicit requirements.
+- Default `Menu.showSearch` to `false` unless search is explicitly required.
 
 Required layout scaffold:
 - App root must be wrapped in `BrowserRouter` (or `RouterProvider`) before rendering any UDS component that consumes routing.

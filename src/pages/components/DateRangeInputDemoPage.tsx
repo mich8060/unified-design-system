@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Code } from "../../design-system/components/Code";
 import { DateRangeInput } from "../../design-system/components/DateRangeInput";
 import { Divider } from "../../design-system/components/Divider";
 import { Flex } from "../../design-system/components/Flex";
@@ -15,6 +16,32 @@ const DATE_RANGE_INPUT_PROPS: ComponentPropRow[] = [
   { prop: "state", type: '"default" | "focused" | "error" | "disabled"', defaultValue: '"default"', description: "Visual state token." },
   { prop: "disabled", type: "boolean", defaultValue: "false", description: "Disables both date inputs." },
 ];
+
+const BASIC_SNIPPET = `const [startValue, setStartValue] = useState("");
+const [endValue, setEndValue] = useState("");
+
+<DateRangeInput
+  startValue={startValue}
+  endValue={endValue}
+  onStartChange={(event) => setStartValue(event.target.value)}
+  onEndChange={(event) => setEndValue(event.target.value)}
+/>`;
+
+const SIZE_SNIPPET = `<DateRangeInput
+  startValue="2026-03-01"
+  endValue="2026-03-07"
+  size="default"
+/>
+<DateRangeInput
+  startValue="2026-03-01"
+  endValue="2026-03-07"
+  size="compact"
+/>`;
+
+const STATE_SNIPPET = `<DateRangeInput startValue="2026-03-01" endValue="2026-03-07" state="default" />
+<DateRangeInput startValue="2026-03-01" endValue="2026-03-07" state="focused" />
+<DateRangeInput startValue="2026-03-01" endValue="2026-03-07" state="error" />
+<DateRangeInput startValue="2026-03-01" endValue="2026-03-07" disabled />`;
 
 export function DateRangeInputDemoPage() {
   const [startValue, setStartValue] = useState("");
@@ -35,6 +62,7 @@ export function DateRangeInputDemoPage() {
           onStartChange={(event) => setStartValue(event.target.value)}
           onEndChange={(event) => setEndValue(event.target.value)}
         />
+        <Code language="tsx" code={BASIC_SNIPPET} />
       </Flex>
 
       <Divider variant="solid" />
@@ -45,6 +73,7 @@ export function DateRangeInputDemoPage() {
         </Text>
         <DateRangeInput startValue="2026-03-01" endValue="2026-03-07" size="default" />
         <DateRangeInput startValue="2026-03-01" endValue="2026-03-07" size="compact" />
+        <Code language="tsx" code={SIZE_SNIPPET} />
       </Flex>
 
       <Divider variant="solid" />
@@ -57,6 +86,7 @@ export function DateRangeInputDemoPage() {
         <DateRangeInput startValue="2026-03-01" endValue="2026-03-07" state="focused" />
         <DateRangeInput startValue="2026-03-01" endValue="2026-03-07" state="error" />
         <DateRangeInput startValue="2026-03-01" endValue="2026-03-07" disabled />
+        <Code language="tsx" code={STATE_SNIPPET} />
       </Flex>
 
       <Divider variant="solid" />

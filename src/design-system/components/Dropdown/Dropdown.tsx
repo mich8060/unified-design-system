@@ -40,7 +40,7 @@ function Dropdown({
   options = [],
   value,
   onChange,
-  placeholder = "Select an option",
+  placeholder,
   size = "default",
   state = "default",
   placement = "bottom-start",
@@ -73,7 +73,15 @@ function Dropdown({
 
   // Get the selected option's label
   const selectedOption = normalizedOptions.find((opt) => opt.value === value);
-  const displayValue = selectedOption ? selectedOption.label : placeholder;
+  const fallbackLabel =
+    typeof label === "string" && label.trim().length > 0
+      ? label.trim()
+      : "Select an option";
+  const placeholderText =
+    typeof placeholder === "string" && placeholder.trim().length > 0
+      ? placeholder.trim()
+      : fallbackLabel;
+  const displayValue = selectedOption ? selectedOption.label : placeholderText;
 
   // Transform options into ActionMenu items
   const menuItems = useMemo(
@@ -110,7 +118,7 @@ function Dropdown({
       id={dropdownId}
       className={`${BASE_CLASS}__trigger`}
       disabled={disabled}
-      aria-label={label || placeholder}
+      aria-label={fallbackLabel}
       {...props}
     >
       <span
@@ -129,11 +137,6 @@ function Dropdown({
 
   return (
     <div className={`${BASE_CLASS}-outer`}>
-      {label && (
-        <label htmlFor={dropdownId} className={`${BASE_CLASS}__label`}>
-          {label}
-        </label>
-      )}
       <ActionMenu
         trigger={triggerButton}
         items={menuItems}
