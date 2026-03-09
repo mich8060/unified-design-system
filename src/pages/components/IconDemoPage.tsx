@@ -143,7 +143,7 @@ export function IconDemoPage() {
           </Flex>
           <Flex direction="column" gap="4" style={{ minWidth: "220px" }}>
             <Dropdown
-              label="Weight"
+              placeholder="Weight"
               value={selectedAppearance}
               options={iconAppearances.map((appearance) => ({ value: appearance, label: appearance }))}
               onChange={(value) => {

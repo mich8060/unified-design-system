@@ -334,10 +334,20 @@ const DROPDOWN_BASIC_SNIPPET = `<Dropdown
   placeholder="Select a department"
 />`;
 
+const DROPDOWN_PLACEHOLDER_SNIPPET = `<Dropdown
+  placeholder="Department"
+  options={[
+    { value: "engineering", label: "Engineering" },
+    { value: "product", label: "Product" },
+    { value: "design", label: "Design" },
+  ]}
+/>;
+// Use placeholder for in-field text.`;
+
 const DROPDOWN_CONTROLLED_SNIPPET = `const [department, setDepartment] = useState("engineering");
 
 <Dropdown
-  label="Department"
+  placeholder="Select a department"
   value={department}
   onChange={setDepartment}
   options={[
@@ -348,7 +358,7 @@ const DROPDOWN_CONTROLLED_SNIPPET = `const [department, setDepartment] = useStat
 />`;
 
 const DROPDOWN_STATE_SNIPPET = `<Dropdown
-  label="Status"
+  placeholder="Status"
   state="error"
   options={[
     { value: "active", label: "Active" },
@@ -357,7 +367,7 @@ const DROPDOWN_STATE_SNIPPET = `<Dropdown
 />
 
 <Dropdown
-  label="Archived"
+  placeholder="Archived"
   disabled
   options={[
     { value: "yes", label: "Yes" },
@@ -684,6 +694,7 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
               {componentName === "Dropdown" && (
                 <>
                   <Code language="tsx" code={DROPDOWN_BASIC_SNIPPET} />
+                  <Code language="tsx" code={DROPDOWN_PLACEHOLDER_SNIPPET} />
                   <Code language="tsx" code={DROPDOWN_CONTROLLED_SNIPPET} />
                   <Code language="tsx" code={DROPDOWN_STATE_SNIPPET} />
                 </>

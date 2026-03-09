@@ -31,7 +31,6 @@ const stateClassMap = {
  * @param {string} size - Size variant: 'compact' or 'default' (default: 'default')
  * @param {string} state - Visual state: 'default', 'focused', 'error', 'disabled'
  * @param {string} id - Unique identifier for the dropdown
- * @param {string} label - Label text for the dropdown
  * @param {string} className - Additional CSS classes
  * @param {boolean} disabled - Whether the dropdown is disabled
  * @param {object} props - Additional props to pass to the trigger button
@@ -45,7 +44,6 @@ function Dropdown({
   state = "default",
   placement = "bottom-start",
   id,
-  label,
   className = "",
   disabled = false,
   ...props
@@ -73,15 +71,24 @@ function Dropdown({
 
   // Get the selected option's label
   const selectedOption = normalizedOptions.find((opt) => opt.value === value);
-  const fallbackLabel =
-    typeof label === "string" && label.trim().length > 0
-      ? label.trim()
-      : "Select an option";
+  const legacyLabel = (props as Record<string, unknown>).label;
+  const fallbackLabel = "Select an option";
   const placeholderText =
     typeof placeholder === "string" && placeholder.trim().length > 0
       ? placeholder.trim()
       : fallbackLabel;
   const displayValue = selectedOption ? selectedOption.label : placeholderText;
+
+  if (
+    typeof import.meta !== "undefined" &&
+    import.meta.env?.DEV &&
+    typeof legacyLabel === "string" &&
+    legacyLabel.trim().length > 0
+  ) {
+    console.warn(
+      "Dropdown: `label` prop is deprecated. Use `placeholder` for in-field text."
+    );
+  }
 
   // Transform options into ActionMenu items
   const menuItems = useMemo(
@@ -112,14 +119,19 @@ function Dropdown({
     .join(" ");
 
   // The trigger button that ActionMenu will use
+  const triggerProps = {
+    ...props,
+  } as Record<string, unknown>;
+  delete triggerProps.label;
+
   const triggerButton = (
     <button
       type="button"
       id={dropdownId}
       className={`${BASE_CLASS}__trigger`}
       disabled={disabled}
-      aria-label={fallbackLabel}
-      {...props}
+      aria-label={placeholderText}
+      {...triggerProps}
     >
       <span
         className={`${BASE_CLASS}__value ${!selectedOption ? `${BASE_CLASS}__value--placeholder` : ""}`}

@@ -58,12 +58,6 @@ function normalizeGap(gap: FlexProps["gap"]): string | number | undefined {
   return gap;
 }
 
-function toCssLengthValue(value: string | number | undefined): string {
-  if (typeof value === "number") return `${value}px`;
-  if (typeof value === "string" && value.trim().length > 0) return value;
-  return "0px";
-}
-
 function normalizeItemsPerRow(value: unknown): number | undefined {
   if (typeof value !== "number" || !Number.isFinite(value)) return undefined;
   const normalized = Math.floor(value);
@@ -152,7 +146,6 @@ const FlexBase = React.forwardRef<HTMLElement, FlexProps>(function Flex(
   const computedStyle: React.CSSProperties & Record<string, string | number> = {};
   const normalizedGap = normalizeGap(gap);
   const hasStyleGap = style?.gap != null;
-  const resolvedGapValue = hasStyleGap ? style?.gap : normalizedGap;
 
   if (gap != null && !hasStyleGap) {
     warnInvalidGap(gap);
@@ -161,9 +154,6 @@ const FlexBase = React.forwardRef<HTMLElement, FlexProps>(function Flex(
 
   if (shouldApplyItemsPerRow) {
     computedStyle["--uds-flex-items-per-row"] = String(resolvedItemsPerRow);
-    computedStyle["--uds-flex-gap-resolved"] = toCssLengthValue(
-      resolvedGapValue as string | number | undefined
-    );
   }
 
   if (fullWidth && style?.width == null) {
