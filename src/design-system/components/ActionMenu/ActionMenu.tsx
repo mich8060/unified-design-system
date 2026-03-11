@@ -266,7 +266,9 @@ export default function ActionMenu({
 }: ActionMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [menuStyle, setMenuStyle] = useState({});
-  const [portalContainer, setPortalContainer] = useState(null);
+  const [portalContainer, setPortalContainer] = useState(
+    typeof document !== "undefined" ? document.body : null,
+  );
   const menuRef = useRef(null);
   const triggerRef = useRef(null);
   const repositionRafRef = useRef(null);
@@ -283,6 +285,18 @@ export default function ActionMenu({
     () => (isFilterVariant ? filterItemsByQuery(items, activeQuery) : items),
     [isFilterVariant, items, activeQuery],
   );
+
+  const resolvePortalContainer = () => {
+    if (!triggerRef.current || typeof document === "undefined") return document.body;
+    const modalOverlayContainer = triggerRef.current.closest(".uds-modal__overlay");
+    const shellMainContainer = triggerRef.current.closest(".app-shell__main-content");
+    return modalOverlayContainer instanceof HTMLElement
+      ? modalOverlayContainer
+      : shellMainContainer instanceof HTMLElement
+        ? shellMainContainer
+        : document.body;
+  };
+
   const handleEscape = (event) => {
     if (event.key === "Escape") {
       updateOpen(false);
@@ -292,6 +306,9 @@ export default function ActionMenu({
 
   // Wrapper that also fires the onOpenChange callback
   const updateOpen = (nextOpen) => {
+    if (nextOpen) {
+      setPortalContainer(resolvePortalContainer());
+    }
     setIsOpen(nextOpen);
     if (!nextOpen) {
       resolvedSideRef.current = null;
@@ -325,14 +342,7 @@ export default function ActionMenu({
 
   const updateMenuPosition = () => {
     if (!isOpen || !menuRef.current || !triggerRef.current) return;
-    const modalOverlayContainer = triggerRef.current.closest(".uds-modal__overlay");
-    const shellMainContainer = triggerRef.current.closest(".app-shell__main-content");
-    const nextPortalContainer =
-      modalOverlayContainer instanceof HTMLElement
-        ? modalOverlayContainer
-        : shellMainContainer instanceof HTMLElement
-          ? shellMainContainer
-          : document.body;
+    const nextPortalContainer = resolvePortalContainer();
     setPortalContainer(nextPortalContainer);
 
     const triggerRect = triggerRef.current.getBoundingClientRect();
@@ -467,17 +477,6 @@ export default function ActionMenu({
 
   useLayoutEffect(() => {
     if (!isOpen) return;
-    if (portalContainer === null) {
-      const modalOverlayContainer = triggerRef.current?.closest(".uds-modal__overlay");
-      const shellMainContainer = triggerRef.current?.closest(".app-shell__main-content");
-      setPortalContainer(
-        modalOverlayContainer instanceof HTMLElement
-          ? modalOverlayContainer
-          : shellMainContainer instanceof HTMLElement
-            ? shellMainContainer
-            : document.body
-      );
-    }
     updateMenuPosition();
   }, [isOpen, placement, fullWidth, portalContainer]); // eslint-disable-line react-hooks/exhaustive-deps
 
