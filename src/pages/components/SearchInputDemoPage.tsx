@@ -11,10 +11,15 @@ const SEARCH_INPUT_PROPS: ComponentPropRow[] = [
   { prop: "disabled", type: "boolean", defaultValue: "false", description: "Native disabled state." },
   { prop: "label", type: "ReactNode", defaultValue: "-", description: "Visible field label." },
   { prop: "helperText", type: "ReactNode", defaultValue: "-", description: "Supporting helper copy." },
+  { prop: "dropdownOptions", type: "Array<{ label: string; value: string }>", defaultValue: "-", description: "Shows an inline dropdown at the end of the input when provided." },
+  { prop: "dropdownValue", type: "string", defaultValue: "-", description: "Selected inline dropdown value." },
+  { prop: "onDropdownChange", type: "(value: string) => void", defaultValue: "-", description: "Called when inline dropdown selection changes." },
+  { prop: "dropdownPlaceholder", type: "string", defaultValue: '"All"', description: "Placeholder shown in the inline dropdown." },
 ];
 
 export function SearchInputDemoPage() {
   const [value, setValue] = useState("");
+  const [scope, setScope] = useState("all");
 
   return (
     <DocPageLayout
@@ -41,6 +46,27 @@ export function SearchInputDemoPage() {
         </Text>
         <SearchInput value="Button" readOnly size="default" />
         <SearchInput value="Button" readOnly size="compact" />
+      </Flex>
+
+      <Divider variant="solid" />
+
+      <Flex direction="column" gap="16">
+        <Text as="h2" variant="heading-24" weight="medium" leading="regular">
+          Inline Dropdown
+        </Text>
+        <SearchInput
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          placeholder="Search resources"
+          dropdownOptions={[
+            { label: "All", value: "all" },
+            { label: "Providers", value: "providers" },
+            { label: "Facilities", value: "facilities" },
+          ]}
+          dropdownValue={scope}
+          onDropdownChange={setScope}
+          dropdownPlaceholder="All"
+        />
       </Flex>
 
       <Divider variant="solid" />

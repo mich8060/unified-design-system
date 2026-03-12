@@ -36,6 +36,7 @@ const TAG_PROPS: ComponentPropRow[] = [
   },
   { prop: "rounded", type: "boolean", defaultValue: "true", description: "Toggles rounded corner shape." },
   { prop: "solid", type: "boolean", defaultValue: "false", description: "Toggles solid fill treatment." },
+  { prop: "outlined", type: "boolean", defaultValue: "false", description: "Toggles outlined treatment with a visible border." },
   { prop: "icon", type: "string | ReactNode", defaultValue: "-", description: "Icon when appearance is `icon-left`." },
   { prop: "onClick", type: "(event) => void", defaultValue: "-", description: "Makes tag interactive and renders as a button." },
   { prop: "className", type: "string", defaultValue: '""', description: "Additional classes for tag root." },
@@ -48,9 +49,11 @@ const BASIC_SNIPPET = `<Tag label="Default tag" />
 const SIZE_SNIPPET = `<Tag label="Compact" size="compact" appearance="icon-left" icon="Tag" />
 <Tag label="Default" size="default" appearance="icon-left" icon="Tag" />`;
 
-const SHAPE_FILL_SNIPPET = `<Tag label="Rounded + Outline" color="blue" rounded solid={false} />
+const SHAPE_FILL_SNIPPET = `<Tag label="Rounded + Subtle" color="blue" rounded />
+<Tag label="Rounded + Outlined" color="blue" rounded outlined />
 <Tag label="Rounded + Solid" color="blue" rounded solid />
-<Tag label="Square + Outline" color="blue" rounded={false} solid={false} />
+<Tag label="Square + Subtle" color="blue" rounded={false} />
+<Tag label="Square + Outlined" color="blue" rounded={false} outlined />
 <Tag label="Square + Solid" color="blue" rounded={false} solid />`;
 
 const COLOR_SNIPPET = `{TAG_COLORS.map((color) => (
@@ -96,9 +99,11 @@ export function TagDemoPage() {
             Shape and Fill
           </Text>
           <Flex alignItems="center" gap="12" wrap>
-            <Tag label="Rounded + Outline" color="blue" rounded solid={false} />
+            <Tag label="Rounded + Subtle" color="blue" rounded />
+            <Tag label="Rounded + Outlined" color="blue" rounded outlined />
             <Tag label="Rounded + Solid" color="blue" rounded solid />
-            <Tag label="Square + Outline" color="blue" rounded={false} solid={false} />
+            <Tag label="Square + Subtle" color="blue" rounded={false} />
+            <Tag label="Square + Outlined" color="blue" rounded={false} outlined />
             <Tag label="Square + Solid" color="blue" rounded={false} solid />
           </Flex>
           <Code language="tsx" code={SHAPE_FILL_SNIPPET} />

@@ -49,6 +49,7 @@ export default function Input({
   label,
   helperText,
   errorText,
+  endAdornment,
   className = "",
   "aria-describedby": ariaDescribedBy,
   ...props
@@ -68,6 +69,7 @@ export default function Input({
     stateClassMap[effectiveState] &&
       `${BASE_CLASS}--${stateClassMap[effectiveState]}`,
     icon && `${BASE_CLASS}--has-icon-${iconPosition}`,
+    endAdornment && `${BASE_CLASS}--has-end-adornment`,
   ]
     .filter(Boolean)
     .join(" ");
@@ -75,6 +77,7 @@ export default function Input({
   const wrapperClassNames = [
     `${BASE_CLASS}-wrapper`,
     icon && `${BASE_CLASS}-wrapper--icon-${iconPosition}`,
+    endAdornment && `${BASE_CLASS}-wrapper--has-end-adornment`,
     className,
   ]
     .filter(Boolean)
@@ -97,7 +100,14 @@ export default function Input({
 
   const renderInputWithOptionalIcon = () => {
     if (!icon) {
-      return <div className={wrapperClassNames}>{inputElement}</div>;
+      return (
+        <div className={wrapperClassNames}>
+          {inputElement}
+          {endAdornment ? (
+            <span className={`${BASE_CLASS}__end-adornment`}>{endAdornment}</span>
+          ) : null}
+        </div>
+      );
     }
 
     const iconSize = size === "compact" ? 16 : 20;
@@ -125,6 +135,9 @@ export default function Input({
       <div className={wrapperClassNames}>
         {inputElement}
         {iconElement}
+        {endAdornment ? (
+          <span className={`${BASE_CLASS}__end-adornment`}>{endAdornment}</span>
+        ) : null}
       </div>
     );
   };

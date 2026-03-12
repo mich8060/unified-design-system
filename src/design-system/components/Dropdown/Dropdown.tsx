@@ -43,6 +43,8 @@ function Dropdown({
   size = "default",
   state = "default",
   placement = "bottom-start",
+  searchable = true,
+  menuFullWidth = true,
   id,
   className = "",
   disabled = false,
@@ -152,10 +154,10 @@ function Dropdown({
       <ActionMenu
         trigger={triggerButton}
         items={menuItems}
-        variant="search"
+        variant={searchable ? "search" : "default"}
         searchPlaceholder={`Search ${placeholderText.toLowerCase()}`}
         placement={placement}
-        fullWidth
+        fullWidth={menuFullWidth}
         disabled={disabled}
         onOpenChange={setIsOpen}
         className={wrapperClassNames}

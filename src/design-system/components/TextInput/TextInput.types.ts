@@ -52,4 +52,6 @@ export interface TextInputProps
   helperText?: ReactNode;
   /** Error text rendered below the input when in error state. */
   errorText?: ReactNode;
+  /** Optional custom element rendered inside the input on the right side. */
+  endAdornment?: ReactNode;
 }

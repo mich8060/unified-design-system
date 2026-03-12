@@ -158,6 +158,97 @@
         color: var(--uds-text-inverse);
     }
 
+    // ── Color variants (outlined) ──────────────────────────────────────
+    &--transparent.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-border-primary);
+        color: var(--uds-text-primary);
+    }
+
+    &--neutral.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-border-primary);
+        color: var(--uds-text-primary);
+    }
+
+    &--red.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-red-600);
+        color: var(--uds-color-accent-red-600);
+    }
+
+    &--orange.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-orange-600);
+        color: var(--uds-color-accent-orange-600);
+    }
+
+    &--yellow.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-yellow-600);
+        color: var(--uds-color-accent-yellow-600);
+    }
+
+    &--emerald.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-emerald-600);
+        color: var(--uds-color-accent-emerald-600);
+    }
+
+    &--green.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-green-600);
+        color: var(--uds-color-accent-green-600);
+    }
+
+    &--sky.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-sky-600);
+        color: var(--uds-color-accent-sky-600);
+    }
+
+    &--cyan.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-cyan-600);
+        color: var(--uds-color-accent-cyan-600);
+    }
+
+    &--blue.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-blue-600);
+        color: var(--uds-color-accent-blue-600);
+    }
+
+    &--indigo.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-indigo-600);
+        color: var(--uds-color-accent-indigo-600);
+    }
+
+    &--purple.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-purple-600);
+        color: var(--uds-color-accent-purple-600);
+    }
+
+    &--fuchsia.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-fuchsia-600);
+        color: var(--uds-color-accent-fuchsia-600);
+    }
+
+    &--magenta.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-color-accent-magenta-600);
+        color: var(--uds-color-accent-magenta-600);
+    }
+
+    &--inverse.uds-tag--outlined {
+        background-color: transparent;
+        border-color: var(--uds-text-inverse);
+        color: var(--uds-text-inverse);
+    }
+
     // ── Color variants (solid) ─────────────────────────────────────────
     &--transparent.uds-tag--solid {
         background-color: var(--uds-surface-primary);

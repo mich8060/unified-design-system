@@ -1,3 +1,3 @@
 export { default } from "./Tag";
 export { default as Tag } from "./Tag";
-export type { TagProps } from "./Tag.types";
+export type { TagAppearance, TagColor, TagProps, TagSize } from "./Tag.types";

@@ -1,21 +1,21 @@
 import React from "react";
 import Icon from "../Icon/Icon";
 import "./_tag.scss";
-import type { TagProps } from "./Tag.types";
+import type { TagAppearance, TagColor, TagProps, TagSize } from "./Tag.types";
 
 const BASE_CLASS = "uds-tag";
 
-const appearanceClassMap = {
+const appearanceClassMap: Record<TagAppearance, string> = {
   "label-only": "label-only",
   "icon-left": "icon-left",
 };
 
-const sizeClassMap = {
+const sizeClassMap: Record<TagSize, string> = {
   compact: "compact",
   default: "default",
 };
 
-const colorClassMap = {
+const colorClassMap: Record<TagColor, string> = {
   transparent: "transparent",
   neutral: "neutral",
   red: "red",
@@ -42,6 +42,7 @@ const colorClassMap = {
  * @param {string} color - Color variant: 'transparent', 'neutral', 'red', 'orange', 'yellow', 'emerald', 'green', 'sky', 'cyan', 'blue', 'indigo', 'purple', 'fuchsia', 'magenta', 'inverse'
  * @param {boolean} rounded - Whether to use rounded corners (default: true)
  * @param {boolean} solid - Whether to use solid background (default: false)
+ * @param {boolean} outlined - Whether to use outlined treatment (default: false)
  * @param {string|boolean} icon - Icon name to display (when appearance is 'icon-left')
  * @param {string} className - Additional CSS classes
  * @param {function} onClick - Click handler function
@@ -54,19 +55,21 @@ export default function Tag({
   color = "transparent",
   rounded = true,
   solid = false,
+  outlined = false,
   icon,
   className = "",
   onClick,
   ...props
 }: TagProps) {
+  const isOutlined = outlined && !solid;
   const classNames = [
     BASE_CLASS,
-    appearanceClassMap[appearance] &&
-      `${BASE_CLASS}--${appearanceClassMap[appearance]}`,
+    `${BASE_CLASS}--${appearanceClassMap[appearance]}`,
     sizeClassMap[size] && `${BASE_CLASS}--${sizeClassMap[size]}`,
-    colorClassMap[color] && `${BASE_CLASS}--${colorClassMap[color]}`,
+    `${BASE_CLASS}--${colorClassMap[color]}`,
     rounded && `${BASE_CLASS}--rounded`,
     solid && `${BASE_CLASS}--solid`,
+    isOutlined && `${BASE_CLASS}--outlined`,
     className,
   ]
     .filter(Boolean)

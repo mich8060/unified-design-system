@@ -11,4 +11,6 @@ export interface DropdownProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   id?: unknown;
   className?: string;
   disabled?: boolean;
+  searchable?: boolean;
+  menuFullWidth?: boolean;
 }

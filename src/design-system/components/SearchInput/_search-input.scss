@@ -1,8 +1,30 @@
-@use "./search-input.tokens" as *;
+@use "../../tokens/index" as *;
 
 .uds-search-input {
-  padding: $search-input-example;
-  background: var(--color-surface-1);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-sm);
+  &__dropdown-control {
+    width: auto;
+
+    .uds-action-menu__trigger,
+    .uds-dropdown__trigger {
+      height: 28px;
+      min-height: 28px;
+    }
+
+    .uds-action-menu__trigger {
+      border: 0;
+      background: transparent;
+    }
+
+    .uds-dropdown__trigger {
+      border: 0;
+      background: transparent;
+      padding: 0 var(--uds-spacing-8) 0 var(--uds-spacing-12);
+      border-left: var(--uds-border-width-1) solid var(--uds-border-secondary);
+      border-radius: 0;
+    }
+
+    .uds-dropdown__icon {
+      margin-left: var(--uds-spacing-8);
+    }
+  }
 }

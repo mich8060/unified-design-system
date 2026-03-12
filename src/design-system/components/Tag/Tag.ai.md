@@ -12,11 +12,11 @@ Colored label component for categorization, status, or metadata display.
 | Prop | Type | Default | Values | Description |
 |------|------|---------|--------|-------------|
 | `label` | `string` | — | — | Tag text |
-| `color` | `string` | `"gray"` | `"red"`, `"orange"`, `"yellow"`, `"green"`, `"dark-green"`, `"blue"`, `"dark-blue"`, `"purple"`, `"pink"`, `"gray"` | Tag color |
-| `variant` | `string` | `"filled"` | `"filled"`, `"outline"` | Fill style |
-| `size` | `string` | `"default"` | `"small"`, `"default"` | Tag size |
-| `removable` | `boolean` | `false` | — | Show remove button |
-| `onRemove` | `function` | — | — | Remove callback |
+| `color` | `TagColor` | `"transparent"` | `"transparent"`, `"neutral"`, `"red"`, `"orange"`, `"yellow"`, `"emerald"`, `"green"`, `"sky"`, `"cyan"`, `"blue"`, `"indigo"`, `"purple"`, `"fuchsia"`, `"magenta"`, `"inverse"` | Preset color token only (no arbitrary values) |
+| `appearance` | `TagAppearance` | `"label-only"` | `"label-only"`, `"icon-left"` | Whether icon is shown at left |
+| `size` | `TagSize` | `"compact"` | `"compact"`, `"default"` | Tag size |
+| `solid` | `boolean` | `false` | — | Solid fill treatment |
+| `outlined` | `boolean` | `false` | — | Outlined treatment |
 | `className` | `string` | `""` | — | Additional CSS classes |
 
 ## Examples
@@ -25,13 +25,13 @@ Colored label component for categorization, status, or metadata display.
 ```jsx
 <Tag label="Active" color="green" />
 <Tag label="Pending" color="yellow" />
-<Tag label="Archived" color="gray" variant="outline" />
+<Tag label="Archived" color="neutral" outlined />
 ```
 
-### Removable filter tags
+### Filter tags
 ```jsx
 {filters.map(f => (
-  <Tag key={f} label={f} color="blue" removable onRemove={() => removeFilter(f)} />
+  <Tag key={f} label={f} color="blue" outlined />
 ))}
 ```
 
@@ -42,7 +42,7 @@ const columns = [
     key: "status",
     label: "Status",
     render: (value) => (
-      <Tag label={value} color={value === "Active" ? "green" : "gray"} size="small" />
+      <Tag label={value} color={value === "Active" ? "green" : "neutral"} size="compact" />
     ),
   },
 ];
@@ -55,5 +55,5 @@ const columns = [
 | `red` | Error, rejected, critical |
 | `yellow` | Warning, pending, review |
 | `blue` | Info, selected, default |
-| `gray` | Neutral, inactive, archived |
+| `neutral` | Neutral, inactive, archived |
 | `purple` | Special, premium, custom |
