@@ -2723,6 +2723,14 @@
       "name": "Tag",
       "source": "src/design-system/components/Tag/Tag.spec.ts",
       "props": {
+        "pastel": {
+          "type": "enum",
+          "values": [
+            true,
+            false
+          ],
+          "default": false
+        },
         "outlined": {
           "type": "enum",
           "values": [
@@ -2774,6 +2782,7 @@
         }
       },
       "defaults": {
+        "pastel": false,
         "outlined": false,
         "appearance": "label-only",
         "size": "compact",

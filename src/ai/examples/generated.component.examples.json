@@ -394,13 +394,14 @@
   {
     "component": "Tag",
     "props": {
+      "pastel": false,
       "outlined": false,
       "appearance": "label-only",
       "size": "compact",
       "color": "transparent",
       "label": "Label"
     },
-    "jsx": "<Tag outlined={false} appearance=\"label-only\" size=\"compact\" color=\"transparent\" label=\"Label\" />"
+    "jsx": "<Tag pastel={false} outlined={false} appearance=\"label-only\" size=\"compact\" color=\"transparent\" label=\"Label\" />"
   },
   {
     "component": "Text",

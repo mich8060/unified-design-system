@@ -68,6 +68,7 @@ export const COMPONENT_DEMOS: readonly ComponentDemoDefinition[] = [
   placeholderDemo("key", "Key", "Key"),
   moduleDemo("layout", "Layout", "LayoutDemoPage", "LayoutDemoPage"),
   placeholderDemo("link", "Link", "Link"),
+  moduleDemo("medallion", "Medallion", "MedallionDemoPage", "MedallionDemoPage"),
   moduleDemo("menu", "Menu", "MenuDemoPage", "MenuDemoPage"),
   placeholderDemo("micro-calendar", "MicroCalendar", "MicroCalendar"),
   moduleDemo("modal", "Modal", "ModalDemoPage", "ModalDemoPage"),

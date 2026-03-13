@@ -87,7 +87,7 @@ export default function Tag({
       {hasIcon && typeof icon === "string" && (
         <Icon
           name={icon}
-          size={size === "compact" ? 10 : 12}
+          size={size === "compact" ? 12 : 16}
           appearance="regular"
           className={`${BASE_CLASS}__icon`}
         />

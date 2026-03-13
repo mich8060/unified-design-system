@@ -33,6 +33,7 @@ export * from "./components/Link";
 export * from "./components/Icon";
 export * from "./components/ImageAspect";
 export * from "./components/Key";
+export * from "./components/Medallion";
 export * from "./components/MicroCalendar";
 export * from "./components/Modal";
 export * from "./components/NumberInput";
