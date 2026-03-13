@@ -27,6 +27,7 @@ export interface TagProps extends HTMLAttributes<HTMLDivElement> {
   rounded?: boolean;
   solid?: boolean;
   outlined?: boolean;
+  pastel?: boolean;
   icon?: string | ReactNode;
   className?: string;
   onClick?: (...args: unknown[]) => void;

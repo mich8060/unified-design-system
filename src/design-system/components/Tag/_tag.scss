@@ -158,6 +158,97 @@
         color: var(--uds-text-inverse);
     }
 
+    // ── Color variants (pastel) ────────────────────────────────────────
+    &--transparent.uds-tag--pastel {
+        background-color: var(--uds-surface-secondary);
+        border-color: var(--uds-border-primary);
+        color: var(--uds-text-primary);
+    }
+
+    &--neutral.uds-tag--pastel {
+        background-color: var(--uds-surface-secondary);
+        border-color: var(--uds-border-primary);
+        color: var(--uds-text-primary);
+    }
+
+    &--red.uds-tag--pastel {
+        background-color: var(--uds-color-accent-red-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-red-700);
+    }
+
+    &--orange.uds-tag--pastel {
+        background-color: var(--uds-color-accent-orange-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-orange-700);
+    }
+
+    &--yellow.uds-tag--pastel {
+        background-color: var(--uds-color-accent-yellow-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-yellow-700);
+    }
+
+    &--emerald.uds-tag--pastel {
+        background-color: var(--uds-color-accent-emerald-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-emerald-700);
+    }
+
+    &--green.uds-tag--pastel {
+        background-color: var(--uds-color-accent-green-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-green-700);
+    }
+
+    &--sky.uds-tag--pastel {
+        background-color: var(--uds-color-accent-sky-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-sky-700);
+    }
+
+    &--cyan.uds-tag--pastel {
+        background-color: var(--uds-color-accent-cyan-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-cyan-700);
+    }
+
+    &--blue.uds-tag--pastel {
+        background-color: var(--uds-color-accent-blue-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-blue-700);
+    }
+
+    &--indigo.uds-tag--pastel {
+        background-color: var(--uds-color-accent-indigo-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-indigo-700);
+    }
+
+    &--purple.uds-tag--pastel {
+        background-color: var(--uds-color-accent-purple-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-purple-700);
+    }
+
+    &--fuchsia.uds-tag--pastel {
+        background-color: var(--uds-color-accent-fuchsia-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-fuchsia-700);
+    }
+
+    &--magenta.uds-tag--pastel {
+        background-color: var(--uds-color-accent-magenta-100);
+        border-color: transparent;
+        color: var(--uds-color-accent-magenta-700);
+    }
+
+    &--inverse.uds-tag--pastel {
+        background-color: var(--uds-surface-tertiary);
+        border-color: var(--uds-border-primary);
+        color: var(--uds-text-primary);
+    }
+
     // ── Color variants (outlined) ──────────────────────────────────────
     &--transparent.uds-tag--outlined {
         background-color: transparent;

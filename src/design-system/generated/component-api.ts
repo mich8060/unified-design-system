@@ -2517,6 +2517,14 @@ export const COMPONENT_API = {
     "name": "Tag",
     "source": "src/design-system/components/Tag/Tag.spec.ts",
     "props": {
+      "outlined": {
+        "type": "enum",
+        "values": [
+          true,
+          false
+        ],
+        "default": false
+      },
       "appearance": {
         "type": "enum",
         "values": [
@@ -2560,6 +2568,7 @@ export const COMPONENT_API = {
       }
     },
     "defaults": {
+      "outlined": false,
       "appearance": "label-only",
       "size": "compact",
       "color": "transparent",

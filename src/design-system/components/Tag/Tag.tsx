@@ -43,6 +43,7 @@ const colorClassMap: Record<TagColor, string> = {
  * @param {boolean} rounded - Whether to use rounded corners (default: true)
  * @param {boolean} solid - Whether to use solid background (default: false)
  * @param {boolean} outlined - Whether to use outlined treatment (default: false)
+ * @param {boolean} pastel - Whether to use lighter pastel treatment (default: false)
  * @param {string|boolean} icon - Icon name to display (when appearance is 'icon-left')
  * @param {string} className - Additional CSS classes
  * @param {function} onClick - Click handler function
@@ -56,12 +57,14 @@ export default function Tag({
   rounded = true,
   solid = false,
   outlined = false,
+  pastel = false,
   icon,
   className = "",
   onClick,
   ...props
 }: TagProps) {
   const isOutlined = outlined && !solid;
+  const isPastel = pastel && !solid && !isOutlined;
   const classNames = [
     BASE_CLASS,
     `${BASE_CLASS}--${appearanceClassMap[appearance]}`,
@@ -70,6 +73,7 @@ export default function Tag({
     rounded && `${BASE_CLASS}--rounded`,
     solid && `${BASE_CLASS}--solid`,
     isOutlined && `${BASE_CLASS}--outlined`,
+    isPastel && `${BASE_CLASS}--pastel`,
     className,
   ]
     .filter(Boolean)

@@ -1,5 +1,9 @@
 export const TagSpec = {
   allowedVariants: {
+  "pastel": [
+    true,
+    false
+  ],
   "outlined": [
     true,
     false
@@ -32,6 +36,7 @@ export const TagSpec = {
 },
   defaults: {
   "label": "Label",
+  "pastel": false,
   "outlined": false,
   "appearance": "label-only",
   "size": "compact",

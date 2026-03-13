@@ -1,5 +1,5 @@
 import { Avatar } from "../../design-system/components/Avatar";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "../../design-system/components/Button";
 import type { CSSProperties } from "react";
 import { Code } from "../../design-system/components/Code";
@@ -7,6 +7,8 @@ import { Divider } from "../../design-system/components/Divider";
 import { Dropdown } from "../../design-system/components/Dropdown";
 import { Flex } from "../../design-system/components/Flex";
 import { Menu } from "../../design-system/components/Menu";
+import { SearchInput } from "../../design-system/components/SearchInput";
+import { Tag } from "../../design-system/components/Tag";
 import { Text } from "../../design-system/components/Text";
 import { Toggle } from "../../design-system/components/Toggle";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -124,15 +126,88 @@ const PREVIEW_REGION: CSSProperties = {
   padding: "var(--uds-spacing-10)",
 };
 
+type DocumentCategory = "provider" | "credential" | "contract" | "compliance";
+type DocumentUrgency = "action" | "recent" | "archived";
+
+type DocumentRecord = {
+  id: string;
+  title: string;
+  category: DocumentCategory;
+  owner: string;
+  updatedAt: string;
+  urgency: DocumentUrgency;
+};
+
+const DOCUMENT_SCOPE_OPTIONS = [
+  { value: "all", label: "All" },
+  { value: "provider", label: "Providers" },
+  { value: "credential", label: "Credentials" },
+  { value: "contract", label: "Contracts" },
+  { value: "compliance", label: "Compliance" },
+];
+
+const PANEL_SHOW_MORE_COUNT = 3;
+
+const PREVIEW_DOCUMENTS: DocumentRecord[] = [
+  { id: "doc-1", title: "Colorado License Renewal", category: "credential", owner: "Dr. Alexis Hall", updatedAt: "2h ago", urgency: "action" },
+  { id: "doc-2", title: "DEA Certificate Verification", category: "credential", owner: "Dr. Jordan Reeves", updatedAt: "4h ago", urgency: "action" },
+  { id: "doc-3", title: "Assignment Contract Addendum", category: "contract", owner: "Dr. Casey Morgan", updatedAt: "Today", urgency: "action" },
+  { id: "doc-4", title: "Provider Profile Summary", category: "provider", owner: "Dr. Jordan Reeves", updatedAt: "Today", urgency: "recent" },
+  { id: "doc-5", title: "References Packet", category: "provider", owner: "Dr. Alexis Hall", updatedAt: "Yesterday", urgency: "recent" },
+  { id: "doc-6", title: "Malpractice Insurance", category: "compliance", owner: "Dr. Casey Morgan", updatedAt: "Yesterday", urgency: "recent" },
+  { id: "doc-7", title: "Legacy Assignment Notes", category: "contract", owner: "Dr. Jordan Reeves", updatedAt: "Last week", urgency: "archived" },
+  { id: "doc-8", title: "Archived Credential Scan", category: "credential", owner: "Dr. Alexis Hall", updatedAt: "Last month", urgency: "archived" },
+];
+
+const GROUP_META: Record<DocumentUrgency, { label: string; badgeColor: "red" | "blue" | "neutral" }> = {
+  action: { label: "Needs Action", badgeColor: "red" },
+  recent: { label: "Recent", badgeColor: "blue" },
+  archived: { label: "Archived", badgeColor: "neutral" },
+};
+
 export function AppShellDemoPage() {
   const [showListview, setShowListview] = useState(true);
   const [showSidePanel, setShowSidePanel] = useState(false);
+  const [panelQuery, setPanelQuery] = useState("");
+  const [panelScope, setPanelScope] = useState("all");
+  const [collapsedGroups, setCollapsedGroups] = useState<Record<DocumentUrgency, boolean>>({
+    action: false,
+    recent: false,
+    archived: true,
+  });
+  const [expandedGroups, setExpandedGroups] = useState<Record<DocumentUrgency, boolean>>({
+    action: false,
+    recent: false,
+    archived: false,
+  });
   const [selectedDoctorName, setSelectedDoctorName] = useState(
     PREVIEW_DOCTORS[0]?.name ?? "",
   );
   const selectedDoctor =
     ALL_DOCTORS.find((doctor) => doctor.name === selectedDoctorName) ??
     PREVIEW_DOCTORS[0];
+  const filteredDocuments = useMemo(() => {
+    const normalizedQuery = panelQuery.trim().toLowerCase();
+    return PREVIEW_DOCUMENTS.filter((doc) => {
+      const matchesScope = panelScope === "all" ? true : doc.category === panelScope;
+      const haystack = `${doc.title} ${doc.owner} ${doc.category}`.toLowerCase();
+      const matchesQuery = normalizedQuery.length === 0 ? true : haystack.includes(normalizedQuery);
+      return matchesScope && matchesQuery;
+    });
+  }, [panelQuery, panelScope]);
+
+  const groupedDocuments = useMemo(
+    () => ({
+      action: filteredDocuments.filter((doc) => doc.urgency === "action"),
+      recent: filteredDocuments.filter((doc) => doc.urgency === "recent"),
+      archived: filteredDocuments.filter((doc) => doc.urgency === "archived"),
+    }),
+    [filteredDocuments],
+  );
+
+  const toggleGroup = (group: DocumentUrgency) => {
+    setCollapsedGroups((prev) => ({ ...prev, [group]: !prev[group] }));
+  };
 
   return (
     <DocPageLayout
@@ -380,13 +455,115 @@ export function AppShellDemoPage() {
                     </Text>
                     <Button appearance="ghost" size="xsmall" label="Close" onClick={() => setShowSidePanel(false)} />
                   </Flex>
-                  <Flex direction="column" gap="8" style={{ padding: "var(--uds-spacing-12)", minWidth: 280 }}>
-                    <Text as="p" variant="body-14" leading="regular">
-                      This panel slides from the right for contextual tasks.
-                    </Text>
-                    <Text as="p" variant="body-14" leading="regular">
-                      Keep core details in Main and use this area for secondary workflows.
-                    </Text>
+                  <Flex direction="column" gap="8" style={{ padding: "var(--uds-spacing-10)", minWidth: 280 }}>
+                    <SearchInput
+                      size="compact"
+                      placeholder="Search documents"
+                      value={panelQuery}
+                      onChange={(event) => setPanelQuery(event.target.value)}
+                      dropdownOptions={DOCUMENT_SCOPE_OPTIONS}
+                      dropdownValue={panelScope}
+                      onDropdownChange={(value) => setPanelScope(value)}
+                      dropdownPlaceholder="All"
+                    />
+                    <Flex alignItems="center" justifyContent="space-between">
+                      <Text as="span" variant="body-12" leading="regular">
+                        Showing {filteredDocuments.length} docs
+                      </Text>
+                      <Button
+                        appearance="text"
+                        size="xsmall"
+                        label="Clear"
+                        onClick={() => {
+                          setPanelQuery("");
+                          setPanelScope("all");
+                        }}
+                      />
+                    </Flex>
+
+                    {(Object.keys(groupedDocuments) as DocumentUrgency[]).map((groupKey) => {
+                      const docs = groupedDocuments[groupKey];
+                      const isCollapsed = collapsedGroups[groupKey];
+                      const isExpanded = expandedGroups[groupKey];
+                      const visibleDocs =
+                        isExpanded || docs.length <= PANEL_SHOW_MORE_COUNT
+                          ? docs
+                          : docs.slice(0, PANEL_SHOW_MORE_COUNT);
+                      const hiddenCount = docs.length - visibleDocs.length;
+                      const meta = GROUP_META[groupKey];
+
+                      return (
+                        <Flex
+                          key={groupKey}
+                          direction="column"
+                          gap="6"
+                          style={{
+                            border: "var(--uds-border-width-1) solid var(--uds-border-primary)",
+                            borderRadius: "var(--uds-radius-6)",
+                            backgroundColor: "var(--uds-surface-primary)",
+                            padding: "var(--uds-spacing-8)",
+                          }}
+                        >
+                          <Flex alignItems="center" justifyContent="space-between">
+                            <Flex alignItems="center" gap="6">
+                              <Text as="span" variant="body-14" weight="semibold" leading="regular">
+                                {meta.label}
+                              </Text>
+                              <Tag label={String(docs.length)} color={meta.badgeColor} solid rounded />
+                            </Flex>
+                            <Button
+                              appearance="text"
+                              size="xsmall"
+                              label={isCollapsed ? "Expand" : "Collapse"}
+                              onClick={() => toggleGroup(groupKey)}
+                            />
+                          </Flex>
+
+                          {!isCollapsed ? (
+                            <>
+                              {visibleDocs.length > 0 ? (
+                                <Flex direction="column" gap="4">
+                                  {visibleDocs.map((doc) => (
+                                    <Flex
+                                      key={doc.id}
+                                      direction="column"
+                                      gap="2"
+                                      style={{
+                                        padding: "var(--uds-spacing-6)",
+                                        borderRadius: "var(--uds-radius-4)",
+                                        backgroundColor: "var(--uds-surface-secondary)",
+                                      }}
+                                    >
+                                      <Text as="span" variant="body-14" weight="semibold" leading="regular">
+                                        {doc.title}
+                                      </Text>
+                                      <Text as="span" variant="body-12" leading="regular">
+                                        {doc.owner} • {doc.updatedAt}
+                                      </Text>
+                                    </Flex>
+                                  ))}
+                                </Flex>
+                              ) : (
+                                <Text as="span" variant="body-12" leading="regular">
+                                  No matching documents.
+                                </Text>
+                              )}
+
+                              {hiddenCount > 0 ? (
+                                <Button
+                                  appearance="text"
+                                  size="xsmall"
+                                  label={`Show ${hiddenCount} more`}
+                                  onClick={() =>
+                                    setExpandedGroups((prev) => ({ ...prev, [groupKey]: true }))
+                                  }
+                                />
+                              ) : null}
+                            </>
+                          ) : null}
+                        </Flex>
+                      );
+                    })}
                   </Flex>
                 </Flex>
               </Flex>

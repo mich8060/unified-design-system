@@ -17,6 +17,7 @@ Colored label component for categorization, status, or metadata display.
 | `size` | `TagSize` | `"compact"` | `"compact"`, `"default"` | Tag size |
 | `solid` | `boolean` | `false` | — | Solid fill treatment |
 | `outlined` | `boolean` | `false` | — | Outlined treatment |
+| `pastel` | `boolean` | `false` | — | Pastel treatment using lighter color surfaces |
 | `className` | `string` | `""` | — | Additional CSS classes |
 
 ## Examples
@@ -26,6 +27,7 @@ Colored label component for categorization, status, or metadata display.
 <Tag label="Active" color="green" />
 <Tag label="Pending" color="yellow" />
 <Tag label="Archived" color="neutral" outlined />
+<Tag label="Reviewing" color="blue" pastel />
 ```
 
 ### Filter tags

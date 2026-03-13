@@ -2760,6 +2760,14 @@
       "slots": null,
       "states": [],
       "props": {
+        "outlined": {
+          "type": "enum",
+          "values": [
+            true,
+            false
+          ],
+          "default": false
+        },
         "appearance": {
           "type": "enum",
           "values": [
@@ -2803,6 +2811,7 @@
         }
       },
       "defaults": {
+        "outlined": false,
         "appearance": "label-only",
         "size": "compact",
         "color": "transparent",

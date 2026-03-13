@@ -613,6 +613,7 @@ Displays a KPI value with optional context, trend, and icon.
 | `appearance` | `enum` | label-only, icon-left | `label-only` |
 | `color` | `enum` | transparent, neutral, red, orange, yellow, emerald, green, sky, cyan, blue, indigo, purple, fuchsia, magenta, inverse | `transparent` |
 | `label` | `string` | - | `Label` |
+| `outlined` | `enum` | true, false | `false` |
 | `size` | `enum` | compact, default | `compact` |
 
 ### Text
