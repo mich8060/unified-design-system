@@ -206,9 +206,11 @@ body {
 
 .app-shell__side-panel {
     --app-shell-side-panel-width: 320px;
+    --app-shell-side-panel-max-width: 600px;
     width: var(--app-shell-side-panel-width);
-    min-width: var(--app-shell-side-panel-width);
-    flex: 0 0 var(--app-shell-side-panel-width);
+    max-width: var(--app-shell-side-panel-max-width);
+    min-width: 0;
+    flex: 0 0 auto;
     border-left: 1px solid var(--uds-border-secondary);
     background: var(--uds-surface-secondary);
     overflow-y: auto;

@@ -53,6 +53,10 @@ export interface AppShellProps {
 /** Slot wrapper props used by AppShell compound regions. */
 export interface AppShellSectionProps {
     children?: React.ReactNode;
+    /** Optional width for rail regions like AppShell.SidePanel (e.g. 420 or "28rem"). */
+    width?: number | string;
+    /** Optional maximum width for rail regions like AppShell.SidePanel (e.g. 480 or "32rem"). */
+    maxWidth?: number | string;
 }
 
 type AppShellSlotName = "Menu" | "Content" | "Listview" | "Main" | "SidePanel" | "Footer";
@@ -139,8 +143,10 @@ function AppShellComponent({
     let customMain: React.ReactNode = null;
     let customSidePanel: React.ReactNode = null;
     let customFooter: React.ReactNode = null;
+    let sidePanelWidth: number | string | undefined;
+    let sidePanelMaxWidth: number | string | undefined;
 
-    const topLevelChildren = React.Children.toArray(children) as React.ReactElement<{ children?: React.ReactNode }>[];
+    const topLevelChildren = React.Children.toArray(children) as React.ReactElement<AppShellSectionProps>[];
     for (const child of topLevelChildren) {
         const slotName = getAppShellSlotName(child.type);
         if (child.type === AppShellMenuSlot || slotName === "Menu") {
@@ -156,7 +162,7 @@ function AppShellComponent({
         }
     }
 
-    const contentChildren = React.Children.toArray(customContent) as React.ReactElement<{ children?: React.ReactNode }>[];
+    const contentChildren = React.Children.toArray(customContent) as React.ReactElement<AppShellSectionProps>[];
     for (const child of contentChildren) {
         const slotName = getAppShellSlotName(child.type);
         if (child.type === AppShellListviewSlot || slotName === "Listview") {
@@ -169,8 +175,25 @@ function AppShellComponent({
         }
         if (child.type === AppShellSidePanelSlot || slotName === "SidePanel") {
             customSidePanel = child.props.children;
+            sidePanelWidth = child.props.width;
+            sidePanelMaxWidth = child.props.maxWidth;
         }
     }
+    const resolvedSidePanelWidth = typeof sidePanelWidth === "number" ? `${sidePanelWidth}px` : sidePanelWidth;
+    const resolvedSidePanelMaxWidth =
+        typeof sidePanelMaxWidth === "number" ? `${sidePanelMaxWidth}px` : sidePanelMaxWidth;
+    const sidePanelStyle =
+        resolvedSidePanelWidth || resolvedSidePanelMaxWidth
+            ? ({
+                  ...(resolvedSidePanelWidth
+                      ? ({ ["--app-shell-side-panel-width"]: resolvedSidePanelWidth } as React.CSSProperties)
+                      : {}),
+                  ...(resolvedSidePanelMaxWidth
+                      ? ({ ["--app-shell-side-panel-max-width"]: resolvedSidePanelMaxWidth } as React.CSSProperties)
+                      : {}),
+              } as React.CSSProperties)
+            : undefined;
+
     const resolvedFooter = slots?.Footer ?? customFooter;
     const hasSidebarMenu = !standalone && config.sidebar && hasRenderableContent(customMenu);
     const hasListview = hasRenderableContent(customListview);
@@ -246,7 +269,7 @@ function AppShellComponent({
                             {customMain}
                         </section>
                         {hasSidePanel ? (
-                            <aside className="app-shell__side-panel">{customSidePanel}</aside>
+                            <aside className="app-shell__side-panel" style={sidePanelStyle}>{customSidePanel}</aside>
                         ) : null}
                     </main>
                     {config.footer && hasRenderableContent(resolvedFooter) ? resolvedFooter : null}
