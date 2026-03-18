@@ -9,8 +9,8 @@
     z-index: 1;
 
     &__list {
-        display: flex;
         align-items: center;
+        display: flex;
         flex-wrap: wrap;
         gap: var(--uds-gap-8);
         list-style: none;
@@ -19,8 +19,8 @@
     }
 
     &__item {
-        display: flex;
         align-items: center;
+        display: flex;
     }
 
     &__link {

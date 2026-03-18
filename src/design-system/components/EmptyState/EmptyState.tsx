@@ -1,7 +1,14 @@
 import React from "react";
-import Icon from "../Icon/Icon";
+import { Medallion } from "../Medallion";
 import "./_empty-state.scss";
 import type { EmptyStateProps } from "./EmptyState.types";
+
+const resolveMedallionSize = (iconSize: number): "small" | "default" | "large" | "xl" => {
+  if (iconSize <= 16) return "small";
+  if (iconSize <= 20) return "default";
+  if (iconSize <= 24) return "large";
+  return "xl";
+};
 
 export function EmptyState({
   title,
@@ -24,9 +31,13 @@ export function EmptyState({
 
   return (
     <div className={classNames} {...props}>
-      <div className="uds-empty-state__icon" aria-hidden="true">
-        <Icon name={icon} size={iconSize} />
-      </div>
+      <Medallion
+        className="uds-empty-state__icon"
+        icon={icon}
+        size={resolveMedallionSize(iconSize)}
+        color="blue"
+        aria-hidden="true"
+      />
       <div className="uds-empty-state__content">
         <div className="uds-empty-state__title">{title}</div>
         {description ? <div className="uds-empty-state__description">{description}</div> : null}

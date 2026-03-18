@@ -6,17 +6,17 @@
         all: unset;
         display: flex;
         gap: 0;
-        width: 100%;
-        position: relative;
         overflow-y: hidden;
+        position: relative;
+        width: 100%;
 
         &__list {
             all: unset;
             display: flex;
             gap: 0;
-            width: 100%;
-            scroll-behavior: smooth;
             overflow-y: hidden;
+            scroll-behavior: smooth;
+            width: 100%;
             scrollbar-width: none; // Firefox
             -ms-overflow-style: none; // IE and Edge
 
@@ -26,12 +26,13 @@
         }
 
         &--scrollable {
-            display: flex;
             align-items: center;
+            display: flex;
             gap: var(--uds-gap-16);
             position: relative;
 
             .uds-tabs__list {
+                all: unset;
                 flex: 1;
                 min-width: 0; // Allows flex item to shrink below content size
                 overflow-x: auto;
@@ -40,19 +41,19 @@
 
         &__scroll-button {
             flex-shrink: 0;
-            z-index: 1;
             position: relative;
+            z-index: 1;
         }
 
         &-item {
             all: unset;
             @include uds-body-14-medium;
-            box-sizing: border-box;
-            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: var(--uds-gap-8);
+            box-sizing: border-box;
             cursor: pointer;
+            display: inline-flex;
+            gap: var(--uds-gap-8);
+            justify-content: center;
             position: relative;
             user-select: none;
             transition:
@@ -65,8 +66,8 @@
         }
 
         &--block {
-            border-radius: var(--uds-radius-4);
             border: var(--uds-border-width-1) solid var(--uds-border-primary);
+            border-radius: var(--uds-radius-4);
             padding: var(--uds-spacing-4);
 
             .uds-tabs-item {
@@ -83,8 +84,8 @@
         }
 
         &--block-inverted {
-            border-radius: var(--uds-radius-4);
             border: var(--uds-border-width-1) solid var(--uds-border-primary);
+            border-radius: var(--uds-radius-4);
             padding: var(--uds-spacing-4);
 
             .uds-tabs-item {
@@ -104,20 +105,24 @@
             border-bottom: solid var(--uds-border-width-1) var(--uds-border-primary);
             gap: var(--uds-gap-32);
 
+            .uds-tabs__list {
+                gap: var(--uds-gap-32);
+            }
+
             .uds-tabs-item {
                 margin-bottom: -1px;
                 padding: var(--uds-spacing-12) var(--uds-spacing-0);
 
                 &.active {
                     &:after {
+                        border-bottom: solid 3px var(--uds-color-primary-700);
+                        bottom: 0;
                         content: "";
                         display: block;
                         height: 1px;
-                        position: absolute;
-                        bottom: 0;
                         left: -2px;
+                        position: absolute;
                         right: -2px;
-                        border-bottom: solid 3px var(--uds-color-primary-700);
                     }
                 }
             }
@@ -130,27 +135,28 @@
         }
 
         &--vertical {
+            align-items: stretch;
             display: inline-flex;
             flex-direction: column;
-            align-items: stretch;
-            width: 186px;
             max-width: 100%;
-            overflow-y: auto;
             overflow-x: hidden;
+            overflow-y: auto;
+            width: 186px;
         }
 
         &--vertical &__list {
-            flex-direction: column;
-            width: 100%;
-            min-width: 0;
             align-items: stretch;
+            flex-direction: column;
+            gap: var(--uds-spacing-24);
+            min-width: 0;
+            width: 100%;
         }
 
         &--vertical .uds-tabs-item {
-            width: 100%;
+            box-sizing: border-box;
             justify-content: flex-start;
             text-align: left;
-            box-sizing: border-box;
+            width: 100%;
         }
 
         &--vertical .uds-tabs-item__label {
@@ -168,9 +174,9 @@
         }
 
         &--vertical.uds-tabs--underline .uds-tabs-item {
+            border-right: 4px solid transparent;
             margin-bottom: 0;
             padding: var(--uds-spacing-12) var(--uds-spacing-24);
-            border-right: 4px solid transparent;
 
             &.active {
                 border-right-color: var(--uds-color-primary-700);
@@ -197,8 +203,8 @@
 
         &--vertical.uds-tabs--block .uds-tabs-item,
         &--vertical.uds-tabs--block-inverted .uds-tabs-item {
-            padding: var(--uds-spacing-4) var(--uds-spacing-12);
             border: solid var(--uds-border-width-1) var(--uds-border-transparent);
+            padding: var(--uds-spacing-4) var(--uds-spacing-12);
             @include uds-body-14-medium;
             line-height: var(--uds-line-28);
         }
@@ -209,8 +215,8 @@
 
         &--vertical.uds-tabs--block .uds-tabs-item.active {
             background-color: var(--uds-color-primary-700);
-            color: var(--uds-text-inverse);
             border-radius: var(--uds-radius-4);
+            color: var(--uds-text-inverse);
             @include uds-body-14-semibold;
             line-height: var(--uds-line-28);
         }
@@ -245,58 +251,27 @@
 
         // Overflow menu container
         &__overflow-menu {
-            display: inline-flex;
             align-items: center;
+            display: inline-flex;
             flex-shrink: 0;
-            position: relative;
             left: 0;
+            position: relative;
             z-index: 1;
         }
 
-        // Style overflow button for underline appearance
-        &--underline {
+        &__overflow-dropdown {
+            min-width: 140px;
+            white-space: nowrap;
 
-            
-            .uds-tabs__overflow-menu button {
-                margin-bottom: -1px;
-                padding: var(--uds-spacing-12) var(--uds-spacing-24);
-                @include uds-body-16;
+            .uds-dropdown__trigger {
+                height: 32px;
+                padding: var(--uds-spacing-4) var(--uds-spacing-8);
+            }
 
-                &.active {
-                    border-bottom: solid 2px var(--uds-color-primary-700);
-                    @include uds-body-14-semibold;
-                }
+            .uds-dropdown__icon {
+                margin-left: var(--uds-gap-8);
             }
         }
 
-        // Style overflow button for block appearance
-        &--block {
-            .uds-tabs__overflow-menu button {
-                padding: var(--uds-spacing-8) var(--uds-spacing-12);
-                @include uds-body-14-medium;
-
-                &.active {
-                    background-color: var(--uds-color-primary-700);
-                    border-radius: var(--uds-radius-4);
-                    color: var(--uds-text-inverse);
-                    @include uds-body-14-semibold;
-                }
-            }
-        }
-
-        // Style overflow button for block-inverted appearance
-        &--block-inverted {
-            .uds-tabs__overflow-menu button {
-                padding: var(--uds-spacing-8) var(--uds-spacing-12);
-                @include uds-body-14-medium;
-
-                &.active {
-                    background-color: var(--uds-color-primary-700);
-                    border: var(--uds-border-width-1) solid var(--uds-color-primary-700);
-                    color: var(--uds-text-inverse);
-                    @include uds-body-14-semibold;
-                }
-            }
-        }
     }
 }

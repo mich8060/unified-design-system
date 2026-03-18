@@ -1,5 +1,5 @@
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Text } from "../../design-system/components/Text";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
@@ -50,42 +50,42 @@ export function DividerDemoPage() {
       title="Divider"
       description="Divider creates visual separation between related content groups with optional label and icon treatments."
     >
-      <Flex direction="column" gap="48">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="48">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Basic Variants
           </Text>
-          <Flex direction="column" gap="16">
+          <Layout direction="column" gap="16">
             <Divider />
             <Divider variant="solid" />
-          </Flex>
-        </Flex>
+          </Layout>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Label and Icon
           </Text>
-          <Flex direction="column" gap="16">
+          <Layout direction="column" gap="16">
             <Divider label="Section Break" />
             <Divider icon="Star" />
             <Divider label="Add New Item" icon="Plus" labelWithIcon />
             <Divider label="Notifications" icon="Bell" />
-          </Flex>
-        </Flex>
+          </Layout>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Alignment
           </Text>
-          <Flex direction="column" gap="16">
+          <Layout direction="column" gap="16">
             <Divider label="Left aligned" alignment="left" />
             <Divider label="Center aligned" alignment="center" />
             <Divider label="Right aligned" alignment="right" />
-          </Flex>
-        </Flex>
-      </Flex>
+          </Layout>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={DIVIDER_PROPS} />

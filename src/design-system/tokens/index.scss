@@ -16,18 +16,18 @@
 @use "./primitives/reset.primitives";
 @use "./primitives/animation.primitives";
 @use "./primitives/blur.primitives";
+@use "./primitives/container.primitives";  
 @use "./primitives/elevation.primitives";
 @use "./primitives/gap.primitives";
-@use "./primitives/layout.primitives";
 @use "./primitives/radius.primitives";
 @use "./primitives/sizing.primitives";
 @use "./primitives/spacing.primitives";
 @use "./primitives/typography.primitives";
+@use "./primitives/boxshadow.primitives";
 
 @use "./semantics/branding.semantics";
 @use "./semantics/border.semantics"; 
 @use "./semantics/code.semantics";
-@use "./semantics/container.semantics";  
 @use "./semantics/icons.semantics";
 @use "./semantics/scrim.semantics"; 
 @use "./semantics/shadow.semantics";

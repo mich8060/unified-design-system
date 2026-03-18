@@ -1,5 +1,7 @@
 import React, { useId, useMemo, useState } from "react";
+import { Layout } from "../Layout";
 import Icon from "../Icon/Icon";
+import { SearchInput } from "../SearchInput";
 import "./_accordion.scss";
 import type { AccordionItemProps, AccordionProps } from "./Accordion.types";
 
@@ -88,13 +90,49 @@ export function AccordionItem({
  * @param {string} className - Additional CSS classes
  * @param {object} props - Additional props to pass to the accordion container
  */
-export default function Accordion({ children, className = "", ...props }: AccordionProps) {
+export default function Accordion({
+    title,
+    itemCount,
+    headerActions,
+    search = false,
+    searchPlaceholder = "Search",
+    searchValue,
+    onSearchChange,
+    children,
+    className = "",
+    ...props
+}: AccordionProps) {
     const { variant = "default", ...rest } = props;
     const variantClass = variant === "secondary" ? "accordion--secondary" : "";
     const accordionClassName = ["accordion", variantClass, className].filter(Boolean).join(" ");
 
     return (
         <div className={accordionClassName} {...rest}>
+            {(title || typeof itemCount === "number" || headerActions || search) ? (
+                <Layout className="accordion__group-header" alignItems="center" justifyContent="space-between" gap="12">
+                    <Layout className="accordion__group-meta" alignItems="center" gap="8">
+                        {title ? <span className="accordion__group-title">{title}</span> : null}
+                        {typeof itemCount === "number" ? (
+                            <span className="accordion__group-count" aria-label={`${itemCount} items`}>
+                                {itemCount}
+                            </span>
+                        ) : null}
+                    </Layout>
+                    <Layout className="accordion__group-actions" alignItems="center" gap="8">
+                        {search ? (
+                            <SearchInput
+                                value={searchValue}
+                                onChange={(event) => onSearchChange?.(event.currentTarget.value)}
+                                placeholder={searchPlaceholder}
+                                size="compact"
+                                width="sm"
+                                context="toolbar"
+                            />
+                        ) : null}
+                        {headerActions}
+                    </Layout>
+                </Layout>
+            ) : null}
             {children}
         </div>
     );

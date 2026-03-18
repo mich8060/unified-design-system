@@ -1,0 +1,7 @@
+// Map semantic tokens to component-local vars
+@use "../../tokens/index" as *;
+
+$description-list-surface: var(--uds-surface-primary);
+$description-list-border-color: var(--uds-border-primary);
+$description-list-border-width: var(--uds-border-width-1);
+$description-list-radius: var(--uds-radius-8);

@@ -9,49 +9,40 @@
     },
     "children": [
       {
-        "type": "Card",
+        "type": "Text",
         "props": {
-          "gap": "--uds-spacing-16"
-        },
+          "variant": "heading-24"
+        }
+      },
+      {
+        "type": "Field",
         "children": [
           {
-            "type": "Text",
+            "type": "TextInput",
             "props": {
-              "variant": "heading-24"
-            }
-          },
-          {
-            "type": "Field",
-            "children": [
-              {
-                "type": "TextInput",
-                "props": {
-                  "type": "email"
-                }
-              }
-            ]
-          },
-          {
-            "type": "Button",
-            "props": {
-              "appearance": "primary",
-              "label": "Click Me"
+              "type": "email"
             }
           }
         ]
+      },
+      {
+        "type": "Button",
+        "props": {
+          "appearance": "primary",
+          "label": "Click Me"
+        }
       }
     ]
   },
   "audit": {
-    "timestamp": "2026-03-03T17:50:36.917Z",
+    "timestamp": "2026-03-18T00:00:00.000Z",
     "model": "claude-stub",
     "promptHash": "stubbed-generate-ui",
-    "udsVersion": "0.2.12",
+    "udsVersion": "0.2.48",
     "manifestVersion": "1.0.0",
     "policyVersion": "1.0.0",
     "componentsUsed": [
       "Container",
-      "Card",
       "Text",
       "Field",
       "TextInput",

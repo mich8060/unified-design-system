@@ -1,4 +1,4 @@
-import { Flex } from "../Flex";
+import { Layout } from "../Layout";
 import { Text } from "../Text";
 import "./_section-header.scss";
 import type { SectionHeaderProps } from "./SectionHeader.types";
@@ -23,7 +23,7 @@ export function SectionHeader({
 
     return (
         <div className={classNames} {...rest}>
-            <Flex direction="column" gap="2" className="uds-section-header__content">
+            <Layout direction="column" gap="2" className="uds-section-header__content">
                 {eyebrow ? (
                     <Text as="span" variant="body-12" weight="semibold" leading="regular" className="uds-section-header__eyebrow">
                         {eyebrow}
@@ -38,15 +38,15 @@ export function SectionHeader({
                     </Text>
                 ) : null}
                 {meta ? (
-                    <Flex alignItems="center" gap="8" wrap className="uds-section-header__meta">
+                    <Layout alignItems="center" gap="8" wrap className="uds-section-header__meta">
                         {meta}
-                    </Flex>
+                    </Layout>
                 ) : null}
-            </Flex>
+            </Layout>
             {actions ? (
-                <Flex alignItems="center" gap="8" wrap className="uds-section-header__actions">
+                <Layout alignItems="center" gap="8" wrap className="uds-section-header__actions">
                     {actions}
-                </Flex>
+                </Layout>
             ) : null}
         </div>
     );

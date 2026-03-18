@@ -1,26 +1,24 @@
 .uds-toolbar {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  all: unset;
   align-items: center;
-  gap: var(--uds-spacing-12);
-  width: 100%;
-  box-sizing: border-box;
-  padding: var(--uds-spacing-12) var(--uds-spacing-16);
   background: var(--uds-surface-primary);
   border-bottom: 1px solid var(--uds-border-primary);
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--uds-spacing-12);
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  padding: var(--uds-spacing-12) var(--uds-spacing-16);
+  width: 100%;
 }
 
 .uds-toolbar__left,
 .uds-toolbar__right {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--uds-spacing-8);
   min-width: 0;
 }
 
 .uds-toolbar__center {
-  min-width: 0;
   justify-self: center;
+  min-width: 0;
   text-align: center;
 }
 

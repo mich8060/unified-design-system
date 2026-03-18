@@ -1,4 +1,4 @@
-import { Button, Code, Divider, Flex, ProvidersCard, Text, type ProvidersCardTag } from "../../design-system";
+import { Button, Code, Divider, Layout, ProvidersCard, Text, type ProvidersCardTag } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 
 interface ProviderCardData {
@@ -43,7 +43,7 @@ const PROVIDER_LIST_SNIPPET = `const providers = [
   // ...more providers
 ];
 
-<Flex direction="column" gap="12">
+<Layout direction="column" gap="12">
   {providers.map((provider) => (
     <ProvidersCard
       key={provider.id}
@@ -52,7 +52,7 @@ const PROVIDER_LIST_SNIPPET = `const providers = [
       primaryAction={<Button label="Request Assignment" />}
     />
   ))}
-</Flex>`;
+</Layout>`;
 
 const PROVIDERS: ProviderCardData[] = [
   {
@@ -105,8 +105,8 @@ export function ProvidersCardPatternPage() {
       title="Providers Card"
       description="Providers Card is a module-level pattern for presenting a provider snapshot, availability, and quick actions."
     >
-      <Flex direction="column" gap="32">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="32">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Single Card
           </Text>
@@ -123,15 +123,15 @@ export function ProvidersCardPatternPage() {
             primaryAction={<Button label="Request Assignment" />}
           />
           <Code language="tsx" code={PROVIDER_CARD_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Provider Queue
           </Text>
-          <Flex direction="column" gap="12">
+          <Layout direction="column" gap="12">
             {PROVIDERS.map((provider) => (
               <ProvidersCard
                 key={provider.id}
@@ -147,10 +147,10 @@ export function ProvidersCardPatternPage() {
                 primaryAction={<Button label="Request Assignment" />}
               />
             ))}
-          </Flex>
+          </Layout>
           <Code language="tsx" code={PROVIDER_LIST_SNIPPET} />
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
     </DocPageLayout>
   );
 }

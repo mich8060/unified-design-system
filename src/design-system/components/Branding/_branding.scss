@@ -1,57 +1,58 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
 .uds-branding {
-  display: inline-flex;
+  all: unset;
   align-items: center;
+  display: inline-flex;
 
   // Size variants — all maintain the 5:2 aspect ratio
   &--small {
     .uds-branding__logo {
-      width: 100px;
       height: 40px;
+      width: 100px;
     }
   }
 
   &--default {
     .uds-branding__logo {
-      width: 160px;
       height: 64px;
+      width: 160px;
     }
   }
 
   &--large {
     .uds-branding__logo {
-      width: 200px;
       height: 80px;
+      width: 200px;
     }
   }
 
   &__logo {
     display: block;
-    width: 160px;
     height: 64px;
+    width: 160px;
   }
 
   // Symbol-only variant — square aspect ratio
   &--symbol {
     &.uds-branding--small .uds-branding__logo {
-      width: 24px;
       height: 24px;
+      width: 24px;
     }
 
     &.uds-branding--default .uds-branding__logo {
-      width: 32px;
       height: 32px;
+      width: 32px;
     }
 
     &.uds-branding--large .uds-branding__logo {
-      width: 48px;
       height: 48px;
+      width: 48px;
     }
 
     .uds-branding__logo {
-      width: 32px;
       height: 32px;
+      width: 32px;
     }
   }
 }

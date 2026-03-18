@@ -1,4 +1,4 @@
-import { Branding, Button, Code, Divider, Flex, Text, Toolbar } from "../../design-system";
+import { Branding, Button, Code, Divider, Layout, Text, Toolbar } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -27,7 +27,7 @@ export function ToolbarDemoPage() {
       title="Toolbar"
       description="Toolbar creates a top bar with three flexible slots: left, center, and right."
     >
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Centered Title
         </Text>
@@ -37,11 +37,11 @@ export function ToolbarDemoPage() {
           right={<Button label="Add Candidate" />}
         />
         <Code language="tsx" code={TITLE_SNIPPET} />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Centered Branding
         </Text>
@@ -51,7 +51,7 @@ export function ToolbarDemoPage() {
           right={<Button appearance="soft" label="Export" icon="DownloadSimple" layout="icon-left" />}
         />
         <Code language="tsx" code={BRANDING_SNIPPET} />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={TOOLBAR_PROPS} title="Toolbar Props" />

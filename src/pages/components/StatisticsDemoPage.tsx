@@ -1,4 +1,4 @@
-import { Code, Divider, Flex, Statistics, Text } from "../../design-system";
+import { Code, Divider, Layout, Statistics, Text } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -60,7 +60,7 @@ const ICON_ACCENT_SNIPPET = `<Statistics
 export function StatisticsDemoPage() {
   return (
     <DocPageLayout title="Statistics" description="Statistics presents KPI values with optional trend and helper context.">
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Dashboard Card</Text>
         <Statistics
           label="Total Revenue"
@@ -72,11 +72,11 @@ export function StatisticsDemoPage() {
           progressLabel="Improving"
         />
         <Code language="tsx" code={FULL_CARD_SNIPPET} />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Minimal (Conditional Sections Hidden)</Text>
         <Statistics
           label="Open Requisitions"
@@ -84,11 +84,11 @@ export function StatisticsDemoPage() {
           helperText="Current month"
         />
         <Code language="tsx" code={MINIMAL_SNIPPET} />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Trend</Text>
         <Statistics
           label="Avg Time to Fill"
@@ -99,11 +99,11 @@ export function StatisticsDemoPage() {
           icon="Clock"
         />
         <Code language="tsx" code={TREND_ONLY_SNIPPET} />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Icon Accent Presets</Text>
         <Text as="p" variant="body-16" leading="regular">
           Use <code>iconAccent</code> to pick a named accent color (for example: red, sky, blue).
@@ -115,11 +115,11 @@ export function StatisticsDemoPage() {
           iconAccent="sky"
         />
         <Code language="tsx" code={ICON_ACCENT_SNIPPET} />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Custom Label Box Color</Text>
         <Text as="p" variant="body-16" leading="regular">
           Pass <code>labelBoxColor</code> for custom backgrounds when you need a non-preset value.
@@ -131,7 +131,7 @@ export function StatisticsDemoPage() {
           labelBoxColor="var(--uds-system-success-subtle)"
         />
         <Code language="tsx" code={LABEL_BOX_COLOR_SNIPPET} />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DateInput } from "../../design-system/components/DateInput";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Text } from "../../design-system/components/Text";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
@@ -25,7 +25,7 @@ export function DateInputDemoPage() {
       title="DateInput"
       description="DateInput provides a native date picker field for single-date selection."
     >
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Basic Usage
         </Text>
@@ -35,21 +35,21 @@ export function DateInputDemoPage() {
           label="Appointment date"
           helperText="Select one date."
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Size Variants
         </Text>
         <DateInput value="2026-03-04" readOnly size="default" />
         <DateInput value="2026-03-04" readOnly size="compact" />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           State Variants
         </Text>
@@ -57,7 +57,7 @@ export function DateInputDemoPage() {
         <DateInput value="2026-03-04" readOnly state="focused" />
         <DateInput value="2026-03-04" readOnly state="error" errorText="Please choose a valid date." />
         <DateInput value="2026-03-04" readOnly disabled />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={DATE_INPUT_PROPS} />

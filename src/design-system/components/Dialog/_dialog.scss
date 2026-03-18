@@ -25,43 +25,44 @@
 
 .uds-dialog {
 
+    all: unset;
+    align-items: center;
+    animation: uds-dialog-slide-up var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
     background: var(--uds-surface-primary);
     border: var(--uds-border-width-1) solid var(--uds-border-primary);
     border-radius: var(--uds-radius-8);
     box-shadow: var(--uds-shadow-2xl, 0 25px 50px rgba(0, 0, 0, 0.25));
-    width: 100%;
-    max-width: 440px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: var(--uds-spacing-32) var(--uds-spacing-32) var(--uds-spacing-24);
-    overflow: hidden;
+    max-width: 440px;
     outline: none;
-    animation: uds-dialog-slide-up var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+    overflow: hidden;
+    padding: var(--uds-spacing-32) var(--uds-spacing-32) var(--uds-spacing-24);
+    text-align: center;
+    width: 100%;
 
     &__overlay {
-        position: fixed;
-        inset: 0;
+        align-items: center;
+        animation: uds-dialog-fade-in var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
         background: var(--uds-scrim-50);
         display: flex;
-        align-items: center;
+        inset: 0;
         justify-content: center;
-        z-index: var(--uds-elevation-modal, 1300);
         padding: var(--uds-spacing-16);
-        animation: uds-dialog-fade-in var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+        position: fixed;
+        z-index: var(--uds-elevation-modal, 1300);
     }
 
     &__icon {
-        display: flex;
         align-items: center;
-        justify-content: center;
-        width: 56px;
-        height: 56px;
-        border-radius: var(--uds-radius-9999);
         background: var(--uds-surface-secondary);
-        margin-bottom: var(--uds-spacing-16);
+        border-radius: var(--uds-radius-9999);
+        display: flex;
         flex-shrink: 0;
+        height: 56px;
+        justify-content: center;
+        margin-bottom: var(--uds-spacing-16);
+        width: 56px;
     }
 
     &--info &__icon {
@@ -81,8 +82,8 @@
     }
 
     &__content {
-        width: 100%;
         margin-bottom: var(--uds-spacing-24);
+        width: 100%;
     }
 
     &__title {
@@ -103,10 +104,10 @@
     }
 
     &__actions {
-        display: flex;
         align-items: center;
-        justify-content: center;
+        display: flex;
         gap: var(--uds-gap-16);
+        justify-content: center;
         width: 100%;
 
         >* {

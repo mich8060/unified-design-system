@@ -1,4 +1,4 @@
-import { Code, Divider, Flex, Status, Text } from "../../design-system";
+import { Code, Divider, Layout, Status, Text } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -34,46 +34,46 @@ export function StatusDemoPage() {
       title="Status"
       description="Status combines a DotStatus indicator and optional text label for compact inline state display."
     >
-      <Flex direction="column" gap="32">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="32">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Basic
           </Text>
-          <Flex gap="12" wrap alignItems="center">
+          <Layout gap="12" wrap alignItems="center">
             <Status label="Online" variant="green" />
             <Status label="Pending" variant="orange" />
             <Status label="Alert" variant="red" />
-          </Flex>
+          </Layout>
           <Code language="tsx" code={BASIC_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Appearance Variants
           </Text>
-          <Flex gap="12" wrap alignItems="center">
+          <Layout gap="12" wrap alignItems="center">
             <Status label="Light Gray" appearance="light-gray" variant="blue" />
             <Status label="White" appearance="white" variant="blue" />
             <Status label="Transparent" appearance="transparent" variant="blue" />
-          </Flex>
+          </Layout>
           <Code language="tsx" code={APPEARANCE_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Shape Variants
           </Text>
-          <Flex gap="12" wrap alignItems="center">
+          <Layout gap="12" wrap alignItems="center">
             <Status label="Pill" shape="pill" variant="cyan" />
             <Status label="Rounded" shape="rounded" variant="cyan" />
-          </Flex>
+          </Layout>
           <Code language="tsx" code={SHAPE_SNIPPET} />
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={STATUS_PROPS} title="Status Props" />

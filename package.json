@@ -146,6 +146,12 @@
       "require": "./dist/components/Container/Container.cjs",
       "default": "./dist/components/Container/Container.js"
     },
+    "./DescriptionList": {
+      "types": "./dist/design-system/components/DescriptionList/DescriptionList.d.ts",
+      "import": "./dist/components/DescriptionList/DescriptionList.js",
+      "require": "./dist/components/DescriptionList/DescriptionList.cjs",
+      "default": "./dist/components/DescriptionList/DescriptionList.js"
+    },
     "./Datepicker": {
       "types": "./dist/design-system/components/Datepicker/Datepicker.d.ts",
       "import": "./dist/components/Datepicker/Datepicker.js",
@@ -277,6 +283,12 @@
       "import": "./dist/components/Slider/Slider.js",
       "require": "./dist/components/Slider/Slider.cjs",
       "default": "./dist/components/Slider/Slider.js"
+    },
+    "./SelectableCard": {
+      "types": "./dist/design-system/components/SelectableCard/SelectableCard.d.ts",
+      "import": "./dist/components/SelectableCard/SelectableCard.js",
+      "require": "./dist/components/SelectableCard/SelectableCard.cjs",
+      "default": "./dist/components/SelectableCard/SelectableCard.js"
     },
     "./Status": {
       "types": "./dist/design-system/components/Status/Status.d.ts",
@@ -502,6 +514,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "@storybook/addon-a11y": "^8.6.17",
     "@storybook/addon-docs": "^8.6.17",
+    "@storybook/addon-essentials": "^8.6.17",
     "@storybook/addon-links": "^8.6.0",
     "@storybook/react-vite": "^8.6.0",
     "@types/react": "^18.3.4",
@@ -520,6 +533,7 @@
     "storybook": "^8.6.0",
     "stylelint": "^16.9.0",
     "stylelint-config-standard-scss": "^13.1.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^6.4.1"

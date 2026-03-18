@@ -3,15 +3,23 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-text {
-  margin: 0;
+  all: unset;
   font-family: $text-family;
   font-weight: $text-weight-regular;
+  margin: 0;
 }
 
 .uds-text--weight-regular { font-weight: $text-weight-regular; }
 .uds-text--weight-medium { font-weight: $text-weight-medium; }
 .uds-text--weight-semibold { font-weight: $text-weight-semibold; }
 .uds-text--weight-bold { font-weight: $text-weight-bold; }
+
+.uds-text--tone-primary { color: var(--uds-text-primary); }
+.uds-text--tone-secondary { color: var(--uds-text-secondary); }
+.uds-text--tone-tertiary,
+.uds-text--tone-muted { color: var(--uds-text-tertiary); }
+.uds-text--tone-placeholder { color: var(--uds-text-placeholder); }
+.uds-text--tone-disabled { color: var(--uds-text-disabled); }
 
 .uds-text--leading-tight { }
 .uds-text--leading-regular { }
@@ -21,8 +29,8 @@
   .uds-text--#{$name} {
     font-size: var(--uds-type-#{$name}-font-size);
     letter-spacing: var(--uds-type-#{$name}-letter-spacing);
-    text-transform: var(--uds-type-#{$name}-text-transform);
     line-height: var(--uds-type-#{$name}-line-regular);
+    text-transform: var(--uds-type-#{$name}-text-transform);
   }
   .uds-text--#{$name}.uds-text--leading-tight { line-height: var(--uds-type-#{$name}-line-tight); }
   .uds-text--#{$name}.uds-text--leading-regular { line-height: var(--uds-type-#{$name}-line-regular); }
@@ -52,11 +60,11 @@
 
 @mixin uds-legacy($name) {
   .uds-#{$name} {
-    font-size: var(--uds-type-#{$name}-font-size);
-    line-height: var(--uds-type-#{$name}-line-regular);
     font-family: $text-family;
+    font-size: var(--uds-type-#{$name}-font-size);
     font-weight: $text-weight-regular;
     letter-spacing: var(--uds-type-#{$name}-letter-spacing);
+    line-height: var(--uds-type-#{$name}-line-regular);
     text-transform: var(--uds-type-#{$name}-text-transform);
   }
 

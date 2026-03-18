@@ -905,6 +905,86 @@ export const COMPONENT_API = {
     },
     "antiPatterns": []
   },
+  "DescriptionList": {
+    "name": "DescriptionList",
+    "source": "src/design-system/components/DescriptionList/DescriptionList.spec.ts",
+    "tier": 2,
+    "purpose": "Compact key-value metadata layout for detail and summary views.",
+    "props": {
+      "density": {
+        "type": "enum",
+        "values": [
+          "default",
+          "compact"
+        ],
+        "default": "default"
+      },
+      "labelWidth": {
+        "type": "enum",
+        "values": [
+          "sm",
+          "md",
+          "lg"
+        ],
+        "default": "md"
+      },
+      "variant": {
+        "type": "enum",
+        "values": [
+          "default",
+          "separators"
+        ],
+        "default": "default"
+      },
+      "bordered": {
+        "type": "boolean",
+        "default": true
+      },
+      "fullWidth": {
+        "type": "boolean",
+        "default": true
+      }
+    },
+    "defaults": {
+      "density": "default",
+      "labelWidth": "md",
+      "variant": "default",
+      "bordered": true,
+      "fullWidth": true
+    },
+    "states": [
+      "default"
+    ],
+    "tokensUsed": [
+      "--uds-surface-primary",
+      "--uds-border-primary",
+      "--uds-border-width-1",
+      "--uds-radius-8",
+      "--uds-spacing-8",
+      "--uds-spacing-12",
+      "--uds-spacing-16",
+      "--uds-spacing-80",
+      "--uds-text-primary",
+      "--uds-text-secondary"
+    ],
+    "accessibility": {
+      "role": "list",
+      "keyboard": []
+    },
+    "composition": {
+      "allowedChildren": [],
+      "allowedParents": [],
+      "disallowedChildren": []
+    },
+    "aliases": {
+      "props": {}
+    },
+    "ambiguity": {
+      "propNameCollisions": [],
+      "hadAliasNormalization": false
+    },
+    "antiPatterns": []
+  },
   "Dialog": {
     "name": "Dialog",
     "source": "src/design-system/components/Dialog/Dialog.spec.ts",
@@ -1180,23 +1260,53 @@ export const COMPONENT_API = {
     "name": "EventCard",
     "source": "src/design-system/components/EventCard/EventCard.spec.ts",
     "props": {
-      "title": {
-        "type": "string",
-        "default": "Title"
-      },
       "type": {
-        "type": "string",
+        "type": "enum",
+        "values": [
+          "travel",
+          "assignment",
+          "unassigned"
+        ],
         "default": "travel"
       },
       "status": {
-        "type": "string",
+        "type": "enum",
+        "values": [
+          "active",
+          "past",
+          "pending"
+        ],
         "default": "active"
+      },
+      "color": {
+        "type": "enum",
+        "values": [
+          "transparent",
+          "neutral",
+          "red",
+          "orange",
+          "yellow",
+          "emerald",
+          "green",
+          "sky",
+          "cyan",
+          "blue",
+          "indigo",
+          "purple",
+          "fuchsia",
+          "magenta",
+          "inverse"
+        ]
+      },
+      "title": {
+        "type": "string",
+        "default": "Title"
       }
     },
     "defaults": {
-      "title": "Title",
       "type": "travel",
-      "status": "active"
+      "status": "active",
+      "title": "Title"
     },
     "states": [],
     "tokensUsed": [],
@@ -2301,6 +2411,66 @@ export const COMPONENT_API = {
     },
     "antiPatterns": []
   },
+  "SelectableCard": {
+    "name": "SelectableCard",
+    "source": "src/design-system/components/SelectableCard/SelectableCard.spec.ts",
+    "tier": 2,
+    "purpose": "Selectable surface for list rows and card-like actionable metadata items.",
+    "props": {
+      "selected": {
+        "type": "boolean",
+        "default": false
+      },
+      "disabled": {
+        "type": "boolean",
+        "default": false
+      }
+    },
+    "defaults": {
+      "selected": false,
+      "disabled": false
+    },
+    "states": [
+      "default",
+      "hover",
+      "focus",
+      "selected",
+      "disabled"
+    ],
+    "tokensUsed": [
+      "--uds-surface-primary",
+      "--uds-surface-secondary",
+      "--uds-surface-tertiary",
+      "--uds-border-width-1",
+      "--uds-border-primary",
+      "--uds-border-secondary",
+      "--uds-radius-8",
+      "--uds-spacing-4",
+      "--uds-spacing-8",
+      "--uds-spacing-12",
+      "--uds-spacing-16"
+    ],
+    "accessibility": {
+      "role": "button",
+      "keyboard": [
+        "Enter",
+        "Space"
+      ]
+    },
+    "composition": {
+      "allowedChildren": [],
+      "allowedParents": [],
+      "disallowedChildren": []
+    },
+    "aliases": {
+      "props": {}
+    },
+    "ambiguity": {
+      "propNameCollisions": [],
+      "hadAliasNormalization": false
+    },
+    "antiPatterns": []
+  },
   "Slider": {
     "name": "Slider",
     "source": "src/design-system/components/Slider/Slider.spec.ts",
@@ -2939,10 +3109,30 @@ export const COMPONENT_API = {
           "info"
         ],
         "default": "info"
+      },
+      "actions": {
+        "type": "enum",
+        "values": [
+          "none",
+          "close",
+          "subtle",
+          "buttons"
+        ],
+        "default": "none"
+      },
+      "size": {
+        "type": "enum",
+        "values": [
+          "default",
+          "condensed"
+        ],
+        "default": "default"
       }
     },
     "defaults": {
-      "variant": "info"
+      "variant": "info",
+      "actions": "none",
+      "size": "default"
     },
     "states": [],
     "tokensUsed": [],

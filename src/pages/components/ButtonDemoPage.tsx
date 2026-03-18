@@ -1,7 +1,7 @@
 import { Button } from "../../design-system/components/Button";
 import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Text } from "../../design-system/components/Text";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
@@ -85,6 +85,14 @@ const LAYOUTS_SNIPPET = `<Button size="default" layout="label-only" label="Label
 <Button size="default" layout="icon-only" icon="Trash" label="Delete" aria-label="Delete item" />
 <Button size="default" layout="only" icon="DotsThree" label="More actions" aria-label="More actions" />`;
 
+const ICON_RIGHT_VARIANTS_SNIPPET = `<Button appearance="primary" layout="icon-right" icon="ArrowRight" label="Primary" />
+<Button appearance="soft" layout="icon-right" icon="ArrowRight" label="Soft" />
+<Button appearance="outline" layout="icon-right" icon="ArrowRight" label="Outline" />
+<Button appearance="text" layout="icon-right" icon="ArrowRight" label="Text" />
+<Button appearance="ghost" layout="icon-right" icon="ArrowRight" label="Ghost" />
+<Button appearance="destructive" layout="icon-right" icon="ArrowRight" label="Destructive" />
+<Button appearance="disabled" layout="icon-right" icon="ArrowRight" label="Disabled" />`;
+
 const INTERACTION_SNIPPET = `<Button label="Disabled prop" disabled />
 <Button label="Tracking Event" tracking="button-demo-click" />
 <Button
@@ -103,12 +111,12 @@ export function ButtonDemoPage() {
             title="Button"
             description="Buttons trigger primary and secondary actions. Use appearance to communicate emphasis and intent."
         >
-            <Flex direction="column" gap="48">
-                <Flex direction="column" gap="12">
+            <Layout direction="column" gap="48">
+                <Layout direction="column" gap="12">
                     <Text as="h2" variant="heading-24" weight="medium" leading="regular">
                         Variants
                     </Text>
-                    <Flex alignItems="center" gap="12" wrap>
+                    <Layout alignItems="center" gap="12" wrap>
                         <Button appearance="primary" label="Primary" />
                         <Button appearance="soft" label="Soft" />
                         <Button appearance="outline" label="Outline" />
@@ -116,21 +124,21 @@ export function ButtonDemoPage() {
                         <Button appearance="ghost" label="Ghost" />
                         <Button appearance="destructive" label="Destructive" />
                         <Button appearance="disabled" label="Disabled" />
-                    </Flex>
+                    </Layout>
                     <Code language="tsx" code={VARIANTS_SNIPPET} />
-                </Flex>
+                </Layout>
                 <Divider variant="solid" />
 
-                <Flex direction="column" gap="16">
+                <Layout direction="column" gap="16">
                     <Text as="h2" variant="heading-24" weight="medium" leading="regular">
                         Layout Variants by Size
                     </Text>
                     {BUTTON_SIZES.map((size) => (
-                        <Flex key={size} direction="column" gap="8">
+                        <Layout key={size} direction="column" gap="8">
                             <Text as="h3" variant="body-16" weight="semibold" leading="regular">
                                 {size}
                             </Text>
-                            <Flex alignItems="center" gap="12" wrap>
+                            <Layout alignItems="center" gap="12" wrap>
                                 {BUTTON_LAYOUT_EXAMPLES.map((example) => (
                                     <Button
                                         key={`${size}-${example.layout}`}
@@ -141,39 +149,56 @@ export function ButtonDemoPage() {
                                         aria-label={example.ariaLabel}
                                     />
                                 ))}
-                            </Flex>
-                        </Flex>
+                            </Layout>
+                        </Layout>
                     ))}
                     <Code language="tsx" code={LAYOUTS_SNIPPET} />
-                </Flex>
+                </Layout>
                 <Divider variant="solid" />
 
-                <Flex direction="column" gap="12">
+                <Layout direction="column" gap="12">
+                    <Text as="h2" variant="heading-24" weight="medium" leading="regular">
+                        Icon Right by Variant
+                    </Text>
+                    <Layout alignItems="center" gap="12" wrap>
+                        <Button appearance="primary" layout="icon-right" icon="ArrowRight" label="Primary" />
+                        <Button appearance="soft" layout="icon-right" icon="ArrowRight" label="Soft" />
+                        <Button appearance="outline" layout="icon-right" icon="ArrowRight" label="Outline" />
+                        <Button appearance="text" layout="icon-right" icon="ArrowRight" label="Text" />
+                        <Button appearance="ghost" layout="icon-right" icon="ArrowRight" label="Ghost" />
+                        <Button appearance="destructive" layout="icon-right" icon="ArrowRight" label="Destructive" />
+                        <Button appearance="disabled" layout="icon-right" icon="ArrowRight" label="Disabled" />
+                    </Layout>
+                    <Code language="tsx" code={ICON_RIGHT_VARIANTS_SNIPPET} />
+                </Layout>
+                <Divider variant="solid" />
+
+                <Layout direction="column" gap="12">
                     <Text as="h2" variant="heading-24" weight="medium" leading="regular">
                         Interaction States
                     </Text>
-                    <Flex alignItems="center" gap="12" wrap>
+                    <Layout alignItems="center" gap="12" wrap>
                         <Button label="Disabled prop" disabled />
                         <Button label="Tracking Event" tracking="button-demo-click" />
                         <Button label="Tracking Payload" tracking={{ event: "demo_click", section: "button" }} />
-                    </Flex>
+                    </Layout>
                     <Code language="tsx" code={INTERACTION_SNIPPET} />
-                </Flex>
+                </Layout>
                 <Divider variant="solid" />
 
-                <Flex direction="column" gap="12">
+                <Layout direction="column" gap="12">
                     <Text as="h2" variant="heading-24" weight="medium" leading="regular">
                         Loading State
                     </Text>
-                    <Flex alignItems="center" gap="12" wrap>
+                    <Layout alignItems="center" gap="12" wrap>
                         <Button label="Saving" loading />
                         <Button label="Submitting" appearance="soft" loading />
                         <Button label="Deleting" appearance="destructive" loading />
                         <Button layout="icon-left" icon="DownloadSimple" label="Downloading" loading />
-                    </Flex>
+                    </Layout>
                     <Code language="tsx" code={LOADING_SNIPPET} />
-                </Flex>
-            </Flex>
+                </Layout>
+            </Layout>
             <Divider variant="solid" />
             <ComponentPropsTable rows={BUTTON_PROPS} />
         </DocPageLayout>

@@ -2,13 +2,22 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 .uds-event-card {
   all: unset;
-  box-sizing: border-box;
-  display: flex;
+  --uds-event-card-active-bg: var(--uds-color-primary-500);
+  --uds-event-card-active-fg: var(--uds-text-inverse);
+  --uds-event-card-past-bg: var(--uds-color-neutrals-100);
+  --uds-event-card-past-fg: var(--uds-text-primary);
+  --uds-event-card-pending-bg: var(--uds-color-accent-cyan-50);
+  --uds-event-card-pending-border: var(--uds-color-accent-cyan-200);
+  --uds-event-card-pending-fg: var(--uds-text-primary);
+  --uds-event-card-pending-stripe: var(--uds-color-accent-cyan-200);
+
   align-items: center;
-  justify-content: center;
-  padding: var(--uds-spacing-2) var(--uds-spacing-4);
+  box-sizing: border-box;
   cursor: default;
+  display: flex;
+  justify-content: center;
   min-width: 0;
+  padding: var(--uds-spacing-2) var(--uds-spacing-4);
 
   // ── Clickable ───────────────────────────────────────────────────
   &--clickable {
@@ -19,9 +28,9 @@
     }
 
     &:focus-visible {
+      border-radius: var(--uds-radius-4);
       outline: 2px solid var(--uds-border-focus);
       outline-offset: 0;
-      border-radius: var(--uds-radius-4);
     }
   }
 
@@ -41,45 +50,45 @@
 
   // ── Container ─────────────────────────────────────────────────
   &__container {
+    align-items: center;
+    border-radius: var(--uds-radius-4);
     display: flex;
     flex: 1 0 0;
-    align-items: center;
+    gap: var(--uds-spacing-8);
     min-height: 1px;
     min-width: 1px;
-    padding: var(--uds-spacing-4) var(--uds-spacing-8);
-    border-radius: var(--uds-radius-4);
-    gap: var(--uds-spacing-8);
-    position: relative;
     overflow: hidden;
+    padding: var(--uds-spacing-4) var(--uds-spacing-8);
+    position: relative;
     transition: filter var(--uds-animation-duration-150) var(--uds-animation-ease-standard);
   }
 
   // Container cap radius overrides
   &--no-end-cap &__container {
-    border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
   }
 
   &--no-start-cap &__container {
-    border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
   }
 
   // Bar-only mode (no content, no startCap, no icon/badge)
   &--bar-only &__container {
+    gap: 0;
     height: 20px;
     padding: 0;
-    gap: 0;
   }
 
   // ── Content ───────────────────────────────────────────────────
   &__content {
+    align-items: center;
     display: flex;
     flex: 1 0 0;
-    align-items: center;
+    gap: var(--uds-spacing-8);
     min-height: 1px;
     min-width: 1px;
-    gap: var(--uds-spacing-8);
     position: relative;
     z-index: 1;
   }
@@ -87,25 +96,25 @@
   &__title {
     @include uds-body-12-medium;
     color: inherit;
-    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-width: 0;
-    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   &__icon {
+    color: inherit;
     flex-shrink: 0;
     position: relative;
     z-index: 1;
-    color: inherit;
   }
 
   // ── Pending Stripe Pattern ────────────────────────────────────
   &__pattern {
-    position: absolute;
     inset: 0;
     pointer-events: none;
+    position: absolute;
     background: repeating-linear-gradient(
       -45deg,
       transparent,
@@ -116,67 +125,225 @@
   }
 
   // ════════════════════════════════════════════════════════════════
-  // TYPE × STATUS Color Matrix
+  // Status surfaces (driven by type/color variables)
   // ════════════════════════════════════════════════════════════════
+  &--active .uds-event-card__container {
+    background-color: var(--uds-event-card-active-bg);
+    color: var(--uds-event-card-active-fg);
+  }
 
-  // ── Travel ──────────────────────────────────────────────────────
+  &--past .uds-event-card__container {
+    background-color: var(--uds-event-card-past-bg);
+    color: var(--uds-event-card-past-fg);
+  }
+
+  &--pending .uds-event-card__container {
+    --_stripe-color: var(--uds-event-card-pending-stripe);
+    background-color: var(--uds-event-card-pending-bg);
+    border-left: 4px solid var(--uds-event-card-pending-border);
+    color: var(--uds-event-card-pending-fg);
+  }
+
+  // ── Legacy type presets (backward compatibility) ────────────────
   &--travel {
-    &.uds-event-card--active .uds-event-card__container {
-      background-color: var(--uds-color-primary-500);
-      color: var(--uds-text-inverse);
-    }
-
-    &.uds-event-card--past .uds-event-card__container {
-      background-color: var(--uds-color-neutrals-100);
-      color: var(--uds-text-primary);
-    }
-
-    &.uds-event-card--pending .uds-event-card__container {
-      background-color: var(--uds-color-accent-cyan-50);
-      border-left: 4px solid var(--uds-color-accent-cyan-200);
-      color: var(--uds-text-primary);
-      --_stripe-color: var(--uds-color-accent-cyan-200);
-    }
+    --uds-event-card-active-bg: var(--uds-color-primary-500);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-neutrals-100);
+    --uds-event-card-past-fg: var(--uds-text-primary);
+    --uds-event-card-pending-bg: var(--uds-color-accent-cyan-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-cyan-200);
+    --uds-event-card-pending-fg: var(--uds-text-primary);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-cyan-200);
   }
 
-  // ── Assignment ─────────────────────────────────────────────────
+  // ── Assignment ───────────────────────────────────────────────────
   &--assignment {
-    &.uds-event-card--active .uds-event-card__container {
-      background-color: var(--uds-color-secondary-500);
-      color: var(--uds-text-inverse);
-    }
-
-    &.uds-event-card--past .uds-event-card__container {
-      background-color: var(--uds-color-neutrals-100);
-      color: var(--uds-text-primary);
-    }
-
-    &.uds-event-card--pending .uds-event-card__container {
-      background-color: var(--uds-color-accent-aqua-50);
-      border-left: 4px solid var(--uds-color-accent-aqua-200);
-      color: var(--uds-text-primary);
-      --_stripe-color: var(--uds-color-accent-aqua-200);
-    }
+    --uds-event-card-active-bg: var(--uds-color-secondary-500);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-neutrals-100);
+    --uds-event-card-past-fg: var(--uds-text-primary);
+    --uds-event-card-pending-bg: var(--uds-color-accent-aqua-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-aqua-200);
+    --uds-event-card-pending-fg: var(--uds-text-primary);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-aqua-200);
   }
 
-  // ── Unassigned ─────────────────────────────────────────────────
+  // ── Unassigned ───────────────────────────────────────────────────
   &--unassigned {
-    &.uds-event-card--active .uds-event-card__container {
-      background-color: var(--uds-color-neutrals-500);
-      color: var(--uds-text-inverse);
-    }
+    --uds-event-card-active-bg: var(--uds-color-neutrals-500);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-neutrals-100);
+    --uds-event-card-past-fg: var(--uds-text-primary);
+    --uds-event-card-pending-bg: var(--uds-color-neutrals-50);
+    --uds-event-card-pending-border: var(--uds-color-neutrals-500);
+    --uds-event-card-pending-fg: var(--uds-text-primary);
+    --uds-event-card-pending-stripe: var(--uds-color-neutrals-200);
+  }
 
-    &.uds-event-card--past .uds-event-card__container {
-      background-color: var(--uds-color-neutrals-100);
-      color: var(--uds-text-primary);
-    }
+  // ── Palette overrides (matches Tag color options) ────────────────
+  &--color-transparent {
+    --uds-event-card-active-bg: var(--uds-surface-secondary);
+    --uds-event-card-active-fg: var(--uds-text-primary);
+    --uds-event-card-past-bg: var(--uds-surface-secondary);
+    --uds-event-card-past-fg: var(--uds-text-primary);
+    --uds-event-card-pending-bg: var(--uds-surface-secondary);
+    --uds-event-card-pending-border: var(--uds-border-primary);
+    --uds-event-card-pending-fg: var(--uds-text-primary);
+    --uds-event-card-pending-stripe: var(--uds-border-primary);
+  }
 
-    &.uds-event-card--pending .uds-event-card__container {
-      background-color: var(--uds-color-neutrals-50);
-      border-left: 4px solid var(--uds-color-neutrals-500);
-      color: var(--uds-text-primary);
-      --_stripe-color: var(--uds-color-neutrals-200);
-    }
+  &--color-neutral {
+    --uds-event-card-active-bg: var(--uds-color-neutrals-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-neutrals-100);
+    --uds-event-card-past-fg: var(--uds-text-primary);
+    --uds-event-card-pending-bg: var(--uds-color-neutrals-50);
+    --uds-event-card-pending-border: var(--uds-color-neutrals-300);
+    --uds-event-card-pending-fg: var(--uds-text-primary);
+    --uds-event-card-pending-stripe: var(--uds-color-neutrals-300);
+  }
+
+  &--color-red {
+    --uds-event-card-active-bg: var(--uds-color-accent-red-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-red-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-red-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-red-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-red-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-red-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-red-200);
+  }
+
+  &--color-orange {
+    --uds-event-card-active-bg: var(--uds-color-accent-orange-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-orange-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-orange-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-orange-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-orange-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-orange-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-orange-200);
+  }
+
+  &--color-yellow {
+    --uds-event-card-active-bg: var(--uds-color-accent-yellow-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-yellow-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-yellow-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-yellow-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-yellow-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-yellow-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-yellow-200);
+  }
+
+  &--color-emerald {
+    --uds-event-card-active-bg: var(--uds-color-accent-emerald-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-emerald-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-emerald-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-emerald-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-emerald-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-emerald-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-emerald-200);
+  }
+
+  &--color-green {
+    --uds-event-card-active-bg: var(--uds-color-accent-green-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-green-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-green-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-green-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-green-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-green-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-green-200);
+  }
+
+  &--color-sky {
+    --uds-event-card-active-bg: var(--uds-color-accent-sky-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-sky-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-sky-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-sky-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-sky-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-sky-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-sky-200);
+  }
+
+  &--color-cyan {
+    --uds-event-card-active-bg: var(--uds-color-accent-cyan-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-cyan-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-cyan-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-cyan-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-cyan-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-cyan-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-cyan-200);
+  }
+
+  &--color-blue {
+    --uds-event-card-active-bg: var(--uds-color-accent-blue-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-blue-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-blue-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-blue-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-blue-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-blue-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-blue-200);
+  }
+
+  &--color-indigo {
+    --uds-event-card-active-bg: var(--uds-color-accent-indigo-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-indigo-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-indigo-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-indigo-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-indigo-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-indigo-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-indigo-200);
+  }
+
+  &--color-purple {
+    --uds-event-card-active-bg: var(--uds-color-accent-purple-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-purple-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-purple-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-purple-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-purple-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-purple-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-purple-200);
+  }
+
+  &--color-fuchsia {
+    --uds-event-card-active-bg: var(--uds-color-accent-fuchsia-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-fuchsia-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-fuchsia-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-fuchsia-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-fuchsia-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-fuchsia-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-fuchsia-200);
+  }
+
+  &--color-magenta {
+    --uds-event-card-active-bg: var(--uds-color-accent-magenta-600);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-color-accent-magenta-100);
+    --uds-event-card-past-fg: var(--uds-color-accent-magenta-700);
+    --uds-event-card-pending-bg: var(--uds-color-accent-magenta-50);
+    --uds-event-card-pending-border: var(--uds-color-accent-magenta-200);
+    --uds-event-card-pending-fg: var(--uds-color-accent-magenta-700);
+    --uds-event-card-pending-stripe: var(--uds-color-accent-magenta-200);
+  }
+
+  &--color-inverse {
+    --uds-event-card-active-bg: var(--uds-surface-inverse);
+    --uds-event-card-active-fg: var(--uds-text-inverse);
+    --uds-event-card-past-bg: var(--uds-surface-tertiary);
+    --uds-event-card-past-fg: var(--uds-text-primary);
+    --uds-event-card-pending-bg: var(--uds-surface-inverse);
+    --uds-event-card-pending-border: var(--uds-border-inverse);
+    --uds-event-card-pending-fg: var(--uds-text-inverse);
+    --uds-event-card-pending-stripe: var(--uds-border-inverse);
   }
 
   // ── Pending: Remove left border when no startCap ──────────────

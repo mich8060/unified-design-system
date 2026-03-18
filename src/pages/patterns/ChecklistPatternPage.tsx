@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Checklist, type ChecklistItem, Divider, Flex, Text } from "../../design-system";
+import { Checklist, type ChecklistItem, Divider, Layout, Text } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 
 const BASE_STEPS: ChecklistItem[] = [
@@ -44,7 +44,7 @@ export function ChecklistPatternPage() {
       title="Checklist"
       description="Checklist pattern for application-style sidebar progress. Selecting a step marks it complete."
     >
-      <Flex alignItems="flex-start" gap="24" wrap>
+      <Layout alignItems="flex-start" gap="24" wrap>
         <Checklist
           title="Application"
           items={items}
@@ -52,7 +52,7 @@ export function ChecklistPatternPage() {
           onItemSelect={handleSelectStep}
         />
 
-        <Flex
+        <Layout
           direction="column"
           gap="12"
           style={{
@@ -70,8 +70,8 @@ export function ChecklistPatternPage() {
           <Text as="p" variant="body-16" leading="regular">
             Use this area for the content associated with the selected checklist step.
           </Text>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <Text as="p" variant="body-14" leading="regular">

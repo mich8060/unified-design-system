@@ -29,12 +29,12 @@ const staticPage = (
 export const STATIC_PAGES: readonly StaticPageDefinition[] = [
   staticPage("/getting-started", "Overview", "getting-started", "docs", "GettingStartedPage", "GettingStartedPage"),
   staticPage(
-    "/docs/layout-conventions",
-    "Layout Conventions",
+    "/getting-started/installation",
+    "Installation",
     "getting-started",
     "docs",
-    "LayoutConventionsPage",
-    "LayoutConventionsPage"
+    "InstallationPage",
+    "InstallationPage"
   ),
   staticPage(
     "/docs/components-overview",
@@ -44,41 +44,23 @@ export const STATIC_PAGES: readonly StaticPageDefinition[] = [
     "ComponentsOverviewPage",
     "ComponentsOverviewPage"
   ),
-  staticPage("/docs/theming", "Theming", "getting-started", "docs", "ThemingPage", "ThemingPage"),
   staticPage("/sample-item", "Sample Item", "getting-started", "docs", "SampleItemPage", "SampleItemPage"),
-  staticPage(
-    "/template-canvas",
-    "Template Canvas",
-    "getting-started",
-    "docs",
-    "TemplateCanvasPage",
-    "TemplateCanvasPage",
-    true
-  ),
   staticPage("/docs/tokens", "Design Tokens", "foundations", "docs", "DesignTokensPage", "DesignTokensPage"),
   staticPage(
+    "/foundations/typography",
+    "Typography",
+    "foundations",
+    "docs",
+    "TypographyPage",
+    "TypographyPage"
+  ),
+  staticPage(
     "/foundations/colors-primitives",
-    "Colors & Primitives",
+    "Colors",
     "foundations",
     "docs",
     "FoundationsPage",
     "FoundationsPage"
-  ),
-  staticPage(
-    "/foundations/primitive-css-variables",
-    "Primitive CSS Variables",
-    "foundations",
-    "docs",
-    "PrimitiveCssVariablesPage",
-    "PrimitiveCssVariablesPage"
-  ),
-  staticPage(
-    "/foundations/semantic-css-variables",
-    "Semantic CSS Variables",
-    "foundations",
-    "docs",
-    "SemanticCssVariablesPage",
-    "SemanticCssVariablesPage"
   ),
   staticPage("/patterns/checklist", "Checklist", "patterns", "patterns", "ChecklistPatternPage", "ChecklistPatternPage"),
   staticPage(

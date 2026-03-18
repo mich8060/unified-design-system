@@ -1,25 +1,26 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
 .uds-dot-status {
-  display: inline-block;
+  all: unset;
   border-radius: 50%;
+  display: inline-block;
   flex-shrink: 0;
   vertical-align: middle;
 
   // Size variants
   &--small {
-    width: 8px;
     height: 8px;
+    width: 8px;
   }
 
   &--medium {
-    width: 12px;
     height: 12px;
+    width: 12px;
   }
 
   &--large {
-    width: 16px;
     height: 16px;
+    width: 16px;
   }
 
   // Variant colors

@@ -1,3 +1,4 @@
+import { Layout } from "../Layout";
 import "./_toolbar.scss";
 import type { ToolbarProps } from "./Toolbar.types";
 
@@ -12,9 +13,13 @@ export function Toolbar({
 
   return (
     <div className={classNames} role="toolbar" {...rest}>
-      <div className="uds-toolbar__left">{left}</div>
+      <Layout className="uds-toolbar__left" alignItems="center" gap="8">
+        {left}
+      </Layout>
       <div className="uds-toolbar__center">{center}</div>
-      <div className="uds-toolbar__right">{right}</div>
+      <Layout className="uds-toolbar__right" alignItems="center" gap="8">
+        {right}
+      </Layout>
     </div>
   );
 }

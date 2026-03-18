@@ -54,6 +54,11 @@ function Modal({
     size = "default",
     closeOnBackdrop = true,
     closeOnEscape = true,
+    dismissible = false,
+    headerActions,
+    headerAlign = "start",
+    footerAlign = "space-between",
+    bodyPadding = "none",
     container,
     className = "",
     children,
@@ -61,12 +66,21 @@ function Modal({
 }: ModalProps) {
     const dialogRef = useRef<HTMLDivElement | null>(null);
     const previousActiveElement = useRef<HTMLElement | null>(null);
-    const resolvedHeader = toReactNode(header);
     const resolvedTitle = toReactNode(title);
     const resolvedSubtitle = toReactNode(subtitle);
     const resolvedBadge = toReactNode(badge);
+    const resolvedHeader =
+        toReactNode(header) ??
+        (resolvedTitle || resolvedSubtitle || resolvedBadge ? (
+            <>
+                {resolvedTitle}
+                {resolvedSubtitle}
+                {resolvedBadge}
+            </>
+        ) : null);
     const resolvedFooter = toReactNode(footer);
     const resolvedChildren = toReactNode(children);
+    const resolvedHeaderActions = toReactNode(headerActions);
     const dialogProps = props as React.HTMLAttributes<HTMLDivElement>;
 
     // Lock body scroll and trap focus when open
@@ -125,6 +139,25 @@ function Modal({
         .filter(Boolean)
         .join(" ");
 
+    const headerClasses = [
+        `${BASE_CLASS}__header`,
+        `${BASE_CLASS}__header--align-${headerAlign}`,
+    ]
+        .filter(Boolean)
+        .join(" ");
+    const bodyClasses = [
+        `${BASE_CLASS}__body`,
+        `${BASE_CLASS}__body--padding-${bodyPadding}`,
+    ]
+        .filter(Boolean)
+        .join(" ");
+    const footerClasses = [
+        `${BASE_CLASS}__footer`,
+        `${BASE_CLASS}__footer--align-${footerAlign}`,
+    ]
+        .filter(Boolean)
+        .join(" ");
+
     const overlayClasses = [
         `${BASE_CLASS}__overlay`,
         size === "fullscreen" && `${BASE_CLASS}__overlay--fullscreen`,
@@ -143,52 +176,34 @@ function Modal({
                 className={dialogClasses}
                 role="dialog"
                 aria-modal="true"
-                aria-labelledby={resolvedTitle ? `${BASE_CLASS}-title` : undefined}
-                aria-describedby={resolvedSubtitle ? `${BASE_CLASS}-subtitle` : undefined}
                 tabIndex={-1}
                 onKeyDown={handleKeyDown}
                 {...dialogProps}
             >
-                {/* Header */}
-                <div className={`${BASE_CLASS}__header`}>
-                    {resolvedHeader || (
-                        <div className={`${BASE_CLASS}__header-content`}>
-                            <div className={`${BASE_CLASS}__header-info`}>
-                                <div className={`${BASE_CLASS}__header-title-row`}>
-                                    <div className={`${BASE_CLASS}__title-meta`}>
-                                        {resolvedTitle && (
-                                            <h2 id={`${BASE_CLASS}-title`} className={`${BASE_CLASS}__title`}>
-                                                {resolvedTitle}
-                                            </h2>
-                                        )}
-                                        {resolvedBadge && (
-                                            <span className={`${BASE_CLASS}__badge`}>{resolvedBadge}</span>
-                                        )}
-                                    </div>
-                                    <Button
-                                        appearance="text"
-                                        layout="icon-only"
-                                        size="default"
-                                        icon="X"
-                                        label="Close modal"
-                                        onClick={() => onClose?.()}
-                                    />
-                                </div>
-                                {resolvedSubtitle && (
-                                    <p id={`${BASE_CLASS}-subtitle`} className={`${BASE_CLASS}__subtitle`}>
-                                        {resolvedSubtitle}
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                    )}
-                </div>
+                {resolvedHeader || dismissible || resolvedHeaderActions ? (
+                    <div className={headerClasses}>
+                        {resolvedHeader ? <div className={`${BASE_CLASS}__header-content`}>{resolvedHeader}</div> : null}
+                        {resolvedHeaderActions ? (
+                            <div className={`${BASE_CLASS}__header-actions`}>{resolvedHeaderActions}</div>
+                        ) : null}
+                        {dismissible ? (
+                            <Button
+                                appearance="text"
+                                layout="icon-only"
+                                size="default"
+                                icon="X"
+                                label="Close modal"
+                                onClick={() => onClose?.()}
+                            />
+                        ) : null}
+                    </div>
+                ) : null}
 
                 {/* Body */}
-                <div className={`${BASE_CLASS}__body`}>{resolvedChildren}</div>
+                <div className={bodyClasses}>{resolvedChildren}</div>
 
                 {/* Footer */}
-                {resolvedFooter && <div className={`${BASE_CLASS}__footer`}>{resolvedFooter}</div>}
+                {resolvedFooter && <div className={footerClasses}>{resolvedFooter}</div>}
             </div>
         </div>
     );

@@ -3,17 +3,17 @@
 
 .uds-number-input {
   all: unset;
-  display: flex;
   align-items: center;
-  gap: var(--uds-spacing-4);
-  width: 100%;
-  height: 44px;
-  padding: 0;
-  box-sizing: border-box;
+  background-color: var(--uds-input-surface);
   border: var(--uds-border-width-1) solid var(--uds-input-border);
   border-radius: var(--uds-radius-4);
-  background-color: var(--uds-input-surface);
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--uds-spacing-4);
+  height: 44px;
   overflow: clip;
+  padding: 0;
+  width: 100%;
   transition:
     border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
     box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
@@ -43,16 +43,16 @@
   }
 
   &__step {
-    all: unset;
-    display: inline-flex;
     align-items: center;
-    justify-content: center;
     align-self: stretch;
-    padding: 0 var(--uds-spacing-12);
+    all: unset;
+    box-sizing: border-box;
     color: var(--uds-icon-primary);
     cursor: pointer;
+    display: inline-flex;
     flex-shrink: 0;
-    box-sizing: border-box;
+    justify-content: center;
+    padding: 0 var(--uds-spacing-12);
     transition:
       color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
       background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
@@ -73,12 +73,12 @@
   &__input {
     all: unset;
     @include uds-body-16;
+    box-sizing: border-box;
+    color: var(--uds-icon-primary);
     flex: 1 1 auto;
     min-width: 0;
     padding: 0 var(--uds-spacing-4);
-    color: var(--uds-icon-primary);
     text-align: center;
-    box-sizing: border-box;
 
     &::placeholder {
       color: var(--uds-text-placeholder);
@@ -106,23 +106,23 @@
 
   &--focused {
     border-color: var(--uds-system-action-primary);
+    box-shadow: none;
     outline: 3px solid var(--uds-system-action-tertiary);
     outline-offset: 0;
-    box-shadow: none;
   }
 
   &:focus-within:not(.uds-number-input--disabled):not(.uds-number-input--error) {
     border-color: var(--uds-system-action-primary);
+    box-shadow: none;
     outline: 3px solid var(--uds-system-action-tertiary);
     outline-offset: 0;
-    box-shadow: none;
   }
 
   &--error {
     border-color: var(--uds-system-destructive-primary);
+    box-shadow: none;
     outline: 3px solid var(--uds-system-destructive-tertiary);
     outline-offset: 0;
-    box-shadow: none;
 
     .uds-number-input__input,
     .uds-number-input__input::placeholder,

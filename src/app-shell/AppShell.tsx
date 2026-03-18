@@ -57,6 +57,14 @@ export interface AppShellSectionProps {
     width?: number | string;
     /** Optional maximum width for rail regions like AppShell.SidePanel (e.g. 480 or "32rem"). */
     maxWidth?: number | string;
+    /** Optional surface token for AppShell.Main. */
+    surface?: "primary" | "secondary";
+    /** Optional visual variant for AppShell.SidePanel. */
+    variant?: "default" | "document-details";
+}
+
+export interface AppShellSidePanelSectionProps extends React.HTMLAttributes<HTMLElement> {
+    children?: React.ReactNode;
 }
 
 type AppShellSlotName = "Menu" | "Content" | "Listview" | "Main" | "SidePanel" | "Footer";
@@ -82,6 +90,14 @@ const AppShellListviewSlot = createAppShellSlot("Listview");
 const AppShellMainSlot = createAppShellSlot("Main");
 const AppShellSidePanelSlot = createAppShellSlot("SidePanel");
 const AppShellFooterSlot = createAppShellSlot("Footer");
+const AppShellSidePanelSection = ({ children, className = "", ...rest }: AppShellSidePanelSectionProps) => {
+    const sectionClassName = ["app-shell__side-panel-section", className].filter(Boolean).join(" ");
+    return (
+        <section className={sectionClassName} {...rest}>
+            {children}
+        </section>
+    );
+};
 
 const hasRenderableContent = (node: React.ReactNode): boolean =>
     React.Children.toArray(node).some((child) => {
@@ -145,6 +161,8 @@ function AppShellComponent({
     let customFooter: React.ReactNode = null;
     let sidePanelWidth: number | string | undefined;
     let sidePanelMaxWidth: number | string | undefined;
+    let mainSurface: "primary" | "secondary" = "secondary";
+    let sidePanelVariant: "default" | "document-details" = "default";
 
     const topLevelChildren = React.Children.toArray(children) as React.ReactElement<AppShellSectionProps>[];
     for (const child of topLevelChildren) {
@@ -171,12 +189,14 @@ function AppShellComponent({
         }
         if (child.type === AppShellMainSlot || slotName === "Main") {
             customMain = child.props.children;
+            mainSurface = child.props.surface ?? "secondary";
             continue;
         }
         if (child.type === AppShellSidePanelSlot || slotName === "SidePanel") {
             customSidePanel = child.props.children;
             sidePanelWidth = child.props.width;
             sidePanelMaxWidth = child.props.maxWidth;
+            sidePanelVariant = child.props.variant ?? "default";
         }
     }
     const resolvedSidePanelWidth = typeof sidePanelWidth === "number" ? `${sidePanelWidth}px` : sidePanelWidth;
@@ -265,11 +285,11 @@ function AppShellComponent({
                         {hasListview ? (
                             <aside className="app-shell__listview">{customListview}</aside>
                         ) : null}
-                        <section className="app-shell__main-content">
+                        <section className={`app-shell__main-content app-shell__main-content--surface-${mainSurface}`}>
                             {customMain}
                         </section>
                         {hasSidePanel ? (
-                            <aside className="app-shell__side-panel" style={sidePanelStyle}>{customSidePanel}</aside>
+                            <aside className={`app-shell__side-panel app-shell__side-panel--${sidePanelVariant}`} style={sidePanelStyle}>{customSidePanel}</aside>
                         ) : null}
                     </main>
                     {config.footer && hasRenderableContent(resolvedFooter) ? resolvedFooter : null}
@@ -293,6 +313,7 @@ type AppShellCompound = React.FC<AppShellProps> & {
     Listview: typeof AppShellListviewSlot;
     Main: typeof AppShellMainSlot;
     SidePanel: typeof AppShellSidePanelSlot;
+    SidePanelSection: typeof AppShellSidePanelSection;
     Footer: typeof AppShellFooterSlot;
 };
 
@@ -302,4 +323,5 @@ AppShell.Content = AppShellContentSlot;
 AppShell.Listview = AppShellListviewSlot;
 AppShell.Main = AppShellMainSlot;
 AppShell.SidePanel = AppShellSidePanelSlot;
+AppShell.SidePanelSection = AppShellSidePanelSection;
 AppShell.Footer = AppShellFooterSlot;

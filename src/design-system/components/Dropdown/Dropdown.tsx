@@ -43,7 +43,7 @@ function Dropdown({
   size = "default",
   state = "default",
   placement = "bottom-start",
-  searchable = true,
+  searchable = false,
   menuFullWidth = true,
   id,
   className = "",

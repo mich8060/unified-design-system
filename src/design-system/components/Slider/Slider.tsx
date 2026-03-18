@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
+import { Layout } from "../Layout";
 import "./_slider.scss";
 import type { SliderProps } from "./Slider.types";
 
@@ -42,7 +43,7 @@ export default function Slider({
     const currentMin = range ? value[0] : min;
     const currentMax = range ? value[1] : value;
 
-    const sliderId = `slider-${Math.random().toString(36).substr(2, 9)}`;
+    const sliderId = useId();
 
     const getPercentage = (val) => {
         return ((val - min) / (max - min)) * 100;
@@ -155,11 +156,11 @@ export default function Slider({
     return (
         <div className={classNames} {...props}>
             {label && (
-                <div className={`${BASE_CLASS}__header`}>
+                <Layout className={`${BASE_CLASS}__header`} alignItems="center">
                     <label htmlFor={sliderId} className={`${BASE_CLASS}__label`}>
                         {label}
                     </label>
-                </div>
+                </Layout>
             )}
             <div className={`${BASE_CLASS}__container`} ref={sliderRef}>
                 <div className={`${BASE_CLASS}__track`}>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { PhoneInput } from "../../design-system/components/PhoneInput";
 import { Text } from "../../design-system/components/Text";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -25,7 +25,7 @@ export function PhoneInputDemoPage() {
       title="PhoneInput"
       description="PhoneInput filters allowed characters, auto-formats US numbers, and validates on blur."
     >
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Basic Usage
         </Text>
@@ -35,22 +35,22 @@ export function PhoneInputDemoPage() {
           label="Phone number"
           helperText="Enter a 10-digit US phone number."
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Formatting Examples
         </Text>
         <PhoneInput value="123" readOnly />
         <PhoneInput value="1234567" readOnly />
         <PhoneInput value="1234567890" readOnly />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Size and States
         </Text>
@@ -58,7 +58,7 @@ export function PhoneInputDemoPage() {
         <PhoneInput value="(555) 123-4567" readOnly size="compact" />
         <PhoneInput value="(555) 12" readOnly state="error" errorText="Enter a valid 10-digit phone number." />
         <PhoneInput value="(555) 123-4567" readOnly disabled />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={PHONE_INPUT_PROPS} />

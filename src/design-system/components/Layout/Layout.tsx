@@ -60,6 +60,13 @@ function normalizeGap(gap: FlexProps["gap"]): string | number | undefined {
   return gap;
 }
 
+function normalizeSpaceValue(value: FlexProps["gap"]): string | number | undefined {
+  if (value == null) return undefined;
+  const tokenized = normalizeGap(value);
+  if (tokenized == null) return undefined;
+  return tokenized;
+}
+
 function normalizeItemsPerRow(value: unknown): number | undefined {
   if (typeof value !== "number" || !Number.isFinite(value)) return undefined;
   const normalized = Math.floor(value);
@@ -102,6 +109,13 @@ const LayoutBase = React.forwardRef<HTMLElement, FlexProps>(function Layout(
     itemsPerRow,
     wrap = false,
     gap,
+    mt,
+    mb,
+    pl,
+    minWidth,
+    shrink,
+    grow,
+    fullHeight = false,
     fullWidth = false,
     inline = false,
     className,
@@ -150,6 +164,27 @@ const LayoutBase = React.forwardRef<HTMLElement, FlexProps>(function Layout(
   if (fullWidth && style?.width == null) {
     computedStyle.width = "100%";
   }
+  if (fullHeight && style?.height == null) {
+    computedStyle.height = "100%";
+  }
+  if (style?.marginTop == null && mt != null) {
+    computedStyle.marginTop = normalizeSpaceValue(mt);
+  }
+  if (style?.marginBottom == null && mb != null) {
+    computedStyle.marginBottom = normalizeSpaceValue(mb);
+  }
+  if (style?.paddingLeft == null && pl != null) {
+    computedStyle.paddingLeft = normalizeSpaceValue(pl);
+  }
+  if (style?.minWidth == null && minWidth != null) {
+    computedStyle.minWidth = minWidth;
+  }
+  if (style?.flexShrink == null && typeof shrink === "number") {
+    computedStyle.flexShrink = shrink;
+  }
+  if (style?.flexGrow == null && typeof grow === "number") {
+    computedStyle.flexGrow = grow;
+  }
 
   return (
     <Component ref={ref} className={classes} style={{ ...computedStyle, ...style }} {...rest}>
@@ -193,5 +228,5 @@ Layout.Full = FlexFill;
 
 // Backward-compatible alias for existing consumers.
 export const Flex = Layout as unknown as FlexCompound;
-Flex.Fill = FlexFill;
-Flex.Full = FlexFill;
+Layout.Fill = FlexFill;
+Layout.Full = FlexFill;

@@ -7,23 +7,23 @@
     border-right: var(--uds-border-width-1) solid var(--uds-border-primary);
     @include uds-body-16;
     color: var(--uds-text-primary);
-    justify-content: flex-start;
     display: flex;
     flex-direction: column;
     gap: var(--uds-spacing-0);
-    width: 64px;
     height: 100vh;
+    justify-content: flex-start;
+    left: 0;
     overflow: visible;
-    z-index: 1000;
-    transition: width 0.3s ease;
     position: fixed;
     top: 0;
-    left: 0;
+    transition: width 0.3s ease;
+    width: 64px;
+    z-index: 1000;
 
     &.example {
-        position: absolute;
-        inset: 0;
         height: 100%;
+        inset: 0;
+        position: absolute;
     }
 
     &--expanded {
@@ -91,8 +91,8 @@
 
         .uds-menu_brand__symbol {
             opacity: 0;
-            transition: opacity 0.3s ease;
             pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
         .uds-menu_brand__full {
@@ -116,77 +116,77 @@
     }
 
     &_brand {
+        align-items: center;
+        align-self: stretch;
         border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        align-self: stretch;
         height: 64px;
-        position: relative;
+        justify-content: flex-start;
         padding: 0 var(--uds-spacing-10);
+        position: relative;
 
         &__toggle {
-            position: absolute;
             left: var(--uds-spacing-8);
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 4;
             opacity: 0;
             pointer-events: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
             transition: opacity 0.3s ease;
+            z-index: 4;
         }
 
         &__full {
-            opacity: 0;
-            transition: opacity 0.3s ease;
             height: 64px;
-            position: absolute;
             left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
+            opacity: 0;
             pointer-events: none;
+            position: absolute;
+            transform: translateX(-50%);
+            transition: opacity 0.3s ease;
+            z-index: 2;
         }
 
         &__symbol {
-            width: 32px;
             height: 32px;
+            left: 50%;
             opacity: 1;
-            transition: opacity 0.3s ease;
             pointer-events: none;
             position: absolute;
-            left: 50%;
             transform: translateX(-50%);
+            transition: opacity 0.3s ease;
+            width: 32px;
             z-index: 2;
         }
     }
 
     &_nav {
-        display: flex;
-        padding: var(--uds-spacing-24) var(--uds-spacing-0);
-        flex-direction: column;
-        justify-content: flex-start;
         align-items: center;
-        gap: var(--uds-spacing-0);
-        flex: 1 1 0;
         align-self: stretch;
-        overflow-y: auto;
+        display: flex;
+        flex: 1 1 0;
+        flex-direction: column;
+        gap: var(--uds-spacing-0);
+        justify-content: flex-start;
         overflow-x: hidden;
+        overflow-y: auto;
+        padding: var(--uds-spacing-24) var(--uds-spacing-0);
 
 
         &__item {
-            display: flex;
             align-items: center;
-            justify-content: flex-start;
-            gap: var(--uds-spacing-0, 0);
             align-self: stretch;
             border: var(--uds-border-width-1) solid var(--uds-border-transparent);
+            display: flex;
+            gap: var(--uds-spacing-0, 0);
+            justify-content: flex-start;
             position: relative;
 
             &-icon {
                 flex-shrink: 0;
-                width: 24px;
                 height: 24px;
+                width: 24px;
             }
 
             &-label {
@@ -198,12 +198,12 @@
             }
 
             &-link {
+                align-items: center;
                 all: unset;
                 box-sizing: border-box;
                 color: var(--uds-text-primary);
                 cursor: pointer;
                 display: flex;
-                align-items: center;
                 gap: var(--uds-spacing-12);
                 justify-content: flex-start;
                 transition:
@@ -226,8 +226,8 @@
         }
 
         &__item--accordion {
-            flex-direction: column;
             align-items: stretch;
+            flex-direction: column;
 
             .uds-menu_nav__item-link {
                 cursor: pointer;
@@ -235,10 +235,10 @@
         }
 
         &__item--open > .uds-menu_nav__item-link {
+            border-bottom: var(--uds-border-width-1) solid transparent;
             position: sticky;
             top: -24px;
             z-index: 1;
-            border-bottom: var(--uds-border-width-1) solid transparent;
 
             .uds-menu--expanded & {
                 background-color: var(--uds-surface-primary);
@@ -251,14 +251,14 @@
         }
 
         &__item-caret {
+            align-items: center;
+            display: flex;
             flex-shrink: 0;
             margin-left: auto;
-            display: flex;
-            align-items: center;
             opacity: 0;
+            rotate: 0deg;
             transform: translateX(-10px);
             transition: opacity 0.25s ease, transform 0.25s ease 0.05s, rotate 0.2s ease;
-            rotate: 0deg;
 
             &--open {
                 rotate: 180deg;
@@ -280,13 +280,13 @@
             all: unset;
             box-sizing: border-box;
             @include uds-body-14-medium;
+            align-items: center;
+            border-left: var(--uds-border-width-1) solid var(--uds-border-primary);
+            color: var(--uds-text-primary);
             cursor: pointer;
             display: flex;
-            align-items: center;
             padding: var(--uds-spacing-8) var(--uds-spacing-24);
-            color: var(--uds-text-primary);
             white-space: nowrap;
-            border-left: var(--uds-border-width-1) solid var(--uds-border-primary);
             transition:
                 background-color 0.15s ease,
                 color 0.15s ease;
@@ -311,38 +311,46 @@
         &__item--active>.uds-menu_nav__item-link {
             background-color: var(--uds-button-surface-primary-default);
             color: var(--uds-button-text-default);
+
+            .uds-menu_nav__item-icon .uds-icon {
+                color: var(--uds-button-text-default);
+            }
         }
 
         // Keep active brand color for expanded/open accordion parents.
         .uds-menu--expanded &__item.uds-menu_nav__item--open.uds-menu_nav__item--active > &__item-link {
             background-color: var(--uds-button-surface-primary-default);
-            color: var(--uds-button-text-default);
             border-bottom-color: transparent;
+            color: var(--uds-button-text-default);
+
+            .uds-menu_nav__item-icon .uds-icon {
+                color: var(--uds-button-text-default);
+            }
         }
     }
 
     &_search {
-        border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
         align-self: stretch;
-        position: relative;
+        border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
         box-sizing: border-box;
-        padding: var(--uds-spacing-8);
+        display: flex;
+        flex-direction: column;
         height: calc(var(--uds-spacing-8) * 2 + 36px);
+        justify-content: center;
+        padding: var(--uds-spacing-8);
+        position: relative;
 
         &__field {
-            position: absolute;
-            inset: var(--uds-spacing-8);
-            width: auto;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            display: flex;
             align-items: center;
             box-sizing: border-box;
+            display: flex;
+            inset: var(--uds-spacing-8);
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            transition: opacity 0.3s ease;
+            width: auto;
         }
 
         &__input {
@@ -357,54 +365,54 @@
     }
 
     &_footer {
+        align-self: stretch;
         border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
         display: flex;
         flex-direction: column;
         gap: var(--uds-spacing-0);
-        align-self: stretch;
         position: relative;
         z-index: 10;
     }
 
     &_brands {
-        border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: stretch;
         align-self: stretch;
-        position: relative;
+        border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
         box-sizing: border-box;
-        padding: var(--uds-spacing-8);
+        display: flex;
+        flex-direction: column;
         height: calc(var(--uds-spacing-8) * 2 + 36px);
+        justify-content: center;
         overflow: visible;
+        padding: var(--uds-spacing-8);
+        position: relative;
 
         &__button {
+            align-self: center;
             display: inline-flex;
             min-height: 36px;
             opacity: 1;
             transition: opacity 0.3s ease;
-            align-self: center;
         }
 
         &__dropdown {
-            position: absolute;
-            inset: var(--uds-spacing-8);
-            width: auto;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
+            align-items: center;
             box-sizing: border-box;
             display: flex;
-            align-items: center;
+            inset: var(--uds-spacing-8);
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            transition: opacity 0.3s ease;
+            width: auto;
 
             .uds-dropdown-outer,
             .uds-dropdown,
             .uds-action-menu__trigger,
             .uds-dropdown__trigger {
-                width: 100%;
-                max-width: 100%;
                 box-sizing: border-box;
+                max-width: 100%;
+                width: 100%;
             }
 
             .uds-dropdown__trigger {
@@ -413,26 +421,26 @@
 
             .uds-action-menu__menu,
             .uds-dropdown__menu {
-                width: 100%;
+                box-sizing: border-box;
+                left: 0;
                 max-width: 100%;
                 min-width: 0;
-                left: 0;
                 right: auto;
-                box-sizing: border-box;
+                width: 100%;
             }
         }
     }
 
     &_mode {
-        display: flex;
-        padding: var(--uds-spacing-8);
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
         align-self: stretch;
-        position: relative;
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
         height: calc(var(--uds-spacing-8) * 2 + 36px);
+        justify-content: center;
+        padding: var(--uds-spacing-8);
+        position: relative;
 
         &__button {
             display: inline-flex;
@@ -442,18 +450,18 @@
         }
 
         &__controls {
-            display: flex;
             align-items: center;
-            gap: var(--uds-spacing-8);
-            position: absolute;
-            top: 0;
             bottom: 0;
-            left: 8px;
-            right: 8px;
-            padding: 0 var(--uds-spacing-10);
-            opacity: 0;
-            transition: opacity 0.3s ease;
             color: var(--uds-text-primary);
+            display: flex;
+            gap: var(--uds-spacing-8);
+            left: 8px;
+            opacity: 0;
+            padding: 0 var(--uds-spacing-10);
+            position: absolute;
+            right: 8px;
+            top: 0;
+            transition: opacity 0.3s ease;
         }
 
         &__toggle {
@@ -469,14 +477,14 @@
     }
 
     &_account {
-        border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
-        display: flex;
-        padding: var(--uds-spacing-8);
-        flex-direction: row;
-        justify-content: flex-start;
         align-items: center;
         align-self: stretch;
+        border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
+        display: flex;
+        flex-direction: row;
         gap: var(--uds-spacing-8);
+        justify-content: flex-start;
+        padding: var(--uds-spacing-8);
 
         >.avatar {
             flex: 0 0 auto;
@@ -486,9 +494,9 @@
         &__name {
             color: var(--uds-text-primary);
             flex: 1;
-            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 }

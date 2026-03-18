@@ -1,6 +1,6 @@
 import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Tag } from "../../design-system/components/Tag";
 import { Text } from "../../design-system/components/Text";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -87,55 +87,55 @@ export function TagDemoPage() {
       title="Tag"
       description="Tag displays small labels for status, metadata, and categorization with color and style variants."
     >
-      <Flex direction="column" gap="40">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="40">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Appearance Variants
           </Text>
-          <Flex alignItems="center" gap="12" wrap>
+          <Layout alignItems="center" gap="12" wrap>
             <Tag label="Label Only" appearance="label-only" />
             <Tag label="Icon Left" appearance="icon-left" icon="Tag" />
-          </Flex>
+          </Layout>
           <Code language="tsx" code={APPEARANCE_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Sizes
           </Text>
-          <Flex alignItems="center" gap="12" wrap>
+          <Layout alignItems="center" gap="12" wrap>
             <Tag label="Compact" size="compact" appearance="icon-left" icon="Tag" />
             <Tag label="Default" size="default" appearance="icon-left" icon="Tag" />
-          </Flex>
+          </Layout>
           <Code language="tsx" code={SIZE_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Pastel Tags
           </Text>
           <Text as="p" variant="body-14" weight="regular" leading="regular">
             Pastel keeps the same preset colors with lighter surfaces for reduced visual intensity.
           </Text>
-          <Flex alignItems="center" gap="12" wrap>
+          <Layout alignItems="center" gap="12" wrap>
             <Tag label="Blue Pastel" color="blue" pastel />
             <Tag label="Emerald Pastel" color="emerald" pastel />
             <Tag label="Magenta Pastel" color="magenta" pastel />
-          </Flex>
+          </Layout>
           <Code language="tsx" code={PASTEL_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Shape and Treatment
           </Text>
-          <Flex alignItems="center" gap="12" wrap>
+          <Layout alignItems="center" gap="12" wrap>
             <Tag label="Rounded + Subtle" color="blue" rounded />
             <Tag label="Square + Subtle" color="blue" rounded={false} />
             <Tag label="Rounded + Pastel" color="blue" rounded pastel />
@@ -144,66 +144,66 @@ export function TagDemoPage() {
             <Tag label="Square + Outlined" color="blue" rounded={false} outlined />
             <Tag label="Rounded + Solid" color="blue" rounded solid />
             <Tag label="Square + Solid" color="blue" rounded={false} solid />
-          </Flex>
+          </Layout>
           <Code language="tsx" code={SHAPE_FILL_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Every Color (Label-Only)
           </Text>
           <Text as="p" variant="body-14" weight="regular" leading="regular">
             Subtle
           </Text>
-          <Flex alignItems="center" gap="10" wrap>
+          <Layout alignItems="center" gap="10" wrap>
             {TAG_COLORS.map((color) => (
               <Tag key={`${color}-subtle`} label={color} color={color} />
             ))}
-          </Flex>
+          </Layout>
           <Text as="p" variant="body-14" weight="regular" leading="regular">
             Pastel
           </Text>
-          <Flex alignItems="center" gap="10" wrap>
+          <Layout alignItems="center" gap="10" wrap>
             {TAG_COLORS.map((color) => (
               <Tag key={`${color}-pastel`} label={color} color={color} pastel />
             ))}
-          </Flex>
+          </Layout>
           <Text as="p" variant="body-14" weight="regular" leading="regular">
             Outlined
           </Text>
-          <Flex alignItems="center" gap="10" wrap>
+          <Layout alignItems="center" gap="10" wrap>
             {TAG_COLORS.map((color) => (
               <Tag key={`${color}-outlined`} label={color} color={color} outlined />
             ))}
-          </Flex>
+          </Layout>
           <Text as="p" variant="body-14" weight="regular" leading="regular">
             Solid
           </Text>
-          <Flex alignItems="center" gap="10" wrap>
+          <Layout alignItems="center" gap="10" wrap>
             {TAG_COLORS.map((color) => (
               <Tag key={`${color}-solid`} label={color} color={color} solid />
             ))}
-          </Flex>
+          </Layout>
           <Code language="tsx" code={COLOR_MATRIX_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Every Color (Icon-Left)
           </Text>
           {TAG_APPEARANCES.map((appearance) =>
             appearance === "icon-left" ? (
-              <Flex key={appearance} direction="column" gap="10">
+              <Layout key={appearance} direction="column" gap="10">
                 {TAG_SIZES.map((size) => (
-                  <Flex key={`${appearance}-${size}`} direction="column" gap="8">
+                  <Layout key={`${appearance}-${size}`} direction="column" gap="8">
                     <Text as="p" variant="body-14" weight="semibold" leading="regular">
                       {size === "compact" ? "Compact" : "Default"}
                     </Text>
-                    <Flex alignItems="center" gap="10" wrap>
+                    <Layout alignItems="center" gap="10" wrap>
                       {TAG_COLORS.map((color) => (
                         <Tag
                           key={`${appearance}-${size}-${color}`}
@@ -215,14 +215,14 @@ export function TagDemoPage() {
                           solid
                         />
                       ))}
-                    </Flex>
-                  </Flex>
+                    </Layout>
+                  </Layout>
                 ))}
-              </Flex>
+              </Layout>
             ) : null
           )}
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={TAG_PROPS} title="Tag Props" />

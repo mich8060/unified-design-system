@@ -1,16 +1,17 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
 .uds-file-upload {
-  position: relative;
-  display: flex;
+  all: unset;
   align-items: center;
-  justify-content: center;
-  min-height: 200px;
-  padding: var(--uds-spacing-48);
   background: var(--uds-surface-primary, #ffffff);
   border: var(--uds-border-width-2) dashed var(--uds-border-primary, #d1d5db);
   border-radius: var(--uds-radius-8);
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  min-height: 200px;
+  padding: var(--uds-spacing-48);
+  position: relative;
   transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
 
   &--default {
@@ -36,13 +37,13 @@
   }
 
   &:hover:not(&--disabled) {
-    border-color: var(--uds-border-brand-primary, #3b82f6);
     background: var(--uds-surface-secondary, #f9fafb);
+    border-color: var(--uds-border-brand-primary, #3b82f6);
   }
 
   &--dragging {
-    border-color: var(--uds-border-brand-primary, #3b82f6);
     background: var(--uds-surface-brand-tertiary, #eff6ff);
+    border-color: var(--uds-border-brand-primary, #3b82f6);
   }
 
   &--disabled {
@@ -52,28 +53,28 @@
   }
 
   &__input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
     height: 0;
+    opacity: 0;
     pointer-events: none;
+    position: absolute;
+    width: 0;
   }
 
   &__content {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: var(--uds-gap-12);
-    text-align: center;
+    justify-content: center;
     pointer-events: none;
+    text-align: center;
   }
 
   &__icon {
-    display: flex;
     align-items: center;
-    justify-content: center;
     color: var(--uds-text-secondary, #6b7280);
+    display: flex;
+    justify-content: center;
     transition: color var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
 
     .uds-file-upload:hover:not(.uds-file-upload--disabled) & {
@@ -87,14 +88,14 @@
 
   &__instruction {
     @include uds-body-16;
-    margin: 0;
     color: var(--uds-text-primary, #111827);
     font-weight: var(--uds-font-weight-medium);
+    margin: 0;
   }
 
   &__accept {
     @include uds-body-14;
-    margin: 0;
     color: var(--uds-text-secondary, #6b7280);
+    margin: 0;
   }
 }

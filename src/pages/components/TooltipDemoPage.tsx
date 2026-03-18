@@ -1,6 +1,6 @@
 import { Button } from "../../design-system/components/Button";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Text } from "../../design-system/components/Text";
 import { Tooltip } from "../../design-system/components/Tooltip";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -49,7 +49,7 @@ function DemoBlock({
   children: React.ReactNode;
 }) {
   return (
-    <Flex direction="column" gap="10">
+    <Layout direction="column" gap="10">
       <Text as="h2" variant="heading-24" weight="medium" leading="regular">
         {title}
       </Text>
@@ -57,7 +57,7 @@ function DemoBlock({
         {description}
       </Text>
       {children}
-    </Flex>
+    </Layout>
   );
 }
 
@@ -67,16 +67,16 @@ export function TooltipDemoPage() {
       title="Tooltip"
       description="Tooltip provides contextual guidance on hover without adding persistent UI clutter."
     >
-      <Flex direction="column" gap="40">
+      <Layout direction="column" gap="40">
         <DemoBlock
           title="Basic"
           description="Use a short message to clarify icon-only or compact controls."
         >
-          <Flex alignItems="center" gap="16" wrap>
+          <Layout alignItems="center" gap="16" wrap>
             <Tooltip content="Create new item">
               <Button label="Hover me" appearance="outline" />
             </Tooltip>
-          </Flex>
+          </Layout>
         </DemoBlock>
 
         <Divider variant="solid" />
@@ -85,7 +85,7 @@ export function TooltipDemoPage() {
           title="Placement Variants"
           description="Choose placement based on available space around the trigger."
         >
-          <Flex alignItems="center" gap="16" wrap>
+          <Layout alignItems="center" gap="16" wrap>
             <Tooltip content="Top placement" placement="top">
               <Button label="Top" appearance="outline" />
             </Tooltip>
@@ -98,7 +98,7 @@ export function TooltipDemoPage() {
             <Tooltip content="Right placement" placement="right">
               <Button label="Right" appearance="outline" />
             </Tooltip>
-          </Flex>
+          </Layout>
         </DemoBlock>
 
         <Divider variant="solid" />
@@ -107,7 +107,7 @@ export function TooltipDemoPage() {
           title="Rich Content"
           description="Content can include formatting or other inline elements."
         >
-          <Flex alignItems="center" gap="16" wrap>
+          <Layout alignItems="center" gap="16" wrap>
             <Tooltip
               placement="bottom"
               content={
@@ -118,7 +118,7 @@ export function TooltipDemoPage() {
             >
               <Button label="Metadata" appearance="outline" />
             </Tooltip>
-          </Flex>
+          </Layout>
         </DemoBlock>
 
         <Divider variant="solid" />
@@ -127,13 +127,13 @@ export function TooltipDemoPage() {
           title="Disabled"
           description="Disable tooltip behavior when guidance is not needed in a state."
         >
-          <Flex alignItems="center" gap="16" wrap>
+          <Layout alignItems="center" gap="16" wrap>
             <Tooltip content="This tooltip is disabled" disabled>
               <Button label="No tooltip" appearance="outline" />
             </Tooltip>
-          </Flex>
+          </Layout>
         </DemoBlock>
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={TOOLTIP_PROPS} title="Tooltip Props" />

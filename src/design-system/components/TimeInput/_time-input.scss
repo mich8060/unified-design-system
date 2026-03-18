@@ -1,8 +1,9 @@
 @use "./time-input.tokens" as *;
 
 .uds-time-input {
-  padding: $time-input-example;
+  all: unset;
   background: var(--color-surface-1);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-sm);
+  padding: $time-input-example;
 }

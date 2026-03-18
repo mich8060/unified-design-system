@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { PasswordInput } from "../../design-system/components/PasswordInput";
 import { Text } from "../../design-system/components/Text";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -26,7 +26,7 @@ export function PasswordInputDemoPage() {
       title="PasswordInput"
       description="PasswordInput wraps TextInput with password visibility toggling."
     >
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Basic Usage
         </Text>
@@ -37,22 +37,22 @@ export function PasswordInputDemoPage() {
           helperText="Use at least 8 characters."
           placeholder="Enter password"
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Toggle Options
         </Text>
         <PasswordInput value="examplepassword" readOnly showToggle />
         <PasswordInput value="examplepassword" readOnly showToggle={false} />
         <PasswordInput value="examplepassword" readOnly initiallyVisible />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Size and States
         </Text>
@@ -60,7 +60,7 @@ export function PasswordInputDemoPage() {
         <PasswordInput value="Password123!" readOnly size="compact" />
         <PasswordInput value="Password123!" readOnly state="error" errorText="Password does not meet policy." />
         <PasswordInput value="Password123!" readOnly disabled />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={PASSWORD_INPUT_PROPS} />

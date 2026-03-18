@@ -2,17 +2,15 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-progress-indicator {
+    all: unset;
     display: flex;
     flex-direction: column;
     gap: var(--uds-space-8);
-    width: 100%;
     position: relative;
+    width: 100%;
 
     &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: var(--uds-space-8);
+        min-width: 0;
     }
 
     &__label {
@@ -26,9 +24,9 @@
         white-space: nowrap;
 
         &--bottom {
-            margin-top: var(--uds-space-8);
             display: inline-block;
             margin-left: auto;
+            margin-top: var(--uds-space-8);
         }
 
     }
@@ -38,37 +36,37 @@
     }
 
     &__track {
-        position: relative;
-        width: 100%;
         background-color: var(--uds-surface-tertiary);
         border-radius: var(--uds-radius-4);
         overflow: hidden;
+        position: relative;
+        width: 100%;
     }
 
     &__fill {
-        height: 100%;
         background-color: var(--uds-surface-brand-tertiary);
         border-radius: var(--uds-radius-4);
+        height: 100%;
         transition: width var(--uds-animation-duration-300) var(--uds-animation-ease-standard);
     }
 
     &__marker {
-        position: relative;
         display: block;
-        width: 0;
         height: 0;
+        position: relative;
         transform: none;
+        width: 0;
         z-index: 1;
     }
 
     &__tooltip-anchor.uds-tooltip {
-        position: absolute;
-        display: inline-flex;
         align-items: center;
-        justify-content: center;
-        width: 10px;
+        display: inline-flex;
         height: 10px;
+        justify-content: center;
+        position: absolute;
         transform: translateX(-50%);
+        width: 10px;
         z-index: 1;
     }
 

@@ -71,6 +71,7 @@ body {
 .app-shell__body {
     --app-shell-menu-width: 64px;
     --app-shell-footer-height: 48px;
+    position: relative;
     background: var(--uds-surface-primary);
     display: flex;
     flex: 1;
@@ -175,6 +176,7 @@ body {
     min-width: 240px;
     align-self: flex-end;
     align-items: flex-end;
+    outline: 1px solid red;
 }
 
 .app-shell__page-header-meta-row {
@@ -195,6 +197,8 @@ body {
 
 .app-shell__listview {
     --app-shell-listview-width: 320px;
+    position: relative;
+    z-index: 2;
     width: var(--app-shell-listview-width);
     min-width: var(--app-shell-listview-width);
     flex: 0 0 var(--app-shell-listview-width);
@@ -217,6 +221,15 @@ body {
     overflow-x: hidden;
     animation: app-shell-side-panel-enter var(--uds-animation-duration-300) var(--uds-animation-ease-standard);
     will-change: transform, opacity;
+}
+
+.app-shell__side-panel--document-details {
+    background: var(--uds-surface-primary);
+}
+
+.app-shell__side-panel-section {
+    border-bottom: 1px solid var(--uds-border-primary);
+    padding: var(--uds-spacing-12) var(--uds-spacing-16);
 }
 
 @keyframes app-shell-side-panel-enter {
@@ -242,7 +255,16 @@ body {
     min-width: 0;
     flex: 1;
     position: relative;
+    z-index: 1;
     overflow-x: hidden;
+}
+
+.app-shell__main-content--surface-primary {
+    background: var(--uds-surface-primary);
+}
+
+.app-shell__main-content--surface-secondary {
+    background: var(--uds-surface-secondary);
 }
 
 .app-shell__footer {
@@ -285,10 +307,7 @@ body {
 
     .app-shell__sidebar {
         position: fixed;
-        top: calc(
-            var(--app-shell-mobile-toolbar-height) + var(--uds-spacing-12) + var(--uds-spacing-2) +
-                var(--uds-border-width-1) + var(--uds-border-width-1) + var(--uds-border-width-1)
-        );
+        top: calc(var(--app-shell-mobile-toolbar-height) + var(--uds-spacing-12) + var(--uds-spacing-2) + var(--uds-border-width-1) + var(--uds-border-width-1) + var(--uds-border-width-1));
         left: 0;
         bottom: 0;
         width: 280px;
@@ -316,10 +335,7 @@ body {
 
     .app-shell__mobile-backdrop {
         position: fixed;
-        top: calc(
-            var(--app-shell-mobile-toolbar-height) + var(--uds-spacing-12) + var(--uds-spacing-2) +
-                var(--uds-border-width-1) + var(--uds-border-width-1) + var(--uds-border-width-1)
-        );
+        top: calc(var(--app-shell-mobile-toolbar-height) + var(--uds-spacing-12) + var(--uds-spacing-2) + var(--uds-border-width-1) + var(--uds-border-width-1) + var(--uds-border-width-1));
         left: 0;
         right: 0;
         bottom: 0;

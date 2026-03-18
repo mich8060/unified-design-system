@@ -10,6 +10,7 @@ export type IconAppearance =
   | "fill"
   | "solid"
   | "outline";
+export type IconTone = "primary" | "secondary" | "tertiary" | "placeholder" | "disabled";
 
 /**
  * Public props for the UDS Icon component.
@@ -26,4 +27,6 @@ export interface IconProps extends SVGAttributes<SVGSVGElement> {
   size?: number;
   /** Icon style variant. */
   appearance?: IconAppearance;
+  /** Semantic color tone. */
+  tone?: IconTone;
 }

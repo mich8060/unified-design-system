@@ -3,7 +3,7 @@ import { Branding } from "../../design-system/components/Branding";
 import { Button } from "../../design-system/components/Button";
 import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Text } from "../../design-system/components/Text";
 import { useState } from "react";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -61,68 +61,68 @@ export function BrandingDemoPage() {
       title="Branding"
       description="Branding renders full logos and symbols for each supported brand identity."
     >
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Full Logos
         </Text>
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           {BRANDS.map((brand) => (
-            <Flex key={`logo-${brand}`} alignItems="center" gap="12">
+            <Layout key={`logo-${brand}`} alignItems="center" gap="12">
               <Text as="span" variant="body-14" weight="medium" leading="regular">
                 {brand}
               </Text>
               <Branding brand={brand} />
-            </Flex>
+            </Layout>
           ))}
-        </Flex>
+        </Layout>
         <Code language="tsx" code={FULL_LOGO_SNIPPET} />
-      </Flex>
+      </Layout>
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Symbols
         </Text>
-        <Flex alignItems="center" gap="16" wrap>
+        <Layout alignItems="center" gap="16" wrap>
           {BRANDS.map((brand) => (
             <Branding key={`symbol-${brand}`} brand={brand} symbol />
           ))}
-        </Flex>
+        </Layout>
         <Code language="tsx" code={SYMBOL_SNIPPET} />
-      </Flex>
+      </Layout>
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Size Variants
         </Text>
-        <Flex direction="column" gap="12">
-          <Flex alignItems="center" gap="12">
+        <Layout direction="column" gap="12">
+          <Layout alignItems="center" gap="12">
             <Text as="span" variant="body-14" weight="medium" leading="regular">
               Logo sizes:
             </Text>
             <Branding brand="design-system" size="small" />
             <Branding brand="design-system" size="default" />
             <Branding brand="design-system" size="large" />
-          </Flex>
-          <Flex alignItems="center" gap="12">
+          </Layout>
+          <Layout alignItems="center" gap="12">
             <Text as="span" variant="body-14" weight="medium" leading="regular">
               Symbol sizes:
             </Text>
             <Branding brand="design-system" symbol size="small" />
             <Branding brand="design-system" symbol size="default" />
             <Branding brand="design-system" symbol size="large" />
-          </Flex>
-        </Flex>
+          </Layout>
+        </Layout>
         <Code language="tsx" code={SIZE_SNIPPET} />
-      </Flex>
+      </Layout>
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Inherit Mode
         </Text>
-        <Flex alignItems="center" gap="8" wrap>
+        <Layout alignItems="center" gap="8" wrap>
           {BRANDS.map((brand) => (
             <Button
               key={`brand-switch-${brand}`}
@@ -132,13 +132,13 @@ export function BrandingDemoPage() {
               onClick={() => setActiveBrand(brand)}
             />
           ))}
-        </Flex>
-        <Flex alignItems="center" gap="12">
+        </Layout>
+        <Layout alignItems="center" gap="12">
           <Branding inherit />
           <Branding inherit symbol />
-        </Flex>
+        </Layout>
         <Code language="tsx" code={INHERIT_SNIPPET} />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={BRANDING_PROPS} />

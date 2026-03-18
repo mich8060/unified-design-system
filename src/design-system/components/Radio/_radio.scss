@@ -2,12 +2,12 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .radio {
-    all: unset;
-    position: relative;
-    display: inline-flex;
     align-items: center;
-    gap: var(--uds-gap-8);
+    all: unset;
     cursor: pointer;
+    display: inline-flex;
+    gap: var(--uds-gap-8);
+    position: relative;
     user-select: none;
 
     &--disabled {
@@ -15,17 +15,17 @@
         opacity: 0.6;
 
         .radio__label {
-            cursor: not-allowed;
             color: var(--uds-text-secondary);
+            cursor: not-allowed;
         }
     }
 
     &__input {
-        position: absolute;
-        opacity: 0;
-        width: 0;
         height: 0;
         margin: 0;
+        opacity: 0;
+        position: absolute;
+        width: 0;
 
         &:focus-visible+.radio__circle {
             outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
@@ -53,17 +53,17 @@
     }
 
     &__circle {
-        position: relative;
-        display: inline-flex;
         align-items: center;
-        justify-content: center;
-        width: 20px;
-        height: 20px;
-        min-width: 20px;
-        min-height: 20px;
+        background-color: var(--uds-surface-primary);
         border: var(--uds-border-width-1) solid var(--uds-border-primary);
         border-radius: 50%;
-        background-color: var(--uds-surface-primary);
+        display: inline-flex;
+        height: 20px;
+        justify-content: center;
+        min-height: 20px;
+        min-width: 20px;
+        position: relative;
+        width: 20px;
         transition:
             border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
             box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
@@ -71,17 +71,17 @@
     }
 
     &__dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
         background-color: var(--uds-surface-primary);
+        border-radius: 50%;
         display: block;
+        height: 8px;
+        width: 8px;
     }
 
     &__label {
         @include uds-body-14-medium;
         color: var(--uds-text-primary);
-        line-height: 20px;
         cursor: pointer;
+        line-height: 20px;
     }
 }

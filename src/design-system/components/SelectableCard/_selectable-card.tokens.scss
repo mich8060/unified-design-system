@@ -1,0 +1,8 @@
+// Map semantic tokens to component-local vars
+@use "../../tokens/index" as *;
+
+$selectable-card-surface: var(--uds-surface-primary);
+$selectable-card-surface-selected: var(--uds-surface-secondary);
+$selectable-card-border-color: var(--uds-border-primary);
+$selectable-card-border-color-selected: var(--uds-border-secondary);
+$selectable-card-radius: var(--uds-radius-8);

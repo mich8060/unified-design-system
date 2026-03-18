@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useId, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import TabItem from "./TabItem";
 import Button from "../Button/Button";
+import Dropdown from "../Dropdown/Dropdown";
 import "./_tabs.scss";
 import type { TabsProps } from "./Tabs.types";
 
 const BASE_CLASS = "uds-tabs";
+const MAX_VISIBLE_TABS = 6;
 
 const appearanceClassMap = {
   underline: "underline",
@@ -53,6 +55,10 @@ function Tabs({
   const currentActiveTab = activeTab !== undefined && activeTab !== null && activeTab >= 0 && activeTab < tabs.length
     ? activeTab
     : 0;
+  const hasOverflowTabs = tabs.length > MAX_VISIBLE_TABS;
+  const visibleTabs = hasOverflowTabs ? tabs.slice(0, MAX_VISIBLE_TABS) : tabs;
+  const overflowTabs = hasOverflowTabs ? tabs.slice(MAX_VISIBLE_TABS) : [];
+  const [selectedOverflowIndex, setSelectedOverflowIndex] = useState<number | null>(null);
 
   const classNames = [
     BASE_CLASS,
@@ -90,33 +96,44 @@ function Tabs({
     return tab as Record<string, unknown>;
   }, []);
 
+  const getTabLabel = useCallback((safeTab: Record<string, unknown>): string => {
+    if (safeTab.label != null && typeof safeTab.label === "string") {
+      return safeTab.label;
+    }
+    if (safeTab.label != null && typeof safeTab.label !== "object") {
+      return String(safeTab.label);
+    }
+    return "";
+  }, []);
+
   const handleTabKeyDown = useCallback(
     (event: React.KeyboardEvent, index: number, tab: Record<string, unknown>) => {
       if (!tabs.length) return;
 
       let nextIndex = index;
       const horizontal = orientation === "horizontal";
+      const renderedTabCount = visibleTabs.length;
 
       switch (event.key) {
         case "ArrowRight":
           if (!horizontal) return;
           event.preventDefault();
-          nextIndex = (index + 1) % tabs.length;
+          nextIndex = (index + 1) % renderedTabCount;
           break;
         case "ArrowLeft":
           if (!horizontal) return;
           event.preventDefault();
-          nextIndex = (index - 1 + tabs.length) % tabs.length;
+          nextIndex = (index - 1 + renderedTabCount) % renderedTabCount;
           break;
         case "ArrowDown":
           if (horizontal) return;
           event.preventDefault();
-          nextIndex = (index + 1) % tabs.length;
+          nextIndex = (index + 1) % renderedTabCount;
           break;
         case "ArrowUp":
           if (horizontal) return;
           event.preventDefault();
-          nextIndex = (index - 1 + tabs.length) % tabs.length;
+          nextIndex = (index - 1 + renderedTabCount) % renderedTabCount;
           break;
         case "Home":
           event.preventDefault();
@@ -124,7 +141,7 @@ function Tabs({
           break;
         case "End":
           event.preventDefault();
-          nextIndex = tabs.length - 1;
+          nextIndex = renderedTabCount - 1;
           break;
         case "Enter":
         case " ":
@@ -135,13 +152,25 @@ function Tabs({
           return;
       }
 
-      const nextTab = getSafeTabObject(tabs[nextIndex]);
+      const nextTab = getSafeTabObject(visibleTabs[nextIndex]);
       if (!nextTab) return;
       handleTabClick(nextIndex, nextTab);
       requestAnimationFrame(() => focusTabAtIndex(nextIndex));
     },
-    [focusTabAtIndex, getSafeTabObject, handleTabClick, orientation, tabs]
+    [focusTabAtIndex, getSafeTabObject, handleTabClick, orientation, tabs.length, visibleTabs]
   );
+
+  useEffect(() => {
+    if (!hasOverflowTabs) {
+      setSelectedOverflowIndex(null);
+      return;
+    }
+    if (currentActiveTab >= MAX_VISIBLE_TABS && currentActiveTab < tabs.length) {
+      setSelectedOverflowIndex(currentActiveTab);
+      return;
+    }
+    setSelectedOverflowIndex(null);
+  }, [currentActiveTab, hasOverflowTabs, tabs.length]);
 
   // Check if scrolling is needed and update scroll button visibility
   const checkScrollButtons = useCallback(() => {
@@ -290,6 +319,76 @@ function Tabs({
     return null;
   }
 
+  const overflowDropdownOptions = useMemo(
+    () =>
+      overflowTabs
+        .map((tab, overflowIndex) => {
+          const safeTab = getSafeTabObject(tab);
+          if (!safeTab) return null;
+          const absoluteIndex = overflowIndex + MAX_VISIBLE_TABS;
+          return {
+            value: absoluteIndex,
+            label: getTabLabel(safeTab) || `Tab ${absoluteIndex + 1}`,
+          };
+        })
+        .filter(Boolean),
+    [getSafeTabObject, getTabLabel, overflowTabs]
+  );
+
+  const selectedOverflowTab = selectedOverflowIndex != null ? getSafeTabObject(tabs[selectedOverflowIndex]) : null;
+  const overflowLabel = selectedOverflowTab ? getTabLabel(selectedOverflowTab) || "More" : "More";
+
+  const handleOverflowChange = useCallback(
+    (nextValue: unknown) => {
+      if (typeof nextValue !== "number") {
+        return;
+      }
+      const selectedTab = getSafeTabObject(tabs[nextValue]);
+      if (!selectedTab) {
+        return;
+      }
+      setSelectedOverflowIndex(nextValue);
+      handleTabClick(nextValue, selectedTab);
+    },
+    [getSafeTabObject, handleTabClick, tabs]
+  );
+
+  const renderTabItems = (renderTabs: unknown[], startIndex = 0) =>
+    renderTabs.map((tab, index) => {
+      const safeTab = getSafeTabObject(tab);
+      if (!safeTab) return null;
+      const absoluteIndex = startIndex + index;
+      const label = getTabLabel(safeTab);
+      const icon = typeof safeTab.icon === "string" ? safeTab.icon : undefined;
+      const tag =
+        typeof safeTab.tag === "number" || typeof safeTab.tag === "string"
+          ? safeTab.tag
+          : undefined;
+      const tagVariant = typeof safeTab.tagVariant === "string" ? safeTab.tagVariant : undefined;
+      const tabKey =
+        safeTab.id != null && typeof safeTab.id !== "object"
+          ? typeof safeTab.id === "string" || typeof safeTab.id === "number"
+            ? safeTab.id
+            : String(safeTab.id)
+          : absoluteIndex;
+
+      return (
+        <TabItem
+          key={tabKey}
+          label={label}
+          appearance={appearance}
+          active={absoluteIndex === currentActiveTab}
+          icon={icon}
+          tag={tag}
+          tagVariant={tagVariant}
+          id={`${BASE_CLASS}-tab-${tabsGroupId}-${absoluteIndex}`}
+          tabIndex={absoluteIndex === currentActiveTab ? 0 : -1}
+          onKeyDown={(event) => handleTabKeyDown(event, index, safeTab)}
+          onClick={() => handleTabClick(absoluteIndex, safeTab)}
+        />
+      );
+    });
+
   const tabsContent = (
     <div
       ref={tabsListRef}
@@ -298,49 +397,20 @@ function Tabs({
       aria-orientation={orientation}
       {...props}
     >
-      {tabs.map((tab, index) => {
-        const safeTab = getSafeTabObject(tab);
-        if (!safeTab) return null;
-        
-        // Safely extract label - ensure it's a string, not an object
-        const label = (safeTab.label != null && typeof safeTab.label === "string")
-          ? safeTab.label
-          : (safeTab.label != null && typeof safeTab.label !== "object")
-          ? String(safeTab.label)
-          : "";
-        
-        // Safely extract icon - only use if it's a string
-        const icon = typeof safeTab.icon === "string" ? safeTab.icon : undefined;
-        
-        // Safely extract tag - only use if it's a number or string
-        const tag = (typeof safeTab.tag === "number" || typeof safeTab.tag === "string") 
-          ? safeTab.tag 
-          : undefined;
-        
-        // Safely extract tagVariant - only use if it's a string
-        const tagVariant = typeof safeTab.tagVariant === "string" ? safeTab.tagVariant : undefined;
-        
-        // Safely get key - ensure it's a string or number
-        const tabKey = (safeTab.id != null && typeof safeTab.id !== "object")
-          ? (typeof safeTab.id === "string" || typeof safeTab.id === "number" ? safeTab.id : String(safeTab.id))
-          : index;
-        
-        return (
-          <TabItem
-            key={tabKey}
-            label={label}
-            appearance={appearance}
-            active={index === currentActiveTab}
-            icon={icon}
-            tag={tag}
-            tagVariant={tagVariant}
-            id={`${BASE_CLASS}-tab-${tabsGroupId}-${index}`}
-            tabIndex={index === currentActiveTab ? 0 : -1}
-            onKeyDown={(event) => handleTabKeyDown(event, index, safeTab)}
-            onClick={() => handleTabClick(index, safeTab)}
+      {renderTabItems(visibleTabs)}
+      {hasOverflowTabs && overflowDropdownOptions.length > 0 ? (
+        <div className={`${BASE_CLASS}__overflow-menu`}>
+          <Dropdown
+            size="compact"
+            options={overflowDropdownOptions}
+            value={selectedOverflowIndex ?? undefined}
+            placeholder={overflowLabel}
+            onChange={handleOverflowChange}
+            menuFullWidth={false}
+            className={`${BASE_CLASS}__overflow-dropdown`}
           />
-        );
-      })}
+        </div>
+      ) : null}
     </div>
   );
 
@@ -375,49 +445,20 @@ function Tabs({
   return (
     <div className={classNames} {...props}>
       <div ref={tabsListRef} className={`${BASE_CLASS}__list`} role="tablist" aria-orientation={orientation}>
-      {tabs.map((tab, index) => {
-        const safeTab = getSafeTabObject(tab);
-        if (!safeTab) return null;
-        
-        // Safely extract label - ensure it's a string, not an object
-        const label = (safeTab.label != null && typeof safeTab.label === "string")
-          ? safeTab.label
-          : (safeTab.label != null && typeof safeTab.label !== "object")
-          ? String(safeTab.label)
-          : "";
-        
-        // Safely extract icon - only use if it's a string
-        const icon = typeof safeTab.icon === "string" ? safeTab.icon : undefined;
-        
-        // Safely extract tag - only use if it's a number or string
-        const tag = (typeof safeTab.tag === "number" || typeof safeTab.tag === "string") 
-          ? safeTab.tag 
-          : undefined;
-        
-        // Safely extract tagVariant - only use if it's a string
-        const tagVariant = typeof safeTab.tagVariant === "string" ? safeTab.tagVariant : undefined;
-        
-        // Safely get key - ensure it's a string or number
-        const tabKey = (safeTab.id != null && typeof safeTab.id !== "object")
-          ? (typeof safeTab.id === "string" || typeof safeTab.id === "number" ? safeTab.id : String(safeTab.id))
-          : index;
-        
-        return (
-          <TabItem
-            key={tabKey}
-            label={label}
-            appearance={appearance}
-            active={index === currentActiveTab}
-            icon={icon}
-            tag={tag}
-            tagVariant={tagVariant}
-            id={`${BASE_CLASS}-tab-${tabsGroupId}-${index}`}
-            tabIndex={index === currentActiveTab ? 0 : -1}
-            onKeyDown={(event) => handleTabKeyDown(event, index, safeTab)}
-            onClick={() => handleTabClick(index, safeTab)}
+      {renderTabItems(visibleTabs)}
+      {hasOverflowTabs && overflowDropdownOptions.length > 0 ? (
+        <div className={`${BASE_CLASS}__overflow-menu`}>
+          <Dropdown
+            size="compact"
+            options={overflowDropdownOptions}
+            value={selectedOverflowIndex ?? undefined}
+            placeholder={overflowLabel}
+            onChange={handleOverflowChange}
+            menuFullWidth={false}
+            className={`${BASE_CLASS}__overflow-dropdown`}
           />
-        );
-      })}
+        </div>
+      ) : null}
       </div>
     </div>
   );

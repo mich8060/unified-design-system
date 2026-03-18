@@ -1,0 +1,9 @@
+:root {
+    --uds-boxshadow-sm: 0 1px 2px 0 var(--uds-shadow-5);
+    --uds-boxshadow-default: 0 1px 3px 0 var(--uds-shadow-10), 0 1px 2px -1px var(--uds-shadow-10);
+    --uds-boxshadow-md: 0 4px 6px -1px var(--uds-shadow-10), 0 2px 4px -2px var(--uds-shadow-8);
+    --uds-boxshadow-lg: 0 10px 15px -3px var(--uds-shadow-10), 0 4px 6px -4px var(--uds-shadow-10);
+    --uds-boxshadow-xl: 0 20px 25px -5px var(--uds-shadow-10), 0 8px 10px -6px var(--uds-shadow-10);
+    --uds-boxshadow-2xl: 0 25px 50px -12px var(--uds-shadow-25), 0 10px 10px -5px var(--uds-shadow-25);
+    --uds-boxshadow-inner: 0 2px 4px 0 var(--uds-shadow-15) inset;
+}

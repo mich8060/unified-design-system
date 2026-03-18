@@ -1,4 +1,4 @@
-import { CheckboxGroup, Divider, Flex, Text } from "../../design-system";
+import { CheckboxGroup, Divider, Layout, Text } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -15,7 +15,7 @@ const CHECKBOX_GROUP_PROPS: ComponentPropRow[] = [
 export function CheckboxGroupDemoPage() {
   return (
     <DocPageLayout title="CheckboxGroup" description="CheckboxGroup composes Checkbox options for multi-select choices.">
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Vertical</Text>
         <CheckboxGroup
           label="Specialties"
@@ -26,11 +26,11 @@ export function CheckboxGroupDemoPage() {
             { value: "neurology", label: "Neurology" },
           ]}
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Horizontal</Text>
         <CheckboxGroup
           orientation="horizontal"
@@ -41,11 +41,11 @@ export function CheckboxGroupDemoPage() {
             { value: "onsite", label: "On-site" },
           ]}
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Disabled</Text>
         <CheckboxGroup
           disabled
@@ -56,7 +56,7 @@ export function CheckboxGroupDemoPage() {
             { value: "push", label: "Push Notifications" },
           ]}
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={CHECKBOX_GROUP_PROPS} title="CheckboxGroup Props" />

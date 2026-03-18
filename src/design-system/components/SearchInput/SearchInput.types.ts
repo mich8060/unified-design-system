@@ -7,6 +7,8 @@ export interface SearchInputDropdownOption {
 
 export interface SearchInputProps
   extends Omit<TextInputProps, "type" | "icon" | "iconPosition"> {
+  width?: "sm" | "md" | "lg" | "full";
+  context?: "default" | "toolbar";
   /**
    * Optional scope/filter dropdown rendered inside the right side of the input.
    * Pass options to enable it.

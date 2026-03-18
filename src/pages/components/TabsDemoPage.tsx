@@ -1,6 +1,6 @@
 import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Tabs } from "../../design-system/components/Tabs";
 import { Text } from "../../design-system/components/Text";
 import { useState } from "react";
@@ -140,8 +140,8 @@ export function TabsDemoPage() {
       title="Tabs"
       description="Tabs organize related content into a single container and let users switch context without leaving the page."
     >
-      <Flex direction="column" gap="48">
-        <Flex
+      <Layout direction="column" gap="48">
+        <Layout
           direction="column"
           gap="16"
           className="tabs-figma-component-capture"
@@ -158,40 +158,40 @@ export function TabsDemoPage() {
           <Text as="p" variant="body-14" leading="regular">
             Component-focused layout for design handoff (horizontal + vertical variants).
           </Text>
-          <Flex alignItems="flex-start" gap="24" wrap>
-            <Flex direction="column" gap="8" style={{ minWidth: "320px" }}>
+          <Layout alignItems="flex-start" gap="24" wrap>
+            <Layout direction="column" gap="8" style={{ minWidth: "320px" }}>
               <Text as="h3" variant="body-16" weight="semibold" leading="regular">
                 Underline
               </Text>
               <Tabs tabs={BASE_TABS} appearance="underline" activeTab={0} />
-            </Flex>
-            <Flex direction="column" gap="8" style={{ minWidth: "320px" }}>
+            </Layout>
+            <Layout direction="column" gap="8" style={{ minWidth: "320px" }}>
               <Text as="h3" variant="body-16" weight="semibold" leading="regular">
                 Block
               </Text>
               <Tabs tabs={BASE_TABS} appearance="block" activeTab={0} />
-            </Flex>
-            <Flex direction="column" gap="8" style={{ minWidth: "320px" }}>
+            </Layout>
+            <Layout direction="column" gap="8" style={{ minWidth: "320px" }}>
               <Text as="h3" variant="body-16" weight="semibold" leading="regular">
                 Block Inverted
               </Text>
               <Tabs tabs={BASE_TABS} appearance="block-inverted" activeTab={0} />
-            </Flex>
-          </Flex>
-          <Flex alignItems="flex-start" gap="24" wrap>
-            <Flex direction="column" gap="8">
+            </Layout>
+          </Layout>
+          <Layout alignItems="flex-start" gap="24" wrap>
+            <Layout direction="column" gap="8">
               <Text as="h3" variant="body-16" weight="semibold" leading="regular">
                 Vertical Underline
               </Text>
               <Tabs tabs={TABS_WITH_META} appearance="underline" orientation="vertical" activeTab={0} />
-            </Flex>
-            <Flex direction="column" gap="8">
+            </Layout>
+            <Layout direction="column" gap="8">
               <Text as="h3" variant="body-16" weight="semibold" leading="regular">
                 Vertical Block
               </Text>
               <Tabs tabs={TABS_WITH_META} appearance="block" orientation="vertical" activeTab={0} />
-            </Flex>
-            <Flex direction="column" gap="8">
+            </Layout>
+            <Layout direction="column" gap="8">
               <Text as="h3" variant="body-16" weight="semibold" leading="regular">
                 Vertical Block Inverted
               </Text>
@@ -201,16 +201,16 @@ export function TabsDemoPage() {
                 orientation="vertical"
                 activeTab={0}
               />
-            </Flex>
-          </Flex>
-        </Flex>
+            </Layout>
+          </Layout>
+        </Layout>
 
-        <Flex direction="column" gap="16">
+        <Layout direction="column" gap="16">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Horizontal Variants
           </Text>
 
-          <Flex direction="column" gap="8">
+          <Layout direction="column" gap="8">
             <Text as="h3" variant="body-16" weight="semibold" leading="regular">
               Underline
             </Text>
@@ -221,9 +221,9 @@ export function TabsDemoPage() {
               onTabChange={(index) => setUnderlineActive(index as number)}
             />
             <Code language="tsx" code={UNDERLINE_SNIPPET} />
-          </Flex>
+          </Layout>
 
-          <Flex direction="column" gap="8">
+          <Layout direction="column" gap="8">
             <Text as="h3" variant="body-16" weight="semibold" leading="regular">
               Block
             </Text>
@@ -233,9 +233,9 @@ export function TabsDemoPage() {
               activeTab={blockActive}
               onTabChange={(index) => setBlockActive(index as number)}
             />
-          </Flex>
+          </Layout>
 
-          <Flex direction="column" gap="8">
+          <Layout direction="column" gap="8">
             <Text as="h3" variant="body-16" weight="semibold" leading="regular">
               Block Inverted
             </Text>
@@ -245,16 +245,16 @@ export function TabsDemoPage() {
               activeTab={blockInvertedActive}
               onTabChange={(index) => setBlockInvertedActive(index as number)}
             />
-          </Flex>
+          </Layout>
           <Code
             language="tsx"
             code={`<Tabs tabs={tabs} appearance="block" activeTab={activeTab} onTabChange={onTabChange} />
 <Tabs tabs={tabs} appearance="block-inverted" activeTab={activeTab} onTabChange={onTabChange} />`}
           />
-        </Flex>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="16">
+        <Layout direction="column" gap="16">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Vertical Tabs
           </Text>
@@ -262,8 +262,8 @@ export function TabsDemoPage() {
             Vertical examples match the latest design direction, including icon + tag composition.
           </Text>
 
-          <Flex alignItems="flex-start" gap="24" wrap>
-            <Flex direction="column" gap="8">
+          <Layout alignItems="flex-start" gap="24" wrap>
+            <Layout direction="column" gap="8">
               <Text as="h3" variant="body-16" weight="semibold" leading="regular">
                 Underline Vertical
               </Text>
@@ -274,9 +274,9 @@ export function TabsDemoPage() {
                 activeTab={verticalUnderlineActive}
                 onTabChange={(index) => setVerticalUnderlineActive(index as number)}
               />
-            </Flex>
+            </Layout>
 
-            <Flex direction="column" gap="8">
+            <Layout direction="column" gap="8">
               <Text as="h3" variant="body-16" weight="semibold" leading="regular">
                 Block Vertical
               </Text>
@@ -287,9 +287,9 @@ export function TabsDemoPage() {
                 activeTab={verticalBlockActive}
                 onTabChange={(index) => setVerticalBlockActive(index as number)}
               />
-            </Flex>
+            </Layout>
 
-            <Flex direction="column" gap="8">
+            <Layout direction="column" gap="8">
               <Text as="h3" variant="body-16" weight="semibold" leading="regular">
                 Block Inverted Vertical
               </Text>
@@ -303,16 +303,16 @@ export function TabsDemoPage() {
                 activeTab={verticalInvertedActive}
                 onTabChange={(index) => setVerticalInvertedActive(index as number)}
               />
-            </Flex>
-          </Flex>
+            </Layout>
+          </Layout>
 
           <Code language="tsx" code={VERTICAL_UNDERLINE_SNIPPET} />
           <Code language="tsx" code={VERTICAL_BLOCK_SNIPPET} />
           <Code language="tsx" code={VERTICAL_BLOCK_INVERTED_SNIPPET} />
-        </Flex>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="16">
+        <Layout direction="column" gap="16">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Fill Variant
           </Text>
@@ -324,10 +324,10 @@ export function TabsDemoPage() {
             onTabChange={(index) => setFillActive(index as number)}
           />
           <Code language="tsx" code={FILL_SNIPPET} />
-        </Flex>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="16">
+        <Layout direction="column" gap="16">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Scrollable Variant
           </Text>
@@ -339,8 +339,8 @@ export function TabsDemoPage() {
             onTabChange={(index) => setScrollableActive(index as number)}
           />
           <Code language="tsx" code={SCROLLABLE_SNIPPET} />
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={TABS_PROPS} />

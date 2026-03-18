@@ -154,7 +154,7 @@
       ],
       "format": "cjs"
     },
-    "node_modules/@mich8060/unified-design-system/dist/index.js": {
+    "node_modules/@chg-ds/unified-design-system/dist/index.js": {
       "bytes": 280074,
       "imports": [
         {
@@ -180,7 +180,7 @@
       ],
       "format": "esm"
     },
-    "node_modules/@mich8060/unified-design-system/dist/unified-design-system.css": {
+    "node_modules/@chg-ds/unified-design-system/dist/unified-design-system.css": {
       "bytes": 237384,
       "imports": []
     },
@@ -188,14 +188,14 @@
       "bytes": 757,
       "imports": [
         {
-          "path": "node_modules/@mich8060/unified-design-system/dist/index.js",
+          "path": "node_modules/@chg-ds/unified-design-system/dist/index.js",
           "kind": "import-statement",
-          "original": "@mich8060/unified-design-system"
+          "original": "@chg-ds/unified-design-system"
         },
         {
-          "path": "node_modules/@mich8060/unified-design-system/dist/unified-design-system.css",
+          "path": "node_modules/@chg-ds/unified-design-system/dist/unified-design-system.css",
           "kind": "import-statement",
-          "original": "@mich8060/unified-design-system/styles.css"
+          "original": "@chg-ds/unified-design-system/styles.css"
         },
         {
           "path": "node_modules/react/jsx-runtime.js",
@@ -283,10 +283,10 @@
         "node_modules/@remix-run/router/dist/router.js": {
           "bytesInOutput": 5064
         },
-        "node_modules/@mich8060/unified-design-system/dist/index.js": {
+        "node_modules/@chg-ds/unified-design-system/dist/index.js": {
           "bytesInOutput": 120386
         },
-        "node_modules/@mich8060/unified-design-system/dist/unified-design-system.css": {
+        "node_modules/@chg-ds/unified-design-system/dist/unified-design-system.css": {
           "bytesInOutput": 0
         },
         "src/App.jsx": {
@@ -298,7 +298,7 @@
     ".esbuild-bundle.css": {
       "imports": [],
       "inputs": {
-        "node_modules/@mich8060/unified-design-system/dist/unified-design-system.css": {
+        "node_modules/@chg-ds/unified-design-system/dist/unified-design-system.css": {
           "bytesInOutput": 237207
         }
       },

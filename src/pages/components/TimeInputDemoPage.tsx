@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Divider, Flex, Text, TimeInput } from "../../design-system";
+import { Divider, Layout, Text, TimeInput } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -22,7 +22,7 @@ export function TimeInputDemoPage() {
       title="TimeInput"
       description="TimeInput provides native time picking behavior for schedules and appointments."
     >
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Basic Usage
         </Text>
@@ -32,21 +32,21 @@ export function TimeInputDemoPage() {
           label="Start time"
           helperText="Select a time in local timezone."
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Size Variants
         </Text>
         <TimeInput value="09:00" readOnly size="default" />
         <TimeInput value="09:00" readOnly size="compact" />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           State Variants
         </Text>
@@ -54,7 +54,7 @@ export function TimeInputDemoPage() {
         <TimeInput value="09:00" readOnly state="focused" />
         <TimeInput value="09:00" readOnly state="error" errorText="Please choose a valid time." />
         <TimeInput value="09:00" readOnly disabled />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={TIME_INPUT_PROPS} />

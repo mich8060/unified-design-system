@@ -1,6 +1,6 @@
 import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { ScrollView } from "../../design-system/components/ScrollView";
 import { Text } from "../../design-system/components/Text";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -35,8 +35,8 @@ export function ScrollViewDemoPage() {
       title="ScrollView"
       description="ScrollView constrains overflow to a single axis using the direction prop."
     >
-      <Flex direction="column" gap="24">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="24">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Vertical
           </Text>
@@ -49,20 +49,20 @@ export function ScrollViewDemoPage() {
               padding: "var(--uds-spacing-8)",
             }}
           >
-            <Flex direction="column" gap="8">
+            <Layout direction="column" gap="8">
               {Array.from({ length: 12 }).map((_, index) => (
                 <Text key={index} as="p" variant="body-14" leading="regular">
                   Vertical row {index + 1}
                 </Text>
               ))}
-            </Flex>
+            </Layout>
           </ScrollView>
           <Code language="tsx" code={VERTICAL_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Horizontal
           </Text>
@@ -84,11 +84,11 @@ export function ScrollViewDemoPage() {
             </div>
           </ScrollView>
           <Code language="tsx" code={HORIZONTAL_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
         <ComponentPropsTable rows={SCROLL_VIEW_PROPS} title="ScrollView Props" />
-      </Flex>
+      </Layout>
     </DocPageLayout>
   );
 }

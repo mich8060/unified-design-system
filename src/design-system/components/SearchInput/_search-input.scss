@@ -1,6 +1,29 @@
 @use "../../tokens/index" as *;
 
 .uds-search-input {
+  all: unset;
+  &--width-sm {
+    width: 170px;
+  }
+
+  &--width-md {
+    width: 220px;
+  }
+
+  &--width-lg {
+    width: 320px;
+  }
+
+  &--width-full {
+    width: 100%;
+  }
+
+  &--context-toolbar {
+    .uds-input {
+      min-height: 32px;
+    }
+  }
+
   &__dropdown-control {
     width: auto;
 
@@ -11,16 +34,16 @@
     }
 
     .uds-action-menu__trigger {
-      border: 0;
       background: transparent;
+      border: 0;
     }
 
     .uds-dropdown__trigger {
-      border: 0;
       background: transparent;
-      padding: 0 var(--uds-spacing-8) 0 var(--uds-spacing-12);
+      border: 0;
       border-left: var(--uds-border-width-1) solid var(--uds-border-secondary);
       border-radius: 0;
+      padding: 0 var(--uds-spacing-8) 0 var(--uds-spacing-12);
     }
 
     .uds-dropdown__icon {

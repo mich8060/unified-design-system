@@ -4,18 +4,18 @@
 .uds-key {
     all: unset;
     @include uds-body-12;
-    display: inline-flex;
     align-items: center;
+    border-radius: var(--uds-radius-4);
+    box-sizing: border-box;
+    display: inline-flex;
+    height: 24px;
     justify-content: center;
     min-width: 24px;
-    height: 24px;
     padding: var(--uds-spacing-2) var(--uds-spacing-8);
-    border-radius: var(--uds-radius-4);
-    width: fit-content;
-    white-space: nowrap;
-    user-select: none;
-    box-sizing: border-box;
     transition: all var(--uds-duration-200) var(--uds-ease-standard);
+    user-select: none;
+    white-space: nowrap;
+    width: fit-content;
 
     // Appearance variants
     &--light {

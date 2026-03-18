@@ -20,6 +20,7 @@ export * from "./components/CurrencyInput";
 export * from "./components/DateInput";
 export * from "./components/DateRangeInput";
 export * from "./components/Datepicker";
+export * from "./components/DescriptionList";
 export * from "./components/Dialog";
 export * from "./components/Divider";
 export * from "./components/DotStatus";
@@ -58,6 +59,7 @@ export * from "./components/Toast";
 export * from "./components/SearchInput";
 export * from "./components/ScrollView";
 export * from "./components/SectionHeader";
+export * from "./components/SelectableCard";
 export * from "./components/TokenInput";
 export * from "./components/Toolbar";
 export * from "./components/TimeInput";
@@ -68,7 +70,7 @@ export type { ToggleProps } from "./components/Toggle/Toggle.types";
 export { default as Menu } from "./components/Menu/Menu";
 export type { MenuProps, MenuNavItem, MenuChildItem, MenuMode } from "./components/Menu/Menu.types";
 export { AppShell } from "../app-shell/AppShell";
-export type { AppShellProps, AppShellSlots, AppShellSectionProps } from "../app-shell/AppShell";
+export type { AppShellProps, AppShellSlots, AppShellSectionProps, AppShellSidePanelSectionProps } from "../app-shell/AppShell";
 export type {
   ShellLayoutConfig,
   ContainerMode,

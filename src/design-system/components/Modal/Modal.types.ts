@@ -1,6 +1,6 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
-export interface ModalProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   open?: boolean;
   onClose?: (...args: unknown[]) => void;
   title?: unknown;
@@ -11,6 +11,11 @@ export interface ModalProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: string;
   closeOnBackdrop?: boolean;
   closeOnEscape?: boolean;
+  dismissible?: boolean;
+  headerActions?: ReactNode;
+  headerAlign?: "start" | "center" | "space-between";
+  footerAlign?: "start" | "center" | "end" | "space-between";
+  bodyPadding?: "none" | "compact" | "default";
   container?: unknown;
   className?: string;
   children?: ReactNode;

@@ -1,6 +1,6 @@
 import { Badge } from "../../design-system/components/Badge";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Text } from "../../design-system/components/Text";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
@@ -52,142 +52,142 @@ export function BadgeDemoPage() {
             title="Badge"
             description="Badge displays concise counts and status indicators with color, appearance, and shape variants."
         >
-            <Flex direction="column" gap="48" fullWidth>
+            <Layout direction="column" gap="48" fullWidth>
                 <Text as="h2" variant="heading-24" weight="medium" leading="regular">
                     Color Variants (Solid, Rounded)
                 </Text>
-                <Flex direction="row" gap="12" fullWidth>
-                    <Flex direction="column" gap="24">
+                <Layout direction="row" gap="12" fullWidth>
+                    <Layout direction="column" gap="24">
                         <Text as="p" variant="body-18" weight="semibold" leading="regular">
                             Rounded Solid Variants
                         </Text>
-                        <Flex direction="column"gap="12" wrap>
+                        <Layout direction="column"gap="12" wrap>
                             {BADGE_COLORS.map((variant) => (
-                                <Flex key={variant} alignItems="center" gap="8">
+                                <Layout key={variant} alignItems="center" gap="8">
                                     <Badge count={8} variant={variant} appearance="solid" rounded />
                                     <Text as="span" variant="body-12" leading="regular">
                                         {variant}
                                     </Text>
-                                </Flex>
+                                </Layout>
                             ))}
-                        </Flex>
-                    </Flex>
-                    <Flex direction="column" gap="24">
+                        </Layout>
+                    </Layout>
+                    <Layout direction="column" gap="24">
                         <Text as="p" variant="body-18" weight="semibold" leading="regular">
                             Rounded Outline Variants
                         </Text>
-                        <Flex direction="column" gap="12" wrap>
+                        <Layout direction="column" gap="12" wrap>
                             {BADGE_COLORS.map((variant) => (
-                                <Flex key={variant} alignItems="center" gap="8">
+                                <Layout key={variant} alignItems="center" gap="8">
                                     <Badge count={8} variant={variant} appearance="outlined" rounded />
                                     <Text as="span" variant="body-12" leading="regular">
                                         {variant}
                                     </Text>
-                                </Flex>
+                                </Layout>
                             ))}
-                        </Flex>
-                    </Flex>
-                    <Flex direction="column" gap="24">
+                        </Layout>
+                    </Layout>
+                    <Layout direction="column" gap="24">
                         <Text as="p" variant="body-18" weight="semibold" leading="regular">
                         Square Solid Variants
                         </Text>
-                        <Flex direction="column" gap="12" wrap>
+                        <Layout direction="column" gap="12" wrap>
                             {BADGE_COLORS.map((variant) => (
-                                <Flex key={variant} alignItems="center" gap="8">
+                                <Layout key={variant} alignItems="center" gap="8">
                                     <Badge count={8} variant={variant} appearance="solid" rounded={false} />
                                     <Text as="span" variant="body-12" leading="regular">
                                         {variant}
                                     </Text>
-                                </Flex>
+                                </Layout>
                             ))}
-                        </Flex>
-                    </Flex>
-                    <Flex direction="column" gap="24">
+                        </Layout>
+                    </Layout>
+                    <Layout direction="column" gap="24">
                         <Text as="p" variant="body-18" weight="semibold" leading="regular">
                         Square Outline Variants
                         </Text>
-                        <Flex direction="column" gap="12" wrap>
+                        <Layout direction="column" gap="12" wrap>
                             {BADGE_COLORS.map((variant) => (
-                                <Flex key={variant} alignItems="center" gap="8">
+                                <Layout key={variant} alignItems="center" gap="8">
                                     <Badge count={8} variant={variant} appearance="outlined" rounded={false} />
                                     <Text as="span" variant="body-12" leading="regular">
                                         {variant}
                                     </Text>
-                                </Flex>
+                                </Layout>
                             ))}
-                        </Flex>
-                    </Flex>
-                </Flex>
+                        </Layout>
+                    </Layout>
+                </Layout>
                 <Divider variant="solid" />
 
-                <Flex direction="column" gap="12">
+                <Layout direction="column" gap="12">
                     <Text as="h2" variant="heading-24" weight="medium" leading="regular">
                         Appearance Variants
                     </Text>
-                    <Flex alignItems="center" gap="16" wrap>
-                        <Flex alignItems="center" gap="8">
+                    <Layout alignItems="center" gap="16" wrap>
+                        <Layout alignItems="center" gap="8">
                             <Badge count={12} variant="blue" appearance="solid" rounded />
                             <Text as="span" variant="body-12" leading="regular">
                                 solid
                             </Text>
-                        </Flex>
-                        <Flex alignItems="center" gap="8">
+                        </Layout>
+                        <Layout alignItems="center" gap="8">
                             <Badge count={12} variant="blue" appearance="outlined" rounded />
                             <Text as="span" variant="body-12" leading="regular">
                                 outlined
                             </Text>
-                        </Flex>
-                    </Flex>
-                </Flex>
+                        </Layout>
+                    </Layout>
+                </Layout>
                 <Divider variant="solid" />
 
-                <Flex direction="column" gap="12">
+                <Layout direction="column" gap="12">
                     <Text as="h2" variant="heading-24" weight="medium" leading="regular">
                         Shape Variants
                     </Text>
-                    <Flex alignItems="center" gap="16" wrap>
-                        <Flex alignItems="center" gap="8">
+                    <Layout alignItems="center" gap="16" wrap>
+                        <Layout alignItems="center" gap="8">
                             <Badge count={42} variant="magenta" appearance="solid" rounded />
                             <Text as="span" variant="body-12" leading="regular">
                                 rounded
                             </Text>
-                        </Flex>
-                        <Flex alignItems="center" gap="8">
+                        </Layout>
+                        <Layout alignItems="center" gap="8">
                             <Badge count={42} variant="magenta" appearance="solid" rounded={false} />
                             <Text as="span" variant="body-12" leading="regular">
                                 square
                             </Text>
-                        </Flex>
-                    </Flex>
-                </Flex>
+                        </Layout>
+                    </Layout>
+                </Layout>
                 <Divider variant="solid" />
 
-                <Flex direction="column" gap="12">
+                <Layout direction="column" gap="12">
                     <Text as="h2" variant="heading-24" weight="medium" leading="regular">
                         Count Formatting
                     </Text>
-                    <Flex alignItems="center" gap="16" wrap>
-                        <Flex alignItems="center" gap="8">
+                    <Layout alignItems="center" gap="16" wrap>
+                        <Layout alignItems="center" gap="8">
                             <Badge count={8} />
                             <Text as="span" variant="body-12" leading="regular">
                                 8
                             </Text>
-                        </Flex>
-                        <Flex alignItems="center" gap="8">
+                        </Layout>
+                        <Layout alignItems="center" gap="8">
                             <Badge count={128} maxCount={99} />
                             <Text as="span" variant="body-12" leading="regular">
                                 99+
                             </Text>
-                        </Flex>
-                        <Flex alignItems="center" gap="8">
+                        </Layout>
+                        <Layout alignItems="center" gap="8">
                             <Badge count={0} />
                             <Text as="span" variant="body-12" leading="regular">
                                 hidden when 0
                             </Text>
-                        </Flex>
-                    </Flex>
-                </Flex>
-            </Flex>
+                        </Layout>
+                    </Layout>
+                </Layout>
+            </Layout>
 
             <Divider variant="solid" />
             <ComponentPropsTable rows={BADGE_PROPS} />

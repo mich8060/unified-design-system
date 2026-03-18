@@ -1,7 +1,8 @@
 .uds-button-group {
+    all: unset;
+    align-items: center;
     display: inline-flex;
     gap: var(--uds-spacing-0);
-    align-items: center;
 
     .uds-button-group__button,
     .uds-button {
@@ -19,8 +20,8 @@
     }
 
     &--horizontal {
-        flex-direction: row;
         align-items: center;
+        flex-direction: row;
 
         .uds-button {
             border-radius: 0;
@@ -30,20 +31,20 @@
             }
 
             &:first-child {
-                border-top-left-radius: var(--uds-radius-4);
                 border-bottom-left-radius: var(--uds-radius-4);
+                border-top-left-radius: var(--uds-radius-4);
             }
 
             &:last-child {
-                border-top-right-radius: var(--uds-radius-4);
                 border-bottom-right-radius: var(--uds-radius-4);
+                border-top-right-radius: var(--uds-radius-4);
             }
         }
     }
 
     &--vertical {
-        flex-direction: column;
         align-items: stretch;
+        flex-direction: column;
 
         .uds-button {
             border-radius: 0;

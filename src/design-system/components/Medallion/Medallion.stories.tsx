@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Flex } from "../Flex";
+import { Layout } from "../Layout";
 import { Medallion } from "./Medallion";
 
 const meta = {
@@ -45,11 +45,11 @@ export const Playground: Story = {};
 
 export const Shapes: Story = {
   render: () => (
-    <Flex alignItems="center" gap="12" wrap>
+    <Layout alignItems="center" gap="12" wrap>
       <Medallion shape="circle" color="blue" />
       <Medallion shape="square" color="blue" />
       <Medallion shape="roundedSquare" color="blue" />
       <Medallion shape="diamond" color="blue" />
-    </Flex>
+    </Layout>
   ),
 };

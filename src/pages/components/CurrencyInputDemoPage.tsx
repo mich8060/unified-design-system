@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CurrencyInput, Divider, Flex, Text } from "../../design-system";
+import { CurrencyInput, Divider, Layout, Text } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -22,7 +22,7 @@ export function CurrencyInputDemoPage() {
       title="CurrencyInput"
       description="CurrencyInput is a money entry field with left icon treatment and decimal input mode."
     >
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Basic Usage
         </Text>
@@ -32,21 +32,21 @@ export function CurrencyInputDemoPage() {
           label="Amount"
           helperText="Enter a value in USD."
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Size Variants
         </Text>
         <CurrencyInput value="1200.00" readOnly size="default" />
         <CurrencyInput value="1200.00" readOnly size="compact" />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           State Variants
         </Text>
@@ -54,7 +54,7 @@ export function CurrencyInputDemoPage() {
         <CurrencyInput value="1200.00" readOnly state="focused" />
         <CurrencyInput value="1200.00" readOnly state="error" errorText="Enter a valid amount." />
         <CurrencyInput value="1200.00" readOnly disabled />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={CURRENCY_INPUT_PROPS} />

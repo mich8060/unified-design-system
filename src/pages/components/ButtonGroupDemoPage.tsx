@@ -1,4 +1,4 @@
-import { ButtonGroup, Code, Divider, Flex, Text } from "../../design-system";
+import { ButtonGroup, Code, Divider, Layout, Text } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -29,7 +29,7 @@ const VERTICAL_SNIPPET = `<ButtonGroup
 export function ButtonGroupDemoPage() {
   return (
     <DocPageLayout title="ButtonGroup" description="ButtonGroup composes related Button actions with shared orientation and spacing.">
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Horizontal</Text>
         <ButtonGroup
           options={[
@@ -38,11 +38,11 @@ export function ButtonGroupDemoPage() {
           ]}
         />
         <Code language="tsx" code={HORIZONTAL_SNIPPET} />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Vertical</Text>
         <ButtonGroup
           orientation="vertical"
@@ -53,7 +53,7 @@ export function ButtonGroupDemoPage() {
           ]}
         />
         <Code language="tsx" code={VERTICAL_SNIPPET} />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={BUTTON_GROUP_PROPS} title="ButtonGroup Props" />

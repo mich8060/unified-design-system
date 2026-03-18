@@ -2,17 +2,69 @@
 
 .uds-container {
     all: unset;
-    display: block;
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
     border-radius: var(--uds-radius-8);
+    display: block;
 
-    &--appearance-default {
+    &--surface-default,
+    &--surface-panel,
+    &--surface-list {
         background-color: var(--uds-surface-primary);
-        border: var(--uds-border-width-1) solid var(--uds-border-primary);
     }
 
-    &--appearance-transparent {
+    &--surface-secondary,
+    &--surface-subtle-panel,
+    &--surface-card-selectable,
+    &--surface-scroll-region {
+        background-color: var(--uds-surface-secondary);
+    }
+
+    &--surface-transparent {
         background-color: var(--uds-surface-transparent);
-        border: var(--uds-border-width-1) solid var(--uds-border-transparent);
+    }
+
+    &--border-default {
+        border-color: var(--uds-border-primary);
+    }
+
+    &--border-subtle {
+        border-color: var(--uds-border-secondary);
+    }
+
+    &--border-none {
+        border-color: var(--uds-border-transparent);
+    }
+
+    &--radius-none {
+        border-radius: var(--uds-radius-0);
+    }
+
+    &--radius-sm {
+        border-radius: var(--uds-radius-4);
+    }
+
+    &--radius-md {
+        border-radius: var(--uds-radius-8);
+    }
+
+    &--radius-lg {
+        border-radius: var(--uds-radius-12);
+    }
+
+    &--overflow-visible {
+        overflow: visible;
+    }
+
+    &--overflow-hidden {
+        overflow: hidden;
+    }
+
+    &--overflow-auto {
+        overflow: auto;
+    }
+
+    &--overflow-clip {
+        overflow: clip;
     }
 
     &--padding-none {

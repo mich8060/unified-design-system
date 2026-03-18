@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Button } from "../../design-system/components/Button";
 import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Tag } from "../../design-system/components/Tag";
 import { Text } from "../../design-system/components/Text";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -61,7 +61,7 @@ function SectionHeaderBlock({
   actions?: ReactNode;
 }) {
   return (
-    <Flex
+    <Layout
       direction="column"
       gap="12"
       style={{
@@ -71,8 +71,8 @@ function SectionHeaderBlock({
         backgroundColor: "var(--uds-surface-primary)",
       }}
     >
-      <Flex justifyContent="space-between" alignItems="flex-start" gap="16" wrap>
-        <Flex direction="column" gap="8" style={{ maxWidth: "760px" }}>
+      <Layout justifyContent="space-between" alignItems="flex-start" gap="16" wrap>
+        <Layout direction="column" gap="8" style={{ maxWidth: "760px" }}>
           {eyebrow ? (
             <Text as="span" variant="body-12" weight="semibold" leading="regular">
               {eyebrow}
@@ -86,11 +86,11 @@ function SectionHeaderBlock({
               {description}
             </Text>
           ) : null}
-          {meta ? <Flex alignItems="center" gap="8" wrap>{meta}</Flex> : null}
-        </Flex>
-        {actions ? <Flex alignItems="center" gap="8" wrap>{actions}</Flex> : null}
-      </Flex>
-    </Flex>
+          {meta ? <Layout alignItems="center" gap="8" wrap>{meta}</Layout> : null}
+        </Layout>
+        {actions ? <Layout alignItems="center" gap="8" wrap>{actions}</Layout> : null}
+      </Layout>
+    </Layout>
   );
 }
 
@@ -100,8 +100,8 @@ export function SectionHeaderPatternPage() {
       title="Section Header"
       description="Section Header is a reusable pattern for page and section intros using existing UDS primitives."
     >
-      <Flex direction="column" gap="32">
-        <Flex direction="column" gap="10">
+      <Layout direction="column" gap="32">
+        <Layout direction="column" gap="10">
           <Text as="h3" variant="heading-20" weight="medium" leading="regular">
             Basic
           </Text>
@@ -111,11 +111,11 @@ export function SectionHeaderPatternPage() {
             description="Review active candidates, monitor progress, and manage handoff steps for this pipeline."
           />
           <Code language="tsx" code={BASIC_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="10">
+        <Layout direction="column" gap="10">
           <Text as="h3" variant="heading-20" weight="medium" leading="regular">
             With Actions
           </Text>
@@ -131,11 +131,11 @@ export function SectionHeaderPatternPage() {
             }
           />
           <Code language="tsx" code={ACTIONS_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="10">
+        <Layout direction="column" gap="10">
           <Text as="h3" variant="heading-20" weight="medium" leading="regular">
             With Metadata
           </Text>
@@ -160,8 +160,8 @@ export function SectionHeaderPatternPage() {
             }
           />
           <Code language="tsx" code={META_SNIPPET} />
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
     </DocPageLayout>
   );
 }

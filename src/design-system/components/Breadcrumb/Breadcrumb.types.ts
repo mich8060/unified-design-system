@@ -1,5 +1,10 @@
-import type { AnchorHTMLAttributes } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
-export interface BreadcrumbProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  items?: unknown;
+export interface BreadcrumbItem {
+  label?: ReactNode;
+  href?: string;
+}
+
+export interface BreadcrumbProps extends HTMLAttributes<HTMLElement> {
+  items?: BreadcrumbItem[];
 }

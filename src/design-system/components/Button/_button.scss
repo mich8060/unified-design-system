@@ -24,8 +24,8 @@
         border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
         color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
         box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
-    width: fit-content;
     position: relative;
+    width: fit-content;
 
     &:focus-visible {
         outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
@@ -48,6 +48,10 @@
         justify-content: center;
         line-height: 0;
 
+        .uds-icon {
+            color: inherit;
+        }
+
         svg {
             flex-shrink: 0;
             height: 20px;
@@ -62,20 +66,20 @@
     }
 
     &__content {
-        display: inline-flex;
         align-items: center;
-        justify-content: center;
+        display: inline-flex;
         gap: inherit;
+        justify-content: center;
     }
 
     &__loader {
-        position: absolute;
-        inset: 0;
-        display: inline-flex;
         align-items: center;
+        display: inline-flex;
+        inset: 0;
         justify-content: center;
         line-height: 0;
         pointer-events: none;
+        position: absolute;
 
         svg {
             animation: uds-button-spin 1s linear infinite;
@@ -88,14 +92,14 @@
 
     &--large {
         @include uds-body-18-semibold;
-        padding: var(--uds-spacing-12) var(--uds-spacing-18);
         height: 56px;
+        padding: var(--uds-spacing-12) var(--uds-spacing-18);
     }
 
     &--small {
         @include uds-body-14-semibold;
-        padding: var(--uds-spacing-4) var(--uds-spacing-12);
         height: 36px;
+        padding: var(--uds-spacing-4) var(--uds-spacing-12);
 
         .uds-button__icon svg {
             height: 16px;
@@ -110,8 +114,8 @@
 
     &--xsmall {
         @include uds-body-12-semibold;
-        padding: var(--uds-spacing-8) var(--uds-spacing-10);
         height:32px;
+        padding: var(--uds-spacing-8) var(--uds-spacing-10);
 
         .uds-button__icon svg {
             height: 16px;

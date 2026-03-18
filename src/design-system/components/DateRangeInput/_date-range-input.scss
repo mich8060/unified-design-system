@@ -2,17 +2,18 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-date-range-input {
-    display: flex;
+    all: unset;
     align-items: center;
-    gap: var(--uds-spacing-8);
-    width: 100%;
-    box-sizing: border-box;
+    background: var(--uds-surface-secondary);
     border: var(--uds-border-width-1) solid var(--uds-border-primary);
     border-radius: var(--uds-radius-4);
-    background: var(--uds-surface-secondary);
-    padding: 0 var(--uds-spacing-12);
+    box-sizing: border-box;
+    display: flex;
+    gap: var(--uds-spacing-8);
     min-height: 44px;
+    padding: 0 var(--uds-spacing-12);
     transition: border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+    width: 100%;
 
     &:focus-within {
         border-color: var(--uds-system-action-primary);
@@ -29,8 +30,8 @@
         }
 
         .uds-input {
-            border: none;
             background: transparent;
+            border: none;
             border-radius: 0;
             height: auto;
             min-height: 0;
@@ -44,11 +45,11 @@
         flex: 0 0 100px;
 
         input[type="date"]::-webkit-calendar-picker-indicator {
+            margin: 0;
             opacity: 0;
+            padding: 0;
             pointer-events: none;
             width: 0;
-            margin: 0;
-            padding: 0;
         }
     }
 
@@ -61,8 +62,8 @@
         @include uds-body-14-medium;
         color: var(--uds-text-tertiary);
         flex: 0 0 auto;
-        user-select: none;
         pointer-events: none;
+        user-select: none;
     }
 
     &--compact {
@@ -86,9 +87,9 @@
 
     &--error {
         border-color: var(--uds-system-destructive-primary);
+        color: var(--uds-text-destructive-primary);
         outline: 3px solid var(--uds-system-destructive-tertiary);
         outline-offset: 0;
-        color: var(--uds-text-destructive-primary);
     }
 
     &--error:focus-within {

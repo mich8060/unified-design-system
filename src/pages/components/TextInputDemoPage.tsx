@@ -1,5 +1,5 @@
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { TextInput } from "../../design-system/components/TextInput";
 import { Text } from "../../design-system/components/Text";
 import { useState } from "react";
@@ -32,7 +32,7 @@ export function TextInputDemoPage() {
       title="TextInput"
       description="TextInput supports standard entry, icon affordances, and stateful form experiences."
     >
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Basic Usage
         </Text>
@@ -48,14 +48,14 @@ export function TextInputDemoPage() {
           placeholder="Enter your email"
           type="email"
         />
-      </Flex>
+      </Layout>
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Icon Variants
         </Text>
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <TextInput
             value={search}
             onChange={(e) => {
@@ -97,40 +97,40 @@ export function TextInputDemoPage() {
             iconPosition="right"
             onIconClick={() => setPasswordVisible((prev) => !prev)}
           />
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Size Variants
         </Text>
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <TextInput value="Default size" readOnly size="default" />
           <TextInput value="Compact size" readOnly size="compact" />
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           State Variants
         </Text>
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <TextInput value="Default state" readOnly state="default" />
           <TextInput value="Focused state token" readOnly state="focused" />
           <TextInput value="Error state token" readOnly state="error" errorText="This field has an error." />
           <TextInput value="Disabled state token" readOnly state="disabled" />
           <TextInput value="Disabled prop" readOnly disabled />
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Label and Supporting Text
         </Text>
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <TextInput
             value={email}
             onChange={(e) => {
@@ -160,8 +160,8 @@ export function TextInputDemoPage() {
             placeholder="you@company.com"
             type="email"
           />
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={TEXT_INPUT_PROPS} />

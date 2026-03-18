@@ -1,68 +1,69 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
 .uds-calendar {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  all: unset;
   background: var(--uds-surface-primary);
   border: var(--uds-border-width-1) solid var(--uds-border-primary);
   border-radius: var(--uds-radius-8);
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  width: 100%;
 
   // ── Header ──────────────────────────────────────────────────────
   &__header {
-    display: flex;
     align-items: center;
+    border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
+    display: flex;
+    gap: var(--uds-spacing-12);
     justify-content: space-between;
     padding: var(--uds-spacing-12) var(--uds-spacing-16);
-    border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
-    gap: var(--uds-spacing-12);
   }
 
   &__header-left {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: var(--uds-spacing-12);
   }
 
   &__header-right {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: var(--uds-spacing-4);
   }
 
   &__title {
     @include uds-heading-20;
-    margin: 0;
     color: var(--uds-text-primary);
+    margin: 0;
     white-space: nowrap;
   }
 
   // ── Weekday row ─────────────────────────────────────────────────
   &__weekday-row {
-    display: flex;
-    border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
     background: var(--uds-surface-secondary);
+    border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
+    display: flex;
   }
 
   &__weekday {
     @include uds-body-12-medium;
-    flex: 1;
-    text-align: center;
-    padding: var(--uds-spacing-6) var(--uds-spacing-4);
     color: var(--uds-text-secondary);
-    text-transform: uppercase;
+    flex: 1;
     letter-spacing: 0.04em;
+    padding: var(--uds-spacing-6) var(--uds-spacing-4);
+    text-align: center;
+    text-transform: uppercase;
   }
 
   &__week-number-header {
     @include uds-body-12-medium;
-    width: 40px;
-    min-width: 40px;
-    text-align: center;
-    padding: var(--uds-spacing-6) 0;
-    color: var(--uds-text-tertiary);
     border-right: var(--uds-border-width-1) solid var(--uds-border-primary);
+    color: var(--uds-text-tertiary);
+    min-width: 40px;
+    padding: var(--uds-spacing-6) 0;
+    text-align: center;
+    width: 40px;
   }
 
   // ── Grid container ──────────────────────────────────────────────
@@ -73,8 +74,8 @@
 
   // ── Week row (one horizontal row per week) ──────────────────────
   &__week-row {
-    display: flex;
     border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
+    display: flex;
 
     &:last-child {
       border-bottom: none;
@@ -83,21 +84,21 @@
 
   &__week-number {
     @include uds-body-12;
-    width: 40px;
-    min-width: 40px;
-    display: flex;
     align-items: flex-start;
-    justify-content: center;
-    padding-top: var(--uds-spacing-8);
-    color: var(--uds-text-tertiary);
     background: var(--uds-surface-secondary);
     border-right: var(--uds-border-width-1) solid var(--uds-border-primary);
+    color: var(--uds-text-tertiary);
+    display: flex;
+    justify-content: center;
+    min-width: 40px;
+    padding-top: var(--uds-spacing-8);
+    width: 40px;
   }
 
   // ── Week content (the 7-column area) ────────────────────────────
   &__week-content {
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
     min-width: 0;
     position: relative;
@@ -112,10 +113,10 @@
   }
 
   &__day-cell {
-    padding: var(--uds-spacing-6) var(--uds-spacing-8);
-    padding-bottom: var(--uds-spacing-64);
     border-right: var(--uds-border-width-1) solid var(--uds-border-primary);
     cursor: pointer;
+    padding: var(--uds-spacing-6) var(--uds-spacing-8);
+    padding-bottom: var(--uds-spacing-64);
     transition: background var(--uds-animation-duration-150) var(--uds-animation-ease-standard);
 
     &:last-child {
@@ -163,13 +164,13 @@
 
   &__day-number {
     @include uds-body-14;
+    align-items: center;
+    border-radius: 50%;
     color: var(--uds-text-primary);
     display: inline-flex;
-    align-items: center;
+    height: 26px;
     justify-content: center;
     width: 26px;
-    height: 26px;
-    border-radius: 50%;
 
     &--today {
       background: var(--uds-system-action-primary);
@@ -182,13 +183,13 @@
   &__events-overlay {
     position: absolute;
     top: 38px; // below the day-number row
-    left: 0;
-    right: 0;
     display: flex;
     flex-direction: column;
     gap: 1px;
+    left: 0;
     padding: 0 1px;
     pointer-events: none;
+    right: 0;
     z-index: 2;
 
     > * {
@@ -199,16 +200,16 @@
   // ── Event lane (spanning events, 7-col grid) ────────────────────
   &__event-lane {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
     gap: 0;
+    grid-template-columns: repeat(7, 1fr);
     min-height: 22px;
   }
 
   &__event-slot {
+    align-items: stretch;
+    display: flex;
     min-width: 0;
     overflow: hidden;
-    display: flex;
-    align-items: stretch;
   }
 
   // ── Timed events row ────────────────────────────────────────────
@@ -221,8 +222,8 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: 2px var(--uds-spacing-2) var(--uds-spacing-4);
     min-height: 24px;
+    padding: 2px var(--uds-spacing-2) var(--uds-spacing-4);
 
     &:last-child {
       border-right: none;
@@ -233,8 +234,8 @@
   &__more {
     @include uds-body-12;
     color: var(--uds-text-tertiary);
-    padding: 1px var(--uds-spacing-4);
     cursor: pointer;
+    padding: 1px var(--uds-spacing-4);
     white-space: nowrap;
 
     &:hover {
@@ -247,18 +248,18 @@
   // ════════════════════════════════════════════════════════════════
 
   &__event-bar {
-    all: unset;
-    box-sizing: border-box;
-    display: flex;
     align-items: center;
-    width: 100%;
-    height: 20px;
-    padding: 0 var(--uds-spacing-6);
+    all: unset;
     border-radius: var(--uds-radius-4);
+    box-sizing: border-box;
     cursor: default;
-    position: relative;
+    display: flex;
+    height: 20px;
     overflow: hidden;
+    padding: 0 var(--uds-spacing-6);
+    position: relative;
     transition: filter var(--uds-animation-duration-150) var(--uds-animation-ease-standard);
+    width: 100%;
 
     // ── Clickable ─────────────────────────────────────────────
     &[type="button"] {
@@ -276,14 +277,14 @@
 
     // ── Cap variations ────────────────────────────────────────
     &--no-start-cap {
-      border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
       padding-left: 0;
     }
 
     &--no-end-cap {
-      border-top-right-radius: 0;
       border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
       padding-right: 0;
     }
 
@@ -296,19 +297,19 @@
     &-label {
       @include uds-body-12-medium;
       color: inherit;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
       min-width: 0;
+      overflow: hidden;
       position: relative;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       z-index: 1;
     }
 
     // ── Pending stripe pattern ────────────────────────────────
     &-pattern {
-      position: absolute;
       inset: 0;
       pointer-events: none;
+      position: absolute;
       background: repeating-linear-gradient(
         -45deg,
         transparent,
@@ -334,9 +335,9 @@
 
     // Travel — pending
     &--travel.uds-calendar__event-bar--pending {
+      --_stripe-color: var(--uds-color-accent-cyan-200);
       background-color: var(--uds-color-accent-cyan-50);
       color: var(--uds-text-primary);
-      --_stripe-color: var(--uds-color-accent-cyan-200);
     }
 
     &--travel.uds-calendar__event-bar--pending:not(.uds-calendar__event-bar--no-start-cap) {
@@ -357,9 +358,9 @@
 
     // Assignment — pending
     &--assignment.uds-calendar__event-bar--pending {
+      --_stripe-color: var(--uds-color-accent-aqua-200);
       background-color: var(--uds-color-accent-aqua-50);
       color: var(--uds-text-primary);
-      --_stripe-color: var(--uds-color-accent-aqua-200);
     }
 
     &--assignment.uds-calendar__event-bar--pending:not(.uds-calendar__event-bar--no-start-cap) {
@@ -380,9 +381,9 @@
 
     // Unassigned — pending
     &--unassigned.uds-calendar__event-bar--pending {
+      --_stripe-color: var(--uds-color-neutrals-200);
       background-color: var(--uds-color-neutrals-50);
       color: var(--uds-text-primary);
-      --_stripe-color: var(--uds-color-neutrals-200);
     }
 
     &--unassigned.uds-calendar__event-bar--pending:not(.uds-calendar__event-bar--no-start-cap) {
@@ -411,8 +412,8 @@
 
     .uds-calendar__day-number {
       @include uds-body-12;
-      width: 22px;
       height: 22px;
+      width: 22px;
     }
 
     .uds-calendar__events-overlay {
@@ -433,8 +434,8 @@
     }
 
     .uds-calendar__timed-col {
-      padding: 1px var(--uds-spacing-2) var(--uds-spacing-4);
       min-height: 20px;
+      padding: 1px var(--uds-spacing-2) var(--uds-spacing-4);
     }
   }
 

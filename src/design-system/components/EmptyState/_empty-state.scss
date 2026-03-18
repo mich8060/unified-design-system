@@ -1,13 +1,14 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-empty-state {
+  all: unset;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: var(--uds-gap-24);
-  width: 100%;
   padding: var(--uds-spacing-16);
   text-align: center;
+  width: 100%;
 
   &--left {
     align-items: flex-start;
@@ -16,14 +17,6 @@
 
   &__icon {
     display: inline-flex;
-    background-color: var(--uds-color-primary-50);
-    color: var(--uds-color-primary-500);
-    border-radius: var(--uds-radius-9999);
-    padding: var(--uds-spacing-16);
-
-    svg {
-      color: inherit;
-    }
   }
 
   &__content {

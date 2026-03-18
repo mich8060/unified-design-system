@@ -2,24 +2,26 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-tag {
+    all: unset;
     align-items: center;
-    justify-content: center;
-    gap: 0;
     border: var(--uds-border-width-1) solid transparent;
     border-radius: var(--uds-radius-2);
     box-sizing: border-box;
+    display: inline-flex;
+    gap: 0;
+    height: fit-content;
+    justify-content: center;
     min-width: 24px;
+    user-select: none;
     white-space: nowrap;
     width: fit-content;
-    height: fit-content;
-    user-select: none;
 
     // When used as button, remove default button styles
     &:is(button) {
         background: none;
-        font: inherit;
         color: inherit;
         cursor: pointer;
+        font: inherit;
     }
 
     // ── Size: Compact (16px tall) ──────────────────────────────────────
@@ -36,7 +38,7 @@
 
     // ── Icon-left: compact gets slightly wider outer padding ───────────
     &--icon-left.uds-tag--compact {
-        padding-inline: var(--uds-spacing-6);
+        padding: var(--uds-spacing-0) var(--uds-spacing-6);
     }
 
     // ── Rounded variant ────────────────────────────────────────────────
@@ -50,36 +52,58 @@
 
     // ── Icon ───────────────────────────────────────────────────────────
     &__icon {
-        display: inline-flex;
         align-items: center;
-        justify-content: center;
+        display: inline-flex;
         flex-shrink: 0;
+        justify-content: center;
         line-height: 0;
 
+        .uds-icon {
+            color: currentColor;
+        }
+
         svg {
-            width: 10px;
             height: 10px;
+            width: 10px;
         }
 
         .uds-tag--default & {
             svg {
-                width: 12px;
                 height: 12px;
+                width: 12px;
             }
         }
     }
 
+    // Keep icon tokens aligned with text semantics where applicable.
+    &--transparent:not(&--solid) &__icon .uds-icon,
+    &--neutral:not(&--solid) &__icon .uds-icon,
+    &--transparent.uds-tag--pastel &__icon .uds-icon,
+    &--neutral.uds-tag--pastel &__icon .uds-icon,
+    &--transparent.uds-tag--outlined &__icon .uds-icon,
+    &--neutral.uds-tag--outlined &__icon .uds-icon,
+    &--transparent.uds-tag--solid &__icon .uds-icon,
+    &--neutral.uds-tag--solid &__icon .uds-icon,
+    &--inverse.uds-tag--pastel &__icon .uds-icon {
+        color: var(--uds-icon-primary);
+    }
+
+    &--inverse:not(&--solid) &__icon .uds-icon,
+    &--inverse.uds-tag--outlined &__icon .uds-icon,
+    &--inverse.uds-tag--solid &__icon .uds-icon {
+        color: var(--uds-icon-inverse);
+    }
+
     // ── Label ──────────────────────────────────────────────────────────
     &__label {
-        display: inline-block;
-        white-space: nowrap;
+        padding: 0 var(--uds-spacing-4);
         text-align: center;
-        padding-inline: var(--uds-spacing-4);
+        white-space: nowrap;
     }
 
     // Icon-left compact: tighter inner label padding
     &--icon-left.uds-tag--compact &__label {
-        padding-inline: var(--uds-spacing-2);
+        padding: 0 var(--uds-spacing-2);
     }
 
     // ── Color variants (non-solid) ─────────────────────────────────────

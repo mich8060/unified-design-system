@@ -6,6 +6,8 @@ import type { SearchInputProps } from "./SearchInput.types";
 const BASE_CLASS = "uds-search-input";
 
 export function SearchInput({
+  width = "md",
+  context = "default",
   dropdownOptions,
   dropdownValue,
   onDropdownChange,
@@ -20,6 +22,8 @@ export function SearchInput({
   const hasDropdown = Boolean(dropdownOptions && dropdownOptions.length > 0);
   const wrapperClassName = [
     BASE_CLASS,
+    `${BASE_CLASS}--width-${width}`,
+    `${BASE_CLASS}--context-${context}`,
     hasDropdown && `${BASE_CLASS}--with-dropdown`,
     className,
   ]

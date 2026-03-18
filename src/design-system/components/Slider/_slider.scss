@@ -1,15 +1,14 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
 .uds-slider {
+  all: unset;
   display: flex;
   flex-direction: column;
   gap: var(--uds-gap-12);
   width: 100%;
 
   &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    min-width: 0;
   }
 
   &__label {
@@ -18,51 +17,51 @@
   }
 
   &__container {
+    padding: var(--uds-spacing-8) 0;
     position: relative;
     width: 100%;
-    padding: var(--uds-spacing-8) 0;
   }
 
   &__track {
-    position: relative;
-    width: 100%;
-    height: 8px;
     background-color: var(--uds-surface-tertiary);
     border-radius: var(--uds-radius-9999);
     cursor: pointer;
+    height: 8px;
+    position: relative;
+    width: 100%;
   }
 
   &__fill {
-    position: absolute;
-    top: 0;
-    height: 100%;
     background-color: var(--uds-surface-brand-tertiary);
     border-radius: var(--uds-radius-9999);
+    height: 100%;
     pointer-events: none;
+    position: absolute;
+    top: 0;
   }
 
   &__input {
-    position: absolute;
-    width: 100%;
+    cursor: pointer;
     height: 4px;
-    top: 0;
     left: 0;
     margin: 0;
-    padding: 0;
     opacity: 0;
-    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
     z-index: 2;
 
     &::-webkit-slider-thumb {
       appearance: none;
-      width: 0;
       height: 0;
+      width: 0;
     }
 
     &::-moz-range-thumb {
-      width: 0;
-      height: 0;
       border: none;
+      height: 0;
+      width: 0;
     }
 
     &:focus-visible {
@@ -84,15 +83,15 @@
   }
 
   &__thumb {
-    position: absolute;
-    width: 20px;
-    height: 20px;
     background-color: var(--uds-surface-primary);
     border: var(--uds-border-width-1) solid var(--uds-border-primary);
     border-radius: var(--uds-radius-9999);
     cursor: grab;
-    transform: translate(-50%, -50%);
+    height: 20px;
+    position: absolute;
     top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
     z-index: 5;
     transition:
       border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
@@ -116,24 +115,24 @@
   }
 
   &__labels {
+    height: 20px;
+    margin-top: var(--uds-gap-12);
     position: relative;
     width: 100%;
-    margin-top: var(--uds-gap-12);
-    height: 20px;
   }
 
   &__label-value {
     @include uds-body-12-medium;
-    position: absolute;
     color: var(--uds-text-secondary);
+    position: absolute;
     transform: translateX(-50%);
     white-space: nowrap;
   }
 
   &--disabled {
+    cursor: not-allowed;
     opacity: 0.6;
     pointer-events: none;
-    cursor: not-allowed;
 
     .uds-slider__track {
       cursor: not-allowed;

@@ -1,5 +1,5 @@
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Slider } from "../../design-system/components/Slider";
 import { Text } from "../../design-system/components/Text";
 import { useState } from "react";
@@ -40,15 +40,15 @@ export function SliderDemoPage() {
       title="Slider"
       description="Slider enables numeric value selection for single values or ranges within a bounded min/max scale."
     >
-      <Flex direction="column" gap="40">
-        <Flex direction="column" gap="10">
+      <Layout direction="column" gap="40">
+        <Layout direction="column" gap="10">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Basic Slider
           </Text>
           <Text as="p" variant="body-14" leading="regular">
             Single-value slider with a live value readout.
           </Text>
-          <Flex direction="column" gap="8" style={{ maxWidth: "560px" }}>
+          <Layout direction="column" gap="8" style={{ maxWidth: "560px" }}>
             <Slider
               label="Volume"
               min={0}
@@ -59,19 +59,19 @@ export function SliderDemoPage() {
             <Text as="span" variant="body-14" leading="regular">
               Current value: {volume}
             </Text>
-          </Flex>
-        </Flex>
+          </Layout>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="10">
+        <Layout direction="column" gap="10">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             With Labels
           </Text>
           <Text as="p" variant="body-14" leading="regular">
             Show percentage labels to communicate relative progress.
           </Text>
-          <Flex direction="column" gap="8" style={{ maxWidth: "560px" }}>
+          <Layout direction="column" gap="8" style={{ maxWidth: "560px" }}>
             <Slider
               label="Completion"
               min={0}
@@ -80,19 +80,19 @@ export function SliderDemoPage() {
               onChange={(next: unknown) => setVolume(toNumber(next, volume))}
               showLabels
             />
-          </Flex>
-        </Flex>
+          </Layout>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="10">
+        <Layout direction="column" gap="10">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Stepped Values
           </Text>
           <Text as="p" variant="body-14" leading="regular">
             Use larger step intervals for coarse-grained selections.
           </Text>
-          <Flex direction="column" gap="8" style={{ maxWidth: "560px" }}>
+          <Layout direction="column" gap="8" style={{ maxWidth: "560px" }}>
             <Slider
               label="Zoom Level"
               min={0}
@@ -105,19 +105,19 @@ export function SliderDemoPage() {
             <Text as="span" variant="body-14" leading="regular">
               Step value: {steppedValue}
             </Text>
-          </Flex>
-        </Flex>
+          </Layout>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="10">
+        <Layout direction="column" gap="10">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Range Slider
           </Text>
           <Text as="p" variant="body-14" leading="regular">
             Dual-thumb slider for selecting a min and max range.
           </Text>
-          <Flex direction="column" gap="8" style={{ maxWidth: "560px" }}>
+          <Layout direction="column" gap="8" style={{ maxWidth: "560px" }}>
             <Slider
               label="Price Range"
               min={0}
@@ -130,23 +130,23 @@ export function SliderDemoPage() {
             <Text as="span" variant="body-14" leading="regular">
               Selected range: {priceRange[0]} - {priceRange[1]}
             </Text>
-          </Flex>
-        </Flex>
+          </Layout>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="10">
+        <Layout direction="column" gap="10">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Disabled
           </Text>
           <Text as="p" variant="body-14" leading="regular">
             Disabled slider preserves value display while preventing interaction.
           </Text>
-          <Flex direction="column" gap="8" style={{ maxWidth: "560px" }}>
+          <Layout direction="column" gap="8" style={{ maxWidth: "560px" }}>
             <Slider label="Disabled Slider" min={0} max={100} value={60} disabled />
-          </Flex>
-        </Flex>
-      </Flex>
+          </Layout>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={SLIDER_PROPS} title="Slider Props" />

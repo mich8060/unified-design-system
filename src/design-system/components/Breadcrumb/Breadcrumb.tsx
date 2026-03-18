@@ -2,6 +2,7 @@ import React from "react";
 import { Link, UNSAFE_LocationContext } from "react-router-dom";
 import "./_breadcrumb.scss";
 import type { BreadcrumbProps } from "./Breadcrumb.types";
+import type { ReactNode } from "react";
 
 // Foundations items
 const FOUNDATIONS_ITEMS = [
@@ -60,6 +61,58 @@ const PATTERNS_ITEMS = [
   { path: "/menu", label: "Menu" },
 ];
 
+interface ResolvedBreadcrumbItem {
+  key: string;
+  label: ReactNode;
+  href?: string;
+}
+
+function renderBreadcrumbList(items: ResolvedBreadcrumbItem[], isRouterAvailable: boolean) {
+  return (
+    <nav className="breadcrumb" aria-label="Breadcrumb">
+      <ol className="breadcrumb__list">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          const isExternal =
+            typeof item.href === "string" &&
+            (item.href.startsWith("http://") || item.href.startsWith("https://"));
+
+          return (
+            <React.Fragment key={item.key}>
+              <li className={`breadcrumb__item ${isLast ? "breadcrumb__item--current" : ""}`}>
+                {item.href && !isLast ? (
+                  isExternal ? (
+                    <a href={item.href} className="breadcrumb__link" target="_blank" rel="noopener noreferrer">
+                      <span className="breadcrumb__text">{item.label}</span>
+                    </a>
+                  ) : isRouterAvailable ? (
+                    <Link to={item.href} className="breadcrumb__link">
+                      <span className="breadcrumb__text">{item.label}</span>
+                    </Link>
+                  ) : (
+                    <a href={item.href} className="breadcrumb__link">
+                      <span className="breadcrumb__text">{item.label}</span>
+                    </a>
+                  )
+                ) : (
+                  <span className="breadcrumb__text">{item.label}</span>
+                )}
+              </li>
+              {!isLast && (
+                <li className="breadcrumb__item">
+                  <span className="breadcrumb__separator" aria-hidden="true">
+                    /
+                  </span>
+                </li>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
 /**
  * Breadcrumb component for page navigation
  * @param {Array} items - Optional array of breadcrumb items (max 5). Each item should have { label: string, href?: string }
@@ -75,51 +128,13 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
   // If custom items are provided, use them
   if (items && items.length > 0) {
     // Limit to 5 items
-    const displayItems = items.slice(0, 5);
-    
-    return (
-      <nav className="breadcrumb" aria-label="Breadcrumb">
-        <ol className="breadcrumb__list">
-          {displayItems.map((item, index) => {
-            const isLast = index === displayItems.length - 1;
-            const isExternal = item.href && (item.href.startsWith("http://") || item.href.startsWith("https://"));
-            
-            return (
-              <React.Fragment key={index}>
-                <li className={`breadcrumb__item ${isLast ? "breadcrumb__item--current" : ""}`}>
-                  {item.href && !isLast ? (
-                    isExternal ? (
-                      <a href={item.href} className="breadcrumb__link" target="_blank" rel="noopener noreferrer">
-                        <span className="breadcrumb__text">{item.label}</span>
-                      </a>
-                    ) : (
-                      isRouterAvailable ? (
-                        <Link to={item.href} className="breadcrumb__link">
-                          <span className="breadcrumb__text">{item.label}</span>
-                        </Link>
-                      ) : (
-                        <a href={item.href} className="breadcrumb__link">
-                          <span className="breadcrumb__text">{item.label}</span>
-                        </a>
-                      )
-                    )
-                  ) : (
-                    <span className="breadcrumb__text">{item.label}</span>
-                  )}
-                </li>
-                {!isLast && (
-                  <li className="breadcrumb__item">
-                    <span className="breadcrumb__separator" aria-hidden="true">
-                      /
-                    </span>
-                  </li>
-                )}
-              </React.Fragment>
-            );
-          })}
-        </ol>
-      </nav>
-    );
+    const displayItems: ResolvedBreadcrumbItem[] = items.slice(0, 5).map((item, index) => ({
+      key: `${String(item.label ?? "item")}-${String(item.href ?? "none")}-${index}`,
+      label: item.label,
+      href: item.href,
+    }));
+
+    return renderBreadcrumbList(displayItems, isRouterAvailable);
   }
 
   // Default behavior: auto-generate from route
@@ -148,29 +163,12 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
     category = "Patterns";
   }
 
-  return (
-    <nav className="breadcrumb" aria-label="Breadcrumb">
-      <ol className="breadcrumb__list">
-        <li className="breadcrumb__item">
-          <span className="breadcrumb__text">Unified Design System</span>
-        </li>
-        <li className="breadcrumb__item">
-          <span className="breadcrumb__separator" aria-hidden="true">
-            /
-          </span>
-        </li>
-        <li className="breadcrumb__item">
-          <span className="breadcrumb__text">{category}</span>
-        </li>
-        <li className="breadcrumb__item">
-          <span className="breadcrumb__separator" aria-hidden="true">
-            /
-          </span>
-        </li>
-        <li className="breadcrumb__item breadcrumb__item--current">
-          <span className="breadcrumb__text">{currentItem.label}</span>
-        </li>
-      </ol>
-    </nav>
+  return renderBreadcrumbList(
+    [
+      { key: "uds-home", label: "Unified Design System" },
+      { key: "uds-category", label: category },
+      { key: "uds-current", label: currentItem.label },
+    ],
+    isRouterAvailable,
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import Button from "../Button/Button";
+import { Layout } from "../Layout";
 import "./_datepicker.scss";
 import type { DatepickerProps } from "./Datepicker.types";
 
@@ -186,13 +187,13 @@ export default function Datepicker({
   return (
     <div className={classNames} {...props}>
       {/* Header */}
-      <div className={`${BASE_CLASS}__header`}>
+      <Layout className={`${BASE_CLASS}__header`} alignItems="center" justifyContent="space-between">
         <Button icon="ArrowLeft" size="small" appearance="text" onClick={handlePrevMonth} aria-label="Previous month" />
         <h3 className={`${BASE_CLASS}__title`}>
           {MONTHS[monthIndex]} {year}
         </h3>
         <Button icon="ArrowRight" size="small" appearance="text" onClick={handleNextMonth} aria-label="Next month" />
-      </div>
+      </Layout>
 
       {/* Weekday Header */}
       {showWeekdays && (

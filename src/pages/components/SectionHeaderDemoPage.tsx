@@ -1,4 +1,4 @@
-import { Button, Code, Divider, Flex, SectionHeader, Tag, Text } from "../../design-system";
+import { Button, Code, Divider, Layout, SectionHeader, Tag, Text } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -74,8 +74,8 @@ export function SectionHeaderDemoPage() {
       title="SectionHeader"
       description="SectionHeader is a reusable heading block for pages and sections with optional metadata and actions."
     >
-      <Flex direction="column" gap="32">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="32">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Basic
           </Text>
@@ -85,11 +85,11 @@ export function SectionHeaderDemoPage() {
             description="Review active candidates, monitor progress, and manage handoff steps."
           />
           <Code language="tsx" code={BASIC_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             With Actions
           </Text>
@@ -105,11 +105,11 @@ export function SectionHeaderDemoPage() {
             }
           />
           <Code language="tsx" code={ACTIONS_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             With Metadata
           </Text>
@@ -127,11 +127,11 @@ export function SectionHeaderDemoPage() {
             }
           />
           <Code language="tsx" code={META_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Full Example (Meta + Actions + Divider)
           </Text>
@@ -157,9 +157,9 @@ export function SectionHeaderDemoPage() {
             }
           />
           <Code language="tsx" code={FULL_SNIPPET} />
-        </Flex>
+        </Layout>
 
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={SECTION_HEADER_PROPS} title="SectionHeader Props" />

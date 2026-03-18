@@ -221,6 +221,22 @@ Describe purpose.
 | --- | --- | --- | --- |
 | _none_ | - | - | - |
 
+### DescriptionList
+
+Compact key-value metadata layout for detail and summary views.
+
+- Source: `src/design-system/components/DescriptionList/DescriptionList.spec.ts`
+- Tier: `2`
+- States: `default`
+
+| Prop | Type | Allowed Values | Default |
+| --- | --- | --- | --- |
+| `bordered` | `boolean` | - | `true` |
+| `density` | `enum` | default, compact | `default` |
+| `fullWidth` | `boolean` | - | `true` |
+| `labelWidth` | `enum` | sm, md, lg | `md` |
+| `variant` | `enum` | default, separators | `default` |
+
 ### Dialog
 
 - Source: `src/design-system/components/Dialog/Dialog.spec.ts`
@@ -284,9 +300,10 @@ Provide a clear, branded fallback when a section has no content, data, or search
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
-| `status` | `string` | - | `active` |
+| `color` | `enum` | transparent, neutral, red, orange, yellow, emerald, green, sky, cyan, blue, indigo, purple, fuchsia, magenta, inverse | `-` |
+| `status` | `enum` | active, past, pending | `active` |
 | `title` | `string` | - | `Title` |
-| `type` | `string` | - | `travel` |
+| `type` | `enum` | travel, assignment, unassigned | `travel` |
 
 ### Field
 
@@ -552,6 +569,19 @@ Describe purpose.
 | --- | --- | --- | --- |
 | _none_ | - | - | - |
 
+### SelectableCard
+
+Selectable surface for list rows and card-like actionable metadata items.
+
+- Source: `src/design-system/components/SelectableCard/SelectableCard.spec.ts`
+- Tier: `2`
+- States: `default`, `hover`, `focus`, `selected`, `disabled`
+
+| Prop | Type | Allowed Values | Default |
+| --- | --- | --- | --- |
+| `disabled` | `boolean` | - | `false` |
+| `selected` | `boolean` | - | `false` |
+
 ### Slider
 
 - Source: `src/design-system/components/Slider/Slider.spec.ts`
@@ -689,6 +719,8 @@ Describe purpose.
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
+| `actions` | `enum` | none, close, subtle, buttons | `none` |
+| `size` | `enum` | default, condensed | `default` |
 | `variant` | `enum` | success, error, warning, info | `info` |
 
 ### Toggle

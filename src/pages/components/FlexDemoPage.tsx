@@ -15,6 +15,10 @@ const FLEX_PROPS: ComponentPropRow[] = [
   { prop: "justifyContent", type: "string", defaultValue: '"flex-start"', description: "Main-axis alignment and distribution of children." },
   { prop: "itemsPerRow", type: "number", defaultValue: "-", description: "For row layouts, fixes how many items appear in each row and wraps the rest." },
   { prop: "wrap", type: "boolean", defaultValue: "false", description: "Allows items to wrap onto multiple lines when true." },
+  { prop: "mt / mb / pl", type: "string | number", defaultValue: "-", description: "Convenience spacing props for margin-top, margin-bottom, and padding-left." },
+  { prop: "minWidth", type: "string | number", defaultValue: "-", description: "Sets minimum width on the container." },
+  { prop: "shrink / grow", type: "number", defaultValue: "-", description: "Applies flex-shrink and flex-grow directly on the layout container." },
+  { prop: "fullHeight", type: "boolean", defaultValue: "false", description: "Expands container to 100% height." },
   { prop: "fullWidth", type: "boolean", defaultValue: "false", description: "Expands the container to 100% width and applies `flex: 1` to first-level children." },
   { prop: "Layout.Fill", type: "compound child", defaultValue: "-", description: "Wrap a specific child to apply `flex: 1` selectively." },
 ];
@@ -122,6 +126,21 @@ const ITEMS_PER_ROW_STATISTICS_SNIPPET = `<Layout direction="row" gap="8" itemsP
   <Statistics label="Avg. Fill Time" value="10.8 days" helperText="Across all specialties" icon="Timer" iconAccent="amber" />
   <Statistics label="Renewal Rate" value="74%" helperText="Provider contract renewals" icon="ArrowsCounterClockwise" iconAccent="cyan" />
   <Statistics label="Client Satisfaction" value="4.7 / 5" helperText="Average facility rating" icon="Star" iconAccent="yellow" />
+</Layout>`;
+
+const SPACING_SAFETY_SNIPPET = `<Layout
+  direction="row"
+  gap="8"
+  mt="12"
+  mb="12"
+  pl="8"
+  minWidth="0"
+  shrink={0}
+  grow={1}
+  wrap
+>
+  <div>Item A</div>
+  <div>Item B</div>
 </Layout>`;
 
 export function LayoutDemoPage() {
@@ -341,6 +360,23 @@ export function LayoutDemoPage() {
           </Layout>
 
           <Code language="tsx" code={WRAP_SNIPPET} />
+        </Layout>
+
+        <Divider variant="solid" />
+
+        <Layout direction="column" gap="12">
+          <Text as="h2" variant="heading-24" weight="medium" leading="regular">
+            Spacing and Safety Props
+          </Text>
+          <Text as="p" variant="body-16" leading="regular">
+            Use shorthand spacing and flex safety props when composing dense app layouts.
+          </Text>
+          <Layout direction="row" gap="8" mt="12" mb="12" pl="8" minWidth="0" shrink={0} grow={1} wrap>
+            {item("Item A")}
+            {item("Item B")}
+            {item("Item C")}
+          </Layout>
+          <Code language="tsx" code={SPACING_SAFETY_SNIPPET} />
         </Layout>
 
         <Divider variant="solid" />

@@ -2,38 +2,50 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-divider {
-    position: relative;
-    display: flex;
+    all: unset;
     align-items: center;
-    width: 100%;
+    display: flex;
     margin: var(--uds-gap-8) 0;
+    position: relative;
+    width: 100%;
 
     // Solid variant - 8px tall box that goes edge to edge
     &--solid {
         align-items: stretch;
         height: 8px;
         margin: var(--uds-spacing-24) 0;
-        background-color: var(--uds-color-neutrals-100);
-        border-top: solid var(--uds-border-width-1) var(--uds-border-secondary);
-        border-bottom: solid var(--uds-border-width-1) var(--uds-border-secondary);
+        position: relative;
         width: 100%;
-        margin-left: calc(50% - 50vw);
-        max-width: 100vw;
-        overflow: hidden;
-        width: 100vw;
+        z-index: 1;
+
+        &:after {
+            background-color: var(--uds-color-neutrals-100);
+            border-bottom: solid var(--uds-border-width-1) var(--uds-border-secondary);
+            border-top: solid var(--uds-border-width-1) var(--uds-border-secondary);
+            bottom: 0;      
+            content: "";
+            left: 0;
+            margin-left: calc(50% - 50vw);
+            max-width: 200vw;
+            overflow: hidden;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 200vw;
+        }
     }
 
     // Line variant (default) - horizontal line with optional content
     &--line,
     &:not(&--solid) {
         &::before {
+            background-color: var(--uds-border-primary);
             content: "";
-            position: absolute;
+            height: var(--uds-border-width-1);
             left: 0;
+            position: absolute;
             right: 0;
             top: 50%;
-            height: var(--uds-border-width-1);
-            background-color: var(--uds-border-primary);
             z-index: 0;
         }
     }
@@ -44,8 +56,8 @@
     }
 
     &--center {
-        display: flex;
         align-items: center;
+        display: flex;
 
         .uds-divider__content {
             margin: 0 auto;
@@ -59,25 +71,25 @@
     }
 
     &__content {
-        position: relative;
-        z-index: 1;
-        display: inline-flex;
         align-items: center;
-        gap: var(--uds-gap-0);
         background-color: var(--uds-surface-primary);
         border: var(--uds-border-width-1) solid var(--uds-border-primary);
-        padding-inline: var(--uds-spacing-12);
+        display: inline-flex;
+        gap: var(--uds-gap-0);
         padding-block: var(--uds-spacing-4);
+        padding-inline: var(--uds-spacing-12);
+        position: relative;
+        z-index: 1;
 
         // Icon-only variant
         &--icon-only {
+            align-items: center;
             border-radius: var(--uds-radius-9999);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            padding: 0;
             height: 28px;
+            justify-content: center;
+            padding: 0;
+            width: 28px;
         }
 
         // Label variant (with or without icon)
@@ -87,30 +99,30 @@
     }
 
     &__icon {
-        display: inline-flex;
         align-items: center;
-        justify-content: center;
         color: var(--uds-text-primary);
+        display: inline-flex;
         flex: 0;
-        width: 20px;
         height: 28px;
+        justify-content: center;
+        width: 20px;
     }
 
     &__label {
         @include uds-body-14-medium;
-        display: inline-flex;
         align-items: center;
-        gap: var(--uds-gap-8);
-        color: var(--uds-text-primary);
         background-color: var(--uds-surface-primary);
-        padding-inline: var(--uds-spacing-8);
-        padding-block: var(--uds-spacing-4);
         border-radius: var(--uds-radius-4);
+        color: var(--uds-text-primary);
+        display: inline-flex;
+        gap: var(--uds-gap-8);
+        padding-block: var(--uds-spacing-4);
+        padding-inline: var(--uds-spacing-8);
         white-space: nowrap;
     }
 
     &__label-icon {
-        flex-shrink: 0;
         color: var(--uds-text-primary);
+        flex-shrink: 0;
     }
 }

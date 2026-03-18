@@ -43,6 +43,13 @@ export interface FlexProps extends React.HTMLAttributes<HTMLElement> {
   itemsPerRow?: number;
   wrap?: boolean | FlexWrap;
   gap?: FlexGapToken | FlexGapTokenName | FlexGapSpecial | number | string;
+  mt?: FlexGapToken | FlexGapTokenName | number | string;
+  mb?: FlexGapToken | FlexGapTokenName | number | string;
+  pl?: FlexGapToken | FlexGapTokenName | number | string;
+  minWidth?: number | string;
+  shrink?: number;
+  grow?: number;
+  fullHeight?: boolean;
   fullWidth?: boolean;
   inline?: boolean;
 }

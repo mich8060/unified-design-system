@@ -2,38 +2,39 @@
 @use "./_medallion.tokens" as *;
 
 .uds-medallion {
-  display: inline-flex;
+  all: unset;
   align-items: center;
-  justify-content: center;
   border: $medallion-border;
   box-sizing: border-box;
+  display: inline-flex;
   flex-shrink: 0;
+  justify-content: center;
 
   &__icon {
-    display: inline-flex;
     align-items: center;
+    display: inline-flex;
     justify-content: center;
     line-height: 0;
   }
 
   &--small {
-    width: 32px;
     height: 32px;
+    width: 32px;
   }
 
   &--default {
-    width: 48px;
     height: 48px;
+    width: 48px;
   }
 
   &--large {
-    width: 64px;
     height: 64px;
+    width: 64px;
   }
 
   &--xl {
-    width: 80px;
     height: 80px;
+    width: 80px;
   }
 
   &--circle {
@@ -61,8 +62,8 @@
   }
 
   &--diamond {
-    transform: rotate(45deg);
     border-radius: 0;
+    transform: rotate(45deg);
 
     .uds-medallion__icon {
       transform: rotate(-45deg);

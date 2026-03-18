@@ -1,5 +1,5 @@
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Menu } from "../../design-system/components/Menu";
 import { Text } from "../../design-system/components/Text";
 import { useState } from "react";
@@ -43,8 +43,8 @@ const MENU_NAV_ITEMS = [
     label: "Foundations",
     icon: "Palette",
     children: [
-      { label: "Colors & Primitives", path: "/foundations/colors-primitives" },
-      { label: "Theming", path: "/docs/theming" },
+      { label: "Colors", path: "/foundations/colors-primitives" },
+      { label: "Design Tokens", path: "/docs/tokens" },
     ],
   },
   {
@@ -52,6 +52,7 @@ const MENU_NAV_ITEMS = [
     icon: "SquaresFour",
     children: [
       { label: "Button", path: "/components/button" },
+      { label: "DescriptionList", path: "/components/description-list" },
       { label: "Field", path: "/components/field" },
       { label: "Flex", path: "/components/flex" },
       { label: "Menu", path: "/components/menu" },
@@ -70,7 +71,7 @@ const ACCOUNT_ITEMS = [
   {
     label: "Settings",
     icon: "Gear",
-    onClick: () => window.location.assign("/docs/theming"),
+    onClick: () => window.location.assign("/docs/tokens"),
   },
   { divider: true },
   {
@@ -206,19 +207,19 @@ export function MenuDemoPage() {
       title="Menu"
       description="Menu provides application navigation with optional search, brand switching, mode controls, and account actions."
     >
-      <Flex direction="column" gap="48">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="48">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Variations
           </Text>
           <Text as="p" variant="body-16" leading="regular">
             Live examples of the major Menu configurations and toggles.
           </Text>
-        </Flex>
+        </Layout>
 
-        <Flex wrap gap="24" alignItems="stretch">
+        <Layout wrap gap="24" alignItems="stretch">
           {MENU_EXAMPLES.map((example) => (
-            <Flex
+            <Layout
               key={example.title}
               direction="column"
               gap="12"
@@ -232,10 +233,10 @@ export function MenuDemoPage() {
               </Text>
 
               <MenuExamplePreview exampleProps={example.props} />
-            </Flex>
+            </Layout>
           ))}
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={MENU_PROPS} />

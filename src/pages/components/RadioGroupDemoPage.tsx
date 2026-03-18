@@ -1,4 +1,4 @@
-import { Divider, Flex, RadioGroup, Text } from "../../design-system";
+import { Divider, Layout, RadioGroup, Text } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -16,7 +16,7 @@ const RADIO_GROUP_PROPS: ComponentPropRow[] = [
 export function RadioGroupDemoPage() {
   return (
     <DocPageLayout title="RadioGroup" description="RadioGroup composes Radio options for single-choice selection.">
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Vertical</Text>
         <RadioGroup
           label="Preferred contact method"
@@ -27,11 +27,11 @@ export function RadioGroupDemoPage() {
             { value: "text", label: "Text Message" },
           ]}
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Horizontal</Text>
         <RadioGroup
           orientation="horizontal"
@@ -42,11 +42,11 @@ export function RadioGroupDemoPage() {
             { value: "monthly", label: "Monthly" },
           ]}
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">Disabled</Text>
         <RadioGroup
           disabled
@@ -57,7 +57,7 @@ export function RadioGroupDemoPage() {
             { value: "onsite", label: "On-site" },
           ]}
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={RADIO_GROUP_PROPS} title="RadioGroup Props" />

@@ -137,6 +137,17 @@
     "jsx": "<DateRangeInput />"
   },
   {
+    "component": "DescriptionList",
+    "props": {
+      "density": "default",
+      "labelWidth": "md",
+      "variant": "default",
+      "bordered": true,
+      "fullWidth": true
+    },
+    "jsx": "<DescriptionList density=\"default\" labelWidth=\"md\" variant=\"default\" bordered fullWidth />"
+  },
+  {
     "component": "Dialog",
     "props": {
       "intent": "info",
@@ -182,11 +193,11 @@
   {
     "component": "EventCard",
     "props": {
-      "title": "Title",
       "type": "travel",
-      "status": "active"
+      "status": "active",
+      "title": "Title"
     },
-    "jsx": "<EventCard title=\"Title\" type=\"travel\" status=\"active\" />"
+    "jsx": "<EventCard type=\"travel\" status=\"active\" title=\"Title\" />"
   },
   {
     "component": "Field",
@@ -357,6 +368,14 @@
     "jsx": "<SectionHeader />"
   },
   {
+    "component": "SelectableCard",
+    "props": {
+      "selected": false,
+      "disabled": false
+    },
+    "jsx": "<SelectableCard selected={false} disabled={false} />"
+  },
+  {
     "component": "Slider",
     "props": {},
     "jsx": "<Slider />"
@@ -447,9 +466,11 @@
   {
     "component": "Toast",
     "props": {
-      "variant": "info"
+      "variant": "info",
+      "actions": "none",
+      "size": "default"
     },
-    "jsx": "<Toast variant=\"info\" />"
+    "jsx": "<Toast variant=\"info\" actions=\"none\" size=\"default\" />"
   },
   {
     "component": "Toggle",

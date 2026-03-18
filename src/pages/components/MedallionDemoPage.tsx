@@ -1,6 +1,6 @@
 import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Medallion } from "../../design-system/components/Medallion";
 import { Text } from "../../design-system/components/Text";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -59,16 +59,16 @@ const COLORS_SNIPPET = `{MEDALLION_COLORS.map((color) => (
 ))}`;
 
 const MATRIX_SNIPPET = `{MEDALLION_SIZES.map((size) => (
-  <Flex key={size} direction="column" gap="8">
+  <Layout key={size} direction="column" gap="8">
     <Text as="p" variant="body-14" weight="semibold" leading="regular">
       {size}
     </Text>
-    <Flex alignItems="center" gap="10" wrap>
+    <Layout alignItems="center" gap="10" wrap>
       {MEDALLION_SHAPES.map((shape) => (
         <Medallion key={\`\${size}-\${shape}\`} size={size} shape={shape} color="blue" />
       ))}
-    </Flex>
-  </Flex>
+    </Layout>
+  </Layout>
 ))}`;
 
 export function MedallionDemoPage() {
@@ -77,86 +77,86 @@ export function MedallionDemoPage() {
       title="Medallion"
       description="Medallion displays an icon inside shape and color variants using the same preset palette as Tag."
     >
-      <Flex direction="column" gap="40">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="40">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Basic
           </Text>
-          <Flex alignItems="center" gap="12" wrap>
+          <Layout alignItems="center" gap="12" wrap>
             <Medallion />
             <Medallion icon="FileText" color="blue" />
             <Medallion icon="FileText" color="green" />
-          </Flex>
+          </Layout>
           <Code language="tsx" code={BASIC_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Shapes
           </Text>
-          <Flex alignItems="center" gap="12" wrap>
+          <Layout alignItems="center" gap="12" wrap>
             <Medallion shape="circle" color="blue" />
             <Medallion shape="square" color="blue" />
             <Medallion shape="roundedSquare" color="blue" />
             <Medallion shape="diamond" color="blue" />
-          </Flex>
+          </Layout>
           <Code language="tsx" code={SHAPES_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Sizes
           </Text>
-          <Flex alignItems="center" gap="12" wrap>
+          <Layout alignItems="center" gap="12" wrap>
             <Medallion size="small" color="blue" />
             <Medallion size="default" color="blue" />
             <Medallion size="large" color="blue" />
             <Medallion size="xl" color="blue" />
-          </Flex>
+          </Layout>
           <Code language="tsx" code={SIZES_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Colors
           </Text>
-          <Flex alignItems="center" gap="10" wrap>
+          <Layout alignItems="center" gap="10" wrap>
             {MEDALLION_COLORS.map((color) => (
               <Medallion key={color} color={color} icon="FileText" />
             ))}
-          </Flex>
+          </Layout>
           <Code language="tsx" code={COLORS_SNIPPET} />
-        </Flex>
+        </Layout>
 
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Size x Shape Matrix
           </Text>
-          <Flex direction="column" gap="12">
+          <Layout direction="column" gap="12">
             {MEDALLION_SIZES.map((size) => (
-              <Flex key={size} direction="column" gap="8">
+              <Layout key={size} direction="column" gap="8">
                 <Text as="p" variant="body-14" weight="semibold" leading="regular">
                   {size}
                 </Text>
-                <Flex alignItems="center" gap="10" wrap>
+                <Layout alignItems="center" gap="10" wrap>
                   {MEDALLION_SHAPES.map((shape) => (
                     <Medallion key={`${size}-${shape}`} size={size} shape={shape} color="blue" />
                   ))}
-                </Flex>
-              </Flex>
+                </Layout>
+              </Layout>
             ))}
-          </Flex>
+          </Layout>
           <Code language="tsx" code={MATRIX_SNIPPET} />
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={MEDALLION_PROPS} title="Medallion Props" />

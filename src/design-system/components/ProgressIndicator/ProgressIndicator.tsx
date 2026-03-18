@@ -1,4 +1,5 @@
 import React from "react";
+import { Layout } from "../Layout";
 import Tooltip from "../Tooltip/Tooltip";
 import "./_progress-indicator.scss";
 import type { ProgressIndicatorProps } from "./ProgressIndicator.types";
@@ -106,7 +107,7 @@ export default function ProgressIndicator({
     return (
         <div className={classNames} {...props}>
             {(label && showLabel) || hasInlineRightValue ? (
-                <div className={`${BASE_CLASS}__header`}>
+                <Layout className={`${BASE_CLASS}__header`} alignItems="center" justifyContent="space-between" gap="8">
                     {label && showLabel && (
                         <span id={labelId} className={`${BASE_CLASS}__label`}>
                             {label}
@@ -115,7 +116,7 @@ export default function ProgressIndicator({
                     {hasInlineRightValue && (
                         <span className={`${BASE_CLASS}__value`}>{valueText}</span>
                     )}
-                </div>
+                </Layout>
             ) : null}
 
             <div

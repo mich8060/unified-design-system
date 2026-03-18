@@ -4,27 +4,26 @@
 .uds-chip {
     all: unset;
     @include uds-body-16-medium;
-    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: var(--uds-gap-4);
-    padding: var(--uds-spacing-6) var(--uds-spacing-12);
-    border: var(--uds-border-width-1) solid;
     background-color: var(--uds-surface-primary);
+    border: var(--uds-border-width-1) solid;
+    box-sizing: border-box;
     color: var(--uds-text-primary);
     cursor: pointer;
-    user-select: none;
+    display: inline-flex;
+    gap: var(--uds-gap-4);
+    height: fit-content;
+    justify-content: center;
+    max-width: fit-content;
+    min-width: fit-content;
+    padding: var(--uds-spacing-6) var(--uds-spacing-12);
     transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
-    box-sizing: border-box;
+    user-select: none;
     white-space: nowrap;
     width: fit-content;
-    min-width: fit-content;
-    max-width: fit-content;
-    height: fit-content;
 
     // When used as button, remove default button styles but inherit chip styles
     &:is(button) {
-        font: inherit;
         border: var(--uds-border-width-1) solid;
     }
 
@@ -100,17 +99,17 @@
     color: var(--uds-text-primary);
 
     &:hover:not(.uds-chip--disabled) {
-      border-color: var(--uds-border-secondary);
       background-color: var(--uds-surface-secondary);
+      border-color: var(--uds-border-secondary);
     }
   }
 
     // Icon placement
     &__icon {
-        display: inline-flex;
         align-items: center;
-        justify-content: center;
+        display: inline-flex;
         flex-shrink: 0;
+        justify-content: center;
         line-height: 0;
 
         &--left {

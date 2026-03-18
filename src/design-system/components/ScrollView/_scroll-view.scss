@@ -1,4 +1,5 @@
 .uds-scroll-view {
+    all: unset;
     display: block;
     max-width: 100%;
 
@@ -8,7 +9,7 @@
     }
 
     &--horizontal {
-        overflow-y: auto;
         overflow-x: hidden;
+        overflow-y: auto;
     }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import Icon from "../Icon/Icon";
 import "./_table.scss";
-import type { TableProps } from "./Table.types";
+import type { TableColumn, TableProps, TableSortDirection } from "./Table.types";
 
 const BASE_CLASS = "uds-table";
 
@@ -73,6 +73,10 @@ function Table({
  * @param {number} rowIndex - Row index
  * @param {number} colIndex - Column index
  */
+const getNextSortDirection = (direction?: TableSortDirection): TableSortDirection => {
+  return direction === "asc" ? "desc" : "asc";
+};
+
 const TableCell = React.memo(function TableCell({
   type,
   column,
@@ -96,6 +100,15 @@ const TableCell = React.memo(function TableCell({
 
   const isEmptyContent = (value: unknown) =>
     value == null || (typeof value === "string" && value.trim() === "");
+  const currentSortDirection = column.sortDirection;
+  const resolvedAriaSort =
+    isHeader && column.sortable
+      ? currentSortDirection === "asc"
+        ? "ascending"
+        : currentSortDirection === "desc"
+          ? "descending"
+          : "none"
+      : undefined;
 
   // Handle different cell content types
   const renderCellContent = () => {
@@ -112,7 +125,15 @@ const TableCell = React.memo(function TableCell({
 
     // Handle header cells with icons
     if (isHeader) {
-      return (
+      const isSortableHeader = Boolean(column.sortable && column.onSort);
+      const sortIconName = column.sortable
+        ? currentSortDirection === "asc"
+          ? "CaretUp"
+          : currentSortDirection === "desc"
+            ? "CaretDown"
+            : "CaretUpDown"
+        : null;
+      const content = (
         <div className={`${BASE_CLASS}__cell-content`}>
           {column.icon && (
             <Icon
@@ -125,9 +146,9 @@ const TableCell = React.memo(function TableCell({
           {column.label && (
             <span className={`${BASE_CLASS}__cell-label`}>{column.label}</span>
           )}
-          {column.sortable && (
+          {sortIconName && (
             <Icon
-              name="CaretUpDown"
+              name={sortIconName}
               size={16}
               appearance="regular"
               className={`${BASE_CLASS}__cell-sort-icon`}
@@ -143,6 +164,23 @@ const TableCell = React.memo(function TableCell({
           )}
         </div>
       );
+
+      if (isSortableHeader) {
+        const nextSortDirection = getNextSortDirection(currentSortDirection);
+        const sortLabel = typeof column.label === "string" ? column.label : column.key;
+        return (
+          <button
+            type="button"
+            className={`${BASE_CLASS}__header-button`}
+            onClick={() => column.onSort?.(column as TableColumn)}
+            aria-label={`Sort ${sortLabel} ${nextSortDirection === "asc" ? "ascending" : "descending"}`}
+          >
+            {content}
+          </button>
+        );
+      }
+
+      return content;
     }
 
     // Handle data cells
@@ -153,7 +191,7 @@ const TableCell = React.memo(function TableCell({
     );
   };
 
-  return <Element className={classNames}>{renderCellContent()}</Element>;
+  return <Element className={classNames} aria-sort={resolvedAriaSort}>{renderCellContent()}</Element>;
 });
 
 const MemoizedTable = React.memo(Table) as typeof Table & {

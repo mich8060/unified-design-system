@@ -1,5 +1,5 @@
-import { Button, Table } from "@mich8060/unified-design-system";
-import "@mich8060/unified-design-system/styles.css";
+import { Button, Table } from "@chg-ds/unified-design-system";
+import "@chg-ds/unified-design-system/styles.css";
 
 const columns = [
   { key: "name", label: "Name", sortable: true },

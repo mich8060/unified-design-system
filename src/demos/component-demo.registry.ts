@@ -49,11 +49,12 @@ export const COMPONENT_DEMOS: readonly ComponentDemoDefinition[] = [
   moduleDemo("checkbox-group", "CheckboxGroup", "CheckboxGroupDemoPage", "CheckboxGroupDemoPage"),
   placeholderDemo("chip", "Chip", "Chip"),
   placeholderDemo("code", "Code", "Code"),
-  placeholderDemo("container", "Container", "Container"),
+  moduleDemo("container", "Container", "ContainerDemoPage", "ContainerDemoPage"),
   moduleDemo("currency-input", "CurrencyInput", "CurrencyInputDemoPage", "CurrencyInputDemoPage"),
   moduleDemo("date-input", "DateInput", "DateInputDemoPage", "DateInputDemoPage"),
   moduleDemo("date-range-input", "DateRangeInput", "DateRangeInputDemoPage", "DateRangeInputDemoPage"),
   placeholderDemo("datepicker", "Datepicker", "Datepicker"),
+  moduleDemo("description-list", "DescriptionList", "DescriptionListDemoPage", "DescriptionListDemoPage"),
   placeholderDemo("dialog", "Dialog", "Dialog"),
   moduleDemo("divider", "Divider", "DividerDemoPage", "DividerDemoPage"),
   placeholderDemo("dot-status", "DotStatus", "DotStatus"),
@@ -88,30 +89,32 @@ export const COMPONENT_DEMOS: readonly ComponentDemoDefinition[] = [
   moduleDemo("search-input", "SearchInput", "SearchInputDemoPage", "SearchInputDemoPage"),
   moduleDemo("scroll-view", "ScrollView", "ScrollViewDemoPage", "ScrollViewDemoPage"),
   moduleDemo("section-header", "SectionHeader", "SectionHeaderDemoPage", "SectionHeaderDemoPage"),
+  moduleDemo("selectable-card", "SelectableCard", "SelectableCardDemoPage", "SelectableCardDemoPage"),
   moduleDemo("slider", "Slider", "SliderDemoPage", "SliderDemoPage"),
   moduleDemo("status", "Status", "StatusDemoPage", "StatusDemoPage"),
   moduleDemo("statistics", "Statistics", "StatisticsDemoPage", "StatisticsDemoPage"),
   placeholderDemo("steps", "Steps", "Steps"),
   moduleDemo("tabs", "Tabs", "TabsDemoPage", "TabsDemoPage"),
   moduleDemo("tag", "Tag", "TagDemoPage", "TagDemoPage"),
-  placeholderDemo("table", "Table", "Table"),
+  moduleDemo("table", "Table", "TableDemoPage", "TableDemoPage"),
   moduleDemo("text", "Text", "TextDemoPage", "TextDemoPage"),
   moduleDemo("text-input", "TextInput", "TextInputDemoPage", "TextInputDemoPage"),
   placeholderDemo("textarea", "Textarea", "Textarea"),
-  moduleDemo("theme", "Theme", "ThemeDemoPage", "ThemeDemoPage"),
   placeholderDemo("token-input", "TokenInput", "TokenInput"),
   moduleDemo("time-input", "TimeInput", "TimeInputDemoPage", "TimeInputDemoPage"),
   moduleDemo("toolbar", "Toolbar", "ToolbarDemoPage", "ToolbarDemoPage"),
-  placeholderDemo("toast", "Toast", "Toast"),
+  moduleDemo("toast", "Toast", "ToastDemoPage", "ToastDemoPage"),
   moduleDemo("toggle", "Toggle", "ToggleDemoPage", "ToggleDemoPage"),
   moduleDemo("tooltip", "Tooltip", "TooltipDemoPage", "TooltipDemoPage"),
   moduleDemo("url-input", "URLInput", "URLInputDemoPage", "URLInputDemoPage"),
 ];
 
-export const COMPONENT_DEMO_NAV_ITEMS = COMPONENT_DEMOS.map((entry) => ({
-  label: entry.label,
-  path: `/components/${entry.slug}`,
-}));
+export const COMPONENT_DEMO_NAV_ITEMS = COMPONENT_DEMOS
+  .filter((entry) => entry.slug !== "layout" && entry.slug !== "app-shell" && entry.slug !== "icon")
+  .map((entry) => ({
+    label: entry.label,
+    path: `/components/${entry.slug}`,
+  }));
 
 export function getComponentDemoBySlug(slug: string): ComponentDemoDefinition | undefined {
   return COMPONENT_DEMOS.find((entry) => entry.slug === slug);

@@ -1,0 +1,233 @@
+.getting-started__component-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--uds-spacing-16);
+}
+
+.getting-started__component-card {
+    all: unset;
+    box-sizing: border-box;
+    min-height: 360px;
+    width: 100%;
+    background: var(--uds-surface-primary);
+    display: flex;
+    flex-direction: column;
+    gap: var(--uds-spacing-8);
+    cursor: pointer;
+    transform: translateY(10px);
+    opacity: 0;
+    padding-bottom: var(--uds-spacing-16);
+    animation: getting-started-card-in 340ms var(--uds-animation-ease-standard) forwards;
+    transition:
+        transform var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+        border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+        box-shadow var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
+        background var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+
+    &:focus-visible {
+        outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
+        outline-offset: var(--uds-focus-ring-offset);
+    }
+}
+
+.getting-started__component-thumbnail {
+    align-items: center;
+    background: var(--uds-color-neutrals-50);
+    display: flex;
+    aspect-ratio: 1/1;
+    justify-content: center;
+    margin-bottom: var(--uds-spacing-4);
+    overflow: hidden;
+}
+
+.getting-started__component-illustration {
+    width: 80%;
+    height: 132px;
+    display: block;
+}
+
+.getting-started__component-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.getting-started__component-category {
+    color: var(--uds-text-secondary);
+    margin-top: auto;
+}
+
+.gs-illustration__stroke {
+    fill: none;
+    stroke: var(--uds-border-primary);
+    stroke-width: 1.5;
+}
+
+.gs-illustration__fill {
+    fill: var(--uds-surface-brand-tertiary);
+}
+
+.gs-illustration__fill-soft {
+    fill: color-mix(in oklab, var(--uds-surface-brand-tertiary) 30%, var(--uds-surface-primary));
+}
+
+.gs-illustration__dot {
+    fill: var(--uds-system-action-primary);
+}
+
+.gs-illustration__dot-soft {
+    fill: var(--uds-text-secondary);
+}
+
+.gs-illustration__line {
+    fill: none;
+    stroke: var(--uds-system-action-primary);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.gs-illustration__pulse {
+    transform-origin: center;
+    animation: gs-illustration-pulse 1.8s ease-in-out infinite;
+}
+
+.gs-illustration__pulse-soft {
+    transform-origin: center;
+    animation: gs-illustration-pulse 2.2s ease-in-out infinite;
+}
+
+.gs-illustration__float {
+    animation: gs-illustration-float 2.8s ease-in-out infinite;
+}
+
+.gs-illustration__sweep {
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+    animation: gs-illustration-sweep 1.9s ease-in-out infinite;
+}
+
+.gs-illustration__draw {
+    stroke-dasharray: 140;
+    stroke-dashoffset: 140;
+    animation: gs-illustration-draw 2.4s ease-in-out infinite;
+}
+
+.gs-illustration__slide {
+    animation: gs-illustration-slide 2.4s ease-in-out infinite;
+}
+
+.gs-illustration__spin {
+    transform-origin: center;
+    animation: gs-illustration-spin 3.8s linear infinite;
+}
+
+@keyframes getting-started-card-in {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes gs-illustration-pulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+}
+
+@keyframes gs-illustration-float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes gs-illustration-sweep {
+    0% {
+        stroke-dashoffset: 80;
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 0.8;
+    }
+}
+
+@keyframes gs-illustration-draw {
+    0% {
+        stroke-dashoffset: 140;
+    }
+
+    45% {
+        stroke-dashoffset: 60;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes gs-illustration-slide {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(8px);
+    }
+}
+
+@keyframes gs-illustration-spin {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .getting-started__component-card {
+        animation: none;
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .gs-illustration__pulse,
+    .gs-illustration__pulse-soft,
+    .gs-illustration__float,
+    .gs-illustration__sweep,
+    .gs-illustration__draw,
+    .gs-illustration__slide,
+    .gs-illustration__spin {
+        animation: none;
+    }
+}

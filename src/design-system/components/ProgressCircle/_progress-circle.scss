@@ -2,10 +2,11 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-progress-circle {
-    position: relative;
-    display: inline-flex;
+    all: unset;
     align-items: center;
+    display: inline-flex;
     justify-content: center;
+    position: relative;
 
     &__svg {
         display: block;
@@ -22,15 +23,15 @@
     }
 
     &__content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        align-items: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
         justify-content: center;
+        left: 50%;
+        position: absolute;
         text-align: center;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 
     &__label {
@@ -47,8 +48,8 @@
 
     // Size variants
     &--xxs {
-        width: 64px;
         height: 64px;
+        width: 64px;
 
         .uds-progress-circle__value {
             @include uds-body-16-bold;
@@ -65,8 +66,8 @@
     }
 
     &--xs {
-        width: 120px;
         height: 120px;
+        width: 120px;
 
         .uds-progress-circle__value {
             @include uds-heading-32-bold;
@@ -78,8 +79,8 @@
     }
 
     &--sm {
-        width: 160px;
         height: 160px;
+        width: 160px;
 
         .uds-progress-circle__value {
             @include uds-display-48-bold;
@@ -91,8 +92,8 @@
     }
 
     &--md {
-        width: 240px;
         height: 240px;
+        width: 240px;
 
         .uds-progress-circle__value {
             @include uds-display-48-bold;
@@ -104,8 +105,8 @@
     }
 
     &--lg {
-        width: 280px;
         height: 280px;
+        width: 280px;
 
         .uds-progress-circle__value {
             @include uds-display-48-bold;
@@ -120,8 +121,8 @@
         align-items: flex-end;
 
         .uds-progress-circle__content {
-            top: auto;
             bottom: 0;
+            top: auto;
             transform: translate(-50%, 0);
         }
 

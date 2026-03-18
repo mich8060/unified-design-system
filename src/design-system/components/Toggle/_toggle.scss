@@ -3,17 +3,17 @@
 
 .uds-toggle {
     all: unset;
-    position: relative;
-    display: inline-block;
     cursor: pointer;
+    display: inline-block;
+    position: relative;
 
     // Large size (default)
-    width: 48px;
     height: 28px;
+    width: 48px;
 
     &--small {
-        width: 36px;
         height: 20px;
+        width: 36px;
     }
 
     &--disabled {
@@ -22,10 +22,10 @@
     }
 
     &__input {
-        opacity: 0;
-        width: 0;
         height: 0;
+        opacity: 0;
         position: absolute;
+        width: 0;
 
         &:focus-visible+.uds-toggle__slider {
             outline: var(--uds-focus-ring-width) solid var(--uds-focus-ring-border);
@@ -38,16 +38,16 @@
     }
 
     &__slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
         background-color: var(--uds-color-neutrals-400);
-        border-radius: 14px;
-        transition: background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
         border: none;
+        border-radius: 14px;
+        bottom: 0;
+        cursor: pointer;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
 
         &:hover:not(.uds-toggle--disabled) {
             background-color: var(--uds-color-neutrals-400);
@@ -55,45 +55,45 @@
     }
 
     &__thumb {
-        position: absolute;
-        content: "";
-        height: 20px;
-        width: 20px;
-        left: 4px;
-        top: 50%;
-        transform: translateY(-50%);
         background-color: var(--uds-surface-primary, #ffffff);
         border-radius: 50%;
+        content: "";
+        height: 20px;
+        left: 4px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
         transition:
             transform var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
             background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
             border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
-        box-shadow: var(--uds-shadow-xs, 0 1px 2px rgba(0, 0, 0, 0.1));
         border: none;
+        box-shadow: var(--uds-shadow-xs, 0 1px 2px rgba(0, 0, 0, 0.1));
     }
 
     &__dash {
+        background-color: var(--uds-surface-primary, #ffffff);
+        border: none;
+        border-radius: 1px;
+        height: 2px;
+        left: 50%;
         position: absolute;
         top: 50%;
-        left: 50%;
         transform: translate(-50%, -50%);
         width: 12px;
-        height: 2px;
-        background-color: var(--uds-surface-primary, #ffffff);
-        border-radius: 1px;
-        border: none;
     }
 
     // Small size adjustments
     &--small &__thumb {
         height: 14px;
-        width: 14px;
         left: 3px;
+        width: 14px;
     }
 
     &--small &__dash {
-        width: 8px;
         height: 1.5px;
+        width: 8px;
     }
 
     // Off state (default)

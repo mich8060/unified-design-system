@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../../design-system/components/Button";
 import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Text } from "../../design-system/components/Text";
 import * as DesignSystem from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
@@ -25,22 +25,37 @@ const COMPONENT_VARIANTS: Record<string, VariantConfig> = {
   Chip: { selected: ["false", "true"], rounded: ["false", "true"], size: ["default", "compact"], iconplacement: ["both", "left", "right", "none"] },
   Code: { inline: ["false", "true"], language: ["tsx", "javascript", "json", "bash"] },
   Container: {
-    appearance: ["default", "transparent"],
+    surface: ["default", "panel", "subtle-panel", "list", "card-selectable", "scroll-region", "transparent"],
+    border: ["default", "subtle", "none"],
+    radius: ["none", "sm", "md", "lg"],
+    overflow: ["visible", "hidden", "auto", "clip"],
     padding: ["none", "xsmall", "small", "default", "large", "xlarge"],
     paddingX: ["none", "xsmall", "small", "default", "large", "xlarge"],
     paddingY: ["none", "xsmall", "small", "default", "large", "xlarge"],
   },
+  DescriptionList: { density: ["default", "compact"], labelWidth: ["sm", "md", "lg"], bordered: ["true", "false"] },
   CurrencyInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
   DateInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
   DateRangeInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"], disabled: ["false", "true"] },
   Divider: { alignment: ["left", "center", "right"], variant: ["line", "solid"] },
   DotStatus: { variant: ["red", "blue", "inverse", "orange", "sky", "indigo", "rose", "neutral", "celery", "lime", "yellow", "green", "cyan", "purple", "fuchsia"], size: ["small", "medium", "large"], outline: ["false", "true"] },
   Dropdown: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
-  Flex: { fullWidth: ["true", "false"] },
+  EventCard: {
+    type: ["travel", "assignment", "unassigned"],
+    status: ["active", "past", "pending"],
+    color: ["transparent", "neutral", "red", "orange", "yellow", "emerald", "green", "sky", "cyan", "blue", "indigo", "purple", "fuchsia", "magenta", "inverse"],
+  },
+  Flex: { fullWidth: ["true", "false"], fullHeight: ["true", "false"], wrap: ["true", "false"] },
   ImageAspect: { aspectratio: ["square", "video", "4-3", "3-2", "21-9", "portrait", "auto"] },
   Key: { appearance: ["light", "dark"] },
-  Link: { appearance: ["primary", "secondary"], underline: ["always", "hover", "none"], disabled: ["false", "true"] },
-  Modal: { size: ["small", "default", "large", "fullscreen"] },
+  Link: { appearance: ["primary", "secondary", "prominent", "external"], underline: ["always", "hover", "none"], disabled: ["false", "true"], external: ["false", "true"] },
+  Modal: {
+    size: ["small", "default", "large", "fullscreen"],
+    dismissible: ["false", "true"],
+    headerAlign: ["start", "center", "space-between"],
+    footerAlign: ["start", "center", "end", "space-between"],
+    bodyPadding: ["none", "compact", "default"],
+  },
   NumberInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
   PasswordInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
   PhoneInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
@@ -53,7 +68,14 @@ const COMPONENT_VARIANTS: Record<string, VariantConfig> = {
   Status: { appearance: ["light-gray", "white"], shape: ["pill", "rounded"] },
   Steps: { orientation: ["horizontal", "vertical"], status: ["complete", "active", "incomplete", "disabled", "error"], size: ["default", "compact"] },
   Tag: { appearance: ["label-only", "icon-left"], size: ["compact", "default"], color: ["transparent", "neutral", "red", "orange", "yellow", "emerald", "green", "sky", "cyan", "blue", "indigo", "purple", "fuchsia", "magenta", "inverse"] },
-  SearchInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
+  SearchInput: {
+    size: ["compact", "default"],
+    state: ["default", "focused", "error", "disabled"],
+    width: ["sm", "md", "lg", "full"],
+    context: ["default", "toolbar"],
+  },
+  SelectableCard: { selected: ["false", "true"], disabled: ["false", "true"] },
+  Text: { tone: ["primary", "secondary", "tertiary", "muted", "placeholder", "disabled"], leading: ["tight", "regular", "loose"] },
   TextInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
   Textarea: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
   TokenInput: { size: ["compact", "default"], state: ["default", "focused", "error", "disabled"] },
@@ -77,6 +99,7 @@ const COMPONENTS: Record<string, React.ComponentType<Record<string, unknown>>> =
   Chip: DesignSystem.Chip as React.ComponentType<Record<string, unknown>>,
   Code: DesignSystem.Code as React.ComponentType<Record<string, unknown>>,
   Container: DesignSystem.Container as React.ComponentType<Record<string, unknown>>,
+  DescriptionList: DesignSystem.DescriptionList as React.ComponentType<Record<string, unknown>>,
   CurrencyInput: DesignSystem.CurrencyInput as React.ComponentType<Record<string, unknown>>,
   DateInput: DesignSystem.DateInput as React.ComponentType<Record<string, unknown>>,
   DateRangeInput: DesignSystem.DateRangeInput as React.ComponentType<Record<string, unknown>>,
@@ -88,7 +111,7 @@ const COMPONENTS: Record<string, React.ComponentType<Record<string, unknown>>> =
   EventCard: DesignSystem.EventCard as React.ComponentType<Record<string, unknown>>,
   Field: DesignSystem.Field as React.ComponentType<Record<string, unknown>>,
   FileUpload: DesignSystem.FileUpload as React.ComponentType<Record<string, unknown>>,
-  Flex: DesignSystem.Flex as React.ComponentType<Record<string, unknown>>,
+  Flex: DesignSystem.Layout as React.ComponentType<Record<string, unknown>>,
   ImageAspect: DesignSystem.ImageAspect as React.ComponentType<Record<string, unknown>>,
   Key: DesignSystem.Key as React.ComponentType<Record<string, unknown>>,
   Link: DesignSystem.Link as React.ComponentType<Record<string, unknown>>,
@@ -103,6 +126,7 @@ const COMPONENTS: Record<string, React.ComponentType<Record<string, unknown>>> =
   ProgressIndicator: DesignSystem.ProgressIndicator as React.ComponentType<Record<string, unknown>>,
   Radio: DesignSystem.Radio as React.ComponentType<Record<string, unknown>>,
   SearchInput: DesignSystem.SearchInput as React.ComponentType<Record<string, unknown>>,
+  SelectableCard: DesignSystem.SelectableCard as React.ComponentType<Record<string, unknown>>,
   Slider: DesignSystem.Slider as React.ComponentType<Record<string, unknown>>,
   Status: DesignSystem.Status as React.ComponentType<Record<string, unknown>>,
   Steps: DesignSystem.Steps as React.ComponentType<Record<string, unknown>>,
@@ -134,6 +158,12 @@ const BASE_PROPS: Record<string, Record<string, unknown>> = {
   Chip: { label: "Chip label", icon: "Star", badge: "2" },
   Code: { language: "tsx", code: `<Button label="Save" appearance="primary" />` },
   Container: { children: <Text as="span" variant="body-14" leading="regular">Container content</Text> },
+  DescriptionList: {
+    items: [
+      { label: "Provider", value: "Dr. Jane Smith" },
+      { label: "Status", value: "Active" },
+    ],
+  },
   CurrencyInput: { placeholder: "0.00" },
   DateInput: { placeholder: "Select date" },
   DateRangeInput: { startPlaceholder: "Start date", endPlaceholder: "End date" },
@@ -161,7 +191,7 @@ const BASE_PROPS: Record<string, Record<string, unknown>> = {
   Flex: { direction: "row", gap: "8", children: <Text as="span" variant="body-14" leading="regular">Flex content</Text> },
   ImageAspect: { src: "https://picsum.photos/640/360", alt: "Example image", ratio: "video" },
   Key: { label: "Cmd+K" },
-  Link: { href: "#", children: "View details" },
+  Link: { href: "#", children: "View details", appearance: "external", iconTrailing: "ArrowSquareOut" },
   Menu: {
     navItems: [
       { label: "Overview", icon: "House", path: "/getting-started" },
@@ -169,8 +199,8 @@ const BASE_PROPS: Record<string, Record<string, unknown>> = {
         label: "Foundations",
         icon: "Palette",
         children: [
-          { label: "Colors & Primitives", path: "/foundations/colors-primitives" },
-          { label: "Theming", path: "/docs/theming" },
+          { label: "Colors", path: "/foundations/colors-primitives" },
+          { label: "Design Tokens", path: "/docs/tokens" },
         ],
       },
       {
@@ -207,7 +237,7 @@ const BASE_PROPS: Record<string, Record<string, unknown>> = {
         label: "Settings",
         icon: "Gear",
         onClick: () => {
-          window.location.assign("/docs/theming");
+          window.location.assign("/docs/tokens");
         },
       },
       { divider: true },
@@ -236,7 +266,8 @@ const BASE_PROPS: Record<string, Record<string, unknown>> = {
   ProgressCircle: { value: 65, max: 100, label: "Progress", showLabel: true },
   ProgressIndicator: { value: 45, max: 100, label: "Loading", showLabel: false },
   Radio: { label: "Radio option", checked: true },
-  SearchInput: { placeholder: "Search..." },
+  SearchInput: { placeholder: "Search...", width: "md", context: "default" },
+  SelectableCard: { title: "Document row", description: "Compact selectable row" },
   Slider: { value: 40, min: 0, max: 100 },
   Status: { label: "In Progress" },
   Steps: {
@@ -525,19 +556,19 @@ function InteractiveDialogPreview({ props }: { props: GenericComponentProps }) {
   }, []);
 
   const bodyContent = (
-    <Flex direction="column" gap="8">
+    <Layout direction="column" gap="8">
       <Text as="p" variant="body-14" leading="regular">
         This is custom content passed through the dialog body slot.
       </Text>
       <Text as="p" variant="body-14" leading="regular">
         Use it for extra details, warnings, or simple form controls.
       </Text>
-    </Flex>
+    </Layout>
   );
 
   return (
-    <Flex direction="column" gap="12" alignItems="flex-start">
-      <Flex alignItems="center" gap="8" wrap>
+    <Layout direction="column" gap="12" alignItems="flex-start">
+      <Layout alignItems="center" gap="8" wrap>
         <Button
           label="Open Dialog"
           onClick={() => {
@@ -567,7 +598,7 @@ function InteractiveDialogPreview({ props }: { props: GenericComponentProps }) {
             setOpen(true);
           }}
         />
-      </Flex>
+      </Layout>
       <DesignSystem.Dialog
         {...props}
         open={open}
@@ -577,7 +608,7 @@ function InteractiveDialogPreview({ props }: { props: GenericComponentProps }) {
       >
         {showBodyExample ? bodyContent : providedChildren}
       </DesignSystem.Dialog>
-    </Flex>
+    </Layout>
   );
 }
 
@@ -737,13 +768,13 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
       title={componentName}
       description={`${componentName} component demo with base usage and variant coverage.`}
     >
-      <Flex direction="column" gap="24">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="24">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Base Example
           </Text>
           {renderPreview(baseProps)}
-        </Flex>
+        </Layout>
 
         {(componentName === "Container" ||
           componentName === "Dropdown" ||
@@ -751,7 +782,7 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
           componentName === "Breadcrumb") && (
           <>
             <Divider variant="solid" />
-            <Flex direction="column" gap="12">
+            <Layout direction="column" gap="12">
               <Text as="h2" variant="heading-24" weight="medium" leading="regular">
                 Code Samples
               </Text>
@@ -784,32 +815,32 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
                   <Code language="tsx" code={BREADCRUMB_DEEPER_TIERS_SNIPPET} />
                 </>
               )}
-            </Flex>
+            </Layout>
           </>
         )}
 
         {variantEntries.length > 0 && <Divider variant="solid" />}
 
         {variantEntries.map(([variantKey, values]) => (
-          <Flex key={`${componentName}-${variantKey}`} direction="column" gap="12">
+          <Layout key={`${componentName}-${variantKey}`} direction="column" gap="12">
             <Text as="h2" variant="heading-24" weight="medium" leading="regular">
               {toTitleCase(aliasConfig[variantKey] ?? variantKey)} Variants
             </Text>
             {componentName === "Chip" && variantKey === "size" ? (
-              <Flex direction="column" gap="12">
-                <Flex direction="column" alignItems="flex-start" gap="16">
+              <Layout direction="column" gap="12">
+                <Layout direction="column" alignItems="flex-start" gap="16">
                   {values.map((value) => (
-                    <Flex key={`${variantKey}-${value}`} direction="column" gap="8">
+                    <Layout key={`${variantKey}-${value}`} direction="column" gap="8">
                       {renderPreview(buildVariantProps(variantKey, value))}
                       <Text as="span" variant="body-12" leading="regular">
                         {value}
                       </Text>
-                    </Flex>
+                    </Layout>
                   ))}
-                </Flex>
-                <Flex direction="column" alignItems="flex-start" gap="16">
+                </Layout>
+                <Layout direction="column" alignItems="flex-start" gap="16">
                   {values.map((value) => (
-                    <Flex key={`${variantKey}-${value}-rounded-false`} direction="column" gap="8">
+                    <Layout key={`${variantKey}-${value}-rounded-false`} direction="column" gap="8">
                       {renderPreview({
                         ...buildVariantProps(variantKey, value),
                         rounded: false,
@@ -817,30 +848,30 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
                       <Text as="span" variant="body-12" leading="regular">
                         {`${value} (rounded=false)`}
                       </Text>
-                    </Flex>
+                    </Layout>
                   ))}
-                </Flex>
-              </Flex>
+                </Layout>
+              </Layout>
             ) : componentName === "ProgressCircle" && variantKey === "shape" ? (
-              <Flex direction="column" gap="16">
-                <Flex direction="column" alignItems="flex-start" gap="16">
+              <Layout direction="column" gap="16">
+                <Layout direction="column" alignItems="flex-start" gap="16">
                   {values.map((value) => (
-                    <Flex key={`${variantKey}-${value}`} direction="column" gap="8">
+                    <Layout key={`${variantKey}-${value}`} direction="column" gap="8">
                       {renderPreview(buildVariantProps(variantKey, value))}
                       <Text as="span" variant="body-12" leading="regular">
                         {value}
                       </Text>
-                    </Flex>
+                    </Layout>
                   ))}
-                </Flex>
+                </Layout>
 
-                <Flex direction="column" gap="8">
+                <Layout direction="column" gap="8">
                   <Text as="span" variant="body-12" leading="regular">
                     Circle sizes
                   </Text>
-                  <Flex direction="column" alignItems="flex-start" gap="16">
+                  <Layout direction="column" alignItems="flex-start" gap="16">
                     {(variantConfig.size ?? ["xxs", "xs", "sm", "md", "lg"]).map((size) => (
-                      <Flex key={`circle-${size}`} direction="column" gap="8">
+                      <Layout key={`circle-${size}`} direction="column" gap="8">
                         {renderPreview({
                           ...baseProps,
                           shape: "circle",
@@ -849,18 +880,18 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
                         <Text as="span" variant="body-12" leading="regular">
                           {size}
                         </Text>
-                      </Flex>
+                      </Layout>
                     ))}
-                  </Flex>
-                </Flex>
+                  </Layout>
+                </Layout>
 
-                <Flex direction="column" gap="8">
+                <Layout direction="column" gap="8">
                   <Text as="span" variant="body-12" leading="regular">
                     Half-circle sizes
                   </Text>
-                  <Flex direction="column" alignItems="flex-start" gap="16">
+                  <Layout direction="column" alignItems="flex-start" gap="16">
                     {(variantConfig.size ?? ["xxs", "xs", "sm", "md", "lg"]).map((size) => (
-                      <Flex key={`half-circle-${size}`} direction="column" gap="8">
+                      <Layout key={`half-circle-${size}`} direction="column" gap="8">
                         {renderPreview({
                           ...baseProps,
                           shape: "half-circle",
@@ -869,37 +900,37 @@ export function ComponentPlaceholderDemoPage({ componentName }: ComponentPlaceho
                         <Text as="span" variant="body-12" leading="regular">
                           {size}
                         </Text>
-                      </Flex>
+                      </Layout>
                     ))}
-                  </Flex>
-                </Flex>
-              </Flex>
+                  </Layout>
+                </Layout>
+              </Layout>
             ) : componentName === "Steps" ? (
-              <Flex direction="column" gap="16" style={{ width: "100%" }}>
+              <Layout direction="column" gap="16" style={{ width: "100%" }}>
                 {values.map((value) => (
-                  <Flex key={`${variantKey}-${value}`} direction="column" gap="8" style={{ width: "100%" }}>
+                  <Layout key={`${variantKey}-${value}`} direction="column" gap="8" style={{ width: "100%" }}>
                     {renderPreview(buildVariantProps(variantKey, value))}
                     <Text as="span" variant="body-12" leading="regular">
                       {value}
                     </Text>
-                  </Flex>
+                  </Layout>
                 ))}
-              </Flex>
+              </Layout>
             ) : (
-              <Flex direction="column" alignItems="flex-start" gap="16">
+              <Layout direction="column" alignItems="flex-start" gap="16">
                 {values.map((value) => (
-                  <Flex key={`${variantKey}-${value}`} direction="column" gap="8">
+                  <Layout key={`${variantKey}-${value}`} direction="column" gap="8">
                     {renderPreview(buildVariantProps(variantKey, value))}
                     <Text as="span" variant="body-12" leading="regular">
                       {value}
                     </Text>
-                  </Flex>
+                  </Layout>
                 ))}
-              </Flex>
+              </Layout>
             )}
-          </Flex>
+          </Layout>
         ))}
-      </Flex>
+      </Layout>
 
       {bottomPropsRows.length > 0 && (
         <>

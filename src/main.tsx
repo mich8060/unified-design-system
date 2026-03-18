@@ -55,27 +55,25 @@ const NAV_ITEMS = [
     icon: "Layout",
     children: [
       { label: "Overview", path: "/getting-started" },
-      { label: "Layout Conventions", path: "/docs/layout-conventions" },
-      { label: "Template Canvas", path: "/template-canvas" },
-      { label: "Theming", path: "/docs/theming" },
-      { label: "Theme API", path: "/components/theme" },
+      { label: "Installation", path: "/getting-started/installation" },
+      { label: "AppShell", path: "/components/app-shell" },
     ],
   },
   {
     label: "Foundations",
     icon: "CodepenLogoIcon",
     children: [
-      { label: "Colors & Primitives", path: "/foundations/colors-primitives" },
-      { label: "Primitive CSS Variables", path: "/foundations/primitive-css-variables" },
-      { label: "Semantic CSS Variables", path: "/foundations/semantic-css-variables" },
+      { label: "Colors", path: "/foundations/colors-primitives" },
+      { label: "Typography", path: "/foundations/typography" },
       { label: "Design Tokens", path: "/docs/tokens" },
+      { label: "Iconography", path: "/components/icon" },
       { label: "Layout", path: "/components/layout" },
     ],
   },
   {
     label: "Components",
     icon: "DiamondsFourIcon",
-    children: [{ label: "Overview", path: "/docs/components-overview" }, ...COMPONENT_DEMO_NAV_ITEMS],
+    children: [...COMPONENT_DEMO_NAV_ITEMS],
   },
   {
     label: "Modules",
@@ -167,8 +165,8 @@ function App() {
           onBrandChange={handleBrandChange}
           activeMode={theme}
           onModeChange={handleModeChange}
-          showBrandSwitcher
-          showSearch
+          showBrandSwitcher={false}
+          showSearch={false}
           showModeToggle
           userName="Emily Brown"
           userInitials="EB"

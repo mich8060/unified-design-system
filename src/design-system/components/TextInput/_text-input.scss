@@ -27,12 +27,12 @@
   }
 
   @include uds-body-16;
-  width: 100%;
-  padding: var(--uds-spacing-10) var(--uds-spacing-12);
+  background-color: var(--uds-input-surface);
   border: var(--uds-border-width-1) solid var(--uds-input-border);
   border-radius: var(--uds-radius-4);
-  background-color: var(--uds-input-surface);
   color: var(--uds-text-primary);
+  padding: var(--uds-spacing-10) var(--uds-spacing-12);
+  width: 100%;
   transition:
     background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
     border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
@@ -78,17 +78,17 @@
   &--disabled,
   &:disabled {
     background-color: var(--uds-surface-tertiary);
+    border-color: var(--uds-border-primary);
     color: var(--uds-text-secondary);
     cursor: not-allowed;
     opacity: 0.6;
-    border-color: var(--uds-border-primary);
   }
 
   // ── Focus ring ──────────────────────────────────────
   &:focus:not(:disabled) {
+    border-color: var(--uds-system-action-primary);
     outline: 3px solid var(--uds-system-action-tertiary);
     outline-offset: 0;
-    border-color: var(--uds-system-action-primary);
   }
 
   &:focus-visible {
@@ -130,9 +130,9 @@
 
   // ── Wrapper for input + icon ────────────────────────
   &-wrapper {
-    position: relative;
-    display: flex;
     align-items: center;
+    display: flex;
+    position: relative;
     width: 100%;
 
     // Enforce icon spacing from wrapper state so text never overlaps icons.
@@ -163,12 +163,12 @@
 
   // ── Element: icon (positioned absolutely inside wrapper)
   &__icon {
-    position: absolute;
-    display: inline-flex;
     align-items: center;
-    justify-content: center;
     color: var(--uds-text-secondary);
+    display: inline-flex;
+    justify-content: center;
     pointer-events: none;
+    position: absolute;
 
     &--right {
       right: var(--uds-spacing-12);
@@ -180,12 +180,12 @@
 
     // Clickable icon (button)
     &--clickable {
-      pointer-events: auto;
-      cursor: pointer;
       background: none;
       border: none;
-      padding: 0;
       color: var(--uds-text-secondary);
+      cursor: pointer;
+      padding: 0;
+      pointer-events: auto;
       transition: color var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
 
       &:hover:not(:disabled) {
@@ -200,13 +200,13 @@
   }
 
   &__end-adornment {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
     position: absolute;
     right: var(--uds-spacing-8);
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
   }
 }

@@ -1,19 +1,20 @@
 .uds-statistics {
-    position: relative;
+    all: unset;
+    background: var(--uds-surface-primary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    border-radius: var(--uds-radius-8);
     display: flex;
     flex-direction: column;
     gap: var(--uds-spacing-16);
-    padding: var(--uds-spacing-16);
-    border-radius: var(--uds-radius-8);
-    background: var(--uds-surface-primary);
-    border: var(--uds-border-width-1) solid var(--uds-border-primary);
     overflow: hidden;
+    padding: var(--uds-spacing-16);
+    position: relative;
 
     &__header {
-        display: flex;
         align-items: stretch;
-        justify-content: flex-start;
+        display: flex;
         gap: var(--uds-spacing-16);
+        justify-content: flex-start;
     }
 
     &__label {
@@ -21,32 +22,32 @@
     }
 
     &__main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
         align-items: flex-start;
-        justify-content: flex-start;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
         gap: var(--uds-spacing-16);
+        justify-content: flex-start;
         padding: var(--uds-spacing-4) var(--uds-spacing-0);
     }
 
     &__icon {
-        display: flex;
         align-items: center;
-        justify-content: flex-start;
+        display: flex;
         gap: var(--uds-spacing-8);
+        justify-content: flex-start;
         width: 100%;
     }
 
     &__icon-tile {
-        width: 48px;
-        height: 48px;
-        border-radius: var(--uds-radius-12);
+        align-items: center;
         background: var(--uds-surface-tertiary);
+        border-radius: var(--uds-radius-12);
         color: var(--uds-icon-brand-secondary);
         display: inline-flex;
-        align-items: center;
+        height: 48px;
         justify-content: center;
+        width: 48px;
     }
 
     &__text {
@@ -58,17 +59,17 @@
     }
 
     &__change {
-        display: inline-flex;
-        width: fit-content;
         align-items: center;
+        display: inline-flex;
         gap: var(--uds-spacing-4);
+        width: fit-content;
     }
 
     &__progress-row {
-        display: grid;
-        grid-template-columns: minmax(140px, 1fr) auto;
         align-items: center;
+        display: grid;
         gap: var(--uds-spacing-16);
+        grid-template-columns: minmax(140px, 1fr) auto;
         width: 100%;
     }
 

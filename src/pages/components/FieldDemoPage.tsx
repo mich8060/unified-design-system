@@ -1,7 +1,7 @@
 import { Divider } from "../../design-system/components/Divider";
 import { Dropdown } from "../../design-system/components/Dropdown";
 import { Field } from "../../design-system/components/Field";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { TextInput } from "../../design-system/components/TextInput";
 import { Textarea } from "../../design-system/components/Textarea";
 import { Text } from "../../design-system/components/Text";
@@ -42,7 +42,7 @@ export function FieldDemoPage() {
       title="Field"
       description="Field wraps form controls with consistent label, helper messaging, required indication, and metadata."
     >
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Basic Usage
         </Text>
@@ -60,10 +60,10 @@ export function FieldDemoPage() {
             type="email"
           />
         </Field>
-      </Flex>
+      </Layout>
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Required and Info
         </Text>
@@ -81,10 +81,10 @@ export function FieldDemoPage() {
             placeholder="Select role"
           />
         </Field>
-      </Flex>
+      </Layout>
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Error and Disabled States
         </Text>
@@ -99,10 +99,10 @@ export function FieldDemoPage() {
         <Field label="Department (Disabled)" helperMessage="This field is managed by IT.">
           <TextInput value="Clinical Operations" disabled readOnly />
         </Field>
-      </Flex>
+      </Layout>
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Textarea Composition
         </Text>
@@ -124,7 +124,7 @@ export function FieldDemoPage() {
             placeholder="Add details..."
           />
         </Field>
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={FIELD_PROPS} />

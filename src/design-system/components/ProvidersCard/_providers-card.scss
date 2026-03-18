@@ -6,8 +6,12 @@
     background-color: var(--uds-surface-secondary);
     border: var(--uds-border-width-1) solid var(--uds-border-primary);
     border-radius: var(--uds-radius-12);
-    padding: var(--uds-spacing-16);
     display: flex;
     flex-direction: column;
     gap: var(--uds-spacing-12);
+    padding: var(--uds-spacing-16);
+
+    &__specialty {
+        color: var(--uds-text-secondary);
+    }
 }

@@ -1,7 +1,6 @@
-import type { ReactNode } from "react";
 import { Button } from "../Button";
 import { Divider } from "../Divider";
-import { Flex } from "../Flex";
+import { Layout } from "../Layout";
 import { Status } from "../Status";
 import { Tag } from "../Tag";
 import { Text } from "../Text";
@@ -10,27 +9,6 @@ import type { ProvidersCardProps } from "./ProvidersCard.types";
 
 const hasContent = (value: unknown): boolean =>
     value !== undefined && value !== null && value !== false && value !== "";
-
-const getInitials = (name: ReactNode, fallback?: string): string | undefined => {
-    if (fallback && fallback.trim().length > 0) {
-        return fallback.trim().slice(0, 2).toUpperCase();
-    }
-
-    if (typeof name !== "string") {
-        return undefined;
-    }
-
-    const initials = name
-        .split(" ")
-        .map((part) => part.trim())
-        .filter(Boolean)
-        .map((part) => part[0])
-        .join("")
-        .slice(0, 2)
-        .toUpperCase();
-
-    return initials || undefined;
-};
 
 export function ProvidersCard({
     name,
@@ -55,15 +33,15 @@ export function ProvidersCard({
 
     return (
         <div className={classNames} {...rest}>
-            <Flex direction="column" gap="16">
-                <Flex className="uds-providers-card__header" alignItems="flex-start" justifyContent="space-between" gap="12" wrap>
-                    <Flex className="uds-providers-card__identity" alignItems="flex-start" justifyContent="flex-start" gap="10">
-                        <Flex direction="column" gap="2">
+            <Layout direction="column" gap="16">
+                <Layout className="uds-providers-card__header" alignItems="flex-start" justifyContent="space-between" gap="12" wrap>
+                    <Layout className="uds-providers-card__identity" alignItems="flex-start" justifyContent="flex-start" gap="10">
+                        <Layout direction="column" gap="2">
                             <Text as="h3" variant="body-16" weight="bold" leading="regular">
                                 {name}
                             </Text>
                             {hasContent(specialty) ? (
-                                <Text as="p" variant="body-14" leading="regular" style={{ color: "var(--uds-text-secondary)" }}>
+                                <Text as="p" variant="body-14" leading="regular" className="uds-providers-card__specialty">
                                     {specialty}
                                 </Text>
                             ) : null}
@@ -78,32 +56,32 @@ export function ProvidersCard({
                                     <strong>Start Date:</strong> {startDate}
                                 </Text>
                             ) : null}
-                        </Flex>
-                    </Flex>
+                        </Layout>
+                    </Layout>
                     {hasContent(statusLabel) ? (
                         <Status label={statusLabel} variant={statusVariant} />
                     ) : null}
-                </Flex>
+                </Layout>
                 {tags.length > 0 ? (
-                    <Flex className="uds-providers-card__tags" direction="column" gap="8" wrap>
+                    <Layout className="uds-providers-card__tags" direction="column" gap="8" wrap>
                         <Text as="p" variant="body-14" weight="bold" leading="regular">
                             Provider progress:
                         </Text>
-                        <Flex direction="row" gap="8" wrap>
+                        <Layout direction="row" gap="8" wrap>
                             {tags.map((tag) => (
                                 <Tag key={`${tag.label}-${tag.color ?? "default"}`} label={tag.label} color="neutral" solid appearance="icon-left" icon="CircleDashed" />
                             ))}
-                        </Flex>
-                    </Flex>
+                        </Layout>
+                    </Layout>
                 ) : null}
-                <Flex direction="column" gap="8">
+                <Layout direction="column" gap="8">
                     <Divider />
-                    <Flex className="uds-providers-card__actions" alignItems="center" gap="8" wrap>
+                    <Layout className="uds-providers-card__actions" alignItems="center" gap="8" wrap>
                         {finalPrimaryAction}
                         {secondaryAction ? secondaryAction : null}
-                    </Flex>
-                </Flex>
-            </Flex>
+                    </Layout>
+                </Layout>
+            </Layout>
         </div>
     );
 }

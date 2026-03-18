@@ -1041,6 +1041,81 @@
         ]
       }
     },
+    "DescriptionList": {
+      "name": "DescriptionList",
+      "category": "data-display",
+      "intent": "Compact key-value metadata rows",
+      "purpose": "Compact key-value metadata layout for detail and summary views.",
+      "tier": 2,
+      "description": "A compact definition-list style component for rendering labeled values in dense details views, side panels, and metadata cards.",
+      "roles": [
+        "list"
+      ],
+      "slots": null,
+      "states": [
+        "default"
+      ],
+      "props": {
+        "density": {
+          "type": "enum",
+          "values": [
+            "default",
+            "compact"
+          ],
+          "default": "default"
+        },
+        "labelWidth": {
+          "type": "enum",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "default": "md"
+        },
+        "variant": {
+          "type": "enum",
+          "values": [
+            "default",
+            "separators"
+          ],
+          "default": "default"
+        },
+        "bordered": {
+          "type": "boolean",
+          "default": true
+        },
+        "fullWidth": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "defaults": {
+        "density": "default",
+        "labelWidth": "md",
+        "variant": "default",
+        "bordered": true,
+        "fullWidth": true
+      },
+      "composition": {
+        "preferredParents": [
+          "Card",
+          "Container",
+          "AppShell"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
     "Dialog": {
       "name": "Dialog",
       "category": "feedback",
@@ -1357,23 +1432,53 @@
       "slots": null,
       "states": [],
       "props": {
-        "title": {
-          "type": "string",
-          "default": "Title"
-        },
         "type": {
-          "type": "string",
+          "type": "enum",
+          "values": [
+            "travel",
+            "assignment",
+            "unassigned"
+          ],
           "default": "travel"
         },
         "status": {
-          "type": "string",
+          "type": "enum",
+          "values": [
+            "active",
+            "past",
+            "pending"
+          ],
           "default": "active"
+        },
+        "color": {
+          "type": "enum",
+          "values": [
+            "transparent",
+            "neutral",
+            "red",
+            "orange",
+            "yellow",
+            "emerald",
+            "green",
+            "sky",
+            "cyan",
+            "blue",
+            "indigo",
+            "purple",
+            "fuchsia",
+            "magenta",
+            "inverse"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "default": "Title"
         }
       },
       "defaults": {
-        "title": "Title",
         "type": "travel",
-        "status": "active"
+        "status": "active",
+        "title": "Title"
       },
       "composition": {
         "preferredParents": [
@@ -2440,6 +2545,57 @@
         "allowed": []
       }
     },
+    "SelectableCard": {
+      "name": "SelectableCard",
+      "category": "data-display",
+      "intent": "Selectable card-row primitive",
+      "purpose": "Selectable surface for list rows and card-like actionable metadata items.",
+      "tier": 2,
+      "description": "An interactive row/card surface for selectable list content with leading, content, status, and trailing action slots.",
+      "roles": [
+        "button"
+      ],
+      "slots": null,
+      "states": [
+        "default",
+        "hover",
+        "focus",
+        "selected",
+        "disabled"
+      ],
+      "props": {
+        "selected": {
+          "type": "boolean",
+          "default": false
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "defaults": {
+        "selected": false,
+        "disabled": false
+      },
+      "composition": {
+        "preferredParents": [
+          "Container",
+          "Flex",
+          "AppShell"
+        ],
+        "allowedChildren": [],
+        "allowedParents": [],
+        "disallowedChildren": [],
+        "constraints": null
+      },
+      "tokens": {
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-color-neutral-700",
+          "--uds-radius-8"
+        ]
+      }
+    },
     "Slider": {
       "name": "Slider",
       "category": "form",
@@ -3161,10 +3317,30 @@
             "info"
           ],
           "default": "info"
+        },
+        "actions": {
+          "type": "enum",
+          "values": [
+            "none",
+            "close",
+            "subtle",
+            "buttons"
+          ],
+          "default": "none"
+        },
+        "size": {
+          "type": "enum",
+          "values": [
+            "default",
+            "condensed"
+          ],
+          "default": "default"
         }
       },
       "defaults": {
-        "variant": "info"
+        "variant": "info",
+        "actions": "none",
+        "size": "default"
       },
       "composition": {
         "preferredParents": [

@@ -3,6 +3,10 @@
 @use "./_link.tokens" as *;
 
 .uds-link {
+  all: unset;
+  align-items: center;
+  display: inline-flex;
+  gap: var(--uds-spacing-4);
   @include uds-body-14-medium;
   text-decoration-thickness: from-font;
   text-underline-offset: var(--uds-spacing-2);
@@ -40,6 +44,15 @@
     }
   }
 
+  &--prominent {
+    color: var(--uds-text-link-primary-default);
+    @include uds-body-14-bold;
+  }
+
+  &--external {
+    color: var(--uds-text-link-primary-default);
+  }
+
   &--underline-always {
     text-decoration: underline;
   }
@@ -66,5 +79,11 @@
     cursor: not-allowed;
     pointer-events: none;
     text-decoration: none;
+  }
+
+  &__icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
   }
 }

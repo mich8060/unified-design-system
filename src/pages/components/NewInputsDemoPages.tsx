@@ -3,7 +3,7 @@ import { CurrencyInput } from "../../design-system/components/CurrencyInput";
 import { DateInput } from "../../design-system/components/DateInput";
 import { DateRangeInput } from "../../design-system/components/DateRangeInput";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { PasswordInput } from "../../design-system/components/PasswordInput";
 import { PhoneInput } from "../../design-system/components/PhoneInput";
 import { SearchInput } from "../../design-system/components/SearchInput";
@@ -31,15 +31,15 @@ const PHONE_ROWS: ComponentPropRow[] = [
 ];
 
 function InputStatesPreview({ children }: { children: React.ReactNode }) {
-  return <Flex direction="column" gap="12">{children}</Flex>;
+  return <Layout direction="column" gap="12">{children}</Layout>;
 }
 
 export function DateInputDemoPage() {
   const [value, setValue] = useState("");
   return (
     <DocPageLayout title="DateInput" description="DateInput builds on TextInput with a date-native input type.">
-      <Flex direction="column" gap="24">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="24">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">Examples</Text>
           <InputStatesPreview>
             <DateInput value={value} onChange={(e) => setValue(e.target.value)} label="Date" placeholder="Select date" />
@@ -47,8 +47,8 @@ export function DateInputDemoPage() {
             <DateInput value={value} onChange={(e) => setValue(e.target.value)} state="error" errorText="Please select a date." label="Error" />
             <DateInput value="2026-03-01" readOnly state="disabled" label="Disabled" />
           </InputStatesPreview>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
       <ComponentPropsTable rows={SHARED_ROWS} title="DateInput Props" />
     </DocPageLayout>
@@ -63,8 +63,8 @@ export function DateRangeInputDemoPage() {
       title="DateRangeInput"
       description="DateRangeInput composes start/end dates into a single unified field with an em dash separator."
     >
-      <Flex direction="column" gap="24">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="24">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">Examples</Text>
           <InputStatesPreview>
             <DateRangeInput
@@ -100,8 +100,8 @@ export function DateRangeInputDemoPage() {
             />
             <DateRangeInput startValue="2026-03-01" endValue="2026-03-31" disabled />
           </InputStatesPreview>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
       <ComponentPropsTable rows={SHARED_ROWS} title="DateRangeInput Props" />
     </DocPageLayout>
@@ -112,8 +112,8 @@ export function PasswordInputDemoPage() {
   const [value, setValue] = useState("");
   return (
     <DocPageLayout title="PasswordInput" description="PasswordInput includes optional visibility toggle behavior.">
-      <Flex direction="column" gap="24">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="24">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">Examples</Text>
           <InputStatesPreview>
             <PasswordInput value={value} onChange={(e) => setValue(e.target.value)} placeholder="Enter password" />
@@ -121,8 +121,8 @@ export function PasswordInputDemoPage() {
             <PasswordInput value={value} onChange={(e) => setValue(e.target.value)} size="compact" />
             <PasswordInput value={value} onChange={(e) => setValue(e.target.value)} state="error" errorText="Password is required." />
           </InputStatesPreview>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
       <ComponentPropsTable rows={SHARED_ROWS} title="PasswordInput Props" />
     </DocPageLayout>
@@ -136,8 +136,8 @@ export function PhoneInputDemoPage() {
 
   return (
     <DocPageLayout title="PhoneInput" description="PhoneInput formats and validates phone values while restricting allowed characters.">
-      <Flex direction="column" gap="24">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="24">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">Examples</Text>
           <InputStatesPreview>
             <PhoneInput
@@ -151,8 +151,8 @@ export function PhoneInputDemoPage() {
             <PhoneInput value={value} onChange={(e) => setValue(e.target.value)} size="compact" />
             <PhoneInput value={value} onChange={(e) => setValue(e.target.value)} state="error" errorText="Use a 10-digit phone number." />
           </InputStatesPreview>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
       <ComponentPropsTable rows={PHONE_ROWS} title="PhoneInput Props" />
     </DocPageLayout>
@@ -163,8 +163,8 @@ export function CurrencyInputDemoPage() {
   const [value, setValue] = useState("");
   return (
     <DocPageLayout title="CurrencyInput" description="CurrencyInput uses TextInput with currency affordances and decimal input mode.">
-      <Flex direction="column" gap="24">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="24">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">Examples</Text>
           <InputStatesPreview>
             <CurrencyInput value={value} onChange={(e) => setValue(e.target.value)} label="Amount" />
@@ -172,8 +172,8 @@ export function CurrencyInputDemoPage() {
             <CurrencyInput value={value} onChange={(e) => setValue(e.target.value)} state="error" errorText="Enter a valid amount." />
             <CurrencyInput value="1234.56" readOnly state="disabled" />
           </InputStatesPreview>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
       <ComponentPropsTable rows={SHARED_ROWS} title="CurrencyInput Props" />
     </DocPageLayout>
@@ -184,8 +184,8 @@ export function SearchInputDemoPage() {
   const [value, setValue] = useState("");
   return (
     <DocPageLayout title="SearchInput" description="SearchInput presets search semantics and icon behavior.">
-      <Flex direction="column" gap="24">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="24">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">Examples</Text>
           <InputStatesPreview>
             <SearchInput value={value} onChange={(e) => setValue(e.target.value)} placeholder="Search components" />
@@ -193,8 +193,8 @@ export function SearchInputDemoPage() {
             <SearchInput value={value} onChange={(e) => setValue(e.target.value)} state="error" errorText="Search query is invalid." />
             <SearchInput value="Read-only search" readOnly />
           </InputStatesPreview>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
       <ComponentPropsTable rows={SHARED_ROWS} title="SearchInput Props" />
     </DocPageLayout>
@@ -205,8 +205,8 @@ export function URLInputDemoPage() {
   const [value, setValue] = useState("");
   return (
     <DocPageLayout title="URLInput" description="URLInput is optimized for web address entry with URL semantics.">
-      <Flex direction="column" gap="24">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="24">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">Examples</Text>
           <InputStatesPreview>
             <URLInput value={value} onChange={(e) => setValue(e.target.value)} placeholder="https://" />
@@ -214,8 +214,8 @@ export function URLInputDemoPage() {
             <URLInput value={value} onChange={(e) => setValue(e.target.value)} state="error" errorText="URL is invalid." />
             <URLInput value="https://www.chghealthcare.com" readOnly />
           </InputStatesPreview>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
       <ComponentPropsTable rows={SHARED_ROWS} title="URLInput Props" />
     </DocPageLayout>
@@ -226,8 +226,8 @@ export function TimeInputDemoPage() {
   const [value, setValue] = useState("");
   return (
     <DocPageLayout title="TimeInput" description="TimeInput uses native time selection behavior on top of TextInput styles.">
-      <Flex direction="column" gap="24">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="24">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">Examples</Text>
           <InputStatesPreview>
             <TimeInput value={value} onChange={(e) => setValue(e.target.value)} />
@@ -235,8 +235,8 @@ export function TimeInputDemoPage() {
             <TimeInput value={value} onChange={(e) => setValue(e.target.value)} state="error" errorText="Select a valid time." />
             <TimeInput value="09:30" readOnly state="disabled" />
           </InputStatesPreview>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
       <Divider variant="solid" />
       <ComponentPropsTable rows={SHARED_ROWS} title="TimeInput Props" />
     </DocPageLayout>

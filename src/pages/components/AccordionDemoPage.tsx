@@ -1,5 +1,6 @@
+import { Button } from "../../design-system/components/Button";
 import { Divider } from "../../design-system/components/Divider";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Text } from "../../design-system/components/Text";
 import { useState } from "react";
 import Accordion, { AccordionItem } from "../../design-system/components/Accordion/Accordion";
@@ -33,6 +34,12 @@ const ACCORDION_PROPS: ComponentPropRow[] = [
     defaultValue: '"default"',
     description: "Visual style variant for the accordion container.",
   },
+  { prop: "title", type: "ReactNode", defaultValue: "-", description: "Optional group header title." },
+  { prop: "itemCount", type: "number", defaultValue: "-", description: "Optional count badge shown in group header." },
+  { prop: "headerActions", type: "ReactNode", defaultValue: "-", description: "Optional action area rendered in the group header." },
+  { prop: "search", type: "boolean", defaultValue: "false", description: "Shows inline SearchInput in the group header." },
+  { prop: "searchValue", type: "string", defaultValue: "-", description: "Controlled value for group header search." },
+  { prop: "onSearchChange", type: "(value: string) => void", defaultValue: "-", description: "Search callback from group header input." },
 ];
 
 const ACCORDION_ITEM_PROPS: ComponentPropRow[] = [
@@ -51,14 +58,15 @@ const ACCORDION_ITEM_PROPS: ComponentPropRow[] = [
 
 export function AccordionDemoPage() {
   const [toggleState, setToggleState] = useState("Not toggled yet");
+  const [query, setQuery] = useState("");
 
   return (
     <DocPageLayout
       title="Accordion"
       description="Accordion progressively discloses content so pages stay scannable while still providing detail."
     >
-      <Flex direction="column" gap="48">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="48">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             FAQ Example
           </Text>
@@ -71,10 +79,35 @@ export function AccordionDemoPage() {
               </AccordionItem>
             ))}
           </Accordion>
-        </Flex>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
+          <Text as="h2" variant="heading-24" weight="medium" leading="regular">
+            Grouped Header Variant
+          </Text>
+          <Accordion
+            title="Licensure"
+            itemCount={faqItems.length}
+            search
+            searchValue={query}
+            onSearchChange={setQuery}
+            headerActions={<Button size="xsmall" appearance="text" label="Refresh" />}
+          >
+            {faqItems
+              .filter((item) => item.label.toLowerCase().includes(query.toLowerCase()))
+              .map((item) => (
+                <AccordionItem key={item.label} label={item.label}>
+                  <Text as="p" variant="body-16" leading="regular">
+                    {item.content}
+                  </Text>
+                </AccordionItem>
+              ))}
+          </Accordion>
+        </Layout>
+        <Divider variant="solid" />
+
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Item States
           </Text>
@@ -90,10 +123,10 @@ export function AccordionDemoPage() {
               </Text>
             </AccordionItem>
           </Accordion>
-        </Flex>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Secondary Variant
           </Text>
@@ -109,10 +142,10 @@ export function AccordionDemoPage() {
               </Text>
             </AccordionItem>
           </Accordion>
-        </Flex>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             onToggle Callback
           </Text>
@@ -129,8 +162,8 @@ export function AccordionDemoPage() {
               </Text>
             </AccordionItem>
           </Accordion>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={ACCORDION_PROPS} />

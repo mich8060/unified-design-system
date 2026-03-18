@@ -2,6 +2,7 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-dropdown {
+    all: unset;
     width: 100%;
 
     &.uds-action-menu {
@@ -17,25 +18,25 @@
         display: flex;
         flex-direction: column;
         gap: var(--uds-gap-32);
-        width: 100%;
         position: relative;
+        width: 100%;
         z-index: var(--uds-elevation-overlay);
     }
 
     &__trigger {
         all: unset;
         @include uds-body-16;
-        display: flex;
         align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        height: 44px;
-        padding: var(--uds-spacing-10) var(--uds-spacing-12);
         background-color: var(--uds-input-surface);
         border: var(--uds-border-width-1) solid var(--uds-border-primary);
         border-radius: var(--uds-radius-4);
         color: var(--uds-text-primary);
         cursor: pointer;
+        display: flex;
+        height: 44px;
+        justify-content: space-between;
+        padding: var(--uds-spacing-10) var(--uds-spacing-12);
+        width: 100%;
         transition:
             background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
             border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
@@ -62,10 +63,10 @@
     }
 
     &__icon {
+        color: var(--uds-text-secondary);
         flex-shrink: 0;
         margin-left: var(--uds-gap-32);
         transition: transform var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
-        color: var(--uds-text-secondary);
 
         &--open {
             transform: rotate(180deg);
@@ -93,8 +94,8 @@
 
     &--error {
         .uds-dropdown__trigger {
-            border-color: var(--uds-text-error, #ef4444);
             background-color: var(--uds-surface-primary);
+            border-color: var(--uds-text-error, #ef4444);
             color: #ef4444;
         }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Divider, Flex, Text, TextInput } from "../../design-system";
+import { Divider, Layout, Text, TextInput } from "../../design-system";
 import { DocPageLayout } from "../docs/DocPageLayout";
 import { ComponentPropsTable, type ComponentPropRow } from "../docs/ComponentPropsTable";
 
@@ -22,7 +22,7 @@ export function URLInputDemoPage() {
       title="URLInput"
       description="URLInput demos URL entry behavior using TextInput with native url type."
     >
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Basic Usage
         </Text>
@@ -34,21 +34,21 @@ export function URLInputDemoPage() {
           placeholder="https://example.com"
           helperText="Include protocol when possible."
         />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           Size Variants
         </Text>
         <TextInput type="url" value="https://example.com" readOnly size="default" />
         <TextInput type="url" value="https://example.com" readOnly size="compact" />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
 
-      <Flex direction="column" gap="16">
+      <Layout direction="column" gap="16">
         <Text as="h2" variant="heading-24" weight="medium" leading="regular">
           State Variants
         </Text>
@@ -56,7 +56,7 @@ export function URLInputDemoPage() {
         <TextInput type="url" value="https://example.com" readOnly state="focused" />
         <TextInput type="url" value="not-a-url" readOnly state="error" errorText="Enter a valid URL." />
         <TextInput type="url" value="https://example.com" readOnly disabled />
-      </Flex>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={URL_INPUT_PROPS} />

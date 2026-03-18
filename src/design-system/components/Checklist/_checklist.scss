@@ -1,13 +1,14 @@
 .uds-checklist {
-    width: 100%;
-    max-width: 320px;
-    display: flex;
-    flex-direction: column;
-    gap: var(--uds-spacing-24);
-    padding: var(--uds-spacing-24);
+    all: unset;
     background: var(--uds-surface-primary);
     border: var(--uds-border-width-1) solid var(--uds-border-primary);
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--uds-spacing-24);
+    max-width: 320px;
+    padding: var(--uds-spacing-24);
+    width: 100%;
 
     &__head {
         display: flex;
@@ -16,10 +17,10 @@
     }
 
     &__header {
-        display: flex;
         align-items: baseline;
-        justify-content: space-between;
+        display: flex;
         gap: var(--uds-spacing-12);
+        justify-content: space-between;
     }
 
     &__count {
@@ -28,18 +29,18 @@
     }
 
     &__progress {
+        background: var(--uds-border-primary);
+        border-radius: 999px;
         height: 8px;
         margin-top: var(--uds-spacing-12);
-        border-radius: 999px;
-        background: var(--uds-border-primary);
         overflow: hidden;
     }
 
     &__progress-fill {
+        background: var(--uds-surface-brand-tertiary);
+        border-radius: inherit;
         display: block;
         height: 100%;
-        border-radius: inherit;
-        background: var(--uds-surface-brand-tertiary);
         transition: width 160ms ease;
     }
 
@@ -53,24 +54,24 @@
     }
 
     &__item {
-        width: 100%;
-        display: flex;
         align-items: center;
-        gap: var(--uds-spacing-12);
-        padding: var(--uds-spacing-8) 0;
         background: transparent;
         border: 0;
         color: var(--uds-text-secondary);
-        text-align: left;
         cursor: pointer;
+        display: flex;
+        gap: var(--uds-spacing-12);
+        padding: var(--uds-spacing-8) 0;
+        text-align: left;
+        width: 100%;
 
         &:disabled {
             cursor: default;
         }
 
         &--completed .uds-checklist__indicator {
-            border-color: var(--uds-surface-brand-tertiary);
             background: var(--uds-surface-brand-tertiary);
+            border-color: var(--uds-surface-brand-tertiary);
         }
 
         &--active {
@@ -83,14 +84,14 @@
     }
 
     &__indicator {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        border: var(--uds-border-width-2) solid var(--uds-border-primary);
-        display: inline-flex;
         align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
+        border: var(--uds-border-width-2) solid var(--uds-border-primary);
+        border-radius: 50%;
         color: var(--uds-surface-primary);
+        display: inline-flex;
+        flex-shrink: 0;
+        height: 24px;
+        justify-content: center;
+        width: 24px;
     }
 }

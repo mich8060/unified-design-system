@@ -5,7 +5,7 @@ import type { CSSProperties } from "react";
 import { Code } from "../../design-system/components/Code";
 import { Divider } from "../../design-system/components/Divider";
 import { Dropdown } from "../../design-system/components/Dropdown";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Menu } from "../../design-system/components/Menu";
 import { SearchInput } from "../../design-system/components/SearchInput";
 import { Tag } from "../../design-system/components/Tag";
@@ -24,6 +24,9 @@ const APP_SHELL_PROPS: ComponentPropRow[] = [
   { prop: "skipToContentLabel", type: "string", defaultValue: '"Skip to content"', description: "Accessible label text shown for the skip link." },
   { prop: "mainContentId", type: "string", defaultValue: "generated", description: "Optional custom id for the main content target used by skip link." },
   { prop: "children", type: "ReactNode", defaultValue: "-", description: "Compound regions using `AppShell.Menu`, `AppShell.Content`, `AppShell.Listview`, `AppShell.Main`, `AppShell.SidePanel`." },
+  { prop: "AppShell.Main.surface", type: '"primary" | "secondary"', defaultValue: '"secondary"', description: "Controls main content region surface." },
+  { prop: "AppShell.SidePanel.variant", type: '"default" | "document-details"', defaultValue: '"default"', description: "Controls side panel visual variant." },
+  { prop: "AppShell.SidePanelSection", type: "compound child", defaultValue: "-", description: "Convenience section wrapper for side panel content blocks." },
   { prop: "className", type: "string", defaultValue: '""', description: "Additional CSS classes on shell root." },
 ];
 
@@ -65,12 +68,14 @@ const LISTVIEW_APP_SHELL_EXAMPLE = `<AppShell brand="comphealth" theme="dark">
       <CandidateList />
     </AppShell.Listview>
 
-    <AppShell.Main>
+    <AppShell.Main surface="primary">
       <CandidateDetail />
     </AppShell.Main>
 
-    <AppShell.SidePanel>
-      <CandidateDocuments />
+    <AppShell.SidePanel variant="document-details">
+      <AppShell.SidePanelSection>
+        <CandidateDocuments />
+      </AppShell.SidePanelSection>
     </AppShell.SidePanel>
   </AppShell.Content>
 </AppShell>`;
@@ -219,12 +224,12 @@ export function AppShellDemoPage() {
       title="AppShell"
       description="AppShell provides the application-level layout contract for menu, content regions, theme, brand, and density."
     >
-      <Flex direction="column" gap="48">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="48">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Compound Regions
           </Text>
-          <Flex direction="column" gap="8">
+          <Layout direction="column" gap="8">
             <Text as="p" variant="body-16" leading="regular">
               `AppShell.Menu` renders the sidebar area.
             </Text>
@@ -237,33 +242,33 @@ export function AppShellDemoPage() {
             <Text as="p" variant="body-16" leading="regular">
               `AppShell.SidePanel` is an optional right rail for contextual tools, documents, and secondary actions.
             </Text>
-          </Flex>
-        </Flex>
+          </Layout>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Composition Rules
           </Text>
-          <Flex as="ul" direction="column" gap="8">
+          <Layout as="ul" direction="column" gap="8">
             {COMPOSITION_RULES.map((rule) => (
               <Text as="li" key={rule} variant="body-16" leading="regular">
                 {rule}
               </Text>
             ))}
-          </Flex>
-        </Flex>
+          </Layout>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Live Preview
           </Text>
           <Text as="p" variant="body-16" leading="regular">
             Toggle regions to preview built-in `Listview + Main + SidePanel` shell regions side-by-side.
           </Text>
-          <Flex style={{ width: "100%", overflowX: "auto", paddingBottom: "var(--uds-spacing-4)" }}>
-            <Flex
+          <Layout style={{ width: "100%", overflowX: "auto", paddingBottom: "var(--uds-spacing-4)" }}>
+            <Layout
               style={{
                 border: "var(--uds-border-width-1) solid var(--uds-border-primary)",
                 borderRadius: "var(--uds-radius-8)",
@@ -276,7 +281,7 @@ export function AppShellDemoPage() {
               direction="column"
               gap="0"
             >
-            <Flex
+            <Layout
               alignItems="center"
               justifyContent="space-between"
               wrap
@@ -287,20 +292,20 @@ export function AppShellDemoPage() {
                 backgroundColor: "var(--uds-surface-secondary)",
               }}
             >
-              <Flex alignItems="center" gap="12" wrap>
-                <Flex alignItems="center" gap="8">
+              <Layout alignItems="center" gap="12" wrap>
+                <Layout alignItems="center" gap="8">
                   <Toggle checked={showListview} onChange={setShowListview} size="small" />
                   <Text as="span" variant="body-14" leading="regular">
                     Listview
                   </Text>
-                </Flex>
-                <Flex alignItems="center" gap="8">
+                </Layout>
+                <Layout alignItems="center" gap="8">
                   <Toggle checked={showSidePanel} onChange={setShowSidePanel} size="small" />
                   <Text as="span" variant="body-14" leading="regular">
                     Side Panel
                   </Text>
-                </Flex>
-                <Flex alignItems="center" gap="8" style={{ minWidth: 260 }}>
+                </Layout>
+                <Layout alignItems="center" gap="8" style={{ minWidth: 260 }}>
                   <Text as="span" variant="body-14" leading="regular">
                     Doctor
                   </Text>
@@ -313,17 +318,17 @@ export function AppShellDemoPage() {
                     size="compact"
                     placement="bottom-start"
                   />
-                </Flex>
-              </Flex>
+                </Layout>
+              </Layout>
               <Button
                 appearance="outline"
                 size="xsmall"
                 label={showSidePanel ? "Close Side Panel" : "Open Side Panel"}
                 onClick={() => setShowSidePanel((prev) => !prev)}
               />
-            </Flex>
+            </Layout>
 
-            <Flex
+            <Layout
               className="app-shell__body"
               style={{ flex: 1, minHeight: 0, backgroundColor: "var(--uds-surface-primary)" }}
             >
@@ -339,13 +344,15 @@ export function AppShellDemoPage() {
                 />
               </aside>
 
-              <Flex style={{ flex: 1, minWidth: 0, position: "relative", overflow: "hidden" }}>
-                <Flex
+              <Layout style={{ flex: 1, minWidth: 0, position: "relative", overflow: "hidden" }}>
+                <Layout
                   direction="column"
                   style={{
                     width: showListview ? 240 : 0,
                     transition: "width 220ms ease",
                     overflow: "hidden",
+                    position: "relative",
+                    zIndex: 2,
                     borderRight: showListview
                       ? "var(--uds-border-width-1) solid var(--uds-border-primary)"
                       : "none",
@@ -353,7 +360,7 @@ export function AppShellDemoPage() {
                     flexShrink: 0,
                   }}
                 >
-                  <Flex
+                  <Layout
                     alignItems="center"
                     justifyContent="space-between"
                     style={{
@@ -368,10 +375,10 @@ export function AppShellDemoPage() {
                     <Text as="span" variant="body-12" leading="regular">
                       8
                     </Text>
-                  </Flex>
-                  <Flex direction="column" style={{ minWidth: 240 }}>
+                  </Layout>
+                  <Layout direction="column" style={{ minWidth: 240 }}>
                     {PREVIEW_DOCTORS.map((doctor) => (
-                      <Flex
+                      <Layout
                         key={doctor.name}
                         alignItems="center"
                         gap="8"
@@ -396,13 +403,13 @@ export function AppShellDemoPage() {
                         <Text as="span" variant="body-14" leading="regular">
                           {doctor.name}
                         </Text>
-                      </Flex>
+                      </Layout>
                     ))}
-                  </Flex>
-                </Flex>
+                  </Layout>
+                </Layout>
 
-                <Flex direction="column" style={{ flex: 1, minWidth: 0 }}>
-                  <Flex
+                <Layout direction="column" style={{ flex: 1, minWidth: 0, position: "relative", zIndex: 1 }}>
+                  <Layout
                     alignItems="center"
                     justifyContent="space-between"
                     style={{
@@ -414,8 +421,8 @@ export function AppShellDemoPage() {
                       Assignment Details
                     </Text>
                     <Button appearance="outline" size="xsmall" label="Message" />
-                  </Flex>
-                  <Flex
+                  </Layout>
+                  <Layout
                     direction="column"
                     gap="12"
                     style={{ padding: "var(--uds-spacing-12)", maxWidth: 720 }}
@@ -430,12 +437,12 @@ export function AppShellDemoPage() {
                     <Text as="p" variant="body-16" leading="regular">
                       Main section stays side-by-side with Listview. Turn on Side Panel to see it overlay from the right.
                     </Text>
-                  </Flex>
-                </Flex>
+                  </Layout>
+                </Layout>
 
                 {showSidePanel ? (
                   <aside className="app-shell__side-panel">
-                    <Flex
+                    <Layout
                       alignItems="center"
                       justifyContent="space-between"
                       style={{
@@ -447,8 +454,8 @@ export function AppShellDemoPage() {
                         Side Panel
                       </Text>
                       <Button appearance="ghost" size="xsmall" label="Close" onClick={() => setShowSidePanel(false)} />
-                    </Flex>
-                    <Flex direction="column" gap="8" style={{ padding: "var(--uds-spacing-10)" }}>
+                    </Layout>
+                    <Layout direction="column" gap="8" style={{ padding: "var(--uds-spacing-10)" }}>
                       <SearchInput
                         size="compact"
                         placeholder="Search documents"
@@ -459,7 +466,7 @@ export function AppShellDemoPage() {
                         onDropdownChange={(value) => setPanelScope(value)}
                         dropdownPlaceholder="All"
                       />
-                      <Flex alignItems="center" justifyContent="space-between">
+                      <Layout alignItems="center" justifyContent="space-between">
                         <Text as="span" variant="body-12" leading="regular">
                           Showing {filteredDocuments.length} docs
                         </Text>
@@ -472,7 +479,7 @@ export function AppShellDemoPage() {
                             setPanelScope("all");
                           }}
                         />
-                      </Flex>
+                      </Layout>
 
                       {(Object.keys(groupedDocuments) as DocumentUrgency[]).map((groupKey) => {
                         const docs = groupedDocuments[groupKey];
@@ -486,7 +493,7 @@ export function AppShellDemoPage() {
                         const meta = GROUP_META[groupKey];
 
                         return (
-                          <Flex
+                          <Layout
                             key={groupKey}
                             direction="column"
                             gap="6"
@@ -497,27 +504,27 @@ export function AppShellDemoPage() {
                               padding: "var(--uds-spacing-8)",
                             }}
                           >
-                            <Flex alignItems="center" justifyContent="space-between">
-                              <Flex alignItems="center" gap="6">
+                            <Layout alignItems="center" justifyContent="space-between">
+                              <Layout alignItems="center" gap="6">
                                 <Text as="span" variant="body-14" weight="semibold" leading="regular">
                                   {meta.label}
                                 </Text>
                                 <Tag label={String(docs.length)} color={meta.badgeColor} solid rounded />
-                              </Flex>
+                              </Layout>
                               <Button
                                 appearance="text"
                                 size="xsmall"
                                 label={isCollapsed ? "Expand" : "Collapse"}
                                 onClick={() => toggleGroup(groupKey)}
                               />
-                            </Flex>
+                            </Layout>
 
                             {!isCollapsed ? (
                               <>
                                 {visibleDocs.length > 0 ? (
-                                  <Flex direction="column" gap="4">
+                                  <Layout direction="column" gap="4">
                                     {visibleDocs.map((doc) => (
-                                      <Flex
+                                      <Layout
                                         key={doc.id}
                                         direction="column"
                                         gap="2"
@@ -533,9 +540,9 @@ export function AppShellDemoPage() {
                                         <Text as="span" variant="body-12" leading="regular">
                                           {doc.owner} • {doc.updatedAt}
                                         </Text>
-                                      </Flex>
+                                      </Layout>
                                     ))}
-                                  </Flex>
+                                  </Layout>
                                 ) : (
                                   <Text as="span" variant="body-12" leading="regular">
                                     No matching documents.
@@ -554,40 +561,40 @@ export function AppShellDemoPage() {
                                 ) : null}
                               </>
                             ) : null}
-                          </Flex>
+                          </Layout>
                         );
                       })}
-                    </Flex>
+                    </Layout>
                   </aside>
                 ) : null}
-              </Flex>
-            </Flex>
-            </Flex>
-          </Flex>
-        </Flex>
+              </Layout>
+            </Layout>
+            </Layout>
+          </Layout>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Examples
           </Text>
           <Text as="p" variant="body-16" leading="regular">
             Start with a minimal shell, then add optional regions (`Listview`) and layout configuration as your page needs grow.
           </Text>
-        </Flex>
+        </Layout>
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h3" variant="heading-20" weight="medium" leading="regular">
             Basic Shell
           </Text>
-          <Flex direction="column" gap="0" style={PREVIEW_FRAME}>
-            <Flex style={PREVIEW_HEADER}>
+          <Layout direction="column" gap="0" style={PREVIEW_FRAME}>
+            <Layout style={PREVIEW_HEADER}>
               <Text as="span" variant="body-14" weight="semibold" leading="regular">
                 brand-default + theme-light
               </Text>
-            </Flex>
-            <Flex style={{ minHeight: 180 }}>
-              <Flex
+            </Layout>
+            <Layout style={{ minHeight: 180 }}>
+              <Layout
                 direction="column"
                 style={{
                   ...PREVIEW_REGION,
@@ -599,32 +606,32 @@ export function AppShellDemoPage() {
                 <Text as="span" variant="body-14" weight="semibold" leading="regular">
                   AppShell.Menu
                 </Text>
-              </Flex>
-              <Flex direction="column" style={{ flex: 1, margin: "var(--uds-spacing-10) var(--uds-spacing-10) var(--uds-spacing-10) 0" }}>
-                <Flex style={{ ...PREVIEW_REGION, minHeight: 120 }}>
+              </Layout>
+              <Layout direction="column" style={{ flex: 1, margin: "var(--uds-spacing-10) var(--uds-spacing-10) var(--uds-spacing-10) 0" }}>
+                <Layout style={{ ...PREVIEW_REGION, minHeight: 120 }}>
                   <Text as="span" variant="body-14" weight="semibold" leading="regular">
                     AppShell.Main
                   </Text>
-                </Flex>
-              </Flex>
-            </Flex>
-          </Flex>
+                </Layout>
+              </Layout>
+            </Layout>
+          </Layout>
           <Code language="tsx" code={BASIC_APP_SHELL_EXAMPLE} />
-        </Flex>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h3" variant="heading-20" weight="medium" leading="regular">
             Shell with Listview + SidePanel
           </Text>
-          <Flex direction="column" gap="0" style={PREVIEW_FRAME}>
-            <Flex style={PREVIEW_HEADER}>
+          <Layout direction="column" gap="0" style={PREVIEW_FRAME}>
+            <Layout style={PREVIEW_HEADER}>
               <Text as="span" variant="body-14" weight="semibold" leading="regular">
                 brand-comphealth + theme-dark
               </Text>
-            </Flex>
-            <Flex style={{ minHeight: 200 }}>
-              <Flex
+            </Layout>
+            <Layout style={{ minHeight: 200 }}>
+              <Layout
                 direction="column"
                 style={{
                   ...PREVIEW_REGION,
@@ -636,20 +643,20 @@ export function AppShellDemoPage() {
                 <Text as="span" variant="body-14" weight="semibold" leading="regular">
                   AppShell.Menu
                 </Text>
-              </Flex>
-              <Flex direction="column" style={{ flex: 1, margin: "var(--uds-spacing-10) var(--uds-spacing-10) var(--uds-spacing-10) 0" }} gap="8">
-                <Flex style={{ ...PREVIEW_REGION, minHeight: 72 }}>
+              </Layout>
+              <Layout direction="column" style={{ flex: 1, margin: "var(--uds-spacing-10) var(--uds-spacing-10) var(--uds-spacing-10) 0" }} gap="8">
+                <Layout style={{ ...PREVIEW_REGION, minHeight: 72 }}>
                   <Text as="span" variant="body-14" weight="semibold" leading="regular">
                     AppShell.Listview
                   </Text>
-                </Flex>
-                <Flex style={{ ...PREVIEW_REGION, minHeight: 98 }}>
+                </Layout>
+                <Layout style={{ ...PREVIEW_REGION, minHeight: 98 }}>
                   <Text as="span" variant="body-14" weight="semibold" leading="regular">
                     AppShell.Main
                   </Text>
-                </Flex>
-              </Flex>
-              <Flex
+                </Layout>
+              </Layout>
+              <Layout
                 direction="column"
                 style={{
                   ...PREVIEW_REGION,
@@ -661,25 +668,25 @@ export function AppShellDemoPage() {
                 <Text as="span" variant="body-14" weight="semibold" leading="regular">
                   AppShell.SidePanel
                 </Text>
-              </Flex>
-            </Flex>
-          </Flex>
+              </Layout>
+            </Layout>
+          </Layout>
           <Code language="tsx" code={LISTVIEW_APP_SHELL_EXAMPLE} />
-        </Flex>
+        </Layout>
         <Divider variant="solid" />
 
-        <Flex direction="column" gap="12">
+        <Layout direction="column" gap="12">
           <Text as="h3" variant="heading-20" weight="medium" leading="regular">
             Compact + Fluid Layout
           </Text>
-          <Flex direction="column" gap="0" style={PREVIEW_FRAME}>
-            <Flex style={PREVIEW_HEADER}>
+          <Layout direction="column" gap="0" style={PREVIEW_FRAME}>
+            <Layout style={PREVIEW_HEADER}>
               <Text as="span" variant="body-14" weight="semibold" leading="regular">
                 density-compact + container-fluid + padding-standard
               </Text>
-            </Flex>
-            <Flex style={{ minHeight: 180 }}>
-              <Flex
+            </Layout>
+            <Layout style={{ minHeight: 180 }}>
+              <Layout
                 direction="column"
                 style={{
                   ...PREVIEW_REGION,
@@ -691,19 +698,19 @@ export function AppShellDemoPage() {
                 <Text as="span" variant="body-12" weight="semibold" leading="regular">
                   Menu
                 </Text>
-              </Flex>
-              <Flex direction="column" style={{ flex: 1, margin: "var(--uds-spacing-8) var(--uds-spacing-8) var(--uds-spacing-8) 0" }}>
-                <Flex style={{ ...PREVIEW_REGION, minHeight: 132, padding: "var(--uds-spacing-8)" }}>
+              </Layout>
+              <Layout direction="column" style={{ flex: 1, margin: "var(--uds-spacing-8) var(--uds-spacing-8) var(--uds-spacing-8) 0" }}>
+                <Layout style={{ ...PREVIEW_REGION, minHeight: 132, padding: "var(--uds-spacing-8)" }}>
                   <Text as="span" variant="body-12" weight="semibold" leading="regular">
                     Main (compact spacing)
                   </Text>
-                </Flex>
-              </Flex>
-            </Flex>
-          </Flex>
+                </Layout>
+              </Layout>
+            </Layout>
+          </Layout>
           <Code language="tsx" code={COMPACT_LAYOUT_EXAMPLE} />
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={APP_SHELL_PROPS} />

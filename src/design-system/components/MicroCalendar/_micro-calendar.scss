@@ -1,45 +1,46 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
 .uds-micro-calendar {
-  display: inline-flex;
-  flex-direction: column;
-  width: fit-content;
-  min-width: 280px;
-  gap: 0px;
-  overflow: hidden;
+  all: unset;
   background: var(--uds-surface-primary);
   border: var(--uds-border-width-1) solid var(--uds-border-primary);
   border-radius: var(--uds-radius-8);
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0px;
+  min-width: 280px;
+  overflow: hidden;
+  width: fit-content;
   width: 450px;
 
   &__header {
+    align-items: center;
     border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
     display: flex;
-    align-items: center;
     justify-content: space-between;
     padding: var(--uds-spacing-12) var(--uds-spacing-16);
   }
 
   &__title {
     @include uds-body-16-semibold;
-    margin: 0;
     color: var(--uds-text-primary);
+    margin: 0;
   }
 
   &__weekdays {
+    border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
     display: flex;
     flex-direction: row;
     padding: var(--uds-spacing-8) 0;
-    border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
   }
 
   &__weekday {
     @include uds-body-12-medium;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    flex: 1 1 0;
     color: var(--uds-text-secondary);
+    display: flex;
+    flex: 1 1 0;
+    justify-content: center;
     text-align: center;
   }
 
@@ -69,23 +70,23 @@
   &__day {
     all: unset;
     @include uds-body-14;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    position: relative;
-    flex: 1 1 calc(100% / 7);
     aspect-ratio: 1;
-    min-width: 0;
+    background: var(--uds-surface-primary);
     border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
     border-right: var(--uds-border-width-1) solid var(--uds-border-primary);
-    background: var(--uds-surface-primary);
+    box-sizing: border-box;
     color: var(--uds-text-primary);
     cursor: pointer;
-    padding: var(--uds-spacing-8);
-    transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
-    max-width: calc(100% / 7);
+    display: flex;
+    flex: 1 1 calc(100% / 7);
+    flex-direction: column;
     gap: var(--uds-gap-32);
+    max-width: calc(100% / 7);
+    min-width: 0;
+    padding: var(--uds-spacing-8);
+    position: relative;
+    transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
     
     &:nth-child(7n) {
         border-right: none;
@@ -106,11 +107,11 @@
     }
 
     &--empty {
-      cursor: default;
-      pointer-events: none;
       background: transparent;
       border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
       border-right: var(--uds-border-width-1) solid var(--uds-border-primary);
+      cursor: default;
+      pointer-events: none;
     }
 
     &--selected {
@@ -136,48 +137,48 @@
   }
 
   &__day-unavailable-line {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
     background: var(--uds-system-destructive-primary);
+    height: 1px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
     transform: translateY(-50%);
     z-index: 2;
   }
 
   &__icons {
-    display: flex;
     align-items: center;
-    justify-content: center;
+    display: flex;
     gap: var(--uds-spacing-2);
+    justify-content: center;
     z-index: 1;
   }
 
   &__icon {
     &--travel {
       svg {
-        width: 19px;
-        height: 16px;
         display: block;
+        height: 16px;
+        width: 19px;
       }
     }
 
     &--assignment {
       svg {
-        width: 16px;
-        height: 16px;
         display: block;
+        height: 16px;
+        width: 16px;
       }
     }
   }
 
   &__legend {
+    border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
     display: flex;
     flex-direction: row;
     gap: var(--uds-spacing-24);
     padding: var(--uds-spacing-16) var(--uds-spacing-24);
-    border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
   }
 
   &__legend-column {
@@ -187,28 +188,28 @@
   }
 
   &__legend-item {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: var(--uds-spacing-8);
   }
 
   &__legend-square {
-    position: relative;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 16px;
-    border: var(--uds-border-width-1) solid var(--uds-border-primary);
     background: var(--uds-surface-primary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    display: flex;
+    height: 16px;
+    justify-content: center;
+    position: relative;
+    width: 32px;
 
     &--available {
       background: var(--uds-surface-primary);
       
       // Remove border for travel icon (when it's in an available square)
       &:has(svg) {
-        border: none;
         background: transparent;
+        border: none;
       }
     }
 
@@ -232,27 +233,27 @@
     
     &--assignment {
       svg {
-        width: 16px;
         height: 16px;
+        width: 16px;
       }
     }
     
     &:not(&--assignment) {
       
       svg {
-        width: 19px;
         height: 16px;
+        width: 19px;
       }
     }
   }
 
   &__legend-unavailable-line {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
     background: var(--uds-color-accent-red-600);
+    height: 1px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
     transform: translateY(-50%);
     z-index: 2;
   }
@@ -263,18 +264,18 @@
   }
 
   &__toggle {
+    align-items: center;
     all: unset;
     background: var(--uds-surface-tertiary);
-    border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 32px;
-    cursor: pointer;
     border-radius: var(--uds-radius-4);
+    border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
     color: var(--uds-text-secondary);
+    cursor: pointer;
+    display: flex;
+    height: 32px;
+    justify-content: center;
     transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+    width: 100%;
 
     &:hover {
       background: var(--uds-surface-secondary);

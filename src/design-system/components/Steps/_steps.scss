@@ -2,24 +2,25 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-steps {
+    all: unset;
     display: flex;
     width: 100%;
 
     &--horizontal {
-        flex-direction: row;
         align-items: flex-start;
+        flex-direction: row;
     }
 
     &--vertical {
-        flex-direction: column;
         align-items: flex-start;
+        flex-direction: column;
     }
 
     &__step {
-        display: flex;
-        flex-direction: column;
         align-items: center;
+        display: flex;
         flex: 1 0 0;
+        flex-direction: column;
         position: relative;
     }
 
@@ -28,11 +29,11 @@
 
         &::before,
         &::after {
+            background-color: var(--uds-border-primary);
             content: "";
+            height: 2px;
             position: absolute;
             top: 9px;
-            height: 2px;
-            background-color: var(--uds-border-primary);
             z-index: 1;
         }
 
@@ -67,27 +68,28 @@
         background-color: var(--uds-surface-brand-secondary);
     }
 
-    &--vertical &__step--complete::after {
-        background-color: var(--uds-surface-brand-secondary);
-    }
-
-
     &--vertical &__step {
-        flex-direction: row;
         align-items: flex-start;
-        width: 100%;
         flex: 0 0 auto;
+        flex-direction: row;
+        margin: 8px 0;
+        width: 100%;
 
         &::after {
-            content: "";
-            position: absolute;
-            left: 9px;
-            top: 18px;
-            bottom: 0;
-            width: 2px;
             background-color: var(--uds-border-primary);
+            bottom: 0;
+            content: "";
+            height: 17px;
+            left: 11px;
+            position: absolute;
+            top: 24px;
+            width: 2px;
             z-index: 1;
         }
+    }
+
+    &--vertical &__step--complete::after {
+        background-color: var(--uds-surface-brand-secondary);
     }
 
     &--vertical &__step--end::after {
@@ -95,23 +97,23 @@
     }
 
     &__indicator {
-        position: relative;
-        display: flex;
         align-items: center;
-        justify-content: center;
+        display: flex;
         flex-shrink: 0;
+        justify-content: center;
+        position: relative;
         z-index: 2;
     }
 
     &__indicator-circle {
-        width: 24px;
-        height: 24px;
+        align-items: center;
         border-radius: 50%;
         display: flex;
-        align-items: center;
+        flex-shrink: 0;
+        height: 24px;
         justify-content: center;
         position: relative;
-        flex-shrink: 0;
+        width: 24px;
 
         &--complete {
             background-color: var(--uds-surface-brand-secondary);
@@ -142,11 +144,11 @@
 
     &__check-icon,
     &__error-icon {
+        align-items: center;
         color: white;
         display: flex;
-        align-items: center;
-        justify-content: center;
         flex-shrink: 0;
+        justify-content: center;
     }
 
     &__connector {
@@ -159,86 +161,86 @@
     &--horizontal &__connector {
         flex: 1 0 0;
         height: 18px;
-        min-width: 0;
         margin-top: 10px;
+        min-width: 0;
         transform: translateY(-50%);
     }
 
     &--horizontal &__connector--active {
         &::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 2px;
             background-color: var(--uds-surface-brand-secondary);
+            content: "";
+            height: 2px;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 50%;
             transform: translateY(-50%);
         }
     }
 
     &--horizontal &__connector--inactive {
         &::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 2px;
             background-color: var(--uds-border-primary);
+            content: "";
+            height: 2px;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 50%;
             transform: translateY(-50%);
         }
     }
 
     // Vertical connector
     &--vertical &__connector {
-        width: 18px;
-        height: var(--uds-space-12);
         flex: 0 0 auto;
+        height: var(--uds-space-12);
         margin: var(--uds-space-4) 0;
         margin-left: 9px;
+        width: 18px;
     }
 
     &--vertical &__connector--active {
         &::before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
             background-color: var(--uds-surface-brand-secondary);
+            bottom: 0;
+            content: "";
+            left: 50%;
+            position: absolute;
+            top: 0;
             transform: translateX(-50%);
+            width: 2px;
         }
     }
 
     &--vertical &__connector--inactive {
         &::before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
             background-color: var(--uds-border-primary);
+            bottom: 0;
+            content: "";
+            left: 50%;
+            position: absolute;
+            top: 0;
             transform: translateX(-50%);
+            width: 2px;
         }
     }
 
     &__label-container {
+        align-items: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        text-align: center;
-        margin-top: var(--uds-gap-32);
         gap: var(--uds-gap-16);
+        margin-top: var(--uds-gap-32);
+        text-align: center;
     }
 
     // Vertical label container
     &--vertical &__label-container {
-        margin-top: 0;
-        margin-left: var(--uds-gap-12);
         align-items: flex-start;
+        margin-left: var(--uds-gap-12);
+        margin-top: 0;
         text-align: left;
     }
 
@@ -257,6 +259,8 @@
     // Compact size
     &--compact {
         &.uds-steps--horizontal .uds-steps__step {
+            min-width: 0;
+
             &::before,
             &::after {
                 top: 6px;
@@ -282,21 +286,21 @@
         }
 
         &.uds-steps--vertical .uds-steps__connector {
-            width: 12px;
             height: var(--uds-space-8);
             margin: var(--uds-space-2) 0;
             margin-left: 6px;
+            width: 12px;
         }
 
         .uds-steps__indicator-circle {
-            width: 12px;
             height: 12px;
+            width: 12px;
         }
 
         .uds-steps__check-icon,
         .uds-steps__error-icon {
-            width: 8px;
             height: 8px;
+            width: 8px;
         }
 
         .uds-steps__label-container {

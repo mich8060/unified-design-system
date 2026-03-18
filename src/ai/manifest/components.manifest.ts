@@ -188,6 +188,15 @@ export const ComponentRegistry = {
       },
     },
   },
+  DescriptionList: {
+    category: "data-display",
+    intent: "Compact key-value metadata rows",
+    description:
+      "A compact definition-list style component for rendering labeled values in dense details views, side panels, and metadata cards.",
+    alsoKnownAs: ["Definition List", "Key Value List", "Metadata List"],
+    roles: ["list"],
+    preferredParent: ["Card", "Container", "AppShell"],
+  },
   CurrencyInput: {
     category: "form",
     intent: "Currency-aware monetary input",
@@ -508,6 +517,15 @@ export const ComponentRegistry = {
     alsoKnownAs: ["Range Slider", "Range Input", "Value Slider"],
     roles: ["slider"],
     preferredParent: ["Field", "Form"],
+  },
+  SelectableCard: {
+    category: "data-display",
+    intent: "Selectable card-row primitive",
+    description:
+      "An interactive row/card surface for selectable list content with leading, content, status, and trailing action slots.",
+    alsoKnownAs: ["Selectable Row", "List Card", "Selectable Tile"],
+    roles: ["button"],
+    preferredParent: ["Container", "Flex", "AppShell"],
   },
   Status: {
     category: "data-display",

@@ -2,19 +2,20 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-badge {
+    all: unset;
     @include uds-body-12-semibold;
-    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    min-width: 24px;
-    height: 20px;
-    padding: var(--uds-spacing-0) var(--uds-spacing-6);
     border: var(--uds-border-width-1) solid transparent;
-    white-space: nowrap;
     box-sizing: border-box;
-    line-height: 1;
+    display: inline-flex;
     flex: 0 0 auto;
     flex-shrink: 0;
+    height: 20px;
+    justify-content: center;
+    line-height: 1;
+    min-width: 24px;
+    padding: var(--uds-spacing-0) var(--uds-spacing-6);
+    white-space: nowrap;
     width: fit-content;
 
     &--rounded {
@@ -26,8 +27,8 @@
     }
 
     &--solid {
-        color: var(--uds-text-inverse);
         border-color: transparent;
+        color: var(--uds-text-inverse);
     }
 
     &--outlined {
@@ -68,8 +69,8 @@
         color: var(--uds-text-inverse);
     }
     &--outlined#{&}--inverse {
-        color: var(--uds-text-primary);
         border-color: var(--uds-text-primary);
+        color: var(--uds-text-primary);
     }
 }
 

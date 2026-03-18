@@ -1,11 +1,21 @@
 .uds-code {
+  all: unset;
+  --uds-code-token-class: var(--uds-code-class);
+  --uds-code-token-comment: var(--uds-code-comment);
+  --uds-code-token-function: var(--uds-code-function);
+  --uds-code-token-keyword: var(--uds-code-keyword);
+  --uds-code-token-number: var(--uds-code-number);
+  --uds-code-token-operator: var(--uds-code-operator);
+  --uds-code-token-punctuation: var(--uds-code-punctuation);
+  --uds-code-token-string: var(--uds-code-string);
+
+  background: var(--uds-code-bg);
+  border-radius: var(--uds-radius-8);
+  color: var(--uds-code-fg);
   display: block;
   margin: 0;
-  padding: var(--uds-spacing-16);
-  border-radius: var(--uds-radius-8);
   overflow-x: auto;
-  background: var(--uds-code-bg);
-  color: var(--uds-code-fg);
+  padding: var(--uds-spacing-16);
   font-family:
     ui-monospace,
     "SFMono-Regular",
@@ -20,17 +30,17 @@
   tab-size: 2;
 
   code {
-    font: inherit;
     color: inherit;
+    font: inherit;
     white-space: pre;
   }
 
   &--inline {
-    display: inline;
-    padding: var(--uds-spacing-2) var(--uds-spacing-6);
     border-radius: var(--uds-radius-4);
+    display: inline;
     font-size: var(--uds-font-size-12);
     line-height: var(--uds-line-16);
+    padding: var(--uds-spacing-2) var(--uds-spacing-6);
     white-space: pre-wrap;
 
     code {
@@ -42,40 +52,48 @@
   .token.prolog,
   .token.doctype,
   .token.cdata {
-    color: var(--uds-code-comment);
+    color: var(--uds-code-token-comment);
   }
 
   .token.punctuation {
-    color: var(--uds-code-punctuation);
+    color: var(--uds-code-token-punctuation);
   }
 
-  .token.operator {
-    color: var(--uds-code-operator);
+  .token.operator,
+  .token.entity,
+  .token.url {
+    color: var(--uds-code-token-operator);
   }
 
   .token.number,
   .token.boolean,
-  .token.constant {
-    color: var(--uds-code-number);
+  .token.constant,
+  .token.symbol {
+    color: var(--uds-code-token-number);
   }
 
   .token.string,
   .token.char,
-  .token.attr-value {
-    color: var(--uds-code-string);
+  .token.attr-value,
+  .token.inserted,
+  .token.regex {
+    color: var(--uds-code-token-string);
   }
 
   .token.keyword,
-  .token.selector {
-    color: var(--uds-code-keyword);
+  .token.selector,
+  .token.atrule {
+    color: var(--uds-code-token-keyword);
   }
 
-  .token.function {
-    color: var(--uds-code-function);
+  .token.function,
+  .token.function-variable {
+    color: var(--uds-code-token-function);
   }
 
   .token.class-name,
-  .token.tag {
-    color: var(--uds-code-class);
+  .token.tag,
+  .token.builtin {
+    color: var(--uds-code-token-class);
   }
 }

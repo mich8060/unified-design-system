@@ -1,4 +1,4 @@
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Table } from "../../design-system/components/Table";
 import { Text } from "../../design-system/components/Text";
 
@@ -26,11 +26,11 @@ export function ComponentPropsTable({
   title = "Props",
 }: ComponentPropsTableProps) {
   return (
-    <Flex direction="column" gap="12">
+    <Layout direction="column" gap="12">
       <Text as="h2" variant="heading-24" weight="medium" leading="regular">
         {title}
       </Text>
       <Table columns={COLUMNS} data={rows} />
-    </Flex>
+    </Layout>
   );
 }

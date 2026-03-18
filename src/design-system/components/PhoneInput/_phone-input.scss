@@ -1,8 +1,9 @@
 @use "./phone-input.tokens" as *;
 
 .uds-phone-input {
-  padding: $phone-input-example;
+  all: unset;
   background: var(--color-surface-1);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-sm);
+  padding: $phone-input-example;
 }

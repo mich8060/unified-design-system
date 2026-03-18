@@ -2,21 +2,22 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-status {
+    all: unset;
     @include uds-body-14-medium;
-    display: inline-flex;
     align-items: center;
-    gap: var(--uds-gap-4);
-    padding: var(--uds-spacing-4) var(--uds-spacing-10);
-    border: var(--uds-border-width-1) solid var(--uds-border-primary);
     background-color: var(--uds-surface-secondary);
+    border: var(--uds-border-width-1) solid var(--uds-border-primary);
+    box-sizing: border-box;
     color: var(--uds-text-primary);
     cursor: pointer;
-    user-select: none;
+    display: inline-flex;
+    gap: var(--uds-gap-4);
+    height: fit-content;
+    padding: var(--uds-spacing-4) var(--uds-spacing-10);
     transition: all var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
-    box-sizing: border-box;
+    user-select: none;
     white-space: nowrap;
     width: fit-content;
-    height: fit-content;
 
     // Shape variants
     &--pill {
@@ -34,13 +35,13 @@
         color: var(--uds-text-primary);
 
         &:hover:not(&--disabled) {
-            border-color: var(--uds-border-secondary);
             background-color: var(--uds-surface-tertiary);
+            border-color: var(--uds-border-secondary);
         }
 
         &:active:not(&--disabled) {
-            border-color: var(--uds-border-tertiary);
             background-color: var(--uds-surface-quaternary);
+            border-color: var(--uds-border-tertiary);
         }
     }
 
@@ -50,13 +51,13 @@
         color: var(--uds-text-primary);
 
         &:hover:not(&--disabled) {
-            border-color: var(--uds-border-secondary);
             background-color: var(--uds-surface-secondary);
+            border-color: var(--uds-border-secondary);
         }
 
         &:active:not(&--disabled) {
-            border-color: var(--uds-border-tertiary);
             background-color: var(--uds-surface-tertiary);
+            border-color: var(--uds-border-tertiary);
         }
     }
 
@@ -77,8 +78,8 @@
     }
 
     &__label {
-        padding: 0 var(--uds-spacing-4);
         display: inline-block;
+        padding: 0 var(--uds-spacing-4);
         white-space: nowrap;
     }
 

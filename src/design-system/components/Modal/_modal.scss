@@ -38,16 +38,17 @@
 
 // ── Overlay ──────────────────────────────────
 .uds-modal {
+    all: unset;
     &__overlay {
-        position: fixed;
-        inset: 0;
+        align-items: center;
+        animation: uds-modal-fade-in var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
         background: rgba(0, 0, 0, 0.5);
         display: flex;
-        align-items: center;
+        inset: 0;
         justify-content: center;
-        z-index: 1200;
         padding: var(--uds-spacing-16);
-        animation: uds-modal-fade-in var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+        position: fixed;
+        z-index: 1200;
 
         &--fullscreen {
             padding: var(--uds-spacing-12);
@@ -57,19 +58,17 @@
 
 // ── Dialog panel ─────────────────────────────
 .uds-modal {
-    --uds-modal-content-padding-x: var(--uds-spacing-24);
-
+    animation: uds-modal-slide-up var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
     background: var(--uds-surface-primary);
     border: var(--uds-border-width-1) solid var(--uds-border-primary);
     border-radius: var(--uds-radius-8);
     box-shadow: var(--uds-shadow-2xl);
-    width: 100%;
-    max-height: min(80vh, calc(100dvh - (var(--uds-spacing-16) * 2)));
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
-    overflow: hidden;
-    animation: uds-modal-slide-up var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+    max-height: min(80vh, calc(100dvh - (var(--uds-spacing-16) * 2)));
     outline: none;
+    overflow: hidden;
+    width: 100%;
 
     // ── Size variants ────────────────────────
     &--small {
@@ -85,89 +84,89 @@
     }
 
     &--fullscreen {
-        max-width: none;
-        max-height: none;
-        width: 100%;
-        height: 100%;
-        border-radius: var(--uds-radius-12);
         animation: uds-modal-scale-in var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
-    }
-
-    // ── Header ───────────────────────────────
-    &__header {
-        padding: var(--uds-spacing-12) var(--uds-modal-content-padding-x);
-        border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
-        background: var(--uds-surface-primary);
-        position: relative;
-        z-index: 1;
-    }
-
-    &__header-content {
-        display: block;
-    }
-
-    &__header-info {
-        display: flex;
-        flex-direction: column;
-        gap: var(--uds-spacing-8);
-    }
-
-    &__title {
-        @include uds-body-16-bold;
-        color: var(--uds-text-primary);
-        margin: 0;
-
-
-    }
-
-    &__header-title-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: var(--uds-spacing-12);
-    }
-
-    &__title-meta {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--uds-spacing-8);
-        min-width: 0;
-    }
-
-    &__badge {
-        @include uds-body-12;
-        color: var(--uds-text-secondary);
-        background: var(--uds-surface-secondary);
-        padding: 2px 8px;
-        border-radius: var(--uds-radius-full, 9999px);
-    }
-
-    &__subtitle {
-        @include uds-body-14;
-        color: var(--uds-text-tertiary);
-        margin: 0;
+        border-radius: var(--uds-radius-12);
+        height: 100%;
+        max-height: none;
+        max-width: none;
+        width: 100%;
     }
 
     // ── Body ─────────────────────────────────
+    &__header {
+        align-items: center;
+        display: flex;
+        gap: var(--uds-spacing-12);
+        min-height: 0;
+    }
+
+    &__header-content {
+        min-width: 0;
+    }
+
+    &__header-actions {
+        align-items: center;
+        display: inline-flex;
+        margin-left: auto;
+    }
+
+    &__header--align-start {
+        justify-content: flex-start;
+    }
+
+    &__header--align-center {
+        justify-content: center;
+    }
+
+    &__header--align-space-between {
+        justify-content: space-between;
+    }
+
     &__body {
         min-height: 0;
-        overflow-y: auto;
         overflow-x: hidden;
+        overflow-y: auto;
         overscroll-behavior: contain;
-        padding: var(--uds-spacing-24) var(--uds-modal-content-padding-x);
+    }
+
+    &__body--padding-none {
+        padding: 0;
+    }
+
+    &__body--padding-compact {
+        padding: var(--uds-spacing-16);
+    }
+
+    &__body--padding-default {
+        padding: var(--uds-spacing-24);
     }
 
     // ── Footer ───────────────────────────────
     &__footer {
-        padding: var(--uds-spacing-16) var(--uds-modal-content-padding-x);
-        border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
-        background: var(--uds-surface-primary);
-        position: relative;
-        z-index: 1;
-        display: flex;
         align-items: center;
-        justify-content: space-between;
+        background: var(--uds-surface-primary);
+        border-top: var(--uds-border-width-1) solid var(--uds-border-primary);
+        display: flex;
         flex-wrap: wrap;
         gap: var(--uds-gap-32);
+        justify-content: space-between;
+        position: relative;
+        z-index: 1;
+    }
+
+    &__footer--align-start {
+        justify-content: flex-start;
+    }
+
+    &__footer--align-center {
+        justify-content: center;
+    }
+
+    &__footer--align-end {
+        justify-content: flex-end;
+    }
+
+    &__footer--align-space-between {
+        justify-content: space-between;
     }
 }

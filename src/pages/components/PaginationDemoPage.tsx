@@ -1,6 +1,6 @@
 import { Divider } from "../../design-system/components/Divider";
 import { useState } from "react";
-import { Flex } from "../../design-system/components/Flex";
+import { Layout } from "../../design-system/components/Layout";
 import { Pagination } from "../../design-system/components/Pagination";
 import type { ReactNode } from "react";
 import { Text } from "../../design-system/components/Text";
@@ -32,7 +32,7 @@ function PaginationExample({
   children: ReactNode;
 }) {
   return (
-    <Flex
+    <Layout
       direction="column"
       gap="12"
       style={{
@@ -49,8 +49,8 @@ function PaginationExample({
       <Text as="p" variant="body-14" leading="regular">
         {description}
       </Text>
-      <Flex style={{ paddingTop: "var(--uds-spacing-8)" }}>{children}</Flex>
-    </Flex>
+      <Layout style={{ paddingTop: "var(--uds-spacing-8)" }}>{children}</Layout>
+    </Layout>
   );
 }
 
@@ -67,17 +67,17 @@ export function PaginationDemoPage() {
       title="Pagination"
       description="The Pagination component allows users to navigate through multiple pages of content. It displays page numbers, navigation controls, and optional jump-to-page functionality."
     >
-      <Flex direction="column" gap="48">
-        <Flex direction="column" gap="12">
+      <Layout direction="column" gap="48">
+        <Layout direction="column" gap="12">
           <Text as="h2" variant="heading-24" weight="medium" leading="regular">
             Variants
           </Text>
           <Text as="p" variant="body-16" leading="regular">
             Each example is isolated in its own layout block for clearer spacing and easier comparison.
           </Text>
-        </Flex>
+        </Layout>
 
-        <Flex direction="column" gap="24">
+        <Layout direction="column" gap="24">
           <PaginationExample
             title="Default Variant"
             description="The default pagination variant with a solid background for the active page and single previous/next buttons."
@@ -119,8 +119,8 @@ export function PaginationDemoPage() {
           >
             <Pagination currentPage={smallCountPage} totalPages={5} onPageChange={(page: unknown) => typeof page === "number" && setSmallCountPage(page)} variant="default" />
           </PaginationExample>
-        </Flex>
-      </Flex>
+        </Layout>
+      </Layout>
 
       <Divider variant="solid" />
       <ComponentPropsTable rows={PAGINATION_PROPS} title="Pagination Props" />

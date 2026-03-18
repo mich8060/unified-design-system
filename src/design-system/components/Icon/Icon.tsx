@@ -56,6 +56,8 @@ function Icon({
   name,
   size = 24,
   appearance = "regular",
+  tone = "primary",
+  className,
   ...props
 }: IconProps) {
   const iconName = name ? toPascalCase(String(name)) : "";
@@ -81,7 +83,8 @@ function Icon({
     return null;
   }
 
-  return React.createElement(iconComponent, { size, weight, ...props });
+  const iconClassName = ["uds-icon", `uds-icon--tone-${tone}`, className].filter(Boolean).join(" ");
+  return React.createElement(iconComponent, { size, weight, className: iconClassName, ...props });
 }
 
 export default React.memo(Icon);

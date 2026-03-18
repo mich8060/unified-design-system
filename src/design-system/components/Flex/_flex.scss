@@ -2,6 +2,7 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-flex {
+  all: unset;
   display: flex;
 }
 
@@ -25,9 +26,9 @@
 .uds-flex--appearance-equal,
 .uds-flex--appearance-right,
 .uds-flex--appearance-left {
+  align-items: stretch;
   display: grid;
   width: 100%;
-  align-items: stretch;
 }
 
 .uds-flex--appearance-equal {

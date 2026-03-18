@@ -1,70 +1,71 @@
 @use "../../tokens/index" as *;
 @use "../../tokens/primitives/typography.primitives" as *;
 .uds-tooltip {
-  position: relative;
+  all: unset;
   display: inline-block;
+  position: relative;
 
   &__content {
     @include uds-body-14;
-    position: absolute;
-    z-index: var(--uds-elevation-tooltip);
-    padding: var(--uds-spacing-8) var(--uds-spacing-12);
+    animation: tooltipFadeIn var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
     background: var(--uds-surface-inverse, #1f2937);
-    color: var(--uds-text-inverse, #ffffff);
     border-radius: var(--uds-radius-4);
     box-shadow: var(--uds-shadow-light-200);
+    color: var(--uds-text-inverse, #ffffff);
     max-width: 280px;
-    word-wrap: break-word;
-    white-space: normal;
+    padding: var(--uds-spacing-8) var(--uds-spacing-12);
     pointer-events: none;
-    animation: tooltipFadeIn var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
+    position: absolute;
+    white-space: normal;
+    word-wrap: break-word;
+    z-index: var(--uds-elevation-tooltip);
 
     // Arrow
     &::before {
+      border-style: solid;
       content: "";
+      height: 0;
       position: absolute;
       width: 0;
-      height: 0;
-      border-style: solid;
     }
   }
 
   // Top placement (arrow pointing down)
   &--top &__content::before {
+    border-width: 6px 6px 0 6px;
     bottom: -6px;
     left: 50%;
     transform: translateX(-50%);
-    border-width: 6px 6px 0 6px;
     border-color: var(--uds-surface-inverse, #1f2937) transparent transparent
       transparent;
   }
 
   // Bottom placement (arrow pointing up)
   &--bottom &__content::before {
-    top: -6px;
-    left: 50%;
-    transform: translateX(-50%);
     border-width: 0 6px 6px 6px;
+    left: 50%;
+    top: -6px;
+    transform: translateX(-50%);
     border-color: transparent transparent var(--uds-surface-inverse, #1f2937)
       transparent;
   }
 
   // Left placement (arrow pointing right)
   &--left &__content::before {
+    border-width: 6px 0 6px 6px;
     right: -6px;
     top: 50%;
     transform: translateY(-50%);
-    border-width: 6px 0 6px 6px;
     border-color: transparent transparent transparent
       var(--uds-surface-inverse, #1f2937);
   }
 
   // Right placement (arrow pointing left)
   &--right &__content::before {
+    border-width: 6px 6px 6px 0;
     left: -6px;
     top: 50%;
     transform: translateY(-50%);
-    border-width: 6px 6px 6px 0;
     border-color: transparent var(--uds-surface-inverse, #1f2937) transparent
       transparent;
   }

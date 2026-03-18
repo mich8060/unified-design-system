@@ -1,6 +1,7 @@
 @use "./checkbox-group.tokens" as *;
 
 .uds-checkbox-group {
+  all: unset;
   display: flex;
   flex-direction: column;
   gap: var(--uds-spacing-8);

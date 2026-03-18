@@ -2,12 +2,12 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .checkbox {
-    all: unset;
-    position: relative;
-    display: inline-flex;
     align-items: center;
-    gap: var(--uds-gap-12);
+    all: unset;
     cursor: pointer;
+    display: inline-flex;
+    gap: var(--uds-gap-12);
+    position: relative;
     user-select: none;
 
     // ── Modifier: disabled ──────────────────────────────
@@ -16,8 +16,8 @@
         opacity: 0.6;
 
         .checkbox__label {
-            cursor: not-allowed;
             color: var(--uds-text-secondary);
+            cursor: not-allowed;
         }
     }
 
@@ -36,11 +36,11 @@
 
     // ── Element: hidden input ───────────────────────────
     &__input {
-        position: absolute;
-        opacity: 0;
-        width: 0;
         height: 0;
         margin: 0;
+        opacity: 0;
+        position: absolute;
+        width: 0;
 
         &:focus-visible+.checkbox__box {
             outline: solid var(--uds-focus-ring-width) var(--uds-focus-ring-border);
@@ -54,8 +54,8 @@
         }
 
         &:not(:checked):not(:disabled)+.checkbox__box:hover {
-            border-color: var(--uds-border-brand-primary);
             background-color: var(--uds-surface-tertiary);
+            border-color: var(--uds-border-brand-primary);
         }
 
         &:disabled+.checkbox__box {
@@ -71,17 +71,17 @@
 
     // ── Element: visual box ─────────────────────────────
     &__box {
-        position: relative;
-        display: inline-flex;
         align-items: center;
-        justify-content: center;
-        width: 20px;
-        height: 20px;
-        min-width: 20px;
-        min-height: 20px;
+        background-color: var(--uds-surface-tertiary);
         border: var(--uds-border-width-1) solid var(--uds-border-primary);
         border-radius: var(--uds-radius-4);
-        background-color: var(--uds-surface-tertiary);
+        display: inline-flex;
+        height: 20px;
+        justify-content: center;
+        min-height: 20px;
+        min-width: 20px;
+        position: relative;
+        width: 20px;
         transition:
             background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
             border-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
@@ -91,27 +91,27 @@
 
     // ── Element: check icon ─────────────────────────────
     &__icon {
+        align-items: center;
         color: var(--uds-text-inverse);
         display: flex;
-        align-items: center;
+        height: 16px;
         justify-content: center;
         width: 16px;
-        height: 16px;
     }
 
     // ── Element: indeterminate dash ─────────────────────
     &__indeterminate {
-        width: 10px;
-        height: 2px;
         background-color: var(--uds-color-white);
         border-radius: 1px;
+        height: 2px;
+        width: 10px;
     }
 
     // ── Element: label ──────────────────────────────────
     &__label {
         @include uds-body-14-medium;
         color: var(--uds-text-primary);
-        line-height: 20px;
         cursor: pointer;
+        line-height: 20px;
     }
 }

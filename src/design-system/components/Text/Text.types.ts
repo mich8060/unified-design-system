@@ -17,12 +17,17 @@ export type TextVariant =
 
 export type TextWeight = "regular" | "medium" | "semibold" | "bold";
 export type TextLeading = "tight" | "regular" | "loose";
+export type TextTone = "primary" | "secondary" | "tertiary" | "muted" | "placeholder" | "disabled";
+export type TextColor = TextTone;
 
 export type TextProps<T extends React.ElementType = "p"> = {
   as?: T;
   variant: TextVariant;
   weight?: TextWeight;
   leading?: TextLeading;
+  color?: TextColor;
+  tone?: TextTone;
+  clamp?: number;
   className?: string;
   children: React.ReactNode;
 } & Omit<React.ComponentPropsWithoutRef<T>, "as" | "children" | "className">;

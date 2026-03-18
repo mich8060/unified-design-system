@@ -2,8 +2,9 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-action-menu {
-    position: relative;
+    all: unset;
     display: inline-block;
+    position: relative;
     width: fit-content;
 
     &--full-width {
@@ -19,26 +20,26 @@
         position: absolute;
         z-index: var(--uds-elevation-overlay);
         /* above sidebar (1000) */
-        min-width: 240px;
         background: var(--uds-surface-primary);
         border: var(--uds-border-width-1) solid var(--uds-border-primary);
         border-radius: var(--uds-radius-8);
         box-shadow: var(--uds-shadow-lg);
-        padding: var(--uds-spacing-8) var(--uds-spacing-0);
-        margin: 0;
         display: flex;
         flex-direction: column;
         gap: var(--uds-gap-0);
+        margin: 0;
+        min-width: 240px;
+        padding: var(--uds-spacing-8) var(--uds-spacing-0);
         z-index: 1400;
 
         &--bottom-start {
-            top: calc(100% + var(--uds-gap-8));
             left: 0;
+            top: calc(100% + var(--uds-gap-8));
         }
 
         &--bottom-end {
-            top: calc(100% + var(--uds-gap-8));
             right: 0;
+            top: calc(100% + var(--uds-gap-8));
         }
 
         &--top-start {
@@ -57,8 +58,8 @@
         }
 
         &--right-end {
-            left: calc(100% + var(--uds-gap-8));
             bottom: 0;
+            left: calc(100% + var(--uds-gap-8));
         }
 
         &--left-start {
@@ -67,13 +68,13 @@
         }
 
         &--left-end {
-            right: calc(100% + var(--uds-gap-8));
             bottom: 0;
+            right: calc(100% + var(--uds-gap-8));
         }
 
         &--full-width {
-            width: 100%;
             min-width: unset;
+            width: 100%;
         }
     }
 
@@ -83,9 +84,9 @@
     }
 
     &__search {
-        padding: var(--uds-spacing-0) var(--uds-spacing-8) var(--uds-spacing-8);
         border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
         margin-bottom: var(--uds-spacing-4);
+        padding: var(--uds-spacing-0) var(--uds-spacing-8) var(--uds-spacing-8);
     }
 
     &__search-input {
@@ -115,18 +116,18 @@
 
     &__item {
         @include uds-body-14-medium;
-        display: flex;
         align-items: center;
+        background: transparent;
+        border: none;
+        border-radius: var(--uds-radius-4);
+        color: var(--uds-text-primary);
+        cursor: pointer;
+        display: flex;
         gap: var(--uds-gap-8);
         padding: var(--uds-spacing-8);
         padding-left: var(--uds-spacing-16);
-        border: none;
-        background: transparent;
-        color: var(--uds-text-primary);
         text-align: left;
         width: 100%;
-        border-radius: var(--uds-radius-4);
-        cursor: pointer;
         transition:
             background-color var(--uds-animation-duration-200) var(--uds-animation-ease-standard),
             color var(--uds-animation-duration-200) var(--uds-animation-ease-standard);
@@ -136,9 +137,9 @@
         }
 
         &:focus {
-            outline: none;
             background-color: var(--uds-surface-tertiary);
             box-shadow: 0 0 0 var(--uds-focus-ring-width) var(--uds-focus-ring-border);
+            outline: none;
         }
 
         &--disabled {
@@ -203,13 +204,13 @@
     }
 
     &__item-icon {
-        flex-shrink: 0;
         color: var(--uds-text-secondary);
+        flex-shrink: 0;
     }
 
     &__item-label {
-        flex: 1;
         color: var(--uds-text-primary);
+        flex: 1;
     }
 
     &__item--toggle {
@@ -235,8 +236,8 @@
     }
 
     &__item-arrow {
-        flex-shrink: 0;
         color: var(--uds-text-secondary);
+        flex-shrink: 0;
         margin-left: auto;
     }
 
@@ -249,27 +250,27 @@
     }
 
     &__submenu {
-        position: absolute;
-        left: 100%;
-        top: 0;
-        margin-left: var(--uds-spacing-4);
-        min-width: 200px;
+        animation: submenu-fade-in 0.15s ease-out;
         background: var(--uds-surface-primary);
         border: var(--uds-border-width-1) solid var(--uds-border-primary);
         border-radius: var(--uds-radius-12);
         box-shadow: var(--uds-shadow-lg);
-        padding: var(--uds-spacing-4);
         display: flex;
         flex-direction: column;
         gap: var(--uds-gap-0);
+        left: 100%;
+        margin-left: var(--uds-spacing-4);
+        min-width: 200px;
+        padding: var(--uds-spacing-4);
+        position: absolute;
+        top: 0;
         z-index: var(--uds-elevation-overlay);
-        animation: submenu-fade-in 0.15s ease-out;
 
         &--left {
             left: auto;
-            right: 100%;
             margin-left: 0;
             margin-right: var(--uds-spacing-4);
+            right: 100%;
         }
     }
 

@@ -1,8 +1,9 @@
 @use "./section-header.tokens" as *;
 
 .uds-section-header {
-  display: flex;
+  all: unset;
   align-items: flex-start;
+  display: flex;
   gap: var(--uds-spacing-16);
   width: 100%;
 
@@ -11,8 +12,8 @@
   }
 
   &--with-divider {
-    padding-bottom: var(--uds-spacing-16);
     border-bottom: var(--uds-border-width-1) solid var(--uds-border-primary);
+    padding-bottom: var(--uds-spacing-16);
   }
 
   &__eyebrow {
@@ -21,9 +22,9 @@
 
   &__content {
     display: flex;
-    min-width: 0;
     flex: 1 1 auto;
     gap: var(--uds-spacing-8);
+    min-width: 0;
   }
 
   &__meta {
