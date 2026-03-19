@@ -1605,64 +1605,16 @@
       "name": "Flex",
       "category": "layout",
       "intent": "Primary flexbox layout primitive",
-      "purpose": "Creates token-driven flexbox layouts with controlled direction, alignment, wrapping, and spacing.",
-      "tier": 1,
+      "purpose": null,
+      "tier": null,
       "description": "A flexbox-based layout primitive for direction, alignment, spacing, and wrapping using system tokens for predictable layout behavior.",
       "roles": [
         "group"
       ],
       "slots": null,
-      "states": [
-        "default"
-      ],
-      "props": {
-        "direction": {
-          "type": "enum",
-          "values": [
-            "row",
-            "column"
-          ],
-          "default": "row"
-        },
-        "justifyContent": {
-          "type": "enum",
-          "values": [
-            "flex-start",
-            "center",
-            "flex-end",
-            "space-between",
-            "space-around",
-            "space-evenly"
-          ],
-          "default": "flex-start"
-        },
-        "alignItems": {
-          "type": "enum",
-          "values": [
-            "stretch",
-            "flex-start",
-            "center",
-            "flex-end",
-            "baseline"
-          ],
-          "default": "stretch"
-        },
-        "wrap": {
-          "type": "enum",
-          "values": [
-            "nowrap",
-            "wrap",
-            "wrap-reverse"
-          ],
-          "default": "nowrap"
-        }
-      },
-      "defaults": {
-        "direction": "row",
-        "justifyContent": "flex-start",
-        "alignItems": "stretch",
-        "wrap": "nowrap"
-      },
+      "states": [],
+      "props": {},
+      "defaults": {},
       "composition": {
         "preferredParents": [
           "Container",
@@ -1675,11 +1627,7 @@
         "constraints": null
       },
       "tokens": {
-        "allowed": [
-          "--uds-spacing-8",
-          "--uds-spacing-16",
-          "--uds-spacing-24"
-        ]
+        "allowed": []
       }
     },
     "Icon": {
@@ -1868,7 +1816,11 @@
         "constraints": null
       },
       "tokens": {
-        "allowed": []
+        "allowed": [
+          "--uds-spacing-8",
+          "--uds-spacing-16",
+          "--uds-spacing-24"
+        ]
       }
     },
     "Menu": {
