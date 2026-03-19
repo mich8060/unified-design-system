@@ -1,27 +1,27 @@
 .uds-toolbar {
-  all: unset;
-  align-items: center;
-  background: var(--uds-surface-primary);
-  border-bottom: 1px solid var(--uds-border-primary);
-  box-sizing: border-box;
-  display: grid;
-  gap: var(--uds-spacing-12);
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  padding: var(--uds-spacing-12) var(--uds-spacing-16);
-  width: 100%;
+    all: unset;
+    align-items: center;
+    background: var(--uds-surface-primary);
+    border-bottom: 1px solid var(--uds-border-primary);
+    box-sizing: border-box;
+    display: flex;
+    gap: var(--uds-spacing-12);
+    justify-content: space-between;
+    padding: var(--uds-spacing-12) var(--uds-spacing-16);
+    width: 100%;
 }
 
 .uds-toolbar__left,
 .uds-toolbar__right {
-  min-width: 0;
+    min-width: 0;
 }
 
 .uds-toolbar__center {
-  justify-self: center;
-  min-width: 0;
-  text-align: center;
+    justify-self: center;
+    min-width: 0;
+    text-align: center;
 }
 
 .uds-toolbar__right {
-  justify-self: end;
+    justify-self: end;
 }
