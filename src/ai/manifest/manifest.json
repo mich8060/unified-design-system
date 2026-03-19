@@ -831,9 +831,10 @@
           "type": "enum",
           "values": [
             "default",
+            "secondary",
             "transparent"
           ],
-          "default": "transparent"
+          "default": "default"
         },
         "padding": {
           "type": "enum",
@@ -873,7 +874,7 @@
         }
       },
       "defaults": {
-        "appearance": "transparent",
+        "appearance": "default",
         "padding": "large",
         "paddingX": "large",
         "paddingY": "large"

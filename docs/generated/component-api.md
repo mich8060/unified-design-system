@@ -171,7 +171,7 @@ Provides a reusable content wrapper with optional filled or transparent surface 
 
 | Prop | Type | Allowed Values | Default |
 | --- | --- | --- | --- |
-| `appearance` | `enum` | default, transparent | `transparent` |
+| `appearance` | `enum` | default, secondary, transparent | `default` |
 | `padding` | `enum` | none, xsmall, small, default, large, xlarge | `large` |
 | `paddingX` | `enum` | none, xsmall, small, default, large, xlarge | `large` |
 | `paddingY` | `enum` | none, xsmall, small, default, large, xlarge | `large` |

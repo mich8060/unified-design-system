@@ -107,12 +107,12 @@
   {
     "component": "Container",
     "props": {
-      "appearance": "transparent",
+      "appearance": "default",
       "padding": "large",
       "paddingX": "large",
       "paddingY": "large"
     },
-    "jsx": "<Container appearance=\"transparent\" padding=\"large\" paddingX=\"large\" paddingY=\"large\" />"
+    "jsx": "<Container appearance=\"default\" padding=\"large\" paddingX=\"large\" paddingY=\"large\" />"
   },
   {
     "component": "CurrencyInput",

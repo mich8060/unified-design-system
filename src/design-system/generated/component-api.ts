@@ -690,9 +690,10 @@ export const COMPONENT_API = {
         "type": "enum",
         "values": [
           "default",
+          "secondary",
           "transparent"
         ],
-        "default": "transparent"
+        "default": "default"
       },
       "padding": {
         "type": "enum",
@@ -732,7 +733,7 @@ export const COMPONENT_API = {
       }
     },
     "defaults": {
-      "appearance": "transparent",
+      "appearance": "default",
       "padding": "large",
       "paddingX": "large",
       "paddingY": "large"

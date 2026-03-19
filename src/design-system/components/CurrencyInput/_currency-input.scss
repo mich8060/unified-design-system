@@ -1,7 +1,6 @@
 @use "./currency-input.tokens" as *;
 
 .uds-currency-input {
-  all: unset;
   background: var(--color-surface-1);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-sm);

@@ -2,7 +2,6 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-token-input {
-  all: unset;
   align-items: center;
   background-color: var(--uds-surface-primary);
   border: var(--uds-border-width-1) solid var(--uds-border-primary);

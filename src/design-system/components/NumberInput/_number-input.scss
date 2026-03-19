@@ -2,7 +2,6 @@
 @use "../../tokens/primitives/typography.primitives" as *;
 
 .uds-number-input {
-  all: unset;
   align-items: center;
   background-color: var(--uds-input-surface);
   border: var(--uds-border-width-1) solid var(--uds-input-border);
