@@ -15,7 +15,7 @@ export const IntentComponentMappings = {
     notes: "Default section wrapper: transparent surface with 24px padding.",
   },
   contentStack: {
-    component: "Flex",
+    component: "Layout",
     props: { direction: "column", gap: "--uds-spacing-16" },
     notes: "Primary stack for vertical rhythm.",
   },

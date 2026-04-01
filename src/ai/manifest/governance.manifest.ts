@@ -9,7 +9,7 @@ export const AI_SCHEMA_VERSION = AI_CONTRACT_SCHEMA_VERSION;
 export const AI_API_SCHEMA_VERSION = AI_COMPONENT_API_SCHEMA_VERSION;
 
 export const UDSGovernance: GovernanceManifest = {
-  systemVersion: "0.2.12",
+  systemVersion: "0.2.55",
   tokenVersion: "1.0.0",
   manifestVersion: AI_MANIFEST_VERSION,
   governanceVersion: AI_GOVERNANCE_VERSION,

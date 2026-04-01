@@ -26,7 +26,7 @@
   "blueprints": [
     {
       "id": "dashboard",
-      "structure": ["Toolbar", "Container", "Statistics", "Card"]
+      "structure": ["Toolbar", "Container", "Statistics", "Table"]
     },
     {
       "id": "data-table-page",
@@ -34,7 +34,7 @@
     },
     {
       "id": "settings-page",
-      "structure": ["Toolbar", "Container", "Tabs", "Card", "Field", "Button"]
+      "structure": ["Toolbar", "Container", "Tabs", "Layout", "Field", "Button"]
     }
   ]
 }

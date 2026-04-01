@@ -29,9 +29,9 @@ On/off switch component with label and size variants.
 
 ### In a settings form
 ```jsx
-<Flex direction="column" gap="16">
+<Layout direction="column" gap="16">
   <Toggle label="Email notifications" checked={email} onChange={setEmail} />
   <Toggle label="Push notifications" checked={push} onChange={setPush} />
   <Toggle label="SMS alerts" checked={sms} onChange={setSms} />
-</Flex>
+</Layout>
 ```

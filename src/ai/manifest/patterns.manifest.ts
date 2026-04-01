@@ -3,15 +3,16 @@ import type { PatternDefinition } from "./types";
 export const PatternRegistry: Record<string, PatternDefinition> = {
   AuthForm: {
     layout: "vertical",
-    requiredComponents: ["Container", "Card", "Text", "Field", "TextInput", "Button"],
+    requiredComponents: ["Container", "Text", "Field", "TextInput", "Button", "Layout"],
     structure: [
       { type: "Container", role: "page" },
-      { type: "Card", role: "auth-card" },
+      { type: "Container", role: "auth-panel" },
       { type: "Text", role: "heading" },
       { type: "Field", role: "email" },
       { type: "TextInput", role: "email-input", props: { type: "email" } },
       { type: "Field", role: "password" },
       { type: "TextInput", role: "password-input", props: { type: "password" } },
+      { type: "Layout", role: "actions-row" },
       { type: "Button", role: "submit", props: { appearance: "primary" } }
     ],
     spacing: "--uds-spacing-16",
@@ -71,25 +72,26 @@ export const PatternRegistry: Record<string, PatternDefinition> = {
   },
   AppShellDashboard: {
     layout: "vertical",
-    requiredComponents: ["AppShell", "Menu", "Toolbar", "Container", "Statistics", "Card"],
+    requiredComponents: ["AppShell", "Menu", "Toolbar", "Container", "Statistics", "Table"],
     structure: [
       { type: "AppShell", role: "app-shell" },
       { type: "Menu", role: "primary-navigation" },
       { type: "Toolbar", role: "page-toolbar" },
       { type: "Container", role: "page-container" },
       { type: "Statistics", role: "kpi-row" },
-      { type: "Card", role: "content-card" }
+      { type: "Table", role: "content-table" }
     ],
     spacing: "--uds-spacing-24",
     widthConstraint: "100%",
   },
   SettingsWorkspace: {
     layout: "horizontal",
-    requiredComponents: ["Container", "Tabs", "Card", "Field", "TextInput", "Button"],
+    requiredComponents: ["Container", "Tabs", "Layout", "Field", "TextInput", "Button"],
     structure: [
       { type: "Container", role: "settings-page" },
       { type: "Tabs", role: "settings-tabs" },
-      { type: "Card", role: "settings-panel" },
+      { type: "Layout", role: "settings-columns" },
+      { type: "Container", role: "settings-panel" },
       { type: "Field", role: "settings-field" },
       { type: "TextInput", role: "settings-input", props: { type: "text" } },
       { type: "Button", role: "save-settings", props: { appearance: "primary" } }
@@ -99,13 +101,14 @@ export const PatternRegistry: Record<string, PatternDefinition> = {
   },
   WizardChecklist: {
     layout: "horizontal",
-    requiredComponents: ["Container", "Checklist", "Card", "Field", "TextInput", "Button"],
+    requiredComponents: ["Container", "Checklist", "Field", "TextInput", "Button", "Layout"],
     structure: [
       { type: "Container", role: "wizard-page" },
       { type: "Checklist", role: "wizard-progress" },
-      { type: "Card", role: "wizard-step-content" },
+      { type: "Container", role: "wizard-step-panel" },
       { type: "Field", role: "step-field" },
       { type: "TextInput", role: "step-input", props: { type: "text" } },
+      { type: "Layout", role: "step-actions" },
       { type: "Button", role: "step-continue", props: { appearance: "primary" } }
     ],
     spacing: "--uds-spacing-20",
@@ -126,12 +129,12 @@ export const PatternRegistry: Record<string, PatternDefinition> = {
   },
   AnalyticsOverview: {
     layout: "grid",
-    requiredComponents: ["Container", "Toolbar", "Statistics", "Card", "Table", "Pagination"],
+    requiredComponents: ["Container", "Toolbar", "Statistics", "Table", "Pagination", "Layout"],
     structure: [
       { type: "Container", role: "analytics-page" },
       { type: "Toolbar", role: "analytics-toolbar" },
       { type: "Statistics", role: "analytics-kpis" },
-      { type: "Card", role: "analytics-summary" },
+      { type: "Layout", role: "analytics-summary-row" },
       { type: "Table", role: "analytics-table" },
       { type: "Pagination", role: "analytics-pagination" }
     ],

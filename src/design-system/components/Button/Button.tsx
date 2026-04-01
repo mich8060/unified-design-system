@@ -36,6 +36,8 @@ export default function Button({
   layout = "label-only",
   size = "default",
   icon,
+  startSlot,
+  endSlot,
   iconSize,
   icons,
   children,
@@ -82,12 +84,18 @@ export default function Button({
   const labelNode = label ? (
     <span className={`${BASE_CLASS}__label`}>{label}</span>
   ) : null;
+  const startSlotNode = startSlot ? (
+    <span className={`${BASE_CLASS}__slot ${BASE_CLASS}__slot--start`}>{startSlot}</span>
+  ) : null;
+  const endSlotNode = endSlot ? (
+    <span className={`${BASE_CLASS}__slot ${BASE_CLASS}__slot--end`}>{endSlot}</span>
+  ) : null;
 
   const renderContent = () => {
-    if (layout === "icon-left") return <>{iconNode}{labelNode}</>;
-    if (layout === "icon-right") return <>{labelNode}{iconNode}</>;
-    if (isIconOnly) return iconNode || labelNode;
-    return labelNode || iconNode;
+    if (layout === "icon-left") return <>{startSlotNode ?? iconNode}{labelNode}{endSlotNode}</>;
+    if (layout === "icon-right") return <>{startSlotNode}{labelNode}{endSlotNode ?? iconNode}</>;
+    if (isIconOnly) return startSlotNode || endSlotNode || iconNode || labelNode;
+    return <>{startSlotNode}{labelNode || iconNode}{endSlotNode}</>;
   };
 
   const isDisabled = appearance === "disabled" || Boolean(disabled) || loading;

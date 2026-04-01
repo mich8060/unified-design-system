@@ -1,7 +1,7 @@
 {
   "contractName": "uds.ai.contract",
   "schemaVersion": "1.0.0",
-  "systemVersion": "0.2.35",
+  "systemVersion": "0.2.55",
   "tokenVersion": "1.0.0",
   "manifestVersion": "1.0.0",
   "governanceVersion": "1.0.0",
@@ -12,7 +12,7 @@
     "governance": "1.0.0",
     "policy": "1.0.0",
     "token": "1.0.0",
-    "system": "0.2.35"
+    "system": "0.2.55"
   },
   "components": {
     "Accordion": {
@@ -31,8 +31,7 @@
       "defaults": {},
       "composition": {
         "preferredParents": [
-          "Container",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -64,7 +63,7 @@
       "composition": {
         "preferredParents": [
           "Table",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -209,8 +208,8 @@
       "composition": {
         "preferredParents": [
           "Table",
-          "Card",
-          "Flex"
+          "Container",
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -281,7 +280,7 @@
       "composition": {
         "preferredParents": [
           "Tabs",
-          "Card",
+          "Container",
           "Button"
         ],
         "allowedChildren": [],
@@ -423,11 +422,10 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Card",
           "Dialog",
           "Modal",
           "Container",
-          "Flex"
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -495,7 +493,6 @@
       },
       "composition": {
         "preferredParents": [
-          "Card",
           "Container",
           "Dialog",
           "Modal"
@@ -530,7 +527,7 @@
       "composition": {
         "preferredParents": [
           "Datepicker",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -563,7 +560,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -616,8 +613,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -655,8 +651,7 @@
       "composition": {
         "preferredParents": [
           "AppShell",
-          "Container",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -736,7 +731,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Flex"
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -796,7 +791,6 @@
       },
       "composition": {
         "preferredParents": [
-          "Card",
           "Container"
         ],
         "allowedChildren": [],
@@ -927,7 +921,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -957,7 +951,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -987,8 +981,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -1023,7 +1016,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -1100,7 +1093,6 @@
       },
       "composition": {
         "preferredParents": [
-          "Card",
           "Container",
           "AppShell"
         ],
@@ -1150,8 +1142,7 @@
       },
       "composition": {
         "preferredParents": [
-          "Container",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -1206,8 +1197,7 @@
       "composition": {
         "preferredParents": [
           "Container",
-          "Card",
-          "Flex"
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -1281,8 +1271,8 @@
       "composition": {
         "preferredParents": [
           "Table",
-          "Card",
-          "Flex"
+          "Container",
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -1353,7 +1343,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form",
+          "Container",
           "Menu"
         ],
         "allowedChildren": [],
@@ -1404,7 +1394,6 @@
       "composition": {
         "preferredParents": [
           "Container",
-          "Card",
           "Table"
         ],
         "allowedChildren": [],
@@ -1484,7 +1473,7 @@
       "composition": {
         "preferredParents": [
           "Container",
-          "Flex"
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -1526,8 +1515,6 @@
       "defaults": {},
       "composition": {
         "preferredParents": [
-          "Form",
-          "Card",
           "Container"
         ],
         "allowedChildren": [
@@ -1583,7 +1570,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -1599,35 +1586,6 @@
           "--uds-color-neutral-700",
           "--uds-color-blue-600"
         ]
-      }
-    },
-    "Flex": {
-      "name": "Flex",
-      "category": "layout",
-      "intent": "Primary flexbox layout primitive",
-      "purpose": null,
-      "tier": null,
-      "description": "A flexbox-based layout primitive for direction, alignment, spacing, and wrapping using system tokens for predictable layout behavior.",
-      "roles": [
-        "group"
-      ],
-      "slots": null,
-      "states": [],
-      "props": {},
-      "defaults": {},
-      "composition": {
-        "preferredParents": [
-          "Container",
-          "Card",
-          "AppShell"
-        ],
-        "allowedChildren": [],
-        "allowedParents": [],
-        "disallowedChildren": [],
-        "constraints": null
-      },
-      "tokens": {
-        "allowed": []
       }
     },
     "Icon": {
@@ -1707,7 +1665,6 @@
       },
       "composition": {
         "preferredParents": [
-          "Card",
           "Container"
         ],
         "allowedChildren": [],
@@ -1751,7 +1708,7 @@
       "composition": {
         "preferredParents": [
           "Tooltip",
-          "Card",
+          "Container",
           "Text"
         ],
         "allowedChildren": [],
@@ -1886,7 +1843,6 @@
       "defaults": {},
       "composition": {
         "preferredParents": [
-          "Card",
           "Container"
         ],
         "allowedChildren": [],
@@ -2016,7 +1972,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -2085,7 +2041,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -2115,7 +2071,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -2165,7 +2121,6 @@
       },
       "composition": {
         "preferredParents": [
-          "Card",
           "Container"
         ],
         "allowedChildren": [],
@@ -2237,7 +2192,6 @@
       },
       "composition": {
         "preferredParents": [
-          "Card",
           "Container",
           "Table"
         ],
@@ -2289,7 +2243,7 @@
       "composition": {
         "preferredParents": [
           "Container",
-          "Flex"
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -2324,7 +2278,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -2377,8 +2331,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -2424,8 +2377,7 @@
       "composition": {
         "preferredParents": [
           "AppShell",
-          "Container",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -2455,7 +2407,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form",
+          "Container",
           "Menu"
         ],
         "allowedChildren": [],
@@ -2486,8 +2438,7 @@
       "composition": {
         "preferredParents": [
           "Container",
-          "Card",
-          "Flex"
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -2533,7 +2484,7 @@
       "composition": {
         "preferredParents": [
           "Container",
-          "Flex",
+          "Layout",
           "AppShell"
         ],
         "allowedChildren": [],
@@ -2566,7 +2517,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -2638,9 +2589,8 @@
       },
       "composition": {
         "preferredParents": [
-          "Card",
           "Container",
-          "Flex"
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -2698,8 +2648,8 @@
       "composition": {
         "preferredParents": [
           "Table",
-          "Card",
-          "Flex"
+          "Container",
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -2762,8 +2712,7 @@
       },
       "composition": {
         "preferredParents": [
-          "Container",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -2804,8 +2753,7 @@
       "defaults": {},
       "composition": {
         "preferredParents": [
-          "Container",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [
           "Tag",
@@ -2871,8 +2819,7 @@
       },
       "composition": {
         "preferredParents": [
-          "Container",
-          "Card"
+          "Container"
         ],
         "allowedChildren": [
           "Text",
@@ -2975,8 +2922,8 @@
       "composition": {
         "preferredParents": [
           "Table",
-          "Card",
-          "Flex"
+          "Container",
+          "Layout"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -3058,7 +3005,6 @@
       "composition": {
         "preferredParents": [
           "Container",
-          "Card",
           "Field",
           "Dialog"
         ],
@@ -3136,7 +3082,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -3199,7 +3145,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [
@@ -3237,7 +3183,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form"
+          "Container"
         ],
         "allowedChildren": [],
         "allowedParents": [],
@@ -3349,7 +3295,7 @@
       "composition": {
         "preferredParents": [
           "Field",
-          "Form",
+          "Container",
           "Menu"
         ],
         "allowedChildren": [],

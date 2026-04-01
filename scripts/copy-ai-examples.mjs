@@ -6,6 +6,10 @@ const rootDir = dirname(fileURLToPath(new URL("../package.json", import.meta.url
 
 const copies = [
   {
+    source: `${rootDir}/src/ai/examples/layout-recipes.json`,
+    destination: `${rootDir}/dist/ai/examples/layout-recipes.json`,
+  },
+  {
     source: `${rootDir}/src/ai/examples/dataset.index.json`,
     destination: `${rootDir}/dist/ai/examples/dataset.index.json`,
   },

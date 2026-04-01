@@ -53,10 +53,10 @@ Data table component for displaying tabular data with sortable and filterable co
       key: "user",
       label: "User",
       render: (row) => (
-        <Flex gap="8" alignItems="center">
+        <Layout gap="8" alignItems="center">
           <Avatar initials={row.initials} size="small" />
           <span>{row.name}</span>
-        </Flex>
+        </Layout>
       ),
     },
     { key: "email", label: "Email" },
@@ -102,7 +102,7 @@ Data table component for displaying tabular data with sortable and filterable co
 
 ✅ **Do**: Use `render` function for complex cell content (avatars, tags, action buttons)
 ✅ **Do**: Align numeric columns to the right with `align: "right"`
-✅ **Do**: Use `Flex` inside render functions for multi-element cells
+✅ **Do**: Use `Layout` inside render functions for multi-element cells
 
 ❌ **Don't**: Put very wide content in cells without considering responsive behavior
 ❌ **Don't**: Use `render` AND `key` for the same column — `render` takes precedence

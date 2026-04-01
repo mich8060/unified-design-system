@@ -28,9 +28,9 @@ Inline status indicator with dot, icon, or label for conveying state information
 
 ### In a user list
 ```jsx
-<Flex gap="8" alignItems="center">
+<Layout gap="8" alignItems="center">
   <Avatar src={user.photo} size="small" />
   <span>{user.name}</span>
   <Status label={user.status} color={user.online ? "green" : "gray"} />
-</Flex>
+</Layout>
 ```

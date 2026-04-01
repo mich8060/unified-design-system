@@ -7,6 +7,8 @@ export interface ButtonGroupOption {
   layout?: ButtonLayout;
   size?: ButtonSize;
   icon?: ButtonProps["icon"];
+  startSlot?: ButtonProps["startSlot"];
+  endSlot?: ButtonProps["endSlot"];
   iconSize?: number;
   disabled?: boolean;
   loading?: boolean;

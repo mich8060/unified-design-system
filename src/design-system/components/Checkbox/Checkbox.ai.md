@@ -42,9 +42,9 @@ Binary toggle input with label and indeterminate state support.
 ### In a form
 ```jsx
 <Field label="Preferences">
-  <Flex direction="column" gap="8">
+  <Layout direction="column" gap="8">
     <Checkbox label="Email notifications" checked={emailNotifs} onChange={setEmailNotifs} />
     <Checkbox label="SMS notifications" checked={smsNotifs} onChange={setSmsNotifs} />
-  </Flex>
+  </Layout>
 </Field>
 ```

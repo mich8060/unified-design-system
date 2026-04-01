@@ -398,6 +398,7 @@
       "require": "./dist/ai/examples/index.cjs",
       "default": "./dist/ai/examples/index.js"
     },
+    "./ai/examples/layout-recipes": "./dist/ai/examples/layout-recipes.json",
     "./ai/examples/dataset": "./dist/ai/examples/dataset.index.json",
     "./ai/examples/signin-flow-uds.jsonl": "./dist/ai/examples/signin-flow-uds.jsonl",
     "./ai/examples/dashboard-statistics-uds.jsonl": "./dist/ai/examples/dashboard-statistics-uds.jsonl",

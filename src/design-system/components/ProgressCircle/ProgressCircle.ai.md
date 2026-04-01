@@ -28,9 +28,9 @@ Circular progress indicator showing percentage completion.
 
 ### Dashboard widget
 ```jsx
-<Flex gap="24">
+<Layout gap="24">
   <ProgressCircle value={metrics.completion} color="green" />
   <ProgressCircle value={metrics.quality} color="blue" />
   <ProgressCircle value={metrics.speed} color="orange" />
-</Flex>
+</Layout>
 ```

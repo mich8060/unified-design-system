@@ -48,11 +48,11 @@ User photo or initials display with optional online status indicator.
 
 ### In a user list
 ```jsx
-<Flex gap="8" alignItems="center">
+<Layout gap="8" alignItems="center">
   <Avatar src={user.photo} size="small" status={user.online} />
   <span>{user.name}</span>
   <Tag label={user.role} color="blue" />
-</Flex>
+</Layout>
 ```
 
 ## Composition

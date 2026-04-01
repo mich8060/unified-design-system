@@ -56,24 +56,24 @@ import { EventCard } from "@mich8060/chg-design-system";
 
 ### Multi-day Spanning
 ```jsx
-import { EventCard, Flex } from "@mich8060/chg-design-system";
+import { EventCard, Layout } from "@mich8060/chg-design-system";
 
-<Flex gap="0">
+<Layout gap="0">
   <EventCard title="5-Day Trip" type="travel" status="active" startCap endCap={false} />
   <EventCard title="" type="travel" status="active" startCap={false} endCap={false} />
   <EventCard title="" type="travel" status="active" startCap={false} endCap={false} />
   <EventCard title="" type="travel" status="active" startCap={false} endCap />
-</Flex>
+</Layout>
 ```
 
 ### Schedule List
 ```jsx
-<Flex direction="column" gap="4">
+<Layout direction="column" gap="4">
   <EventCard title="Denver, CO" type="travel" status="active" onClick={...} />
   <EventCard title="Salt Lake City" type="assignment" status="active" badge="2" onClick={...} />
   <EventCard title="Open Shift" type="unassigned" status="active" onClick={...} />
   <EventCard title="Portland" type="travel" status="pending" onClick={...} />
-</Flex>
+</Layout>
 ```
 
 ## Cap Behavior

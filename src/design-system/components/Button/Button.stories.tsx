@@ -15,7 +15,7 @@ const meta = {
     layout: {
       control: { type: "inline-radio" },
       options: ["label-only", "icon-left", "icon-right", "icon-only", "only"],
-      description: "Controls how the label and icon are arranged.",
+      description: "Controls label placement and whether start/end slot content is rendered around it.",
     },
     size: {
       control: { type: "inline-radio" },
@@ -29,6 +29,14 @@ const meta = {
     icon: {
       control: { type: "text" },
       description: "Phosphor icon name (string) or a ReactNode.",
+    },
+    startSlot: {
+      control: false,
+      description: "Optional custom leading slot content.",
+    },
+    endSlot: {
+      control: false,
+      description: "Optional custom trailing slot content.",
     },
     iconSize: {
       control: { type: "number" },
@@ -110,6 +118,24 @@ export const IconLayouts: Story = {
       <Button layout="icon-right" icon="ArrowRight" label="Continue" />
       <Button layout="icon-only" icon="MagnifyingGlass" label="Search" aria-label="Search" />
       <Button layout="only" icon="Plus" aria-label="Add item" />
+    </div>
+  ),
+};
+
+export const SlotLayouts: Story = {
+  name: "Custom Start/End Slots",
+  render: (_args) => (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
+      <Button
+        layout="icon-left"
+        label="With Start Slot"
+        startSlot={<span style={{ fontSize: 12, fontWeight: 700 }}>NEW</span>}
+      />
+      <Button
+        layout="icon-right"
+        label="With End Slot"
+        endSlot={<span style={{ fontSize: 12, fontWeight: 700 }}>99+</span>}
+      />
     </div>
   ),
 };

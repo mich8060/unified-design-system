@@ -319,7 +319,7 @@ if (!forbiddenPropsByComponent || typeof forbiddenPropsByComponent !== "object")
 } else {
   const requiredForbiddenProps = {
     Menu: ["items", "selectedKeys", "mode"],
-    Flex: ["vertical", "justify", "align"],
+    Layout: ["vertical", "justify", "align"],
     Button: ["type"],
   };
   for (const [componentName, propList] of Object.entries(requiredForbiddenProps)) {
@@ -340,7 +340,7 @@ const requiredPromptSnippets = [
   "Never deep import `@/.../components/*`.",
   "@chg-ds/unified-design-system/ai/navigation",
   "Menu.items",
-  "Flex.vertical",
+  "Layout.vertical",
   "Button.type",
 ];
 for (const snippet of requiredPromptSnippets) {
@@ -353,7 +353,7 @@ const requiredDocSnippets = [
   "No Ant-style prop APIs on UDS components",
   "RULE_FORBIDDEN_PROP",
   "Menu.items",
-  "Flex.vertical",
+  "Layout.vertical",
 ];
 for (const snippet of requiredDocSnippets) {
   if (!figmaDoc.includes(snippet)) {

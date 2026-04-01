@@ -36,7 +36,7 @@
         },
         "forbiddenPropsByComponent": {
             "Menu": ["items", "selectedKeys", "mode"],
-            "Flex": ["vertical", "justify", "align"],
+            "Layout": ["vertical", "justify", "align"],
             "Text": ["type", "strong"],
             "Button": ["type"],
             "Badge": ["status", "color"],
@@ -156,7 +156,7 @@
                 "loose"
             ]
         },
-        "Flex": {
+        "Layout": {
             "direction": [
                 "row",
                 "column"

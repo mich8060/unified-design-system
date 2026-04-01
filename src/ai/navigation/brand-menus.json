@@ -67,8 +67,10 @@
       { "label": "Dashboard", "icon": "Layout" },
       { "label": "Requests", "icon": "Briefcase" },
       { "label": "Providers", "icon": "Users" },
+      { "label": "Scheduling", "icon": "CalendarPlus" },
+      { "label": "Pooling", "icon": "UserList" },
+      { "label": "Escalations", "icon": "SortDescending" },
       { "label": "Calendar", "icon": "CalendarBlank" },
-      { "label": "Invoices", "icon": "Invoice" },
       { "label": "Reporting", "icon": "ChartBar" }
     ],
     "chg": [

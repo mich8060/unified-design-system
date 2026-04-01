@@ -53,7 +53,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Layout is the primary structural primitive, built on CSS flexbox with design-system spacing tokens. `Flex` is an alias for `Layout` — they are the same component.",
+          "Layout is the primary structural primitive, built on CSS flexbox with design-system spacing tokens.",
       },
     },
   },

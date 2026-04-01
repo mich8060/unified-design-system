@@ -27,6 +27,7 @@ Run this setup flow before generating UI:
 - `@chg-ds/unified-design-system/ai/schema`
 - `@chg-ds/unified-design-system/ai/icons` (or `@chg-ds/unified-design-system/ai/icons.json`)
 - `@chg-ds/unified-design-system/ai/navigation`
+- `@chg-ds/unified-design-system/ai/examples/layout-recipes`
 - `@chg-ds/unified-design-system/ai/templates`
 
 5. Build required scaffold
@@ -54,7 +55,7 @@ Run this setup flow before generating UI:
 - No custom CSS variables (`--brand-*`, `--custom-*`, `--foo-*`).
 - No Ant-style prop APIs on UDS components:
   - `Menu.items`, `Menu.selectedKeys`, `Menu.mode`
-  - `Flex.vertical`, `Flex.justify`, `Flex.align`
+  - `Layout.vertical`, `Layout.justify`, `Layout.align`
   - `Layout.vertical`, `Layout.justify`, `Layout.align`
   - `Button.type`
   - `Text.type`, `Text.strong`
@@ -67,23 +68,26 @@ Run this setup flow before generating UI:
 - Use canonical prop names only.
 - Respect governed composition rules and spacing token rules.
 - Max one primary action per section.
+- Select a recipe from `@chg-ds/unified-design-system/ai/examples/layout-recipes` before freeform composition.
+- Use `recommendedByIntent.firstChoice` unless the requested structure requires a documented alternate.
+- Include `audit.recipeId` whenever a layout recipe is used.
 
 ## Starter Layout Recipes
 
-1. `auth-form-card`
-- `Container(gap="--uds-spacing-24") > Card > Text + Field(TextInput) + Field(TextInput) + Layout(Button primary + Button text)`
+1. `auth-form-panel`
+- `Container(gap="--uds-spacing-24") > Container(appearance="default", padding="large") > Text + Field(TextInput) + Field(TextInput) + Layout(Button primary + Button text)`
 
 2. `dashboard-table-summary`
 - `Container(gap="--uds-spacing-16") > Layout(Text heading + Button primary) + Table(Status/Tag/ActionMenu)`
 
 3. `settings-two-column`
-- `Container > Text heading + Layout(gap="--uds-spacing-24") > Card(form) + Card(summary)`
+- `Container > Text heading + Layout(gap="--uds-spacing-24") > Container(form) + Container(summary)`
 
 4. `modal-confirmation`
 - `Modal > Text heading + Text body + Layout(Button text + Button destructive)`
 
 5. `wizard-steps-form`
-- `Container > Text heading + Steps + Card(Field + Field + Layout(Button text + Button primary))`
+- `Container > Text heading + Steps + Container(Field + Field + Layout(Button text + Button primary))`
 
 ## Icon Guidance
 

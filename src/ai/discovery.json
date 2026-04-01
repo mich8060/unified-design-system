@@ -19,6 +19,7 @@
     "@chg-ds/unified-design-system/ai/layout-architecture",
     "@chg-ds/unified-design-system/ai/templates",
     "@chg-ds/unified-design-system/ai/examples",
+    "@chg-ds/unified-design-system/ai/examples/layout-recipes",
     "@chg-ds/unified-design-system/ai/examples/dataset",
     "@chg-ds/unified-design-system/ai/validation",
     "@chg-ds/unified-design-system/ai/sdk"
@@ -44,11 +45,12 @@
     "validationModule": "@chg-ds/unified-design-system/ai/validation",
     "helperSdk": "@chg-ds/unified-design-system/ai/sdk",
     "examplesModule": "@chg-ds/unified-design-system/ai/examples",
+    "layoutRecipes": "@chg-ds/unified-design-system/ai/examples/layout-recipes",
     "examplesDataset": "@chg-ds/unified-design-system/ai/examples/dataset",
     "validateAlias": "@chg-ds/unified-design-system/ai/validate"
   },
   "versioning": {
-    "system": "0.2.35",
+    "system": "0.2.55",
     "token": "1.0.0",
     "manifest": "1.0.0",
     "governance": "1.0.0",

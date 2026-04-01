@@ -3,13 +3,13 @@
   "schemaVersion": "1.0.0",
   "templates": [
     {
-      "id": "auth-form-card",
+      "id": "auth-form-panel",
       "patternId": "AuthForm",
       "intent": "Authentication form with one primary action and optional secondary action.",
       "tags": [
         "form",
         "auth",
-        "card"
+        "panel"
       ],
       "slots": {
         "title": "Sign in",
@@ -26,7 +26,12 @@
         },
         "children": [
           {
-            "type": "Card",
+            "type": "Container",
+            "props": {
+              "appearance": "default",
+              "padding": "large",
+              "gap": "--uds-spacing-16"
+            },
             "children": [
               {
                 "type": "Text",
@@ -65,7 +70,11 @@
                 ]
               },
               {
-                "type": "Flex",
+                "type": "Layout",
+                "props": {
+                  "direction": "column",
+                  "gap": "--uds-spacing-12"
+                },
                 "children": [
                   {
                     "type": "Button",
@@ -118,7 +127,12 @@
         },
         "children": [
           {
-            "type": "Flex",
+            "type": "Layout",
+            "props": {
+              "justifyContent": "space-between",
+              "alignItems": "center",
+              "gap": "--uds-spacing-16"
+            },
             "children": [
               {
                 "type": "Text",
@@ -200,13 +214,19 @@
             }
           },
           {
-            "type": "Flex",
+            "type": "Layout",
             "props": {
+              "direction": "row",
               "gap": "--uds-spacing-24"
             },
             "children": [
               {
-                "type": "Card",
+                "type": "Container",
+                "props": {
+                  "appearance": "default",
+                  "padding": "large",
+                  "gap": "--uds-spacing-16"
+                },
                 "children": [
                   {
                     "type": "Field",
@@ -237,7 +257,12 @@
                 ]
               },
               {
-                "type": "Card",
+                "type": "Container",
+                "props": {
+                  "appearance": "default",
+                  "padding": "large",
+                  "gap": "--uds-spacing-12"
+                },
                 "children": [
                   {
                     "type": "Text",
@@ -301,7 +326,12 @@
             }
           },
           {
-            "type": "Flex",
+            "type": "Layout",
+            "props": {
+              "justifyContent": "flex-end",
+              "alignItems": "center",
+              "gap": "--uds-spacing-12"
+            },
             "children": [
               {
                 "type": "Button",
@@ -362,7 +392,12 @@
             "type": "Steps"
           },
           {
-            "type": "Card",
+            "type": "Container",
+            "props": {
+              "appearance": "default",
+              "padding": "large",
+              "gap": "--uds-spacing-16"
+            },
             "children": [
               {
                 "type": "Field",
@@ -384,7 +419,12 @@
                 ]
               },
               {
-                "type": "Flex",
+                "type": "Layout",
+                "props": {
+                  "justifyContent": "space-between",
+                  "alignItems": "center",
+                  "gap": "--uds-spacing-12"
+                },
                 "children": [
                   {
                     "type": "Button",

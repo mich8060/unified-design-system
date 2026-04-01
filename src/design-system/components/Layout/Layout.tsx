@@ -1,6 +1,6 @@
 import React from "react";
 import "./_layout.scss";
-import type { FlexItemProps, FlexProps } from "./Layout.types";
+import type { LayoutItemProps, LayoutProps } from "./Layout.types";
 
 const GAP_TOKEN_VALUES = new Set([
   "0",
@@ -21,7 +21,7 @@ const GAP_TOKEN_VALUES = new Set([
 ]);
 const warnedGapValues = new Set<string>();
 
-function normalizeWrap(wrap: FlexProps["wrap"]): "nowrap" | "wrap" | "wrap-reverse" {
+function normalizeWrap(wrap: LayoutProps["wrap"]): "nowrap" | "wrap" | "wrap-reverse" {
   if (wrap === true) return "wrap";
   if (wrap === false || wrap == null) return "nowrap";
   return wrap;
@@ -32,20 +32,20 @@ function toKebab(value: string): string {
 }
 
 function normalizeAppearance(
-  appearance: FlexProps["appearance"]
-): NonNullable<FlexProps["appearance"]> {
+  appearance: LayoutProps["appearance"]
+): NonNullable<LayoutProps["appearance"]> {
   if (appearance === "equal" || appearance === "right" || appearance === "left") {
     return appearance;
   }
 
   // Backward-compatible mapping for older string variants.
-  if (appearance === ("2 Equal Column" as unknown as FlexProps["appearance"])) return "equal";
-  if (appearance === ("Content Right" as unknown as FlexProps["appearance"])) return "right";
-  if (appearance === ("Content Left" as unknown as FlexProps["appearance"])) return "left";
+  if (appearance === ("2 Equal Column" as unknown as LayoutProps["appearance"])) return "equal";
+  if (appearance === ("Content Right" as unknown as LayoutProps["appearance"])) return "right";
+  if (appearance === ("Content Left" as unknown as LayoutProps["appearance"])) return "left";
   return "full";
 }
 
-function normalizeGap(gap: FlexProps["gap"]): string | number | undefined {
+function normalizeGap(gap: LayoutProps["gap"]): string | number | undefined {
   if (gap == null) return undefined;
 
   const rawGap = String(gap).trim();
@@ -60,7 +60,7 @@ function normalizeGap(gap: FlexProps["gap"]): string | number | undefined {
   return gap;
 }
 
-function normalizeSpaceValue(value: FlexProps["gap"]): string | number | undefined {
+function normalizeSpaceValue(value: LayoutProps["gap"]): string | number | undefined {
   if (value == null) return undefined;
   const tokenized = normalizeGap(value);
   if (tokenized == null) return undefined;
@@ -73,7 +73,7 @@ function normalizeItemsPerRow(value: unknown): number | undefined {
   return normalized > 0 ? normalized : undefined;
 }
 
-function warnInvalidGap(gap: FlexProps["gap"]) {
+function warnInvalidGap(gap: LayoutProps["gap"]) {
   if (
     gap == null ||
     typeof import.meta === "undefined" ||
@@ -91,7 +91,7 @@ function warnInvalidGap(gap: FlexProps["gap"]) {
     if (!warnedGapValues.has(warningKey)) {
       warnedGapValues.add(warningKey);
       console.warn(
-        `Flex gap "${gap}" is not a supported spacing token. Use one of: ${Array.from(
+        `Layout gap "${gap}" is not a supported spacing token. Use one of: ${Array.from(
           GAP_TOKEN_VALUES
         ).join(", ")} or "spacing-<token>".`
       );
@@ -99,7 +99,7 @@ function warnInvalidGap(gap: FlexProps["gap"]) {
   }
 }
 
-const LayoutBase = React.forwardRef<HTMLElement, FlexProps>(function Layout(
+const LayoutBase = React.forwardRef<HTMLElement, LayoutProps>(function Layout(
   {
     as: Component = "div",
     direction = "row",
@@ -193,7 +193,7 @@ const LayoutBase = React.forwardRef<HTMLElement, FlexProps>(function Layout(
   );
 });
 
-const FlexFill = React.forwardRef<HTMLElement, FlexItemProps>(function FlexFill(
+const LayoutFill = React.forwardRef<HTMLElement, LayoutItemProps>(function LayoutFill(
   {
     as: Component = "div",
     className,
@@ -212,10 +212,10 @@ const FlexFill = React.forwardRef<HTMLElement, FlexItemProps>(function FlexFill(
 });
 
 type LayoutCompound = typeof LayoutBase & {
-  Fill: typeof FlexFill;
-  Full: typeof FlexFill;
+  Fill: typeof LayoutFill;
+  Full: typeof LayoutFill;
 };
 
 export const Layout = LayoutBase as LayoutCompound;
-Layout.Fill = FlexFill;
-Layout.Full = FlexFill;
+Layout.Fill = LayoutFill;
+Layout.Full = LayoutFill;

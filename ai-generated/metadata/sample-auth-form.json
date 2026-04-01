@@ -9,8 +9,10 @@
     },
     "children": [
       {
-        "type": "Card",
+        "type": "Container",
         "props": {
+          "appearance": "default",
+          "padding": "large",
           "gap": "--uds-spacing-16"
         },
         "children": [
@@ -57,12 +59,12 @@
     "timestamp": "2026-03-03T00:00:00.000Z",
     "model": "governed-ai",
     "promptHash": "sample-auth-form-v1",
-    "udsVersion": "0.2.12",
+    "udsVersion": "0.2.55",
     "manifestVersion": "1.0.0",
     "policyVersion": "1.0.0",
     "componentsUsed": [
       "Container",
-      "Card",
+      "Container",
       "Text",
       "Field",
       "TextInput",

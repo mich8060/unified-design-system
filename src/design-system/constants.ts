@@ -1,5 +1,5 @@
 import type { ButtonAppearance, ButtonLayout, ButtonSize } from "./components/Button/Button.types";
-import type { FlexAlignItems, FlexDirection, FlexGapToken, FlexJustifyContent, FlexWrap } from "./components/Layout/Layout.types";
+import type { LayoutAlignItems, LayoutDirection, LayoutGapToken, LayoutJustifyContent, LayoutWrap } from "./components/Layout/Layout.types";
 import type { IconAppearance } from "./components/Icon/Icon.types";
 import type { TextLeading, TextVariant, TextWeight } from "./components/Text/Text.types";
 import type { TextInputIconPosition, TextInputSize, TextInputState } from "./components/TextInput/TextInput.types";
@@ -51,11 +51,11 @@ export const TEXT_WEIGHTS: readonly TextWeight[] = ["regular", "medium", "semibo
 /** Valid values for Text `leading`. */
 export const TEXT_LEADINGS: readonly TextLeading[] = ["tight", "regular", "loose"];
 
-/** Valid values for Flex `direction`. */
-export const FLEX_DIRECTIONS: readonly FlexDirection[] = ["row", "column"];
+/** Valid values for Layout `direction`. */
+export const LAYOUT_DIRECTIONS: readonly LayoutDirection[] = ["row", "column"];
 
-/** Valid values for Flex `justifyContent`. */
-export const FLEX_JUSTIFY_CONTENT: readonly FlexJustifyContent[] = [
+/** Valid values for Layout `justifyContent`. */
+export const LAYOUT_JUSTIFY_CONTENT: readonly LayoutJustifyContent[] = [
   "flex-start",
   "center",
   "flex-end",
@@ -64,8 +64,8 @@ export const FLEX_JUSTIFY_CONTENT: readonly FlexJustifyContent[] = [
   "space-evenly",
 ];
 
-/** Valid values for Flex `alignItems`. */
-export const FLEX_ALIGN_ITEMS: readonly FlexAlignItems[] = [
+/** Valid values for Layout `alignItems`. */
+export const LAYOUT_ALIGN_ITEMS: readonly LayoutAlignItems[] = [
   "stretch",
   "flex-start",
   "center",
@@ -73,11 +73,11 @@ export const FLEX_ALIGN_ITEMS: readonly FlexAlignItems[] = [
   "baseline",
 ];
 
-/** Valid values for Flex `wrap`. */
-export const FLEX_WRAP_VALUES: readonly FlexWrap[] = ["nowrap", "wrap", "wrap-reverse"];
+/** Valid values for Layout `wrap`. */
+export const LAYOUT_WRAP_VALUES: readonly LayoutWrap[] = ["nowrap", "wrap", "wrap-reverse"];
 
-/** Valid values for Flex tokenized gap presets. */
-export const FLEX_GAP_TOKENS: readonly FlexGapToken[] = ["0", "2", "4", "8", "12", "16", "24", "32"];
+/** Valid values for Layout tokenized gap presets. */
+export const LAYOUT_GAP_TOKENS: readonly LayoutGapToken[] = ["0", "2", "4", "8", "12", "16", "24", "32"];
 
 /** Valid values for TextInput `size`. */
 export const TEXT_INPUT_SIZES: readonly TextInputSize[] = ["default", "compact"];

@@ -25,11 +25,11 @@ Compact inline calendar widget for displaying dates at a glance.
 
 ### In a list item
 ```jsx
-<Flex gap="12" alignItems="center">
+<Layout gap="12" alignItems="center">
   <MicroCalendar date={event.date} size="small" />
-  <Flex direction="column">
+  <Layout direction="column">
     <strong>{event.title}</strong>
     <span>{event.location}</span>
-  </Flex>
-</Flex>
+  </Layout>
+</Layout>
 ```

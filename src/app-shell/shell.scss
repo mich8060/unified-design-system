@@ -7,12 +7,14 @@ body {
 
 .app-shell {
     position: relative;
-    --app-shell-mobile-toolbar-height: 57px;
+    --app-shell-mobile-toolbar-height: 64px;
     background: var(--uds-surface-primary);
     color: var(--uds-text-primary);
+    height: 100vh;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     width: 100%;
     &.padding-none .app-shell__contentInner {
         padding: var(--uds-spacing-0);
@@ -79,6 +81,7 @@ body {
     align-items: stretch;
     width: 100%;
     min-height: 0;
+    overflow: hidden;
 }
 
 .app-shell--standalone .app-shell__body {
@@ -89,9 +92,28 @@ body {
     display: none;
 }
 
-.app-shell__mobile-toolbar {
+.app-shell__mobile-toolbar.uds-toolbar {
+    align-items: center;
     border-top: 1px solid var(--uds-border-secondary);
     border-bottom: 1px solid var(--uds-border-secondary);
+    display: grid;
+    gap: var(--uds-spacing-12);
+    grid-template-columns: 1fr auto 1fr;
+    justify-content: unset;
+
+    .uds-toolbar__center {
+        justify-self: center;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .uds-toolbar__left {
+        justify-self: start;
+    }
+
+    .uds-toolbar__right {
+        justify-self: end;
+    }
 }
 
 .app-shell__mobile-avatar-trigger {
@@ -109,10 +131,17 @@ body {
 }
 
 .app-shell__sidebar {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
     width: var(--app-shell-menu-width);
     min-width: var(--app-shell-menu-width);
     flex: 0 0 var(--app-shell-menu-width);
+    z-index: 920;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--uds-surface-primary);
     transition: width 0.3s ease, min-width 0.3s ease, flex-basis 0.3s ease;
 }
 
@@ -133,6 +162,7 @@ body {
     flex: 1 1 auto;
     min-width: 0;
     min-height: 0;
+    margin-left: var(--app-shell-menu-width);
     padding-bottom: var(--app-shell-footer-height);
 }
 
@@ -141,8 +171,18 @@ body {
     flex: 1;
     display: flex;
     position: relative;
+    padding-left: 0;
+    padding-right: 0;
     width: 100%;
     overflow: hidden;
+}
+
+.app-shell__content--has-listview {
+    padding-left: var(--app-shell-listview-width);
+}
+
+.app-shell__content--has-side-panel {
+    padding-right: var(--app-shell-side-panel-width);
 }
 
 .app-shell__contentInner {
@@ -198,8 +238,11 @@ body {
 
 .app-shell__listview {
     --app-shell-listview-width: 300px;
-    position: relative;
-    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: var(--app-shell-menu-width);
+    bottom: var(--app-shell-footer-height);
+    z-index: 920;
     width: var(--app-shell-listview-width);
     min-width: var(--app-shell-listview-width);
     flex: 0 0 var(--app-shell-listview-width);
@@ -212,10 +255,10 @@ body {
 .app-shell__side-panel {
     --app-shell-side-panel-width: 320px;
     --app-shell-side-panel-max-width: 600px;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
-    bottom: 0;
+    bottom: var(--app-shell-footer-height);
     width: var(--app-shell-side-panel-width);
     max-width: var(--app-shell-side-panel-max-width);
     min-width: 0;
@@ -223,7 +266,7 @@ body {
     background: var(--uds-surface-secondary);
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 3;
+    z-index: 930;
     animation: app-shell-side-panel-enter var(--uds-animation-duration-300) var(--uds-animation-ease-standard);
     will-change: transform, opacity;
 }
@@ -257,10 +300,12 @@ body {
 
 .app-shell__main-content {
     background: var(--uds-surface-secondary);
+    height: 100%;
     min-width: 0;
     flex: 1;
     position: relative;
     z-index: 1;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 

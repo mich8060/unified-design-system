@@ -13,7 +13,7 @@ const buildAudit = (status: "pass" | "fail", violationsCount: number) => ({
   manifestVersion: UDSGovernance.manifestVersion,
   governanceVersion: UDSGovernance.governanceVersion,
   policyVersion: UDSGovernance.policyVersion,
-  componentsUsed: ["Container", "Card", "Text", "Field", "TextInput", "Button"],
+  componentsUsed: ["Container", "Text", "Field", "TextInput", "Button", "Layout"],
   tokensUsed: ["--uds-spacing-16", "--uds-spacing-24"],
   violationsCount,
   validationStatus: status,
@@ -43,12 +43,16 @@ async function callClaude(prompt: string) {
             props: { gap: "--uds-spacing-24" },
             children: [
               {
-                type: "Card",
-                props: { gap: "--uds-spacing-16" },
+                type: "Container",
+                props: { appearance: "default", padding: "large", gap: "--uds-spacing-16" },
                 children: [
                   { type: "Text", props: { variant: "heading-24" } },
                   { type: "Field", children: [{ type: "TextInput", props: { type: "email" } }] },
-                  { type: "Button", props: { appearance: "primary", label: "Click Me" } }
+                  {
+                    type: "Layout",
+                    props: { direction: "row", justifyContent: "flex-start", alignItems: "center", gap: "16" },
+                    children: [{ type: "Button", props: { appearance: "primary", label: "Click Me" } }]
+                  }
                 ]
               }
             ]

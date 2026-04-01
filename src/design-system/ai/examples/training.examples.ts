@@ -274,13 +274,13 @@ export const UDS_TRAINING_EXAMPLES: readonly AITrainingExample[] = [
     }
   },
   {
-    id: "invalid-flex-ant-props",
-    scenario: "Flex uses vertical/justify/align aliases from non-UDS APIs.",
+    id: "invalid-layout-ant-props",
+    scenario: "Layout uses vertical/justify/align aliases from non-UDS APIs.",
     kind: "invalid",
-    tags: ["flex", "props", "contract-drift"],
+    tags: ["layout", "props", "contract-drift"],
     output: {
       tree: {
-        type: "Flex",
+        type: "Layout",
         props: {
           vertical: true,
           justify: "space-between",
@@ -291,7 +291,7 @@ export const UDS_TRAINING_EXAMPLES: readonly AITrainingExample[] = [
     },
     expected: { status: "fail", violationCodes: ["RULE_FORBIDDEN_PROP"] },
     rationale: {
-      why: "Flex layout must use canonical props for deterministic cross-model behavior.",
+      why: "Layout must use canonical props for deterministic cross-model behavior.",
       fix: "Use direction, justifyContent, and alignItems props."
     }
   },

@@ -3,7 +3,7 @@
   "governanceVersion": "1.0.0",
   "policyVersion": "1.0.0",
   "tree": {
-    "type": "Card",
+    "type": "Container",
     "props": {
       "gap": "--uds-spacing-16"
     },
@@ -13,7 +13,7 @@
     "timestamp": "2026-03-03T00:00:00.000Z",
     "model": "claude",
     "promptHash": "replace-me",
-    "udsVersion": "0.2.12",
+    "udsVersion": "0.2.55",
     "manifestVersion": "1.0.0",
     "policyVersion": "1.0.0",
     "componentsUsed": [],

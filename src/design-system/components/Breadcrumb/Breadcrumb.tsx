@@ -9,7 +9,7 @@ const FOUNDATIONS_ITEMS = [
   { path: "/app-shell", label: "Application" },
   { path: "/border-radius", label: "Border Radius" },
   { path: "/colors", label: "Colors" },
-  { path: "/flex", label: "Flex Layout" },
+  { path: "/layout", label: "Layout" },
   { path: "/icons", label: "Icons" },
   { path: "/shadows", label: "Shadows" },
   { path: "/spacing", label: "Spacing" },

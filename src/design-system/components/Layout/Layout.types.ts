@@ -1,21 +1,21 @@
 import type React from "react";
 
-export type FlexDirection = "row" | "column";
-export type FlexJustifyContent =
+export type LayoutDirection = "row" | "column";
+export type LayoutJustifyContent =
   | "flex-start"
   | "center"
   | "flex-end"
   | "space-between"
   | "space-around"
   | "space-evenly";
-export type FlexAlignItems = "stretch" | "flex-start" | "center" | "flex-end" | "baseline";
-export type FlexWrap = "nowrap" | "wrap" | "wrap-reverse";
-export type FlexAppearance =
+export type LayoutAlignItems = "stretch" | "flex-start" | "center" | "flex-end" | "baseline";
+export type LayoutWrap = "nowrap" | "wrap" | "wrap-reverse";
+export type LayoutAppearance =
   | "full"
   | "equal"
   | "right"
   | "left";
-export type FlexGapToken =
+export type LayoutGapToken =
   | "0"
   | "2"
   | "4"
@@ -31,21 +31,21 @@ export type FlexGapToken =
   | "48"
   | "64"
   | "80";
-export type FlexGapTokenName = `spacing-${FlexGapToken}`;
-export type FlexGapSpecial = "auto";
+export type LayoutGapTokenName = `spacing-${LayoutGapToken}`;
+export type LayoutGapSpecial = "auto";
 
-export interface FlexProps extends React.HTMLAttributes<HTMLElement> {
+export interface LayoutProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
-  direction?: FlexDirection;
-  justifyContent?: FlexJustifyContent;
-  alignItems?: FlexAlignItems;
-  appearance?: FlexAppearance;
+  direction?: LayoutDirection;
+  justifyContent?: LayoutJustifyContent;
+  alignItems?: LayoutAlignItems;
+  appearance?: LayoutAppearance;
   itemsPerRow?: number;
-  wrap?: boolean | FlexWrap;
-  gap?: FlexGapToken | FlexGapTokenName | FlexGapSpecial | number | string;
-  mt?: FlexGapToken | FlexGapTokenName | number | string;
-  mb?: FlexGapToken | FlexGapTokenName | number | string;
-  pl?: FlexGapToken | FlexGapTokenName | number | string;
+  wrap?: boolean | LayoutWrap;
+  gap?: LayoutGapToken | LayoutGapTokenName | LayoutGapSpecial | number | string;
+  mt?: LayoutGapToken | LayoutGapTokenName | number | string;
+  mb?: LayoutGapToken | LayoutGapTokenName | number | string;
+  pl?: LayoutGapToken | LayoutGapTokenName | number | string;
   minWidth?: number | string;
   shrink?: number;
   grow?: number;
@@ -54,6 +54,6 @@ export interface FlexProps extends React.HTMLAttributes<HTMLElement> {
   inline?: boolean;
 }
 
-export interface FlexItemProps extends React.HTMLAttributes<HTMLElement> {
+export interface LayoutItemProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
 }

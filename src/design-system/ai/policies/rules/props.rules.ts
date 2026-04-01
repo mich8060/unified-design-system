@@ -17,11 +17,6 @@ const FORBIDDEN_PROPS_BY_COMPONENT: Record<string, Record<string, ForbiddenPropR
     selectedKeys: { reason: "Menu selection is route-driven via nav item paths and app state." },
     mode: { replacement: "activeMode", reason: "Menu mode is governed by activeMode light/dark values." },
   },
-  Flex: {
-    vertical: { replacement: "direction", reason: "Flex direction is governed by row/column direction prop." },
-    justify: { replacement: "justifyContent", reason: "Flex alignment uses justifyContent canonical prop." },
-    align: { replacement: "alignItems", reason: "Flex alignment uses alignItems canonical prop." },
-  },
   Layout: {
     vertical: { replacement: "direction", reason: "Layout direction is governed by row/column direction prop." },
     justify: { replacement: "justifyContent", reason: "Layout alignment uses justifyContent canonical prop." },

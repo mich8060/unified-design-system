@@ -14,6 +14,7 @@ This folder is the **authoring workspace** for Claude/Cursor AI generation, sepa
 - `templates/` — layout starter templates with placeholders and constraints
 - `prompts/` — reusable prompt templates for generation and repair flows
 - `examples/` — curated valid/invalid generation examples for model guidance
+- `examples/layout-recipes.json` — canonical starter recipes for common page layouts
 
 ## Model Discoverability (Start Here)
 
@@ -35,9 +36,10 @@ For any model/tooling integration, read in this order:
 14. `@chg-ds/unified-design-system/ai/layout-architecture`
 15. `@chg-ds/unified-design-system/ai/templates`
 16. `@chg-ds/unified-design-system/ai/examples`
-17. `@chg-ds/unified-design-system/ai/examples/dataset`
-18. `@chg-ds/unified-design-system/ai/validation`
-19. `@chg-ds/unified-design-system/ai/sdk`
+17. `@chg-ds/unified-design-system/ai/examples/layout-recipes`
+18. `@chg-ds/unified-design-system/ai/examples/dataset`
+19. `@chg-ds/unified-design-system/ai/validation`
+20. `@chg-ds/unified-design-system/ai/sdk`
 
 ## Icon options for AI
 
@@ -97,7 +99,7 @@ Generation policy also requires:
 - Never define custom CSS variables in output.
 - Use only `--uds-*` variable references or hardcoded literal values.
 - Never use deep imports like `@/.../components/*`; stick to package exports.
-- Avoid non-UDS prop APIs (for example `Menu.items`, `Flex.vertical`, `Button.type`).
+- Avoid non-UDS prop APIs (for example `Menu.items`, `Layout.vertical`, `Button.type`).
 
 See `schemas/ai-output.schema.json` and `ai-generated/screens/template.screen.json`.
 
@@ -108,6 +110,7 @@ Use the governed training set exported from runtime AI examples:
 - `src/design-system/ai/examples/training.examples.ts`
 - validate with `npm run ai:validate:examples`
 - Contract entrypoint: `@chg-ds/unified-design-system/ai/examples/dataset`
+- Canonical layout recipe entrypoint: `@chg-ds/unified-design-system/ai/examples/layout-recipes`
 - Additional scenario dataset (JSONL):
   - `src/ai/examples/signin-flow-uds.jsonl`
   - `src/ai/examples/app-shell-regions-uds.jsonl`

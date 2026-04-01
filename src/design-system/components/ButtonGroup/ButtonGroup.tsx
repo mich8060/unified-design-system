@@ -32,6 +32,8 @@ export function ButtonGroup({
               layout={option.layout ?? "label-only"}
               size={option.size ?? size}
               icon={option.icon}
+              startSlot={option.startSlot}
+              endSlot={option.endSlot}
               iconSize={option.iconSize}
               disabled={disabled || option.disabled}
               loading={option.loading}

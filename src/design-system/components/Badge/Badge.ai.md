@@ -29,10 +29,10 @@ Numeric badge indicator for counts, notifications, and status numbers.
 
 ### With navigation item
 ```jsx
-<Flex gap="8" alignItems="center">
+<Layout gap="8" alignItems="center">
   <Icon name="Bell" size={20} />
   <Badge count={notifications.length} />
-</Flex>
+</Layout>
 ```
 
 ## Note

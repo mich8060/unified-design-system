@@ -1,8 +1,46 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import brandMenus from "../../../../ai/navigation/brand-menus.json";
 import Menu from "./Menu";
 import type { MenuNavItem, MenuMode } from "./Menu.types";
+
+type BrandMenuContractEntry = {
+  label: string;
+  icon: string;
+  children?: { label: string }[];
+};
+
+function labelToPath(label: string): string {
+  const slug = label
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `/${slug}`;
+}
+
+/** Maps `brand-menus.json` entries to `Menu` `navItems` (adds slug paths; not in the JSON contract). */
+function brandContractNavToMenuNavItems(items: BrandMenuContractEntry[]): MenuNavItem[] {
+  return items.map((item) => {
+    if (item.children?.length) {
+      return {
+        label: item.label,
+        icon: item.icon,
+        children: item.children.map((c) => ({
+          label: c.label,
+          path: labelToPath(c.label),
+        })),
+      };
+    }
+    return {
+      label: item.label,
+      icon: item.icon,
+      path: labelToPath(item.label),
+    };
+  });
+}
+
+const NAV_ITEMS_CONNECT_CONTRACT = brandContractNavToMenuNavItems(brandMenus.brands.connect);
 
 // ---------------------------------------------------------------------------
 // Shared fixture data
@@ -398,6 +436,25 @@ export const NavOnly: Story = {
       description: {
         story:
           "Strip everything except navigation — useful when the brand header is handled elsewhere.",
+      },
+    },
+  },
+};
+
+export const ConnectBrandMenuFromContract: Story = {
+  name: "Connect (from brand-menus.json)",
+  args: {
+    defaultExpanded: true,
+    navItems: NAV_ITEMS_CONNECT_CONTRACT,
+    activeBrand: "connect",
+    showModeToggle: false,
+    showBrandSwitcher: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Navigation labels and icons match the `connect` entry in `src/ai/navigation/brand-menus.json`. Paths are synthetic slugs for Storybook only.",
       },
     },
   },

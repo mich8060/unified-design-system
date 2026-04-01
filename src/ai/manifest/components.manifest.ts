@@ -6,7 +6,7 @@ export const ComponentRegistry = {
       "A vertically stacked disclosure component that allows users to expand and collapse sections of related content. It manages state visibility, keyboard accessibility, and animation timing, and should not be used for navigation or page transitions.",
     alsoKnownAs: ["Disclosure", "Expandable Panel", "Collapsible Section", "Expansion Panel", "Disclosure Group"],
     roles: ["region"],
-    preferredParent: ["Container", "Card"],
+    preferredParent: ["Container"],
   },
   ActionMenu: {
     category: "navigation",
@@ -15,7 +15,7 @@ export const ComponentRegistry = {
       "A contextual action surface triggered by a button or icon that exposes secondary, object-specific actions. It manages positioning, keyboard navigation, focus behavior, and dismissal, and is not intended for primary navigation.",
     alsoKnownAs: ["Overflow Menu", "Kebab Menu", "Context Menu", "More Menu", "Options Menu", "Ellipsis Menu"],
     roles: ["menu"],
-    preferredParent: ["Table", "Card"],
+    preferredParent: ["Table", "Container"],
   },
   AppShell: {
     category: "layout",
@@ -34,7 +34,7 @@ export const ComponentRegistry = {
       "A visual identity component representing a person, organization, or system entity via image, initials, or fallback icon. It manages size, shape, and status indicators but not profile interactions.",
     alsoKnownAs: ["Profile Image", "User Icon", "Identity Badge", "User Thumbnail"],
     roles: ["img"],
-    preferredParent: ["Table", "Card", "Flex"],
+    preferredParent: ["Table", "Container", "Layout"],
   },
   Badge: {
     category: "data-display",
@@ -43,7 +43,7 @@ export const ComponentRegistry = {
       "A compact visual indicator for status, counts, or contextual metadata, typically attached to another UI element. It manages semantic state color and sizing.",
     alsoKnownAs: ["Indicator", "Counter", "Notification Badge", "Status Badge", "Label"],
     roles: ["status"],
-    preferredParent: ["Tabs", "Card", "Button"],
+    preferredParent: ["Tabs", "Container", "Button"],
     props: {
       appearance: {
         type: "enum",
@@ -76,7 +76,7 @@ export const ComponentRegistry = {
       "An interactive control for triggering actions such as submissions, navigation, or state changes, with support for multiple variants, sizes, icon placements, and disabled states.",
     alsoKnownAs: ["CTA", "Action Button", "Primary Action", "Control Button"],
     roles: ["button"],
-    preferredParent: ["Field", "Card", "Dialog", "Modal", "Container", "Flex"],
+    preferredParent: ["Field", "Dialog", "Modal", "Container", "Layout"],
     props: {
       appearance: {
         type: "enum",
@@ -99,7 +99,7 @@ export const ComponentRegistry = {
       "A compositional wrapper that arranges multiple Button actions with consistent spacing and orientation for related decisions.",
     alsoKnownAs: ["Action Group", "Button Cluster", "Action Row"],
     roles: ["group"],
-    preferredParent: ["Card", "Container", "Dialog", "Modal"],
+    preferredParent: ["Container", "Dialog", "Modal"],
     props: {
       orientation: {
         type: "enum",
@@ -125,7 +125,7 @@ export const ComponentRegistry = {
       "A full calendar visualization for selecting and viewing dates across weeks and months, with keyboard interaction and focus handling.",
     alsoKnownAs: ["Date Grid", "Month View", "Date Selector", "Calendar View"],
     roles: ["grid"],
-    preferredParent: ["Datepicker", "Card"],
+    preferredParent: ["Datepicker", "Container"],
   },
   Checkbox: {
     category: "form",
@@ -134,7 +134,7 @@ export const ComponentRegistry = {
       "A binary selection control for independently selecting multiple options, including checked, unchecked, and indeterminate states.",
     alsoKnownAs: ["Multi-select Control", "Boolean Input", "Selection Box"],
     roles: ["checkbox"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   CheckboxGroup: {
     category: "form",
@@ -143,7 +143,7 @@ export const ComponentRegistry = {
       "A grouped set of Checkbox controls for selecting multiple options with shared label, orientation, and change handling.",
     alsoKnownAs: ["Checkbox List", "Multi-select Group", "Selection Group"],
     roles: ["group"],
-    preferredParent: ["Field", "Form", "Card"],
+    preferredParent: ["Field", "Container"],
     props: {
       orientation: {
         type: "enum",
@@ -161,7 +161,7 @@ export const ComponentRegistry = {
       "A vertical step checklist used as a sidebar to track progress through multi-step workflows and forms.",
     alsoKnownAs: ["Progress Checklist", "Step Checklist", "Application Checklist", "Sidebar Progress"],
     roles: ["navigation"],
-    preferredParent: ["AppShell", "Container", "Card"],
+    preferredParent: ["AppShell", "Container"],
   },
   Chip: {
     category: "form",
@@ -170,9 +170,9 @@ export const ComponentRegistry = {
       "A compact, optionally removable element representing user input, filter criteria, or selected values.",
     alsoKnownAs: ["Token", "Input Chip", "Filter Chip", "Removable Tag"],
     roles: ["button"],
-    preferredParent: ["Field", "Flex"],
+    preferredParent: ["Field", "Layout"],
   },
-  Code: { category: "data-display", intent: "Formatted code snippet block", roles: ["code"], preferredParent: ["Card", "Container"] },
+  Code: { category: "data-display", intent: "Formatted code snippet block", roles: ["code"], preferredParent: ["Container"] },
   Container: {
     category: "layout",
     intent: "Width-constrained page/content wrapper",
@@ -195,7 +195,7 @@ export const ComponentRegistry = {
       "A compact definition-list style component for rendering labeled values in dense details views, side panels, and metadata cards.",
     alsoKnownAs: ["Definition List", "Key Value List", "Metadata List"],
     roles: ["list"],
-    preferredParent: ["Card", "Container", "AppShell"],
+    preferredParent: ["Container", "AppShell"],
   },
   CurrencyInput: {
     category: "form",
@@ -204,7 +204,7 @@ export const ComponentRegistry = {
       "A formatted amount input for monetary values with currency-friendly entry behavior.",
     alsoKnownAs: ["Money Input", "Amount Field", "Currency Field"],
     roles: ["textbox"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   DateInput: {
     category: "form",
@@ -213,7 +213,7 @@ export const ComponentRegistry = {
       "A single-field date input wrapper for capturing calendar dates.",
     alsoKnownAs: ["Date Field", "Date Text Input"],
     roles: ["textbox"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   DateRangeInput: {
     category: "form",
@@ -222,7 +222,7 @@ export const ComponentRegistry = {
       "A paired date input control for capturing start and end dates.",
     alsoKnownAs: ["Date Range Picker", "Start End Date Input"],
     roles: ["group"],
-    preferredParent: ["Field", "Form", "Card"],
+    preferredParent: ["Field", "Container"],
   },
   Datepicker: {
     category: "form",
@@ -231,7 +231,7 @@ export const ComponentRegistry = {
       "A composite input component combining text entry and calendar selection for date input, including formatting and accessibility behavior.",
     alsoKnownAs: ["Date Selector", "Date Field", "Calendar Input"],
     roles: ["combobox"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   Dialog: {
     category: "feedback",
@@ -240,7 +240,7 @@ export const ComponentRegistry = {
       "A modal interaction surface requiring user attention before proceeding, with focus trapping, overlay behavior, and escape dismissal.",
     alsoKnownAs: ["Modal Dialog", "Alert Dialog", "Confirmation Dialog", "Overlay Dialog"],
     roles: ["dialog"],
-    preferredParent: ["Container", "Card"],
+    preferredParent: ["Container"],
   },
   Divider: {
     category: "layout",
@@ -249,7 +249,7 @@ export const ComponentRegistry = {
       "A non-interactive visual separator for distinguishing sections of content with consistent spacing and alignment.",
     alsoKnownAs: ["Separator", "Rule", "Horizontal Rule", "Line Divider"],
     roles: ["separator"],
-    preferredParent: ["Container", "Card", "Flex"],
+    preferredParent: ["Container", "Layout"],
   },
   DotStatus: {
     category: "data-display",
@@ -258,7 +258,7 @@ export const ComponentRegistry = {
       "A minimal color-coded dot used to communicate state visually and intended to be paired with accessible text.",
     alsoKnownAs: ["Status Dot", "Presence Indicator", "State Dot"],
     roles: ["status"],
-    preferredParent: ["Table", "Card", "Flex"],
+    preferredParent: ["Table", "Container", "Layout"],
   },
   Dropdown: {
     category: "form",
@@ -267,7 +267,7 @@ export const ComponentRegistry = {
       "A selectable list component that expands from a trigger to allow single-option selection, including open/close behavior and keyboard navigation.",
     alsoKnownAs: ["Select", "Select Menu", "Picker", "Combo List"],
     roles: ["combobox"],
-    preferredParent: ["Field", "Form", "Menu"],
+    preferredParent: ["Field", "Container", "Menu"],
     props: {
       size: {
         type: "enum",
@@ -285,7 +285,7 @@ export const ComponentRegistry = {
       "A structured placeholder pattern shown when no data exists, providing context and guidance so users can move forward instead of seeing a blank interface.",
     alsoKnownAs: ["Blank State", "Zero State", "No Data State", "First Use State"],
     roles: ["status"],
-    preferredParent: ["Container", "Card", "Table"],
+    preferredParent: ["Container", "Table"],
   },
   EventCard: {
     category: "data-display",
@@ -294,7 +294,7 @@ export const ComponentRegistry = {
       "A specialized content container optimized for presenting event metadata such as date, time, location, and status.",
     alsoKnownAs: ["Event Tile", "Schedule Card", "Calendar Card", "Activity Card"],
     roles: ["article"],
-    preferredParent: ["Container", "Flex"],
+    preferredParent: ["Container", "Layout"],
   },
   Field: {
     category: "form",
@@ -303,7 +303,7 @@ export const ComponentRegistry = {
       "A compositional wrapper that pairs form controls with label, helper text, validation messaging, and accessibility relationships.",
     alsoKnownAs: ["Form Field", "Input Field", "Control Field", "Field Wrapper"],
     roles: ["group"],
-    preferredParent: ["Form", "Card", "Container"],
+    preferredParent: ["Container"],
   },
   FileUpload: {
     category: "form",
@@ -312,16 +312,7 @@ export const ComponentRegistry = {
       "An input for uploading files via drag-and-drop or system picker with visual states for progress, selected files, and errors.",
     alsoKnownAs: ["File Picker", "Upload Field", "Attachment Upload", "Dropzone"],
     roles: ["group"],
-    preferredParent: ["Field", "Form"],
-  },
-  Flex: {
-    category: "layout",
-    intent: "Primary flexbox layout primitive",
-    description:
-      "A flexbox-based layout primitive for direction, alignment, spacing, and wrapping using system tokens for predictable layout behavior.",
-    alsoKnownAs: ["Stack", "Flexbox Container", "Layout Stack", "Flex Layout"],
-    roles: ["group"],
-    preferredParent: ["Container", "Card", "AppShell"],
+    preferredParent: ["Field", "Container"],
   },
   Icon: {
     category: "data-display",
@@ -345,7 +336,7 @@ export const ComponentRegistry = {
       "A responsive image container that preserves a predefined aspect ratio across screen sizes without distortion.",
     alsoKnownAs: ["Aspect Ratio Container", "Responsive Image Frame", "Media Frame"],
     roles: ["img"],
-    preferredParent: ["Card", "Container"],
+    preferredParent: ["Container"],
   },
   Key: {
     category: "data-display",
@@ -354,7 +345,7 @@ export const ComponentRegistry = {
       "A structured key-value style component for labeled metadata such as properties, details, and compact information pairs.",
     alsoKnownAs: ["KeyValue", "Property List", "Definition List", "Metadata Pair"],
     roles: ["note"],
-    preferredParent: ["Tooltip", "Card", "Text"],
+    preferredParent: ["Tooltip", "Container", "Text"],
   },
   Layout: {
     category: "layout",
@@ -381,7 +372,7 @@ export const ComponentRegistry = {
       "A compact calendar view for dashboards and side panels where full calendar interaction is unnecessary.",
     alsoKnownAs: ["Mini Calendar", "Compact Calendar", "Calendar Widget"],
     roles: ["grid"],
-    preferredParent: ["Card", "Container"],
+    preferredParent: ["Container"],
   },
   Modal: {
     category: "feedback",
@@ -399,7 +390,7 @@ export const ComponentRegistry = {
       "A number-constrained text input for integer and decimal entry.",
     alsoKnownAs: ["Numeric Field", "Number Field"],
     roles: ["textbox"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   Pagination: {
     category: "navigation",
@@ -417,7 +408,7 @@ export const ComponentRegistry = {
       "A circular progress visualization for determinate completion percentages or indeterminate loading activity.",
     alsoKnownAs: ["Circular Progress", "Radial Progress", "Progress Ring"],
     roles: ["progressbar"],
-    preferredParent: ["Card", "Container"],
+    preferredParent: ["Container"],
   },
   ProgressIndicator: {
     category: "data-display",
@@ -426,7 +417,7 @@ export const ComponentRegistry = {
       "A visual indicator for workflow progress, typically rendered as a linear bar or staged sequence.",
     alsoKnownAs: ["Progress Bar", "Step Progress", "Task Progress"],
     roles: ["progressbar"],
-    preferredParent: ["Card", "Container", "Table"],
+    preferredParent: ["Container", "Table"],
   },
   ProvidersCard: {
     category: "data-display",
@@ -435,7 +426,7 @@ export const ComponentRegistry = {
       "A card surface for presenting provider-centric summary information and actions.",
     alsoKnownAs: ["Provider Card", "Provider Tile"],
     roles: ["region"],
-    preferredParent: ["Container", "Flex"],
+    preferredParent: ["Container", "Layout"],
   },
   PasswordInput: {
     category: "form",
@@ -444,7 +435,7 @@ export const ComponentRegistry = {
       "A secure text input for password entry with masking behavior.",
     alsoKnownAs: ["Password Field", "Secure Input"],
     roles: ["textbox"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   PhoneInput: {
     category: "form",
@@ -453,7 +444,7 @@ export const ComponentRegistry = {
       "A phone number input with formatting and validation-oriented behavior.",
     alsoKnownAs: ["Telephone Input", "Phone Field"],
     roles: ["textbox"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   Radio: {
     category: "form",
@@ -462,7 +453,7 @@ export const ComponentRegistry = {
       "A mutually exclusive selection control for grouped choices where only one option can be selected.",
     alsoKnownAs: ["Radio Button", "Option Selector", "Single Select Control"],
     roles: ["radio"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   RadioGroup: {
     category: "form",
@@ -471,7 +462,7 @@ export const ComponentRegistry = {
       "A grouped set of Radio controls for selecting exactly one option with shared name, layout orientation, and state handling.",
     alsoKnownAs: ["Single Select Group", "Option Group", "Radio Set"],
     roles: ["radiogroup"],
-    preferredParent: ["Field", "Form", "Card"],
+    preferredParent: ["Field", "Container"],
     props: {
       orientation: {
         type: "enum",
@@ -489,7 +480,7 @@ export const ComponentRegistry = {
       "A constrained overflow region for content that requires vertical or horizontal scrolling.",
     alsoKnownAs: ["Scrollable Container", "Scroll Region"],
     roles: ["region"],
-    preferredParent: ["AppShell", "Container", "Card"],
+    preferredParent: ["AppShell", "Container"],
   },
   SearchInput: {
     category: "form",
@@ -498,7 +489,7 @@ export const ComponentRegistry = {
       "A query-focused input used for search and filter interactions.",
     alsoKnownAs: ["Search Field", "Search Box"],
     roles: ["searchbox"],
-    preferredParent: ["Field", "Form", "Menu"],
+    preferredParent: ["Field", "Container", "Menu"],
   },
   SectionHeader: {
     category: "layout",
@@ -507,7 +498,7 @@ export const ComponentRegistry = {
       "A heading row pattern for section title, supporting text, and optional actions.",
     alsoKnownAs: ["Section Title Row", "Subheader"],
     roles: ["heading"],
-    preferredParent: ["Container", "Card", "Flex"],
+    preferredParent: ["Container", "Layout"],
   },
   Slider: {
     category: "form",
@@ -516,7 +507,7 @@ export const ComponentRegistry = {
       "A draggable range control for selecting numeric values with continuous or stepped adjustments.",
     alsoKnownAs: ["Range Slider", "Range Input", "Value Slider"],
     roles: ["slider"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   SelectableCard: {
     category: "data-display",
@@ -525,7 +516,7 @@ export const ComponentRegistry = {
       "An interactive row/card surface for selectable list content with leading, content, status, and trailing action slots.",
     alsoKnownAs: ["Selectable Row", "List Card", "Selectable Tile"],
     roles: ["button"],
-    preferredParent: ["Container", "Flex", "AppShell"],
+    preferredParent: ["Container", "Layout", "AppShell"],
   },
   Status: {
     category: "data-display",
@@ -534,7 +525,7 @@ export const ComponentRegistry = {
       "A semantic indicator communicating system, object, or process condition with color, iconography, and text.",
     alsoKnownAs: ["Status Indicator", "State Indicator", "System Status"],
     roles: ["status"],
-    preferredParent: ["Table", "Card", "Flex"],
+    preferredParent: ["Table", "Container", "Layout"],
   },
   Statistics: {
     category: "data-display",
@@ -543,7 +534,7 @@ export const ComponentRegistry = {
       "A metric display component for KPI values with optional trend indication, helper context, and icon.",
     alsoKnownAs: ["Stat Card", "KPI Tile", "Metric Card", "KPI Summary"],
     roles: ["status"],
-    preferredParent: ["Card", "Container", "Flex"],
+    preferredParent: ["Container", "Layout"],
     props: {
       appearance: {
         type: "enum",
@@ -566,7 +557,7 @@ export const ComponentRegistry = {
       "A structured sequence component for multi-step workflows showing completed, current, and upcoming stages.",
     alsoKnownAs: ["Stepper", "Workflow Steps", "Process Steps", "Step Navigation"],
     roles: ["navigation"],
-    preferredParent: ["Container", "Card"],
+    preferredParent: ["Container"],
   },
   Table: {
     category: "data-display",
@@ -575,7 +566,7 @@ export const ComponentRegistry = {
       "A row-and-column data grid supporting sorting/filtering hooks and row-level actions with accessible structure.",
     alsoKnownAs: ["Data Table", "Data Grid", "Grid View"],
     roles: ["table"],
-    preferredParent: ["Container", "Card"],
+    preferredParent: ["Container"],
   },
   Tabs: {
     category: "navigation",
@@ -584,7 +575,7 @@ export const ComponentRegistry = {
       "A segmented navigation pattern for switching between related content areas within a shared container.",
     alsoKnownAs: ["Tab Navigation", "Tab Bar", "Tabbed Interface"],
     roles: ["tablist"],
-    preferredParent: ["Container", "Card"],
+    preferredParent: ["Container"],
   },
   Tag: {
     category: "data-display",
@@ -593,7 +584,7 @@ export const ComponentRegistry = {
       "A compact metadata label for categorization, filtering, and visual grouping of related elements.",
     alsoKnownAs: ["Label", "Category Tag", "Metadata Tag", "Pill", "Capsule Label", "Rounded Tag"],
     roles: ["status"],
-    preferredParent: ["Table", "Card", "Flex"],
+    preferredParent: ["Table", "Container", "Layout"],
   },
   Text: {
     category: "data-display",
@@ -602,7 +593,7 @@ export const ComponentRegistry = {
       "A typography component that adapts semantic styling and theme-aware text contrast across active brand and mode.",
     alsoKnownAs: ["ThemeText", "Themed Text", "Semantic Text", "Adaptive Text"],
     roles: ["text"],
-    preferredParent: ["Container", "Card", "Field", "Dialog"],
+    preferredParent: ["Container", "Field", "Dialog"],
   },
   TextInput: {
     category: "form",
@@ -611,7 +602,7 @@ export const ComponentRegistry = {
       "A single-line input used for textual values such as names, titles, and search queries.",
     alsoKnownAs: ["Input Field", "Text Field", "Input Box"],
     roles: ["textbox"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
     props: {
       size: {
         type: "enum",
@@ -629,7 +620,7 @@ export const ComponentRegistry = {
       "A multi-line text input for longer content such as descriptions, comments, and notes.",
     alsoKnownAs: ["Multi-line Input", "Text Area Field", "Long Text Input"],
     roles: ["textbox"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   TimeInput: {
     category: "form",
@@ -638,7 +629,7 @@ export const ComponentRegistry = {
       "A time-specific input used for schedule and appointment entry.",
     alsoKnownAs: ["Time Field", "Clock Input"],
     roles: ["textbox"],
-    preferredParent: ["Field", "Form"],
+    preferredParent: ["Field", "Container"],
   },
   Toolbar: {
     category: "layout",
@@ -665,7 +656,7 @@ export const ComponentRegistry = {
       "A binary switch for enabling or disabling a persistent setting or feature state.",
     alsoKnownAs: ["Switch", "Toggle Switch", "On-Off Switch"],
     roles: ["switch"],
-    preferredParent: ["Field", "Form", "Menu"],
+    preferredParent: ["Field", "Container", "Menu"],
     props: {
       size: {
         type: "enum",

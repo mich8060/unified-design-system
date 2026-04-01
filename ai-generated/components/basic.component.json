@@ -21,7 +21,7 @@
     "timestamp": "2026-03-18T00:00:00.000Z",
     "model": "assistant",
     "promptHash": "basic-component-example",
-    "udsVersion": "0.2.48",
+    "udsVersion": "0.2.55",
     "manifestVersion": "1.0.0",
     "policyVersion": "1.0.0",
     "componentsUsed": [

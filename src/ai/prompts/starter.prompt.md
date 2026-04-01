@@ -15,6 +15,9 @@ Hard rules:
 - Load icon options from `@chg-ds/unified-design-system/ai/icons` (alias: `@chg-ds/unified-design-system/ai/icons.json`) before assigning any icon prop.
 - Default `Container` to `appearance=\"transparent\"` and `padding=\"large\"` (24px) unless overridden by explicit requirements.
 - Default `Menu.showSearch` to `false` unless search is explicitly required.
+- Load `@chg-ds/unified-design-system/ai/examples/layout-recipes` before generating any page scaffold.
+- Use `recommendedByIntent.firstChoice` from `layout-recipes` as the starting point for each page.
+- Only switch to an alternate recipe when the requested page clearly requires a wizard, calendar, table-heavy, sidepanel, list-detail, or pricing variation.
 
 Required layout scaffold:
 - App root must be wrapped in `BrowserRouter` (or `RouterProvider`) before rendering any UDS component that consumes routing.
@@ -36,5 +39,6 @@ Brand menu requirements:
 
 Output guidance:
 - Return code that imports UDS components directly from package exports.
-- Prefer `Flex`, `Container`, `Card`, `Text`, `Button`, `Menu`, `Toolbar`, `Statistics`, and `Checklist` where appropriate.
+- Prefer `Layout`, `Container`, `Text`, `Button`, `Menu`, `Toolbar`, `Statistics`, and `Checklist` where appropriate.
 - Ensure no Tailwind tokens/classes appear anywhere in source.
+- For each page scaffold, record the chosen recipe id in implementation notes or generation audit where available.

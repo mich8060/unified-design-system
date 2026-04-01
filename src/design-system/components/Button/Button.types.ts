@@ -27,6 +27,8 @@ export interface ButtonProps
   layout?: ButtonLayout;
   size?: ButtonSize;
   icon?: string | ReactNode;
+  startSlot?: ReactNode;
+  endSlot?: ReactNode;
   iconSize?: number;
   icons?: ReactNode;
   children?: ReactNode;

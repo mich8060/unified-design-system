@@ -28,9 +28,9 @@ Simple colored dot indicator for status display.
 ### In a table
 ```jsx
 render: (value) => (
-  <Flex gap="8" alignItems="center">
+  <Layout gap="8" alignItems="center">
     <DotStatus color={value === "Active" ? "green" : "gray"} />
     <span>{value}</span>
-  </Flex>
+  </Layout>
 )
 ```

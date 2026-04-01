@@ -59,6 +59,12 @@
         }
     }
 
+    &__slot {
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
+    }
+
     &__label {
         display: inline-block;
         padding: 0 var(--uds-spacing-4);

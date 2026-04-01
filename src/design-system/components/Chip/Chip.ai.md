@@ -27,11 +27,11 @@ Interactive label component for filters, selections, or tags with optional icon 
 
 ### Filter chips
 ```jsx
-<Flex gap="8">
+<Layout gap="8">
   <Chip label="All" selected onClick={() => setFilter("all")} />
   <Chip label="Active" onClick={() => setFilter("active")} />
   <Chip label="Archived" onClick={() => setFilter("archived")} />
-</Flex>
+</Layout>
 ```
 
 ### With icon and badge

@@ -136,7 +136,7 @@ const [open, setOpen] = useState(false);
 
 ## Composition
 
-- Use `<Flex>` or button groups in the `footer` for action layouts
+- Use `<Layout>` or button groups in the `footer` for action layouts
 - Wrap form fields with `<Field>` inside the body
 - Combine with `<Steps>` for wizard / multi-step flows
 - Use `<Divider>` to separate content sections within the body

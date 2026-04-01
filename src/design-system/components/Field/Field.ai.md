@@ -43,7 +43,7 @@ Form field wrapper providing label, helper text, error messages, and required in
 
 ### Complete form
 ```jsx
-<Flex direction="column" gap="16">
+<Layout direction="column" gap="16">
   <Field label="Name" required>
     <Input value={name} onChange={e => setName(e.target.value)} />
   </Field>
@@ -53,11 +53,11 @@ Form field wrapper providing label, helper text, error messages, and required in
   <Field label="Bio" helperText="Tell us about yourself">
     <Textarea value={bio} onChange={e => setBio(e.target.value)} maxLength={500} />
   </Field>
-  <Flex justifyContent="flex-end" gap="8">
+  <Layout justifyContent="flex-end" gap="8">
     <Button label="Cancel" appearance="outline" />
     <Button label="Save" />
-  </Flex>
-</Flex>
+  </Layout>
+</Layout>
 ```
 
 ## Do's and Don'ts

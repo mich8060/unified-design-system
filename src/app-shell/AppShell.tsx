@@ -226,6 +226,13 @@ function AppShellComponent({
     const hasSidebarMenu = !standalone && config.sidebar && hasRenderableContent(customMenu);
     const hasListview = hasRenderableContent(customListview);
     const hasSidePanel = hasRenderableContent(customSidePanel);
+    const contentClassName = [
+        "app-shell__content",
+        hasListview ? "app-shell__content--has-listview" : "",
+        hasSidePanel ? "app-shell__content--has-side-panel" : "",
+    ]
+        .filter(Boolean)
+        .join(" ");
 
     const shellClass = [
         "app-shell",
@@ -261,7 +268,7 @@ function AppShellComponent({
                             />
                         )}
                         center={(
-                            <Branding brand={resolvedMobileBrandLabel} symbol />
+                            <Branding brand={resolvedMobileBrandLabel} size="small" />
                         )}
                         right={(
                             <ActionMenu
@@ -289,7 +296,7 @@ function AppShellComponent({
                     </aside>
                 ) : null}
                 <div className="app-shell__main">
-                    <main className="app-shell__content" id={resolvedMainContentId} tabIndex={-1}>
+                    <main className={contentClassName} id={resolvedMainContentId} tabIndex={-1}>
                         {hasListview ? (
                             <aside className="app-shell__listview">{customListview}</aside>
                         ) : null}

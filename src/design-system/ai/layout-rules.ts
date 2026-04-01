@@ -3,7 +3,7 @@ import type { LayoutRule } from "./types";
 export const UDS_LAYOUT_RULES: readonly LayoutRule[] = [
   {
     id: "lr-001",
-    rule: "Use `Flex` for horizontal/vertical layout before custom wrappers.",
+    rule: "Use `Layout` for horizontal/vertical layout before custom wrappers.",
     rationale: "Keeps spacing and alignment behavior consistent across products.",
   },
   {

@@ -2,7 +2,7 @@
   "generationId": "replace-me",
   "promptSummary": "replace-me",
   "versionLineage": {
-    "udsVersion": "0.2.12",
+    "udsVersion": "0.2.55",
     "tokenVersion": "1.0.0",
     "manifestVersion": "1.0.0",
     "policyVersion": "1.0.0"

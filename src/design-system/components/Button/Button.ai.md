@@ -61,19 +61,19 @@ Primary action trigger component supporting multiple visual styles, sizes, and i
 
 ### Action bar pattern
 ```jsx
-<Flex gap="8" justifyContent="flex-end">
+<Layout gap="8" justifyContent="flex-end">
   <Button label="Cancel" appearance="outline" onClick={onCancel} />
   <Button label="Save Changes" icon="FloppyDisk" layout="icon-left" onClick={onSave} />
-</Flex>
+</Layout>
 ```
 
 ### Toolbar with icon-only buttons
 ```jsx
-<Flex gap="4">
+<Layout gap="4">
   <Button icon="TextB" layout="icon-only" appearance="ghost" aria-label="Bold" />
   <Button icon="TextItalic" layout="icon-only" appearance="ghost" aria-label="Italic" />
   <Button icon="TextUnderline" layout="icon-only" appearance="ghost" aria-label="Underline" />
-</Flex>
+</Layout>
 ```
 
 ### Data tracking

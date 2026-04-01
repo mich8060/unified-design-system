@@ -4,6 +4,11 @@
   "description": "Curated JSONL datasets for AI training and few-shot grounding.",
   "files": [
     {
+      "id": "layout-recipes",
+      "path": "@chg-ds/unified-design-system/ai/examples/layout-recipes",
+      "kind": "canonical-layout-recipes"
+    },
+    {
       "id": "signin-flow",
       "path": "@chg-ds/unified-design-system/ai/examples/signin-flow-uds.jsonl",
       "kind": "scenario-flow"
