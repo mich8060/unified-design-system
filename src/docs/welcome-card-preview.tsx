@@ -73,7 +73,7 @@ export function WelcomeCardPreview({ slug }: { slug: string }) {
     <div
       data-welcome-card-preview
       className={cn(
-        '-mx-4 mb-5 box-border flex min-w-0 w-[calc(100%+2rem)] max-w-none shrink-0 flex-col overflow-hidden rounded-t-[8px] border-t border-uds-border-primary bg-uds-surface-tertiary py-0 dark:bg-uds-surface-secondary',
+        '-mx-4 mb-5 box-border flex min-w-0 w-[calc(100%+2rem)] max-w-none shrink-0 flex-col overflow-hidden rounded-t-[12px] border-t border-uds-border-primary bg-uds-surface-tertiary py-0 dark:bg-uds-surface-secondary',
         slug === 'accordion' ? 'px-3' : 'px-6',
       )}
       style={{ height: WELCOME_PREVIEW_STRIP_HEIGHT_PX }}

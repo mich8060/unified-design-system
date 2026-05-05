@@ -284,17 +284,69 @@ export function getCustomSections(slug: string): DocSection[] | undefined {
     case 'iconography':
       return [
         sec(
-          'stroke-fill',
-          'Icons via the package (`uds-icons`)',
+          'phosphor-examples',
+          'Phosphor icons via `Icon`',
           `import { Icon } from "@chg-ds/unified-design-system"
 
-<Icon name="CircleIcon" className="size-8 text-violet-600" aria-hidden />
-<Icon name="MagnifyingGlassIcon" className="size-8 text-emerald-600" aria-hidden />`,
-          <div className="flex flex-wrap items-center gap-6">
-            <Icon name="CircleIcon" className="size-8 text-violet-600 dark:text-violet-400" aria-hidden />
-            <Icon name="MagnifyingGlassIcon" className="size-8 text-emerald-600 dark:text-emerald-400" aria-hidden />
+// Decorative: pair with text or aria-label on controls
+<Icon name="HouseIcon" className="size-6 text-neutral-700 dark:text-neutral-200" aria-hidden />
+<Icon name="MagnifyingGlassIcon" className="size-6 text-neutral-700 dark:text-neutral-200" aria-hidden />
+<Icon name="BellIcon" className="size-6 text-neutral-700 dark:text-neutral-200" aria-hidden />
+// …additional names come from UDS_ICON_REGISTRY (Phosphor \`@phosphor-icons/react\`)`,
+          <div className="space-y-8">
+            <div>
+              <p className="mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                Stroke / fill color
+              </p>
+              <div className="flex flex-wrap items-center gap-6">
+                <Icon name="CircleIcon" className="size-8 text-violet-600 dark:text-violet-400" aria-hidden />
+                <Icon name="MagnifyingGlassIcon" className="size-8 text-emerald-600 dark:text-emerald-400" aria-hidden />
+              </div>
+            </div>
+            <div>
+              <p className="mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                Example glyphs (registered set)
+              </p>
+              <div className="grid grid-cols-4 gap-3 sm:grid-cols-6 md:grid-cols-8">
+                {(
+                  [
+                    ['HouseIcon', 'House'],
+                    ['MagnifyingGlassIcon', 'Search'],
+                    ['BellIcon', 'Bell'],
+                    ['CalendarBlankIcon', 'Calendar'],
+                    ['UserIcon', 'User'],
+                    ['UsersThreeIcon', 'Users'],
+                    ['GearSixIcon', 'Settings'],
+                    ['EnvelopeIcon', 'Mail'],
+                    ['CheckCircleIcon', 'Success'],
+                    ['WarningCircleIcon', 'Warning'],
+                    ['AirplaneIcon', 'Travel'],
+                    ['CameraIcon', 'Camera'],
+                    ['ChartBarIcon', 'Charts'],
+                    ['WalletIcon', 'Wallet'],
+                    ['SparkleIcon', 'Sparkle'],
+                    ['ChatCircleDotsIcon', 'Chat'],
+                    ['PhoneIcon', 'Phone'],
+                    ['FileTextIcon', 'Document'],
+                    ['FolderOpenIcon', 'Folder'],
+                    ['LayoutIcon', 'Layout'],
+                  ] as const
+                ).map(([name, label]) => (
+                  <div
+                    key={name}
+                    className="flex flex-col items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-2 py-3 dark:border-neutral-700 dark:bg-neutral-900/50"
+                    title={name}
+                  >
+                    <Icon name={name} className="size-6 text-neutral-800 dark:text-neutral-100" aria-hidden />
+                    <span className="text-center text-[10px] leading-tight text-neutral-500 dark:text-neutral-400">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>,
-          'Add new keys to `UDS_ICON_REGISTRY` in `src/components/ui/uds-icons.tsx` when you need a glyph that is not registered yet.',
+          'Icons are Phosphor React components re-exported through `UDS_ICON_REGISTRY` in `src/components/ui/uds-icons.tsx`. Add a new import from `@phosphor-icons/react`, register it there, and use `<Icon name="…Icon" />` so apps never import the vendor package directly.',
         ),
       ]
     case 'accessibility':

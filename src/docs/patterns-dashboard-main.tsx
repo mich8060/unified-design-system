@@ -23,7 +23,9 @@ createRoot(document.getElementById('root')!).render(
         <TooltipProvider>
           <Toaster />
           <div className="min-h-screen bg-neutral-100 p-4 dark:bg-neutral-950">
-            <PatternsDashboardCanvas />
+            <div className="mx-auto w-full max-w-[1280px]">
+              <PatternsDashboardCanvas />
+            </div>
           </div>
         </TooltipProvider>
       </IconContext.Provider>

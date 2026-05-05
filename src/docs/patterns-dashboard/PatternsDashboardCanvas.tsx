@@ -105,7 +105,7 @@ export function PatternsDashboardCanvas() {
     const [microCalendarValue, setMicroCalendarValue] = useState<Date | undefined>(() => new Date(2026, 3, 1))
 
     return (
-        <div className="box-border min-h-0 w-full max-w-[1600px] font-sans">
+        <div className="box-border min-h-0 w-full max-w-[1280px] font-sans">
             <p className="mb-3 text-sm text-[var(--uds-text-secondary)]">
                 CRM dashboard preview: brand-aware <code className="rounded bg-[var(--uds-surface-tertiary)] px-1">Menu</code>{' '}
                 sidebar with its standard header (collapse control + branding) and UDS tokens in the main canvas.

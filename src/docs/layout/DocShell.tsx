@@ -35,7 +35,7 @@ import {
   cn,
 } from '@chg-ds/unified-design-system'
 import { DoctorAvatar } from '@/components/ui/doctor-avatar'
-import { applyDocsBrandToDocument, docsBrandToBrandingAppearance, persistDocsBrand } from '../doc-site-brand'
+import { applyDocsBrandToDocument, docsBrandToBrandingAppearance, readStoredDocsBrand } from '../doc-site-brand'
 import {
   DOCS_VERSION_OPTIONS,
   persistDocsVersion,
@@ -44,6 +44,7 @@ import {
 } from '../doc-site-version'
 import { getAllComponents } from '../registry'
 import { getAllShadcnUiComponents } from '../shadcn-ui-registry'
+import { docPageHeroColumnNarrowClassName, docPageHorizontalGutterClassName } from '../doc-page-hero-classes'
 import { AccountMenuPanel } from './doc-shell-account-menu'
 import { DocsRailMenu, getRailFlyoutPositionFromAnchor } from './docs-rail-menu'
 import { SIDEBAR_EXPANDED_PX, SIDEBAR_MINIMIZED_PX } from './doc-shell-constants'
@@ -78,10 +79,9 @@ export function DocShell() {
     document.documentElement.classList.toggle('dark', !light)
   }, [light])
 
-  /** Site chrome always uses default tokens; brand previews are scoped on the Introduction page only. */
+  /** Site chrome follows the stored site brand (Connect by default). */
   useEffect(() => {
-    applyDocsBrandToDocument('default')
-    persistDocsBrand('default')
+    applyDocsBrandToDocument(readStoredDocsBrand())
   }, [])
 
   useEffect(() => {
@@ -246,7 +246,7 @@ export function DocShell() {
                         className="pointer-events-auto inline-flex items-center justify-center rounded-md outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950"
                       >
                         <Branding
-                          appearance={docsBrandToBrandingAppearance('default')}
+                          appearance={docsBrandToBrandingAppearance(readStoredDocsBrand())}
                           wordmarkAlign="center"
                           className="h-14 w-[188px] min-w-[188px] max-w-[188px] shrink-0"
                         />
@@ -262,7 +262,7 @@ export function DocShell() {
                         )}
                       >
                         <Branding
-                          appearance={docsBrandToBrandingAppearance('default')}
+                          appearance={docsBrandToBrandingAppearance(readStoredDocsBrand())}
                           symbol
                           className="size-9"
                         />
@@ -632,13 +632,15 @@ export function DocShell() {
 function DocsContentFallback() {
   return (
     <div
-      className="mx-auto max-w-4xl space-y-4 px-8 py-10 lg:max-w-5xl"
+      className={cn(docPageHorizontalGutterClassName, 'py-10')}
       aria-busy
       aria-label="Loading page"
     >
+      <div className={cn(docPageHeroColumnNarrowClassName, 'space-y-4')}>
       <div className="h-8 w-48 animate-pulse rounded-md bg-neutral-200 dark:bg-neutral-800" />
       <div className="h-4 max-w-xl animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
       <div className="h-4 max-w-lg animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
+      </div>
     </div>
   )
 }

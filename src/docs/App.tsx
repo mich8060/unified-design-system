@@ -32,7 +32,7 @@ import {
   type MenuNavigationItem,
 } from '@chg-ds/unified-design-system'
 import { CATALOG_META } from './catalog-meta'
-import { applyDocsBrandToDocument, persistDocsBrand } from './doc-site-brand'
+import { applyDocsBrandToDocument, readStoredDocsBrand } from './doc-site-brand'
 import { DOCS_VERSION_OPTIONS } from './doc-site-version'
 import { getAllShadcnUiComponents } from './shadcn-ui-registry'
 
@@ -179,7 +179,7 @@ function DocsLayout() {
   )
 
   return (
-    <AppShell>
+    <AppShell className="min-h-dvh min-w-0 w-full max-w-full overflow-x-hidden">
       <AppShell.Menu>
         <Menu
           navigationItems={NAVIGATION_ITEMS}
@@ -223,6 +223,25 @@ function DocsLayout() {
 
 const DOCS_SCROLL_STORAGE_PREFIX = 'uds-docs:win-scroll:'
 
+/** Docs chrome scrolls inside `.appshell--main`, not `window` (see `app-shell.scss`). */
+function getDocsScrollParent(): HTMLElement | null {
+  return document.querySelector('[data-slot="appshell"] .appshell--main')
+}
+
+function readDocsScrollTop(): number {
+  const el = getDocsScrollParent()
+  return el ? el.scrollTop : window.scrollY
+}
+
+function setDocsScrollTop(y: number) {
+  const el = getDocsScrollParent()
+  if (el) {
+    el.scrollTop = y
+  } else {
+    window.scrollTo(0, y)
+  }
+}
+
 function readStoredScrollY(key: string): number | null {
   try {
     const raw = sessionStorage.getItem(DOCS_SCROLL_STORAGE_PREFIX + key)
@@ -244,7 +263,9 @@ function writeStoredScrollY(key: string, y: number) {
 
 /**
  * PUSH/REPLACE (e.g. sidebar nav): scroll to top.
- * POP (back/forward): restore window scroll for that history entry.
+ * POP (back/forward): restore scroll for that history entry.
+ *
+ * Uses `.appshell--main` when present; otherwise falls back to `window`.
  */
 function DocWindowScrollRestoration() {
   const location = useLocation()
@@ -263,32 +284,33 @@ function DocWindowScrollRestoration() {
     if (navigationType === 'POP') {
       const y = readStoredScrollY(key)
       const nextY = y ?? 0
-      window.scrollTo(0, nextY)
+      setDocsScrollTop(nextY)
       lastScrollY.current = nextY
     } else {
-      window.scrollTo(0, 0)
+      setDocsScrollTop(0)
       lastScrollY.current = 0
     }
   }, [key, navigationType])
 
   useEffect(() => {
+    const el = getDocsScrollParent()
     const onScroll = () => {
-      lastScrollY.current = window.scrollY
+      lastScrollY.current = readDocsScrollTop()
     }
-    window.addEventListener('scroll', onScroll, { passive: true })
+    const target: EventTarget | null = el ?? window
+    target.addEventListener('scroll', onScroll, { passive: true })
     return () => {
-      window.removeEventListener('scroll', onScroll)
+      target.removeEventListener('scroll', onScroll)
     }
   }, [key])
 
   return null
 }
 
-/** Documentation chrome uses default brand tokens globally; scoped previews set `data-brand` locally. */
+/** Documentation chrome follows the stored site brand (Connect by default); scoped previews set `data-brand` locally. */
 function DocsGlobalDefaultBrand() {
   useEffect(() => {
-    applyDocsBrandToDocument('default')
-    persistDocsBrand('default')
+    applyDocsBrandToDocument(readStoredDocsBrand())
   }, [])
   return null
 }

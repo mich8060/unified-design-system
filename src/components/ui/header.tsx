@@ -29,7 +29,7 @@ function Header({ className, children, trailing, searchProps, ...props }: Header
       {...props}
     >
       {children ?? (
-        <div className="relative min-w-0 flex-1 md:max-w-md">
+        <div className="relative min-w-0 w-[600px] max-w-full shrink-0">
           <SearchInput
             inputSize="sm"
             variant="shortcut"

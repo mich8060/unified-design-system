@@ -1,7 +1,7 @@
 @reference "../../styles.css";
 
 .patterns-dashboard-frame {
-    @apply box-border w-full overflow-hidden rounded-[4px] border border-[var(--uds-border-primary)] shadow-sm;
+    @apply mx-auto box-border w-full max-w-[1280px] overflow-hidden rounded-[4px] border border-[var(--uds-border-primary)] shadow-sm;
     position: relative;
     height: min(920px, 92vh);
 }

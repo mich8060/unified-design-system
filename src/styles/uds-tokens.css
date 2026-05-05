@@ -1,51 +1,52 @@
 /** Unified design system tokens (compiled CSS from tokens.zip). Source: unified-design-system design-system/tokens. Re-copy when tokens change. `.theme-dark` selectors extended with `.dark` for Tailwind/shadcn. */
+/* Default / :root brand scale matches Connect product tokens (neutral “default” is no longer a separate grayscale). */
 :root,
 .brand-default,
 [data-brand=default] {
-  --brand-primary-25: #F7F7F7;
-  --brand-primary-50: #EFEFEF;
-  --brand-primary-100: #D9D9D9;
-  --brand-primary-200: #BDBDBD;
-  --brand-primary-300: #9E9E9E;
-  --brand-primary-400: #7A7A7A;
-  --brand-primary-500: #5C5C5C;
-  --brand-primary-600: #444444;
-  --brand-primary-700: #2F2F2F;
-  --brand-primary-800: #1F1F1F;
-  --brand-primary-900: #111111;
-  --brand-secondary-25: #EFF2F5;
-  --brand-secondary-50: #E6EBF0;
-  --brand-secondary-100: #BFCDDB;
-  --brand-secondary-200: #97ADC3;
-  --brand-secondary-300: #708CAA;
-  --brand-secondary-400: #4F7499;
-  --brand-secondary-500: #295D8B;
-  --brand-secondary-600: #215583;
-  --brand-secondary-700: #174B77;
-  --brand-secondary-800: #12416B;
-  --brand-secondary-900: #0F3152;
-  --brand-tertiary-25: #FEFBF5;
-  --brand-tertiary-50: #FEF8EE;
-  --brand-tertiary-100: #FEEFD6;
-  --brand-tertiary-200: #FBDCAD;
-  --brand-tertiary-300: #F9C278;
-  --brand-tertiary-400: #F59E42;
-  --brand-tertiary-500: #F2821F;
-  --brand-tertiary-600: #E36613;
-  --brand-tertiary-700: #BC4D12;
-  --brand-tertiary-800: #963E16;
-  --brand-tertiary-900: #793515;
-  --brand-quaternary-25: #F2FAFD;
-  --brand-quaternary-50: #E3F5FA;
-  --brand-quaternary-100: #AEE0F4;
-  --brand-quaternary-200: #78CBEC;
-  --brand-quaternary-300: #41B7E5;
-  --brand-quaternary-400: #00A7E1;
-  --brand-quaternary-500: #009ADD;
-  --brand-quaternary-600: #008DCF;
-  --brand-quaternary-700: #0C6BB0;
-  --brand-quaternary-800: #006AA8;
-  --brand-quaternary-900: #004B88;
+  --brand-primary-25: #FAFDFF;
+  --brand-primary-50: #EFFAFF;
+  --brand-primary-100: #DEF4FF;
+  --brand-primary-200: #B6EBFF;
+  --brand-primary-300: #75DDFF;
+  --brand-primary-400: #2CCDFF;
+  --brand-primary-500: #029ED3;
+  --brand-primary-600: #0093D4;
+  --brand-primary-700: #0075AB;
+  --brand-primary-800: #00638D;
+  --brand-primary-900: #065274;
+  --brand-secondary-25: #FFF9F5;
+  --brand-secondary-50: #FEF4ED;
+  --brand-secondary-100: #FDE6D5;
+  --brand-secondary-200: #FBCDA9;
+  --brand-secondary-300: #F8AD74;
+  --brand-secondary-400: #F68C3B;
+  --brand-secondary-500: #F47615;
+  --brand-secondary-600: #F5822A;
+  --brand-secondary-700: #C55B09;
+  --brand-secondary-800: #A44C08;
+  --brand-secondary-900: #883E06;
+  --brand-tertiary-25: #FCFFF0;
+  --brand-tertiary-50: #FAFFE5;
+  --brand-tertiary-100: #F2FFC7;
+  --brand-tertiary-200: #E5FF95;
+  --brand-tertiary-300: #D1FE58;
+  --brand-tertiary-400: #BAF526;
+  --brand-tertiary-500: #9BDC06;
+  --brand-tertiary-600: #80BC00;
+  --brand-tertiary-700: #5A8506;
+  --brand-tertiary-800: #49690B;
+  --brand-tertiary-900: #3D580F;
+  --brand-quaternary-25: #F8F7F7;
+  --brand-quaternary-50: #F4F3F2;
+  --brand-quaternary-100: #E4E1DD;
+  --brand-quaternary-200: #CAC5BE;
+  --brand-quaternary-300: #ACA398;
+  --brand-quaternary-400: #94887B;
+  --brand-quaternary-500: #85786D;
+  --brand-quaternary-600: #6F625A;
+  --brand-quaternary-700: #5C514C;
+  --brand-quaternary-800: #504643;
+  --brand-quaternary-900: #473E3C;
 }
 
 .brand-comphealth,
@@ -1172,54 +1173,54 @@
   --system-color-neutrals-800: #27272a;
   --system-color-neutrals-900: #18181b;
   --system-color-neutrals-1000: #09090b;
-  /* Brand Colors - Primary */
-  --system-color-primary-25: #f2fafd;
-  --system-color-primary-50: #e3f5fa;
-  --system-color-primary-100: #aee0f4;
-  --system-color-primary-200: #78cbec;
-  --system-color-primary-300: #41b7e5;
-  --system-color-primary-400: #00a7e1;
-  --system-color-primary-500: #009add;
-  --system-color-primary-600: #008dcf;
-  --system-color-primary-700: #0c6bb0;
-  --system-color-primary-800: #006aa8;
-  --system-color-primary-900: #004b88;
+  /* Brand Colors - Primary (Connect-aligned default) */
+  --system-color-primary-25: #fafdff;
+  --system-color-primary-50: #effaff;
+  --system-color-primary-100: #def4ff;
+  --system-color-primary-200: #b6ebff;
+  --system-color-primary-300: #75ddff;
+  --system-color-primary-400: #2ccdff;
+  --system-color-primary-500: #029ed3;
+  --system-color-primary-600: #0093d4;
+  --system-color-primary-700: #0075ab;
+  --system-color-primary-800: #00638d;
+  --system-color-primary-900: #065274;
   /* Brand Colors - Secondary */
-  --system-color-secondary-25: #fefbf5;
-  --system-color-secondary-50: #fef8ee;
-  --system-color-secondary-100: #feefd6;
-  --system-color-secondary-200: #fbdcad;
-  --system-color-secondary-300: #f9c278;
-  --system-color-secondary-400: #f59e42;
-  --system-color-secondary-500: #f2821f;
-  --system-color-secondary-600: #e36613;
-  --system-color-secondary-700: #bc4d12;
-  --system-color-secondary-800: #963e16;
-  --system-color-secondary-900: #793515;
+  --system-color-secondary-25: #fff9f5;
+  --system-color-secondary-50: #fef4ed;
+  --system-color-secondary-100: #fde6d5;
+  --system-color-secondary-200: #fbcda9;
+  --system-color-secondary-300: #f8ad74;
+  --system-color-secondary-400: #f68c3b;
+  --system-color-secondary-500: #f47615;
+  --system-color-secondary-600: #f5822a;
+  --system-color-secondary-700: #c55b09;
+  --system-color-secondary-800: #a44c08;
+  --system-color-secondary-900: #883e06;
   /* Brand Colors - Tertiary */
-  --system-color-tertiary-25: #eff2f5;
-  --system-color-tertiary-50: #e6ebf0;
-  --system-color-tertiary-100: #bfcddb;
-  --system-color-tertiary-200: #97adc3;
-  --system-color-tertiary-300: #708caa;
-  --system-color-tertiary-400: #4f7499;
-  --system-color-tertiary-500: #295d8b;
-  --system-color-tertiary-600: #215583;
-  --system-color-tertiary-700: #174b77;
-  --system-color-tertiary-800: #12416b;
-  --system-color-tertiary-900: #0f3152;
+  --system-color-tertiary-25: #fcfff0;
+  --system-color-tertiary-50: #faffe5;
+  --system-color-tertiary-100: #f2ffc7;
+  --system-color-tertiary-200: #e5ff95;
+  --system-color-tertiary-300: #d1fe58;
+  --system-color-tertiary-400: #baf526;
+  --system-color-tertiary-500: #9bdc06;
+  --system-color-tertiary-600: #80bc00;
+  --system-color-tertiary-700: #5a8506;
+  --system-color-tertiary-800: #49690b;
+  --system-color-tertiary-900: #3d580f;
   /* Brand Colors - Quaternary */
-  --system-color-quaternary-25: #fefdf6;
-  --system-color-quaternary-50: #fdfbed;
-  --system-color-quaternary-100: #f8f3cb;
-  --system-color-quaternary-200: #f1e796;
-  --system-color-quaternary-300: #ead55f;
-  --system-color-quaternary-400: #f8ca10;
-  --system-color-quaternary-500: #fbb03a;
-  --system-color-quaternary-600: #c3841c;
-  --system-color-quaternary-700: #a26e1b;
-  --system-color-quaternary-800: #845c1c;
-  --system-color-quaternary-900: #6d4d1a;
+  --system-color-quaternary-25: #f8f7f7;
+  --system-color-quaternary-50: #f4f3f2;
+  --system-color-quaternary-100: #e4e1dd;
+  --system-color-quaternary-200: #cac5be;
+  --system-color-quaternary-300: #aca398;
+  --system-color-quaternary-400: #94887b;
+  --system-color-quaternary-500: #85786d;
+  --system-color-quaternary-600: #6f625a;
+  --system-color-quaternary-700: #5c514c;
+  --system-color-quaternary-800: #504643;
+  --system-color-quaternary-900: #473e3c;
   /* Accent Colors - Amber */
   --system-color-accent-amber-25: #fffbeb;
   --system-color-accent-amber-50: #fef3c7;
@@ -1961,7 +1962,8 @@ body {
   --uds-surface-brand-secondary: var(--uds-color-primary-400);
   --uds-surface-brand-tertiary: var(--uds-color-primary-500);
   --uds-surface-brand-quaternary: var(--uds-color-primary-700);
-  --uds-button-surface-secondary: var(--uds-color-primary-25);
+  /* Matches Connect-style secondary button tint for the default palette and other brands. */
+  --uds-button-surface-secondary: var(--brand-primary-50);
 }
 
 .theme-dark, .dark {

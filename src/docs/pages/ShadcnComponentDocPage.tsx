@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   Breadcrumb,
@@ -6,12 +7,26 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  cn,
 } from '@chg-ds/unified-design-system'
+import {
+  DOCS_COMPONENT_PREVIEW_THEME_VARS,
+  DocsComponentPreviewBrandToolbar,
+  docsPreviewBrandScopeClassName,
+  SHADCN_DOC_BRAND_PREVIEW_SLUGS,
+} from '../components/DocsComponentPreviewBrandToolbar'
 import { CodePanel } from '../components/CodePanel'
 import { PropsTable } from '../components/PropsTable'
+import { readStoredDocsBrand, type DocsBrandId } from '../doc-site-brand'
 import { getShadcnComponentMeta } from '../shadcn-component-meta'
 import { getShadcnComponentProps } from '../shadcn-component-props'
 import { getShadcnExamples } from '../shadcn-examples'
+import {
+  docPageHeroBandClassName,
+  docPageHeroColumnNarrowClassName,
+  docPageHeroShellClassName,
+  docPageHorizontalGutterClassName,
+} from '../doc-page-hero-classes'
 import {
   formatShadcnComponentName,
   getShadcnDocsUrl,
@@ -20,6 +35,7 @@ import {
 
 export function ShadcnComponentDocPage() {
   const { slug } = useParams<{ slug: string }>()
+  const [previewBrand, setPreviewBrand] = useState<DocsBrandId>(() => readStoredDocsBrand())
 
   if (!slug || !isShadcnUiSlug(slug)) {
     return (
@@ -44,6 +60,7 @@ export function ShadcnComponentDocPage() {
   const isMedallion = slug === 'medallion'
   const isDotStatus = slug === 'dot-status'
   const isText = slug === 'text'
+  const showPreviewBrand = Boolean(slug && SHADCN_DOC_BRAND_PREVIEW_SLUGS.has(slug))
 
   function getSectionDescription(title: string, explicitDescription: string | undefined, index: number) {
     if (explicitDescription) return explicitDescription
@@ -55,89 +72,76 @@ export function ShadcnComponentDocPage() {
   }
 
   return (
-    <article className="mx-auto min-w-0 max-w-4xl lg:max-w-5xl">
-      <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen border-b border-neutral-200 bg-neutral-50/80 dark:border-neutral-800 dark:bg-neutral-900/40">
-        <div className="mx-auto max-w-4xl px-8 py-10 lg:max-w-5xl">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to="/">Tailwind CSS</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to="/docs/components/accordion">Components</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>{name}</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+    <article className="w-full min-w-0 max-w-none overflow-x-hidden">
+      <header className={docPageHeroBandClassName}>
+        <div className={docPageHeroShellClassName}>
+          <div className={cn('docs-page-hero', docPageHeroColumnNarrowClassName)}>
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/">Tailwind CSS</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/docs/components/accordion">Components</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{name}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
 
-          <header className="mt-8">
-            <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
-              {name}
-            </h1>
-            <p className="mt-3 max-w-3xl text-base leading-relaxed text-neutral-600 dark:text-neutral-300">
-              {meta.summary}
-            </p>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-neutral-600 dark:text-neutral-300">
-              {isBranding ? (
-                <>
-                  Design-system branding (wordmarks and marks from Figma). Source:{' '}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">
-                    src/components/ui/{slug}.tsx
-                  </code>{' '}
-                  — vector assets live under{' '}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">
-                    public/branding/svg/
-                  </code>
-                  .
-                </>
-              ) : isMedallion ? (
-                <>
-                  Custom UDS component: choose <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">tone=&quot;pastel&quot;</code> (default) or{' '}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">tone=&quot;solid&quot;</code>. Palettes are{' '}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">MEDALLION_PASTEL_PALETTE</code> and{' '}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">MEDALLION_SOLID_PALETTE</code>; the root sets{' '}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">data-tone</code>. Source:{' '}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">
-                    src/components/ui/{slug}.tsx
-                  </code>{' '}
-                  and{' '}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">
-                    medallion-palette.ts
-                  </code>
-                  .
-                </>
-              ) : isDotStatus ? (
-                <>
-                  Small circular status indicator using UDS accent tokens, with optional outline ring. Use beside labels,
-                  list rows, or tabs for availability and severity cues. Source:{' '}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">
-                    src/components/ui/{slug}.tsx
-                  </code>
-                  .
-                </>
-              ) : (
-                <>
-                  This package implementation wraps the underlying primitive with UDS tokens and exports. Source:{' '}
-                  <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-sm dark:bg-neutral-800">
-                    src/components/ui/{slug}.tsx
-                  </code>
-                  .
-                </>
-              )}
-            </p>
-          </header>
+            <div className="mt-8">
+              <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl">{name}</h1>
+              <p className="mt-3 max-w-3xl text-base leading-relaxed text-white/90">{meta.summary}</p>
+              <p className="mt-3 max-w-3xl text-sm leading-6 text-white/80 [&_code]:rounded-md [&_code]:bg-white/20 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:text-white/95 [&_code]:dark:bg-white/20">
+                {isBranding ? (
+                  <>
+                    Design-system branding (wordmarks and marks from Figma). Source:{' '}
+                    <code>src/components/ui/{slug}.tsx</code> — vector assets live under <code>public/branding/svg/</code>.
+                  </>
+                ) : isMedallion ? (
+                  <>
+                    Custom UDS component: choose <code>tone=&quot;pastel&quot;</code> (default) or{' '}
+                    <code>tone=&quot;solid&quot;</code>. Palettes are <code>MEDALLION_PASTEL_PALETTE</code> and{' '}
+                    <code>MEDALLION_SOLID_PALETTE</code>; the root sets <code>data-tone</code>. Source:{' '}
+                    <code>src/components/ui/{slug}.tsx</code> and <code>medallion-palette.ts</code>.
+                  </>
+                ) : isDotStatus ? (
+                  <>
+                    Small circular status indicator using UDS accent tokens, with optional outline ring. Use beside
+                    labels, list rows, or tabs for availability and severity cues. Source:{' '}
+                    <code>src/components/ui/{slug}.tsx</code>.
+                  </>
+                ) : (
+                  <>
+                    This package implementation wraps the underlying primitive with UDS tokens and exports. Source:{' '}
+                    <code>src/components/ui/{slug}.tsx</code>.
+                  </>
+                )}
+              </p>
+            </div>
+          </div>
         </div>
-      </section>
+      </header>
 
-      <div className="space-y-16 px-8 py-12">
+      <div className={docPageHorizontalGutterClassName}>
+        <div className={cn(docPageHeroColumnNarrowClassName, 'space-y-16 py-12')}>
+        {showPreviewBrand ? (
+          <div className="not-prose border-b border-neutral-200 pb-8 dark:border-neutral-800">
+            <DocsComponentPreviewBrandToolbar
+              brand={previewBrand}
+              onBrandChange={setPreviewBrand}
+              selectId={`docs-component-preview-brand-${slug}`}
+              className="mt-0"
+            />
+          </div>
+        ) : null}
         <section className="space-y-4">
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Import</h2>
           {isBranding ? (
@@ -150,24 +154,48 @@ export function ShadcnComponentDocPage() {
           <CodePanel code={importExample} label="Module path" language="typescript" />
         </section>
 
-        {examples.map((section, index) => (
-          <section key={section.id} className="space-y-6">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500 dark:text-neutral-400">
-                Example {index + 1}
-              </p>
-              <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{section.title}</h2>
-              <p className="mt-1 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
-                {getSectionDescription(section.title, section.description, index)}
-              </p>
-            </div>
-            {section.preview}
-            <CodePanel code={section.code} label="Example (JSX)" />
-          </section>
-        ))}
-      </div>
+        {showPreviewBrand ? (
+          <div
+            data-brand={previewBrand}
+            className={cn('min-w-0 space-y-16', docsPreviewBrandScopeClassName(previewBrand))}
+            style={DOCS_COMPONENT_PREVIEW_THEME_VARS}
+          >
+            {examples.map((section, index) => (
+              <section key={section.id} className="space-y-6">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500 dark:text-neutral-400">
+                    Example {index + 1}
+                  </p>
+                  <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{section.title}</h2>
+                  <p className="mt-1 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+                    {getSectionDescription(section.title, section.description, index)}
+                  </p>
+                </div>
+                {section.preview}
+                <CodePanel code={section.code} label="Example (JSX)" />
+              </section>
+            ))}
+          </div>
+        ) : (
+          examples.map((section, index) => (
+            <section key={section.id} className="space-y-6">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500 dark:text-neutral-400">
+                  Example {index + 1}
+                </p>
+                <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{section.title}</h2>
+                <p className="mt-1 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+                  {getSectionDescription(section.title, section.description, index)}
+                </p>
+              </div>
+              {section.preview}
+              <CodePanel code={section.code} label="Example (JSX)" />
+            </section>
+          ))
+        )}
+        </div>
 
-      <section className="border-t border-neutral-200 px-8 pt-12 dark:border-neutral-800">
+        <section className={cn(docPageHeroColumnNarrowClassName, 'border-t border-neutral-200 pt-12 dark:border-neutral-800')}>
         <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Props</h2>
         <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
           {isBranding || isMedallion || isDotStatus ? (
@@ -217,7 +245,8 @@ export function ShadcnComponentDocPage() {
         <div className="mt-6">
           <PropsTable props={getShadcnComponentProps(slug)} variant="component" />
         </div>
-      </section>
+        </section>
+      </div>
     </article>
   )
 }

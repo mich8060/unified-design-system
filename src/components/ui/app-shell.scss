@@ -16,13 +16,19 @@ $listview-width: 320px;
         flex-direction: column;
         flex: 1;
         min-height: 0;
+        /* Match rail offset so width + margin fits the shell (avoids clipping under overflow-x-hidden). */
         margin-left: $menu-expanded;
-        transition: margin-left 200ms ease-out;
+        width: calc(100% - #{$menu-expanded});
+        min-width: 0;
+        transition:
+            margin-left 200ms ease-out,
+            width 200ms ease-out;
         position: relative;
     }
 
     &:has([data-slot="uds-menu-root"][data-expanded="false"]) &--body {
         margin-left: $menu-collapsed;
+        width: calc(100% - #{$menu-collapsed});
     }
 
     &--header {

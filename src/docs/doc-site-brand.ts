@@ -13,6 +13,9 @@ export type DocsBrandId =
   | 'gms'
   | 'chg'
 
+/** Baseline palette for the docs site when no brand is stored (`data-brand` on `documentElement`). */
+export const DOCS_SITE_DEFAULT_BRAND: DocsBrandId = 'connect'
+
 export const DOCS_BRAND_OPTIONS: { value: DocsBrandId; label: string }[] = [
   { value: 'default', label: 'Default' },
   { value: 'comphealth', label: 'CompHealth' },
@@ -31,14 +34,14 @@ export const DOCS_BRAND_STORAGE_KEY = 'docs-site-data-brand'
 export const INTRO_PREVIEW_BRAND_STORAGE_KEY = 'docs-intro-preview-brand'
 
 export function readStoredDocsBrand(): DocsBrandId {
-  if (typeof window === 'undefined') return 'default'
+  if (typeof window === 'undefined') return DOCS_SITE_DEFAULT_BRAND
   try {
     const raw = window.localStorage.getItem(DOCS_BRAND_STORAGE_KEY)
     if (raw && DOCS_BRAND_OPTIONS.some((o) => o.value === raw)) return raw as DocsBrandId
   } catch {
     // private mode / denied
   }
-  return 'default'
+  return DOCS_SITE_DEFAULT_BRAND
 }
 
 export function persistDocsBrand(id: DocsBrandId) {
@@ -50,14 +53,14 @@ export function persistDocsBrand(id: DocsBrandId) {
 }
 
 export function readStoredIntroPreviewBrand(): DocsBrandId {
-  if (typeof window === 'undefined') return 'default'
+  if (typeof window === 'undefined') return DOCS_SITE_DEFAULT_BRAND
   try {
     const raw = window.localStorage.getItem(INTRO_PREVIEW_BRAND_STORAGE_KEY)
     if (raw && DOCS_BRAND_OPTIONS.some((o) => o.value === raw)) return raw as DocsBrandId
   } catch {
     // private mode / denied
   }
-  return 'default'
+  return DOCS_SITE_DEFAULT_BRAND
 }
 
 export function persistIntroPreviewBrand(id: DocsBrandId) {

@@ -5,7 +5,14 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   font-family: var(--font-sans);
+}
+
+#root {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .docs-link {
@@ -24,6 +31,27 @@ body {
 
 .docs-link:visited {
   color: var(--color-uds-text-link-primary-visited);
+}
+
+/* Breadcrumb on primary doc hero — overrides neutral defaults from the package. */
+.docs-page-hero [data-slot='breadcrumb'] {
+  color: color-mix(in srgb, white 72%, transparent);
+}
+
+.docs-page-hero [data-slot='breadcrumb-link'] {
+  color: color-mix(in srgb, white 88%, transparent);
+}
+
+.docs-page-hero [data-slot='breadcrumb-link']:hover {
+  color: #fff;
+}
+
+.docs-page-hero [data-slot='breadcrumb-page'] {
+  color: #fff;
+}
+
+.docs-page-hero [data-slot='breadcrumb-separator'] {
+  color: color-mix(in srgb, white 42%, transparent);
 }
 
 .code-panel-shiki pre.shiki {
