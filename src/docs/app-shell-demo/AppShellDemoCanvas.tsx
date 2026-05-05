@@ -12,7 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Footer,
-  Header,
   Menu,
   PhoneIcon,
   QuestionIcon,
@@ -64,56 +63,53 @@ export function AppShellDemoCanvas() {
       <div className="appshell-demo-frame">
         <AppShell
           className="appshell-demo-root"
-          menu={
+        >
+          <AppShell.Menu>
             <Menu
               defaultExpanded
               activeId={activeNavId}
               onNavigationSelect={(id) => setActiveNavId(id)}
               utilities={UTILITY_LINKS}
             />
-          }
-          header={
-            <Header
-              trailing={
-                <>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button type="button" variant="ghost" size="icon" className="rounded-full" aria-label="Help">
-                        <QuestionIcon className="size-5" aria-hidden />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>Help</TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button type="button" variant="ghost" size="icon" className="relative rounded-full" aria-label="Notifications">
-                        <BellIcon className="size-5" aria-hidden />
-                        <span className="absolute top-1 right-1 size-2 rounded-full bg-[var(--uds-color-accent-red-500)] ring-2 ring-[var(--uds-surface-primary)]" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>Notifications</TooltipContent>
-                  </Tooltip>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button type="button" variant="ghost" size="sm" className="rounded-full px-0" aria-label="Account">
-                        <Avatar size="sm" className="size-8">
-                          <AvatarFallback className="text-xs">MT</AvatarFallback>
-                        </Avatar>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-48">
-                      <DropdownMenuItem>Profile</DropdownMenuItem>
-                      <DropdownMenuItem>Settings</DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem variant="destructive">Sign out</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </>
-              }
-            />
-          }
-          listview={
-            showListview ? (
+          </AppShell.Menu>
+          <AppShell.Header>
+            <>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button type="button" variant="ghost" size="icon" className="rounded-full" aria-label="Help">
+                    <QuestionIcon className="size-5" aria-hidden />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Help</TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button type="button" variant="ghost" size="icon" className="relative rounded-full" aria-label="Notifications">
+                    <BellIcon className="size-5" aria-hidden />
+                    <span className="absolute top-1 right-1 size-2 rounded-full bg-[var(--uds-color-accent-red-500)] ring-2 ring-[var(--uds-surface-primary)]" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Notifications</TooltipContent>
+              </Tooltip>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button type="button" variant="ghost" size="sm" className="rounded-full px-0" aria-label="Account">
+                    <Avatar size="sm" className="size-8">
+                      <AvatarFallback className="text-xs">MT</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem variant="destructive">Sign out</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          </AppShell.Header>
+          <AppShell.Listview>
+            {showListview ? (
               <div className="flex h-full flex-col bg-white dark:bg-neutral-950">
                 <div className="border-b border-neutral-200 px-4 py-3 dark:border-neutral-800">
                   <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Patient queue</p>
@@ -138,50 +134,51 @@ export function AppShellDemoCanvas() {
                   ))}
                 </div>
               </div>
-            ) : undefined
-          }
-          footer={
+            ) : undefined}
+          </AppShell.Listview>
+          <AppShell.Footer>
             <Footer
               links={[
                 { label: 'Privacy Policy', href: '#privacy' },
                 { label: 'Terms & Conditions', href: '#terms' },
               ]}
             />
-          }
-        >
-          <div className="flex h-full flex-col bg-white dark:bg-neutral-950">
-            <div className="border-b border-neutral-200 px-4 py-3 dark:border-neutral-800">
-              <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                Active: <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">{activeNavId}</code>
-              </p>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                Click a nav item to update the active state. Toggle the listview to see the animated slide.
-              </p>
-            </div>
-            <div className="grid flex-1 gap-4 p-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(280px,0.8fr)]">
-              <div className="rounded-[8px] border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
-                <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Main content area</p>
-                <div className="mt-4 space-y-3">
-                  <div className="h-3 w-2/3 rounded bg-neutral-200 dark:bg-neutral-800" />
-                  <div className="h-3 w-5/6 rounded bg-neutral-200 dark:bg-neutral-800" />
-                  <div className="h-3 w-3/5 rounded bg-neutral-200 dark:bg-neutral-800" />
+          </AppShell.Footer>
+          <AppShell.Main>
+            <div className="flex h-full flex-col bg-white dark:bg-neutral-950">
+              <div className="border-b border-neutral-200 px-4 py-3 dark:border-neutral-800">
+                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                  Active: <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">{activeNavId}</code>
+                </p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  Click a nav item to update the active state. Toggle the listview to see the animated slide.
+                </p>
+              </div>
+              <div className="grid flex-1 gap-4 p-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(280px,0.8fr)]">
+                <div className="rounded-[8px] border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+                  <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Main content area</p>
+                  <div className="mt-4 space-y-3">
+                    <div className="h-3 w-2/3 rounded bg-neutral-200 dark:bg-neutral-800" />
+                    <div className="h-3 w-5/6 rounded bg-neutral-200 dark:bg-neutral-800" />
+                    <div className="h-3 w-3/5 rounded bg-neutral-200 dark:bg-neutral-800" />
+                  </div>
+                </div>
+                <div className="rounded-[8px] border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+                  <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Side panel</p>
+                  <div className="mt-4 space-y-2">
+                    {['Verify insurance', 'Send follow-up', 'Confirm availability'].map((task) => (
+                      <div
+                        key={task}
+                        className="rounded-md bg-white px-3 py-2 text-sm text-neutral-700 ring-1 ring-neutral-200 dark:bg-neutral-950 dark:text-neutral-300 dark:ring-neutral-800"
+                      >
+                        {task}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="rounded-[8px] border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
-                <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">Side panel</p>
-                <div className="mt-4 space-y-2">
-                  {['Verify insurance', 'Send follow-up', 'Confirm availability'].map((task) => (
-                    <div
-                      key={task}
-                      className="rounded-md bg-white px-3 py-2 text-sm text-neutral-700 ring-1 ring-neutral-200 dark:bg-neutral-950 dark:text-neutral-300 dark:ring-neutral-800"
-                    >
-                      {task}
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
-          </div>
+          </AppShell.Main>
         </AppShell>
       </div>
     </div>

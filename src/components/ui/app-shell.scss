@@ -68,7 +68,8 @@ $listview-width: 320px;
         }
     }
 
-    &--main {
+    /* Main column: listview + this stack share the row; footer sits under main (same width). */
+    &--main-column {
         display: flex;
         flex: 1;
         flex-direction: column;
@@ -76,20 +77,21 @@ $listview-width: 320px;
         min-height: 0;
     }
 
+    &--main {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-width: 0;
+        min-height: 0;
+        overflow-y: auto;
+    }
+
     &--footer {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        left: $menu-expanded;
-        z-index: 10;
-        transition: left 200ms ease-out;
-    }
+        flex-shrink: 0;
+        width: 100%;
 
-    &:has([data-slot="uds-menu-root"][data-expanded="false"]) &--footer {
-        left: $menu-collapsed;
-    }
-
-    &:has(&--footer) &--main {
-        padding-bottom: var(--appshell-footer-height, 48px);
+        [data-slot="uds-footer"] {
+            border-top: none;
+        }
     }
 }

@@ -2,6 +2,7 @@ import * as React from "react"
 import { Suspense } from "react"
 import { Outlet } from "react-router-dom"
 
+import { Header, type HeaderProps } from "@/components/ui/header"
 import { cn } from "@/lib/utils"
 import "./app-shell.scss"
 
@@ -22,16 +23,99 @@ function AppShellFallback() {
 export type AppShellProps = React.ComponentProps<"div"> & {
   /** Content rendered in the fixed sidebar slot (typically a configured `<Menu>`). */
   menu?: React.ReactNode
-  /** Fixed top bar rendered above the listview and main content, beside the menu. */
-  header?: React.ReactNode
+  /** Right-aligned custom actions rendered inside the standardized AppShell header. */
+  headerRight?: React.ReactNode
+  /** Props forwarded to the standardized AppShell header's built-in SearchInput. */
+  headerSearchProps?: HeaderProps["searchProps"]
   /** Optional secondary pane (e.g. record list, search results). Animates open/closed. */
   listview?: React.ReactNode
-  /** Fixed bottom bar rendered below the content area. */
+  /** Renders below the main column (scrolls with content; not fixed). */
   footer?: React.ReactNode
 }
 
-function AppShell({ className, children, menu, header, listview, footer, ...props }: AppShellProps) {
-  const showListview = listview != null
+type AppShellRegionProps = { children?: React.ReactNode }
+
+function AppShellMenuRegion({ children }: AppShellRegionProps) {
+  return <>{children}</>
+}
+
+function AppShellHeaderRegion({ children }: AppShellRegionProps) {
+  return <>{children}</>
+}
+
+function AppShellListviewRegion({ children }: AppShellRegionProps) {
+  return <>{children}</>
+}
+
+function AppShellMainRegion({ children }: AppShellRegionProps) {
+  return <>{children}</>
+}
+
+function AppShellFooterRegion({ children }: AppShellRegionProps) {
+  return <>{children}</>
+}
+
+type ParsedAppShellRegions = {
+  menu?: React.ReactNode
+  headerRight?: React.ReactNode
+  listview?: React.ReactNode
+  main?: React.ReactNode
+  footer?: React.ReactNode
+  looseChildren: React.ReactNode[]
+}
+
+function parseAppShellRegions(children: React.ReactNode): ParsedAppShellRegions {
+  const parsed: ParsedAppShellRegions = { looseChildren: [] }
+
+  for (const child of React.Children.toArray(children)) {
+    if (!React.isValidElement(child)) {
+      parsed.looseChildren.push(child)
+      continue
+    }
+    const regionChild = child as React.ReactElement<AppShellRegionProps>
+    if (child.type === AppShellMenuRegion) {
+      parsed.menu = regionChild.props.children
+      continue
+    }
+    if (child.type === AppShellHeaderRegion) {
+      parsed.headerRight = regionChild.props.children
+      continue
+    }
+    if (child.type === AppShellListviewRegion) {
+      parsed.listview = regionChild.props.children
+      continue
+    }
+    if (child.type === AppShellMainRegion) {
+      parsed.main = regionChild.props.children
+      continue
+    }
+    if (child.type === AppShellFooterRegion) {
+      parsed.footer = regionChild.props.children
+      continue
+    }
+    parsed.looseChildren.push(child)
+  }
+
+  return parsed
+}
+
+function AppShell({
+  className,
+  children,
+  menu,
+  headerRight,
+  headerSearchProps,
+  listview,
+  footer,
+  ...props
+}: AppShellProps) {
+  const parsedRegions = parseAppShellRegions(children)
+  const resolvedMenu = parsedRegions.menu ?? menu
+  const resolvedHeaderRight = parsedRegions.headerRight ?? headerRight
+  const resolvedListview = parsedRegions.listview ?? listview
+  const resolvedFooter = parsedRegions.footer ?? footer
+  const resolvedMain = parsedRegions.main ?? parsedRegions.looseChildren
+  const showListview = resolvedListview != null
 
   return (
     <div
@@ -39,27 +123,39 @@ function AppShell({ className, children, menu, header, listview, footer, ...prop
       className={cn("appshell", className)}
       {...props}
     >
-      {menu && <div className="appshell--menu">{menu}</div>}
+      {resolvedMenu && <div className="appshell--menu">{resolvedMenu}</div>}
       <div className="appshell--body">
-        {header && <div className="appshell--header">{header}</div>}
+        <div className="appshell--header">
+          <Header trailing={resolvedHeaderRight} searchProps={headerSearchProps} />
+        </div>
         <div className="appshell--content">
           <div
             className={cn("appshell--listview", showListview && "appshell--listview-open")}
             aria-hidden={!showListview}
           >
-            {listview}
+            {resolvedListview}
           </div>
-          <div className="appshell--main">
-            <Suspense fallback={<AppShellFallback />}>
-              <Outlet />
-            </Suspense>
-            {children}
+          <div className="appshell--main-column">
+            <div className="appshell--main">
+              <Suspense fallback={<AppShellFallback />}>
+                <Outlet />
+              </Suspense>
+              {resolvedMain}
+            </div>
+            {resolvedFooter ? <div className="appshell--footer">{resolvedFooter}</div> : null}
           </div>
         </div>
-        {footer && <div className="appshell--footer">{footer}</div>}
       </div>
     </div>
   )
 }
 
-export { AppShell }
+const AppShellCompound = Object.assign(AppShell, {
+  Menu: AppShellMenuRegion,
+  Header: AppShellHeaderRegion,
+  Listview: AppShellListviewRegion,
+  Main: AppShellMainRegion,
+  Footer: AppShellFooterRegion,
+})
+
+export { AppShellCompound as AppShell }

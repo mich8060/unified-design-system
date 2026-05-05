@@ -19,6 +19,7 @@ import {
     type DocsBrandId,
 } from '@/docs/doc-site-brand'
 import {
+    AppShell,
     Avatar,
     AvatarFallback,
     Badge,
@@ -36,7 +37,6 @@ import {
     EmptyMedia,
     EmptyTitle,
     Footer,
-    Header,
     Menu,
     MicroCalendar,
     Separator,
@@ -45,6 +45,7 @@ import {
     TooltipTrigger,
     type MicroCalendarDateData,
 } from '@chg-ds/unified-design-system'
+import './patterns-dashboard.css'
 
 const CRM_NAV_ITEMS = [
     { id: 'dashboard', label: 'Dashboard', icon: SquaresFourIcon },
@@ -107,67 +108,68 @@ export function PatternsDashboardCanvas() {
         <div className="box-border min-h-0 w-full max-w-[1600px] font-sans">
             <p className="mb-3 text-sm text-[var(--uds-text-secondary)]">
                 CRM dashboard preview: brand-aware <code className="rounded bg-[var(--uds-surface-tertiary)] px-1">Menu</code>{' '}
-                sidebar and UDS tokens in the main canvas.
+                sidebar with its standard header (collapse control + branding) and UDS tokens in the main canvas.
             </p>
 
             <div
-                className="box-border h-[min(920px,92vh)] w-full overflow-hidden rounded-[4px] border border-[var(--uds-border-primary)] shadow-sm"
+                className="patterns-dashboard-frame"
             >
-                <div className="flex h-full min-h-0">
-                    <Menu
-                        className="relative h-full"
-                        defaultExpanded
-                        aria-label="CRM navigation"
-                        navigationItems={CRM_NAV_ITEMS}
-                        activeId={activeNavId}
-                        onNavigationSelect={(id) => setActiveNavId(id)}
-                    />
-                    <div className="flex min-h-0 min-w-0 flex-1 flex-col bg-[var(--uds-surface-secondary)]">
-                        <Header
-                            trailing={
-                                <>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Button type="button" variant="ghost" size="icon" className="rounded-full" aria-label="Help">
-                                                <QuestionIcon className="size-5" aria-hidden />
-                                            </Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent>Help</TooltipContent>
-                                    </Tooltip>
-                                    <Tooltip>
-                                        <TooltipTrigger asChild>
-                                            <Button type="button" variant="ghost" size="icon" className="relative rounded-full" aria-label="Notifications">
-                                                <BellIcon className="size-5" aria-hidden />
-                                                <span className="absolute top-1 right-1 size-2 rounded-full bg-[var(--uds-color-accent-red-500)] ring-2 ring-[var(--uds-surface-primary)]" />
-                                            </Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent>Notifications</TooltipContent>
-                                    </Tooltip>
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button
-                                                type="button"
-                                                variant="ghost"
-                                                size="sm"
-                                                className="rounded-full px-0"
-                                                aria-label="Account"
-                                            >
-                                                <Avatar size="sm" className="size-8">
-                                                    <AvatarFallback className="text-xs">MT</AvatarFallback>
-                                                </Avatar>
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end" className="w-48">
-                                            <DropdownMenuItem>Profile</DropdownMenuItem>
-                                            <DropdownMenuItem>Settings</DropdownMenuItem>
-                                            <DropdownMenuSeparator />
-                                            <DropdownMenuItem variant="destructive">Sign out</DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </>
-                            }
+                <AppShell className="patterns-dashboard-root">
+                    <AppShell.Menu>
+                        <Menu
+                            className="patterns-dashboard-menu"
+                            defaultExpanded
+                            aria-label="CRM navigation"
+                            navigationItems={CRM_NAV_ITEMS}
+                            activeId={activeNavId}
+                            onNavigationSelect={(id) => setActiveNavId(id)}
                         />
-                        <div className="min-h-0 flex-1 overflow-y-auto p-4 md:p-6">
+                    </AppShell.Menu>
+                    <AppShell.Header>
+                        <>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button type="button" variant="ghost" size="icon" className="rounded-full" aria-label="Help">
+                                        <QuestionIcon className="size-5" aria-hidden />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Help</TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button type="button" variant="ghost" size="icon" className="relative rounded-full" aria-label="Notifications">
+                                        <BellIcon className="size-5" aria-hidden />
+                                        <span className="absolute top-1 right-1 size-2 rounded-full bg-[var(--uds-color-accent-red-500)] ring-2 ring-[var(--uds-surface-primary)]" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>Notifications</TooltipContent>
+                            </Tooltip>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="sm"
+                                        className="rounded-full px-0"
+                                        aria-label="Account"
+                                    >
+                                        <Avatar size="sm" className="size-8">
+                                            <AvatarFallback className="text-xs">MT</AvatarFallback>
+                                        </Avatar>
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-48">
+                                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem variant="destructive">Sign out</DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </>
+                    </AppShell.Header>
+                    <AppShell.Main>
+                        <div className="flex h-full min-h-0 min-w-0 flex-col bg-[var(--uds-surface-secondary)]">
+                            <div className="min-h-0 flex-1 overflow-y-auto p-4 md:p-6">
                             <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
                                 <div>
                                     <h1 className="text-2xl font-semibold text-[var(--uds-text-primary)]">My performance over time</h1>
@@ -295,14 +297,17 @@ export function PatternsDashboardCanvas() {
                                 </Empty>
                             </div>
                         </div>
+                        </div>
+                    </AppShell.Main>
+                    <AppShell.Footer>
                         <Footer
                             links={[
                                 { label: 'Privacy Policy', href: '#privacy' },
                                 { label: 'Terms & Conditions', href: '#terms' },
                             ]}
                         />
-                    </div>
-                </div>
+                    </AppShell.Footer>
+                </AppShell>
             </div>
 
             <section className="mt-10 space-y-3" aria-labelledby="patterns-multi-brand-heading">

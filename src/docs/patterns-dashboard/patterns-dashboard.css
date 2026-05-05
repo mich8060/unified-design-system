@@ -1,0 +1,17 @@
+@reference "../../styles.css";
+
+.patterns-dashboard-frame {
+    @apply box-border w-full overflow-hidden rounded-[4px] border border-[var(--uds-border-primary)] shadow-sm;
+    position: relative;
+    height: min(920px, 92vh);
+}
+
+.patterns-dashboard-root.appshell {
+    min-height: 0;
+    height: 100%;
+}
+
+.patterns-dashboard-menu[data-slot="uds-menu-root"] {
+    position: absolute;
+    height: 100%;
+}

@@ -27,6 +27,7 @@ import {
 } from '../doc-site-brand'
 import { getAllShadcnUiComponents } from '../shadcn-ui-registry'
 import { WelcomeCardPreview } from '../welcome-card-preview'
+import { CodePanel } from '../components/CodePanel'
 import { DocShellLayoutVisuals } from './DocShellLayoutVisuals'
 import { MarkdownishPage } from './MarkdownishPage'
 
@@ -195,20 +196,25 @@ function AppShellDemoPreview() {
         </div>
       </div>
 
-      <pre className="mt-4 overflow-x-auto rounded-[4px] bg-neutral-950 p-4 text-sm text-neutral-100">
-        <code>{`<AppShell
-  sidebarWidth={sidebarExpanded ? 280 : 72}
-  showListview={showListview}
-  showFooter={showFooter}
-  listviewWidth={320}
-  footerHeight={32}
-  menu={<SidebarProvider>…<Sidebar><DocsRailMenu.Root>…</DocsRailMenu.Root></Sidebar></SidebarProvider>}
-  listview={<Listview />}
-  footer={<Footer />}
->
-  <Main />
-</AppShell>`}</code>
-      </pre>
+      <div className="mt-4">
+        <CodePanel code={`<AppShell>
+  <AppShell.Menu>
+    <Menu />
+  </AppShell.Menu>
+  <AppShell.Header>
+    <HeaderActions />
+  </AppShell.Header>
+  <AppShell.Listview>
+    {showListview ? <Listview /> : undefined}
+  </AppShell.Listview>
+  <AppShell.Main>
+    <Main />
+  </AppShell.Main>
+  <AppShell.Footer>
+    <Footer />
+  </AppShell.Footer>
+</AppShell>`} label="AppShell composition" language="tsx" />
+      </div>
     </>
   )
 }
@@ -389,8 +395,6 @@ export function ApplicationMenu() {
       <p className="mt-6 text-sm text-neutral-600 dark:text-neutral-400">
         App rails usually add <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">defaultExpanded</code>,{' '}
         <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">aria-label</code>,{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">header</code> (with{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">useMenuRail</code> for the list toggle),{' '}
         <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">workspace</code>,{' '}
         <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">activeId</code> /{' '}
         <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">onNavigationSelect</code>, and{' '}
@@ -403,21 +407,12 @@ export function ApplicationMenu() {
       </p>
       <pre className="mt-3 overflow-x-auto rounded-[4px] bg-neutral-950 p-4 text-sm text-neutral-100">
         <code>{`import { useState } from "react"
-import { Branding, Button, LayoutIcon, ListIcon, Menu, useMenuRail } from "@chg-ds/unified-design-system"
+import { LayoutIcon, Menu } from "@chg-ds/unified-design-system"
 
 const NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", icon: LayoutIcon },
   // …
 ] as const
-
-function MenuRailHeader() {
-  const { expanded, toggleExpanded } = useMenuRail()
-  return (
-    <Menu.Header>
-      {/* Branding + list Button → toggleExpanded */}
-    </Menu.Header>
-  )
-}
 
 export function ApplicationMenu() {
   const [workspace, setWorkspace] = useState("clinical")
@@ -436,7 +431,6 @@ export function ApplicationMenu() {
         onWorkspaceChange: setWorkspace,
         "aria-label": "Workspace",
       }}
-      header={<MenuRailHeader />}
       tail={
         <Menu.Utilities>…</Menu.Utilities>
       }
@@ -452,8 +446,9 @@ export function AppShellDemoPage() {
   return (
     <MarkdownishPage kicker="Getting Started" title="AppShell demo">
       <p>
-        This page demonstrates the baseline application shell for product screens: narrow navigation rail,
-        optional listview, wide content area, and optional footer.
+        This page demonstrates the baseline application shell for product screens: a standardized{' '}
+        <strong className="text-neutral-900 dark:text-neutral-100">Menu</strong> rail (fixed header with collapse
+        control + branding), optional listview, wide content area, and optional footer.
       </p>
 
       <AppShellDemoPreview />
@@ -494,8 +489,8 @@ export function PatternsDashboardPage() {
       <p>
         Example authenticated dashboard using{' '}
         <strong className="text-neutral-900 dark:text-neutral-100">AppShell</strong> with a{' '}
-        <strong className="text-neutral-900 dark:text-neutral-100">DocsRailMenu</strong> rail and KPI cards in the main region. The
-        preview loads from{' '}
+        <strong className="text-neutral-900 dark:text-neutral-100">Menu</strong> rail (with the default
+        collapse-toggle + branding header) and KPI cards in the main region. The preview loads from{' '}
         <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">patterns-dashboard.html</code> so it stays isolated
         from documentation chrome; theme follows this page.
       </p>

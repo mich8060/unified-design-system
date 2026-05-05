@@ -63,7 +63,7 @@ function useMenuRail(): MenuRailContextValue {
  * Standalone menu surface for lists of actions or navigation.
  *
  * **Primary API:** `Menu` as a function — pass **`navigationItems`** (see {@link MenuDefaultProps}) plus optional
- * **`header`**, **`workspace`**, and **`tail`**. Rail props (`expanded`, `defaultExpanded`, `aria-label`, …) forward to the root `nav`.
+ * **`workspace`** and **`tail`**. Rail props (`expanded`, `defaultExpanded`, `aria-label`, …) forward to the root `nav`.
  *
  * **Compound API:** **`Menu.Root`** with **`Menu.Header`**, **`Menu.WorkspaceSelect`**, **`Menu.Navigation`**, etc. for full control.
  *
@@ -1086,11 +1086,6 @@ export type MenuDefaultProps = Omit<MenuRootProps, "children"> & {
   /** Row activation handler (same as `Menu.Navigation`). */
   onNavigationSelect?: (id: string, event: React.MouseEvent<HTMLButtonElement>) => void
   /**
-   * Top band. Omit or `undefined` for the built-in branding + collapse toggle header.
-   * Pass `false` to hide. Pass a `ReactNode` for fully custom content.
-   */
-  header?: React.ReactNode | false
-  /**
    * Brand switcher rendered between header and navigation.
    * Pass an array of `{ value, label }` options to show the select. Omit to hide.
    */
@@ -1121,7 +1116,6 @@ function MenuDefault({
   navigationItems,
   activeId,
   onNavigationSelect,
-  header,
   brandOptions,
   workspace,
   tail,
@@ -1152,9 +1146,6 @@ function MenuDefault({
     [navigationItems, activeBrand],
   )
 
-  const resolvedHeader =
-    header === false ? null : header !== undefined ? header : <MenuDefaultHeader />
-
   const resolvedTail = (
     <>
       {utilities?.length ? <MenuDefaultUtilities items={utilities} /> : null}
@@ -1164,7 +1155,7 @@ function MenuDefault({
 
   return (
     <MenuRoot {...rootProps}>
-      {resolvedHeader}
+      <MenuDefaultHeader />
       {brandOptions?.length ? (
         <MenuBrandSwitcher
           options={brandOptions}

@@ -15,7 +15,6 @@ import {
   Button,
   DiamondsFourIcon,
   Footer,
-  Header,
   HouseIcon,
   IconContext,
   LayoutIcon,
@@ -180,49 +179,45 @@ function DocsLayout() {
   )
 
   return (
-    <AppShell
-      menu={
+    <AppShell>
+      <AppShell.Menu>
         <Menu
           navigationItems={NAVIGATION_ITEMS}
           brandOptions={DOCS_VERSION_OPTIONS}
           activeId={activeId}
           onNavigationSelect={handleNavigationSelect}
         />
-      }
-      header={
-        <Header
-          trailing={
-            <>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button type="button" variant="ghost" size="icon" className="rounded-full" aria-label="Help">
-                    <QuestionIcon className="size-5" aria-hidden />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>Help</TooltipContent>
-              </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button type="button" variant="ghost" size="icon" className="relative rounded-full" aria-label="Notifications">
-                    <BellIcon className="size-5" aria-hidden />
-                    <span className="absolute top-1 right-1 size-2 rounded-full bg-[var(--uds-color-accent-red-500)] ring-2 ring-[var(--uds-surface-primary)]" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>Notifications</TooltipContent>
-              </Tooltip>
-            </>
-          }
-        />
-      }
-      footer={
+      </AppShell.Menu>
+      <AppShell.Header>
+        <>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button type="button" variant="ghost" size="icon" className="rounded-full" aria-label="Help">
+                <QuestionIcon className="size-5" aria-hidden />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Help</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button type="button" variant="ghost" size="icon" className="relative rounded-full" aria-label="Notifications">
+                <BellIcon className="size-5" aria-hidden />
+                <span className="absolute top-1 right-1 size-2 rounded-full bg-[var(--uds-color-accent-red-500)] ring-2 ring-[var(--uds-surface-primary)]" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Notifications</TooltipContent>
+          </Tooltip>
+        </>
+      </AppShell.Header>
+      <AppShell.Footer>
         <Footer
           links={[
             { label: 'Privacy Policy', href: '#privacy' },
             { label: 'Terms & Conditions', href: '#terms' },
           ]}
         />
-      }
-    />
+      </AppShell.Footer>
+    </AppShell>
   )
 }
 

@@ -2,7 +2,20 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-const svgRoot = "/branding/svg"
+import connectMark from "../../../public/branding/svg/connect-brand-mark.svg?url"
+import connectWordmark from "../../../public/branding/svg/connect-wordmark.svg?url"
+import comphealthMark from "../../../public/branding/svg/comphealth-brand-mark.svg?url"
+import comphealthWordmark from "../../../public/branding/svg/comphealth-wordmark.svg?url"
+import locumsmartMark from "../../../public/branding/svg/locumsmart-brand-mark.svg?url"
+import locumsmartWordmark from "../../../public/branding/svg/locumsmart-wordmark.svg?url"
+import modioMark from "../../../public/branding/svg/modio-brand-mark.svg?url"
+import modioWordmark from "../../../public/branding/svg/modio-wordmark.svg?url"
+import unifiedDesignSystemMark from "../../../public/branding/svg/unified-design-system-brand-mark.svg?url"
+import unifiedDesignSystemWordmark from "../../../public/branding/svg/unified-design-system-wordmark.svg?url"
+import weatherbyMark from "../../../public/branding/svg/weatherby-brand-mark.svg?url"
+import weatherbyWordmark from "../../../public/branding/svg/weatherby-wordmark.svg?url"
+import wireframeMark from "../../../public/branding/svg/wireframe-brand-mark.svg?url"
+import wireframeWordmark from "../../../public/branding/svg/wireframe-wordmark.svg?url"
 
 export type BrandingAppearance =
   | "Connect"
@@ -16,32 +29,32 @@ export type BrandingAppearance =
 const SVG_ASSETS: Record<BrandingAppearance, { mark: string; wordmark: string }> =
   {
   Wireframe: {
-    mark: "wireframe-brand-mark.svg",
-    wordmark: "wireframe-wordmark.svg",
+    mark: wireframeMark,
+    wordmark: wireframeWordmark,
   },
   Connect: {
-    mark: "connect-brand-mark.svg",
-    wordmark: "connect-wordmark.svg",
+    mark: connectMark,
+    wordmark: connectWordmark,
   },
   Locumsmart: {
-    mark: "locumsmart-brand-mark.svg",
-    wordmark: "locumsmart-wordmark.svg",
+    mark: locumsmartMark,
+    wordmark: locumsmartWordmark,
   },
   Modio: {
-    mark: "modio-brand-mark.svg",
-    wordmark: "modio-wordmark.svg",
+    mark: modioMark,
+    wordmark: modioWordmark,
   },
   MyWeatherby: {
-    mark: "weatherby-brand-mark.svg",
-    wordmark: "weatherby-wordmark.svg",
+    mark: weatherbyMark,
+    wordmark: weatherbyWordmark,
   },
   MyCompHealth: {
-    mark: "comphealth-brand-mark.svg",
-    wordmark: "comphealth-wordmark.svg",
+    mark: comphealthMark,
+    wordmark: comphealthWordmark,
   },
   "Design System": {
-    mark: "unified-design-system-brand-mark.svg",
-    wordmark: "unified-design-system-wordmark.svg",
+    mark: unifiedDesignSystemMark,
+    wordmark: unifiedDesignSystemWordmark,
   },
 }
 
@@ -68,8 +81,7 @@ function Branding({
         : "UNIFIED DS logo"
       : `${appearance}${symbol ? " mark" : " logo"}`
 
-  const file = symbol ? SVG_ASSETS[appearance].mark : SVG_ASSETS[appearance].wordmark
-  const src = `${svgRoot}/${file}`
+  const src = symbol ? SVG_ASSETS[appearance].mark : SVG_ASSETS[appearance].wordmark
 
   return (
     <div
