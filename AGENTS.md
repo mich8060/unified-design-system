@@ -2,6 +2,8 @@
 
 Canonical contract: [`ai/uds-contract.json`](./ai/uds-contract.json)
 
+- AppShell schema (regions, props, behavior): [`ai/appshell.schema.json`](./ai/appshell.schema.json)
+
 - Import runtime components only from `@chg-ds/unified-design-system`.
 - Import styles only from `@chg-ds/unified-design-system/styles.css`.
 - Do not import from `src/components/ui/*`, `dist/*`, `@/*`, or any `*-base`, `*-core`, `*-theme`, `*-uds` module in consumer-facing code.

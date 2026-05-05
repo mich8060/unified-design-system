@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chghealthcare/unified-design-system/blob/main/ai/appshell.schema.json",
+  "title": "UDS AppShell",
+  "description": "Machine-readable contract for AppShell layout: props, compound region tags, DOM roles, and AI agent rules. Normative runtime source: src/components/ui/app-shell.tsx and src/components/ui/app-shell.scss. Allowed package imports: see ai/uds-contract.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaKind", "package", "component", "props", "compoundRegions", "dom", "behavior", "aiAgentRules"],
+  "properties": {
+    "schemaKind": {
+      "const": "uds.layout.AppShell",
+      "description": "Identifies this document as the AppShell layout schema."
+    },
+    "lastSyncedFrom": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tsx", "scss"],
+      "properties": {
+        "tsx": { "const": "src/components/ui/app-shell.tsx" },
+        "scss": { "const": "src/components/ui/app-shell.scss" }
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "importEntry", "styleImport"],
+      "properties": {
+        "name": { "const": "@chg-ds/unified-design-system" },
+        "importEntry": { "const": "@chg-ds/unified-design-system" },
+        "styleImport": { "const": "@chg-ds/unified-design-system/styles.css" }
+      }
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "exportKind", "rootSelector", "dependsOn"],
+      "properties": {
+        "name": { "const": "AppShell" },
+        "exportKind": { "const": "compoundCallable" },
+        "rootSelector": { "const": "[data-slot=\"appshell\"].appshell" },
+        "dependsOn": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [
+            "react",
+            "react-router-dom (Outlet for routed main)",
+            "Header (internal — slot supplies trailing + search config)"
+          ]
+        }
+      }
+    },
+    "props": {
+      "type": "object",
+      "description": "AppShell root props (extends React.ComponentProps<'div'>). All slots are optional.",
+      "additionalProperties": true,
+      "properties": {
+        "className": {
+          "type": "string",
+          "description": "Merged onto root appshell div; prefer min-h-dvh w-full min-w-0 for full-viewport shells."
+        },
+        "menu": {
+          "description": "Sidebar rail content — typically <Menu /> from the same package."
+        },
+        "headerRight": {
+          "description": "ReactNode passed to the built-in Header as `trailing` (right actions). Not a replacement for the full <Header />; AppShell always renders Header."
+        },
+        "headerSearchProps": {
+          "description": "Forwarded to Header's default SearchInput when Header has no custom children (see Header component)."
+        },
+        "listview": {
+          "description": "Secondary pane (master-detail, queues). Omit or pass null/undefined to collapse the listview column."
+        },
+        "footer": {
+          "description": "Placed in appshell--footer below appshell--main, inside appshell--main-column — same width as main, not viewport-fixed."
+        },
+        "children": {
+          "description": "Unmarked children render inside appshell--main after Router <Outlet />. Prefer <AppShell.Main> for clarity."
+        }
+      }
+    },
+    "compoundRegions": {
+      "type": "array",
+      "description": "Marker-only components (fragments); they do not render host elements. Prefer this API for explicit regions. Region children override the same-named prop when both are provided (region wins).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["staticMember", "mapsTo", "description"],
+        "properties": {
+          "staticMember": { "type": "string", "enum": ["Menu", "Header", "Listview", "Main", "Footer"] },
+          "mapsTo": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      },
+      "default": [
+        {
+          "staticMember": "Menu",
+          "mapsTo": "props.menu",
+          "description": "Sidebar slot → .appshell--menu"
+        },
+        {
+          "staticMember": "Header",
+          "mapsTo": "props.headerRight",
+          "description": "Supplies trailing actions for the standardized Header only (not a custom header element)."
+        },
+        {
+          "staticMember": "Listview",
+          "mapsTo": "props.listview",
+          "description": "Listview pane inner content; column animates open when non-null."
+        },
+        {
+          "staticMember": "Main",
+          "mapsTo": "props.children (when used as the exclusive main payload)",
+          "description": "Primary page content after <Outlet />; use instead of loose children for clarity."
+        },
+        {
+          "staticMember": "Footer",
+          "mapsTo": "props.footer",
+          "description": "Footer region below main in the main column; width matches main."
+        }
+      ]
+    },
+    "dom": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tree", "classNames"],
+      "properties": {
+        "tree": {
+          "type": "string",
+          "description": "Logical DOM (abbreviated).",
+          "default": "div.appshell[data-slot=appshell] > .appshell--menu? + .appshell--body > .appshell--header (Header+Search) + .appshell--content > (.appshell--listview + .appshell--main-column > .appshell--main > Suspense>Outlet + children) + .appshell--footer?"
+        },
+        "classNames": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "properties": {
+            "root": { "default": "appshell" },
+            "menu": { "default": "appshell--menu" },
+            "body": { "default": "appshell--body" },
+            "header": { "default": "appshell--header" },
+            "content": { "default": "appshell--content" },
+            "listview": { "default": "appshell--listview; open modifier appshell--listview-open" },
+            "mainColumn": { "default": "appshell--main-column" },
+            "main": { "default": "appshell--main" },
+            "footer": { "default": "appshell--footer" }
+          }
+        }
+      }
+    },
+    "layoutConstantsPx": {
+      "type": "object",
+      "additionalProperties": { "type": "number" },
+      "properties": {
+        "menuExpanded": { "default": 280 },
+        "menuCollapsed": { "default": 64 },
+        "listviewWidth": { "default": 320 }
+      }
+    },
+    "behavior": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["routing", "menuWidth", "listview", "footer", "header"],
+      "properties": {
+        "routing": {
+          "type": "object",
+          "properties": {
+            "outlet": {
+              "default": "React Router <Outlet /> is rendered inside .appshell--main inside Suspense; lazy route elements resolve there."
+            }
+          }
+        },
+        "menuWidth": {
+          "default": "Body offset uses margin-left: 280px or 64px via CSS :has([data-slot=\"uds-menu-root\"][data-expanded=\"false\"]). AppShell does not own Menu expand state."
+        },
+        "listview": {
+          "default": "Open when listview slot is non-null. Container animates width 0↔320px; inner child stays 320px with opacity fade."
+        },
+        "footer": {
+          "default": "Not position:fixed. Sits in flow under .appshell--main inside .appshell--main-column; full width of that column. Nested [data-slot=uds-footer] has border-top suppressed in shell CSS."
+        },
+        "header": {
+          "default": "Not position:fixed — in normal flow at top of .appshell--body. Always uses package Header with optional trailing from AppShell.Header / headerRight."
+        }
+      }
+    },
+    "aiAgentRules": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [
+        "Import AppShell only from @chg-ds/unified-design-system (and styles from @chg-ds/unified-design-system/styles.css). Never import from src/components/ui/* or dist/* in consumer code.",
+        "Use AppShell as the authenticated product shell default per ai/uds-contract.json layoutDefaults.",
+        "Compose the menu slot with the package Menu component; do not replace the rail with a bespoke aside unless the product explicitly requires a non-UDS layout.",
+        "AppShell.Header supplies only the trailing (and implicit search configuration) for the built-in Header — it does not accept a full custom header node.",
+        "Place routable page UI in AppShell.Main or as children; rely on <Outlet /> for route components.",
+        "Use listview for master-detail or queue patterns; omit the slot to hide the column.",
+        "Footer is optional; when used, prefer package Footer — top border is removed inside AppShell footer region by design."
+      ]
+    }
+  }
+}
