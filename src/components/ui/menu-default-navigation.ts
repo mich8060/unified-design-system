@@ -89,7 +89,7 @@ const WIREFRAME_NAV: MenuNavigationItem[] = Array.from({ length: 5 }, (_, i) => 
 
 const BRAND_NAVIGATION: Record<string, MenuNavigationItem[]> = {
   default: DEFAULT_NAV,
-  chg: DEFAULT_NAV,
+  chg: CONNECT_NAV,
   comphealth: LOCUM_NAV,
   gms: LOCUM_NAV,
   weatherby: LOCUM_NAV,

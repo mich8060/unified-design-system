@@ -172,7 +172,7 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     r(
       'appearance',
       'BrandingAppearance',
-      'Product or brand variant: Connect, Locumsmart, Wireframe, MyWeatherby, MyCompHealth, Modio, or Design System.',
+      'Product or brand variant: Connect, CHG (Wireframe SVGs + Connect-aligned tokens via data-brand), Locumsmart, Wireframe, MyWeatherby, MyCompHealth, Modio, or Design System.',
       'Wireframe',
     ),
     r(

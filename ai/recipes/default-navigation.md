@@ -18,15 +18,20 @@ Fallback navigation items the system uses when no custom `navigationItems` array
 
 ## `chg`
 
-Same structure as **default** (CHG product shell).
+Same structure as **connect** (CHG uses the Connect palette and default nav; branding lockups use Wireframe SVGs).
 
 | Label | Icon |
 |-------|------|
 | Dashboard | Layout |
 | Requests | Briefcase |
 | Providers | Users |
+| Scheduling | CalendarPlus |
+| Pooling | UserList |
+| Escalations | SortDescending |
 | Calendar | CalendarBlank |
 | Reporting | ChartBar |
+
+**Pooling children (contract):** Open requisitions, Candidates, Matches, Pipeline.
 
 ---
 

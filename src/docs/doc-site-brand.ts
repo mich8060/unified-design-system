@@ -72,7 +72,7 @@ export function applyDocsBrandToDocument(id: DocsBrandId) {
   document.documentElement.dataset.brand = id
 }
 
-/** Maps CSS token brand to the nearest `Branding` SVG row (GMS uses the unified mark; CHG uses Wireframe artwork). */
+/** Maps CSS token brand to the nearest `Branding` SVG row (GMS uses the unified mark; CHG uses Wireframe SVGs via `appearance="CHG"`). */
 export function docsBrandToBrandingAppearance(id: DocsBrandId): BrandingAppearance {
   const map = {
     default: 'Design System',
@@ -83,7 +83,7 @@ export function docsBrandToBrandingAppearance(id: DocsBrandId): BrandingAppearan
     wireframe: 'Wireframe',
     modio: 'Modio',
     gms: 'Design System',
-    chg: 'Wireframe',
+    chg: 'CHG',
   } as const satisfies Record<DocsBrandId, BrandingAppearance>
   return map[id]
 }

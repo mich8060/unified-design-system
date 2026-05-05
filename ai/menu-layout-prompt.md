@@ -186,9 +186,9 @@ type MenuNavigationItem = {
 
 When `navigationItems` is omitted, Menu calls `getDefaultNavigation(brand)` which returns brand-specific trees:
 
-- `default` / `chg`: Dashboard, Requests, Providers, Calendar, Reporting
+- `default`: Dashboard, Requests, Providers, Calendar, Reporting
+- `chg` / `connect`: Dashboard, Requests, Providers, Scheduling, Pooling (with 4 children), Escalations, Calendar, Reporting
 - `comphealth` / `gms` / `weatherby`: Dashboard, Schedule, Job Board, Application, Documents (with Credentialing + Financial children), Time Entry, Travel
-- `connect`: Dashboard, Requests, Providers, Scheduling, Pooling (with 4 children), Escalations, Calendar, Reporting
 - `locumsmart`: Dashboard, Workflow, CRM, Analytics, Administration
 - `modio`: Dashboard, Reports, Providers, Facilities, Payors, Tracking
 - `wireframe`: 5x "Menu Item" placeholders (no icons)

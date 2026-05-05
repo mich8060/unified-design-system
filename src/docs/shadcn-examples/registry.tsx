@@ -1436,6 +1436,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                         [
                             'Wireframe',
                             'Connect',
+                            'CHG',
                             'Locumsmart',
                             'Modio',
                             'MyWeatherby',
@@ -1466,6 +1467,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                         [
                             'Wireframe',
                             'Connect',
+                            'CHG',
                             'Locumsmart',
                             'Modio',
                             'MyWeatherby',

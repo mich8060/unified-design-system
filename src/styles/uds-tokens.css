@@ -463,52 +463,53 @@
   --brand-quaternary-900: #3B260D;
 }
 
+/* CHG uses the Connect palette with Wireframe SVG lockups (`Branding appearance="CHG"`). */
 .brand-chg,
 [data-brand=chg] {
-  --brand-primary-25: #F2F7FD;
-  --brand-primary-50: #E4EDFA;
-  --brand-primary-100: #C2D9F5;
-  --brand-primary-200: #8CBBED;
-  --brand-primary-300: #4F98E1;
-  --brand-primary-400: #297BCE;
-  --brand-primary-500: #1A5FAF;
-  --brand-primary-600: #164C8E;
-  --brand-primary-700: #174479;
-  --brand-primary-800: #183962;
-  --brand-primary-900: #102441;
-  --brand-secondary-25: #FCFFF0;
-  --brand-secondary-50: #FAFFE5;
-  --brand-secondary-100: #F2FFC7;
-  --brand-secondary-200: #E5FF95;
-  --brand-secondary-300: #D1FE58;
-  --brand-secondary-400: #BAF526;
-  --brand-secondary-500: #9BDC06;
-  --brand-secondary-600: #8DBC00;
-  --brand-secondary-700: #5A8506;
-  --brand-secondary-800: #49690B;
-  --brand-secondary-900: #3D580F;
-  --brand-tertiary-25: #FFFAEC;
-  --brand-tertiary-50: #FFF5D3;
-  --brand-tertiary-100: #FFE7A5;
-  --brand-tertiary-200: #FFD46D;
-  --brand-tertiary-300: #FFB532;
-  --brand-tertiary-400: #FF9C0A;
-  --brand-tertiary-500: #FF8400;
-  --brand-tertiary-600: #CC6002;
-  --brand-tertiary-700: #A14A0B;
-  --brand-tertiary-800: #823F0C;
-  --brand-tertiary-900: #461E04;
-  --brand-quaternary-25: #F2F7FD;
-  --brand-quaternary-50: #E4EDFA;
-  --brand-quaternary-100: #C2D9F5;
-  --brand-quaternary-200: #8CBBED;
-  --brand-quaternary-300: #4F98E1;
-  --brand-quaternary-400: #297BCE;
-  --brand-quaternary-500: #1A5FAF;
-  --brand-quaternary-600: #164C8E;
-  --brand-quaternary-700: #174479;
-  --brand-quaternary-800: #183962;
-  --brand-quaternary-900: #102441;
+  --brand-primary-25: #FAFDFF;
+  --brand-primary-50: #EFFAFF;
+  --brand-primary-100: #DEF4FF;
+  --brand-primary-200: #B6EBFF;
+  --brand-primary-300: #75DDFF;
+  --brand-primary-400: #2CCDFF;
+  --brand-primary-500: #029ED3;
+  --brand-primary-600: #0093D4;
+  --brand-primary-700: #0075AB;
+  --brand-primary-800: #00638D;
+  --brand-primary-900: #065274;
+  --brand-secondary-25: #FFF9F5;
+  --brand-secondary-50: #FEF4ED;
+  --brand-secondary-100: #FDE6D5;
+  --brand-secondary-200: #FBCDA9;
+  --brand-secondary-300: #F8AD74;
+  --brand-secondary-400: #F68C3B;
+  --brand-secondary-500: #F47615;
+  --brand-secondary-600: #F5822A;
+  --brand-secondary-700: #C55B09;
+  --brand-secondary-800: #A44C08;
+  --brand-secondary-900: #883E06;
+  --brand-tertiary-25: #FCFFF0;
+  --brand-tertiary-50: #FAFFE5;
+  --brand-tertiary-100: #F2FFC7;
+  --brand-tertiary-200: #E5FF95;
+  --brand-tertiary-300: #D1FE58;
+  --brand-tertiary-400: #BAF526;
+  --brand-tertiary-500: #9BDC06;
+  --brand-tertiary-600: #80BC00;
+  --brand-tertiary-700: #5A8506;
+  --brand-tertiary-800: #49690B;
+  --brand-tertiary-900: #3D580F;
+  --brand-quaternary-25: #F8F7F7;
+  --brand-quaternary-50: #F4F3F2;
+  --brand-quaternary-100: #E4E1DD;
+  --brand-quaternary-200: #CAC5BE;
+  --brand-quaternary-300: #ACA398;
+  --brand-quaternary-400: #94887B;
+  --brand-quaternary-500: #85786D;
+  --brand-quaternary-600: #6F625A;
+  --brand-quaternary-700: #5C514C;
+  --brand-quaternary-800: #504643;
+  --brand-quaternary-900: #473E3C;
 }
 
 .brand-default,
@@ -1979,7 +1980,9 @@ body {
 }
 
 .brand-connect,
-[data-brand=connect] {
+[data-brand=connect],
+.brand-chg,
+[data-brand=chg] {
   --uds-button-surface-secondary: var(--brand-primary-50);
 }
 

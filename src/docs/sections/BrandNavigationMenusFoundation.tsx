@@ -9,14 +9,6 @@ const th =
 const td = 'border-b border-neutral-200 px-3 py-2 text-neutral-700 dark:border-neutral-800 dark:text-neutral-300'
 const tdMono = `${td} font-mono text-xs text-neutral-600 dark:text-neutral-400`
 
-const CHG_ITEMS = [
-  { label: 'Dashboard', icon: 'Layout' },
-  { label: 'Requests', icon: 'Briefcase' },
-  { label: 'Providers', icon: 'Users' },
-  { label: 'Calendar', icon: 'CalendarBlank' },
-  { label: 'Reporting', icon: 'ChartBar' },
-] as const
-
 const LOCUM_STYLE_ITEMS = [
   { label: 'Dashboard', icon: 'Layout', notes: '' },
   { label: 'Schedule', icon: 'CalendarBlank', notes: '' },
@@ -186,9 +178,9 @@ function AllBrandMenusPreview() {
       <BrandBlock
         id="brand-chg"
         title="chg"
-        intro="Same structure as default (CHG product shell)."
+        intro="Same menu structure as connect (Connect palette + Wireframe branding lockups)."
       >
-        <TwoColTable rows={CHG_ITEMS} />
+        <TwoColTable rows={CONNECT_ITEMS} />
       </BrandBlock>
 
       <BrandBlock id="brand-comphealth" title="comphealth">

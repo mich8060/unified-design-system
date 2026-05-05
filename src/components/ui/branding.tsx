@@ -19,6 +19,7 @@ import wireframeWordmark from "../../../public/branding/svg/wireframe-wordmark.s
 
 export type BrandingAppearance =
   | "Connect"
+  | "CHG"
   | "Locumsmart"
   | "Wireframe"
   | "MyWeatherby"
@@ -35,6 +36,10 @@ const SVG_ASSETS: Record<BrandingAppearance, { mark: string; wordmark: string }>
   Connect: {
     mark: connectMark,
     wordmark: connectWordmark,
+  },
+  CHG: {
+    mark: wireframeMark,
+    wordmark: wireframeWordmark,
   },
   Locumsmart: {
     mark: locumsmartMark,
