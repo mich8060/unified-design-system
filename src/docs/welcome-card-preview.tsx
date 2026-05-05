@@ -93,13 +93,14 @@ export function WelcomeCardPreview({ slug }: { slug: string }) {
             maxUnscaledPx={slug === 'alert-dialog' ? WELCOME_PREVIEW_ALERT_DIALOG_MAX_UNSCALED_PX : undefined}
             className={cn(
               'pointer-events-none select-none [-webkit-user-select:none] [user-select:none]',
+              slug === 'alert-dialog' && 'scale-[0.5]',
               slug === 'accordion'
                 ? 'flex w-full min-w-0 max-w-full flex-col self-stretch items-stretch [&_[data-slot=accordion]]:!bg-white [&_[data-slot=accordion-trigger]]:!bg-white dark:[&_[data-slot=accordion]]:!bg-neutral-950 dark:[&_[data-slot=accordion-trigger]]:!bg-neutral-950'
                 : slug === 'calendar'
                   ? 'flex w-full min-w-0 max-w-full justify-center'
                   : 'inline-flex w-max max-w-none',
               slug === 'aspect-ratio' &&
-                '[&_[data-slot=aspect-ratio]]:box-border [&_[data-slot=aspect-ratio]]:!border-2 [&_[data-slot=aspect-ratio]]:!border-red-500 [&_[data-slot=aspect-ratio]]:!bg-white dark:[&_[data-slot=aspect-ratio]]:!bg-neutral-950',
+                '[&_[data-slot=aspect-ratio]]:box-border [&_[data-slot=aspect-ratio]]:!w-[200px] [&_[data-slot=aspect-ratio]]:!h-[112.5px] [&_[data-slot=aspect-ratio]]:!border-0 [&_[data-slot=aspect-ratio]]:!bg-[repeating-linear-gradient(45deg,#ececf1_0px,#ececf1_12px,#dadbe2_12px,#dadbe2_24px)] [&_[data-slot=aspect-ratio]]:!translate-x-[-100px] [&_[data-slot=aspect-ratio]]:!translate-y-[-60px]',
             )}
           >
             {previewInner}

@@ -181,8 +181,8 @@ export function DialogVariants() {
 export function AlertDialogVariants() {
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
-        <Button variant="destructive" size="sm">
+      <AlertDialogTrigger asChild>
+        <Button type="button" variant="destructive" size="sm">
           Delete item
         </Button>
       </AlertDialogTrigger>
@@ -336,8 +336,8 @@ export function EmptySearch404() {
 export function SheetSidePreview() {
   return (
     <Sheet>
-      <SheetTrigger>
-        <Button variant="outline" size="sm">
+      <SheetTrigger asChild>
+        <Button type="button" variant="outline" size="sm">
           Open sheet
         </Button>
       </SheetTrigger>
@@ -354,8 +354,8 @@ export function SheetSidePreview() {
 export function DrawerVariants() {
   return (
     <Drawer>
-      <DrawerTrigger>
-        <Button variant="outline" size="sm">
+      <DrawerTrigger asChild>
+        <Button type="button" variant="outline" size="sm">
           Open drawer
         </Button>
       </DrawerTrigger>
@@ -365,8 +365,10 @@ export function DrawerVariants() {
           <DrawerDescription>Bottom sheet pattern, often used on small viewports.</DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>
-          <DrawerClose>
-            <Button variant="outline">Close</Button>
+          <DrawerClose asChild>
+            <Button type="button" variant="outline">
+              Close
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
@@ -377,8 +379,8 @@ export function DrawerVariants() {
 export function DropdownVariants() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button variant="outline" size="sm">
+      <DropdownMenuTrigger asChild>
+        <Button type="button" variant="outline" size="sm">
           Account
         </Button>
       </DropdownMenuTrigger>
@@ -396,8 +398,8 @@ export function DropdownVariants() {
 export function PopoverVariants() {
   return (
     <Popover>
-      <PopoverTrigger>
-        <Button variant="outline" size="sm">
+      <PopoverTrigger asChild>
+        <Button type="button" variant="outline" size="sm">
           Open popover
         </Button>
       </PopoverTrigger>
@@ -411,8 +413,8 @@ export function PopoverVariants() {
 export function TooltipVariants() {
   return (
     <Tooltip>
-      <TooltipTrigger>
-        <Button variant="ghost" size="sm">
+      <TooltipTrigger asChild>
+        <Button type="button" variant="ghost" size="sm">
           Hover me
         </Button>
       </TooltipTrigger>

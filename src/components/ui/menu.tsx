@@ -32,6 +32,7 @@ import { cn } from "@/lib/utils"
 import "./menu.css"
 import {
   applyDocsBrandToDocument,
+  DOCS_BRAND_OPTIONS,
   docsBrandToBrandingAppearance,
   persistDocsBrand,
   readStoredDocsBrand,
@@ -1132,10 +1133,18 @@ function MenuDefault({
 }: MenuDefaultProps) {
   const [activeBrand, setActiveBrand] = React.useState<string>(readStoredDocsBrand)
 
+  React.useEffect(() => {
+    if (!brandOptions?.length) return
+    if (brandOptions.some((option) => option.value === activeBrand)) return
+    setActiveBrand(brandOptions[0].value)
+  }, [activeBrand, brandOptions])
+
   const handleBrandChange = React.useCallback((value: string) => {
     setActiveBrand(value)
-    applyDocsBrandToDocument(value as DocsBrandId)
-    persistDocsBrand(value as DocsBrandId)
+    if (DOCS_BRAND_OPTIONS.some((option) => option.value === value)) {
+      applyDocsBrandToDocument(value as DocsBrandId)
+      persistDocsBrand(value as DocsBrandId)
+    }
   }, [])
 
   const resolvedNavItems = React.useMemo(

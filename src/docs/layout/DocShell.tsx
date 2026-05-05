@@ -35,14 +35,13 @@ import {
   cn,
 } from '@chg-ds/unified-design-system'
 import { DoctorAvatar } from '@/components/ui/doctor-avatar'
+import { applyDocsBrandToDocument, docsBrandToBrandingAppearance, persistDocsBrand } from '../doc-site-brand'
 import {
-  applyDocsBrandToDocument,
-  DOCS_BRAND_OPTIONS,
-  docsBrandToBrandingAppearance,
-  persistDocsBrand,
-  readStoredDocsBrand,
-  type DocsBrandId,
-} from '../doc-site-brand'
+  DOCS_VERSION_OPTIONS,
+  persistDocsVersion,
+  readStoredDocsVersion,
+  type DocsVersionId,
+} from '../doc-site-version'
 import { getAllComponents } from '../registry'
 import { getAllShadcnUiComponents } from '../shadcn-ui-registry'
 import { AccountMenuPanel } from './doc-shell-account-menu'
@@ -64,7 +63,7 @@ export function DocShell() {
   const [light, setLight] = useState(true)
   const [sidebarExpanded, setSidebarExpanded] = useState(true)
   const [railFlyout, setRailFlyout] = useState<FlyoutAnchor | null>(null)
-  const [docsBrand, setDocsBrand] = useState<DocsBrandId>(readStoredDocsBrand)
+  const [docsVersion, setDocsVersion] = useState<DocsVersionId>(() => readStoredDocsVersion())
 
   const closeFlyout = useCallback(() => setRailFlyout(null), [])
 
@@ -79,10 +78,15 @@ export function DocShell() {
     document.documentElement.classList.toggle('dark', !light)
   }, [light])
 
+  /** Site chrome always uses default tokens; brand previews are scoped on the Introduction page only. */
   useEffect(() => {
-    applyDocsBrandToDocument(docsBrand)
-    persistDocsBrand(docsBrand)
-  }, [docsBrand])
+    applyDocsBrandToDocument('default')
+    persistDocsBrand('default')
+  }, [])
+
+  useEffect(() => {
+    persistDocsVersion(docsVersion)
+  }, [docsVersion])
 
   const { pathname } = useLocation()
   const gettingChildActive = pathname.startsWith('/docs/getting-started/')
@@ -237,12 +241,12 @@ export function DocShell() {
                   <DocsRailMenu.Header
                     brandExpanded={
                       <NavLink
-                        to="/docs/welcome"
+                        to="/docs/introduction"
                         title="Home"
                         className="pointer-events-auto inline-flex items-center justify-center rounded-md outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950"
                       >
                         <Branding
-                          appearance={docsBrandToBrandingAppearance(docsBrand)}
+                          appearance={docsBrandToBrandingAppearance('default')}
                           wordmarkAlign="center"
                           className="h-14 w-[188px] min-w-[188px] max-w-[188px] shrink-0"
                         />
@@ -250,7 +254,7 @@ export function DocShell() {
                     }
                     brandCollapsed={
                       <NavLink
-                        to="/docs/welcome"
+                        to="/docs/introduction"
                         title="Home"
                         className={cn(
                           'pointer-events-auto inline-flex items-center justify-center rounded-md outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950',
@@ -258,7 +262,7 @@ export function DocShell() {
                         )}
                       >
                         <Branding
-                          appearance={docsBrandToBrandingAppearance(docsBrand)}
+                          appearance={docsBrandToBrandingAppearance('default')}
                           symbol
                           className="size-9"
                         />
@@ -268,22 +272,27 @@ export function DocShell() {
                 </DocsRailMenu.SidebarHeaderSlot>
 
                 <DocsRailMenu.Toolbar>
-                  <Select value={docsBrand} onValueChange={(v) => setDocsBrand(v as DocsBrandId)}>
-                    <SelectTrigger
-                      id="docs-site-brand-select"
-                      inputSize="sm"
-                      className="w-full min-w-0 max-w-full shadow-none"
-                    >
-                      <SelectValue placeholder="Select brand" />
-                    </SelectTrigger>
-                    <SelectContent position="popper" align="start" className="min-w-[var(--radix-select-trigger-width)]">
-                      {DOCS_BRAND_OPTIONS.map((o) => (
-                        <SelectItem key={o.value} value={o.value}>
-                          {o.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="flex w-full min-w-0 flex-col gap-1 px-1">
+                    <label htmlFor="docs-site-version-select" className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
+                      Docs version
+                    </label>
+                    <Select value={docsVersion} onValueChange={(v) => setDocsVersion(v as DocsVersionId)}>
+                      <SelectTrigger
+                        id="docs-site-version-select"
+                        inputSize="sm"
+                        className="w-full min-w-0 max-w-full shadow-none"
+                      >
+                        <SelectValue placeholder="Documentation version" />
+                      </SelectTrigger>
+                      <SelectContent position="popper" align="start" className="min-w-[var(--radix-select-trigger-width)]">
+                        {DOCS_VERSION_OPTIONS.map((o) => (
+                          <SelectItem key={o.value} value={o.value}>
+                            {o.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </DocsRailMenu.Toolbar>
 
                 <DocsRailMenu.Nav aria-label="Documentation">
@@ -291,7 +300,7 @@ export function DocShell() {
             <DocsNavSectionList>
               <DocsNavSectionColumn>
                 <NavLink
-                  to="/docs/welcome"
+                  to="/docs/introduction"
                   className={({ isActive }) =>
                     cn(
                       docsNavParentStickyCls,
@@ -310,7 +319,7 @@ export function DocShell() {
                         size={32}
                         className={cn('shrink-0', isActive ? 'text-white' : 'text-neutral-500 dark:text-neutral-400')}
                       />
-                      <span className="truncate">Welcome</span>
+                      <span className="truncate">Introduction</span>
                     </>
                   )}
                 </NavLink>
@@ -435,8 +444,8 @@ export function DocShell() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <NavLink
-                    to="/docs/welcome"
-                    aria-label="Welcome"
+                    to="/docs/introduction"
+                    aria-label="Introduction"
                     className={({ isActive }) =>
                       cn(
                         'flex size-12 shrink-0 items-center justify-center rounded-[4px] text-neutral-500 no-underline hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-900',
@@ -448,7 +457,7 @@ export function DocShell() {
                   </NavLink>
                 </TooltipTrigger>
                 <TooltipContent side="right" sideOffset={8}>
-                  Welcome
+                  Introduction
                 </TooltipContent>
               </Tooltip>
               <Tooltip>

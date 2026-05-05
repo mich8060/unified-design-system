@@ -27,6 +27,9 @@ export const DOCS_BRAND_OPTIONS: { value: DocsBrandId; label: string }[] = [
 
 export const DOCS_BRAND_STORAGE_KEY = 'docs-site-data-brand'
 
+/** Introduction page only: brand for `WelcomeCardPreview` strips (not global `document`). */
+export const INTRO_PREVIEW_BRAND_STORAGE_KEY = 'docs-intro-preview-brand'
+
 export function readStoredDocsBrand(): DocsBrandId {
   if (typeof window === 'undefined') return 'default'
   try {
@@ -41,6 +44,25 @@ export function readStoredDocsBrand(): DocsBrandId {
 export function persistDocsBrand(id: DocsBrandId) {
   try {
     window.localStorage.setItem(DOCS_BRAND_STORAGE_KEY, id)
+  } catch {
+    // ignore
+  }
+}
+
+export function readStoredIntroPreviewBrand(): DocsBrandId {
+  if (typeof window === 'undefined') return 'default'
+  try {
+    const raw = window.localStorage.getItem(INTRO_PREVIEW_BRAND_STORAGE_KEY)
+    if (raw && DOCS_BRAND_OPTIONS.some((o) => o.value === raw)) return raw as DocsBrandId
+  } catch {
+    // private mode / denied
+  }
+  return 'default'
+}
+
+export function persistIntroPreviewBrand(id: DocsBrandId) {
+  try {
+    window.localStorage.setItem(INTRO_PREVIEW_BRAND_STORAGE_KEY, id)
   } catch {
     // ignore
   }

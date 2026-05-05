@@ -8,9 +8,23 @@ import {
   SparkleIcon,
   SquaresFourIcon,
 } from '@chg-ds/unified-design-system'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, cn } from '@chg-ds/unified-design-system'
+import {
+  Button,
+  cn,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@chg-ds/unified-design-system'
+import {
+  DOCS_BRAND_OPTIONS,
+  persistIntroPreviewBrand,
+  readStoredIntroPreviewBrand,
+  type DocsBrandId,
+} from '../doc-site-brand'
 import { getAllShadcnUiComponents } from '../shadcn-ui-registry'
 import { WelcomeCardPreview } from '../welcome-card-preview'
 import { DocShellLayoutVisuals } from './DocShellLayoutVisuals'
@@ -21,27 +35,89 @@ const WELCOME_CARD_EXCLUDED_SLUGS = new Set(['header', 'footer'])
 /** Matches `MarkdownishPage` + welcome `className` so header and body share one column. */
 const WELCOME_PAGE_CONTAINER = 'mx-auto min-w-0 max-w-6xl px-8 lg:max-w-7xl'
 
-function WelcomeComponentGrid() {
+const introH2 = 'text-xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50'
+const introCard =
+  'rounded-lg border border-neutral-200 bg-neutral-50/80 p-5 dark:border-neutral-800 dark:bg-neutral-950/60'
+const introLead = 'mt-3 text-base leading-relaxed text-neutral-600 dark:text-neutral-300'
+const previewThemeVars: CSSProperties = {
+  '--background': 'var(--uds-surface-primary)',
+  '--foreground': 'var(--uds-text-primary)',
+  '--card': 'var(--uds-surface-primary)',
+  '--card-foreground': 'var(--uds-text-primary)',
+  '--popover': 'var(--uds-surface-primary)',
+  '--popover-foreground': 'var(--uds-text-primary)',
+  '--primary': 'var(--uds-color-primary-700)',
+  '--primary-foreground': 'var(--uds-text-inverse)',
+  '--secondary': 'var(--uds-surface-secondary)',
+  '--secondary-foreground': 'var(--uds-text-primary)',
+  '--muted': 'var(--uds-surface-secondary)',
+  '--muted-foreground': 'var(--uds-text-secondary)',
+  '--accent': 'var(--uds-surface-tertiary)',
+  '--accent-foreground': 'var(--uds-text-primary)',
+  '--border': 'var(--uds-border-primary)',
+  '--input': 'var(--uds-border-primary)',
+  '--ring': 'var(--uds-focus-ring-border)',
+} as CSSProperties
+
+function WelcomeComponentGrid({
+  previewBrand,
+  onPreviewBrandChange,
+}: {
+  previewBrand: DocsBrandId
+  onPreviewBrandChange: (id: DocsBrandId) => void
+}) {
   const items = getAllShadcnUiComponents().filter((e) => !WELCOME_CARD_EXCLUDED_SLUGS.has(e.slug))
 
   return (
     <div className="not-prose mt-10">
-      <h2 className="mb-4 text-lg font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">Components</h2>
+      <div className="sticky top-0 z-40 isolate -mx-2 mb-4 flex flex-col gap-4 border-b border-neutral-200 bg-white px-2 py-2 dark:border-neutral-800 dark:bg-neutral-950 sm:flex-row sm:items-end sm:justify-between">
+        <h2 className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">Components</h2>
+        <div className="flex w-full shrink-0 flex-col gap-1 sm:w-auto sm:min-w-[12rem]">
+          <Select
+            value={previewBrand}
+            onValueChange={(v) => onPreviewBrandChange(v as DocsBrandId)}
+          >
+            <SelectTrigger id="intro-preview-brand-select" inputSize="sm" className="w-full shadow-none">
+              <SelectValue placeholder="Brand" />
+            </SelectTrigger>
+            <SelectContent position="popper" align="end" className="min-w-[var(--radix-select-trigger-width)]">
+              {DOCS_BRAND_OPTIONS.map((o) => (
+                <SelectItem key={o.value} value={o.value}>
+                  {o.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
       <div className="grid grid-cols-3 gap-8">
         {items.map((c, i) => (
-          <Link
+          <div
             key={c.slug}
-            to={`/docs/components/${c.slug}`}
             className={cn(
-              'welcome-component-card block overflow-hidden rounded-[8px] border border-neutral-200 bg-white px-4 pb-4 pt-0',
+              'welcome-component-card relative block overflow-hidden rounded-[8px] border border-neutral-200 bg-white px-4 pb-4 pt-0',
               'dark:border-neutral-800 dark:bg-neutral-950',
             )}
             style={{ animationDelay: `${Math.min(i, 48) * 24}ms` }}
           >
-            <WelcomeCardPreview slug={c.slug} />
-            <span className="font-medium text-neutral-900 dark:text-neutral-100">{c.name}</span>
-            <span className="mt-1 block font-mono text-xs text-neutral-500 dark:text-neutral-400">{c.slug}</span>
-          </Link>
+            {/* Overlay link avoids nested <a> inside previews (e.g. BreadcrumbLink). */}
+            <Link
+              to={`/docs/components/${c.slug}`}
+              className="absolute inset-0 z-10 rounded-[8px] focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 dark:focus-visible:ring-neutral-600"
+              aria-label={`${c.name} component documentation`}
+            />
+            <div className="relative min-w-0">
+              <div
+                data-brand={previewBrand}
+                className={cn('min-w-0', `brand-${previewBrand}`)}
+                style={previewThemeVars}
+              >
+                <WelcomeCardPreview slug={c.slug} />
+              </div>
+              <span className="font-medium text-neutral-900 dark:text-neutral-100">{c.name}</span>
+              <span className="mt-1 block font-mono text-xs text-neutral-500 dark:text-neutral-400">{c.slug}</span>
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -429,6 +505,13 @@ export function PatternsDashboardPage() {
 }
 
 export function WelcomePage() {
+  const [introPreviewBrand, setIntroPreviewBrand] = useState<DocsBrandId>(() => readStoredIntroPreviewBrand())
+
+  const handleIntroPreviewBrand = useCallback((id: DocsBrandId) => {
+    setIntroPreviewBrand(id)
+    persistIntroPreviewBrand(id)
+  }, [])
+
   return (
     <div className="min-w-0">
       <header className="relative w-full overflow-hidden border-b border-[color-mix(in_srgb,var(--uds-color-primary-900)_45%,transparent)] bg-[var(--uds-color-primary-700)]">
@@ -483,14 +566,28 @@ export function WelcomePage() {
             style={{ '--welcome-header-icon-flux-base': '0.07', animationDelay: '1.2s' }}
           />
           <div className="relative z-10">
-            <h1 className="text-4xl font-bold tracking-tight text-white">Welcome</h1>
-            <p className="mt-4 max-w-3xl text-lg text-white/75">
-              You are viewing the CHG Unified Design System documentation: tokens, Tailwind foundations, components, and
-              patterns aligned with the UDS package contract.
+            <h1 className="text-4xl font-bold tracking-tight text-white">Introduction</h1>
+            <p className="mt-4 max-w-3xl text-lg font-medium text-white/90">
+              A unified design system that enables teams to build consistent, scalable, and production-ready experiences
+              across all CHG products.
             </p>
-            <div className="mt-8">
+            <p className="mt-6 max-w-3xl text-base text-white/85">
+              Build once, ship everywhere{' '}
+              <span className="select-none text-white/45" aria-hidden>
+                •
+              </span>{' '}
+              Faster time to market{' '}
+              <span className="select-none text-white/45" aria-hidden>
+                •
+              </span>{' '}
+              Consistent, accessible experiences
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="outline" size="default">
-                <Link to="/docs/getting-started/install">Get Started</Link>
+                <Link to="/docs/getting-started/install">Quick start — Install</Link>
+              </Button>
+              <Button asChild variant="ghost" size="default" className="border border-white/25 bg-white/10 text-white hover:bg-white/20">
+                <Link to="/docs/getting-started/usage">Usage</Link>
               </Button>
             </div>
           </div>
@@ -498,9 +595,79 @@ export function WelcomePage() {
       </header>
 
       <article className={cn(WELCOME_PAGE_CONTAINER, 'py-10')}>
-        <div className="text-neutral-600 dark:text-neutral-300">
-          <WelcomeComponentGrid />
+        <div className="not-prose space-y-16 text-neutral-700 dark:text-neutral-300">
+          <section aria-labelledby="intro-audience">
+            <h2 id="intro-audience" className={introH2}>
+              Who it&apos;s for
+            </h2>
+            <p className={introLead}>Different roles enter from different doors—each should find a clear path.</p>
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <div className={introCard}>
+                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Designers</p>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  Build and prototype with shared components and tokens so specs match what ships.
+                </p>
+              </div>
+              <div className={introCard}>
+                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Engineers</p>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  Import production-ready React components and a single stylesheet; compose with AppShell for product
+                  screens.
+                </p>
+              </div>
+              <div className={introCard}>
+                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Product managers</p>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  Align teams on consistent UX patterns, maturity, and scope instead of one-off widgets.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="intro-principles">
+            <h2 id="intro-principles" className={introH2}>
+              Principles
+            </h2>
+            <p className={introLead}>When documentation is silent, these defaults steer decisions.</p>
+            <ul className="mt-6 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+              {[
+                ['System over screens', 'Optimize for reusable systems, not one-off layouts.'],
+                ['Build once, reuse everywhere', 'Prefer shared components and tokens over local forks.'],
+                ['Code and design stay in sync', 'If it is not represented in the package contract, it is not canonical.'],
+                ['Constrain to scale', 'Opinionated defaults reduce decision fatigue as teams grow.'],
+                ['Speed through consistency', 'Predictable patterns beat bespoke chrome for delivery speed.'],
+              ].map(([title, body]) => (
+                <li key={title} className={introCard}>
+                  <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">{title}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">{body}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
+
+        <div className="mt-16 border-t border-neutral-200 pt-12 dark:border-neutral-800">
+          <WelcomeComponentGrid previewBrand={introPreviewBrand} onPreviewBrandChange={handleIntroPreviewBrand} />
+        </div>
+
+        <section
+          aria-labelledby="intro-contribute"
+          className="not-prose mt-16 border-t border-neutral-200 pt-12 text-neutral-700 dark:border-neutral-800 dark:text-neutral-300"
+        >
+          <h2 id="intro-contribute" className={introH2}>
+            Contribution &amp; ownership
+          </h2>
+          <p className={introLead}>
+            The Design System team owns governance, prioritization, and release quality. Everyone else contributes through
+            structured requests and reviews.
+          </p>
+          <ul className="mt-4 list-disc space-y-2 pl-5">
+            <li>Raise new component or pattern needs through your product design partner or engineering lead.</li>
+            <li>Propose contributions with usage evidence, accessibility notes, and tests where applicable.</li>
+            <li>Expect changes to flow through package versioning so downstream apps stay predictable.</li>
+          </ul>
+        </section>
+
         <p className="mt-10 text-sm">
           <Link to="/docs/getting-started/install" className="docs-link font-medium">
             Getting started →

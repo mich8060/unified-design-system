@@ -1271,7 +1271,6 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             (
                 <div className="flex flex-wrap items-end gap-6">
                     <div className="flex flex-col gap-2">
-                        <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">default</span>
                         <div className="flex flex-wrap items-center gap-2">
                             <Badge accent="blue" appearance="pastel">
                                 Label
@@ -1281,27 +1280,10 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                             </Badge>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">sm</span>
-                        <div className="flex flex-wrap items-center gap-2">
-                            <Badge size="sm" accent="blue" appearance="pastel">
-                                Label
-                            </Badge>
-                            <Badge
-                                size="sm"
-                                accent="blue"
-                                appearance="pastel"
-                                icon={<InfoIcon weight="bold" aria-hidden />}
-                            >
-                                With icon
-                            </Badge>
-                        </div>
-                    </div>
                 </div>
             ),
             `<Badge accent="blue" appearance="pastel">Label</Badge>
-<Badge size="sm" accent="blue" appearance="pastel">Label</Badge>
-<Badge size="sm" accent="blue" appearance="pastel" icon={<InfoIcon weight="bold" aria-hidden />}>With icon</Badge>`,
+<Badge accent="blue" appearance="pastel" icon={<InfoIcon weight="bold" aria-hidden />}>With icon</Badge>`,
         ),
         E(
             'variants',

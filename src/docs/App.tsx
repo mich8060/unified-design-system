@@ -33,7 +33,8 @@ import {
   type MenuNavigationItem,
 } from '@chg-ds/unified-design-system'
 import { CATALOG_META } from './catalog-meta'
-import { DOCS_BRAND_OPTIONS } from './doc-site-brand'
+import { applyDocsBrandToDocument, persistDocsBrand } from './doc-site-brand'
+import { DOCS_VERSION_OPTIONS } from './doc-site-version'
 import { getAllShadcnUiComponents } from './shadcn-ui-registry'
 
 const ComponentDocPage = lazy(() =>
@@ -80,8 +81,8 @@ const componentChildren: MenuNavigationItem[] = getAllShadcnUiComponents()
 
 const NAVIGATION_ITEMS: MenuNavigationItem[] = [
   {
-    id: 'welcome',
-    label: 'Welcome',
+    id: 'introduction',
+    label: 'Introduction',
     icon: WelcomeMenuIcon,
   },
   {
@@ -127,7 +128,7 @@ const NAVIGATION_ITEMS: MenuNavigationItem[] = [
 /* ── Route ↔ nav-id maps ── */
 
 const NAV_ID_TO_ROUTE: Record<string, string> = {
-  welcome: '/docs/welcome',
+  introduction: '/docs/introduction',
   'getting-started-install': '/docs/getting-started/install',
   'getting-started-usage': '/docs/getting-started/usage',
   'getting-started-app-shell': '/docs/getting-started/app-shell',
@@ -183,7 +184,7 @@ function DocsLayout() {
       menu={
         <Menu
           navigationItems={NAVIGATION_ITEMS}
-          brandOptions={DOCS_BRAND_OPTIONS}
+          brandOptions={DOCS_VERSION_OPTIONS}
           activeId={activeId}
           onNavigationSelect={handleNavigationSelect}
         />
@@ -288,6 +289,15 @@ function DocWindowScrollRestoration() {
   return null
 }
 
+/** Documentation chrome uses default brand tokens globally; scoped previews set `data-brand` locally. */
+function DocsGlobalDefaultBrand() {
+  useEffect(() => {
+    applyDocsBrandToDocument('default')
+    persistDocsBrand('default')
+  }, [])
+  return null
+}
+
 /* ── App entry ── */
 
 export default function DocsApp() {
@@ -296,11 +306,13 @@ export default function DocsApp() {
       <TooltipProvider>
         <Toaster />
         <BrowserRouter>
+          <DocsGlobalDefaultBrand />
           <DocWindowScrollRestoration />
           <Routes>
             <Route path="/" element={<DocsLayout />}>
-              <Route index element={<Navigate to="/docs/welcome" replace />} />
-              <Route path="docs/welcome" element={<WelcomePage />} />
+              <Route index element={<Navigate to="/docs/introduction" replace />} />
+              <Route path="docs/introduction" element={<WelcomePage />} />
+              <Route path="docs/welcome" element={<Navigate to="/docs/introduction" replace />} />
               <Route path="docs/getting-started/install" element={<InstallPage />} />
               <Route path="docs/getting-started/usage" element={<UsagePage />} />
               <Route path="docs/getting-started/app-shell" element={<AppShellDemoPage />} />
@@ -327,7 +339,7 @@ export default function DocsApp() {
               <Route path="docs/utilities/:slug" element={<RedirectUtilitiesToFoundations />} />
               <Route path="docs/components/:slug" element={<ShadcnComponentDocPage />} />
             </Route>
-            <Route path="*" element={<Navigate to="/docs/welcome" replace />} />
+            <Route path="*" element={<Navigate to="/docs/introduction" replace />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
