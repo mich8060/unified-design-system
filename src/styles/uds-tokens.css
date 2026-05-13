@@ -1577,6 +1577,7 @@ body {
   --uds-font-size-28: 28px;
   --uds-font-size-24: 24px;
   --uds-font-size-20: 20px;
+  --uds-font-size-18: 18px;
   --uds-font-size-16: 16px;
   --uds-font-size-15: 15px;
   --uds-font-size-14: 14px;
@@ -1593,6 +1594,7 @@ body {
   --uds-line-28: 36px;
   --uds-line-24: 32px;
   --uds-line-20: 28px;
+  --uds-line-18: 26px;
   --uds-line-16: 24px;
   --uds-line-15: 22px;
   --uds-line-14: 20px;
@@ -1677,6 +1679,12 @@ body {
   --uds-type-body-16-line-loose: calc(var(--uds-line-16) + 4px);
   --uds-type-body-16-letter-spacing: 0em;
   --uds-type-body-16-text-transform: none;
+  --uds-type-body-18-font-size: var(--uds-font-size-18);
+  --uds-type-body-18-line-regular: var(--uds-line-18);
+  --uds-type-body-18-line-tight: calc(var(--uds-line-18) - 4px);
+  --uds-type-body-18-line-loose: calc(var(--uds-line-18) + 4px);
+  --uds-type-body-18-letter-spacing: 0em;
+  --uds-type-body-18-text-transform: none;
   --uds-type-body-15-font-size: var(--uds-font-size-15);
   --uds-type-body-15-line-regular: var(--uds-line-15);
   --uds-type-body-15-line-tight: calc(var(--uds-line-15) - 4px);

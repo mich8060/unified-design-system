@@ -1,7 +1,8 @@
-import { lazy, useCallback, useEffect, useLayoutEffect, useMemo, useRef, type ComponentProps } from 'react'
+import { lazy, useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import {
   BrowserRouter,
   Navigate,
+  Outlet,
   Route,
   Routes,
   useLocation,
@@ -13,28 +14,24 @@ import {
   AppShell,
   BellIcon,
   Button,
-  DiamondsFourIcon,
   Footer,
-  HouseIcon,
   IconContext,
-  LayoutIcon,
   Menu,
-  PresentationChartIcon,
   QuestionIcon,
-  SquaresFourIcon,
-  StackIcon,
   Toaster,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
   TooltipProvider,
-  cn,
-  type MenuNavigationItem,
 } from '@chg-ds/unified-design-system'
-import { CATALOG_META } from './catalog-meta'
-import { applyDocsBrandToDocument, readStoredDocsBrand } from './doc-site-brand'
-import { DOCS_VERSION_OPTIONS } from './doc-site-version'
-import { getAllShadcnUiComponents } from './shadcn-ui-registry'
+import { DocsVersionSelect } from './components/DocsVersionSelect'
+import { applyDocsBrandToDocument, DOCS_BRAND_OPTIONS, readStoredDocsBrand } from './doc-site-brand'
+import {
+  DocsVersionProvider,
+  DocsVersionRouteGuard,
+  useDocsVersion,
+  useDocsVersionBundle,
+} from './versions/context'
 
 const ComponentDocPage = lazy(() =>
   import('./pages/ComponentDocPage').then((m) => ({ default: m.ComponentDocPage })),
@@ -61,94 +58,6 @@ const WelcomePage = lazy(() =>
   import('./pages/PlaceholderPages').then((m) => ({ default: m.WelcomePage })),
 )
 
-const SECTIONS_SLUGS = new Set(['header', 'footer'])
-
-function WelcomeMenuIcon(props: ComponentProps<typeof HouseIcon>) {
-  const { className, ...rest } = props
-  return <HouseIcon {...rest} size={32} className={cn('shrink-0', className)} />
-}
-
-/* ── Navigation data ── */
-
-const foundationChildren: MenuNavigationItem[] = [...CATALOG_META]
-  .sort((a, b) => a.name.localeCompare(b.name, 'en'))
-  .map((entry) => ({ id: `foundation-${entry.slug}`, label: entry.name }))
-
-const componentChildren: MenuNavigationItem[] = getAllShadcnUiComponents()
-  .filter((entry) => !SECTIONS_SLUGS.has(entry.slug))
-  .map((entry) => ({ id: `component-${entry.slug}`, label: entry.name }))
-
-const NAVIGATION_ITEMS: MenuNavigationItem[] = [
-  {
-    id: 'introduction',
-    label: 'Introduction',
-    icon: WelcomeMenuIcon,
-  },
-  {
-    id: 'getting-started',
-    label: 'Getting Started',
-    icon: LayoutIcon,
-    children: [
-      { id: 'getting-started-install', label: 'Install' },
-      { id: 'getting-started-usage', label: 'Usage' },
-      { id: 'getting-started-app-shell', label: 'AppShell' },
-    ],
-  },
-  {
-    id: 'foundations',
-    label: 'Foundations',
-    icon: SquaresFourIcon,
-    children: foundationChildren,
-  },
-  {
-    id: 'components',
-    label: 'Components',
-    icon: DiamondsFourIcon,
-    children: componentChildren,
-  },
-  {
-    id: 'sections',
-    label: 'Modules',
-    icon: StackIcon,
-    children: [
-      { id: 'section-menu', label: 'Menu' },
-      { id: 'section-header', label: 'Header' },
-      { id: 'section-footer', label: 'Footer' },
-    ],
-  },
-  {
-    id: 'patterns',
-    label: 'Patterns',
-    icon: PresentationChartIcon,
-    children: [{ id: 'pattern-dashboard', label: 'Dashboard' }],
-  },
-]
-
-/* ── Route ↔ nav-id maps ── */
-
-const NAV_ID_TO_ROUTE: Record<string, string> = {
-  introduction: '/docs/introduction',
-  'getting-started-install': '/docs/getting-started/install',
-  'getting-started-usage': '/docs/getting-started/usage',
-  'getting-started-app-shell': '/docs/getting-started/app-shell',
-  'section-menu': '/docs/sections/menu',
-  'section-header': '/docs/sections/header',
-  'section-footer': '/docs/sections/footer',
-  'pattern-dashboard': '/docs/patterns/dashboard',
-  ...Object.fromEntries(
-    [...CATALOG_META].map((e) => [`foundation-${e.slug}`, `/docs/foundations/${e.slug}`]),
-  ),
-  ...Object.fromEntries(
-    getAllShadcnUiComponents().map((e) => [`component-${e.slug}`, `/docs/components/${e.slug}`]),
-  ),
-}
-
-const ROUTE_TO_NAV_ID: Record<string, string> = Object.fromEntries(
-  Object.entries(NAV_ID_TO_ROUTE).map(([id, path]) => [path, id]),
-)
-
-/* ── Helpers ── */
-
 const DEFAULT_FOUNDATIONS_SLUG = 'display'
 
 function RedirectUtilitiesToFoundations() {
@@ -162,31 +71,35 @@ function RedirectUtilitiesToFoundations() {
   return <Navigate to={`/docs/foundations/${resolved}`} replace />
 }
 
-/* ── Layout with configured Menu ── */
-
 function DocsLayout() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const bundle = useDocsVersionBundle()
+  const { items: navigationItems, navIdToRoute, routeToNavId } = bundle.navigation
 
-  const activeId = useMemo(() => ROUTE_TO_NAV_ID[pathname], [pathname])
+  const activeId = useMemo(() => routeToNavId[pathname], [pathname, routeToNavId])
 
   const handleNavigationSelect = useCallback(
     (id: string) => {
-      const route = NAV_ID_TO_ROUTE[id]
+      const route = navIdToRoute[id]
       if (route) navigate(route)
     },
-    [navigate],
+    [navIdToRoute, navigate],
   )
 
   return (
     <AppShell className="min-h-dvh min-w-0 w-full max-w-full overflow-x-hidden">
       <AppShell.Menu>
-        <Menu
-          navigationItems={NAVIGATION_ITEMS}
-          brandOptions={DOCS_VERSION_OPTIONS}
-          activeId={activeId}
-          onNavigationSelect={handleNavigationSelect}
-        />
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+          <DocsVersionSelect />
+          <Menu
+            navigationItems={navigationItems}
+            brandOptions={DOCS_BRAND_OPTIONS}
+            activeId={activeId}
+            onNavigationSelect={handleNavigationSelect}
+            className="min-h-0 flex-1"
+          />
+        </div>
       </AppShell.Menu>
       <AppShell.Header>
         <>
@@ -218,6 +131,16 @@ function DocsLayout() {
         />
       </AppShell.Footer>
     </AppShell>
+  )
+}
+
+function VersionedDocOutlet() {
+  const { versionId } = useDocsVersion()
+
+  return (
+    <DocsVersionRouteGuard>
+      <Outlet key={versionId} />
+    </DocsVersionRouteGuard>
   )
 }
 
@@ -315,49 +238,50 @@ function DocsGlobalDefaultBrand() {
   return null
 }
 
-/* ── App entry ── */
-
 export default function DocsApp() {
   return (
     <IconContext.Provider value={{ weight: 'bold', mirrored: false }}>
       <TooltipProvider>
         <Toaster />
         <BrowserRouter>
-          <DocsGlobalDefaultBrand />
-          <DocWindowScrollRestoration />
-          <Routes>
-            <Route path="/" element={<DocsLayout />}>
-              <Route index element={<Navigate to="/docs/introduction" replace />} />
-              <Route path="docs/introduction" element={<WelcomePage />} />
-              <Route path="docs/welcome" element={<Navigate to="/docs/introduction" replace />} />
-              <Route path="docs/getting-started/install" element={<InstallPage />} />
-              <Route path="docs/getting-started/usage" element={<UsagePage />} />
-              <Route path="docs/getting-started/app-shell" element={<AppShellDemoPage />} />
-              <Route path="docs/sections/menu" element={<MenuPage />} />
-              <Route path="docs/sections/:slug" element={<ShadcnComponentDocPage />} />
-              <Route path="docs/patterns/dashboard" element={<PatternsDashboardPage />} />
-              {/* Redirects from old routes */}
-              <Route path="docs/getting-started/menu" element={<Navigate to="/docs/sections/menu" replace />} />
-              <Route path="docs/components/header" element={<Navigate to="/docs/sections/header" replace />} />
-              <Route path="docs/components/footer" element={<Navigate to="/docs/sections/footer" replace />} />
-              <Route
-                path="docs/foundations/layout-display"
-                element={<Navigate to="/docs/foundations/display" replace />}
-              />
-              <Route
-                path="docs/foundations/layout-position"
-                element={<Navigate to="/docs/foundations/display" replace />}
-              />
-              <Route
-                path="docs/foundations/display-and-placement"
-                element={<Navigate to="/docs/foundations/display" replace />}
-              />
-              <Route path="docs/foundations/:slug" element={<ComponentDocPage />} />
-              <Route path="docs/utilities/:slug" element={<RedirectUtilitiesToFoundations />} />
-              <Route path="docs/components/:slug" element={<ShadcnComponentDocPage />} />
-            </Route>
-            <Route path="*" element={<Navigate to="/docs/introduction" replace />} />
-          </Routes>
+          <DocsVersionProvider>
+            <DocsGlobalDefaultBrand />
+            <DocWindowScrollRestoration />
+            <Routes>
+              <Route path="/" element={<DocsLayout />}>
+                <Route element={<VersionedDocOutlet />}>
+                <Route index element={<Navigate to="/docs/introduction" replace />} />
+                <Route path="docs/introduction" element={<WelcomePage />} />
+                <Route path="docs/welcome" element={<Navigate to="/docs/introduction" replace />} />
+                <Route path="docs/getting-started/install" element={<InstallPage />} />
+                <Route path="docs/getting-started/usage" element={<UsagePage />} />
+                <Route path="docs/getting-started/app-shell" element={<AppShellDemoPage />} />
+                <Route path="docs/sections/menu" element={<MenuPage />} />
+                <Route path="docs/sections/:slug" element={<ShadcnComponentDocPage />} />
+                <Route path="docs/patterns/dashboard" element={<PatternsDashboardPage />} />
+                <Route path="docs/getting-started/menu" element={<Navigate to="/docs/sections/menu" replace />} />
+                <Route path="docs/components/header" element={<Navigate to="/docs/sections/header" replace />} />
+                <Route path="docs/components/footer" element={<Navigate to="/docs/sections/footer" replace />} />
+                <Route
+                  path="docs/foundations/layout-display"
+                  element={<Navigate to="/docs/foundations/display" replace />}
+                />
+                <Route
+                  path="docs/foundations/layout-position"
+                  element={<Navigate to="/docs/foundations/display" replace />}
+                />
+                <Route
+                  path="docs/foundations/display-and-placement"
+                  element={<Navigate to="/docs/foundations/display" replace />}
+                />
+                <Route path="docs/foundations/:slug" element={<ComponentDocPage />} />
+                <Route path="docs/utilities/:slug" element={<RedirectUtilitiesToFoundations />} />
+                <Route path="docs/components/:slug" element={<ShadcnComponentDocPage />} />
+                </Route>
+              </Route>
+              <Route path="*" element={<Navigate to="/docs/introduction" replace />} />
+            </Routes>
+          </DocsVersionProvider>
         </BrowserRouter>
       </TooltipProvider>
     </IconContext.Provider>

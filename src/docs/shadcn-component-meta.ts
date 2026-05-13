@@ -230,7 +230,7 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
   },
   text: {
     summary:
-      'Text applies the UDS type scale and Inter-backed weights, optional `appearance` colors aligned with `--uds-text-*` tokens (`text-uds-text-*`), and a polymorphic `as` prop for the root element.',
+      'Text applies UDS typography styles in `body`, `heading`, and `display` groups with size and line-height presets from `--uds-type-*` tokens, Inter-backed weights, optional `appearance` colors aligned with `--uds-text-*` tokens (`text-uds-text-*`), and a polymorphic `as` prop for the root element.',
   },
   textarea: {
     summary: 'Textarea supports multiline freeform input for notes, descriptions, and longer responses.',

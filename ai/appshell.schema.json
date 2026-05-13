@@ -71,7 +71,7 @@
           "description": "Secondary pane (master-detail, queues). Omit or pass null/undefined to collapse the listview column."
         },
         "footer": {
-          "description": "Placed in appshell--footer below appshell--main, inside appshell--main-column — same width as main, not viewport-fixed."
+          "description": "Placed in appshell--footer at the end of appshell--main (after Outlet and main children); scrolls with page content, not viewport-fixed."
         },
         "children": {
           "description": "Unmarked children render inside appshell--main after Router <Outlet />. Prefer <AppShell.Main> for clarity."
@@ -127,7 +127,7 @@
         "tree": {
           "type": "string",
           "description": "Logical DOM (abbreviated).",
-          "default": "div.appshell[data-slot=appshell] > .appshell--menu? + .appshell--body > .appshell--header (Header+Search) + .appshell--content > (.appshell--listview + .appshell--main-column > .appshell--main > Suspense>Outlet + children) + .appshell--footer?"
+          "default": "div.appshell[data-slot=appshell] > .appshell--menu? + .appshell--body > .appshell--header (Header+Search) + .appshell--content > (.appshell--listview + .appshell--main-column > .appshell--main > Suspense>Outlet + children + .appshell--footer?)"
         },
         "classNames": {
           "type": "object",
@@ -175,10 +175,10 @@
           "default": "Open when listview slot is non-null. Container animates width 0↔320px; inner child stays 320px with opacity fade."
         },
         "footer": {
-          "default": "Not position:fixed. Sits in flow under .appshell--main inside .appshell--main-column; full width of that column. Nested [data-slot=uds-footer] has border-top suppressed in shell CSS."
+          "default": "Not position:fixed. Rendered as the last child inside .appshell--main so it scrolls with page content. Nested [data-slot=uds-footer] has border-top suppressed in shell CSS."
         },
         "header": {
-          "default": "Not position:fixed — in normal flow at top of .appshell--body. Always uses package Header with optional trailing from AppShell.Header / headerRight."
+          "default": "position:fixed at top of the content column (left tracks menu width). .appshell--content uses padding-top: var(--appshell-header-height, 60px). Always uses package Header with optional trailing from AppShell.Header / headerRight."
         }
       }
     },

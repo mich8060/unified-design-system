@@ -29,7 +29,7 @@ export type AppShellProps = React.ComponentProps<"div"> & {
   headerSearchProps?: HeaderProps["searchProps"]
   /** Optional secondary pane (e.g. record list, search results). Animates open/closed. */
   listview?: React.ReactNode
-  /** Renders below the main column (scrolls with content; not fixed). */
+  /** Renders at the end of the main region (scrolls with page content; not fixed). */
   footer?: React.ReactNode
 }
 
@@ -141,8 +141,8 @@ function AppShell({
                 <Outlet />
               </Suspense>
               {resolvedMain}
+              {resolvedFooter ? <div className="appshell--footer">{resolvedFooter}</div> : null}
             </div>
-            {resolvedFooter ? <div className="appshell--footer">{resolvedFooter}</div> : null}
           </div>
         </div>
       </div>

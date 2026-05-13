@@ -24,11 +24,12 @@ import {
   docPageHeroShellClassName,
   docPageHorizontalGutterClassName,
 } from '../doc-page-hero-classes'
-import { getCatalogEntry, resolveSections } from '../registry'
+import { useDocsRegistry } from '../registry'
 
 export function ComponentDocPage() {
   const { slug } = useParams<{ slug: string }>()
   const [previewBrand, setPreviewBrand] = useState<DocsBrandId>(() => readStoredDocsBrand())
+  const { getCatalogEntry, resolveSections } = useDocsRegistry()
   const entry = slug ? getCatalogEntry(slug) : undefined
 
   if (!entry) {

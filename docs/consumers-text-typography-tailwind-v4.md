@@ -6,9 +6,9 @@ This document is the **contract for product apps** that use **`@chg-ds/unified-d
 
 ## 1. Precompiled utilities — not app JIT on `node_modules`
 
-**Confirmed:** The `Text` component applies typography through **static utility class names** resolved at **library build time** (for example `text-uds-10`, `leading-uds-10`). Those classes are emitted into the **published stylesheet** (`@chg-ds/unified-design-system/styles.css`).
+**Confirmed:** The `Text` component applies typography through **CSS custom properties** from the shipped semantic type tokens (for example `--uds-type-body-14-font-size`, `--uds-type-body-14-line-regular`). Weight and appearance still use **static utility class names** from the published stylesheet (`font-uds-medium`, `text-uds-text-primary`, and similar).
 
-**They are not** produced by the consumer app’s Tailwind compiler scanning `node_modules/@chg-ds/...` for class strings. Relying only on `@import "tailwindcss"` and `@source` in the app **will not** generate `text-uds-*` / `leading-uds-*` rules from the design system package alone.
+**They are not** produced by the consumer app’s Tailwind compiler scanning `node_modules/@chg-ds/...` for class strings. Relying only on `@import "tailwindcss"` and `@source` in the app **will not** generate the full UDS typography surface from the design system package alone.
 
 **Required consumer step:** Import the design system stylesheet once at the app root (or an equivalent **full** build that includes the same rules):
 
@@ -16,28 +16,28 @@ This document is the **contract for product apps** that use **`@chg-ds/unified-d
 import "@chg-ds/unified-design-system/styles.css"
 ```
 
-If `styles.css` is missing, `<Text variant="body-10" />` (and other variants) will **not** get the intended font size or line height, even if the JSX and `variant` prop are correct.
+If `styles.css` is missing, `<Text variant="body" size="14" />` will **not** get the intended font size, line height, letter spacing, or display text transform, even if the JSX and props are correct.
 
 ---
 
 ## 2. Token chain (themes and brands)
 
-**Confirmed:** Typography utilities are wired through Tailwind v4 **`@theme`** in the shipped CSS. For each step on the scale, the chain is consistent, for example for **10px body**:
+**Confirmed:** Typography styles are wired through semantic **`--uds-type-*`** variables in the shipped token file. For each group and size step, the chain is consistent, for example for **body 14**:
 
 | Layer | Role |
 |--------|------|
-| Utility classes | `text-uds-10`, `leading-uds-10` |
-| `@theme` (in shipped CSS) | `--text-uds-10` / `--text-uds-10--line-height`, `--leading-uds-10` |
-| Primitives (semantic token file) | `--uds-font-size-10`, `--uds-line-10` |
-| Semantic type tokens (optional, for documentation / non-Tailwind CSS) | e.g. `--uds-type-body-10-font-size`, `--uds-type-body-10-line-regular`, … |
+| `Text` props | `variant="body"` `size="14"` `lineHeight="regular"` |
+| Applied styles | `font-size`, `line-height`, `letter-spacing`, and `text-transform` from `--uds-type-body-14-*` |
+| Primitives | `--uds-font-size-14`, `--uds-line-14` |
+| Optional Tailwind utilities | `text-uds-14`, `leading-uds-14` when you compose typography manually |
 
-**Consumer implication:** Brand or theme overrides must **preserve** these variables (or intentionally remap them). If a theme drops `--uds-font-size-10` / `--uds-line-10` or overrides `--text-uds-10` incorrectly, **`body-10` will look wrong or unchanged** relative to other scales.
+**Consumer implication:** Brand or theme overrides must **preserve** these variables (or intentionally remap them). If a theme drops `--uds-font-size-14` / `--uds-line-14` or overrides the semantic `--uds-type-body-14-*` values incorrectly, **body 14 will look wrong or unchanged** relative to other scales.
 
 ---
 
 ## 3. Layer order and global CSS conflicts
 
-**Confirmed:** `Text` renders a normal element (e.g. `p`, `span`) with utility classes. Any **more specific** or **later** CSS that sets `font-size`, `line-height`, or `font-family` on that element (or ancestors) can **override** the utilities.
+**Confirmed:** `Text` renders a normal element (e.g. `p`, `span`) with utility classes and typography variables. Any **more specific** or **later** CSS that sets `font-size`, `line-height`, or `font-family` on that element (or ancestors) can **override** the utilities.
 
 **Documented recommendation:**
 
@@ -49,35 +49,27 @@ We do not mandate a single global order for every app stack; teams should **test
 
 ---
 
-## 4. `Text` variants → utilities → tokens
+## 4. `Text` props → typography tokens
 
-The **`Text`** component uses **`textVariants`** from `class-variance-authority` (also **exported** as `textVariants` for debugging). Default root classes include `font-sans`, `text-foreground`, and `[font-family:var(--font-inter)]`.
+The **`Text`** component uses **`textVariants`** from `class-variance-authority` (also **exported** as `textVariants` for debugging) for **weight** and **appearance**. Typography size and rhythm come from **`variant`**, **`size`**, and **`lineHeight`**.
 
-### Variant → size / leading utilities
+### Groups and size steps
 
-| `variant`   | `font-size` + default line (utilities) |
-|------------|----------------------------------------|
-| `body-10`  | `text-uds-10` `leading-uds-10`         |
-| `body-12`  | `text-uds-12` `leading-uds-12`         |
-| `body-14`  | `text-uds-14` `leading-uds-14`         |
-| `body-15`  | `text-uds-15` `leading-uds-15`         |
-| `body-16`  | `text-uds-16` `leading-uds-16`         |
-| `body-20`  | `text-uds-20` `leading-uds-20`         |
-| `title-24` | `text-uds-24` `leading-uds-24`         |
-| `title-28` | `text-uds-28` `leading-uds-28`         |
-| `title-32` | `text-uds-32` `leading-uds-32`         |
-| `display-36` | `text-uds-36` `leading-uds-36`     |
-| `display-48` | `text-uds-48` `leading-uds-48`     |
+| `variant` | `size` values | Default `size` |
+|-----------|---------------|----------------|
+| `body` | `10`, `12`, `14`, `16`, `18`, `20` | `14` |
+| `heading` | `24`, `28`, `32` | `24` |
+| `display` | `36`, `48`, `60`, `72`, `96`, `128` | `48` |
 
-### `@theme` mapping (examples)
+### `lineHeight` presets
 
-For step **N** in `{ 10, 12, 14, … }`, shipped theme defines:
+| `lineHeight` | Token suffix |
+|--------------|--------------|
+| `regular` | `--uds-type-{variant}-{size}-line-regular` |
+| `tight` | `--uds-type-{variant}-{size}-line-tight` |
+| `loose` | `--uds-type-{variant}-{size}-line-loose` |
 
-- `--text-uds-N` → `var(--uds-font-size-N)`
-- `--text-uds-N--line-height` → `var(--uds-line-N)`
-- `--leading-uds-N` → `var(--uds-line-N)`
-
-See `src/styles/uds-typography-theme.css` in this repository.
+Each combination also reads `--uds-type-{variant}-{size}-letter-spacing` and `--uds-type-{variant}-{size}-text-transform` (display styles use uppercase by default).
 
 ### Weight utilities (`weight` prop)
 
@@ -94,11 +86,11 @@ Uses `text-uds-text-*` utilities (semantic text colors). See `TEXT_APPEARANCES` 
 
 ---
 
-## 5. Visual regression (body-10 vs body-12)
+## 5. Visual regression (body 10 vs body 12)
 
-**Product ask:** Maintain an obvious visual check (Storybook story, docs site example, or screenshot baseline) that shows **`body-10`** next to **`body-12`** with the same label text so size regressions are visible at a glance.
+**Product ask:** Maintain an obvious visual check (Storybook story, docs site example, or screenshot baseline) that shows **`variant="body" size="10"`** next to **`variant="body" size="12"`** with the same label text so size regressions are visible at a glance.
 
-This repo’s docs UI includes a **Text** scale example under component previews (`src/docs/shadcn-examples/registry.tsx`); extend that or add Storybook when the team standardizes on a single visual surface.
+This repo’s docs UI includes **Text** examples under component previews (`src/docs/shadcn-examples/registry.tsx`); extend that or add Storybook when the team standardizes on a single visual surface.
 
 ---
 
@@ -106,12 +98,12 @@ This repo’s docs UI includes a **Text** scale example under component previews
 
 **Today:**
 
-- **`textVariants`** is **exported** from `@chg-ds/unified-design-system` (same module as `Text`). For debugging you can log or apply resolved classes:
+- **`textVariants`** is **exported** from `@chg-ds/unified-design-system` (same module as `Text`). For debugging you can log or apply resolved weight and appearance classes:
 
   ```tsx
   import { Text, textVariants, cn } from "@chg-ds/unified-design-system"
 
-  <span className={cn(textVariants({ variant: "body-10", weight: "medium" }))}>debug</span>
+  <span className={cn(textVariants({ weight: "medium", appearance: "secondary" }))}>debug</span>
   ```
 
 **Optional follow-up (if the team agrees DX is still confusing):**
@@ -123,7 +115,7 @@ This repo’s docs UI includes a **Text** scale example under component previews
 
 ## Related source files
 
-- `src/components/ui/text.tsx` — `Text`, `textVariants`, `TEXT_APPEARANCES`
+- `src/components/ui/text.tsx` — `Text`, `textVariants`, `TEXT_APPEARANCES`, `TEXT_VARIANTS`, size exports
 - `src/styles/uds-typography-theme.css` — `@theme` type scale and line tokens
-- `src/styles/uds-tokens.css` — `--uds-font-size-*`, `--uds-line-*`, `--uds-type-body-*`
+- `src/styles/uds-tokens.css` — `--uds-font-size-*`, `--uds-line-*`, `--uds-type-body-*`, `--uds-type-heading-*`, `--uds-type-display-*`
 - `src/styles.css` — Tailwind entry and `@source` for **this** package’s build (not a substitute for consumers importing `styles.css`)

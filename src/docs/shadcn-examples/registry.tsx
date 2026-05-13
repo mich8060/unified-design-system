@@ -2827,6 +2827,30 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             ),
             `<Status variant="success" dot={false}>Active</Status>`,
         ),
+        E(
+            'compact',
+            'Compact status',
+            (
+                <div className="flex flex-wrap items-center gap-2">
+                    <Status size="compact" variant="neutral">
+                        Draft
+                    </Status>
+                    <Status size="compact" variant="info">
+                        In review
+                    </Status>
+                    <Status size="compact" variant="success">
+                        Approved
+                    </Status>
+                    <Status size="compact" variant="warning">
+                        Needs follow-up
+                    </Status>
+                    <Status size="compact" variant="error">
+                        Blocked
+                    </Status>
+                </div>
+            ),
+            `<Status size="compact" variant="success">Approved</Status>`,
+        ),
     ],
     steps: [
         E(
@@ -4261,47 +4285,130 @@ import { toast } from "sonner"
     ],
     text: [
         E(
-            'scale',
-            'Type scale & weights',
+            'groups',
+            'Body, heading, and display',
             (
                 <div className="flex max-w-xl flex-col gap-4">
-                    <Text variant="body-10" weight="medium" as="span" className="text-muted-foreground">
-                        Body 10 medium — captions, meta, and ultra-dense UI.
-                    </Text>
-                    <Text variant="body-14" weight="regular">
+                    <Text variant="body" size="14" weight="regular">
                         Body 14 regular — default copy for forms, tables, and supporting lines.
                     </Text>
-                    <Text variant="body-14" weight="bold">
-                        Body 14 bold — emphasis inside dense UI.
+                    <Text variant="heading" size="24" weight="semibold">
+                        Heading 24 semibold — section headings.
                     </Text>
-                    <Text variant="title-24" weight="semibold">
-                        Title 24 semibold — section headings.
+                    <Text variant="display" size="48" weight="semibold">
+                        Display 48 semibold — hero and marketing headlines.
                     </Text>
-                    <Text variant="body-12" weight="medium" as="span" className="text-muted-foreground">
-                        Inline span · body-12 medium
-                    </Text>
-                    <div className="flex flex-col gap-2 border-t border-border pt-4">
-                        <Text variant="body-14" appearance="primary">
-                            appearance=&quot;primary&quot; — main body copy
-                        </Text>
-                        <Text variant="body-14" appearance="secondary">
-                            appearance=&quot;secondary&quot; — supporting copy
-                        </Text>
-                        <Text variant="body-14" appearance="tertiary">
-                            appearance=&quot;tertiary&quot; — de-emphasized
-                        </Text>
-                    </div>
                 </div>
             ),
             `import { Text } from "@chg-ds/unified-design-system"
 
-<Text variant="body-10" weight="medium" as="span" className="text-muted-foreground">…</Text>
-<Text variant="body-14" weight="regular">…</Text>
-<Text variant="body-14" weight="bold">…</Text>
-<Text variant="title-24" weight="semibold">…</Text>
-<Text variant="body-12" weight="medium" as="span" className="text-muted-foreground">…</Text>
-<Text variant="body-14" appearance="primary">…</Text>
-<Text variant="body-14" appearance="secondary">…</Text>`,
+<Text variant="body" size="14" weight="regular">…</Text>
+<Text variant="heading" size="24" weight="semibold">…</Text>
+<Text variant="display" size="48" weight="semibold">…</Text>`,
+        ),
+        E(
+            'body-scale',
+            'Body sizes',
+            (
+                <div className="flex max-w-xl flex-col gap-3">
+                    <Text variant="body" size="10" weight="medium" as="span" className="text-muted-foreground">
+                        Body 10 — captions, meta, and ultra-dense UI.
+                    </Text>
+                    <Text variant="body" size="12" weight="medium" as="span" className="text-muted-foreground">
+                        Body 12 — compact labels and secondary lines.
+                    </Text>
+                    <Text variant="body" size="14" weight="regular">
+                        Body 14 — default body copy.
+                    </Text>
+                    <Text variant="body" size="16" weight="regular">
+                        Body 16 — roomier paragraphs and descriptions.
+                    </Text>
+                    <Text variant="body" size="18" weight="regular">
+                        Body 18 — intermediate body emphasis.
+                    </Text>
+                    <Text variant="body" size="20" weight="medium">
+                        Body 20 — lead copy and emphasized body text.
+                    </Text>
+                </div>
+            ),
+            `<Text variant="body" size="10" weight="medium" as="span">…</Text>
+<Text variant="body" size="12" weight="medium" as="span">…</Text>
+<Text variant="body" size="14" weight="regular">…</Text>
+<Text variant="body" size="16" weight="regular">…</Text>
+<Text variant="body" size="18" weight="regular">…</Text>
+<Text variant="body" size="20" weight="medium">…</Text>`,
+        ),
+        E(
+            'heading-display-scale',
+            'Heading and display sizes',
+            (
+                <div className="flex max-w-xl flex-col gap-4">
+                    <Text variant="heading" size="24" weight="semibold">
+                        Heading 24
+                    </Text>
+                    <Text variant="heading" size="28" weight="semibold">
+                        Heading 28
+                    </Text>
+                    <Text variant="heading" size="32" weight="semibold">
+                        Heading 32
+                    </Text>
+                    <Text variant="display" size="36" weight="semibold">
+                        Display 36
+                    </Text>
+                    <Text variant="display" size="48" weight="semibold">
+                        Display 48
+                    </Text>
+                    <Text variant="display" size="60" weight="semibold">
+                        Display 60
+                    </Text>
+                </div>
+            ),
+            `<Text variant="heading" size="24" weight="semibold">…</Text>
+<Text variant="heading" size="28" weight="semibold">…</Text>
+<Text variant="heading" size="32" weight="semibold">…</Text>
+<Text variant="display" size="36" weight="semibold">…</Text>
+<Text variant="display" size="48" weight="semibold">…</Text>
+<Text variant="display" size="60" weight="semibold">…</Text>`,
+        ),
+        E(
+            'line-height',
+            'Line-height presets',
+            (
+                <div className="flex max-w-xl flex-col gap-3">
+                    <Text variant="body" size="16" lineHeight="tight">
+                        Body 16 tight — denser multi-line copy.
+                    </Text>
+                    <Text variant="body" size="16" lineHeight="regular">
+                        Body 16 regular — default rhythm for paragraphs.
+                    </Text>
+                    <Text variant="body" size="16" lineHeight="loose">
+                        Body 16 loose — extra breathing room between lines.
+                    </Text>
+                </div>
+            ),
+            `<Text variant="body" size="16" lineHeight="tight">…</Text>
+<Text variant="body" size="16" lineHeight="regular">…</Text>
+<Text variant="body" size="16" lineHeight="loose">…</Text>`,
+        ),
+        E(
+            'appearance',
+            'Semantic text colors',
+            (
+                <div className="flex max-w-xl flex-col gap-2">
+                    <Text variant="body" size="14" appearance="primary">
+                        appearance=&quot;primary&quot; — main body copy
+                    </Text>
+                    <Text variant="body" size="14" appearance="secondary">
+                        appearance=&quot;secondary&quot; — supporting copy
+                    </Text>
+                    <Text variant="body" size="14" appearance="tertiary">
+                        appearance=&quot;tertiary&quot; — de-emphasized
+                    </Text>
+                </div>
+            ),
+            `<Text variant="body" size="14" appearance="primary">…</Text>
+<Text variant="body" size="14" appearance="secondary">…</Text>
+<Text variant="body" size="14" appearance="tertiary">…</Text>`,
         ),
     ],
     textarea: [

@@ -18,10 +18,12 @@
 @theme inline {
   --font-heading:
     var(--font-sans);
-  /* Must match `styles/tokens.css` — this block loads after tokens and would otherwise replace Inter with Geist. */
+  /* Must match `styles/tokens.css` — this block loads after tokens and would otherwise replace the sans stack. */
   --font-sans:
     "Inter Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji";
+  --font-mono:
+    "Menlo", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --default-font-family: var(--font-sans);
   --color-sidebar-ring:
     var(--sidebar-ring);

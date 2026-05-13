@@ -30,21 +30,29 @@ export const TEXT_APPEARANCES = [
 
 export type TextAppearance = (typeof TEXT_APPEARANCES)[number]
 
+export const TEXT_VARIANTS = ["body", "heading", "display"] as const
+export type TextVariant = (typeof TEXT_VARIANTS)[number]
+
+export const TEXT_BODY_SIZES = ["10", "12", "14", "16", "18", "20"] as const
+export const TEXT_HEADING_SIZES = ["24", "28", "32"] as const
+export const TEXT_DISPLAY_SIZES = ["36", "48", "60", "72", "96", "128"] as const
+
+export type TextBodySize = (typeof TEXT_BODY_SIZES)[number]
+export type TextHeadingSize = (typeof TEXT_HEADING_SIZES)[number]
+export type TextDisplaySize = (typeof TEXT_DISPLAY_SIZES)[number]
+export type TextSize = TextBodySize | TextHeadingSize | TextDisplaySize
+
+export const TEXT_LINE_HEIGHTS = ["regular", "tight", "loose"] as const
+export type TextLineHeight = (typeof TEXT_LINE_HEIGHTS)[number]
+
+const DEFAULT_TEXT_SIZE: Record<TextVariant, TextSize> = {
+  body: "14",
+  heading: "24",
+  display: "48",
+}
+
 const textVariants = cva("min-w-0 font-sans text-foreground [font-family:var(--font-inter)]", {
   variants: {
-    variant: {
-      "body-10": "text-uds-10 leading-uds-10",
-      "body-12": "text-uds-12 leading-uds-12",
-      "body-14": "text-uds-14 leading-uds-14",
-      "body-15": "text-uds-15 leading-uds-15",
-      "body-16": "text-uds-16 leading-uds-16",
-      "body-20": "text-uds-20 leading-uds-20",
-      "title-24": "text-uds-24 leading-uds-24",
-      "title-28": "text-uds-28 leading-uds-28",
-      "title-32": "text-uds-32 leading-uds-32",
-      "display-36": "text-uds-36 leading-uds-36",
-      "display-48": "text-uds-48 leading-uds-48",
-    },
     weight: {
       regular: "font-uds-regular",
       medium: "font-uds-medium",
@@ -74,23 +82,60 @@ const textVariants = cva("min-w-0 font-sans text-foreground [font-family:var(--f
     },
   },
   defaultVariants: {
-    variant: "body-14",
     weight: "regular",
   },
 })
+
+function typographyStyleClass(
+  variant: TextVariant,
+  size: TextSize,
+  lineHeight: TextLineHeight,
+): string {
+  const prefix = `--uds-type-${variant}-${size}`
+  return cn(
+    `[font-size:var(${prefix}-font-size)]`,
+    `[line-height:var(${prefix}-line-${lineHeight})]`,
+    `[letter-spacing:var(${prefix}-letter-spacing)]`,
+    `[text-transform:var(${prefix}-text-transform)]`,
+  )
+}
 
 type TextAs = "p" | "span" | "div" | "strong" | "em" | "label"
 
 export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, "color"> &
   VariantProps<typeof textVariants> & {
+    /** Typography group from the UDS type scale. */
+    variant?: TextVariant
+    /** Step within the selected group (`body`, `heading`, or `display`). */
+    size?: TextSize
+    /** Line-height preset from the typography style tokens. */
+    lineHeight?: TextLineHeight
     /** Root element; defaults to `p`. */
     as?: TextAs
   }
 
-function Text({ className, variant, weight, appearance, as: Comp = "p", ...rest }: TextProps) {
+function Text({
+  className,
+  variant = "body",
+  size,
+  lineHeight = "regular",
+  weight,
+  appearance,
+  as: Comp = "p",
+  ...rest
+}: TextProps) {
+  const resolvedSize = size ?? DEFAULT_TEXT_SIZE[variant]
+
   return React.createElement(Comp, {
     ...rest,
-    className: cn(textVariants({ variant, weight, appearance }), className),
+    "data-variant": variant,
+    "data-size": resolvedSize,
+    "data-line-height": lineHeight,
+    className: cn(
+      textVariants({ weight, appearance }),
+      typographyStyleClass(variant, resolvedSize, lineHeight),
+      className,
+    ),
   } as never)
 }
 

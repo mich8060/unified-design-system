@@ -36,7 +36,7 @@ import {
   docPageHeroShellClassName,
   docPageHorizontalGutterClassName,
 } from '../doc-page-hero-classes'
-import { getAllShadcnUiComponents } from '../shadcn-ui-registry'
+import { useShadcnDocsRegistry } from '../registry'
 import { WelcomeCardPreview } from '../welcome-card-preview'
 import { CodePanel } from '../components/CodePanel'
 import { DocShellLayoutVisuals } from './DocShellLayoutVisuals'
@@ -125,6 +125,7 @@ function WelcomeComponentGrid({
   previewBrand: DocsBrandId
   onPreviewBrandChange: (id: DocsBrandId) => void
 }) {
+  const { getAllShadcnUiComponents } = useShadcnDocsRegistry()
   const items = getAllShadcnUiComponents().filter((e) => !WELCOME_CARD_EXCLUDED_SLUGS.has(e.slug))
 
   return (

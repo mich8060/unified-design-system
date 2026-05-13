@@ -792,6 +792,7 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
   ],
   status: [
     r('variant', '"neutral" | "success" | "warning" | "error" | "info"', 'Semantic status color style.', 'neutral'),
+    r('size', '"default" | "compact"', 'Default uses 14px type and an 8px dot; compact uses 12px type and a 6px dot.', 'default'),
     r('dot', 'boolean', 'Show/hide leading status indicator dot.', 'true'),
     CN,
     MORE,
@@ -828,11 +829,17 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     MORE,
   ],
   text: [
+    r('variant', '"body" | "heading" | "display"', 'Typography group from the UDS type scale.', 'body'),
     r(
-      'variant',
-      '"body-10" | "body-12" | "body-14" | "body-15" | "body-16" | "body-20" | "title-24" | "title-28" | "title-32" | "display-36" | "display-48"',
-      'Maps to paired `text-uds-*` and `leading-uds-*` utilities.',
-      'body-14',
+      'size',
+      'TextSize',
+      'Step within the selected group. See `TEXT_BODY_SIZES`, `TEXT_HEADING_SIZES`, and `TEXT_DISPLAY_SIZES`. Defaults to 14 / 24 / 48.',
+    ),
+    r(
+      'lineHeight',
+      '"regular" | "tight" | "loose"',
+      'Line-height preset from `--uds-type-*` typography tokens.',
+      'regular',
     ),
     r('weight', '"regular" | "medium" | "semibold" | "bold"', 'UDS font weight token.', 'regular'),
     r(

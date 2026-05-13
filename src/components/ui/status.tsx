@@ -3,8 +3,11 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+export const STATUS_SIZES = ["default", "compact"] as const
+export type StatusSize = (typeof STATUS_SIZES)[number]
+
 const statusVariants = cva(
-  "inline-flex items-center gap-2 rounded-[4px] border px-2 py-1 text-uds-14 font-uds-medium leading-uds-14 [font-family:var(--font-inter)]",
+  "inline-flex items-center rounded-[4px] border font-uds-medium [font-family:var(--font-inter)]",
   {
     variants: {
       variant: {
@@ -18,16 +21,34 @@ const statusVariants = cva(
           "border-[var(--uds-color-accent-red-300)] bg-[var(--uds-color-accent-red-100)] text-[var(--uds-color-accent-red-700)]",
         info: "border-[var(--uds-color-accent-blue-300)] bg-[var(--uds-color-accent-blue-100)] text-[var(--uds-color-accent-blue-700)]",
       },
+      size: {
+        default: "gap-2 px-2 py-1 text-uds-14 leading-uds-14",
+        compact: "gap-1.5 px-1.5 py-0.5 text-uds-12 leading-uds-12",
+      },
     },
     defaultVariants: {
       variant: "neutral",
+      size: "default",
     },
   }
 )
 
+const statusDotVariants = cva("rounded-full bg-current opacity-80", {
+  variants: {
+    size: {
+      default: "size-2",
+      compact: "size-1.5",
+    },
+  },
+  defaultVariants: {
+    size: "default",
+  },
+})
+
 function Status({
   className,
   variant,
+  size,
   dot = true,
   children,
   ...props
@@ -39,10 +60,11 @@ function Status({
     <span
       data-slot="status"
       data-variant={variant}
-      className={cn(statusVariants({ variant }), className)}
+      data-size={size ?? "default"}
+      className={cn(statusVariants({ variant, size }), className)}
       {...props}
     >
-      {dot ? <span className="size-2 rounded-full bg-current opacity-80" aria-hidden /> : null}
+      {dot ? <span className={statusDotVariants({ size })} aria-hidden /> : null}
       {children}
     </span>
   )

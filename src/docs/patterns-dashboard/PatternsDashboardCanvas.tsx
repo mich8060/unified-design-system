@@ -14,16 +14,10 @@ import {
 } from '@chg-ds/unified-design-system'
 import { useState } from 'react'
 import {
-    DOCS_BRAND_OPTIONS,
-    docsBrandToBrandingAppearance,
-    type DocsBrandId,
-} from '@/docs/doc-site-brand'
-import {
     AppShell,
     Avatar,
     AvatarFallback,
     Badge,
-    Branding,
     Button,
     Card,
     DropdownMenu,
@@ -85,13 +79,6 @@ const patternsDashboardCalendarDateData: Record<string, MicroCalendarDateData> =
     '2026-04-08': { onAssignment: true },
     '2026-04-10': { travel: true, onAssignment: true },
     '2026-04-14': { travel: true },
-}
-
-/** Distinct ramps for the multi-brand strip (same markup, scoped `data-brand`). */
-const MULTI_BRAND_DASHBOARD_ORDER = ['comphealth', 'weatherby', 'connect', 'chg'] as const satisfies readonly DocsBrandId[]
-
-function docsBrandLabel(id: DocsBrandId): string {
-    return DOCS_BRAND_OPTIONS.find((o) => o.value === id)?.label ?? id
 }
 
 /* ── Dashboard canvas ── */
@@ -310,90 +297,6 @@ export function PatternsDashboardCanvas() {
                 </AppShell>
             </div>
 
-            <section className="mt-10 space-y-3" aria-labelledby="patterns-multi-brand-heading">
-                <div>
-                    <h2 id="patterns-multi-brand-heading" className="text-base font-semibold text-[var(--uds-text-primary)]">
-                        Same dashboard primitives, four brand ramps
-                    </h2>
-                    <p className="mt-2 max-w-3xl text-sm text-[var(--uds-text-secondary)]">
-                        Each column is wrapped in{' '}
-                        <code className="rounded bg-[var(--uds-surface-tertiary)] px-1 py-0.5 text-xs">data-brand=&quot;…&quot;</code>
-                        . Semantic tokens (surfaces, borders, primary buttons, link color, pastel badges) resolve from that scope, while{' '}
-                        <code className="rounded bg-[var(--uds-surface-tertiary)] px-1 py-0.5 text-xs">Branding</code> picks the matching SVG row.
-                        The docs chrome above can stay on any site brand; these tiles prove the theme is multi-product without forking components.
-                    </p>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                    {MULTI_BRAND_DASHBOARD_ORDER.map((brand) => (
-                        <div
-                            key={brand}
-                            data-brand={brand}
-                            className="flex min-h-[400px] flex-col overflow-hidden rounded-[4px] border border-[var(--uds-border-primary)] bg-[var(--uds-surface-secondary)] shadow-sm"
-                        >
-                            <div className="flex items-center justify-between gap-2 border-b border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] px-3 py-3">
-                                <div className="flex min-w-0 items-center gap-2">
-                                    <Branding appearance={docsBrandToBrandingAppearance(brand)} symbol className="size-10 shrink-0" />
-                                    <span className="truncate text-xs font-medium text-[var(--uds-text-secondary)]">{docsBrandLabel(brand)}</span>
-                                </div>
-                                <Badge appearance="solid" accent="emerald" shape="pill" className="shrink-0 text-[10px]">
-                                    Live
-                                </Badge>
-                            </div>
-
-                            <div className="flex min-h-0 flex-1 flex-col gap-3 p-3">
-                                <div className="grid grid-cols-2 gap-2">
-                                    <Card className="rounded-sm border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] p-3 ring-1 ring-[var(--uds-border-primary)]/50">
-                                        <p className="text-[10px] font-medium tracking-wide text-[var(--uds-text-tertiary)]">Revenue</p>
-                                        <p className="mt-2 text-lg font-semibold tabular-nums text-[var(--uds-text-primary)]">$2.4M</p>
-                                        <Badge
-                                            appearance="pastel"
-                                            accent="emerald"
-                                            shape="pill"
-                                            className="mt-2 text-[10px]"
-                                            icon={<ArrowUpIcon className="size-3" aria-hidden />}
-                                        >
-                                            +8.2%
-                                        </Badge>
-                                    </Card>
-                                    <Card className="rounded-sm border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] p-3 ring-1 ring-[var(--uds-border-primary)]/50">
-                                        <p className="text-[10px] font-medium tracking-wide text-[var(--uds-text-tertiary)]">Pipeline</p>
-                                        <p className="mt-2 text-lg font-semibold tabular-nums text-[var(--uds-text-primary)]">14</p>
-                                        <Badge appearance="pastel" accent="cyan" shape="pill" className="mt-2 text-[10px]">
-                                            Qualified
-                                        </Badge>
-                                    </Card>
-                                </div>
-
-                                <Button type="button" variant="default" className="w-full">
-                                    Book a follow-up
-                                </Button>
-                                <Button type="button" variant="outline" className="w-full">
-                                    Export snapshot
-                                </Button>
-
-                                <div className="mt-auto rounded-sm border border-dashed border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)]/70 px-3 py-2">
-                                    <p className="text-xs text-[var(--uds-text-tertiary)]">Need context?</p>
-                                    <a
-                                        href="#patterns-multi-brand-heading"
-                                        className="text-xs font-medium text-[var(--uds-text-link-primary-default)] hover:underline"
-                                    >
-                                        Open playbook (link token)
-                                    </a>
-                                </div>
-                            </div>
-
-                            <Footer
-                                className="mt-0 border-t border-[var(--uds-border-primary)]"
-                                links={[
-                                    { label: 'Privacy', href: '#privacy' },
-                                    { label: 'Terms', href: '#terms' },
-                                ]}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </section>
         </div>
     )
 }

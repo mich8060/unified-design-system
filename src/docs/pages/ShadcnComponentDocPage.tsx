@@ -18,24 +18,25 @@ import {
 import { CodePanel } from '../components/CodePanel'
 import { PropsTable } from '../components/PropsTable'
 import { readStoredDocsBrand, type DocsBrandId } from '../doc-site-brand'
-import { getShadcnComponentMeta } from '../shadcn-component-meta'
-import { getShadcnComponentProps } from '../shadcn-component-props'
-import { getShadcnExamples } from '../shadcn-examples'
 import {
   docPageHeroBandClassName,
   docPageHeroColumnNarrowClassName,
   docPageHeroShellClassName,
   docPageHorizontalGutterClassName,
 } from '../doc-page-hero-classes'
-import {
-  formatShadcnComponentName,
-  getShadcnDocsUrl,
-  isShadcnUiSlug,
-} from '../shadcn-ui-registry'
+import { useShadcnDocsRegistry } from '../registry'
 
 export function ShadcnComponentDocPage() {
   const { slug } = useParams<{ slug: string }>()
   const [previewBrand, setPreviewBrand] = useState<DocsBrandId>(() => readStoredDocsBrand())
+  const {
+    isShadcnUiSlug,
+    formatShadcnComponentName,
+    getShadcnDocsUrl,
+    getShadcnExamples,
+    getShadcnComponentMeta,
+    getShadcnComponentProps,
+  } = useShadcnDocsRegistry()
 
   if (!slug || !isShadcnUiSlug(slug)) {
     return (
@@ -212,15 +213,16 @@ export function ShadcnComponentDocPage() {
             </>
           ) : isText ? (
             <>
-              Primary API surface for this module—open{' '}
-              <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">
-                src/components/ui/{slug}.tsx
-              </code>{' '}
-              for exact typings. See{' '}
+              Typography groups are <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">body</code>,{' '}
+              <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">heading</code>, and{' '}
+              <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">display</code>. Pair each group with a{' '}
+              <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">size</code> step and optional{' '}
+              <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">lineHeight</code> preset from the{' '}
+              <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">--uds-type-*</code> tokens. See{' '}
               <Link to="/docs/foundations/typography" className="docs-link font-medium underline-offset-2">
                 Typography foundations
               </Link>{' '}
-              for the UDS scale and utilities these variants map to.
+              for the underlying scale.
             </>
           ) : (
             <>

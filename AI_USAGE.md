@@ -42,7 +42,7 @@ Do not import from:
 ## Styling rules
 
 - Import `@chg-ds/unified-design-system/styles.css` once near the app root.
-- **`Text` typography:** utilities such as `text-uds-10` ship in that stylesheet; consumer Tailwind JIT does **not** scan `node_modules` to create them. Read **[docs/consumers-text-typography-tailwind-v4.md](./docs/consumers-text-typography-tailwind-v4.md)** (token chain, import order, variant → class → token table).
+- **`Text` typography:** use `variant` (`body`, `heading`, `display`) with `size` and optional `lineHeight`; styles resolve from shipped `--uds-type-*` tokens in `styles.css`. Consumer Tailwind JIT does **not** scan `node_modules` to create them. Read **[docs/consumers-text-typography-tailwind-v4.md](./docs/consumers-text-typography-tailwind-v4.md)** (token chain, import order, prop table).
 - Use shipped UDS tokens, variants, and first-party components before inventing custom accents.
 - Current shipped components are the radius source of truth:
   - prefer 4px or square corners for routine rectangular application chrome

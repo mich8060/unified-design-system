@@ -21,8 +21,7 @@
     "src/index.ts",
     "src/components/**/*",
     "src/hooks/**/*",
-    "src/lib/**/*",
-    "src/fontsource.d.ts"
+    "src/lib/**/*"
   ],
   "exclude": [
     "src/docs/**/*",

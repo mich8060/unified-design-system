@@ -91,7 +91,7 @@ Do not infer public API from internal implementation files under `src/components
 
 ## Consumer typography (Tailwind v4 + Vite)
 
-`Text` uses **precompiled** `text-uds-*` / `leading-uds-*` classes from the published stylesheet. Apps **must** import `@chg-ds/unified-design-system/styles.css`; scanning `node_modules` with `@source` alone is not enough. See **[docs/consumers-text-typography-tailwind-v4.md](./docs/consumers-text-typography-tailwind-v4.md)** for the full contract (token chain, layer conflicts, variant table, debugging).
+`Text` maps `variant` (`body`, `heading`, `display`), `size`, and `lineHeight` to the shipped `--uds-type-*` tokens. Apps **must** import `@chg-ds/unified-design-system/styles.css`; scanning `node_modules` with `@source` alone is not enough. See **[docs/consumers-text-typography-tailwind-v4.md](./docs/consumers-text-typography-tailwind-v4.md)** for the full contract (token chain, layer conflicts, prop table, debugging).
 
 ## AI contract
 

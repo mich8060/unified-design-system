@@ -1,3 +1,15 @@
-@import "@fontsource-variable/geist";
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/inter/wght-italic.css";
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Menlo";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./assets/fonts/Menlo-Regular.ttf") format("truetype");
+}

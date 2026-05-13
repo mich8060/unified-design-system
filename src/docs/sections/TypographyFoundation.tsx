@@ -13,7 +13,7 @@ const UDS_TYPE_SCALE = [
   { size: 24, line: 32 },
   { size: 20, line: 28 },
   { size: 16, line: 24 },
-  { size: 15, line: 22 },
+  { size: 18, line: 26 },
   { size: 14, line: 20 },
   { size: 12, line: 16 },
   { size: 10, line: 14 },
@@ -32,7 +32,7 @@ const TEXT_UDS_CLASS: Record<(typeof UDS_TYPE_SCALE)[number]['size'], string> = 
   24: 'text-uds-24',
   20: 'text-uds-20',
   16: 'text-uds-16',
-  15: 'text-uds-15',
+  18: 'text-uds-18',
   14: 'text-uds-14',
   12: 'text-uds-12',
   10: 'text-uds-10',
@@ -161,7 +161,11 @@ function UtilitiesPreview() {
         Registered in <span className="font-mono text-xs">src/styles/uds-typography-theme.css</span> via{' '}
         <span className="font-mono text-xs">@theme</span>. Use <span className="font-mono text-xs">font-sans</span> for
         the Inter UI stack; use <span className="font-mono text-xs">font-uds</span> when you need the explicit{' '}
-        <span className="font-mono text-xs">--uds-font-family</span> token.
+        <span className="font-mono text-xs">--uds-font-family</span> token. In React, the{' '}
+        <span className="font-mono text-xs">Text</span> component groups these styles as{' '}
+        <span className="font-mono text-xs">body</span>, <span className="font-mono text-xs">heading</span>, and{' '}
+        <span className="font-mono text-xs">display</span> with matching <span className="font-mono text-xs">size</span>{' '}
+        steps from <span className="font-mono text-xs">--uds-type-*</span>.
       </p>
       <ul className="list-inside list-disc space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
         <li>
@@ -186,7 +190,7 @@ function UtilitiesPreview() {
       {/* Literal class list so Tailwind emits every leading-uds-* + font-uds utility */}
       <div
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 -z-50 h-px w-px overflow-hidden opacity-0 font-uds leading-uds-128 leading-uds-96 leading-uds-72 leading-uds-60 leading-uds-48 leading-uds-36 leading-uds-32 leading-uds-28 leading-uds-24 leading-uds-20 leading-uds-16 leading-uds-15 leading-uds-14 leading-uds-12 leading-uds-10"
+        className="pointer-events-none fixed left-0 top-0 -z-50 h-px w-px overflow-hidden opacity-0 font-uds leading-uds-128 leading-uds-96 leading-uds-72 leading-uds-60 leading-uds-48 leading-uds-36 leading-uds-32 leading-uds-28 leading-uds-24 leading-uds-20 leading-uds-18 leading-uds-16 leading-uds-15 leading-uds-14 leading-uds-12 leading-uds-10"
       />
     </div>
   )

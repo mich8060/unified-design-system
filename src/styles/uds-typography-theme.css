@@ -6,7 +6,7 @@
  *   (use `font-sans` on a subtree if something reset it). Preflight sets `code`, `kbd`, `samp`, `pre` to the mono stack.
  *
  * Classes:
- *   text-uds-{10|12|14|15|16|20|24|28|32|36|48|60|72|96|128} — font-size + paired line-height
+ *   text-uds-{10|12|14|15|16|18|20|24|28|32|36|48|60|72|96|128} — font-size + paired line-height
  *   leading-uds-{…} — line-height only (matches --uds-line-*)
  *   font-uds — font-family: var(--uds-font-family) (Inter stack; prefer font-sans when equivalent)
  *   font-uds-regular | font-uds-medium | font-uds-semibold | font-uds-bold — weight tokens
@@ -35,6 +35,8 @@
   --text-uds-20--line-height: var(--uds-line-20);
   --text-uds-16: var(--uds-font-size-16);
   --text-uds-16--line-height: var(--uds-line-16);
+  --text-uds-18: var(--uds-font-size-18);
+  --text-uds-18--line-height: var(--uds-line-18);
   --text-uds-15: var(--uds-font-size-15);
   --text-uds-15--line-height: var(--uds-line-15);
   --text-uds-14: var(--uds-font-size-14);
@@ -56,6 +58,7 @@
   --leading-uds-24: var(--uds-line-24);
   --leading-uds-20: var(--uds-line-20);
   --leading-uds-16: var(--uds-line-16);
+  --leading-uds-18: var(--uds-line-18);
   --leading-uds-15: var(--uds-line-15);
   --leading-uds-14: var(--uds-line-14);
   --leading-uds-12: var(--uds-line-12);

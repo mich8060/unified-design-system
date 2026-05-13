@@ -1,9 +1,11 @@
 import { CATALOG_META } from './catalog-meta'
 import { getCustomSections } from './sections/custom-sections'
+import { useDocsVersionBundle } from './versions/context'
 import type { CatalogEntry, DocSection } from './types'
 
-const bySlug = Object.fromEntries(CATALOG_META.map((e) => [e.slug, e])) as Record<string, CatalogEntry>
+const bySlug = Object.fromEntries(CATALOG_META.map((entry) => [entry.slug, entry])) as Record<string, CatalogEntry>
 
+/** Legacy static registry for non-versioned docs chrome (e.g. DocShell). */
 export function getAllComponents(): CatalogEntry[] {
   return [...CATALOG_META].sort((a, b) => a.name.localeCompare(b.name, 'en'))
 }
@@ -37,4 +39,36 @@ export function resolveSections(entry: CatalogEntry): DocSection[] {
       ),
     },
   ]
+}
+
+export function useDocsRegistry() {
+  const bundle = useDocsVersionBundle()
+  return {
+    getAllComponents: bundle.getAllComponents,
+    getCatalogEntry: bundle.getCatalogEntry,
+    resolveSections: bundle.resolveSections,
+  }
+}
+
+export function useGetCatalogEntry(slug: string | undefined): CatalogEntry | undefined {
+  const bundle = useDocsVersionBundle()
+  return slug ? bundle.getCatalogEntry(slug) : undefined
+}
+
+export function useResolveSections(entry: CatalogEntry): DocSection[] {
+  const bundle = useDocsVersionBundle()
+  return bundle.resolveSections(entry)
+}
+
+export function useShadcnDocsRegistry() {
+  const bundle = useDocsVersionBundle()
+  return {
+    getAllShadcnUiComponents: bundle.getAllShadcnUiComponents,
+    isShadcnUiSlug: bundle.isShadcnUiSlug,
+    getShadcnComponentMeta: bundle.getShadcnComponentMeta,
+    getShadcnComponentProps: bundle.getShadcnComponentProps,
+    getShadcnExamples: bundle.getShadcnExamples,
+    formatShadcnComponentName: bundle.formatShadcnComponentName,
+    getShadcnDocsUrl: bundle.getShadcnDocsUrl,
+  }
 }

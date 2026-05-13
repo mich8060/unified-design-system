@@ -55,13 +55,14 @@
     "build": "npm run build:lib && npm run build:docs",
     "prepublishOnly": "npm run build:lib",
     "build:lib": "vite build --config vite.config.lib.ts && tsc -p tsconfig.lib.json && node ./scripts/prepare-package.mjs",
-    "build:docs": "vite build --config vite.config.docs.ts",
+    "build:docs": "node ./scripts/sync-docs-version-snapshot.mjs && vite build --config vite.config.docs.ts",
     "lint": "eslint .",
     "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.lib.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "pack:check": "npm_config_cache=/tmp/uds-tailwind-test-npm-cache npm pack --dry-run",
     "preview": "vite preview --config vite.config.docs.ts",
     "ci:bundle": "node ./scripts/ci-bundle.mjs",
-    "test:consumer-fixture": "node ./scripts/test-consumer-fixture.mjs"
+    "test:consumer-fixture": "node ./scripts/test-consumer-fixture.mjs",
+    "test:docs-versions": "node ./scripts/docs-versions-smoke.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",
@@ -86,8 +87,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
-    "@fontsource-variable/geist": "^5.2.8",
-    "@fontsource-variable/inter": "^5.2.8",
     "@tailwindcss/vite": "^4.2.2",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",

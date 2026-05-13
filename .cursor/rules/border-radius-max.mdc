@@ -1,0 +1,12 @@
+---
+description: Border-radius cap at 12px for rounded rectangles; prefer UDS tokens
+alwaysApply: true
+---
+
+# Border radius (UDS / docs / components)
+
+- For **rounded rectangles** (cards, panels, inputs, toolbars, popovers, etc.), do **not** use a corner radius **greater than 12px**. Avoid Tailwind steps that exceed 12px (e.g. `rounded-2xl`, `rounded-3xl`, `rounded-[14px]`, `rounded-[16px]`) unless an existing token is explicitly defined ≤12px and you are matching it.
+- **Prefer** UDS radius tokens via arbitrary values, e.g. `rounded-[length:var(--uds-radius-8)]` (8px), `rounded-[length:var(--uds-radius-12)]` (12px max for rectangles in this rule).
+- **`rounded-full`** is allowed only for **true circles or pills** (avatars, dots, pill toggles, circular icon buttons)—not as a way to get extra-large rounded corners on rectangular surfaces.
+
+When editing existing code, do not widen radii past 12px unless the user explicitly overrides this rule.

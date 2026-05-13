@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { cn } from '@chg-ds/unified-design-system'
-import { getShadcnExamples } from './shadcn-examples'
-import { isShadcnUiSlug, type ShadcnUiSlug } from './shadcn-ui-registry'
+import { useShadcnDocsRegistry } from './registry'
+import type { ShadcnUiSlug } from './shadcn-ui-registry'
 
 const WELCOME_PREVIEW_MAX_UNSCALED_PX = 375
 
@@ -63,6 +63,8 @@ const WELCOME_PREVIEW_STRIP_HEIGHT_PX = 168
  * on the welcome page: live, non-interactive render of the first doc example.
  */
 export function WelcomeCardPreview({ slug }: { slug: string }) {
+  const { isShadcnUiSlug, getShadcnExamples } = useShadcnDocsRegistry()
+
   if (!isShadcnUiSlug(slug)) return null
 
   const sections = getShadcnExamples(slug as ShadcnUiSlug)

@@ -3,6 +3,8 @@ $menu-collapsed: 64px;
 $listview-width: 320px;
 
 .appshell {
+    --appshell-header-height: 60px;
+
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -32,16 +34,24 @@ $listview-width: 320px;
     }
 
     &--header {
-        /* Keep header fully in flow so main content never scrolls or paints underneath it. */
-        position: relative;
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: $menu-expanded;
+        z-index: 20;
         flex-shrink: 0;
-        width: 100%;
+        transition: left 200ms ease-out;
+    }
+
+    &:has([data-slot="uds-menu-root"][data-expanded="false"]) &--header {
+        left: $menu-collapsed;
     }
 
     &--content {
         display: flex;
         flex: 1;
         min-height: 0;
+        padding-top: var(--appshell-header-height, 60px);
     }
 
     &--listview {
@@ -74,7 +84,7 @@ $listview-width: 320px;
         }
     }
 
-    /* Main column: listview + this stack share the row; footer sits under main (same width). */
+    /* Main column: listview + scrollable main pane share the row; footer is the last block inside main. */
     &--main-column {
         display: flex;
         flex: 1;
