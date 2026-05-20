@@ -98,6 +98,11 @@ export function getDocsVersionManifest() {
 export function getDocsVersionOptions(): DocsVersionManifestEntry[] {
   return DOCS_VERSION_MANIFEST.versions
 }
+
+/** Newest snapshot in the manifest (first entry, semver-desc). */
+export function getLatestDocsVersionId(): DocsVersionId {
+  return DOCS_VERSION_MANIFEST.versions[0]?.id ?? DOCS_VERSION_MANIFEST.defaultVersion
+}
 `
 }
 

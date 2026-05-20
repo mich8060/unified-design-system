@@ -21,7 +21,7 @@ import {
   StackIcon,
   type MedallionColor,
 } from '@chg-ds/unified-design-system'
-import { useCallback, useEffect, useState, type CSSProperties, type ReactNode } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import {
   DOCS_BRAND_OPTIONS,
@@ -680,12 +680,28 @@ export function PatternsDashboardPage() {
   )
 }
 
+function resetDocsMainScrollTop() {
+  const el = document.querySelector('[data-slot="appshell"] .appshell--main')
+  if (el) {
+    el.scrollTop = 0
+  }
+}
+
 export function WelcomePage() {
   const [introPreviewBrand, setIntroPreviewBrand] = useState<DocsBrandId>(() => readStoredIntroPreviewBrand())
 
   const handleIntroPreviewBrand = useCallback((id: DocsBrandId) => {
     setIntroPreviewBrand(id)
     persistIntroPreviewBrand(id)
+  }, [])
+
+  useLayoutEffect(() => {
+    resetDocsMainScrollTop()
+    const id = requestAnimationFrame(() => {
+      resetDocsMainScrollTop()
+      requestAnimationFrame(resetDocsMainScrollTop)
+    })
+    return () => cancelAnimationFrame(id)
   }, [])
 
   return (

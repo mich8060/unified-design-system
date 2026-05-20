@@ -4,7 +4,7 @@ Normative machine-readable contract: [`ai/appshell.schema.json`](../appshell.sch
 
 ## Brand default
 
-`Menu` applies **`document.documentElement.dataset.brand`** and header **`Branding`** from the **`brand`** prop (default **`chg`**). Product apps need no `localStorage` setup. The docs site passes **`defaultBrand="connect"`** and **`brandStorageKey="docs-site-data-brand"`** for its brand switcher.
+`Menu` applies **`document.documentElement.dataset.brand`** and header **`Branding`** from the **`brand`** prop (default **`chg`**). Product apps and the docs site both use **`defaultBrand="chg"`** unless a stored brand exists in `localStorage`.
 
 ## Canonical pattern (Option A — recommended)
 

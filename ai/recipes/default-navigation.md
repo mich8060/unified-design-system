@@ -18,7 +18,7 @@ Fallback navigation items the system uses when no custom `navigationItems` array
 
 ## `chg`
 
-Same structure as **connect** (CHG uses the Connect palette and default nav; branding lockups use Wireframe SVGs).
+Same structure as **connect** (CHG uses the Connect-aligned palette and default nav; menu branding uses Unified Design System SVG lockups).
 
 | Label | Icon |
 |-------|------|

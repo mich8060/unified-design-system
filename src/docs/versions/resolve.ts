@@ -1,4 +1,4 @@
-import { readStoredDocsVersion } from '../doc-site-version'
+import { getDocsSiteDefaultVersion, readStoredDocsVersion } from '../doc-site-version'
 import { docsVersionBundleLoaders } from './resolve-loaders.generated'
 import { getDocsVersionManifest } from './manifest'
 import type { DocsVersionBundle, DocsVersionId } from './types'
@@ -19,7 +19,7 @@ assertManifestMatchesLoaders()
 export function resolveDocsVersionId(id: string | null | undefined): DocsVersionId {
   const manifest = getDocsVersionManifest()
   if (id && manifest.versions.some((entry) => entry.id === id)) return id
-  return manifest.defaultVersion
+  return getDocsSiteDefaultVersion()
 }
 
 export function resolveStoredDocsVersionId(): DocsVersionId {
@@ -42,7 +42,7 @@ export async function loadDocsVersionBundle(id: DocsVersionId): Promise<DocsVers
 }
 
 export async function prefetchDefaultDocsVersionBundle(): Promise<DocsVersionBundle> {
-  return loadDocsVersionBundle(getDocsVersionManifest().defaultVersion)
+  return loadDocsVersionBundle(getDocsSiteDefaultVersion())
 }
 
 export function validateDocsVersionManifestForTests(): void {

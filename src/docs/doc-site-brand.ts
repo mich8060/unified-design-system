@@ -11,8 +11,8 @@ import {
 /** Values that match `[data-brand=…]` selectors in `uds-tokens.css`. */
 export type DocsBrandId = UdsBrandId
 
-/** Docs app baseline when no brand is stored (Connect for the internal docs site). */
-export const DOCS_SITE_DEFAULT_BRAND: DocsBrandId = 'connect'
+/** Docs app baseline when no brand is stored. */
+export const DOCS_SITE_DEFAULT_BRAND: DocsBrandId = 'chg'
 
 export const DOCS_BRAND_OPTIONS = UDS_BRAND_OPTIONS
 
@@ -21,8 +21,9 @@ export const DOCS_BRAND_STORAGE_KEY = 'docs-site-data-brand'
 /** Introduction page only: brand for `WelcomeCardPreview` strips (not global `document`). */
 export const INTRO_PREVIEW_BRAND_STORAGE_KEY = 'docs-intro-preview-brand'
 
+/** Site chrome always uses the docs default brand (no menu brand switcher). */
 export function readStoredDocsBrand(): DocsBrandId {
-  return readBrandFromStorage(DOCS_BRAND_STORAGE_KEY, DOCS_SITE_DEFAULT_BRAND)
+  return DOCS_SITE_DEFAULT_BRAND
 }
 
 export function persistDocsBrand(id: DocsBrandId) {

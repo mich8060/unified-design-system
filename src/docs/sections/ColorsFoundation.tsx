@@ -1,26 +1,27 @@
-import type { CSSProperties } from 'react'
 import type { DocSection } from '../types'
+import { ColorRampTabs, ColorTokenTable, type ColorTokenRow } from './ColorTokenTable'
 
 const BRAND_STEPS = [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900] as const
 
+/** Accent hues in chromatic (color-wheel) order for complementary adjacency in the docs UI. */
 const ACCENT_HUES = [
-  'amber',
-  'aqua',
-  'blue',
-  'cyan',
-  'emerald',
-  'fuchsia',
-  'green',
-  'indigo',
-  'lime',
-  'magenta',
-  'orange',
-  'purple',
   'red',
   'rose',
-  'sky',
-  'violet',
+  'orange',
+  'amber',
   'yellow',
+  'lime',
+  'green',
+  'emerald',
+  'cyan',
+  'aqua',
+  'sky',
+  'blue',
+  'indigo',
+  'violet',
+  'purple',
+  'fuchsia',
+  'magenta',
 ] as const
 
 const ACCENT_STEPS = [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000] as const
@@ -30,111 +31,50 @@ const NEUTRAL_STEPS = [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000
 
 type BrandRole = 'primary' | 'secondary' | 'tertiary' | 'quaternary'
 
-const CHECKERBOARD_BG: CSSProperties = {
-  backgroundColor: '#e4e4e7',
-  backgroundImage: `linear-gradient(45deg, #d4d4d8 25%, transparent 25%),
-    linear-gradient(-45deg, #d4d4d8 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #d4d4d8 75%),
-    linear-gradient(-45deg, transparent 75%, #d4d4d8 75%)`,
-  backgroundSize: '8px 8px',
-  backgroundPosition: '0 0, 0 4px, 4px -4px, -4px 0',
+function brandRows(role: BrandRole): ColorTokenRow[] {
+  return BRAND_STEPS.map((step) => ({
+    step,
+    token: `--brand-${role}-${step}`,
+  }))
 }
 
+function accentRows(hue: (typeof ACCENT_HUES)[number]): ColorTokenRow[] {
+  return ACCENT_STEPS.map((step) => ({
+    step,
+    token: `--uds-color-accent-${hue}-${step}`,
+  }))
+}
+
+function neutralRows(): ColorTokenRow[] {
+  return NEUTRAL_STEPS.map((step) => ({
+    step,
+    token: `--uds-color-neutrals-${step}`,
+  }))
+}
+
+const BASE_ROWS: ColorTokenRow[] = [
+  { label: 'Black', token: '--uds-color-black' },
+  { label: 'White', token: '--uds-color-white' },
+  { label: 'Transparent', token: '--uds-color-transparent', checkerboard: true },
+]
+
 function BaseColorsPreview() {
-  const chips: Array<{ label: string; token: string; checkerboard: boolean }> = [
-    { label: 'Black', token: '--uds-color-black', checkerboard: false },
-    { label: 'White', token: '--uds-color-white', checkerboard: false },
-    { label: 'Transparent', token: '--uds-color-transparent', checkerboard: true },
-  ]
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <p className="text-sm text-neutral-600 dark:text-neutral-400">
         Canonical fills from the system palette. Prefer these tokens over hard-coded hex so defaults stay aligned with{' '}
         <span className="font-mono text-xs">uds-tokens.css</span>.
       </p>
-      <div className="grid grid-cols-3 gap-6 sm:max-w-lg">
-        {chips.map(({ label, token, checkerboard }) => (
-          <div key={token} className="min-w-0 space-y-2 text-center">
-            <div className="mx-auto aspect-square w-full max-w-[72px]">
-              {checkerboard ? (
-                <div className="relative size-full overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-700">
-                  <div className="absolute inset-0 dark:opacity-80" style={CHECKERBOARD_BG} aria-hidden />
-                  <div
-                    className="absolute inset-0 rounded-[inherit]"
-                    style={{ backgroundColor: `var(${token})` }}
-                    title={token}
-                  />
-                </div>
-              ) : (
-                <div
-                  className="size-full rounded-md border border-neutral-200 shadow-sm dark:border-neutral-700"
-                  style={{ backgroundColor: `var(${token})` }}
-                  title={token}
-                />
-              )}
-            </div>
-            <p className="text-xs font-medium text-neutral-900 dark:text-neutral-100">{label}</p>
-            <p className="break-all font-mono text-[10px] leading-snug text-neutral-500 dark:text-neutral-400">
-              var({token})
-            </p>
-          </div>
-        ))}
-      </div>
+      <ColorTokenTable rows={BASE_ROWS} nameHeader="Name" whiteTable />
     </div>
   )
 }
 
-function BrandScale({ role }: { role: BrandRole }) {
-  const label = role.charAt(0).toUpperCase() + role.slice(1)
-  return (
-    <div className="space-y-3">
-      <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Brand {label}</h3>
-      <div className="grid grid-cols-5 gap-3 sm:grid-cols-10">
-        {BRAND_STEPS.map((step) => {
-          const cssVar = `--brand-${role}-${step}`
-          return (
-            <div key={step} className="min-w-0 space-y-2 text-center">
-              <div
-                className="aspect-square w-full max-w-[56px] mx-auto rounded-md border border-neutral-200/90 shadow-sm dark:border-neutral-700/90"
-                style={{ backgroundColor: `var(${cssVar})` }}
-                title={cssVar}
-              />
-              <p className="font-mono text-[10px] leading-none text-neutral-500 dark:text-neutral-400">{step}</p>
-            </div>
-          )
-        })}
-      </div>
-      <p className="font-mono text-xs text-neutral-500 dark:text-neutral-400">var(--brand-{role}-…)</p>
-    </div>
-  )
-}
-
-function AccentHueRow({ hue }: { hue: (typeof ACCENT_HUES)[number] }) {
-  return (
-    <div className="min-w-0 space-y-2">
-      <p className="text-xs font-medium capitalize text-neutral-700 dark:text-neutral-300">{hue}</p>
-      <div className="flex flex-wrap gap-1.5 sm:gap-2">
-        {ACCENT_STEPS.map((step) => {
-          const token = `--uds-color-accent-${hue}-${step}`
-          return (
-            <div key={step} className="flex min-w-0 flex-col items-center gap-1">
-              <div
-                className="size-8 shrink-0 rounded-md border border-neutral-200/80 sm:size-9 dark:border-neutral-700/80"
-                style={{ backgroundColor: `var(${token})` }}
-                title={token}
-              />
-              <span className="font-mono text-[9px] text-neutral-500 dark:text-neutral-500">{step}</span>
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
+const BRAND_ROLES: BrandRole[] = ['primary', 'secondary', 'tertiary', 'quaternary']
 
 function NeutralColorsPreview() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <p className="text-sm text-neutral-600 dark:text-neutral-400">
         Shared gray scale for chrome, text, borders, and surfaces. Tokens use{' '}
         <span className="font-mono text-xs">--uds-color-neutrals-25 … 1000</span>;{' '}
@@ -142,60 +82,51 @@ function NeutralColorsPreview() {
         <span className="font-mono text-xs">--uds-color-neutrals-500</span>. Prefer these over ad-hoc hex when
         building on UDS.
       </p>
-      <div className="space-y-3">
-        <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Neutrals</h3>
-        <div className="grid grid-cols-4 gap-3 sm:grid-cols-6 lg:grid-cols-12">
-          {NEUTRAL_STEPS.map((step) => {
-            const cssVar = `--uds-color-neutrals-${step}`
-            return (
-              <div key={step} className="min-w-0 space-y-2 text-center">
-                <div
-                  className="aspect-square w-full max-w-[56px] mx-auto rounded-md border border-neutral-200/90 shadow-sm dark:border-neutral-700/90"
-                  style={{ backgroundColor: `var(${cssVar})` }}
-                  title={cssVar}
-                />
-                <p className="font-mono text-[10px] leading-none text-neutral-500 dark:text-neutral-400">{step}</p>
-              </div>
-            )
-          })}
-        </div>
-        <p className="font-mono text-xs text-neutral-500 dark:text-neutral-400">var(--uds-color-neutrals-…)</p>
-      </div>
+      <ColorTokenTable rows={neutralRows()} whiteTable />
     </div>
   )
 }
 
 function BrandColorsPreview() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-4">
       <p className="text-sm text-neutral-600 dark:text-neutral-400">
         Per-brand ramps from <span className="font-mono text-xs">uds-tokens.css</span>. Values follow the active{' '}
         <span className="font-mono text-xs">[data-brand]</span> / <span className="font-mono text-xs">.brand-*</span>{' '}
         theme on an ancestor (default sample uses the root palette).
       </p>
-      <div className="grid gap-10 lg:grid-cols-2">
-        {(['primary', 'secondary', 'tertiary', 'quaternary'] as const).map((role) => (
-          <BrandScale key={role} role={role} />
-        ))}
-      </div>
+      <ColorRampTabs
+        defaultValue="primary"
+        tabs={BRAND_ROLES.map((role) => ({
+          value: role,
+          label: role.charAt(0).toUpperCase() + role.slice(1),
+          swatchToken: `--brand-${role}-500`,
+          rows: brandRows(role),
+        }))}
+      />
     </div>
   )
 }
 
 function AccentColorsPreview() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       <p className="text-sm text-neutral-600 dark:text-neutral-400">
         System accent scales are exposed as{' '}
         <span className="font-mono text-xs">{'--uds-color-accent-{hue}-{step}'}</span>.
         Use Tailwind arbitrary values, for example{' '}
         <span className="font-mono text-xs">bg-[var(--uds-color-accent-blue-500)]</span>.
       </p>
-      <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-        {ACCENT_HUES.map((hue) => (
-          <AccentHueRow key={hue} hue={hue} />
-        ))}
-      </div>
+      <ColorRampTabs
+        defaultValue="green"
+        scrollableTabs
+        tabs={ACCENT_HUES.map((hue) => ({
+          value: hue,
+          label: hue.charAt(0).toUpperCase() + hue.slice(1),
+          swatchToken: `--uds-color-accent-${hue}-500`,
+          rows: accentRows(hue),
+        }))}
+      />
     </div>
   )
 }

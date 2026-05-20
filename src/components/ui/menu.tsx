@@ -1094,7 +1094,7 @@ export type MenuDefaultProps = Omit<MenuRootProps, "children"> & {
   brand?: UdsBrandId
   /**
    * Fallback when `brandStorageKey` has no valid stored value. Defaults to **`chg`** for consumers.
-   * Pass `connect` (or use docs helpers) for the internal docs site.
+   * Pass `chg` (or use docs helpers) for the internal docs site default.
    */
   defaultBrand?: UdsBrandId
   /**

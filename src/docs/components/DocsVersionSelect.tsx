@@ -21,9 +21,10 @@ import { useDocsVersion } from '../versions/context'
 export function DocsVersionSelect() {
   const { expanded } = useMenuRail()
   const { versionId, setDocsVersion, versionOptions } = useDocsVersion()
+  const activeOption = versionOptions.find((o) => o.id === versionId)
+  const activeLabel = activeOption?.label ?? versionId
 
   if (!expanded) {
-    const activeLabel = versionOptions.find((o) => o.id === versionId)?.label ?? versionId
 
     return (
       <div className="flex shrink-0 flex-col items-center border-b border-solid border-neutral-200 py-2 dark:border-neutral-800">
@@ -66,13 +67,13 @@ export function DocsVersionSelect() {
 
   return (
     <div className="shrink-0 border-b border-solid border-neutral-200 p-2 dark:border-neutral-800">
-      <Select value={versionId} onValueChange={setDocsVersion}>
+      <Select key={versionId} value={versionId} onValueChange={setDocsVersion}>
         <SelectTrigger
           inputSize="sm"
           aria-label="Documentation version"
           className="w-full min-w-0 max-w-full shadow-none"
         >
-          <SelectValue placeholder="Documentation version" />
+          <SelectValue placeholder="Documentation version">{activeLabel}</SelectValue>
         </SelectTrigger>
         <SelectContent position="popper" align="start" className="min-w-[var(--radix-select-trigger-width)]">
           {versionOptions.map((option) => (

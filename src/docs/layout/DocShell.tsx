@@ -79,7 +79,7 @@ export function DocShell() {
     document.documentElement.classList.toggle('dark', !light)
   }, [light])
 
-  /** Site chrome follows the stored site brand (Connect by default). */
+  /** Site chrome follows the stored site brand (CHG by default). */
   useEffect(() => {
     applyDocsBrandToDocument(readStoredDocsBrand())
   }, [])

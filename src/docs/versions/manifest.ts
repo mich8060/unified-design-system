@@ -7,6 +7,10 @@ export const DOCS_VERSION_MANIFEST = {
   defaultVersion: CURRENT_DOCS_PACKAGE_VERSION,
   versions: [
     {
+      id: '1.0.5',
+      label: `Documentation - v1.0.5`,
+    },
+    {
       id: '1.0.4',
       label: `Documentation - v1.0.4`,
     },
@@ -31,4 +35,9 @@ export function getDocsVersionManifest() {
 
 export function getDocsVersionOptions(): DocsVersionManifestEntry[] {
   return DOCS_VERSION_MANIFEST.versions
+}
+
+/** Newest snapshot in the manifest (first entry, semver-desc). */
+export function getLatestDocsVersionId(): DocsVersionId {
+  return DOCS_VERSION_MANIFEST.versions[0]?.id ?? DOCS_VERSION_MANIFEST.defaultVersion
 }

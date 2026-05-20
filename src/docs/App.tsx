@@ -20,11 +20,8 @@ import {
 } from '@chg-ds/unified-design-system'
 import { DocsVersionSelect } from './components/DocsVersionSelect'
 import { useDocsHeaderSearch } from './components/DocsSearch'
-import {
-  applyDocsBrandToDocument,
-  DOCS_SITE_DEFAULT_BRAND,
-  readStoredDocsBrand,
-} from './doc-site-brand'
+import { applyDocsBrandToDocument, DOCS_SITE_DEFAULT_BRAND } from './doc-site-brand'
+import { DOCS_SITE_PACKAGE_VERSION } from './doc-site-version'
 import {
   DocsVersionProvider,
   DocsVersionRouteGuard,
@@ -128,6 +125,11 @@ function VersionedDocOutlet() {
 }
 
 const DOCS_SCROLL_STORAGE_PREFIX = 'uds-docs:win-scroll:'
+const DOCS_INTRODUCTION_PATHS = new Set(['/docs/introduction', '/docs/welcome'])
+
+function isDocsIntroductionPath(pathname: string): boolean {
+  return DOCS_INTRODUCTION_PATHS.has(pathname)
+}
 
 /** Docs chrome scrolls inside `.appshell--main`, not `window` (see `app-shell.scss`). */
 function getDocsScrollParent(): HTMLElement | null {
@@ -146,6 +148,15 @@ function setDocsScrollTop(y: number) {
   } else {
     window.scrollTo(0, y)
   }
+}
+
+/** Re-apply after layout/paint when the scroll parent mounts or lazy routes finish. */
+function scheduleDocsScrollTop(y: number) {
+  setDocsScrollTop(y)
+  requestAnimationFrame(() => {
+    setDocsScrollTop(y)
+    requestAnimationFrame(() => setDocsScrollTop(y))
+  })
 }
 
 function readStoredScrollY(key: string): number | null {
@@ -176,29 +187,76 @@ function writeStoredScrollY(key: string, y: number) {
 function DocWindowScrollRestoration() {
   const location = useLocation()
   const navigationType = useNavigationType()
+  const { pathname } = location
   const key = location.key
   const lastScrollY = useRef(0)
   const prevKeyRef = useRef<string | null>(null)
+  const prevPathnameRef = useRef(pathname)
+  /** React Router reports the document load as POP; enable restore only after the first scroll commit. */
+  const popRestoreEnabledRef = useRef(false)
+
+  useEffect(() => {
+    const previous = history.scrollRestoration
+    history.scrollRestoration = 'manual'
+    return () => {
+      history.scrollRestoration = previous
+    }
+  }, [])
 
   useLayoutEffect(() => {
     const prevKey = prevKeyRef.current
+    const prevPathname = prevPathnameRef.current
     if (prevKey != null && prevKey !== key) {
-      writeStoredScrollY(prevKey, lastScrollY.current)
+      const yToSave = isDocsIntroductionPath(prevPathname) ? 0 : lastScrollY.current
+      writeStoredScrollY(prevKey, yToSave)
     }
     prevKeyRef.current = key
+    prevPathnameRef.current = pathname
 
-    if (navigationType === 'POP') {
-      const y = readStoredScrollY(key)
-      const nextY = y ?? 0
+    if (isDocsIntroductionPath(pathname)) {
+      setDocsScrollTop(0)
+      lastScrollY.current = 0
+      return
+    }
+
+    const stored = readStoredScrollY(key)
+    const shouldRestorePop = navigationType === 'POP' && popRestoreEnabledRef.current && stored != null
+
+    if (shouldRestorePop) {
+      const nextY = stored
       setDocsScrollTop(nextY)
       lastScrollY.current = nextY
     } else {
       setDocsScrollTop(0)
       lastScrollY.current = 0
     }
-  }, [key, navigationType])
+  }, [key, navigationType, pathname])
 
   useEffect(() => {
+    if (isDocsIntroductionPath(pathname)) {
+      scheduleDocsScrollTop(0)
+      lastScrollY.current = 0
+      popRestoreEnabledRef.current = true
+      return
+    }
+
+    const stored = readStoredScrollY(key)
+    const shouldRestorePop = navigationType === 'POP' && popRestoreEnabledRef.current && stored != null
+
+    if (shouldRestorePop) {
+      scheduleDocsScrollTop(stored)
+      lastScrollY.current = stored
+    } else {
+      scheduleDocsScrollTop(0)
+      lastScrollY.current = 0
+    }
+
+    popRestoreEnabledRef.current = true
+  }, [key, navigationType, pathname])
+
+  useEffect(() => {
+    if (isDocsIntroductionPath(pathname)) return
+
     const el = getDocsScrollParent()
     const onScroll = () => {
       lastScrollY.current = readDocsScrollTop()
@@ -208,15 +266,15 @@ function DocWindowScrollRestoration() {
     return () => {
       target.removeEventListener('scroll', onScroll)
     }
-  }, [key])
+  }, [key, pathname])
 
   return null
 }
 
-/** Documentation chrome follows the stored site brand (Connect by default); scoped previews set `data-brand` locally. */
+/** Documentation chrome uses the docs default brand (CHG); scoped previews set `data-brand` locally. */
 function DocsGlobalDefaultBrand() {
   useEffect(() => {
-    applyDocsBrandToDocument(readStoredDocsBrand())
+    applyDocsBrandToDocument(DOCS_SITE_DEFAULT_BRAND)
   }, [])
   return null
 }
@@ -227,7 +285,7 @@ export default function DocsApp() {
       <TooltipProvider>
         <Toaster />
         <BrowserRouter>
-          <DocsVersionProvider>
+          <DocsVersionProvider key={DOCS_SITE_PACKAGE_VERSION}>
             <DocsGlobalDefaultBrand />
             <DocWindowScrollRestoration />
             <Routes>

@@ -3,12 +3,13 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useState,
   type ReactNode,
 } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { persistDocsVersion, readStoredDocsVersion } from '../doc-site-version'
+import { DOCS_VERSION_STORAGE_KEY, getDocsSiteDefaultVersion } from '../doc-site-version'
 import { getDocsVersionOptions } from './manifest'
 import { loadDocsVersionBundle, prefetchDefaultDocsVersionBundle, resolveDocsVersionId } from './resolve'
 import { resolveDocsRouteForVersion } from './navigation'
@@ -25,9 +26,18 @@ type DocsVersionContextValue = {
 const DocsVersionContext = createContext<DocsVersionContextValue | null>(null)
 
 export function DocsVersionProvider({ children }: { children: ReactNode }) {
-  const [versionId, setVersionId] = useState<DocsVersionId>(() => resolveDocsVersionId(readStoredDocsVersion()))
+  const [versionId, setVersionId] = useState<DocsVersionId>(() => resolveDocsVersionId(getDocsSiteDefaultVersion()))
   const [bundle, setBundle] = useState<DocsVersionBundle | null>(null)
   const [status, setStatus] = useState<'loading' | 'ready'>('loading')
+
+  useLayoutEffect(() => {
+    setVersionId(getDocsSiteDefaultVersion())
+    try {
+      window.localStorage.removeItem(DOCS_VERSION_STORAGE_KEY)
+    } catch {
+      /* private mode */
+    }
+  }, [])
 
   useEffect(() => {
     void prefetchDefaultDocsVersionBundle()
@@ -49,9 +59,7 @@ export function DocsVersionProvider({ children }: { children: ReactNode }) {
   }, [versionId])
 
   const setDocsVersion = useCallback((id: DocsVersionId) => {
-    const resolved = resolveDocsVersionId(id)
-    persistDocsVersion(resolved)
-    setVersionId(resolved)
+    setVersionId(resolveDocsVersionId(id))
   }, [])
 
   const value = useMemo<DocsVersionContextValue | null>(() => {

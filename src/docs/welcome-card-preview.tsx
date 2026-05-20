@@ -87,7 +87,7 @@ export function WelcomeCardPreview({ slug }: { slug: string }) {
           slug === 'calendar'
             ? 'items-center justify-start pt-12'
             : 'items-center justify-center',
-          slug === 'alert' ? 'overflow-x-auto overflow-y-hidden' : 'overflow-hidden',
+          'overflow-hidden',
         )}
       >
         {previewInner ? (

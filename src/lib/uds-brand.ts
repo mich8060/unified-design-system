@@ -71,7 +71,7 @@ export function udsBrandToBrandingAppearance(id: UdsBrandId): BrandingAppearance
     wireframe: 'Wireframe',
     modio: 'Modio',
     gms: 'Design System',
-    chg: 'CHG',
+    chg: 'Design System',
   } as const satisfies Record<UdsBrandId, BrandingAppearance>
   return map[id]
 }

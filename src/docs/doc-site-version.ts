@@ -21,16 +21,19 @@ export const DOCS_VERSION_OPTIONS: { value: DocsVersionId; label: string }[] = g
   }),
 )
 
-export function readStoredDocsVersion(): DocsVersionId {
+/** Latest documentation snapshot (newest entry in the version manifest). */
+export function getDocsSiteDefaultVersion(): DocsVersionId {
   const manifest = getDocsVersionManifest()
-  if (typeof window === 'undefined') return manifest.defaultVersion
-  try {
-    const raw = window.localStorage.getItem(DOCS_VERSION_STORAGE_KEY)
-    if (raw && manifest.versions.some((entry) => entry.id === raw)) return raw
-  } catch {
-    /* private mode */
+  const latest = manifest.versions[0]?.id
+  if (latest && manifest.versions.some((entry) => entry.id === latest)) {
+    return latest
   }
   return manifest.defaultVersion
+}
+
+/** Docs site always opens on the latest version; use the menu selector to view older snapshots for this session. */
+export function readStoredDocsVersion(): DocsVersionId {
+  return getDocsSiteDefaultVersion()
 }
 
 export function persistDocsVersion(id: DocsVersionId) {

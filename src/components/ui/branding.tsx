@@ -38,8 +38,8 @@ const SVG_ASSETS: Record<BrandingAppearance, { mark: string; wordmark: string }>
     wordmark: connectWordmark,
   },
   CHG: {
-    mark: wireframeMark,
-    wordmark: wireframeWordmark,
+    mark: unifiedDesignSystemMark,
+    wordmark: unifiedDesignSystemWordmark,
   },
   Locumsmart: {
     mark: locumsmartMark,

@@ -464,7 +464,7 @@
   --brand-quaternary-900: #3B260D;
 }
 
-/* CHG uses the Connect palette with Wireframe SVG lockups (`Branding appearance="CHG"`). */
+/* CHG / default consumer brand: Connect-aligned palette with Unified Design System SVG lockups. */
 .brand-chg,
 [data-brand=chg] {
   --brand-primary-25: #FAFDFF;
@@ -1300,18 +1300,18 @@
   --system-color-accent-fuchsia-900: #701a75;
   --system-color-accent-fuchsia-1000: #59145d;
   /* Accent Colors - Green */
-  --system-color-accent-green-25: #f3fdf6;
-  --system-color-accent-green-50: #f0fdf4;
-  --system-color-accent-green-100: #dcfce7;
-  --system-color-accent-green-200: #bbf7d1;
-  --system-color-accent-green-300: #86efac;
-  --system-color-accent-green-400: #4ade80;
-  --system-color-accent-green-500: #23c55e;
-  --system-color-accent-green-600: #17a34a;
-  --system-color-accent-green-700: #157f3d;
-  --system-color-accent-green-800: #176535;
-  --system-color-accent-green-900: #15532e;
-  --system-color-accent-green-1000: #104224;
+  --system-color-accent-green-25: #fffcf4;
+  --system-color-accent-green-50: #f8fbf5;
+  --system-color-accent-green-100: #e3f1d6;
+  --system-color-accent-green-200: #c6e2ad;
+  --system-color-accent-green-300: #9ecb7d;
+  --system-color-accent-green-400: #77af52;
+  --system-color-accent-green-500: #5b9438;
+  --system-color-accent-green-600: #46762b;
+  --system-color-accent-green-700: #3a5f26;
+  --system-color-accent-green-800: #304d22;
+  --system-color-accent-green-900: #2b4120;
+  --system-color-accent-green-1000: #14260d;
   /* Accent Colors - Indigo */
   --system-color-accent-indigo-25: #f1f4fe;
   --system-color-accent-indigo-50: #eef2fe;
