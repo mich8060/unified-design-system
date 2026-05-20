@@ -7,6 +7,10 @@ export const DOCS_VERSION_MANIFEST = {
   defaultVersion: CURRENT_DOCS_PACKAGE_VERSION,
   versions: [
     {
+      id: '1.0.4',
+      label: `Documentation - v1.0.4`,
+    },
+    {
       id: '1.0.3',
       label: `Documentation - v1.0.3`,
     },

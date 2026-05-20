@@ -69,7 +69,7 @@ The **`Text`** component uses **`textVariants`** from `class-variance-authority`
 | `tight` | `--uds-type-{variant}-{size}-line-tight` |
 | `loose` | `--uds-type-{variant}-{size}-line-loose` |
 
-Each combination also reads `--uds-type-{variant}-{size}-letter-spacing` and `--uds-type-{variant}-{size}-text-transform` (display styles use uppercase by default).
+Each combination also reads `--uds-type-{variant}-{size}-letter-spacing` and `--uds-type-{variant}-{size}-text-transform` (display and heading styles use `none` by default).
 
 ### Weight utilities (`weight` prop)
 

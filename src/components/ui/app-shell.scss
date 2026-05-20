@@ -43,28 +43,21 @@ $listview-width: 320px;
         width: calc(100% - var(--appshell-menu-width-collapsed));
     }
 
+    /* In-flow header: only `.appshell--main` scrolls, so no fixed offset or content padding-top is needed. */
     &--header {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: var(--appshell-menu-width-expanded);
+        position: relative;
         z-index: 20;
         flex-shrink: 0;
+        width: 100%;
         height: var(--appshell-header-height);
-        transition: left 200ms ease-out;
     }
 
-    &:has([data-slot="uds-menu-root"][data-expanded="false"]) &--header {
-        left: var(--appshell-menu-width-collapsed);
-    }
-
-  /* Region below fixed header: listview + main share one row, constrained to viewport. */
+    /* Region below header: listview + main share one row, constrained to viewport. */
     &--content {
         display: flex;
         flex: 1 1 0;
         min-height: 0;
         overflow: hidden;
-        padding-top: var(--appshell-header-height);
     }
 
     &--listview {

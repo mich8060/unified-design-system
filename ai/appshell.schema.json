@@ -186,7 +186,7 @@
           "default": "Not position:fixed. Rendered as the last child inside .appshell--main so it scrolls with page content. Nested [data-slot=uds-footer] has border-top suppressed in shell CSS."
         },
         "header": {
-          "default": "position:fixed; left tracks --appshell-menu-width-expanded|collapsed. .appshell--content has padding-top: --appshell-header-height. Always uses package Header with optional trailing from AppShell.Header / headerRight."
+          "default": "In-flow at top of .appshell--body (height --appshell-header-height). Only .appshell--main scrolls; no content padding-top offset. Always uses package Header with optional trailing from AppShell.Header / headerRight."
         },
         "cssVariables": {
           "default": "On .appshell: --appshell-menu-width-expanded (280px), --appshell-menu-width-collapsed (64px), --appshell-listview-width (320px), --appshell-header-height (3.5rem)."

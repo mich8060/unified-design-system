@@ -12,23 +12,16 @@ import {
 } from 'react-router-dom'
 import {
   AppShell,
-  BellIcon,
-  Button,
   Footer,
   IconContext,
   Menu,
-  QuestionIcon,
   Toaster,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
   TooltipProvider,
 } from '@chg-ds/unified-design-system'
 import { DocsVersionSelect } from './components/DocsVersionSelect'
+import { useDocsHeaderSearch } from './components/DocsSearch'
 import {
   applyDocsBrandToDocument,
-  DOCS_BRAND_OPTIONS,
-  DOCS_BRAND_STORAGE_KEY,
   DOCS_SITE_DEFAULT_BRAND,
   readStoredDocsBrand,
 } from './doc-site-brand'
@@ -82,6 +75,7 @@ function DocsLayout() {
   const { pathname } = useLocation()
   const bundle = useDocsVersionBundle()
   const { items: navigationItems, navIdToRoute, routeToNavId } = bundle.navigation
+  const { headerSearchProps, searchDialog } = useDocsHeaderSearch()
 
   const activeId = useMemo(() => routeToNavId[pathname], [pathname, routeToNavId])
 
@@ -94,42 +88,22 @@ function DocsLayout() {
   )
 
   return (
-    <AppShell className="min-h-dvh min-w-0 w-full max-w-full overflow-x-hidden">
+    <>
+      {searchDialog}
+      <AppShell
+        className="min-h-dvh min-w-0 w-full max-w-full overflow-x-hidden"
+        headerSearchProps={headerSearchProps}
+      >
       <AppShell.Menu>
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-          <DocsVersionSelect />
-          <Menu
-            navigationItems={navigationItems}
-            defaultBrand={DOCS_SITE_DEFAULT_BRAND}
-            brandStorageKey={DOCS_BRAND_STORAGE_KEY}
-            brandOptions={DOCS_BRAND_OPTIONS}
-            activeId={activeId}
-            onNavigationSelect={handleNavigationSelect}
-            className="min-h-0 flex-1"
-          />
-        </div>
+        <Menu
+          navigationItems={navigationItems}
+          defaultBrand={DOCS_SITE_DEFAULT_BRAND}
+          toolbar={<DocsVersionSelect />}
+          activeId={activeId}
+          onNavigationSelect={handleNavigationSelect}
+          className="min-h-0 flex-1"
+        />
       </AppShell.Menu>
-      <AppShell.Header>
-        <>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button type="button" variant="ghost" size="icon" className="rounded-full" aria-label="Help">
-                <QuestionIcon className="size-5" aria-hidden />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Help</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button type="button" variant="ghost" size="icon" className="relative rounded-full" aria-label="Notifications">
-                <BellIcon className="size-5" aria-hidden />
-                <span className="absolute top-1 right-1 size-2 rounded-full bg-[var(--uds-color-accent-red-500)] ring-2 ring-[var(--uds-surface-primary)]" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Notifications</TooltipContent>
-          </Tooltip>
-        </>
-      </AppShell.Header>
       <AppShell.Footer>
         <Footer
           links={[
@@ -139,6 +113,7 @@ function DocsLayout() {
         />
       </AppShell.Footer>
     </AppShell>
+    </>
   )
 }
 

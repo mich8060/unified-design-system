@@ -1105,8 +1105,14 @@ export type MenuDefaultProps = Omit<MenuRootProps, "children"> & {
   /**
    * Brand switcher rendered between header and navigation.
    * Pass an array of `{ value, label }` options to show the select. Omit to hide.
+   * Ignored when `toolbar` is set.
    */
   brandOptions?: ReadonlyArray<MenuBrandOption>
+  /**
+   * Custom control band between header and navigation (same slot as the brand switcher).
+   * When set, replaces `brandOptions` UI — use for docs version picker, etc.
+   */
+  toolbar?: React.ReactNode
   /** Renders `Menu.WorkspaceSelect` above navigation when provided. */
   workspace?: MenuWorkspaceSelectProps
   /** Below navigation (e.g. `Menu.Utilities`). Prefer `utilities` for data-driven links. */
@@ -1137,6 +1143,7 @@ function MenuDefault({
   defaultBrand,
   brandStorageKey,
   brandOptions,
+  toolbar,
   workspace,
   tail,
   utilities,
@@ -1192,7 +1199,9 @@ function MenuDefault({
     <MenuBrandContext.Provider value={activeBrand}>
       <MenuRoot {...rootProps}>
         <MenuDefaultHeader />
-      {brandOptions?.length ? (
+      {toolbar != null ? (
+        toolbar
+      ) : brandOptions?.length ? (
         <MenuBrandSwitcher
           options={brandOptions}
           value={activeBrand}

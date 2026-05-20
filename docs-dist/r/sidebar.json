@@ -3,14 +3,14 @@
   "name": "sidebar",
   "type": "registry:item",
   "title": "UDS Sidebar",
-  "description": "Wrapper exports for the published UDS sidebar system used inside AppShell.",
+  "description": "Wrapper exports for the published UDS Sidebar primitives (in-page side panels — not the AppShell menu rail; use Menu there).",
   "author": "Unified Design System",
   "categories": [
     "layout",
     "navigation"
   ],
   "dependencies": [
-    "@chg-ds/unified-design-system@0.3.9"
+    "@chg-ds/unified-design-system@1.0.3"
   ],
   "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
   "meta": {
