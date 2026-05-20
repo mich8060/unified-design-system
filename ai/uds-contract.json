@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-30T16:02:41.035Z",
+  "generatedAt": "2026-05-18T22:09:07.195Z",
   "generatedFrom": [
     "src/index.ts",
     "package.json",
@@ -7,7 +7,7 @@
   ],
   "package": {
     "name": "@chg-ds/unified-design-system",
-    "version": "0.3.9",
+    "version": "1.0.3",
     "primaryEntry": "@chg-ds/unified-design-system",
     "styleImport": "@chg-ds/unified-design-system/styles.css"
   },
@@ -29,9 +29,12 @@
   "layoutDefaults": {
     "authenticatedScreens": {
       "defaultShell": "AppShell",
-      "sidebarRequirement": "Use SidebarProvider as needed and compose the AppShell sidebar slot only with exported UDS Sidebar primitives.",
-      "listview": "Optional. Use for queues, master-detail, inbox, or search results.",
-      "footer": "Optional. Use only when the screen needs persistent summary or status chrome."
+      "menuSlot": "Compose AppShell.menu with the package Menu component. AppShell CSS offsets the body from [data-slot=uds-menu-root]. Do not put Sidebar* in menu unless you own rail positioning CSS.",
+      "mainContent": "Put page UI in AppShell.Main. enableRouterOutlet defaults true (bundled Outlet before main children); set false for static apps. Use nested React Router layout routes when the outlet is enabled.",
+      "listview": "Optional listview prop. Master-detail: only .appshell--main scrolls; list body uses data-slot=appshell-listview-scroll inside a flex column. See ai/recipes/detail-with-listview.md.",
+      "footer": "Optional. Use only when the screen needs persistent summary or status chrome.",
+      "appShellGuide": "ai/guides/appshell-navigation.md",
+      "menuBrand": "Menu defaults to brand id chg (CHG wordmark). Override with Menu brand prop; use brandStorageKey only when persisting a user choice. Do not use docs-site-data-brand in consumer apps."
     },
     "viewportFill": [
       "Ensure html, body, and #root span the viewport.",
@@ -244,6 +247,16 @@
       "module": "components/ui/alert",
       "roles": [
         "feedback"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "applyUdsBrandToDocument",
+      "exportKind": "component",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
       ],
       "recommendation": "allowed"
     },
@@ -2410,6 +2423,16 @@
       "recommendation": "allowed"
     },
     {
+      "name": "isUdsBrandId",
+      "exportKind": "component",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "Item",
       "exportKind": "component",
       "module": "components/ui/item",
@@ -2763,7 +2786,7 @@
         "navigation",
         "first-party"
       ],
-      "recommendation": "allowed"
+      "recommendation": "preferred"
     },
     {
       "name": "Menubar",
@@ -3314,6 +3337,16 @@
       "recommendation": "allowed"
     },
     {
+      "name": "persistBrandToStorage",
+      "exportKind": "component",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "PhoneIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -3508,6 +3541,16 @@
       "recommendation": "allowed"
     },
     {
+      "name": "readBrandFromStorage",
+      "exportKind": "component",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "ResizableHandle",
       "exportKind": "component",
       "module": "components/ui/resizable",
@@ -3542,6 +3585,16 @@
         "input"
       ],
       "recommendation": "avoid-directly"
+    },
+    {
+      "name": "resolveMenuBrand",
+      "exportKind": "component",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
     },
     {
       "name": "ScrollArea",
@@ -4001,6 +4054,26 @@
       "recommendation": "preferred"
     },
     {
+      "name": "STATUS_SIZES",
+      "exportKind": "component",
+      "module": "components/ui/status",
+      "roles": [
+        "feedback",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "StatusSize",
+      "exportKind": "type",
+      "module": "components/ui/status",
+      "roles": [
+        "feedback",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "statusVariants",
       "exportKind": "utility",
       "module": "components/ui/status",
@@ -4237,6 +4310,56 @@
       "recommendation": "allowed"
     },
     {
+      "name": "TEXT_BODY_SIZES",
+      "exportKind": "component",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TEXT_DISPLAY_SIZES",
+      "exportKind": "component",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TEXT_HEADING_SIZES",
+      "exportKind": "component",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TEXT_LINE_HEIGHTS",
+      "exportKind": "component",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TEXT_VARIANTS",
+      "exportKind": "component",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "TextAppearance",
       "exportKind": "type",
       "module": "components/ui/text",
@@ -4266,6 +4389,36 @@
       "recommendation": "allowed"
     },
     {
+      "name": "TextBodySize",
+      "exportKind": "type",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TextDisplaySize",
+      "exportKind": "type",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TextHeadingSize",
+      "exportKind": "type",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "TextItalicIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -4276,7 +4429,37 @@
       "recommendation": "allowed"
     },
     {
+      "name": "TextLineHeight",
+      "exportKind": "type",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "TextProps",
+      "exportKind": "type",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TextSize",
+      "exportKind": "type",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TextVariant",
       "exportKind": "type",
       "module": "components/ui/text",
       "roles": [
@@ -4458,6 +4641,66 @@
       "recommendation": "allowed"
     },
     {
+      "name": "UDS_BRAND_IDS",
+      "exportKind": "component",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "UDS_BRAND_OPTIONS",
+      "exportKind": "component",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "UDS_BRAND_STORAGE_KEY",
+      "exportKind": "component",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "UDS_DEFAULT_BRAND",
+      "exportKind": "component",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "UdsBrandId",
+      "exportKind": "type",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "udsBrandToBrandingAppearance",
+      "exportKind": "component",
+      "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "UploadSimpleIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -4629,11 +4872,10 @@
       "id": "auth-shell",
       "title": "Authenticated Shell",
       "file": "ai/recipes/auth-shell.md",
-      "description": "Base authenticated product shell with a mandatory UDS sidebar and branded summary content.",
+      "description": "Base authenticated product shell with AppShell, Menu in the menu slot, and branded summary content.",
       "defaults": [
         "AppShell",
-        "SidebarProvider",
-        "Sidebar primitives",
+        "Menu",
         "Card",
         "Button",
         "Status"
@@ -4646,6 +4888,7 @@
       "description": "Operational dashboard with branded metrics, queue summaries, and first-party emphasis components.",
       "defaults": [
         "AppShell",
+        "Menu",
         "Badge",
         "Medallion",
         "Status",
@@ -4660,7 +4903,7 @@
       "description": "Master-detail layout using the AppShell listview region instead of ad hoc split panes.",
       "defaults": [
         "AppShell",
-        "Sidebar primitives",
+        "Menu",
         "Item",
         "Table",
         "Tabs"
@@ -4682,7 +4925,11 @@
     }
   ],
   "antiPatterns": [
-    "Do not build a bespoke outer shell with raw div/aside markup when AppShell plus Sidebar primitives already fits the screen.",
+    "Do not build a bespoke outer shell with raw div/aside markup when AppShell plus Menu already fits the screen.",
+    "Do not put Sidebar* in AppShell.menu and add fixed inset-y-0 rail CSS — use Menu in menu.",
+    "Do not use AppShell props sidebarWidth, showListview, or mainClassName — they are not on the published API.",
+    "Do not use CSS that collapses .appshell--main > :first-child to fix layout.",
+    "Do not assume consumer-only react-router-dom fills AppShell without a layout route under the same router.",
     "Do not import from src/components/ui/*, dist/*, or repo-local aliases in consumer code.",
     "Do not invent a parallel component system for buttons, fields, badges, or status treatments when package exports exist.",
     "Do not default to stock shadcn layout patterns when UDS-specific first-party components are available."
@@ -4694,6 +4941,8 @@
     "ai/examples/workspace-dashboard.tsx",
     "ai/examples/detail-with-listview.tsx",
     "ai/examples/settings-form.tsx",
+    "ai/guides/appshell-navigation.md",
+    "ai/appshell.schema.json",
     "AI_USAGE.md",
     "setup.md"
   ],

@@ -14,6 +14,12 @@ Use that file for machine-readable guidance, then use the human-facing summaries
 npm install @chg-ds/unified-design-system react react-dom
 ```
 
+For routed shells (`AppShell` with the default internal `<Outlet />`), also install:
+
+```bash
+npm install react-router-dom
+```
+
 Import the stylesheet once near the app root:
 
 ```ts
@@ -26,57 +32,59 @@ Use **Node.js 22 LTS** (or **24+**) for local installs so `npm` does not report 
 
 You may still see `npm warn deprecated node-domexception` while installing devDependencies: it is pulled in by the `shadcn` CLI via `node-fetch` / `fetch-blob`. It is safe to ignore for building this package; upstream would need to drop that chain to silence the warning.
 
-## Quick start
+## Quick start (AppShell + Menu)
+
+`AppShell` exposes a **`menu`** slot (not `sidebar`). Use the package **`Menu`** in that slot so shipped CSS can offset the main column from `[data-slot="uds-menu-root"]`. Put page UI in **`AppShell.Main`**. For static pages, set **`enableRouterOutlet={false}`**.
 
 ```tsx
 import {
   AppShell,
-  Button,
   Card,
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
+  Menu,
   TooltipProvider,
+  type MenuNavigationItem,
 } from "@chg-ds/unified-design-system"
 import "@chg-ds/unified-design-system/styles.css"
+
+const navigationItems: MenuNavigationItem[] = [
+  { id: "dashboard", label: "Dashboard" },
+  { id: "reports", label: "Reports" },
+]
 
 export function Example() {
   return (
     <TooltipProvider>
-      <SidebarProvider>
-        <AppShell
-          className="min-h-dvh w-full min-w-0"
-          sidebarWidth={280}
-          showListview={false}
-          mainClassName="bg-[var(--uds-color-neutrals-50)]"
-          sidebar={
-            <Sidebar collapsible="none">
-              <SidebarHeader>Workspace</SidebarHeader>
-              <SidebarContent>
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive>Dashboard</SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </SidebarContent>
-              <SidebarFooter>
-                <Button className="w-full rounded-[4px]">New item</Button>
-              </SidebarFooter>
-            </Sidebar>
-          }
-        >
+      <AppShell
+        className="min-h-dvh w-full min-w-0"
+        enableRouterOutlet={false}
+        menu={
+          <Menu
+            navigationItems={navigationItems}
+            activeId="dashboard"
+            onNavigationSelect={() => {}}
+          />
+        }
+      >
+        <AppShell.Main>
           <Card className="m-6 rounded-[4px] p-6">AppShell is mounted at runtime.</Card>
-        </AppShell>
-      </SidebarProvider>
+        </AppShell.Main>
+      </AppShell>
     </TooltipProvider>
   )
 }
 ```
+
+Full navigation, routing, and troubleshooting: [`ai/guides/appshell-navigation.md`](./ai/guides/appshell-navigation.md).
+
+### Brand
+
+`Menu` defaults to **`chg`** (CHG wordmark and theme tokens). Override with the `brand` prop — no `localStorage` setup required:
+
+```tsx
+<Menu navigationItems={items} activeId="dashboard" onNavigationSelect={() => {}} />
+```
+
+See [`AI_USAGE.md`](./AI_USAGE.md) for `defaultBrand`, `brandStorageKey`, and `applyUdsBrandToDocument`.
 
 ## Public API model
 
@@ -114,12 +122,13 @@ Human-facing summaries:
 
 ## Recipes and examples
 
-Recipe docs:
+Recipe docs (shipped in the npm package under `ai/`):
 
 - [`ai/recipes/auth-shell.md`](./ai/recipes/auth-shell.md)
 - [`ai/recipes/workspace-dashboard.md`](./ai/recipes/workspace-dashboard.md)
 - [`ai/recipes/detail-with-listview.md`](./ai/recipes/detail-with-listview.md)
 - [`ai/recipes/settings-form.md`](./ai/recipes/settings-form.md)
+- [`ai/guides/appshell-navigation.md`](./ai/guides/appshell-navigation.md)
 
 Canonical example outputs:
 

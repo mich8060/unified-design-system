@@ -6,30 +6,41 @@ Use for authenticated application pages, internal product tools, dashboards, que
 
 ## Required imports
 
-Import runtime components from `uds-tailwind-test` and styles from `uds-tailwind-test/styles.css`.
+```ts
+import { AppShell, Menu, TooltipProvider } from "@chg-ds/unified-design-system"
+import "@chg-ds/unified-design-system/styles.css"
+```
 
 ## Required layout primitives
 
-Use `TooltipProvider`, `SidebarProvider`, `AppShell`, and exported `Sidebar*` primitives.
+- **`TooltipProvider`** at the app or layout root when using tooltips.
+- **`AppShell`** with **`menu={<Menu … />}`**.
+- **`AppShell.Main`** for workspace content.
+
+See [`ai/guides/appshell-navigation.md`](../guides/appshell-navigation.md).
 
 ## Forbidden substitutions
 
-Do not replace the `sidebar` slot with a raw `<aside>`, generic flex column, or copied stock shadcn sidebar markup.
+- Do not replace the **`menu`** slot with **`Sidebar*`** plus manual `fixed` rail CSS.
+- Do not use a raw `<aside>` or copied stock shadcn sidebar for the product shell rail.
 
 ## JSX skeleton
 
 ```tsx
 <TooltipProvider>
-  <SidebarProvider>
-    <AppShell
-      className="min-h-dvh w-full min-w-0"
-      sidebar={/* Sidebar + SidebarHeader + SidebarContent + SidebarFooter */}
-    >
-      {/* workspace content */}
-    </AppShell>
-  </SidebarProvider>
+  <AppShell
+    className="min-h-dvh w-full min-w-0"
+    enableRouterOutlet={false}
+    menu={<Menu navigationItems={items} activeId={activeId} onNavigationSelect={onSelect} />}
+  >
+    <AppShell.Main>{/* workspace content */}</AppShell.Main>
+  </AppShell>
 </TooltipProvider>
 ```
+
+## Canonical example
+
+[`ai/examples/auth-shell.tsx`](../examples/auth-shell.tsx)
 
 ## Brand application
 

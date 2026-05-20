@@ -2,30 +2,27 @@
 
 ## When to use it
 
-Use for admin, preferences, account, or configuration screens that need field-heavy content inside the product shell.
-
-## Required imports
-
-Import runtime components from `uds-tailwind-test` and styles from `uds-tailwind-test/styles.css`.
+Use for preference, admin, or configuration pages that need consistent field chrome inside an authenticated shell.
 
 ## Required layout primitives
 
-Use `AppShell`, `SectionHeader`, `Card`, `Field`, `Input`, `Select`, `Switch`, and `Button`.
-
-## Forbidden substitutions
-
-Do not build form chrome from raw labels and inputs if the exported field primitives already cover the interaction.
+- **`AppShell`** + **`Menu`** in **`menu`** + **`AppShell.Main`**.
+- **`Field`**, **`Input`**, **`Select`**, **`Switch`**, **`Button`** for the form body.
 
 ## JSX skeleton
 
 ```tsx
-<AppShell sidebar={sidebar}>
-  <div className="p-6">
-    <SectionHeader>{/* title + actions */}</SectionHeader>
-    <Card>{/* grouped settings fields */}</Card>
-  </div>
+<AppShell menu={<Menu {...menuProps} />} enableRouterOutlet={false}>
+  <AppShell.Main>
+    <SectionHeader>{/* title */}</SectionHeader>
+    <Card>{/* fields */}</Card>
+  </AppShell.Main>
 </AppShell>
 ```
+
+## Canonical example
+
+[`ai/examples/settings-form.tsx`](../examples/settings-form.tsx)
 
 ## Brand application
 

@@ -23,7 +23,11 @@
     "dist",
     "README.md",
     "AI_USAGE.md",
-    "LICENSE"
+    "LICENSE",
+    "ai/recipes",
+    "ai/examples",
+    "ai/guides",
+    "ai/appshell.schema.json"
   ],
   "sideEffects": [
     "**/*.css"
@@ -83,7 +87,13 @@
   },
   "peerDependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^6.28.0 || ^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-router-dom": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",

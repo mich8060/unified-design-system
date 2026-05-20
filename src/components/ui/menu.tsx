@@ -31,13 +31,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { cn } from "@/lib/utils"
 import "./menu.css"
 import {
-  applyDocsBrandToDocument,
-  DOCS_BRAND_OPTIONS,
-  docsBrandToBrandingAppearance,
-  persistDocsBrand,
-  readStoredDocsBrand,
-  type DocsBrandId,
-} from "@/docs/doc-site-brand"
+  applyUdsBrandToDocument,
+  persistBrandToStorage,
+  resolveMenuBrand,
+  udsBrandToBrandingAppearance,
+  UDS_DEFAULT_BRAND,
+  isUdsBrandId,
+  type UdsBrandId,
+} from "@/lib/uds-brand"
 import { getDefaultNavigation } from "./menu-default-navigation"
 
 export type MenuRailContextValue = {
@@ -47,6 +48,8 @@ export type MenuRailContextValue = {
 }
 
 const MenuRailContext = React.createContext<MenuRailContextValue | null>(null)
+
+const MenuBrandContext = React.createContext<UdsBrandId>(UDS_DEFAULT_BRAND)
 
 /**
  * Read expand/collapse state from {@link Menu.Root}. Must be used under `Menu.Root`.
@@ -138,7 +141,7 @@ function MenuHeader({ className, ...props }: MenuHeaderProps) {
     <header
       data-slot="uds-menu-header"
       className={cn(
-        "flex h-[60px] shrink-0 items-center justify-center border-b border-solid border-neutral-200",
+        "flex h-14 shrink-0 items-center justify-center border-b border-solid border-neutral-200",
         className,
       )}
       {...props}
@@ -996,9 +999,8 @@ function MenuBrandSwitcher({
 
 function MenuDefaultHeader() {
   const { expanded, toggleExpanded } = useMenuRail()
-  const brand = readStoredDocsBrand()
-  applyDocsBrandToDocument(brand)
-  const brandingAppearance = docsBrandToBrandingAppearance(brand)
+  const brand = React.useContext(MenuBrandContext)
+  const brandingAppearance = udsBrandToBrandingAppearance(brand)
 
   const listToggleButton = (
     <Button
@@ -1069,10 +1071,10 @@ function MenuDefaultHeader() {
         <div className="grid h-full w-full grid-cols-[2.75rem_1fr_2.75rem] items-center px-2">
           <div className="flex justify-center">{listToggleButton}</div>
           <div className="min-w-0 overflow-hidden">{headerBrandingStack}</div>
-          <span className="size-11 shrink-0" aria-hidden />
+          <div className="w-11 shrink-0" aria-hidden />
         </div>
       ) : (
-        <div className="flex min-h-[60px] w-full items-stretch">{headerBrandingStack}</div>
+        <div className="flex h-14 w-full items-stretch">{headerBrandingStack}</div>
       )}
     </MenuHeader>
   )
@@ -1085,6 +1087,21 @@ export type MenuDefaultProps = Omit<MenuRootProps, "children"> & {
   activeId?: string
   /** Row activation handler (same as `Menu.Navigation`). */
   onNavigationSelect?: (id: string, event: React.MouseEvent<HTMLButtonElement>) => void
+  /**
+   * Brand id for theme tokens (`document.documentElement.dataset.brand`) and header wordmark.
+   * Defaults to **`chg`**. When `brandStorageKey` is set, storage wins unless this prop is passed.
+   */
+  brand?: UdsBrandId
+  /**
+   * Fallback when `brandStorageKey` has no valid stored value. Defaults to **`chg`** for consumers.
+   * Pass `connect` (or use docs helpers) for the internal docs site.
+   */
+  defaultBrand?: UdsBrandId
+  /**
+   * When set, read and persist the active brand under this `localStorage` key (e.g. docs-site switcher).
+   * Omit in product apps for a stable CHG default with no storage coupling.
+   */
+  brandStorageKey?: string
   /**
    * Brand switcher rendered between header and navigation.
    * Pass an array of `{ value, label }` options to show the select. Omit to hide.
@@ -1116,6 +1133,9 @@ function MenuDefault({
   navigationItems,
   activeId,
   onNavigationSelect,
+  brand,
+  defaultBrand,
+  brandStorageKey,
   brandOptions,
   workspace,
   tail,
@@ -1125,21 +1145,36 @@ function MenuDefault({
   mainOnlyWhenExpanded = true,
   ...rootProps
 }: MenuDefaultProps) {
-  const [activeBrand, setActiveBrand] = React.useState<string>(readStoredDocsBrand)
+  const resolvedDefaultBrand = defaultBrand ?? UDS_DEFAULT_BRAND
+  const [activeBrand, setActiveBrand] = React.useState<UdsBrandId>(() =>
+    resolveMenuBrand({ brand, defaultBrand: resolvedDefaultBrand, brandStorageKey }),
+  )
+
+  React.useLayoutEffect(() => {
+    applyUdsBrandToDocument(activeBrand)
+  }, [activeBrand])
+
+  React.useLayoutEffect(() => {
+    if (brand == null) return
+    setActiveBrand(brand)
+  }, [brand])
 
   React.useEffect(() => {
     if (!brandOptions?.length) return
     if (brandOptions.some((option) => option.value === activeBrand)) return
-    setActiveBrand(brandOptions[0].value)
+    const next = brandOptions[0]?.value
+    if (next && isUdsBrandId(next)) setActiveBrand(next)
   }, [activeBrand, brandOptions])
 
-  const handleBrandChange = React.useCallback((value: string) => {
-    setActiveBrand(value)
-    if (DOCS_BRAND_OPTIONS.some((option) => option.value === value)) {
-      applyDocsBrandToDocument(value as DocsBrandId)
-      persistDocsBrand(value as DocsBrandId)
-    }
-  }, [])
+  const handleBrandChange = React.useCallback(
+    (value: string) => {
+      if (!isUdsBrandId(value)) return
+      setActiveBrand(value)
+      applyUdsBrandToDocument(value)
+      if (brandStorageKey) persistBrandToStorage(brandStorageKey, value)
+    },
+    [brandStorageKey],
+  )
 
   const resolvedNavItems = React.useMemo(
     () => navigationItems ?? getDefaultNavigation(activeBrand),
@@ -1154,8 +1189,9 @@ function MenuDefault({
   )
 
   return (
-    <MenuRoot {...rootProps}>
-      <MenuDefaultHeader />
+    <MenuBrandContext.Provider value={activeBrand}>
+      <MenuRoot {...rootProps}>
+        <MenuDefaultHeader />
       {brandOptions?.length ? (
         <MenuBrandSwitcher
           options={brandOptions}
@@ -1173,7 +1209,8 @@ function MenuDefault({
         navigationProps={navigationProps}
         tail={resolvedTail}
       />
-    </MenuRoot>
+      </MenuRoot>
+    </MenuBrandContext.Provider>
   )
 }
 
@@ -1198,3 +1235,10 @@ export const Menu = Object.assign(MenuDefault, {
 }) as MenuCallable
 
 export { useMenuRail, MenuDefaultHeader, MenuDefaultUtilities, getDefaultNavigation }
+export type { UdsBrandId } from "@/lib/uds-brand"
+export {
+  UDS_DEFAULT_BRAND,
+  UDS_BRAND_OPTIONS,
+  applyUdsBrandToDocument,
+  udsBrandToBrandingAppearance,
+} from "@/lib/uds-brand"

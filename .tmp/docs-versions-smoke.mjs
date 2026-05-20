@@ -34034,13 +34034,13 @@ var require_bundle = __commonJS({
       }
     };
     var _default = exports.default = (function custom(beta) {
-      function bundle3(context) {
+      function bundle4(context) {
         return beta === 1 ? new _basis.Basis(context) : new Bundle(context, beta);
       }
-      bundle3.beta = function(beta2) {
+      bundle4.beta = function(beta2) {
         return custom(+beta2);
       };
-      return bundle3;
+      return bundle4;
     })(0.85);
   }
 });
@@ -107951,26 +107951,30 @@ function Fg({ className: e129, ...t19 }) {
     ...t19
   });
 }
-function Lg({ className: e129, variant: t19, dot: n21 = true, children: r18, ...i6 }) {
+function zg({ className: e129, variant: t19, size: n21, dot: r18 = true, children: i6, ...a78 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsxs)("span", {
     "data-slot": "status",
     "data-variant": t19,
-    className: H3(Ig({ variant: t19 }), e129),
-    ...i6,
-    children: [n21 ? /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("span", {
-      className: "size-2 rounded-full bg-current opacity-80",
+    "data-size": n21 ?? "default",
+    className: H3(Lg({
+      variant: t19,
+      size: n21
+    }), e129),
+    ...a78,
+    children: [r18 ? /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("span", {
+      className: Rg({ size: n21 }),
       "aria-hidden": true
-    }) : null, r18]
+    }) : null, i6]
   });
 }
-function Rg({ className: e129, ...t19 }) {
+function Bg({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("ol", {
     "data-slot": "steps",
     className: H3("flex flex-col gap-3", e129),
     ...t19
   });
 }
-function zg({ className: e129, state: t19 = "upcoming", ...n21 }) {
+function Vg({ className: e129, state: t19 = "upcoming", ...n21 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("li", {
     "data-slot": "step",
     "data-state": t19,
@@ -107978,7 +107982,7 @@ function zg({ className: e129, state: t19 = "upcoming", ...n21 }) {
     ...n21
   });
 }
-function Bg({ className: e129, state: t19 = "upcoming", index: n21, ...r18 }) {
+function Hg({ className: e129, state: t19 = "upcoming", index: n21, ...r18 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", {
     "data-slot": "step-marker",
     "data-state": t19,
@@ -107990,28 +107994,28 @@ function Bg({ className: e129, state: t19 = "upcoming", index: n21, ...r18 }) {
     }) : n21
   });
 }
-function Vg({ className: e129, ...t19 }) {
+function Ug({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", {
     "data-slot": "step-content",
     className: H3("min-w-0 flex-1", e129),
     ...t19
   });
 }
-function Hg({ className: e129, ...t19 }) {
+function Wg({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("p", {
     "data-slot": "step-title",
     className: H3("font-sans text-uds-16 font-uds-medium leading-uds-16 text-[var(--uds-text-primary)]", e129),
     ...t19
   });
 }
-function Ug({ className: e129, ...t19 }) {
+function Gg({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("p", {
     "data-slot": "step-description",
     className: H3("mt-1 font-sans text-uds-14 font-uds-regular leading-uds-14 text-[var(--uds-text-secondary)]", e129),
     ...t19
   });
 }
-function Wg({ className: e129, size: t19 = "default", ...n21 }) {
+function Kg({ className: e129, size: t19 = "default", ...n21 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(dist_exports28.Root, {
     "data-slot": "switch",
     "data-size": t19,
@@ -108023,7 +108027,7 @@ function Wg({ className: e129, size: t19 = "default", ...n21 }) {
     })
   });
 }
-function Gg({ className: e129, ...t19 }) {
+function qg({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", {
     "data-slot": "table-container",
     className: "relative w-full overflow-x-auto rounded-[length:var(--uds-radius-4)] border border-border",
@@ -108034,56 +108038,56 @@ function Gg({ className: e129, ...t19 }) {
     })
   });
 }
-function Kg({ className: e129, ...t19 }) {
+function Jg({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("thead", {
     "data-slot": "table-header",
     className: H3("[&_tr]:border-b", e129),
     ...t19
   });
 }
-function qg({ className: e129, ...t19 }) {
+function Yg({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("tbody", {
     "data-slot": "table-body",
     className: H3("[&_tr:last-child]:border-0", e129),
     ...t19
   });
 }
-function Jg({ className: e129, ...t19 }) {
+function Xg({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("tfoot", {
     "data-slot": "table-footer",
     className: H3("border-t bg-muted/50 font-medium [&>tr]:last:border-b-0", e129),
     ...t19
   });
 }
-function Yg({ className: e129, ...t19 }) {
+function Zg({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("tr", {
     "data-slot": "table-row",
     className: H3("border-b transition-colors hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted", e129),
     ...t19
   });
 }
-function Xg({ className: e129, ...t19 }) {
+function Qg({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("th", {
     "data-slot": "table-head",
     className: H3("h-10 bg-muted px-2 text-left align-middle font-medium whitespace-nowrap text-foreground [&:has([role=checkbox])]:pr-0", e129),
     ...t19
   });
 }
-function Zg({ className: e129, ...t19 }) {
+function $g({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("td", {
     "data-slot": "table-cell",
     className: H3("p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0", e129),
     ...t19
   });
 }
-function Qg({ className: e129, ...t19 }) {
+function e_({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("caption", {
     "data-slot": "table-caption",
     className: H3("border-t border-border bg-[color-mix(in_oklch,var(--muted),black_7%)] px-2 py-3 text-sm text-muted-foreground", e129),
     ...t19
   });
 }
-function $g({ className: e129, orientation: t19 = "horizontal", ...n21 }) {
+function t_({ className: e129, orientation: t19 = "horizontal", ...n21 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(dist_exports29.Root, {
     "data-slot": "tabs",
     "data-orientation": t19,
@@ -108091,82 +108095,89 @@ function $g({ className: e129, orientation: t19 = "horizontal", ...n21 }) {
     ...n21
   });
 }
-function t_({ className: e129, variant: t19 = "default", ...n21 }) {
+function r_({ className: e129, variant: t19 = "default", ...n21 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(dist_exports29.List, {
     "data-slot": "tabs-list",
     "data-variant": t19,
-    className: H3(e_({ variant: t19 }), e129),
+    className: H3(n_({ variant: t19 }), e129),
     ...n21
   });
 }
-function n_({ className: e129, ...t19 }) {
+function i_({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(dist_exports29.Trigger, {
     "data-slot": "tabs-trigger",
     className: H3("relative inline-flex h-10 w-fit max-w-full shrink-0 items-center justify-center gap-1.5 border border-transparent px-6 py-0.5 font-sans font-uds-regular whitespace-nowrap text-foreground/60 transition-all [font-family:var(--font-inter)] [font-size:var(--uds-font-size-14)] [line-height:var(--uds-line-14)] group-data-vertical/tabs:justify-start group-data-[variant=default]/tabs-list:rounded-[length:var(--uds-radius-4)] hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 dark:text-muted-foreground dark:hover:text-foreground data-[state=active]:font-uds-semibold group-data-[variant=default]/tabs-list:data-[state=active]:shadow-sm group-data-[variant=line]/tabs-list:data-[state=active]:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4", "group-data-[variant=line]/tabs-list:rounded-none group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent dark:group-data-[variant=line]/tabs-list:data-[state=active]:border-transparent dark:group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent", "group-data-[variant=default]/tabs-list:data-[state=active]:border-transparent group-data-[variant=default]/tabs-list:data-[state=active]:bg-primary group-data-[variant=default]/tabs-list:data-[state=active]:text-primary-foreground group-data-[variant=default]/tabs-list:data-[state=active]:[&_svg]:text-primary-foreground group-data-[variant=line]/tabs-list:data-[state=active]:text-foreground", "after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-[state=active]:after:opacity-100", e129),
     ...t19
   });
 }
-function r_({ className: e129, ...t19 }) {
+function a_({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(dist_exports29.Content, {
     "data-slot": "tabs-content",
     className: H3("flex-1 text-sm outline-none", e129),
     ...t19
   });
 }
-function o_({ className: t19, variant: n21, weight: r18, appearance: i6, as: a78 = "p", ...o63 }) {
-  return e128.createElement(a78, {
-    ...o63,
-    className: H3(a_({
-      variant: n21,
-      weight: r18,
-      appearance: i6
-    }), t19)
+function m_(e129, t19, n21) {
+  let r18 = `--uds-type-${e129}-${t19}`;
+  return H3(`[font-size:var(${r18}-font-size)]`, `[line-height:var(${r18}-line-${n21})]`, `[letter-spacing:var(${r18}-letter-spacing)]`, `[text-transform:var(${r18}-text-transform)]`);
+}
+function h_({ className: t19, variant: n21 = "body", size: r18, lineHeight: i6 = "regular", weight: a78, appearance: o63, as: s24 = "p", ...c13 }) {
+  let l9 = r18 ?? f_[n21];
+  return e128.createElement(s24, {
+    ...c13,
+    "data-variant": n21,
+    "data-size": l9,
+    "data-line-height": i6,
+    className: H3(p_({
+      weight: a78,
+      appearance: o63
+    }), m_(n21, l9, i6), t19)
   });
 }
-function s_({ autoComplete: e129 = "off", ...t19 }) {
+function g_({ autoComplete: e129 = "off", ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(Q, {
     type: "time",
     autoComplete: e129,
     ...t19
   });
 }
-function c_(e129) {
+function __(e129) {
   let t19 = /^(\d{1,2}):(\d{2})$/.exec(e129);
   if (!t19) return null;
   let n21 = Number(t19[1]), r18 = Number(t19[2]);
   return !Number.isFinite(n21) || !Number.isFinite(r18) || n21 < 0 || n21 > 23 || r18 < 0 || r18 > 59 ? null : n21 * 60 + r18;
 }
-function l_(e129) {
+function v_(e129) {
   let t19 = Math.floor(e129 / 60), n21 = e129 % 60;
   return `${String(t19).padStart(2, "0")}:${String(n21).padStart(2, "0")}`;
 }
-function u_(e129, t19) {
+function y_(e129, t19) {
   if (!t19) return e129;
-  let n21 = c_(e129);
+  let n21 = __(e129);
   if (n21 == null) return e129;
   let r18 = Math.floor(n21 / 60), i6 = n21 % 60, a78 = r18 >= 12 ? "PM" : "AM";
   return `${r18 % 12 == 0 ? 12 : r18 % 12}:${String(i6).padStart(2, "0")} ${a78}`;
 }
-function d_(e129, t19, n21, r18) {
-  let i6 = c_(t19) ?? 0, a78 = c_(n21) ?? 1410, o63 = Math.max(1, Math.floor(e129));
+function b_(e129, t19, n21, r18) {
+  let i6 = __(t19) ?? 0, a78 = __(n21) ?? 1410, o63 = Math.max(1, Math.floor(e129));
   if (i6 > a78) return [];
   let s24 = [];
   for (let e130 = i6; e130 <= a78; e130 += o63) {
-    let t20 = l_(e130);
+    let t20 = v_(e130);
     s24.push({
       value: t20,
-      label: u_(t20, r18)
+      label: y_(t20, r18)
     });
   }
   return s24;
 }
-function f_({ className: t19, inputClassName: n21, value: r18, defaultValue: i6, onValueChange: a78, stepMinutes: o63 = 30, startTime: s24 = "08:00", endTime: c13 = "18:00", format12Hour: l9 = true, placeholder: u3 = "Select time", disabled: d, readOnly: f2, ...p6 }) {
-  let [m16, h] = e128.useState(i6 ?? ""), g = r18 ?? m16, _2 = e128.useMemo(() => d_(o63, s24, c13, l9), [
+function x_({ className: t19, inputClassName: n21, value: r18, defaultValue: i6, onValueChange: a78, stepMinutes: o63 = 30, startTime: s24 = "08:00", endTime: c13 = "18:00", format12Hour: l9 = true, placeholder: u3 = "Select time", disabled: d, readOnly: f2, ...p6 }) {
+  let [m16, h] = e128.useState(i6 ?? ""), g = r18 ?? m16, _2 = e128.useMemo(() => b_(o63, s24, c13, l9), [
     o63,
     s24,
     c13,
     l9
-  ]), v = g ? u_(g, l9) : "", y = !d && !f2;
+  ]), v = g ? y_(g, l9) : "", y = !d && !f2;
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsxs)(Yu, { children: [/* @__PURE__ */ (0, import_jsx_runtime66.jsxs)("div", {
     className: H3("relative w-full", t19),
     children: [/* @__PURE__ */ (0, import_jsx_runtime66.jsx)(Zu, {
@@ -108199,7 +108210,7 @@ function f_({ className: t19, inputClassName: n21, value: r18, defaultValue: i6,
     }, e129.value))
   })] });
 }
-function p_({ className: t19, inputSize: n21 = "default", value: r18, defaultValue: i6, tokens: a78, defaultTokens: o63 = [], maxTokens: s24, allowDuplicates: c13 = false, separators: l9 = [",", "Enter"], onChange: u3, onKeyDown: d, onBlur: f2, onTokensChange: p6, placeholder: m16 = "Add token", disabled: h, readOnly: g, autoComplete: _2 = "off", autoCapitalize: v = "none", autoCorrect: y = "off", spellCheck: b = false, ...x2 }) {
+function S_({ className: t19, inputSize: n21 = "default", value: r18, defaultValue: i6, tokens: a78, defaultTokens: o63 = [], maxTokens: s24, allowDuplicates: c13 = false, separators: l9 = [",", "Enter"], onChange: u3, onKeyDown: d, onBlur: f2, onTokensChange: p6, placeholder: m16 = "Add token", disabled: h, readOnly: g, autoComplete: _2 = "off", autoCapitalize: v = "none", autoCorrect: y = "off", spellCheck: b = false, ...x2 }) {
   let S3 = e128.useRef(null), [C2, w] = e128.useState(o63), [T2, E2] = e128.useState(i6 == null ? "" : String(i6)), D2 = a78 ?? C2, O2 = r18 == null ? T2 : String(r18), k4 = !h && !g, A = e128.useMemo(() => l9.map((e129) => e129.toLowerCase()), [l9]), ee2 = (e129) => {
     a78 === void 0 && w(e129), p6?.(e129);
   }, te = (e129) => {
@@ -108258,10 +108269,10 @@ function p_({ className: t19, inputSize: n21 = "default", value: r18, defaultVal
     })]
   });
 }
-function h_({ className: e129, variant: t19 = "default", size: n21 = "default", ...r18 }) {
+function w_({ className: e129, variant: t19 = "default", size: n21 = "default", ...r18 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(dist_exports30.Root, {
     "data-slot": "toggle",
-    className: H3(m_({
+    className: H3(C_({
       variant: t19,
       size: n21,
       className: e129
@@ -108269,7 +108280,7 @@ function h_({ className: e129, variant: t19 = "default", size: n21 = "default", 
     ...r18
   });
 }
-function __({ className: e129, variant: t19, size: n21, spacing: r18 = 0, orientation: i6 = "horizontal", children: a78, ...o63 }) {
+function E_({ className: e129, variant: t19, size: n21, spacing: r18 = 0, orientation: i6 = "horizontal", children: a78, ...o63 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(dist_exports31.Root, {
     "data-slot": "toggle-group",
     "data-variant": t19,
@@ -108279,7 +108290,7 @@ function __({ className: e129, variant: t19, size: n21, spacing: r18 = 0, orient
     style: { "--gap": r18 },
     className: H3("group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] rounded-[4px] data-vertical:flex-col data-vertical:items-stretch", e129),
     ...o63,
-    children: /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(g_.Provider, {
+    children: /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(T_.Provider, {
       value: {
         variant: t19,
         size: n21,
@@ -108290,14 +108301,14 @@ function __({ className: e129, variant: t19, size: n21, spacing: r18 = 0, orient
     })
   });
 }
-function v_({ className: t19, children: n21, variant: r18 = "default", size: i6 = "default", ...a78 }) {
-  let o63 = e128.useContext(g_);
+function D_({ className: t19, children: n21, variant: r18 = "default", size: i6 = "default", ...a78 }) {
+  let o63 = e128.useContext(T_);
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(dist_exports31.Item, {
     "data-slot": "toggle-group-item",
     "data-variant": o63.variant || r18,
     "data-size": o63.size || i6,
     "data-spacing": o63.spacing,
-    className: H3("shrink-0 px-4 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-4 focus:z-10 focus-visible:z-10 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-1.5 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-1.5 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-[4px] group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-[4px] group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-[4px] group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-[4px] group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t", m_({
+    className: H3("shrink-0 px-4 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-4 focus:z-10 focus-visible:z-10 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-end]:pr-1.5 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-1.5 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-[4px] group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-[4px] group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-[4px] group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-[4px] group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t", C_({
       variant: o63.variant || r18,
       size: o63.size || i6
     }), t19),
@@ -108305,7 +108316,7 @@ function v_({ className: t19, children: n21, variant: r18 = "default", size: i6 
     children: n21
   });
 }
-function y_({ className: e129, ...t19 }) {
+function O_({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", {
     role: "toolbar",
     "data-slot": "toolbar",
@@ -108313,21 +108324,21 @@ function y_({ className: e129, ...t19 }) {
     ...t19
   });
 }
-function b_({ className: e129, ...t19 }) {
+function k_({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", {
     "data-slot": "toolbar-group",
     className: H3("flex items-center gap-2", e129),
     ...t19
   });
 }
-function x_({ className: e129, ...t19 }) {
+function A_({ className: e129, ...t19 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)("div", {
     "data-slot": "toolbar-divider",
     className: H3("mx-1 h-6 w-px bg-[var(--uds-border-primary)]", e129),
     ...t19
   });
 }
-function S_({ className: e129, inputClassName: t19, inputSize: n21, protocol: r18 = "https://", placeholder: i6 = "example.com", inputMode: a78 = "url", autoComplete: o63 = "url", ...s24 }) {
+function j_({ className: e129, inputClassName: t19, inputSize: n21, protocol: r18 = "https://", placeholder: i6 = "example.com", inputMode: a78 = "url", autoComplete: o63 = "url", ...s24 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime66.jsxs)(jo, {
     className: e129,
     inputSize: n21,
@@ -108342,11 +108353,11 @@ function S_({ className: e129, inputClassName: t19, inputSize: n21, protocol: r1
     })]
   });
 }
-function w_({ name: t19, ...n21 }) {
-  let r18 = C_[t19];
+function N_({ name: t19, ...n21 }) {
+  let r18 = M_[t19];
   return e128.createElement(r18, n21);
 }
-var e128, import_react42, import_jsx_runtime66, Xn, $n, nr, sr, pr, hr, gr, Ar, W2, Mr, Pr, Fr, Ir, Qr, $r, ei, ti, ni, ri, ii, di, J2, vi, yi, bi, xi, wi, Ei, Di, Oi, ki, Ai, Mi, Ni, Pi, Y4, Fi, X2, Ii, Li, Ri, zi, Wi, Ji, $i, ea, ta, ha, ba, xa, Oa, Aa, Na, Pa, Ya, io, oo, so, co, lo, go, _o, bo, xo, Eo, Do, Oo, Ao, Mo, Po, Qo, rs, os, hs, _s, vs, ys, js, Ms, Ns, Ps, Fs, Is, Ls, Rs, zs, Bs, Vs, Hs, Us, Ws, Gs, qs, Ys, $s, ec, bc, xc, Sc, Tc, Ic, Bc, Vc, Hc, Uc, Gc, qc, Jc, Qc, hl, _l, vl, yl, bl, xl, Sl, wl, ku, ju, Iu, Lu, Ru, zu, Bu, Vu, Hu, yd, sf, lf, Rf, Bf, Xf, np, rp, sp, cp, lp, mp, hp, gp, _p, yp, wp, Hp, Up, Wp, Gp, rm, im, am, om, sm, cm, lm, um, dm, wm, Tm, Em, Dm, Om, km, Wm, kh, jh, Mh, Nh, Ph, Fh, Ih, Hh, Uh, Gh, ig, Ig, e_, a_, m_, g_, C_;
+var e128, import_react42, import_jsx_runtime66, Xn, $n, nr, sr, pr, hr, gr, Ar, W2, Mr, Pr, Fr, Ir, Qr, $r, ei, ti, ni, ri, ii, di, J2, vi, yi, bi, xi, wi, Ei, Di, Oi, ki, Ai, Mi, Ni, Pi, Y4, Fi, X2, Ii, Li, Ri, zi, Wi, Ji, $i, ea, ta, ha, ba, xa, Oa, Aa, Na, Pa, Ya, io, oo, so, co, lo, go, _o, bo, xo, Eo, Do, Oo, Ao, Mo, Po, Qo, rs, os, hs, _s, vs, ys, js, Ms, Ns, Ps, Fs, Is, Ls, Rs, zs, Bs, Vs, Hs, Us, Ws, Gs, qs, Ys, $s, ec, bc, xc, Sc, Tc, Ic, Bc, Vc, Hc, Uc, Gc, qc, Jc, Qc, hl, _l, vl, yl, bl, xl, Sl, wl, ku, ju, Iu, Lu, Ru, zu, Bu, Vu, Hu, yd, sf, lf, Rf, Bf, Xf, np, rp, sp, cp, lp, mp, hp, gp, _p, yp, wp, Hp, Up, Wp, Gp, rm, im, am, om, sm, cm, lm, um, dm, wm, Tm, Em, Dm, Om, km, Wm, kh, jh, Mh, Nh, Ph, Fh, Ih, Hh, Uh, Gh, ig, Lg, Rg, n_, f_, p_, C_, T_, M_;
 var init_dist59 = __esm({
   "dist/index.js"() {
     e128 = __toESM(require_react(), 1);
@@ -109597,38 +109608,46 @@ var init_dist59 = __esm({
         size: "default"
       }
     });
-    Ig = cva("inline-flex items-center gap-2 rounded-[4px] border px-2 py-1 text-uds-14 font-uds-medium leading-uds-14 [font-family:var(--font-inter)]", {
-      variants: { variant: {
-        neutral: "border-[var(--uds-border-primary)] bg-[var(--uds-surface-secondary)] text-[var(--uds-text-primary)]",
-        success: "border-[var(--uds-color-accent-green-300)] bg-[var(--uds-color-accent-green-100)] text-[var(--uds-color-accent-green-700)]",
-        warning: "border-[var(--uds-color-accent-amber-300)] bg-[var(--uds-color-accent-amber-100)] text-[var(--uds-color-accent-amber-1000)]",
-        error: "border-[var(--uds-color-accent-red-300)] bg-[var(--uds-color-accent-red-100)] text-[var(--uds-color-accent-red-700)]",
-        info: "border-[var(--uds-color-accent-blue-300)] bg-[var(--uds-color-accent-blue-100)] text-[var(--uds-color-accent-blue-700)]"
-      } },
-      defaultVariants: { variant: "neutral" }
+    Lg = cva("inline-flex items-center rounded-[4px] border font-uds-medium [font-family:var(--font-inter)]", {
+      variants: {
+        variant: {
+          neutral: "border-[var(--uds-border-primary)] bg-[var(--uds-surface-secondary)] text-[var(--uds-text-primary)]",
+          success: "border-[var(--uds-color-accent-green-300)] bg-[var(--uds-color-accent-green-100)] text-[var(--uds-color-accent-green-700)]",
+          warning: "border-[var(--uds-color-accent-amber-300)] bg-[var(--uds-color-accent-amber-100)] text-[var(--uds-color-accent-amber-1000)]",
+          error: "border-[var(--uds-color-accent-red-300)] bg-[var(--uds-color-accent-red-100)] text-[var(--uds-color-accent-red-700)]",
+          info: "border-[var(--uds-color-accent-blue-300)] bg-[var(--uds-color-accent-blue-100)] text-[var(--uds-color-accent-blue-700)]"
+        },
+        size: {
+          default: "gap-2 px-2 py-1 text-uds-14 leading-uds-14",
+          compact: "gap-1.5 px-1.5 py-0.5 text-uds-12 leading-uds-12"
+        }
+      },
+      defaultVariants: {
+        variant: "neutral",
+        size: "default"
+      }
     });
-    e_ = cva("group/tabs-list inline-flex w-fit items-center justify-center rounded-[length:var(--uds-radius-8)] p-[3px] text-muted-foreground group-data-[orientation=horizontal]/tabs:w-full group-data-[orientation=horizontal]/tabs:justify-start group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col group-data-vertical/tabs:items-start group-data-vertical/tabs:justify-start data-[variant=line]:rounded-none", {
+    Rg = cva("rounded-full bg-current opacity-80", {
+      variants: { size: {
+        default: "size-2",
+        compact: "size-1.5"
+      } },
+      defaultVariants: { size: "default" }
+    });
+    n_ = cva("group/tabs-list inline-flex w-fit items-center justify-center rounded-[length:var(--uds-radius-8)] p-[3px] text-muted-foreground group-data-[orientation=horizontal]/tabs:w-full group-data-[orientation=horizontal]/tabs:justify-start group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col group-data-vertical/tabs:items-start group-data-vertical/tabs:justify-start data-[variant=line]:rounded-none", {
       variants: { variant: {
         default: "border border-border bg-muted",
         line: "gap-1 border-0 border-b border-border bg-transparent"
       } },
       defaultVariants: { variant: "default" }
     });
-    a_ = cva("min-w-0 font-sans text-foreground [font-family:var(--font-inter)]", {
+    f_ = {
+      body: "14",
+      heading: "24",
+      display: "48"
+    };
+    p_ = cva("min-w-0 font-sans text-foreground [font-family:var(--font-inter)]", {
       variants: {
-        variant: {
-          "body-10": "text-uds-10 leading-uds-10",
-          "body-12": "text-uds-12 leading-uds-12",
-          "body-14": "text-uds-14 leading-uds-14",
-          "body-15": "text-uds-15 leading-uds-15",
-          "body-16": "text-uds-16 leading-uds-16",
-          "body-20": "text-uds-20 leading-uds-20",
-          "title-24": "text-uds-24 leading-uds-24",
-          "title-28": "text-uds-28 leading-uds-28",
-          "title-32": "text-uds-32 leading-uds-32",
-          "display-36": "text-uds-36 leading-uds-36",
-          "display-48": "text-uds-48 leading-uds-48"
-        },
         weight: {
           regular: "font-uds-regular",
           medium: "font-uds-medium",
@@ -109657,12 +109676,9 @@ var init_dist59 = __esm({
           "link-secondary-visited": "text-uds-text-link-secondary-visited"
         }
       },
-      defaultVariants: {
-        variant: "body-14",
-        weight: "regular"
-      }
+      defaultVariants: { weight: "regular" }
     });
-    m_ = cva("group/toggle inline-flex items-center justify-center gap-1 rounded-[2px] text-sm font-medium whitespace-nowrap transition-all outline-none hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 aria-pressed:bg-muted data-[state=on]:bg-accent dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4", {
+    C_ = cva("group/toggle inline-flex items-center justify-center gap-1 rounded-[2px] text-sm font-medium whitespace-nowrap transition-all outline-none hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 aria-pressed:bg-muted data-[state=on]:bg-accent dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4", {
       variants: {
         variant: {
           default: "bg-transparent",
@@ -109679,13 +109695,13 @@ var init_dist59 = __esm({
         size: "default"
       }
     });
-    g_ = e128.createContext({
+    T_ = e128.createContext({
       size: "default",
       variant: "default",
       spacing: 0,
       orientation: "horizontal"
     });
-    C_ = {
+    M_ = {
       AirplaneIcon: o2,
       ArrowClockwiseIcon: r3,
       ArrowRightIcon: r4,
@@ -110289,7 +110305,7 @@ var init_shadcn_component_meta = __esm({
         summary: "Tabs partition related views into peer panels so users can switch contexts without leaving the page."
       },
       text: {
-        summary: "Text applies the UDS type scale and Inter-backed weights, optional `appearance` colors aligned with `--uds-text-*` tokens (`text-uds-text-*`), and a polymorphic `as` prop for the root element."
+        summary: "Text applies UDS typography styles in `body`, `heading`, and `display` groups with size and line-height presets from `--uds-type-*` tokens, Inter-backed weights, optional `appearance` colors aligned with `--uds-text-*` tokens (`text-uds-text-*`), and a polymorphic `as` prop for the root element."
       },
       textarea: {
         summary: "Textarea supports multiline freeform input for notes, descriptions, and longer responses."
@@ -111150,6 +111166,7 @@ var init_shadcn_component_props = __esm({
       ],
       status: [
         r17("variant", '"neutral" | "success" | "warning" | "error" | "info"', "Semantic status color style.", "neutral"),
+        r17("size", '"default" | "compact"', "Default uses 14px type and an 8px dot; compact uses 12px type and a 6px dot.", "default"),
         r17("dot", "boolean", "Show/hide leading status indicator dot.", "true"),
         CN,
         MORE
@@ -111186,11 +111203,17 @@ var init_shadcn_component_props = __esm({
         MORE
       ],
       text: [
+        r17("variant", '"body" | "heading" | "display"', "Typography group from the UDS type scale.", "body"),
         r17(
-          "variant",
-          '"body-10" | "body-12" | "body-14" | "body-15" | "body-16" | "body-20" | "title-24" | "title-28" | "title-32" | "display-36" | "display-48"',
-          "Maps to paired `text-uds-*` and `leading-uds-*` utilities.",
-          "body-14"
+          "size",
+          "TextSize",
+          "Step within the selected group. See `TEXT_BODY_SIZES`, `TEXT_HEADING_SIZES`, and `TEXT_DISPLAY_SIZES`. Defaults to 14 / 24 / 48."
+        ),
+        r17(
+          "lineHeight",
+          '"regular" | "tight" | "loose"',
+          "Line-height preset from `--uds-type-*` typography tokens.",
+          "regular"
         ),
         r17("weight", '"regular" | "medium" | "semibold" | "bold"', "UDS font weight token.", "regular"),
         r17(
@@ -112452,7 +112475,7 @@ var init_registry = __esm({
             {
               accent: "neutral",
               appearance: "outlined",
-              icon: /* @__PURE__ */ React170.createElement(w_, { name: "PlusIcon", weight: "bold", "aria-hidden": true })
+              icon: /* @__PURE__ */ React170.createElement(N_, { name: "PlusIcon", weight: "bold", "aria-hidden": true })
             },
             "Add item"
           ), /* @__PURE__ */ React170.createElement(
@@ -112461,7 +112484,7 @@ var init_registry = __esm({
               shape: "rect",
               accent: "green",
               appearance: "pastel",
-              icon: /* @__PURE__ */ React170.createElement(w_, { name: "InfoIcon", weight: "bold", "aria-hidden": true }),
+              icon: /* @__PURE__ */ React170.createElement(N_, { name: "InfoIcon", weight: "bold", "aria-hidden": true }),
               iconPlacement: "inline-end"
             },
             "Status"
@@ -113056,7 +113079,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`
         E(
           "horizontal",
           "Horizontal patterns",
-          /* @__PURE__ */ React170.createElement("div", { className: "flex w-full flex-col" }, /* @__PURE__ */ React170.createElement(bd, { orientation: "horizontal", className: "items-center border-b pb-5" }, /* @__PURE__ */ React170.createElement(Sd, { htmlFor: "ex-field-air", className: "min-w-32" }, "Airplane mode"), /* @__PURE__ */ React170.createElement(Wg, { id: "ex-field-air", defaultChecked: true })), /* @__PURE__ */ React170.createElement(bd, { orientation: "horizontal", className: "items-start border-b py-5" }, /* @__PURE__ */ React170.createElement(Sd, { htmlFor: "ex-field-team", className: "min-w-32 pt-2" }, "Team name"), /* @__PURE__ */ React170.createElement(xd, null, /* @__PURE__ */ React170.createElement(Q, { id: "ex-field-team", placeholder: "Growth Operations" }), /* @__PURE__ */ React170.createElement(wd, null, "This appears in internal tooling and reporting."))), /* @__PURE__ */ React170.createElement(bd, { orientation: "horizontal", className: "items-start pt-5" }, /* @__PURE__ */ React170.createElement(Sd, { htmlFor: "ex-field-email-alerts", className: "min-w-32" }, "Notifications"), /* @__PURE__ */ React170.createElement(xd, null, /* @__PURE__ */ React170.createElement("div", { className: "flex items-start gap-3 rounded-lg border p-3" }, /* @__PURE__ */ React170.createElement(Fc, { id: "ex-field-email-alerts", defaultChecked: true, className: "mt-0.5" }), /* @__PURE__ */ React170.createElement("div", { className: "flex min-w-0 flex-col gap-0.5" }, /* @__PURE__ */ React170.createElement(Sd, { htmlFor: "ex-field-email-alerts", className: "w-auto" }, "Email alerts"), /* @__PURE__ */ React170.createElement(wd, null, "Send updates when a candidate is assigned or rescheduled.")))))),
+          /* @__PURE__ */ React170.createElement("div", { className: "flex w-full flex-col" }, /* @__PURE__ */ React170.createElement(bd, { orientation: "horizontal", className: "items-center border-b pb-5" }, /* @__PURE__ */ React170.createElement(Sd, { htmlFor: "ex-field-air", className: "min-w-32" }, "Airplane mode"), /* @__PURE__ */ React170.createElement(Kg, { id: "ex-field-air", defaultChecked: true })), /* @__PURE__ */ React170.createElement(bd, { orientation: "horizontal", className: "items-start border-b py-5" }, /* @__PURE__ */ React170.createElement(Sd, { htmlFor: "ex-field-team", className: "min-w-32 pt-2" }, "Team name"), /* @__PURE__ */ React170.createElement(xd, null, /* @__PURE__ */ React170.createElement(Q, { id: "ex-field-team", placeholder: "Growth Operations" }), /* @__PURE__ */ React170.createElement(wd, null, "This appears in internal tooling and reporting."))), /* @__PURE__ */ React170.createElement(bd, { orientation: "horizontal", className: "items-start pt-5" }, /* @__PURE__ */ React170.createElement(Sd, { htmlFor: "ex-field-email-alerts", className: "min-w-32" }, "Notifications"), /* @__PURE__ */ React170.createElement(xd, null, /* @__PURE__ */ React170.createElement("div", { className: "flex items-start gap-3 rounded-lg border p-3" }, /* @__PURE__ */ React170.createElement(Fc, { id: "ex-field-email-alerts", defaultChecked: true, className: "mt-0.5" }), /* @__PURE__ */ React170.createElement("div", { className: "flex min-w-0 flex-col gap-0.5" }, /* @__PURE__ */ React170.createElement(Sd, { htmlFor: "ex-field-email-alerts", className: "w-auto" }, "Email alerts"), /* @__PURE__ */ React170.createElement(wd, null, "Send updates when a candidate is assigned or rescheduled.")))))),
           `<div className="flex w-full flex-col">
   <Field orientation="horizontal" className="items-center border-b pb-5">
     <FieldLabel htmlFor="airplane-mode" className="min-w-32">
@@ -113504,21 +113527,27 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`
         E(
           "variants",
           "Status variants",
-          /* @__PURE__ */ React170.createElement("div", { className: "flex flex-wrap items-center gap-2" }, /* @__PURE__ */ React170.createElement(Lg, { variant: "neutral" }, "Draft"), /* @__PURE__ */ React170.createElement(Lg, { variant: "info" }, "In review"), /* @__PURE__ */ React170.createElement(Lg, { variant: "success" }, "Approved"), /* @__PURE__ */ React170.createElement(Lg, { variant: "warning" }, "Needs follow-up"), /* @__PURE__ */ React170.createElement(Lg, { variant: "error" }, "Blocked")),
+          /* @__PURE__ */ React170.createElement("div", { className: "flex flex-wrap items-center gap-2" }, /* @__PURE__ */ React170.createElement(zg, { variant: "neutral" }, "Draft"), /* @__PURE__ */ React170.createElement(zg, { variant: "info" }, "In review"), /* @__PURE__ */ React170.createElement(zg, { variant: "success" }, "Approved"), /* @__PURE__ */ React170.createElement(zg, { variant: "warning" }, "Needs follow-up"), /* @__PURE__ */ React170.createElement(zg, { variant: "error" }, "Blocked")),
           `<Status variant="success">Approved</Status>`
         ),
         E(
           "without-dot",
           "Status without indicator dot",
-          /* @__PURE__ */ React170.createElement("div", { className: "flex flex-wrap items-center gap-2" }, /* @__PURE__ */ React170.createElement(Lg, { variant: "success", dot: false }, "Active"), /* @__PURE__ */ React170.createElement(Lg, { variant: "error", dot: false }, "Failed")),
+          /* @__PURE__ */ React170.createElement("div", { className: "flex flex-wrap items-center gap-2" }, /* @__PURE__ */ React170.createElement(zg, { variant: "success", dot: false }, "Active"), /* @__PURE__ */ React170.createElement(zg, { variant: "error", dot: false }, "Failed")),
           `<Status variant="success" dot={false}>Active</Status>`
+        ),
+        E(
+          "compact",
+          "Compact status",
+          /* @__PURE__ */ React170.createElement("div", { className: "flex flex-wrap items-center gap-2" }, /* @__PURE__ */ React170.createElement(zg, { size: "compact", variant: "neutral" }, "Draft"), /* @__PURE__ */ React170.createElement(zg, { size: "compact", variant: "info" }, "In review"), /* @__PURE__ */ React170.createElement(zg, { size: "compact", variant: "success" }, "Approved"), /* @__PURE__ */ React170.createElement(zg, { size: "compact", variant: "warning" }, "Needs follow-up"), /* @__PURE__ */ React170.createElement(zg, { size: "compact", variant: "error" }, "Blocked")),
+          `<Status size="compact" variant="success">Approved</Status>`
         )
       ],
       steps: [
         E(
           "workflow",
           "Step progress",
-          /* @__PURE__ */ React170.createElement(Rg, { className: "max-w-xl" }, /* @__PURE__ */ React170.createElement(zg, { state: "complete" }, /* @__PURE__ */ React170.createElement(Bg, { state: "complete" }), /* @__PURE__ */ React170.createElement(Vg, null, /* @__PURE__ */ React170.createElement(Hg, null, "Profile submitted"), /* @__PURE__ */ React170.createElement(Ug, null, "All clinician details were received."))), /* @__PURE__ */ React170.createElement(zg, { state: "current" }, /* @__PURE__ */ React170.createElement(Bg, { state: "current", index: 2 }), /* @__PURE__ */ React170.createElement(Vg, null, /* @__PURE__ */ React170.createElement(Hg, null, "Credential review"), /* @__PURE__ */ React170.createElement(Ug, null, "Compliance team is reviewing documentation."))), /* @__PURE__ */ React170.createElement(zg, { state: "upcoming" }, /* @__PURE__ */ React170.createElement(Bg, { state: "upcoming", index: 3 }), /* @__PURE__ */ React170.createElement(Vg, null, /* @__PURE__ */ React170.createElement(Hg, null, "Facility approval"), /* @__PURE__ */ React170.createElement(Ug, null, "Awaiting final sign-off.")))),
+          /* @__PURE__ */ React170.createElement(Bg, { className: "max-w-xl" }, /* @__PURE__ */ React170.createElement(Vg, { state: "complete" }, /* @__PURE__ */ React170.createElement(Hg, { state: "complete" }), /* @__PURE__ */ React170.createElement(Ug, null, /* @__PURE__ */ React170.createElement(Wg, null, "Profile submitted"), /* @__PURE__ */ React170.createElement(Gg, null, "All clinician details were received."))), /* @__PURE__ */ React170.createElement(Vg, { state: "current" }, /* @__PURE__ */ React170.createElement(Hg, { state: "current", index: 2 }), /* @__PURE__ */ React170.createElement(Ug, null, /* @__PURE__ */ React170.createElement(Wg, null, "Credential review"), /* @__PURE__ */ React170.createElement(Gg, null, "Compliance team is reviewing documentation."))), /* @__PURE__ */ React170.createElement(Vg, { state: "upcoming" }, /* @__PURE__ */ React170.createElement(Hg, { state: "upcoming", index: 3 }), /* @__PURE__ */ React170.createElement(Ug, null, /* @__PURE__ */ React170.createElement(Wg, null, "Facility approval"), /* @__PURE__ */ React170.createElement(Gg, null, "Awaiting final sign-off.")))),
           `<Steps>
   <Step state="current">
     <StepMarker state="current" index={2} />
@@ -113531,7 +113560,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`
         E(
           "short",
           "Two-step compact flow",
-          /* @__PURE__ */ React170.createElement(Rg, { className: "max-w-md" }, /* @__PURE__ */ React170.createElement(zg, { state: "complete" }, /* @__PURE__ */ React170.createElement(Bg, { state: "complete" }), /* @__PURE__ */ React170.createElement(Vg, null, /* @__PURE__ */ React170.createElement(Hg, null, "Upload resume"))), /* @__PURE__ */ React170.createElement(zg, { state: "current" }, /* @__PURE__ */ React170.createElement(Bg, { state: "current", index: 2 }), /* @__PURE__ */ React170.createElement(Vg, null, /* @__PURE__ */ React170.createElement(Hg, null, "Complete profile"), /* @__PURE__ */ React170.createElement(Ug, null, "Add certifications and preferred schedule.")))),
+          /* @__PURE__ */ React170.createElement(Bg, { className: "max-w-md" }, /* @__PURE__ */ React170.createElement(Vg, { state: "complete" }, /* @__PURE__ */ React170.createElement(Hg, { state: "complete" }), /* @__PURE__ */ React170.createElement(Ug, null, /* @__PURE__ */ React170.createElement(Wg, null, "Upload resume"))), /* @__PURE__ */ React170.createElement(Vg, { state: "current" }, /* @__PURE__ */ React170.createElement(Hg, { state: "current", index: 2 }), /* @__PURE__ */ React170.createElement(Ug, null, /* @__PURE__ */ React170.createElement(Wg, null, "Complete profile"), /* @__PURE__ */ React170.createElement(Gg, null, "Add certifications and preferred schedule.")))),
           `<Steps>
   <Step state="complete"><StepMarker state="complete" /><StepContent><StepTitle>Upload resume</StepTitle></StepContent></Step>
   <Step state="current"><StepMarker state="current" index={2} /><StepContent><StepTitle>Complete profile</StepTitle></StepContent></Step>
@@ -113542,7 +113571,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`
         E(
           "actions",
           "Action toolbar",
-          /* @__PURE__ */ React170.createElement(y_, null, /* @__PURE__ */ React170.createElement(b_, null, /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "outline" }, "Save"), /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "outline" }, "Share")), /* @__PURE__ */ React170.createElement(x_, null), /* @__PURE__ */ React170.createElement(b_, null, /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "ghost" }, "Export"))),
+          /* @__PURE__ */ React170.createElement(O_, null, /* @__PURE__ */ React170.createElement(k_, null, /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "outline" }, "Save"), /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "outline" }, "Share")), /* @__PURE__ */ React170.createElement(A_, null), /* @__PURE__ */ React170.createElement(k_, null, /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "ghost" }, "Export"))),
           `<Toolbar>
   <ToolbarGroup>
     <Button size="sm" variant="outline">Save</Button>
@@ -113556,7 +113585,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`
         E(
           "filters",
           "Toolbar with filters",
-          /* @__PURE__ */ React170.createElement(y_, null, /* @__PURE__ */ React170.createElement(b_, null, /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "outline" }, "Today"), /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "outline" }, "This week")), /* @__PURE__ */ React170.createElement(x_, null), /* @__PURE__ */ React170.createElement(b_, null, /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "ghost" }, "Clear"), /* @__PURE__ */ React170.createElement(U3, { size: "sm" }, "Apply"))),
+          /* @__PURE__ */ React170.createElement(O_, null, /* @__PURE__ */ React170.createElement(k_, null, /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "outline" }, "Today"), /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "outline" }, "This week")), /* @__PURE__ */ React170.createElement(A_, null), /* @__PURE__ */ React170.createElement(k_, null, /* @__PURE__ */ React170.createElement(U3, { size: "sm", variant: "ghost" }, "Clear"), /* @__PURE__ */ React170.createElement(U3, { size: "sm" }, "Apply"))),
           `<Toolbar>
   <ToolbarGroup>
     <Button size="sm" variant="outline">Today</Button>
@@ -114390,7 +114419,7 @@ import { toast } from "sonner"
         E(
           "sizes",
           "Default & small",
-          /* @__PURE__ */ React170.createElement("div", { className: "flex flex-col gap-4" }, /* @__PURE__ */ React170.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ React170.createElement(Wg, { id: "sw-def" }), /* @__PURE__ */ React170.createElement(Mc, { htmlFor: "sw-def" }, "Default")), /* @__PURE__ */ React170.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ React170.createElement(Wg, { id: "sw-sm", size: "sm" }), /* @__PURE__ */ React170.createElement(Mc, { htmlFor: "sw-sm" }, "Small"))),
+          /* @__PURE__ */ React170.createElement("div", { className: "flex flex-col gap-4" }, /* @__PURE__ */ React170.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ React170.createElement(Kg, { id: "sw-def" }), /* @__PURE__ */ React170.createElement(Mc, { htmlFor: "sw-def" }, "Default")), /* @__PURE__ */ React170.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ React170.createElement(Kg, { id: "sw-sm", size: "sm" }), /* @__PURE__ */ React170.createElement(Mc, { htmlFor: "sw-sm" }, "Small"))),
           `<Switch size="default|sm" />`
         )
       ],
@@ -114398,7 +114427,7 @@ import { toast } from "sonner"
         E(
           "examples",
           "Basic and caption + footer",
-          /* @__PURE__ */ React170.createElement("div", { className: "flex w-full flex-col gap-8" }, /* @__PURE__ */ React170.createElement("div", null, /* @__PURE__ */ React170.createElement("p", { className: "mb-2 text-xs font-medium text-muted-foreground" }, "Basic"), /* @__PURE__ */ React170.createElement(Gg, null, /* @__PURE__ */ React170.createElement(Kg, null, /* @__PURE__ */ React170.createElement(Yg, null, /* @__PURE__ */ React170.createElement(Xg, null, "Name"), /* @__PURE__ */ React170.createElement(Xg, null, "Role"))), /* @__PURE__ */ React170.createElement(qg, null, /* @__PURE__ */ React170.createElement(Yg, null, /* @__PURE__ */ React170.createElement(Zg, null, "Alex"), /* @__PURE__ */ React170.createElement(Zg, null, "Admin")), /* @__PURE__ */ React170.createElement(Yg, null, /* @__PURE__ */ React170.createElement(Zg, null, "Sam"), /* @__PURE__ */ React170.createElement(Zg, null, "Member"))))), /* @__PURE__ */ React170.createElement("div", null, /* @__PURE__ */ React170.createElement("p", { className: "mb-2 text-xs font-medium text-muted-foreground" }, "Caption and footer"), /* @__PURE__ */ React170.createElement(Gg, null, /* @__PURE__ */ React170.createElement(Qg, null, "Team members and roles for this workspace."), /* @__PURE__ */ React170.createElement(Kg, null, /* @__PURE__ */ React170.createElement(Yg, null, /* @__PURE__ */ React170.createElement(Xg, null, "Name"), /* @__PURE__ */ React170.createElement(Xg, null, "Role"), /* @__PURE__ */ React170.createElement(Xg, { className: "text-right" }, "Hours"))), /* @__PURE__ */ React170.createElement(qg, null, /* @__PURE__ */ React170.createElement(Yg, null, /* @__PURE__ */ React170.createElement(Zg, null, "Alex"), /* @__PURE__ */ React170.createElement(Zg, null, "Admin"), /* @__PURE__ */ React170.createElement(Zg, { className: "text-right" }, "40")), /* @__PURE__ */ React170.createElement(Yg, null, /* @__PURE__ */ React170.createElement(Zg, null, "Sam"), /* @__PURE__ */ React170.createElement(Zg, null, "Member"), /* @__PURE__ */ React170.createElement(Zg, { className: "text-right" }, "32"))), /* @__PURE__ */ React170.createElement(Jg, null, /* @__PURE__ */ React170.createElement(Yg, null, /* @__PURE__ */ React170.createElement(Zg, { colSpan: 2 }, "Total"), /* @__PURE__ */ React170.createElement(Zg, { className: "text-right" }, "72")))))),
+          /* @__PURE__ */ React170.createElement("div", { className: "flex w-full flex-col gap-8" }, /* @__PURE__ */ React170.createElement("div", null, /* @__PURE__ */ React170.createElement("p", { className: "mb-2 text-xs font-medium text-muted-foreground" }, "Basic"), /* @__PURE__ */ React170.createElement(qg, null, /* @__PURE__ */ React170.createElement(Jg, null, /* @__PURE__ */ React170.createElement(Zg, null, /* @__PURE__ */ React170.createElement(Qg, null, "Name"), /* @__PURE__ */ React170.createElement(Qg, null, "Role"))), /* @__PURE__ */ React170.createElement(Yg, null, /* @__PURE__ */ React170.createElement(Zg, null, /* @__PURE__ */ React170.createElement($g, null, "Alex"), /* @__PURE__ */ React170.createElement($g, null, "Admin")), /* @__PURE__ */ React170.createElement(Zg, null, /* @__PURE__ */ React170.createElement($g, null, "Sam"), /* @__PURE__ */ React170.createElement($g, null, "Member"))))), /* @__PURE__ */ React170.createElement("div", null, /* @__PURE__ */ React170.createElement("p", { className: "mb-2 text-xs font-medium text-muted-foreground" }, "Caption and footer"), /* @__PURE__ */ React170.createElement(qg, null, /* @__PURE__ */ React170.createElement(e_, null, "Team members and roles for this workspace."), /* @__PURE__ */ React170.createElement(Jg, null, /* @__PURE__ */ React170.createElement(Zg, null, /* @__PURE__ */ React170.createElement(Qg, null, "Name"), /* @__PURE__ */ React170.createElement(Qg, null, "Role"), /* @__PURE__ */ React170.createElement(Qg, { className: "text-right" }, "Hours"))), /* @__PURE__ */ React170.createElement(Yg, null, /* @__PURE__ */ React170.createElement(Zg, null, /* @__PURE__ */ React170.createElement($g, null, "Alex"), /* @__PURE__ */ React170.createElement($g, null, "Admin"), /* @__PURE__ */ React170.createElement($g, { className: "text-right" }, "40")), /* @__PURE__ */ React170.createElement(Zg, null, /* @__PURE__ */ React170.createElement($g, null, "Sam"), /* @__PURE__ */ React170.createElement($g, null, "Member"), /* @__PURE__ */ React170.createElement($g, { className: "text-right" }, "32"))), /* @__PURE__ */ React170.createElement(Xg, null, /* @__PURE__ */ React170.createElement(Zg, null, /* @__PURE__ */ React170.createElement($g, { colSpan: 2 }, "Total"), /* @__PURE__ */ React170.createElement($g, { className: "text-right" }, "72")))))),
           `<div className="flex w-full flex-col gap-8">
   <Table>
     <TableHeader>
@@ -114453,7 +114482,7 @@ import { toast } from "sonner"
         E(
           "default",
           "Pill tabs (default list)",
-          /* @__PURE__ */ React170.createElement($g, { defaultValue: "account", className: "max-w-md" }, /* @__PURE__ */ React170.createElement(t_, null, /* @__PURE__ */ React170.createElement(n_, { value: "account" }, "Account"), /* @__PURE__ */ React170.createElement(n_, { value: "password" }, "Password")), /* @__PURE__ */ React170.createElement(r_, { value: "account", className: "text-sm text-muted-foreground" }, "Account settings panel."), /* @__PURE__ */ React170.createElement(r_, { value: "password", className: "text-sm text-muted-foreground" }, "Password settings panel.")),
+          /* @__PURE__ */ React170.createElement(t_, { defaultValue: "account", className: "max-w-md" }, /* @__PURE__ */ React170.createElement(r_, null, /* @__PURE__ */ React170.createElement(i_, { value: "account" }, "Account"), /* @__PURE__ */ React170.createElement(i_, { value: "password" }, "Password")), /* @__PURE__ */ React170.createElement(a_, { value: "account", className: "text-sm text-muted-foreground" }, "Account settings panel."), /* @__PURE__ */ React170.createElement(a_, { value: "password", className: "text-sm text-muted-foreground" }, "Password settings panel.")),
           `<Tabs defaultValue="account" className="max-w-md">
   <TabsList>
     <TabsTrigger value="account">Account</TabsTrigger>
@@ -114466,7 +114495,7 @@ import { toast } from "sonner"
         E(
           "line",
           "Underline tabs",
-          /* @__PURE__ */ React170.createElement($g, { defaultValue: "one", className: "max-w-md" }, /* @__PURE__ */ React170.createElement(t_, { variant: "line" }, /* @__PURE__ */ React170.createElement(n_, { value: "one" }, "First"), /* @__PURE__ */ React170.createElement(n_, { value: "two" }, "Second")), /* @__PURE__ */ React170.createElement(r_, { value: "one", className: "text-sm text-muted-foreground" }, "First panel."), /* @__PURE__ */ React170.createElement(r_, { value: "two", className: "text-sm text-muted-foreground" }, "Second panel.")),
+          /* @__PURE__ */ React170.createElement(t_, { defaultValue: "one", className: "max-w-md" }, /* @__PURE__ */ React170.createElement(r_, { variant: "line" }, /* @__PURE__ */ React170.createElement(i_, { value: "one" }, "First"), /* @__PURE__ */ React170.createElement(i_, { value: "two" }, "Second")), /* @__PURE__ */ React170.createElement(a_, { value: "one", className: "text-sm text-muted-foreground" }, "First panel."), /* @__PURE__ */ React170.createElement(a_, { value: "two", className: "text-sm text-muted-foreground" }, "Second panel.")),
           `<Tabs defaultValue="one" className="max-w-md">
   <TabsList variant="line">
     <TabsTrigger value="one">First</TabsTrigger>
@@ -114479,22 +114508,22 @@ import { toast } from "sonner"
         E(
           "vertical",
           "Vertical tabs",
-          /* @__PURE__ */ React170.createElement($g, { defaultValue: "profile", orientation: "vertical", className: "max-w-3xl" }, /* @__PURE__ */ React170.createElement(t_, { variant: "line", className: "w-52 border-r border-b-0 pr-2" }, /* @__PURE__ */ React170.createElement(n_, { value: "profile", className: "w-full justify-start" }, "Profile"), /* @__PURE__ */ React170.createElement(n_, { value: "availability", className: "w-full justify-start" }, "Availability"), /* @__PURE__ */ React170.createElement(n_, { value: "documents", className: "w-full justify-start" }, "Documents")), /* @__PURE__ */ React170.createElement(
-            r_,
+          /* @__PURE__ */ React170.createElement(t_, { defaultValue: "profile", orientation: "vertical", className: "max-w-3xl" }, /* @__PURE__ */ React170.createElement(r_, { variant: "line", className: "w-52 border-r border-b-0 pr-2" }, /* @__PURE__ */ React170.createElement(i_, { value: "profile", className: "w-full justify-start" }, "Profile"), /* @__PURE__ */ React170.createElement(i_, { value: "availability", className: "w-full justify-start" }, "Availability"), /* @__PURE__ */ React170.createElement(i_, { value: "documents", className: "w-full justify-start" }, "Documents")), /* @__PURE__ */ React170.createElement(
+            a_,
             {
               value: "profile",
               className: "rounded-[8px] border border-[var(--uds-border-primary)] p-4 text-sm text-muted-foreground"
             },
             "Profile details, licenses, and credential highlights."
           ), /* @__PURE__ */ React170.createElement(
-            r_,
+            a_,
             {
               value: "availability",
               className: "rounded-[8px] border border-[var(--uds-border-primary)] p-4 text-sm text-muted-foreground"
             },
             "Weekly availability and blackout dates."
           ), /* @__PURE__ */ React170.createElement(
-            r_,
+            a_,
             {
               value: "documents",
               className: "rounded-[8px] border border-[var(--uds-border-primary)] p-4 text-sm text-muted-foreground"
@@ -114513,18 +114542,52 @@ import { toast } from "sonner"
       ],
       text: [
         E(
-          "scale",
-          "Type scale & weights",
-          /* @__PURE__ */ React170.createElement("div", { className: "flex max-w-xl flex-col gap-4" }, /* @__PURE__ */ React170.createElement(o_, { variant: "body-10", weight: "medium", as: "span", className: "text-muted-foreground" }, "Body 10 medium \u2014 captions, meta, and ultra-dense UI."), /* @__PURE__ */ React170.createElement(o_, { variant: "body-14", weight: "regular" }, "Body 14 regular \u2014 default copy for forms, tables, and supporting lines."), /* @__PURE__ */ React170.createElement(o_, { variant: "body-14", weight: "bold" }, "Body 14 bold \u2014 emphasis inside dense UI."), /* @__PURE__ */ React170.createElement(o_, { variant: "title-24", weight: "semibold" }, "Title 24 semibold \u2014 section headings."), /* @__PURE__ */ React170.createElement(o_, { variant: "body-12", weight: "medium", as: "span", className: "text-muted-foreground" }, "Inline span \xB7 body-12 medium"), /* @__PURE__ */ React170.createElement("div", { className: "flex flex-col gap-2 border-t border-border pt-4" }, /* @__PURE__ */ React170.createElement(o_, { variant: "body-14", appearance: "primary" }, 'appearance="primary" \u2014 main body copy'), /* @__PURE__ */ React170.createElement(o_, { variant: "body-14", appearance: "secondary" }, 'appearance="secondary" \u2014 supporting copy'), /* @__PURE__ */ React170.createElement(o_, { variant: "body-14", appearance: "tertiary" }, 'appearance="tertiary" \u2014 de-emphasized'))),
+          "groups",
+          "Body, heading, and display",
+          /* @__PURE__ */ React170.createElement("div", { className: "flex max-w-xl flex-col gap-4" }, /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "14", weight: "regular" }, "Body 14 regular \u2014 default copy for forms, tables, and supporting lines."), /* @__PURE__ */ React170.createElement(h_, { variant: "heading", size: "24", weight: "semibold" }, "Heading 24 semibold \u2014 section headings."), /* @__PURE__ */ React170.createElement(h_, { variant: "display", size: "48", weight: "semibold" }, "Display 48 semibold \u2014 hero and marketing headlines.")),
           `import { Text } from "@chg-ds/unified-design-system"
 
-<Text variant="body-10" weight="medium" as="span" className="text-muted-foreground">\u2026</Text>
-<Text variant="body-14" weight="regular">\u2026</Text>
-<Text variant="body-14" weight="bold">\u2026</Text>
-<Text variant="title-24" weight="semibold">\u2026</Text>
-<Text variant="body-12" weight="medium" as="span" className="text-muted-foreground">\u2026</Text>
-<Text variant="body-14" appearance="primary">\u2026</Text>
-<Text variant="body-14" appearance="secondary">\u2026</Text>`
+<Text variant="body" size="14" weight="regular">\u2026</Text>
+<Text variant="heading" size="24" weight="semibold">\u2026</Text>
+<Text variant="display" size="48" weight="semibold">\u2026</Text>`
+        ),
+        E(
+          "body-scale",
+          "Body sizes",
+          /* @__PURE__ */ React170.createElement("div", { className: "flex max-w-xl flex-col gap-3" }, /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "10", weight: "medium", as: "span", className: "text-muted-foreground" }, "Body 10 \u2014 captions, meta, and ultra-dense UI."), /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "12", weight: "medium", as: "span", className: "text-muted-foreground" }, "Body 12 \u2014 compact labels and secondary lines."), /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "14", weight: "regular" }, "Body 14 \u2014 default body copy."), /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "16", weight: "regular" }, "Body 16 \u2014 roomier paragraphs and descriptions."), /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "18", weight: "regular" }, "Body 18 \u2014 intermediate body emphasis."), /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "20", weight: "medium" }, "Body 20 \u2014 lead copy and emphasized body text.")),
+          `<Text variant="body" size="10" weight="medium" as="span">\u2026</Text>
+<Text variant="body" size="12" weight="medium" as="span">\u2026</Text>
+<Text variant="body" size="14" weight="regular">\u2026</Text>
+<Text variant="body" size="16" weight="regular">\u2026</Text>
+<Text variant="body" size="18" weight="regular">\u2026</Text>
+<Text variant="body" size="20" weight="medium">\u2026</Text>`
+        ),
+        E(
+          "heading-display-scale",
+          "Heading and display sizes",
+          /* @__PURE__ */ React170.createElement("div", { className: "flex max-w-xl flex-col gap-4" }, /* @__PURE__ */ React170.createElement(h_, { variant: "heading", size: "24", weight: "semibold" }, "Heading 24"), /* @__PURE__ */ React170.createElement(h_, { variant: "heading", size: "28", weight: "semibold" }, "Heading 28"), /* @__PURE__ */ React170.createElement(h_, { variant: "heading", size: "32", weight: "semibold" }, "Heading 32"), /* @__PURE__ */ React170.createElement(h_, { variant: "display", size: "36", weight: "semibold" }, "Display 36"), /* @__PURE__ */ React170.createElement(h_, { variant: "display", size: "48", weight: "semibold" }, "Display 48"), /* @__PURE__ */ React170.createElement(h_, { variant: "display", size: "60", weight: "semibold" }, "Display 60")),
+          `<Text variant="heading" size="24" weight="semibold">\u2026</Text>
+<Text variant="heading" size="28" weight="semibold">\u2026</Text>
+<Text variant="heading" size="32" weight="semibold">\u2026</Text>
+<Text variant="display" size="36" weight="semibold">\u2026</Text>
+<Text variant="display" size="48" weight="semibold">\u2026</Text>
+<Text variant="display" size="60" weight="semibold">\u2026</Text>`
+        ),
+        E(
+          "line-height",
+          "Line-height presets",
+          /* @__PURE__ */ React170.createElement("div", { className: "flex max-w-xl flex-col gap-3" }, /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "16", lineHeight: "tight" }, "Body 16 tight \u2014 denser multi-line copy."), /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "16", lineHeight: "regular" }, "Body 16 regular \u2014 default rhythm for paragraphs."), /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "16", lineHeight: "loose" }, "Body 16 loose \u2014 extra breathing room between lines.")),
+          `<Text variant="body" size="16" lineHeight="tight">\u2026</Text>
+<Text variant="body" size="16" lineHeight="regular">\u2026</Text>
+<Text variant="body" size="16" lineHeight="loose">\u2026</Text>`
+        ),
+        E(
+          "appearance",
+          "Semantic text colors",
+          /* @__PURE__ */ React170.createElement("div", { className: "flex max-w-xl flex-col gap-2" }, /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "14", appearance: "primary" }, 'appearance="primary" \u2014 main body copy'), /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "14", appearance: "secondary" }, 'appearance="secondary" \u2014 supporting copy'), /* @__PURE__ */ React170.createElement(h_, { variant: "body", size: "14", appearance: "tertiary" }, 'appearance="tertiary" \u2014 de-emphasized')),
+          `<Text variant="body" size="14" appearance="primary">\u2026</Text>
+<Text variant="body" size="14" appearance="secondary">\u2026</Text>
+<Text variant="body" size="14" appearance="tertiary">\u2026</Text>`
         )
       ],
       textarea: [
@@ -114539,7 +114602,7 @@ import { toast } from "sonner"
         E(
           "clock",
           "Time field",
-          /* @__PURE__ */ React170.createElement(s_, { className: "max-w-sm", "aria-label": "Start time" }),
+          /* @__PURE__ */ React170.createElement(g_, { className: "max-w-sm", "aria-label": "Start time" }),
           `<TimeInput className="max-w-sm" aria-label="Start time" />`
         )
       ],
@@ -114547,7 +114610,7 @@ import { toast } from "sonner"
         E(
           "steps",
           "Stepped dropdown times",
-          /* @__PURE__ */ React170.createElement(f_, { className: "max-w-sm", stepMinutes: 15, startTime: "08:00", endTime: "17:00", "aria-label": "Start time in 15-minute steps" }),
+          /* @__PURE__ */ React170.createElement(x_, { className: "max-w-sm", stepMinutes: 15, startTime: "08:00", endTime: "17:00", "aria-label": "Start time in 15-minute steps" }),
           `<TimeStepInput
   className="max-w-sm"
   stepMinutes={15}
@@ -114561,7 +114624,7 @@ import { toast } from "sonner"
         E(
           "api-token",
           "Token chips",
-          /* @__PURE__ */ React170.createElement(p_, { className: "max-w-md", placeholder: "Add skill and press Enter", defaultTokens: ["React", "TypeScript"], "aria-label": "Skills" }),
+          /* @__PURE__ */ React170.createElement(S_, { className: "max-w-md", placeholder: "Add skill and press Enter", defaultTokens: ["React", "TypeScript"], "aria-label": "Skills" }),
           `<TokenInput
   className="max-w-md"
   placeholder="Add skill and press Enter"
@@ -114574,7 +114637,7 @@ import { toast } from "sonner"
         E(
           "variants",
           "Default & outline",
-          /* @__PURE__ */ React170.createElement("div", { className: "flex flex-wrap gap-2" }, /* @__PURE__ */ React170.createElement(h_, { "aria-label": "Bold default", size: "sm" }, /* @__PURE__ */ React170.createElement(o54, { "aria-hidden": true })), /* @__PURE__ */ React170.createElement(h_, { variant: "outline", "aria-label": "Italic outline", size: "sm" }, /* @__PURE__ */ React170.createElement(e118, { "aria-hidden": true }))),
+          /* @__PURE__ */ React170.createElement("div", { className: "flex flex-wrap gap-2" }, /* @__PURE__ */ React170.createElement(w_, { "aria-label": "Bold default", size: "sm" }, /* @__PURE__ */ React170.createElement(o54, { "aria-hidden": true })), /* @__PURE__ */ React170.createElement(w_, { variant: "outline", "aria-label": "Italic outline", size: "sm" }, /* @__PURE__ */ React170.createElement(e118, { "aria-hidden": true }))),
           `<div className="flex flex-wrap gap-2">
   <Toggle aria-label="Bold default" size="sm">
     <TextBIcon aria-hidden />
@@ -114589,7 +114652,7 @@ import { toast } from "sonner"
         E(
           "single",
           "Single selection",
-          /* @__PURE__ */ React170.createElement(__, { type: "single", defaultValue: "list", variant: "outline", spacing: 0 }, /* @__PURE__ */ React170.createElement(v_, { value: "list", "aria-label": "List view" }, "List"), /* @__PURE__ */ React170.createElement(v_, { value: "grid", "aria-label": "Grid view" }, "Grid")),
+          /* @__PURE__ */ React170.createElement(E_, { type: "single", defaultValue: "list", variant: "outline", spacing: 0 }, /* @__PURE__ */ React170.createElement(D_, { value: "list", "aria-label": "List view" }, "List"), /* @__PURE__ */ React170.createElement(D_, { value: "grid", "aria-label": "Grid view" }, "Grid")),
           `<ToggleGroup type="single" defaultValue="list" variant="outline" spacing={0}>
   <ToggleGroupItem value="list" aria-label="List view">List</ToggleGroupItem>
   <ToggleGroupItem value="grid" aria-label="Grid view">Grid</ToggleGroupItem>
@@ -114608,7 +114671,7 @@ import { toast } from "sonner"
         E(
           "website",
           "URL field",
-          /* @__PURE__ */ React170.createElement(S_, { className: "max-w-sm", placeholder: "example.com", "aria-label": "Website URL" }),
+          /* @__PURE__ */ React170.createElement(j_, { className: "max-w-sm", placeholder: "example.com", "aria-label": "Website URL" }),
           `<UrlInput className="max-w-sm" placeholder="example.com" aria-label="Website URL" />`
         )
       ]
@@ -115042,11 +115105,11 @@ function FontWeightsPreview() {
   return /* @__PURE__ */ React.createElement("div", { className: "space-y-4" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm text-neutral-600 dark:text-neutral-400" }, "Weight tokens for heading, label, and body styles. Use the matching", " ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "font-uds-*"), " utilities below, or inline", " ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "fontWeight: var(--uds-font-weight-semibold)"), "."), /* @__PURE__ */ React.createElement("div", { className: "overflow-x-auto rounded-lg border border-neutral-200 dark:border-neutral-700" }, /* @__PURE__ */ React.createElement("table", { className: "w-full min-w-[min(100%,360px)] border-collapse text-left text-sm" }, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", { className: "border-b border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900/50" }, /* @__PURE__ */ React.createElement("th", { className: "px-3 py-2 font-medium text-neutral-900 dark:text-neutral-100" }, "Token"), /* @__PURE__ */ React.createElement("th", { className: "px-3 py-2 font-medium text-neutral-900 dark:text-neutral-100" }, "Utility"), /* @__PURE__ */ React.createElement("th", { className: "px-3 py-2 font-medium text-neutral-900 dark:text-neutral-100" }, "Value"), /* @__PURE__ */ React.createElement("th", { className: "min-w-[8rem] px-3 py-2 font-medium text-neutral-900 dark:text-neutral-100" }, "Sample"))), /* @__PURE__ */ React.createElement("tbody", { className: "divide-y divide-neutral-200 dark:divide-neutral-700" }, FONT_WEIGHTS.map(({ token, value, utility }) => /* @__PURE__ */ React.createElement("tr", { key: token }, /* @__PURE__ */ React.createElement("td", { className: "px-3 py-3 font-mono text-xs text-neutral-600 dark:text-neutral-400" }, token), /* @__PURE__ */ React.createElement("td", { className: "px-3 py-3 font-mono text-xs text-neutral-600 dark:text-neutral-400" }, utility), /* @__PURE__ */ React.createElement("td", { className: "px-3 py-3 tabular-nums text-neutral-600 dark:text-neutral-400" }, value), /* @__PURE__ */ React.createElement("td", { className: `px-3 py-3 font-sans text-uds-16 text-neutral-900 dark:text-neutral-100 ${utility}` }, SAMPLE)))))));
 }
 function UtilitiesPreview() {
-  return /* @__PURE__ */ React.createElement("div", { className: "space-y-4" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm text-neutral-600 dark:text-neutral-400" }, "Registered in ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "src/styles/uds-typography-theme.css"), " via", " ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "@theme"), ". Use ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "font-sans"), " for the Inter UI stack; use ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "font-uds"), " when you need the explicit", " ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "--uds-font-family"), " token."), /* @__PURE__ */ React.createElement("ul", { className: "list-inside list-disc space-y-1 text-sm text-neutral-700 dark:text-neutral-300" }, /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "text-uds-10"), " \u2026 ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "text-uds-128"), " ", "\u2014 font size and paired line height"), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "leading-uds-10"), " \u2026 ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "leading-uds-128"), " ", "\u2014 line height only (e.g. with a different ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "text-*"), ")"), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "font-uds-regular | font-uds-medium | font-uds-semibold | font-uds-bold")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "font-uds"), " \u2014 family from ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "--uds-font-family"))), /* @__PURE__ */ React.createElement("p", { className: "font-sans text-sm leading-uds-16 text-neutral-600 dark:text-neutral-400" }, "Example: ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "text-sm leading-uds-16"), " applies the 16px step line height while keeping a smaller font size."), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "space-y-4" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm text-neutral-600 dark:text-neutral-400" }, "Registered in ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "src/styles/uds-typography-theme.css"), " via", " ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "@theme"), ". Use ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "font-sans"), " for the Inter UI stack; use ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "font-uds"), " when you need the explicit", " ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "--uds-font-family"), " token. In React, the", " ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "Text"), " component groups these styles as", " ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "body"), ", ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "heading"), ", and", " ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "display"), " with matching ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "size"), " ", "steps from ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "--uds-type-*"), "."), /* @__PURE__ */ React.createElement("ul", { className: "list-inside list-disc space-y-1 text-sm text-neutral-700 dark:text-neutral-300" }, /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "text-uds-10"), " \u2026 ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "text-uds-128"), " ", "\u2014 font size and paired line height"), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "leading-uds-10"), " \u2026 ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "leading-uds-128"), " ", "\u2014 line height only (e.g. with a different ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "text-*"), ")"), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "font-uds-regular | font-uds-medium | font-uds-semibold | font-uds-bold")), /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "font-uds"), " \u2014 family from ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "--uds-font-family"))), /* @__PURE__ */ React.createElement("p", { className: "font-sans text-sm leading-uds-16 text-neutral-600 dark:text-neutral-400" }, "Example: ", /* @__PURE__ */ React.createElement("span", { className: "font-mono text-xs" }, "text-sm leading-uds-16"), " applies the 16px step line height while keeping a smaller font size."), /* @__PURE__ */ React.createElement(
     "div",
     {
       "aria-hidden": true,
-      className: "pointer-events-none fixed left-0 top-0 -z-50 h-px w-px overflow-hidden opacity-0 font-uds leading-uds-128 leading-uds-96 leading-uds-72 leading-uds-60 leading-uds-48 leading-uds-36 leading-uds-32 leading-uds-28 leading-uds-24 leading-uds-20 leading-uds-16 leading-uds-15 leading-uds-14 leading-uds-12 leading-uds-10"
+      className: "pointer-events-none fixed left-0 top-0 -z-50 h-px w-px overflow-hidden opacity-0 font-uds leading-uds-128 leading-uds-96 leading-uds-72 leading-uds-60 leading-uds-48 leading-uds-36 leading-uds-32 leading-uds-28 leading-uds-24 leading-uds-20 leading-uds-18 leading-uds-16 leading-uds-15 leading-uds-14 leading-uds-12 leading-uds-10"
     }
   ));
 }
@@ -115093,7 +115156,7 @@ var init_TypographyFoundation = __esm({
       { size: 24, line: 32 },
       { size: 20, line: 28 },
       { size: 16, line: 24 },
-      { size: 15, line: 22 },
+      { size: 18, line: 26 },
       { size: 14, line: 20 },
       { size: 12, line: 16 },
       { size: 10, line: 14 }
@@ -115110,7 +115173,7 @@ var init_TypographyFoundation = __esm({
       24: "text-uds-24",
       20: "text-uds-20",
       16: "text-uds-16",
-      15: "text-uds-15",
+      18: "text-uds-18",
       14: "text-uds-14",
       12: "text-uds-12",
       10: "text-uds-10"
@@ -115370,7 +115433,7 @@ function getCustomSections(slug) {
 <Icon name="MagnifyingGlassIcon" className="size-6 text-neutral-700 dark:text-neutral-200" aria-hidden />
 <Icon name="BellIcon" className="size-6 text-neutral-700 dark:text-neutral-200" aria-hidden />
 // \u2026additional names come from UDS_ICON_REGISTRY (Phosphor \`@phosphor-icons/react\`)`,
-          /* @__PURE__ */ React.createElement("div", { className: "space-y-8" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400" }, "Stroke / fill color"), /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap items-center gap-6" }, /* @__PURE__ */ React.createElement(w_, { name: "CircleIcon", className: "size-8 text-violet-600 dark:text-violet-400", "aria-hidden": true }), /* @__PURE__ */ React.createElement(w_, { name: "MagnifyingGlassIcon", className: "size-8 text-emerald-600 dark:text-emerald-400", "aria-hidden": true }))), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400" }, "Example glyphs (registered set)"), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-4 gap-3 sm:grid-cols-6 md:grid-cols-8" }, [
+          /* @__PURE__ */ React.createElement("div", { className: "space-y-8" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400" }, "Stroke / fill color"), /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap items-center gap-6" }, /* @__PURE__ */ React.createElement(N_, { name: "CircleIcon", className: "size-8 text-violet-600 dark:text-violet-400", "aria-hidden": true }), /* @__PURE__ */ React.createElement(N_, { name: "MagnifyingGlassIcon", className: "size-8 text-emerald-600 dark:text-emerald-400", "aria-hidden": true }))), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400" }, "Example glyphs (registered set)"), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-4 gap-3 sm:grid-cols-6 md:grid-cols-8" }, [
             ["HouseIcon", "House"],
             ["MagnifyingGlassIcon", "Search"],
             ["BellIcon", "Bell"],
@@ -115398,7 +115461,7 @@ function getCustomSections(slug) {
               className: "flex flex-col items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-2 py-3 dark:border-neutral-700 dark:bg-neutral-900/50",
               title: name
             },
-            /* @__PURE__ */ React.createElement(w_, { name, className: "size-6 text-neutral-800 dark:text-neutral-100", "aria-hidden": true }),
+            /* @__PURE__ */ React.createElement(N_, { name, className: "size-6 text-neutral-800 dark:text-neutral-100", "aria-hidden": true }),
             /* @__PURE__ */ React.createElement("span", { className: "text-center text-[10px] leading-tight text-neutral-500 dark:text-neutral-400" }, label)
           ))))),
           'Icons are Phosphor React components re-exported through `UDS_ICON_REGISTRY` in `src/components/ui/uds-icons.tsx`. Add a new import from `@phosphor-icons/react`, register it there, and use `<Icon name="\u2026Icon" />` so apps never import the vendor package directly.'
@@ -115563,7 +115626,7 @@ var init_create_bundle = __esm({
   }
 });
 
-// src/docs/versions/1.0.2/index.tsx
+// src/docs/versions/1.0.3/index.tsx
 var __exports = {};
 __export(__exports, {
   default: () => __default
@@ -115574,7 +115637,7 @@ function WelcomeMenuIcon(props) {
 }
 var bundle, __default;
 var init__ = __esm({
-  "src/docs/versions/1.0.2/index.tsx"() {
+  "src/docs/versions/1.0.3/index.tsx"() {
     init_dist59();
     init_catalog_meta();
     init_shadcn_component_meta();
@@ -115584,7 +115647,7 @@ var init__ = __esm({
     init_custom_sections();
     init_create_bundle();
     bundle = createDocsVersionBundle({
-      id: "1.0.2",
+      id: "1.0.3",
       catalog: CATALOG_META,
       shadcnSlugs: SHADCN_UI_SLUGS,
       getCustomSections,
@@ -115599,7 +115662,7 @@ var init__ = __esm({
   }
 });
 
-// src/docs/versions/1.0.1/index.tsx
+// src/docs/versions/1.0.2/index.tsx
 var __exports2 = {};
 __export(__exports2, {
   default: () => __default2
@@ -115608,9 +115671,9 @@ function WelcomeMenuIcon2(props) {
   const { className, ...rest } = props;
   return /* @__PURE__ */ React.createElement(e100, { ...rest, size: 32, className: H3("shrink-0", className) });
 }
-var LEGACY_COMPONENT_SLUGS, bundle2, __default2;
+var bundle2, __default2;
 var init__2 = __esm({
-  "src/docs/versions/1.0.1/index.tsx"() {
+  "src/docs/versions/1.0.2/index.tsx"() {
     init_dist59();
     init_catalog_meta();
     init_shadcn_component_meta();
@@ -115619,11 +115682,10 @@ var init__2 = __esm({
     init_shadcn_ui_registry();
     init_custom_sections();
     init_create_bundle();
-    LEGACY_COMPONENT_SLUGS = SHADCN_UI_SLUGS.filter((slug) => slug !== "token-input");
     bundle2 = createDocsVersionBundle({
-      id: "1.0.1",
+      id: "1.0.2",
       catalog: CATALOG_META,
-      shadcnSlugs: LEGACY_COMPONENT_SLUGS,
+      shadcnSlugs: SHADCN_UI_SLUGS,
       getCustomSections,
       getShadcnComponentMeta,
       getShadcnComponentProps,
@@ -115636,11 +115698,52 @@ var init__2 = __esm({
   }
 });
 
+// src/docs/versions/1.0.1/index.tsx
+var __exports3 = {};
+__export(__exports3, {
+  default: () => __default3
+});
+function WelcomeMenuIcon3(props) {
+  const { className, ...rest } = props;
+  return /* @__PURE__ */ React.createElement(e100, { ...rest, size: 32, className: H3("shrink-0", className) });
+}
+var LEGACY_COMPONENT_SLUGS, bundle3, __default3;
+var init__3 = __esm({
+  "src/docs/versions/1.0.1/index.tsx"() {
+    init_dist59();
+    init_catalog_meta();
+    init_shadcn_component_meta();
+    init_shadcn_component_props();
+    init_shadcn_examples();
+    init_shadcn_ui_registry();
+    init_custom_sections();
+    init_create_bundle();
+    LEGACY_COMPONENT_SLUGS = SHADCN_UI_SLUGS.filter((slug) => slug !== "token-input");
+    bundle3 = createDocsVersionBundle({
+      id: "1.0.1",
+      catalog: CATALOG_META,
+      shadcnSlugs: LEGACY_COMPONENT_SLUGS,
+      getCustomSections,
+      getShadcnComponentMeta,
+      getShadcnComponentProps,
+      getShadcnExamples,
+      formatShadcnComponentName,
+      getShadcnDocsUrl,
+      welcomeMenuIcon: WelcomeMenuIcon3
+    });
+    __default3 = bundle3;
+  }
+});
+
 // src/docs/versions/manifest.ts
 var CURRENT_DOCS_PACKAGE_VERSION = "1.0.2";
 var DOCS_VERSION_MANIFEST = {
   defaultVersion: CURRENT_DOCS_PACKAGE_VERSION,
   versions: [
+    {
+      id: "1.0.3",
+      label: `Documentation - v1.0.3`
+    },
     {
       id: "1.0.2",
       label: `Documentation - v1.0.2`
@@ -115657,8 +115760,9 @@ function getDocsVersionManifest() {
 
 // src/docs/versions/resolve-loaders.generated.ts
 var docsVersionBundleLoaders = {
-  "1.0.2": () => Promise.resolve().then(() => (init__(), __exports)),
-  "1.0.1": () => Promise.resolve().then(() => (init__2(), __exports2))
+  "1.0.3": () => Promise.resolve().then(() => (init__(), __exports)),
+  "1.0.2": () => Promise.resolve().then(() => (init__2(), __exports2)),
+  "1.0.1": () => Promise.resolve().then(() => (init__3(), __exports3))
 };
 
 // src/docs/versions/resolve.ts
@@ -115714,13 +115818,13 @@ for (const entry of manifest.versions) {
   assert(resolveDocsVersionId(entry.id) === entry.id, `expected ${entry.id} to resolve to itself`);
 }
 for (const entry of manifest.versions) {
-  const bundle3 = await loadDocsVersionBundle(entry.id);
-  assert(bundle3.id === entry.id, `bundle id should match manifest entry ${entry.id}`);
-  assert(bundle3.catalog.length > 0, `bundle ${entry.id} should include catalog entries`);
-  assert(bundle3.shadcnSlugs.length > 0, `bundle ${entry.id} should include component slugs`);
-  assert(bundle3.navigation.items.length > 0, `bundle ${entry.id} should include navigation items`);
+  const bundle4 = await loadDocsVersionBundle(entry.id);
+  assert(bundle4.id === entry.id, `bundle id should match manifest entry ${entry.id}`);
+  assert(bundle4.catalog.length > 0, `bundle ${entry.id} should include catalog entries`);
+  assert(bundle4.shadcnSlugs.length > 0, `bundle ${entry.id} should include component slugs`);
+  assert(bundle4.navigation.items.length > 0, `bundle ${entry.id} should include navigation items`);
   assert(
-    bundle3.navigation.navIdToRoute.introduction === "/docs/introduction",
+    bundle4.navigation.navIdToRoute.introduction === "/docs/introduction",
     `bundle ${entry.id} should map introduction nav id`
   );
 }

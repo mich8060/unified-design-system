@@ -23,13 +23,13 @@ function Header({ className, children, trailing, searchProps, ...props }: Header
     <header
       data-slot="uds-header"
       className={cn(
-        "flex h-15 shrink-0 flex-wrap items-center gap-3 border-b border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] px-4 md:gap-4",
+        "flex h-14 shrink-0 flex-nowrap items-center gap-3 border-b border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] px-4 md:gap-4",
         className,
       )}
       {...props}
     >
       {children ?? (
-        <div className="relative min-w-0 w-[600px] max-w-full shrink-0">
+        <div className="relative min-w-0 max-w-[600px] flex-1">
           <SearchInput
             inputSize="sm"
             variant="shortcut"
@@ -40,7 +40,7 @@ function Header({ className, children, trailing, searchProps, ...props }: Header
         </div>
       )}
       {trailing != null && (
-        <div className="ml-auto flex items-center gap-1">{trailing}</div>
+        <div className="ml-auto flex shrink-0 items-center gap-1">{trailing}</div>
       )}
     </header>
   )

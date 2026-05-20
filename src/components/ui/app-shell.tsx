@@ -21,8 +21,22 @@ function AppShellFallback() {
 }
 
 export type AppShellProps = React.ComponentProps<"div"> & {
-  /** Content rendered in the fixed sidebar slot (typically a configured `<Menu>`). */
+  /**
+   * Content rendered in the fixed sidebar rail (`.appshell--menu`).
+   * **Canonical:** configure the package `<Menu />` here — AppShell CSS offsets the body from
+   * `[data-slot="uds-menu-root"]`. Do not place `Sidebar*` in this slot unless you add your own layout CSS.
+   */
   menu?: React.ReactNode
+  /**
+   * @deprecated Use `menu`. Older docs used `sidebar`; it is not a separate slot.
+   */
+  sidebar?: React.ReactNode
+  /**
+   * When `true` (default), renders a React Router `<Outlet />` inside `.appshell--main` **before**
+   * `AppShell.Main` / other children. Requires `react-router-dom` and a parent `<Router>` that wraps
+   * this shell. Set to `false` for static pages (no consumer router).
+   */
+  enableRouterOutlet?: boolean
   /** Right-aligned custom actions rendered inside the standardized AppShell header. */
   headerRight?: React.ReactNode
   /** Props forwarded to the standardized AppShell header's built-in SearchInput. */
@@ -103,6 +117,8 @@ function AppShell({
   className,
   children,
   menu,
+  sidebar,
+  enableRouterOutlet = true,
   headerRight,
   headerSearchProps,
   listview,
@@ -110,7 +126,7 @@ function AppShell({
   ...props
 }: AppShellProps) {
   const parsedRegions = parseAppShellRegions(children)
-  const resolvedMenu = parsedRegions.menu ?? menu
+  const resolvedMenu = parsedRegions.menu ?? menu ?? sidebar
   const resolvedHeaderRight = parsedRegions.headerRight ?? headerRight
   const resolvedListview = parsedRegions.listview ?? listview
   const resolvedFooter = parsedRegions.footer ?? footer
@@ -137,9 +153,11 @@ function AppShell({
           </div>
           <div className="appshell--main-column">
             <div className="appshell--main">
-              <Suspense fallback={<AppShellFallback />}>
-                <Outlet />
-              </Suspense>
+              {enableRouterOutlet ? (
+                <Suspense fallback={<AppShellFallback />}>
+                  <Outlet />
+                </Suspense>
+              ) : null}
               {resolvedMain}
               {resolvedFooter ? <div className="appshell--footer">{resolvedFooter}</div> : null}
             </div>

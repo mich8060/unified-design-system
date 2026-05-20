@@ -11,7 +11,7 @@ export function DocsVersionSelect() {
   const { versionId, setDocsVersion, versionOptions } = useDocsVersion()
 
   return (
-    <div className="flex min-w-0 flex-col gap-1 px-3 py-2">
+    <div className="flex min-w-0 flex-col gap-1 px-3">
       <label htmlFor="docs-site-version-select" className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
         Docs version
       </label>

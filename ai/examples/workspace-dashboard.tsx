@@ -1,60 +1,50 @@
-import "uds-tailwind-test/styles.css"
+import "@chg-ds/unified-design-system/styles.css"
 
 import {
   AppShell,
   Badge,
-  Button,
   Card,
   Medallion,
+  Menu,
   SectionHeader,
   SectionHeaderActions,
   SectionHeaderContent,
   SectionHeaderDescription,
   SectionHeaderTitle,
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
   Status,
   TooltipProvider,
-} from "uds-tailwind-test"
+  type MenuNavigationItem,
+} from "@chg-ds/unified-design-system"
+
+const navigationItems: MenuNavigationItem[] = [
+  { id: "overview", label: "Overview" },
+  { id: "clinicians", label: "Clinicians" },
+  { id: "reports", label: "Reports" },
+]
 
 export function WorkspaceDashboardExample() {
   return (
     <TooltipProvider>
-      <SidebarProvider>
-        <AppShell
-          className="min-h-dvh w-full min-w-0"
-          mainClassName="bg-[var(--uds-color-neutrals-50)]"
-          sidebar={
-            <Sidebar collapsible="none">
-              <SidebarHeader className="border-b px-4 py-4">Operations</SidebarHeader>
-              <SidebarContent className="px-2 py-3">
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive>Overview</SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton>Clinicians</SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </SidebarContent>
-              <SidebarFooter className="border-t px-3 py-3">
-                <Button className="w-full rounded-[4px]">Export snapshot</Button>
-              </SidebarFooter>
-            </Sidebar>
-          }
-        >
-          <div className="flex h-full flex-col gap-6 p-6">
+      <AppShell
+        className="min-h-dvh w-full min-w-0"
+        enableRouterOutlet={false}
+        menu={
+          <Menu
+            navigationItems={navigationItems}
+            activeId="overview"
+            onNavigationSelect={() => {
+              /* wire to router or state */
+            }}
+          />
+        }
+      >
+        <AppShell.Main>
+          <div className="flex flex-col gap-6 p-6">
             <SectionHeader>
               <SectionHeaderContent>
                 <SectionHeaderTitle>Coverage dashboard</SectionHeaderTitle>
                 <SectionHeaderDescription>
-                  Brand the overview with UDS emphasis components instead of neutral placeholder cards.
+                  Canonical AppShell: Menu in the menu slot, page content in AppShell.Main, no consumer layout hacks.
                 </SectionHeaderDescription>
               </SectionHeaderContent>
               <SectionHeaderActions>
@@ -89,8 +79,8 @@ export function WorkspaceDashboardExample() {
               </div>
             </Card>
           </div>
-        </AppShell>
-      </SidebarProvider>
+        </AppShell.Main>
+      </AppShell>
     </TooltipProvider>
   )
 }

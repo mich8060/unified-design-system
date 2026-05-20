@@ -104,10 +104,12 @@ const ROLE_BY_MODULE = {
   "uds-icons": ["utility", "first-party"],
   "use-mobile": ["utility"],
   utils: ["utility"],
+  "uds-brand": ["utility", "first-party"],
 }
 
 const PREFERRED_EXPORTS = new Set([
   "AppShell",
+  "Menu",
   "Badge",
   "Button",
   "Card",
@@ -173,22 +175,22 @@ const RECIPE_DEFINITIONS = [
     id: "auth-shell",
     title: "Authenticated Shell",
     file: "ai/recipes/auth-shell.md",
-    description: "Base authenticated product shell with a mandatory UDS sidebar and branded summary content.",
-    defaults: ["AppShell", "SidebarProvider", "Sidebar primitives", "Card", "Button", "Status"],
+    description: "Base authenticated product shell with AppShell, Menu in the menu slot, and branded summary content.",
+    defaults: ["AppShell", "Menu", "Card", "Button", "Status"],
   },
   {
     id: "workspace-dashboard",
     title: "Workspace Dashboard",
     file: "ai/recipes/workspace-dashboard.md",
     description: "Operational dashboard with branded metrics, queue summaries, and first-party emphasis components.",
-    defaults: ["AppShell", "Badge", "Medallion", "Status", "Card", "SectionHeader"],
+    defaults: ["AppShell", "Menu", "Badge", "Medallion", "Status", "Card", "SectionHeader"],
   },
   {
     id: "detail-with-listview",
     title: "Detail With Listview",
     file: "ai/recipes/detail-with-listview.md",
     description: "Master-detail layout using the AppShell listview region instead of ad hoc split panes.",
-    defaults: ["AppShell", "Sidebar primitives", "Item", "Table", "Tabs"],
+    defaults: ["AppShell", "Menu", "Item", "Table", "Tabs"],
   },
   {
     id: "settings-form",
@@ -226,7 +228,7 @@ const REGISTRY_ITEMS = [
   {
     name: "sidebar",
     title: "UDS Sidebar",
-    description: "Wrapper exports for the published UDS sidebar system used inside AppShell.",
+    description: "Wrapper exports for the published UDS Sidebar primitives (in-page side panels — not the AppShell menu rail; use Menu there).",
     type: "registry:item",
     categories: ["layout", "navigation"],
     files: [
@@ -424,10 +426,16 @@ function buildContract(version, componentCatalog) {
     layoutDefaults: {
       authenticatedScreens: {
         defaultShell: "AppShell",
-        sidebarRequirement:
-          "Use SidebarProvider as needed and compose the AppShell sidebar slot only with exported UDS Sidebar primitives.",
-        listview: "Optional. Use for queues, master-detail, inbox, or search results.",
+        menuSlot:
+          "Compose AppShell.menu with the package Menu component. AppShell CSS offsets the body from [data-slot=uds-menu-root]. Do not put Sidebar* in menu unless you own rail positioning CSS.",
+        mainContent:
+          "Put page UI in AppShell.Main. enableRouterOutlet defaults true (bundled Outlet before main children); set false for static apps. Use nested React Router layout routes when the outlet is enabled.",
+        listview:
+          "Optional listview prop. Master-detail: only .appshell--main scrolls; list body uses data-slot=appshell-listview-scroll inside a flex column. See ai/recipes/detail-with-listview.md.",
         footer: "Optional. Use only when the screen needs persistent summary or status chrome.",
+        appShellGuide: "ai/guides/appshell-navigation.md",
+        menuBrand:
+          "Menu defaults to brand id chg (CHG wordmark). Override with Menu brand prop; use brandStorageKey only when persisting a user choice. Do not use docs-site-data-brand in consumer apps.",
       },
       viewportFill: [
         "Ensure html, body, and #root span the viewport.",
@@ -459,7 +467,11 @@ function buildContract(version, componentCatalog) {
     },
     screenRecipes: RECIPE_DEFINITIONS,
     antiPatterns: [
-      "Do not build a bespoke outer shell with raw div/aside markup when AppShell plus Sidebar primitives already fits the screen.",
+      "Do not build a bespoke outer shell with raw div/aside markup when AppShell plus Menu already fits the screen.",
+      "Do not put Sidebar* in AppShell.menu and add fixed inset-y-0 rail CSS — use Menu in menu.",
+      "Do not use AppShell props sidebarWidth, showListview, or mainClassName — they are not on the published API.",
+      "Do not use CSS that collapses .appshell--main > :first-child to fix layout.",
+      "Do not assume consumer-only react-router-dom fills AppShell without a layout route under the same router.",
       "Do not import from src/components/ui/*, dist/*, or repo-local aliases in consumer code.",
       "Do not invent a parallel component system for buttons, fields, badges, or status treatments when package exports exist.",
       "Do not default to stock shadcn layout patterns when UDS-specific first-party components are available.",
@@ -471,6 +483,8 @@ function buildContract(version, componentCatalog) {
       "ai/examples/workspace-dashboard.tsx",
       "ai/examples/detail-with-listview.tsx",
       "ai/examples/settings-form.tsx",
+      "ai/guides/appshell-navigation.md",
+      "ai/appshell.schema.json",
       "AI_USAGE.md",
       "setup.md",
     ],
@@ -529,7 +543,9 @@ function resolveModule(specifier) {
   const candidateTsx = path.join(ROOT, "src", `${relativePath}.tsx`)
   const candidateTs = path.join(ROOT, "src", `${relativePath}.ts`)
 
-  return relativePath.includes("lib/utils") || relativePath.includes("hooks/")
+  return relativePath.includes("lib/utils") ||
+    relativePath.includes("hooks/") ||
+    relativePath.startsWith("lib/")
     ? candidateTs
     : candidateTsx
 }

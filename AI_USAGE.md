@@ -11,14 +11,9 @@ import {
   AppShell,
   Button,
   Card,
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
+  Menu,
+  type MenuNavigationItem,
+  TooltipProvider,
 } from "@chg-ds/unified-design-system"
 import "@chg-ds/unified-design-system/styles.css"
 ```
@@ -32,12 +27,53 @@ Do not import from:
 - repo-local aliases such as `@/*`
 - any `*-base`, `*-core`, `*-theme`, or `*-uds` module in consumer code
 
+## Brand (Menu / theme tokens)
+
+- Published **`Menu`** defaults to brand id **`chg`** (CHG header wordmark + Connect-aligned token ramp on `document.documentElement`).
+- Override with the **`brand`** prop, or **`defaultBrand`** when using **`brandStorageKey`**:
+
+```tsx
+<Menu navigationItems={items} brand="connect" />
+```
+
+- **Do not** rely on `localStorage` key `docs-site-data-brand` in product apps — that is for the internal docs site only.
+- Optional persistence: pass **`brandStorageKey`** (e.g. `"uds-brand"`) if the app should remember a user-selected brand.
+- Lower-level API: `applyUdsBrandToDocument`, `udsBrandToBrandingAppearance`, `UDS_DEFAULT_BRAND` (also exported from the package root).
+
 ## Default layout model
 
-- For authenticated product screens, default to `AppShell`.
-- Compose the `AppShell` `sidebar` slot only with exported UDS sidebar primitives.
-- Use the `listview` slot for queues, inboxes, search results, or master-detail flows.
+- For authenticated product screens, default to **`AppShell`**.
+- Compose the **`menu`** slot with the package **`Menu`** component (not `Sidebar*` — see [`ai/guides/appshell-navigation.md`](./ai/guides/appshell-navigation.md)).
+- Put page content in **`AppShell.Main`** (or unmarked children parsed as main).
+- Use the **`listview`** prop for queues, inboxes, search results, or master-detail flows (omit to collapse the column).
+- **Listview master–detail:** mount `AppShell` with `className="min-h-dvh w-full min-w-0"`. Only **`.appshell--main`** scrolls. The listview pane stays fixed; put a **pinned header** (`shrink-0`) and a scrollable list body on **`data-slot="appshell-listview-scroll"`**. See [`ai/recipes/detail-with-listview.md`](./ai/recipes/detail-with-listview.md).
+- Layout tokens on `[data-slot="appshell"]`: `--appshell-menu-width-expanded`, `--appshell-menu-width-collapsed`, `--appshell-listview-width`, `--appshell-header-height`.
 - Ensure `html`, `body`, and `#root` fill the viewport, then mount the shell with `min-h-dvh w-full min-w-0`.
+
+### AppShell main region and router
+
+- **`enableRouterOutlet`** defaults to **`true`**. AppShell renders a React Router **`<Outlet />`** inside `.appshell--main` **before** main children.
+- **Static apps:** set **`enableRouterOutlet={false}`** and render pages in **`AppShell.Main`**.
+- **Routed apps:** wrap the app in **one** `<BrowserRouter>` / `RouterProvider`, nest layout routes so **`AppShell`** is the layout element, and install **`react-router-dom`**. A consumer-only router **does not** feed the shell outlet unless it shares the same router context as the layout route.
+- **Anti-pattern:** CSS that sets `.appshell--main > :first-child { max-height: 0 }` (or similar) to hide an empty outlet — fix composition instead.
+
+Published prop names match **`dist/index.d.ts`**: `menu`, `listview`, `headerRight`, `footer`, `enableRouterOutlet`. There is no `sidebar`, `sidebarWidth`, `showListview`, or `mainClassName` on `AppShell` ( `sidebar` is a deprecated alias of `menu` only).
+
+### Menu vs Sidebar
+
+| Component | Use |
+| --- | --- |
+| **`Menu`** | Product navigation rail inside **`AppShell.menu`**. |
+| **`Sidebar*`** | In-page side panels or layouts outside AppShell — not the AppShell rail unless you own positioning CSS. |
+
+### AppShell debug checklist
+
+| Symptom | Likely cause | Fix |
+| --- | --- | --- |
+| Content at bottom / double stack | Outlet + loose children; page root `flex-1` / `h-full` | Use **`AppShell.Main`** only; drop `flex-1` on page root |
+| Empty main | Outlet on, no child route / no Router | Add nested routes or **`enableRouterOutlet={false}`** |
+| Empty main after CSS “fix” | Zero-height first child in `.appshell--main` | Remove that CSS |
+| Rail overlap | `Sidebar` in `menu` | Use **`Menu`** in **`menu`** |
 
 ## Styling rules
 
@@ -55,8 +91,8 @@ Do not import from:
 
 When AI is generating new product UI, prefer these exported surfaces before creating custom chrome:
 
-- Layout: `AppShell`, `SectionHeader`, `Card`
-- Navigation: `Sidebar*`, `Tabs`, `Breadcrumb`
+- Layout: `AppShell`, `Menu`, `SectionHeader`, `Card`
+- Navigation: `Menu`, `Tabs`, `Breadcrumb` (use `Sidebar*` only outside AppShell menu)
 - Emphasis and status: `Badge`, `Status`, `Medallion`
 - Data and workflow: `Item`, `Table`, `Statistics`
 - Overlays: `Dialog`, `Sheet`, `AlertDialog`
@@ -65,12 +101,13 @@ Low-level exports such as `BaseButton`, `buttonVariants`, and related theme help
 
 ## Recipes and examples
 
-Use these before composing a new screen:
+Shipped in the npm package under `ai/`:
 
 - [`ai/recipes/auth-shell.md`](./ai/recipes/auth-shell.md)
 - [`ai/recipes/workspace-dashboard.md`](./ai/recipes/workspace-dashboard.md)
 - [`ai/recipes/detail-with-listview.md`](./ai/recipes/detail-with-listview.md)
 - [`ai/recipes/settings-form.md`](./ai/recipes/settings-form.md)
+- [`ai/guides/appshell-navigation.md`](./ai/guides/appshell-navigation.md)
 
 Canonical example outputs:
 
@@ -82,9 +119,11 @@ Canonical example outputs:
 ## Anti-patterns
 
 - Do not build a custom outer shell when `AppShell` already fits.
-- Do not replace the UDS sidebar with a raw `<aside>` or copied stock shadcn markup.
+- Do not put **`Sidebar*`** in **`AppShell.menu`** and add manual `fixed` rail CSS — use **`Menu`**.
 - Do not import internal implementation files in consumer code.
 - Do not default to neutral placeholder divs when UDS emphasis components already fit the screen.
+- Do not use `.appshell--main > :first-child` zero-height hacks.
+- Do not assume a consumer-only `BrowserRouter` fills AppShell’s outlet by default.
 
 ## Registry consumers
 

@@ -3,24 +3,34 @@ $menu-collapsed: 64px;
 $listview-width: 320px;
 
 .appshell {
-    --appshell-header-height: 60px;
+    --appshell-menu-width-expanded: #{$menu-expanded};
+    --appshell-menu-width-collapsed: #{$menu-collapsed};
+    --appshell-listview-width: #{$listview-width};
+    --appshell-header-height: 3.5rem; /* matches package Header (h-14) */
 
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100dvh;
     width: 100%;
     background: var(--background);
     font-family: var(--font-sans);
     color: var(--foreground);
 
+    /* Master–detail: lock shell height so listview and main scroll independently. */
+    &:has(.appshell--listview-open) {
+        height: 100dvh;
+        max-height: 100dvh;
+        overflow: hidden;
+    }
+
     &--body {
         display: flex;
         flex-direction: column;
-        flex: 1;
+        flex: 1 1 0;
         min-height: 0;
-        /* Match rail offset so width + margin fits the shell (avoids clipping under overflow-x-hidden). */
-        margin-left: $menu-expanded;
-        width: calc(100% - #{$menu-expanded});
+        overflow: hidden;
+        margin-left: var(--appshell-menu-width-expanded);
+        width: calc(100% - var(--appshell-menu-width-expanded));
         min-width: 0;
         transition:
             margin-left 200ms ease-out,
@@ -29,29 +39,32 @@ $listview-width: 320px;
     }
 
     &:has([data-slot="uds-menu-root"][data-expanded="false"]) &--body {
-        margin-left: $menu-collapsed;
-        width: calc(100% - #{$menu-collapsed});
+        margin-left: var(--appshell-menu-width-collapsed);
+        width: calc(100% - var(--appshell-menu-width-collapsed));
     }
 
     &--header {
         position: fixed;
         top: 0;
         right: 0;
-        left: $menu-expanded;
+        left: var(--appshell-menu-width-expanded);
         z-index: 20;
         flex-shrink: 0;
+        height: var(--appshell-header-height);
         transition: left 200ms ease-out;
     }
 
     &:has([data-slot="uds-menu-root"][data-expanded="false"]) &--header {
-        left: $menu-collapsed;
+        left: var(--appshell-menu-width-collapsed);
     }
 
+  /* Region below fixed header: listview + main share one row, constrained to viewport. */
     &--content {
         display: flex;
-        flex: 1;
+        flex: 1 1 0;
         min-height: 0;
-        padding-top: var(--appshell-header-height, 60px);
+        overflow: hidden;
+        padding-top: var(--appshell-header-height);
     }
 
     &--listview {
@@ -59,6 +72,7 @@ $listview-width: 320px;
         min-width: 0;
         overflow: hidden;
         flex-shrink: 0;
+        align-self: stretch;
         border-right: 0 solid transparent;
         transition:
             width 250ms ease-out,
@@ -66,39 +80,57 @@ $listview-width: 320px;
             border-color 250ms ease-out;
 
         > * {
-            width: $listview-width;
-            min-width: $listview-width;
+            width: var(--appshell-listview-width);
+            min-width: var(--appshell-listview-width);
             opacity: 0;
             transition: opacity 250ms ease-out;
         }
 
         &-open {
-            width: $listview-width;
-            min-width: $listview-width;
-            overflow-y: auto;
+            width: var(--appshell-listview-width);
+            min-width: var(--appshell-listview-width);
+            overflow: hidden;
             border-right: var(--uds-border-width-1) solid var(--border);
 
+            /* Direct child: full-height column; pane header stays put, body scrolls inside. */
             > * {
+                width: 100%;
+                min-width: 0;
+                height: 100%;
+                min-height: 0;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
                 opacity: 1;
             }
         }
     }
 
-    /* Main column: listview + scrollable main pane share the row; footer is the last block inside main. */
-    &--main-column {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        min-width: 0;
+    /* Scrollable list body inside listview (see detail-with-listview recipe). */
+    [data-slot="appshell-listview-scroll"] {
+        flex: 1 1 0;
         min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
-    &--main {
+    &--main-column {
         display: flex;
-        flex: 1;
+        flex: 1 1 0;
         flex-direction: column;
         min-width: 0;
         min-height: 0;
+        overflow: hidden;
+    }
+
+    /* Only the main region scrolls when listview is open. */
+    &--main {
+        display: flex;
+        flex: 1 1 0;
+        flex-direction: column;
+        min-width: 0;
+        min-height: 0;
+        overflow-x: hidden;
         overflow-y: auto;
     }
 

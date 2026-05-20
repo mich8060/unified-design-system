@@ -1,4 +1,4 @@
-import "uds-tailwind-test/styles.css"
+import "@chg-ds/unified-design-system/styles.css"
 
 import {
   AppShell,
@@ -9,6 +9,7 @@ import {
   FieldDescription,
   FieldLabel,
   Input,
+  Menu,
   SectionHeader,
   SectionHeaderContent,
   SectionHeaderDescription,
@@ -18,40 +19,24 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
   Status,
   Switch,
   TooltipProvider,
-} from "uds-tailwind-test"
+  type MenuNavigationItem,
+} from "@chg-ds/unified-design-system"
+
+const navigationItems: MenuNavigationItem[] = [{ id: "notifications", label: "Notifications" }]
 
 export function SettingsFormExample() {
   return (
     <TooltipProvider>
-      <SidebarProvider>
-        <AppShell
-          className="min-h-dvh w-full min-w-0"
-          mainClassName="bg-[var(--uds-color-neutrals-50)]"
-          showListview={false}
-          sidebar={
-            <Sidebar collapsible="none">
-              <SidebarHeader className="border-b px-4 py-4">Admin settings</SidebarHeader>
-              <SidebarContent className="px-2 py-3">
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive>Notifications</SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </SidebarContent>
-            </Sidebar>
-          }
-        >
-          <div className="flex h-full flex-col gap-6 p-6">
+      <AppShell
+        className="min-h-dvh w-full min-w-0"
+        enableRouterOutlet={false}
+        menu={<Menu navigationItems={navigationItems} activeId="notifications" onNavigationSelect={() => {}} />}
+      >
+        <AppShell.Main>
+          <div className="flex flex-col gap-6 p-6">
             <SectionHeader>
               <SectionHeaderContent>
                 <SectionHeaderTitle>Notification routing</SectionHeaderTitle>
@@ -100,8 +85,8 @@ export function SettingsFormExample() {
               </div>
             </Card>
           </div>
-        </AppShell>
-      </SidebarProvider>
+        </AppShell.Main>
+      </AppShell>
     </TooltipProvider>
   )
 }

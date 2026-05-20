@@ -25,7 +25,13 @@ import {
   TooltipProvider,
 } from '@chg-ds/unified-design-system'
 import { DocsVersionSelect } from './components/DocsVersionSelect'
-import { applyDocsBrandToDocument, DOCS_BRAND_OPTIONS, readStoredDocsBrand } from './doc-site-brand'
+import {
+  applyDocsBrandToDocument,
+  DOCS_BRAND_OPTIONS,
+  DOCS_BRAND_STORAGE_KEY,
+  DOCS_SITE_DEFAULT_BRAND,
+  readStoredDocsBrand,
+} from './doc-site-brand'
 import {
   DocsVersionProvider,
   DocsVersionRouteGuard,
@@ -94,6 +100,8 @@ function DocsLayout() {
           <DocsVersionSelect />
           <Menu
             navigationItems={navigationItems}
+            defaultBrand={DOCS_SITE_DEFAULT_BRAND}
+            brandStorageKey={DOCS_BRAND_STORAGE_KEY}
             brandOptions={DOCS_BRAND_OPTIONS}
             activeId={activeId}
             onNavigationSelect={handleNavigationSelect}

@@ -1,32 +1,20 @@
-import type { BrandingAppearance } from '@chg-ds/unified-design-system'
+import type { BrandingAppearance } from '@/components/ui/branding'
+import {
+  applyUdsBrandToDocument,
+  persistBrandToStorage,
+  readBrandFromStorage,
+  UDS_BRAND_OPTIONS,
+  udsBrandToBrandingAppearance,
+  type UdsBrandId,
+} from '@/lib/uds-brand'
 
 /** Values that match `[data-brand=…]` selectors in `uds-tokens.css`. */
+export type DocsBrandId = UdsBrandId
 
-export type DocsBrandId =
-  | 'default'
-  | 'comphealth'
-  | 'weatherby'
-  | 'connect'
-  | 'locumsmart'
-  | 'wireframe'
-  | 'modio'
-  | 'gms'
-  | 'chg'
-
-/** Baseline palette for the docs site when no brand is stored (`data-brand` on `documentElement`). */
+/** Docs app baseline when no brand is stored (Connect for the internal docs site). */
 export const DOCS_SITE_DEFAULT_BRAND: DocsBrandId = 'connect'
 
-export const DOCS_BRAND_OPTIONS: { value: DocsBrandId; label: string }[] = [
-  { value: 'default', label: 'Default' },
-  { value: 'comphealth', label: 'CompHealth' },
-  { value: 'weatherby', label: 'Weatherby' },
-  { value: 'connect', label: 'Connect' },
-  { value: 'locumsmart', label: 'Locumsmart' },
-  { value: 'wireframe', label: 'Wireframe' },
-  { value: 'modio', label: 'Modio' },
-  { value: 'gms', label: 'GMS' },
-  { value: 'chg', label: 'CHG' },
-]
+export const DOCS_BRAND_OPTIONS = UDS_BRAND_OPTIONS
 
 export const DOCS_BRAND_STORAGE_KEY = 'docs-site-data-brand'
 
@@ -34,59 +22,25 @@ export const DOCS_BRAND_STORAGE_KEY = 'docs-site-data-brand'
 export const INTRO_PREVIEW_BRAND_STORAGE_KEY = 'docs-intro-preview-brand'
 
 export function readStoredDocsBrand(): DocsBrandId {
-  if (typeof window === 'undefined') return DOCS_SITE_DEFAULT_BRAND
-  try {
-    const raw = window.localStorage.getItem(DOCS_BRAND_STORAGE_KEY)
-    if (raw && DOCS_BRAND_OPTIONS.some((o) => o.value === raw)) return raw as DocsBrandId
-  } catch {
-    // private mode / denied
-  }
-  return DOCS_SITE_DEFAULT_BRAND
+  return readBrandFromStorage(DOCS_BRAND_STORAGE_KEY, DOCS_SITE_DEFAULT_BRAND)
 }
 
 export function persistDocsBrand(id: DocsBrandId) {
-  try {
-    window.localStorage.setItem(DOCS_BRAND_STORAGE_KEY, id)
-  } catch {
-    // ignore
-  }
+  persistBrandToStorage(DOCS_BRAND_STORAGE_KEY, id)
 }
 
 export function readStoredIntroPreviewBrand(): DocsBrandId {
-  if (typeof window === 'undefined') return DOCS_SITE_DEFAULT_BRAND
-  try {
-    const raw = window.localStorage.getItem(INTRO_PREVIEW_BRAND_STORAGE_KEY)
-    if (raw && DOCS_BRAND_OPTIONS.some((o) => o.value === raw)) return raw as DocsBrandId
-  } catch {
-    // private mode / denied
-  }
-  return DOCS_SITE_DEFAULT_BRAND
+  return readBrandFromStorage(INTRO_PREVIEW_BRAND_STORAGE_KEY, DOCS_SITE_DEFAULT_BRAND)
 }
 
 export function persistIntroPreviewBrand(id: DocsBrandId) {
-  try {
-    window.localStorage.setItem(INTRO_PREVIEW_BRAND_STORAGE_KEY, id)
-  } catch {
-    // ignore
-  }
+  persistBrandToStorage(INTRO_PREVIEW_BRAND_STORAGE_KEY, id)
 }
 
 export function applyDocsBrandToDocument(id: DocsBrandId) {
-  document.documentElement.dataset.brand = id
+  applyUdsBrandToDocument(id)
 }
 
-/** Maps CSS token brand to the nearest `Branding` SVG row (GMS uses the unified mark; CHG uses Wireframe SVGs via `appearance="CHG"`). */
 export function docsBrandToBrandingAppearance(id: DocsBrandId): BrandingAppearance {
-  const map = {
-    default: 'Design System',
-    comphealth: 'MyCompHealth',
-    weatherby: 'MyWeatherby',
-    connect: 'Connect',
-    locumsmart: 'Locumsmart',
-    wireframe: 'Wireframe',
-    modio: 'Modio',
-    gms: 'Design System',
-    chg: 'CHG',
-  } as const satisfies Record<DocsBrandId, BrandingAppearance>
-  return map[id]
+  return udsBrandToBrandingAppearance(id)
 }

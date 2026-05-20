@@ -6,27 +6,43 @@ Use for operational overview screens with metrics, queue summaries, alerts, and 
 
 ## Required imports
 
-Import runtime components from `uds-tailwind-test` and styles from `uds-tailwind-test/styles.css`.
+```ts
+import { AppShell, Menu, /* … */ } from "@chg-ds/unified-design-system"
+import "@chg-ds/unified-design-system/styles.css"
+```
 
 ## Required layout primitives
 
-Use `AppShell` for the page frame and compose major sections with `SectionHeader`, `Card`, `Badge`, `Status`, and `Medallion`.
+- **`AppShell`** with **`menu={<Menu … />}`** (not `Sidebar*` in the menu slot).
+- **`AppShell.Main`** for page content.
+- **`enableRouterOutlet={false}`** unless the app uses React Router with a layout route (see [`ai/guides/appshell-navigation.md`](../guides/appshell-navigation.md)).
+- Compose sections with **`SectionHeader`**, **`Card`**, **`Badge`**, **`Status`**, and **`Medallion`**.
 
 ## Forbidden substitutions
 
-Do not build a neutral placeholder dashboard from anonymous `div` blocks when `Card`, `SectionHeader`, `Status`, and `Medallion` already fit the job.
+- Do not use `sidebar`, `sidebarWidth`, `showListview`, or `mainClassName` — they are not on the published API.
+- Do not build a neutral placeholder dashboard from anonymous `div` blocks when UDS components fit.
+- Do not put **`Sidebar*`** in the AppShell menu slot without custom rail CSS.
 
 ## JSX skeleton
 
 ```tsx
-<AppShell sidebar={sidebar}>
-  <div className="flex h-full flex-col gap-6 p-6">
+<AppShell
+  className="min-h-dvh w-full min-w-0"
+  enableRouterOutlet={false}
+  menu={<Menu navigationItems={items} activeId={activeId} onNavigationSelect={onSelect} />}
+>
+  <AppShell.Main>
     <SectionHeader>{/* title + actions */}</SectionHeader>
     <div className="grid gap-4 xl:grid-cols-3">{/* branded summary cards */}</div>
     <Card>{/* queue or KPI detail */}</Card>
-  </div>
+  </AppShell.Main>
 </AppShell>
 ```
+
+## Canonical example
+
+[`ai/examples/workspace-dashboard.tsx`](../examples/workspace-dashboard.tsx)
 
 ## Brand application
 

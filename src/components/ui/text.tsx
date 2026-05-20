@@ -86,18 +86,19 @@ const textVariants = cva("min-w-0 font-sans text-foreground [font-family:var(--f
   },
 })
 
-function typographyStyleClass(
+/** Typography from `--uds-type-*` tokens (inline styles — dynamic `[font-size:var(...)]` classes are not emitted by Tailwind). */
+function typographyStyle(
   variant: TextVariant,
   size: TextSize,
   lineHeight: TextLineHeight,
-): string {
-  const prefix = `--uds-type-${variant}-${size}`
-  return cn(
-    `[font-size:var(${prefix}-font-size)]`,
-    `[line-height:var(${prefix}-line-${lineHeight})]`,
-    `[letter-spacing:var(${prefix}-letter-spacing)]`,
-    `[text-transform:var(${prefix}-text-transform)]`,
-  )
+): React.CSSProperties {
+  const prefix = `--uds-type-${variant}-${size}` as const
+  return {
+    fontSize: `var(${prefix}-font-size)`,
+    lineHeight: `var(${prefix}-line-${lineHeight})`,
+    letterSpacing: `var(${prefix}-letter-spacing)`,
+    textTransform: `var(${prefix}-text-transform)` as React.CSSProperties["textTransform"],
+  }
 }
 
 type TextAs = "p" | "span" | "div" | "strong" | "em" | "label"
@@ -121,6 +122,7 @@ function Text({
   lineHeight = "regular",
   weight,
   appearance,
+  style,
   as: Comp = "p",
   ...rest
 }: TextProps) {
@@ -131,11 +133,8 @@ function Text({
     "data-variant": variant,
     "data-size": resolvedSize,
     "data-line-height": lineHeight,
-    className: cn(
-      textVariants({ weight, appearance }),
-      typographyStyleClass(variant, resolvedSize, lineHeight),
-      className,
-    ),
+    style: { ...typographyStyle(variant, resolvedSize, lineHeight), ...style },
+    className: cn(textVariants({ weight, appearance }), className),
   } as never)
 }
 

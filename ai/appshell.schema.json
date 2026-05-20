@@ -59,7 +59,15 @@
           "description": "Merged onto root appshell div; prefer min-h-dvh w-full min-w-0 for full-viewport shells."
         },
         "menu": {
-          "description": "Sidebar rail content — typically <Menu /> from the same package."
+          "description": "Sidebar rail content — canonical: <Menu /> from the same package. AppShell CSS targets [data-slot=uds-menu-root]; do not use Sidebar* here without custom rail CSS."
+        },
+        "sidebar": {
+          "description": "Deprecated alias of menu for older docs only."
+        },
+        "enableRouterOutlet": {
+          "type": "boolean",
+          "default": true,
+          "description": "When true, renders React Router <Outlet /> inside .appshell--main before main children. Set false for static apps."
         },
         "headerRight": {
           "description": "ReactNode passed to the built-in Header as `trailing` (right actions). Not a replacement for the full <Header />; AppShell always renders Header."
@@ -158,7 +166,7 @@
     "behavior": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["routing", "menuWidth", "listview", "footer", "header"],
+      "required": ["routing", "menuWidth", "listview", "footer", "header", "cssVariables"],
       "properties": {
         "routing": {
           "type": "object",
@@ -172,13 +180,16 @@
           "default": "Body offset uses margin-left: 280px or 64px via CSS :has([data-slot=\"uds-menu-root\"][data-expanded=\"false\"]). AppShell does not own Menu expand state."
         },
         "listview": {
-          "default": "Open when listview slot is non-null. Container animates width 0↔320px; inner child stays 320px with opacity fade."
+          "default": "Open when listview slot is non-null. In-flow column (--appshell-listview-width); pane overflow:hidden. Only .appshell--main scrolls. List body scrolls inside [data-slot=appshell-listview-scroll] on the direct child column (header shrink-0). Shell height locks to 100dvh when open."
         },
         "footer": {
           "default": "Not position:fixed. Rendered as the last child inside .appshell--main so it scrolls with page content. Nested [data-slot=uds-footer] has border-top suppressed in shell CSS."
         },
         "header": {
-          "default": "position:fixed at top of the content column (left tracks menu width). .appshell--content uses padding-top: var(--appshell-header-height, 60px). Always uses package Header with optional trailing from AppShell.Header / headerRight."
+          "default": "position:fixed; left tracks --appshell-menu-width-expanded|collapsed. .appshell--content has padding-top: --appshell-header-height. Always uses package Header with optional trailing from AppShell.Header / headerRight."
+        },
+        "cssVariables": {
+          "default": "On .appshell: --appshell-menu-width-expanded (280px), --appshell-menu-width-collapsed (64px), --appshell-listview-width (320px), --appshell-header-height (3.5rem)."
         }
       }
     },
@@ -188,11 +199,15 @@
       "default": [
         "Import AppShell only from @chg-ds/unified-design-system (and styles from @chg-ds/unified-design-system/styles.css). Never import from src/components/ui/* or dist/* in consumer code.",
         "Use AppShell as the authenticated product shell default per ai/uds-contract.json layoutDefaults.",
-        "Compose the menu slot with the package Menu component; do not replace the rail with a bespoke aside unless the product explicitly requires a non-UDS layout.",
+        "Canonical navigation: compose the menu slot with the package Menu component only. Sidebar* belongs in in-page layouts, not AppShell.menu, unless the team owns full rail positioning CSS.",
+        "Published props: menu, listview, headerRight, footer, enableRouterOutlet, className. There is no sidebarWidth, showListview, or mainClassName. sidebar is a deprecated alias of menu.",
         "AppShell.Header supplies only the trailing (and implicit search configuration) for the built-in Header — it does not accept a full custom header node.",
-        "Place routable page UI in AppShell.Main or as children; rely on <Outlet /> for route components.",
-        "Use listview for master-detail or queue patterns; omit the slot to hide the column.",
-        "Footer is optional; when used, prefer package Footer — top border is removed inside AppShell footer region by design."
+        "Place page UI in AppShell.Main. When enableRouterOutlet is true (default), nested React Router child routes render in the bundled Outlet before main children; use one Router wrapping the layout route. Set enableRouterOutlet false for static pages.",
+        "Do not add CSS that sets .appshell--main > :first-child to max-height: 0 or otherwise hides the first main child to fix spacing.",
+        "Do not assume a consumer-only BrowserRouter feeds AppShell without nesting AppShell as a layout route under the same router.",
+        "Use listview prop for master-detail or queue patterns; omit to collapse the column (no showListview prop). Structure listview as flex column: shrink-0 header + [data-slot=appshell-listview-scroll] for the list body. Do not use position:fixed on listview unless you own all offsets.",
+        "Footer is optional; when used, prefer package Footer — top border is removed inside AppShell footer region by design.",
+        "Debug: content at bottom → use AppShell.Main only, avoid flex-1 on page root; empty main → enableRouterOutlet false or add child routes; rail overlap → use Menu in menu slot. See ai/guides/appshell-navigation.md."
       ]
     }
   }
