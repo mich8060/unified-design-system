@@ -173,7 +173,7 @@ function ColorRampTabSwatch({ token }: { token: string }) {
   return (
     <span
       className={cn(
-        'block size-8 shrink-0 rounded-full border border-neutral-200 shadow-sm',
+        'block size-8 shrink-0 rounded-full border border-neutral-200',
         'group-data-[state=active]:border-2 group-data-[state=active]:border-neutral-900',
         'dark:group-data-[state=active]:border-neutral-100',
       )}
