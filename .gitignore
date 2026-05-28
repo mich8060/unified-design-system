@@ -7,7 +7,6 @@ dist/
 
 # Scratch / generated artifacts
 .tmp/
-release/
 
 # Environment files
 .env
