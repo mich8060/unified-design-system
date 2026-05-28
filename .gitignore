@@ -5,6 +5,10 @@ node_modules/
 build/
 dist/
 
+# Scratch / generated artifacts
+.tmp/
+release/
+
 # Environment files
 .env
 .env.local

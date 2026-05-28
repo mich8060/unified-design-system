@@ -178,9 +178,13 @@ export function DialogVariants() {
   )
 }
 
+function isFigmaCaptureSession(): boolean {
+  return typeof window !== 'undefined' && window.location.hash.includes('figmacapture=')
+}
+
 export function AlertDialogVariants() {
   return (
-    <AlertDialog>
+    <AlertDialog defaultOpen={isFigmaCaptureSession()}>
       <AlertDialogTrigger asChild>
         <Button type="button" variant="destructive" size="sm">
           Delete item

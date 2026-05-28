@@ -110,3 +110,28 @@ body {
     opacity: var(--welcome-header-icon-flux-base, 0.06);
   }
 }
+
+/*
+ * Figma html-to-design capture toolbar (closed shadow DOM).
+ * Elevate the host (inner UI z-index does not escape the shadow tree).
+ * Do not use inset:0 or pointer-events:none on the host — both break toolbar
+ * button clicks (e.g. "Entire screen") inside the closed shadow root.
+ */
+#__figma_capture_toolbar_host__ {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  z-index: 2147483647 !important;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+/* Keep modal layers below the Figma capture toolbar while capture is active */
+body:has(#__figma_capture_toolbar_host__) [data-slot='alert-dialog-overlay'],
+body:has(#__figma_capture_toolbar_host__) [data-slot='alert-dialog-content'],
+body:has(#__figma_capture_toolbar_host__) [data-slot='dialog-overlay'],
+body:has(#__figma_capture_toolbar_host__) [data-slot='dialog-content'] {
+  z-index: var(--uds-elevation-overlay, 1100) !important;
+}
