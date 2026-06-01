@@ -31,6 +31,7 @@ export function DocsVersionProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<'loading' | 'ready'>('loading')
 
   useLayoutEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVersionId(getDocsSiteDefaultVersion())
     try {
       window.localStorage.removeItem(DOCS_VERSION_STORAGE_KEY)
@@ -45,6 +46,7 @@ export function DocsVersionProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let cancelled = false
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStatus('loading')
 
     void loadDocsVersionBundle(versionId).then((nextBundle) => {

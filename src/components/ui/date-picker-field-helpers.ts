@@ -119,6 +119,7 @@ export function useFlipPopoverSide(
       window.removeEventListener("scroll", measure, true)
       window.removeEventListener("resize", measure)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, measure])
 
   return side

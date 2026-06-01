@@ -751,6 +751,7 @@ function MenuNavigation({
       }
       return changed ? next : prev
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupStructureKey])
 
   React.useEffect(() => {
@@ -768,6 +769,7 @@ function MenuNavigation({
       }
       return changed ? next : prev
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeId, groupStructureKey])
 
   const toggleGroup = React.useCallback((id: string) => {
