@@ -1,4 +1,4 @@
 {
   "maxBundleBytes": 1500000,
-  "description": "Upper bound for esbuild output of `.audit/entry-button.mjs` (Button-only tree from dist). Raise intentionally when the public bundle grows."
+  "description": "Upper bound for esbuild output of `.audit/entry-button.mjs` (Button-only tree from preserveModules dist). Lib build must keep per-module files under dist/ so this audit tree-shakes; a single dist/index.js bundle defeats the check."
 }

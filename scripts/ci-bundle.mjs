@@ -1,6 +1,7 @@
 /**
- * Bundles `.audit/entry-button.mjs` (single `Button` import from `dist`) and enforces a byte budget.
- * Requires `npm run build:lib` first so `dist/index.js` exists.
+ * Bundles `.audit/entry-button.mjs` (single `Button` import from `dist/index.js`) and enforces a byte budget.
+ * Requires `npm run build:lib` first. The lib build uses preserveModules so esbuild can tree-shake
+ * to the Button subgraph instead of pulling the whole library barrel.
  */
 import * as esbuild from "esbuild"
 import fs from "node:fs"

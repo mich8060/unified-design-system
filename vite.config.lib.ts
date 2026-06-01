@@ -39,6 +39,8 @@ export default defineConfig({
       external: (id) =>
         external.some((dep) => id === dep || id.startsWith(`${dep}/`)),
       output: {
+        preserveModules: true,
+        preserveModulesRoot: path.resolve(__dirname, './src'),
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'styles.css') return 'styles.css'
           return 'assets/[name]-[hash][extname]'
