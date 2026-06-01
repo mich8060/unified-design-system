@@ -9,19 +9,22 @@ const baseButtonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground",
+        default:
+          "bg-uds-button-surface-primary-default text-uds-button-text-default hover:bg-uds-button-surface-primary-hover",
         outline:
-          "border-border bg-background text-foreground hover:bg-muted hover:text-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "text-foreground hover:bg-muted hover:text-foreground",
+          "border-border bg-background text-uds-button-text-secondary hover:bg-muted hover:text-uds-button-text-secondary",
+        secondary:
+          "bg-uds-button-surface-secondary-default text-uds-button-text-secondary hover:bg-uds-button-surface-secondary-hover",
+        ghost:
+          "text-uds-button-text-secondary hover:bg-muted hover:text-uds-button-text-secondary",
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20",
-        link: "text-primary underline-offset-4 hover:underline",
+        link: "text-uds-button-text-tertiary underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-10 gap-1.5 rounded-md px-4 text-sm",
-        sm: "h-9 gap-1.5 rounded-md px-3 text-sm",
-        lg: "h-11 gap-1.5 rounded-md px-6 text-base",
+        default: "h-10 gap-[length:var(--uds-gap-8)] rounded-md px-4 text-sm",
+        sm: "h-9 gap-[length:var(--uds-gap-8)] rounded-md px-3 text-sm",
+        lg: "h-11 gap-[length:var(--uds-gap-8)] rounded-md px-6 text-base",
         icon: "size-9 rounded-md p-0 text-base",
       },
     },

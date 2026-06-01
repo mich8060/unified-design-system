@@ -137,7 +137,7 @@ function OverviewPreview() {
       <p>
         <strong className="text-neutral-900 dark:text-neutral-100">Icons</strong> are Phosphor-style names in the contract; in app
         code, resolve them to components{' '}
-        <strong className="text-neutral-900 dark:text-neutral-100">imported from the published design system package</strong>{' '}
+        <strong className="text-neutral-900 dark:text-neutral-100">imported from the design system package</strong>{' '}
         (e.g. <code className="rounded bg-neutral-100 px-1 font-mono text-xs dark:bg-neutral-800">@chg-ds/unified-design-system</code>
         ), which re-exports them through <code className="rounded bg-neutral-100 px-1 font-mono text-xs dark:bg-neutral-800">uds-icons</code>
         — avoid importing <code className="rounded bg-neutral-100 px-1 font-mono text-xs dark:bg-neutral-800">@phosphor-icons/react</code>{' '}

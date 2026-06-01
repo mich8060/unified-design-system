@@ -98,6 +98,30 @@ function resolveSystemColorRef(name, ctx, depth = 0) {
   return null
 }
 
+/** Follow var() chain until a --brand-* token is reached (for Figma brand aliases). */
+function resolveBrandRef(name, ctx, depth = 0) {
+  if (depth > 32) return null
+  if (name.startsWith('--brand-')) return name
+  const raw = ctx[name]
+  if (raw == null) return null
+  const trimmed = raw.trim()
+  const ref = trimmed.match(/^var\(\s*(--[\w-]+)\s*(?:,\s*[^)]+)?\s*\)$/)
+  if (ref) return resolveBrandRef(ref[1], ctx, depth + 1)
+  return null
+}
+
+/** CSS custom-property name -> Figma variable path (mirror of generator's tokenPath). */
+function figmaPath(cssName) {
+  return cssName.replace(/^--/, '').replace(/-/g, '/')
+}
+
+/** Given a CSS value like `var(--uds-color-primary-500)`, follow it to a --brand-* ref. */
+function brandRefFromValue(value, ctx) {
+  const m = String(value).trim().match(/^var\(\s*(--[\w-]+)\s*(?:,\s*[^)]+)?\s*\)$/)
+  if (!m) return null
+  return resolveBrandRef(m[1], ctx)
+}
+
 /** Resolve a token value to a pixel number (supports var(), calc(± Npx), and Npx). */
 function resolvePx(expr, ctx, depth = 0) {
   if (depth > 32) return null
@@ -169,6 +193,7 @@ const blocks = parseBlocks()
 
 const systemColors = {}
 const brandByMode = {}
+const buttonByBrand = {}
 const spacing = {}
 const radius = {}
 const gap = {}
@@ -182,6 +207,11 @@ for (const { selectors, vars } of blocks) {
     for (const [name, value] of Object.entries(vars)) {
       if (name.startsWith('--brand-') && isHex(value)) {
         brandByMode[brandMode][name] = value
+      } else if (name.startsWith('--uds-button-')) {
+        // Per-brand button component-token overrides (e.g. a brand picking a
+        // different ramp step for buttons). Captured for Figma extension overrides.
+        if (!buttonByBrand[brandMode]) buttonByBrand[brandMode] = {}
+        buttonByBrand[brandMode][name] = value
       }
     }
     continue
@@ -224,7 +254,7 @@ const semanticKeys = new Set(
   [...Object.keys(lightCtx), ...Object.keys(darkCtx)].filter(isSemanticName),
 )
 
-/** @type {[string, string | null, string | null, string, string][]} */
+/** @type {[string, string|null, string|null, string|null, string|null, string, string][]} */
 const semanticColors = []
 /** @type {[string, string][]} */
 const semanticFloats = []
@@ -267,8 +297,18 @@ for (const name of [...semanticKeys].sort(compareCssTokenNames)) {
     const dark = isColorValue(darkResolved) ? darkResolved : lightResolved
     const lightSystemRef = resolveSystemColorRef(name, lightCtx)
     const darkSystemRef = resolveSystemColorRef(name, darkResolveCtx)
+    const lightBrandRef = lightSystemRef ? null : resolveBrandRef(name, lightCtx)
+    const darkBrandRef = darkSystemRef ? null : resolveBrandRef(name, darkResolveCtx)
     if (light && dark) {
-      semanticColors.push([name, lightSystemRef, darkSystemRef, light, dark])
+      semanticColors.push([
+        name,
+        lightSystemRef,
+        darkSystemRef,
+        lightBrandRef,
+        darkBrandRef,
+        light,
+        dark,
+      ])
     }
     continue
   }
@@ -299,6 +339,65 @@ for (const name of Object.keys(lightCtx)) {
 }
 responsiveType.sort(compareTypeTokenEntries)
 
+// --- Group A extras: sizing, elevation (z-index), font family/weights, letter-spacing ---
+function remOrPxToPx(value) {
+  const v = String(value).trim()
+  const rem = v.match(/^(-?\d+(?:\.\d+)?)rem$/)
+  if (rem) return Math.round(parseFloat(rem[1]) * 16)
+  if (isPx(v)) return parseFloat(v)
+  return null
+}
+
+function primaryFontFamily(value) {
+  const first = String(value).split(',')[0].trim()
+  return first.replace(/^["']|["']$/g, '')
+}
+
+/** @type {[string, number][]} cssName, px */
+const sizing = []
+for (const name of Object.keys(lightCtx)) {
+  if (!/^--uds-sizing-\d+$/.test(name)) continue
+  const px = remOrPxToPx(lightCtx[name])
+  if (px != null) sizing.push([name, px])
+}
+sizing.sort((a, b) => a[1] - b[1])
+
+/** @type {[string, number][]} cssName, z-index */
+const elevation = []
+for (const name of Object.keys(lightCtx)) {
+  if (!/^--uds-elevation-/.test(name)) continue
+  const n = Number(String(lightCtx[name]).trim())
+  if (Number.isFinite(n)) elevation.push([name, n])
+}
+elevation.sort((a, b) => a[1] - b[1])
+
+/** @type {{ family: string|null, weights: [string, number][] }} */
+const font = { family: null, weights: [] }
+for (const name of Object.keys(lightCtx)) {
+  if (name === '--uds-font-family') {
+    font.family = primaryFontFamily(lightCtx[name])
+  } else if (/^--uds-font-weight/.test(name)) {
+    const n = Number(String(lightCtx[name]).trim())
+    if (Number.isFinite(n)) font.weights.push([name, n])
+  }
+}
+font.weights.sort((a, b) => a[1] - b[1])
+
+/** @type {[string, number][]} cssBase, letter-spacing percent (em*100) */
+const letterSpacing = []
+for (const name of Object.keys(lightCtx)) {
+  const m = name.match(/^--uds-type-(display|heading|body)-(\d+)-letter-spacing$/)
+  if (!m) continue
+  const cssBase = `--uds-type-${m[1]}-${m[2]}`
+  const v = String(lightCtx[name]).trim()
+  const em = v.match(/^(-?\d+(?:\.\d+)?)em$/)
+  let percent = null
+  if (em) percent = Math.round(parseFloat(em[1]) * 100 * 100) / 100
+  else if (v === '0' || v === 'normal') percent = 0
+  if (percent != null) letterSpacing.push([cssBase, percent])
+}
+letterSpacing.sort(compareTypeTokenEntries)
+
 const brandModes = Object.keys(brandByMode).sort()
 const allBrandKeys = new Set()
 for (const mode of brandModes) {
@@ -309,6 +408,38 @@ for (const mode of brandModes) {
 
 semanticColors.sort(compareColorTokenEntries)
 
+// Button component tokens: the subset of semanticColors under --uds-button-*.
+// Created in the Brand collection (base) with Light/Dark aliases.
+const buttonTokens = semanticColors.filter(([name]) => name.startsWith('--uds-button-'))
+
+// Per-brand button overrides: where a brand resolves a button token to a
+// different --brand-* ref than the default (in Light and/or Dark), emit a Figma
+// extension override. Light and Dark can differ because the semantic ramp is
+// reversed in dark mode (e.g. --uds-color-primary-500 -> --brand-primary-300).
+// Shape: { '<figma button path>': { '<brandKey>': { light, dark } } }
+const defaultBrandRefByName = new Map(
+  buttonTokens.map(([name, , , lightBrandRef, darkBrandRef]) => [
+    name,
+    { light: lightBrandRef, dark: darkBrandRef },
+  ]),
+)
+const buttonOverrides = {}
+for (const [brand, tokens] of Object.entries(buttonByBrand)) {
+  for (const [cssName, value] of Object.entries(tokens)) {
+    const base = defaultBrandRefByName.get(cssName)
+    if (!base || (!base.light && !base.dark)) continue // not a ramp alias by default
+    const lr = brandRefFromValue(value, lightCtx) || base.light
+    const dr = brandRefFromValue(value, darkResolveCtx) || base.dark
+    if (lr === base.light && dr === base.dark) continue // no real difference
+    const key = figmaPath(cssName)
+    if (!buttonOverrides[key]) buttonOverrides[key] = {}
+    buttonOverrides[key][brand] = {
+      light: lr ? figmaPath(lr) : null,
+      dark: dr ? figmaPath(dr) : null,
+    }
+  }
+}
+
 const out = {
   systemColors: Object.entries(systemColors).sort(compareColorTokenEntries),
   brand: { modes: brandModes, keys: [...allBrandKeys].sort(compareCssTokenNames), byMode: brandByMode },
@@ -316,13 +447,25 @@ const out = {
   radius: Object.entries(radius).sort(([a], [b]) => a.localeCompare(b)),
   gap: Object.entries(gap).sort(([a], [b]) => a.localeCompare(b)),
   semanticColors,
+  buttonTokens,
+  buttonOverrides,
   semanticFloats,
   typographyLineHeights,
   responsiveType,
+  sizing,
+  elevation,
+  font,
+  letterSpacing,
   semanticColorsCount: semanticColors.length,
+  buttonTokensCount: buttonTokens.length,
+  buttonOverridesCount: Object.keys(buttonOverrides).length,
   semanticFloatsCount: semanticFloats.length,
   typographyLineHeightsCount: typographyLineHeights.length,
   responsiveTypeCount: responsiveType.length,
+  sizingCount: sizing.length,
+  elevationCount: elevation.length,
+  fontWeightsCount: font.weights.length,
+  letterSpacingCount: letterSpacing.length,
 }
 
 console.log(JSON.stringify(out, null, 2))

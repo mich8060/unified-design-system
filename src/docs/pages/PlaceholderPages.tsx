@@ -273,7 +273,11 @@ export function InstallPage() {
 
       <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Install the package</h2>
       <p className="mt-3 text-neutral-600 dark:text-neutral-300">
-        Install from the public npm registry. You still declare <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">react</code> and{' '}
+        The design system is distributed as a versioned tarball (a{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">.tgz</code> produced by{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm pack</code>), not from a public registry
+        or CDN. Place the tarball in your repository and install it from the local path. You still declare{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">react</code> and{' '}
         <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">react-dom</code> in your app; they are not bundled
         inside the design system.
       </p>
@@ -281,19 +285,38 @@ export function InstallPage() {
         <CodePanel
           label="npm"
           language="bash"
-          code={`npm install @chg-ds/unified-design-system`}
+          code={`npm install ./vendor/chg-ds-unified-design-system-1.0.5.tgz`}
         />
         <CodePanel
           label="pnpm"
           language="bash"
-          code={`pnpm add @chg-ds/unified-design-system`}
+          code={`pnpm add ./vendor/chg-ds-unified-design-system-1.0.5.tgz`}
         />
         <CodePanel
           label="yarn"
           language="bash"
-          code={`yarn add @chg-ds/unified-design-system`}
+          code={`yarn add ./vendor/chg-ds-unified-design-system-1.0.5.tgz`}
         />
       </div>
+      <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+        Reference the tarball with a <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">file:</code>{' '}
+        dependency in <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">package.json</code> so every
+        install resolves the same committed artifact:
+      </p>
+      <CodePanel
+        label="package.json"
+        language="json"
+        code={`{
+  "dependencies": {
+    "@chg-ds/unified-design-system": "file:./vendor/chg-ds-unified-design-system-1.0.5.tgz"
+  }
+}`}
+      />
+      <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+        Maintainers produce the tarball with <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm run build:lib</code>{' '}
+        then <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm pack</code>; the filename is derived
+        from the package name and version.
+      </p>
 
       <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Add global styles</h2>
       <p className="mt-3 text-neutral-600 dark:text-neutral-300">
@@ -873,7 +896,7 @@ export function UsagePage() {
   return (
     <MarkdownishPage kicker="Getting Started" title="Usage">
       <p>
-        This library is meant to be consumed as a normal npm dependency: one stylesheet at the root, components from
+        This library is meant to be consumed as a normal package dependency: one stylesheet at the root, components from
         the package export, and composition patterns that match what you see in these docs. The sections below mirror
         what we encode for AI and internal teams in the repo contract.
       </p>
@@ -881,7 +904,7 @@ export function UsagePage() {
       <h2 className="pt-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Allowed imports</h2>
       <p className="mt-3 text-neutral-600 dark:text-neutral-300">
         In application code, import runtime UI from the package root and styles from the dedicated export. Do not deep-import
-        from paths that are not part of the published <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">exports</code> map
+        from paths that are not part of the package <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">exports</code> map
         (for example monorepo <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">src/</code> paths or stale package names).
       </p>
       <CodePanel

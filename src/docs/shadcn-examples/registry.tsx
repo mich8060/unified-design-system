@@ -991,6 +991,32 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
 </Accordion>`,
         ),
         E(
+            'boxed-filled',
+            'Border with secondary surface fill (full width)',
+            (
+                <Accordion type="single" collapsible variant="boxed-filled" className="w-full">
+                    <AccordionItem value="a">
+                        <AccordionTrigger>Section one</AccordionTrigger>
+                        <AccordionContent>Content for the first section.</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="b">
+                        <AccordionTrigger>Section two</AccordionTrigger>
+                        <AccordionContent>Content for the second section.</AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            ),
+            `<Accordion type="single" collapsible variant="boxed-filled" className="w-full">
+  <AccordionItem value="a">
+    <AccordionTrigger>Section one</AccordionTrigger>
+    <AccordionContent>Content for the first section.</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="b">
+    <AccordionTrigger>Section two</AccordionTrigger>
+    <AccordionContent>Content for the second section.</AccordionContent>
+  </AccordionItem>
+</Accordion>`,
+        ),
+        E(
             'divided',
             'Borders only between items (full width)',
             (
@@ -1528,8 +1554,16 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             (
                 <div className="flex flex-wrap items-center gap-2">
                     {(['xs', 'sm', 'default', 'lg', 'icon'] as const).map((size) => (
-                        <Button key={size} type="button" size={size} variant="outline" className="capitalize">
-                            {size === 'icon' ? '↗' : size}
+                        <Button key={size} type="button" size={size} variant="outline">
+                            {size === 'icon'
+                                ? '↗'
+                                : size === 'xs'
+                                  ? 'Extra Small'
+                                  : size === 'sm'
+                                    ? 'Small'
+                                    : size === 'lg'
+                                      ? 'Large'
+                                      : 'Default'}
                         </Button>
                     ))}
                 </div>

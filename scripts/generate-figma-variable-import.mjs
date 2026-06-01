@@ -138,7 +138,7 @@ function emitSystem() {
   const slice = data.systemColors.slice(start, end)
   return `${HELPERS}
 const PAGE = await ensurePage('UDS Tokens');
-const { coll, modeIds } = await ensureColorCollection('System Colors', ['Value']);
+const { coll, modeIds } = await ensureColorCollection('Colors', ['Value']);
 const modeId = modeIds.Value;
 const entries = ${JSON.stringify(slice)};
 const created = [];
@@ -266,28 +266,6 @@ return {
 `
 }
 
-/** Reverse a brand ramp per family: dark[step_i] = light[step_(n-1-i)]. */
-function reverseBrandDark(modeVars) {
-  const families = {}
-  for (const [css, hex] of Object.entries(modeVars)) {
-    const m = css.match(/^(.*)-(\d+)$/)
-    if (!m) continue
-    const fam = m[1]
-    const step = Number(m[2])
-    ;(families[fam] ||= []).push([step, css, hex])
-  }
-  const dark = {}
-  for (const fam of Object.keys(families)) {
-    const arr = families[fam].sort((a, b) => a[0] - b[0])
-    const vals = arr.map((x) => x[2])
-    const rev = [...vals].reverse()
-    arr.forEach(([, css], i) => {
-      dark[css] = rev[i]
-    })
-  }
-  return dark
-}
-
 const BRAND_LABELS = {
   chg: 'CHG',
   comphealth: 'CompHealth',
@@ -303,14 +281,9 @@ function emitBrandLightDark() {
   const byMode = data.brand.byMode
   const baseBrand = byMode.default ? 'default' : data.brand.modes[0]
   const extendOrder = data.brand.modes.filter((m) => m !== baseBrand)
-  // Precompute light/dark (reversed) per brand mode.
-  const lightDark = {}
-  for (const brand of data.brand.modes) {
-    lightDark[brand] = { light: byMode[brand], dark: reverseBrandDark(byMode[brand]) }
-  }
   return `${HELPERS}
 const PAGE = await ensurePage('UDS Tokens');
-const LIGHTDARK = ${JSON.stringify(lightDark)};
+const BYMODE = ${JSON.stringify(byMode)};
 const BASE_BRAND = ${JSON.stringify(baseBrand)};
 const LABELS = ${JSON.stringify(BRAND_LABELS)};
 const EXTEND_ORDER = ${JSON.stringify(extendOrder)};
@@ -340,13 +313,13 @@ for (const m of base.modes) {
   if (m.modeId !== lightId && m.modeId !== darkId) base.removeMode(m.modeId);
 }
 
-// Base brand variables (default brand): Light = ramp, Dark = reversed ramp.
+// Base brand ramp (default brand). Ramp is theme-independent: same value in Light and Dark.
+// The Light/Dark inversion happens at the semantic layer (uds/color/*), not the ramp.
 const byName = new Map();
 for (const v of await figma.variables.getLocalVariablesAsync('COLOR')) {
   if (v.variableCollectionId === base.id && v.name.startsWith('brand/')) byName.set(v.name, v);
 }
-const baseLight = LIGHTDARK[BASE_BRAND].light;
-const baseDark = LIGHTDARK[BASE_BRAND].dark;
+const baseLight = BYMODE[BASE_BRAND];
 for (const [cssName, hex] of Object.entries(baseLight)) {
   const name = tokenPath(cssName);
   let v = byName.get(name);
@@ -355,30 +328,30 @@ for (const [cssName, hex] of Object.entries(baseLight)) {
     byName.set(name, v);
   }
   v.scopes = BRAND_SCOPES;
-  const lc = parseColor(hex);
-  const dc = parseColor(baseDark[cssName]);
-  if (lc) v.setValueForMode(lightId, lc);
-  if (dc) v.setValueForMode(darkId, dc);
+  const c = parseColor(hex);
+  if (c) {
+    v.setValueForMode(lightId, c);
+    v.setValueForMode(darkId, c);
+  }
   v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
 }
 
-// Extensions: override brand ramp per brand (Light normal, Dark reversed).
+// Extensions: override brand ramp per brand (same value in Light and Dark).
 const createdExtended = [];
 for (const brand of EXTEND_ORDER) {
   const label = LABELS[brand] || brand;
   const ext = base.extend(label);
   const extLight = ext.modes.find((m) => m.name === 'Light')?.modeId ?? ext.modes[0].modeId;
   const extDark = ext.modes.find((m) => m.name === 'Dark')?.modeId;
-  const light = LIGHTDARK[brand].light;
-  const dark = LIGHTDARK[brand].dark;
+  const vars = BYMODE[brand] || {};
   let overrides = 0;
-  for (const [cssName, hex] of Object.entries(light)) {
+  for (const [cssName, hex] of Object.entries(vars)) {
     const v = byName.get(tokenPath(cssName));
     if (!v) continue;
-    const lc = parseColor(hex);
-    const dc = parseColor(dark[cssName]);
-    if (lc) v.setValueForMode(extLight, lc);
-    if (dc && extDark) v.setValueForMode(extDark, dc);
+    const c = parseColor(hex);
+    if (!c) continue;
+    v.setValueForMode(extLight, c);
+    if (extDark) v.setValueForMode(extDark, c);
     overrides++;
   }
   createdExtended.push({ name: ext.name, brand, overrides });
@@ -400,7 +373,7 @@ function emitBrandSemantic() {
   const wipeFirst = start === 0
   return `${HELPERS}
 const PAGE = await ensurePage('UDS Tokens');
-const SYSTEM_COLLECTION = 'System Colors';
+const SYSTEM_COLLECTION = 'Colors';
 
 function setColorModeValue(v, modeId, systemVar, hexFallback) {
   if (systemVar) {
@@ -427,6 +400,15 @@ if (systemColl) {
   }
 }
 
+// Brand ramp variables live in the same Brand collection. Aliasing semantic
+// tokens to these makes them resolve per-brand automatically in each extension.
+const brandVarByPath = new Map();
+for (const bv of await figma.variables.getLocalVariablesAsync('COLOR')) {
+  if (bv.variableCollectionId === base.id && bv.name.startsWith('brand/')) {
+    brandVarByPath.set(bv.name, bv);
+  }
+}
+
 let removedSemantic = 0;
 if (${wipeFirst}) {
   for (const v of await figma.variables.getLocalVariablesAsync('COLOR')) {
@@ -439,10 +421,18 @@ if (${wipeFirst}) {
 
 const entries = ${JSON.stringify(slice)};
 const created = [];
-for (const [cssName, lightSystemRef, darkSystemRef, lightHex, darkHex] of entries) {
+let aliasSystem = 0;
+let aliasBrand = 0;
+let hexFallback = 0;
+function pickTarget(systemRef, brandRef) {
+  if (systemRef) return ['system', systemVarByPath.get(tokenPath(systemRef))];
+  if (brandRef) return ['brand', brandVarByPath.get(tokenPath(brandRef))];
+  return [null, null];
+}
+for (const [cssName, lightSystemRef, darkSystemRef, lightBrandRef, darkBrandRef, lightHex, darkHex] of entries) {
   const name = tokenPath(cssName);
-  const lightTarget = lightSystemRef ? systemVarByPath.get(tokenPath(lightSystemRef)) : null;
-  const darkTarget = darkSystemRef ? systemVarByPath.get(tokenPath(darkSystemRef)) : null;
+  const [lightKind, lightTarget] = pickTarget(lightSystemRef, lightBrandRef);
+  const [darkKind, darkTarget] = pickTarget(darkSystemRef, darkBrandRef);
   const v = figma.variables.createVariable(name, base, 'COLOR');
   v.scopes = ['FRAME_FILL', 'SHAPE_FILL', 'STROKE_COLOR', 'TEXT_FILL'];
   const rLight = setColorModeValue(v, lightId, lightTarget, lightHex);
@@ -451,6 +441,10 @@ for (const [cssName, lightSystemRef, darkSystemRef, lightHex, darkHex] of entrie
     v.remove();
     continue;
   }
+  if (rLight === 'alias') (lightKind === 'brand' ? aliasBrand++ : aliasSystem++);
+  else hexFallback++;
+  if (rDark === 'alias') (darkKind === 'brand' ? aliasBrand++ : aliasSystem++);
+  else hexFallback++;
   v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
   created.push(name);
 }
@@ -460,8 +454,101 @@ return {
   baseCollectionId: base.id,
   removedSemantic,
   createdCount: created.length,
+  aliasSystem,
+  aliasBrand,
+  hexFallbackModes: hexFallback,
   range: [${start}, ${end}],
 };
+`
+}
+
+function emitButtonTokens() {
+  const tokens = data.buttonTokens || []
+  const overrides = data.buttonOverrides || {}
+  return `${HELPERS}
+const PAGE = await ensurePage('UDS Tokens');
+const LABELS = ${JSON.stringify(BRAND_LABELS)};
+const TOKENS = ${JSON.stringify(tokens)};
+const OVERRIDES = ${JSON.stringify(overrides)};
+
+function setColorModeValue(v, modeId, targetVar, hexFallback) {
+  if (targetVar) {
+    v.setValueForMode(modeId, figma.variables.createVariableAlias(targetVar));
+    return 'alias';
+  }
+  const color = parseColor(hexFallback);
+  if (!color) return null;
+  v.setValueForMode(modeId, color);
+  return 'hex';
+}
+
+const base = await findCollection('Brand');
+if (!base) throw new Error('Brand collection not found - run brand-ld first');
+const lightId = base.modes.find((m) => m.name === 'Light')?.modeId;
+const darkId = base.modes.find((m) => m.name === 'Dark')?.modeId;
+if (!lightId || !darkId) throw new Error('Brand collection missing Light/Dark modes');
+
+// Targets: system colors live in 'Colors'; brand ramp lives in 'Brand' (base).
+const systemColl = await findCollection('Colors');
+const systemVarByPath = new Map();
+const brandVarByPath = new Map();
+for (const sv of await figma.variables.getLocalVariablesAsync('COLOR')) {
+  if (systemColl && sv.variableCollectionId === systemColl.id) systemVarByPath.set(sv.name, sv);
+  else if (sv.variableCollectionId === base.id && sv.name.startsWith('brand/')) brandVarByPath.set(sv.name, sv);
+}
+
+// Idempotent: remove existing button vars before recreating.
+let removed = 0;
+for (const v of await figma.variables.getLocalVariablesAsync('COLOR')) {
+  if (v.variableCollectionId === base.id && v.name.startsWith('uds/button/')) { v.remove(); removed++; }
+}
+
+function pickTarget(systemRef, brandRef) {
+  if (systemRef) return systemVarByPath.get(tokenPath(systemRef));
+  if (brandRef) return brandVarByPath.get(tokenPath(brandRef));
+  return null;
+}
+
+const buttonVarByName = new Map();
+let created = 0;
+let unresolved = 0;
+for (const [cssName, lightSystemRef, darkSystemRef, lightBrandRef, darkBrandRef, lightHex, darkHex] of TOKENS) {
+  const name = tokenPath(cssName);
+  const v = figma.variables.createVariable(name, base, 'COLOR');
+  v.scopes = ['FRAME_FILL', 'SHAPE_FILL', 'STROKE_COLOR', 'TEXT_FILL'];
+  const rl = setColorModeValue(v, lightId, pickTarget(lightSystemRef, lightBrandRef), lightHex);
+  const rd = setColorModeValue(v, darkId, pickTarget(darkSystemRef, darkBrandRef), darkHex);
+  if (!rl || !rd) { v.remove(); unresolved++; continue; }
+  v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
+  buttonVarByName.set(name, v);
+  created++;
+}
+
+// Per-brand extension overrides (fine-grained control beyond ramp inheritance).
+const allColls = await figma.variables.getLocalVariableCollectionsAsync();
+const extByLabel = new Map();
+for (const c of allColls) {
+  if (c.isExtension && c.parentVariableCollectionId === base.id) extByLabel.set(c.name, c);
+}
+const applied = [];
+for (const [figmaName, byBrand] of Object.entries(OVERRIDES)) {
+  const v = buttonVarByName.get(figmaName);
+  if (!v) continue;
+  for (const [brandKey, refs] of Object.entries(byBrand)) {
+    const label = LABELS[brandKey] || brandKey;
+    const ext = extByLabel.get(label);
+    if (!ext) continue;
+    const extLight = ext.modes.find((m) => m.name === 'Light')?.modeId ?? ext.modes[0].modeId;
+    const extDark = ext.modes.find((m) => m.name === 'Dark')?.modeId;
+    const lt = refs.light ? brandVarByPath.get(refs.light) : null;
+    const dt = refs.dark ? brandVarByPath.get(refs.dark) : null;
+    if (lt) v.setValueForMode(extLight, figma.variables.createVariableAlias(lt));
+    if (dt && extDark) v.setValueForMode(extDark, figma.variables.createVariableAlias(dt));
+    applied.push({ token: figmaName, brand: label });
+  }
+}
+
+return { pageId: PAGE.id, removed, created, unresolved, overridesApplied: applied.length, applied };
 `
 }
 
@@ -501,10 +588,108 @@ return { pageId: PAGE.id, collectionId: coll.id, createdCount: created.length };
 `
 }
 
+function emitGroupA() {
+  const sizing = data.sizing || []
+  const elevation = data.elevation || []
+  const font = data.font || { family: null, weights: [] }
+  const letterSpacing = data.letterSpacing || []
+  return `${HELPERS}
+const PAGE = await ensurePage('UDS Tokens');
+const result = {};
+
+// 1. Sizing -> Layout (px floats, WIDTH_HEIGHT scope)
+{
+  const { coll, modeIds } = await ensureColorCollection('Layout', ['Value']);
+  const modeId = modeIds.Value;
+  const entries = ${JSON.stringify(sizing)};
+  let n = 0;
+  for (const [cssName, px] of entries) {
+    const id = await upsertFloatVar(coll, modeId, cssName, px);
+    if (id) n++;
+  }
+  result.sizing = { collectionId: coll.id, created: n };
+}
+
+// 2. Elevation (z-index) -> new Elevation collection (no Figma scope for z-index)
+{
+  const { coll, modeIds } = await ensureColorCollection('Elevation', ['Value']);
+  const modeId = modeIds.Value;
+  const entries = ${JSON.stringify(elevation)};
+  let n = 0;
+  for (const [cssName, num] of entries) {
+    const name = tokenPath(cssName);
+    const existing = (await figma.variables.getLocalVariablesAsync('FLOAT')).find(
+      (v) => v.variableCollectionId === coll.id && v.name === name,
+    );
+    const v = existing ?? figma.variables.createVariable(name, coll, 'FLOAT');
+    v.scopes = [];
+    v.setValueForMode(modeId, num);
+    v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
+    n++;
+  }
+  result.elevation = { collectionId: coll.id, created: n };
+}
+
+// 3. Font -> new Font collection (family STRING + weights FLOAT)
+{
+  const { coll, modeIds } = await ensureColorCollection('Font', ['Value']);
+  const modeId = modeIds.Value;
+  const family = ${JSON.stringify(font.family)};
+  const weights = ${JSON.stringify(font.weights)};
+  let n = 0;
+  if (family) {
+    const name = 'uds/font/family';
+    const existing = (await figma.variables.getLocalVariablesAsync('STRING')).find(
+      (v) => v.variableCollectionId === coll.id && v.name === name,
+    );
+    const v = existing ?? figma.variables.createVariable(name, coll, 'STRING');
+    v.scopes = ['FONT_FAMILY'];
+    v.setValueForMode(modeId, family);
+    v.setVariableCodeSyntax('WEB', 'var(--uds-font-family)');
+    n++;
+  }
+  for (const [cssName, weight] of weights) {
+    const name = tokenPath(cssName);
+    const existing = (await figma.variables.getLocalVariablesAsync('FLOAT')).find(
+      (v) => v.variableCollectionId === coll.id && v.name === name,
+    );
+    const v = existing ?? figma.variables.createVariable(name, coll, 'FLOAT');
+    v.scopes = ['FONT_WEIGHT'];
+    v.setValueForMode(modeId, weight);
+    v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
+    n++;
+  }
+  result.font = { collectionId: coll.id, created: n };
+}
+
+// 4. Letter spacing per type -> new Letter Spacing collection (FLOAT %, LETTER_SPACING scope)
+{
+  const { coll, modeIds } = await ensureColorCollection('Letter Spacing', ['Value']);
+  const modeId = modeIds.Value;
+  const entries = ${JSON.stringify(letterSpacing)};
+  let n = 0;
+  for (const [cssBase, percent] of entries) {
+    const name = tokenPath(cssBase);
+    const existing = (await figma.variables.getLocalVariablesAsync('FLOAT')).find(
+      (v) => v.variableCollectionId === coll.id && v.name === name,
+    );
+    const v = existing ?? figma.variables.createVariable(name, coll, 'FLOAT');
+    v.scopes = ['LETTER_SPACING'];
+    v.setValueForMode(modeId, percent);
+    v.setVariableCodeSyntax('WEB', 'var(' + cssBase + '-letter-spacing)');
+    n++;
+  }
+  result.letterSpacing = { collectionId: coll.id, created: n };
+}
+
+return { pageId: PAGE.id, ...result };
+`
+}
+
 function emitSemanticColors() {
   const slice = data.semanticColors.slice(start, end)
   return `${HELPERS}
-const SYSTEM_COLLECTION = 'System Colors';
+const SYSTEM_COLLECTION = 'Colors';
 
 function setColorModeValue(v, modeId, systemVar, hexFallback) {
   if (systemVar) {
@@ -536,7 +721,7 @@ let aliasLight = 0;
 let aliasDark = 0;
 let hexFallback = 0;
 
-for (const [cssName, lightSystemRef, darkSystemRef, lightHex, darkHex] of entries) {
+for (const [cssName, lightSystemRef, darkSystemRef, , , lightHex, darkHex] of entries) {
   const name = tokenPath(cssName);
   const lightTarget = lightSystemRef ? systemVarByPath.get(tokenPath(lightSystemRef)) : null;
   const darkTarget = darkSystemRef ? systemVarByPath.get(tokenPath(darkSystemRef)) : null;
@@ -698,7 +883,7 @@ function emitReorderSystemColors() {
   const entries = data.systemColors
   return `${HELPERS}
 const PAGE = await ensurePage('UDS Tokens');
-const { coll, modeIds } = await ensureColorCollection('System Colors', ['Value']);
+const { coll, modeIds } = await ensureColorCollection('Colors', ['Value']);
 const modeId = modeIds.Value;
 const existing = (await figma.variables.getLocalVariablesAsync('COLOR')).filter(
   (v) => v.variableCollectionId === coll.id,
@@ -762,7 +947,7 @@ const removedCount = existing.length;
       : 'const removedCount = 0;'
 
   return `${HELPERS}
-const SYSTEM_COLLECTION = 'System Colors';
+const SYSTEM_COLLECTION = 'Colors';
 
 function setColorModeValue(v, modeId, systemVar, hexFallback) {
   if (systemVar) {
@@ -791,7 +976,7 @@ const darkId = modeIds.Dark;
 ${deleteBlock}
 const entries = ${JSON.stringify(entries)};
 const created = [];
-for (const [cssName, lightSystemRef, darkSystemRef, lightHex, darkHex] of entries) {
+for (const [cssName, lightSystemRef, darkSystemRef, , , lightHex, darkHex] of entries) {
   const name = tokenPath(cssName);
   const lightTarget = lightSystemRef ? systemVarByPath.get(tokenPath(lightSystemRef)) : null;
   const darkTarget = darkSystemRef ? systemVarByPath.get(tokenPath(darkSystemRef)) : null;
@@ -878,7 +1063,7 @@ for (const v of existingResponsive) v.remove();
 const entries = ${JSON.stringify(entries)};
 const created = [];
 for (const [cssName, mobile, tablet, desktop] of entries) {
-  const name = tokenPath(cssName);
+  const name = tokenPath(cssName).replace(/\\/font\\/size$/, '');
   const v = figma.variables.createVariable(name, coll, 'FLOAT');
   v.scopes = ['FONT_SIZE'];
   v.setValueForMode(modeIds.Mobile, mobile);
@@ -921,7 +1106,7 @@ if (layoutColl) {
 
 const TYPOGRAPHY_COLLECTION = 'Typography';
 const LEGACY_TYPOGRAPHY_COLLECTION = 'UDS Typography Line Height';
-const MODE_ORDER = ['Regular', 'Tight', 'Snug', 'Loose'];
+const MODE_ORDER = ['Regular', 'Tight', 'Loose'];
 
 async function removeCollectionVariables(coll) {
   const vars = await figma.variables.getLocalVariablesAsync('FLOAT');
@@ -960,6 +1145,13 @@ async function ensureTypographyCollection() {
   for (const name of MODE_ORDER) {
     if (!modeIds[name]) modeIds[name] = coll.addMode(name);
   }
+  // Remove any modes no longer in MODE_ORDER (e.g. legacy Snug).
+  for (const m of [...coll.modes]) {
+    if (!MODE_ORDER.includes(m.name)) {
+      coll.removeMode(m.modeId);
+      delete modeIds[m.name];
+    }
+  }
   return { coll, modeIds };
 }
 
@@ -973,12 +1165,11 @@ for (const v of existingTypography) v.remove();
 const entries = ${JSON.stringify(slice)};
 const created = [];
 for (const [cssBase, presets] of entries) {
-  const name = tokenPath(cssBase) + '/line-height';
+  const name = tokenPath(cssBase);
   const v = figma.variables.createVariable(name, coll, 'FLOAT');
   v.scopes = ['LINE_HEIGHT'];
   v.setValueForMode(modeIds.Regular, presets.regular);
   v.setValueForMode(modeIds.Tight, presets.tight);
-  v.setValueForMode(modeIds.Snug, presets.snug);
   v.setValueForMode(modeIds.Loose, presets.loose);
   v.setVariableCodeSyntax('WEB', 'var(' + cssBase + '-line-regular)');
   created.push(name);
@@ -1001,8 +1192,10 @@ else if (kind === 'brand') body = emitBrand()
 else if (kind === 'brand-extend') body = emitBrandExtend()
 else if (kind === 'brand-ld') body = emitBrandLightDark()
 else if (kind === 'brand-semantic') body = emitBrandSemantic()
+else if (kind === 'button-tokens') body = emitButtonTokens()
 else if (kind === 'delete-semantic-collection') body = emitDeleteSemanticCollection()
 else if (kind === 'layout') body = emitLayout()
+else if (kind === 'group-a') body = emitGroupA()
 else if (kind === 'semantic-colors') body = emitSemanticColors()
 else if (kind === 'semantic-floats') body = emitSemanticFloats()
 else if (kind === 'semantic-cleanup') body = emitSemanticCleanup()
@@ -1014,7 +1207,7 @@ else if (kind === 'reorder-brand-colors') body = emitReorderBrandColors()
 else if (kind === 'reorder-semantic-colors') body = emitReorderSemanticColors()
 else {
   throw new Error(
-    'Usage: system [start end] | brand | brand-extend | brand-ld | brand-semantic [start end] | delete-semantic-collection | layout | semantic-colors [start end] | semantic-floats [start end] | semantic-cleanup | semantic-layout-merge | typography-line-height [start end] | migrate-responsive-type | reorder-system-colors | reorder-brand-colors | reorder-semantic-colors [start end]',
+    'Usage: system [start end] | brand | brand-extend | brand-ld | brand-semantic [start end] | button-tokens | delete-semantic-collection | layout | semantic-colors [start end] | semantic-floats [start end] | semantic-cleanup | semantic-layout-merge | typography-line-height [start end] | migrate-responsive-type | reorder-system-colors | reorder-brand-colors | reorder-semantic-colors [start end]',
   )
 }
 

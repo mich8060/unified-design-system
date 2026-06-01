@@ -1,0 +1,499 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "rulesDoc": "figma.component.rules.md",
+  "buildScript": "node scripts/figma-generate-component-build.mjs <slug> --write",
+  "lastInventoryAt": "2026-05-29",
+  "inFigma": {
+    "Button": {
+      "nodeId": "554:268",
+      "slug": "button"
+    },
+    "Icon": {
+      "nodeId": "501:6",
+      "slug": null
+    },
+    "Accordion": {
+      "nodeId": "540:137",
+      "slug": "accordion"
+    },
+    ".accordion-item-part": {
+      "nodeId": "493:2",
+      "slug": "accordion"
+    },
+    "Badge": {
+      "nodeId": "746:341",
+      "slug": "badge"
+    },
+    "Input": {
+      "nodeId": "589:236",
+      "slug": "input"
+    },
+    "Checkbox": {
+      "nodeId": "590:230",
+      "slug": "checkbox"
+    },
+    "Switch": {
+      "nodeId": "591:228",
+      "slug": "switch"
+    },
+    "Skeleton": {
+      "nodeId": "592:223",
+      "slug": "skeleton"
+    },
+    "Spinner": {
+      "nodeId": "593:226",
+      "slug": "spinner"
+    },
+    "Label": {
+      "nodeId": "594:224",
+      "slug": "label"
+    },
+    "DotStatus": {
+      "nodeId": "595:230",
+      "slug": "dot-status"
+    },
+    "Avatar": {
+      "nodeId": "596:228",
+      "slug": "avatar"
+    },
+    "Toggle": {
+      "nodeId": "611:237",
+      "slug": "toggle"
+    },
+    "Radio": {
+      "nodeId": "617:227",
+      "slug": "radio-group"
+    },
+    "Textarea": {
+      "nodeId": "620:229",
+      "slug": "textarea"
+    },
+    "Progress": {
+      "nodeId": "623:227",
+      "slug": "progress"
+    },
+    "Slider": {
+      "nodeId": "626:229",
+      "slug": "slider"
+    },
+    "Separator": {
+      "nodeId": "629:235",
+      "slug": "separator"
+    },
+    "Kbd": {
+      "nodeId": "632:225",
+      "slug": "kbd"
+    },
+    "Link": {
+      "nodeId": "635:225",
+      "slug": "link"
+    },
+    "Text": {
+      "nodeId": "645:245",
+      "slug": "text"
+    },
+    "Status": {
+      "nodeId": "662:251",
+      "slug": "status"
+    },
+    "Alert": {
+      "nodeId": "758:308",
+      "slug": "alert"
+    },
+    "Alert Dialog": {
+      "nodeId": "765:344",
+      "slug": "alert-dialog"
+    },
+    "Card": {
+      "nodeId": "688:229",
+      "slug": "card"
+    },
+    "Tabs (2)": { "nodeId": "767:350", "slug": "tabs" },
+    "Tabs (3)": { "nodeId": "767:420", "slug": "tabs" },
+    "Tabs (4)": { "nodeId": "767:537", "slug": "tabs" },
+    "Tabs (5)": { "nodeId": "767:713", "slug": "tabs" },
+    "Tabs (6)": { "nodeId": "767:960", "slug": "tabs" },
+    "Field": {
+      "nodeId": "723:237",
+      "slug": "field"
+    },
+    "Empty": {
+      "nodeId": "728:225",
+      "slug": "empty"
+    },
+    "Medallion": {
+      "nodeId": "754:436",
+      "slug": "medallion"
+    }
+  },
+  "statusBySlug": {
+    "accordion": {
+      "status": "in-figma",
+      "figmaName": "accordion",
+      "nodeId": "540:137"
+    },
+    "alert": {
+      "status": "in-figma",
+      "figmaName": "Alert",
+      "nodeId": "758:308"
+    },
+    "alert-dialog": {
+      "status": "in-figma",
+      "figmaName": "Alert Dialog",
+      "nodeId": "765:344"
+    },
+    "aspect-ratio": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "avatar": {
+      "status": "in-figma",
+      "figmaName": "Avatar",
+      "nodeId": "596:228"
+    },
+    "badge": {
+      "status": "in-figma",
+      "figmaName": "Badge",
+      "nodeId": "746:341"
+    },
+    "breadcrumb": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "branding": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "button": {
+      "status": "in-figma",
+      "figmaName": "button",
+      "nodeId": "554:268"
+    },
+    "button-group": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "calendar": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "card": {
+      "status": "in-figma",
+      "figmaName": "Card",
+      "nodeId": "688:229"
+    },
+    "chart": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "check-list": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "checkbox": {
+      "status": "in-figma",
+      "figmaName": "Checkbox",
+      "nodeId": "590:230"
+    },
+    "collapsible": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "combobox": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "command": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "context-menu": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "description-list": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "dialog": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "direction": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "dot-status": {
+      "status": "in-figma",
+      "figmaName": "DotStatus",
+      "nodeId": "595:230"
+    },
+    "drawer": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "dropdown-menu": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "date-input": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "date-range-input": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "empty": {
+      "status": "in-figma",
+      "figmaName": "Empty",
+      "nodeId": "728:225"
+    },
+    "field": {
+      "status": "in-figma",
+      "figmaName": "Field",
+      "nodeId": "723:237"
+    },
+    "file-upload": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "file-upload-cards": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "footer": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "header": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "hover-card": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "input": {
+      "status": "in-figma",
+      "figmaName": "Input",
+      "nodeId": "589:236"
+    },
+    "input-group": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "input-otp": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "item": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "kbd": {
+      "status": "in-figma",
+      "figmaName": "Kbd",
+      "nodeId": "632:225"
+    },
+    "label": {
+      "status": "in-figma",
+      "figmaName": "Label",
+      "nodeId": "594:224"
+    },
+    "layout": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "link": {
+      "status": "in-figma",
+      "figmaName": "Link",
+      "nodeId": "635:225"
+    },
+    "medallion": {
+      "status": "in-figma",
+      "figmaName": "Medallion",
+      "nodeId": "754:436"
+    },
+    "menubar": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "micro-calendar": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "native-select": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "navigation-menu": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "number-input": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "pagination": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "password-input": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "phone-input": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "popover": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "progress": {
+      "status": "in-figma",
+      "figmaName": "Progress",
+      "nodeId": "623:227"
+    },
+    "progress-circles": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "radio-group": {
+      "status": "in-figma",
+      "figmaName": "Radio",
+      "nodeId": "617:227"
+    },
+    "resizable": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "scroll-area": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "search-input": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "select": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "separator": {
+      "status": "in-figma",
+      "figmaName": "Separator",
+      "nodeId": "629:235"
+    },
+    "section-header": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "sheet": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "sidebar": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "skeleton": {
+      "status": "in-figma",
+      "figmaName": "Skeleton",
+      "nodeId": "592:223"
+    },
+    "slider": {
+      "status": "in-figma",
+      "figmaName": "Slider",
+      "nodeId": "626:229"
+    },
+    "sonner": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "spinner": {
+      "status": "in-figma",
+      "figmaName": "Spinner",
+      "nodeId": "593:226"
+    },
+    "statistics": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "status": {
+      "status": "in-figma",
+      "figmaName": "Status",
+      "nodeId": "662:251"
+    },
+    "steps": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "switch": {
+      "status": "in-figma",
+      "figmaName": "Switch",
+      "nodeId": "591:228"
+    },
+    "table": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "tabs": {
+      "status": "in-figma",
+      "figmaName": "Tabs (2–6)",
+      "note": "Use Tabs (2)…Tabs (6) component sets; each groups Variant × Active for that tab count only."
+    },
+    "text": {
+      "status": "in-figma",
+      "figmaName": "Text",
+      "nodeId": "645:245"
+    },
+    "textarea": {
+      "status": "in-figma",
+      "figmaName": "Textarea",
+      "nodeId": "620:229"
+    },
+    "time-input": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "time-step-input": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "token-input": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "toggle": {
+      "status": "in-figma",
+      "figmaName": "Toggle",
+      "nodeId": "611:237"
+    },
+    "toggle-group": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "toolbar": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "tooltip": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    },
+    "url-input": {
+      "status": "deferred",
+      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+    }
+  },
+  "summary": {
+    "total": 83,
+    "inFigma": 28,
+    "specReady": 0,
+    "deferred": 55,
+    "needsSpec": 0
+  }
+}

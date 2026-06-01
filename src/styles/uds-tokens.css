@@ -143,10 +143,6 @@
   --brand-quaternary-700: #C8170D;
   --brand-quaternary-800: #A5170F;
   --brand-quaternary-900: #881A14;
-  --uds-button-color-primary-default: var(--uds-color-primary-700);
-  --uds-button-color-primary-hover: var(--uds-color-primary-500);
-  --uds-button-border-primary-default: var(--uds-color-primary-700);
-  --uds-button-border-primary-hover: var(--uds-color-primary-500);
 }
 
 .brand-connect,
@@ -291,8 +287,6 @@
   --brand-quaternary-700: #0E7490;
   --brand-quaternary-800: #155E75;
   --brand-quaternary-900: #164E63;
-  --uds-button-color-primary-default: var(--uds-color-primary-500);
-  --uds-button-color-primary-hover: var(--uds-color-primary-600);
 }
 
 /* ── Wireframe theme: 0 radius, 2px solid black borders ── */
@@ -1970,8 +1964,6 @@ body {
   --uds-surface-brand-secondary: var(--uds-color-primary-400);
   --uds-surface-brand-tertiary: var(--uds-color-primary-500);
   --uds-surface-brand-quaternary: var(--uds-color-primary-700);
-  /* Matches Connect-style secondary button tint for the default palette and other brands. */
-  --uds-button-surface-secondary: var(--brand-primary-50);
 }
 
 .theme-dark, .dark {
@@ -1986,14 +1978,47 @@ body {
   --uds-surface-brand-secondary: var(--uds-color-primary-400);
   --uds-surface-brand-tertiary: var(--uds-color-primary-500);
   --uds-surface-brand-quaternary: var(--uds-color-primary-700);
-  --uds-button-surface-secondary: var(--uds-color-primary-50);
 }
 
-.brand-connect,
-[data-brand=connect],
-.brand-chg,
-[data-brand=chg] {
-  --uds-button-surface-secondary: var(--brand-primary-50);
+/* Button component tokens (third tier): surface / border / text / icons.
+   Defaults alias the ramp + semantic layer; brands override fine-grained values below.
+   Declared after the brand ramp blocks so per-brand overrides (equal specificity) win. */
+:root {
+  --uds-button-surface-primary-default: var(--uds-color-primary-700);
+  --uds-button-surface-primary-hover: var(--uds-color-primary-800);
+  --uds-button-surface-primary-destructive: var(--uds-system-destructive-primary);
+  --uds-button-surface-primary-disabled: var(--uds-color-neutrals-200);
+  --uds-button-surface-secondary-default: var(--uds-color-primary-50);
+  --uds-button-surface-secondary-hover: var(--uds-color-primary-100);
+  --uds-button-border-primary-default: var(--uds-color-primary-700);
+  --uds-button-border-primary-hover: var(--uds-color-primary-800);
+  --uds-button-border-primary-destructive: var(--uds-system-destructive-primary);
+  --uds-button-border-primary-disabled: var(--uds-color-neutrals-300);
+  --uds-button-border-secondary-default: var(--uds-color-primary-50);
+  --uds-button-border-secondary-hover: var(--uds-color-primary-100);
+  --uds-button-text-default: var(--uds-text-inverse);
+  --uds-button-text-secondary: var(--uds-text-primary);
+  --uds-button-text-tertiary: var(--uds-color-primary-700);
+  --uds-button-text-quaternary: var(--uds-color-primary-800);
+  --uds-button-text-disabled: var(--uds-text-disabled);
+  --uds-button-icons-primary: var(--uds-text-inverse);
+  --uds-button-icons-secondary: var(--uds-text-primary);
+  --uds-button-icons-tertiary: var(--uds-color-primary-700);
+  --uds-button-icons-quaternary: var(--uds-color-primary-800);
+  --uds-button-icons-disabled: var(--uds-text-disabled);
+}
+
+/* Per-brand button overrides (fine-grained control, independent of the ramp). */
+.brand-weatherby,
+[data-brand=weatherby] {
+  --uds-button-surface-primary-hover: var(--uds-color-primary-500);
+  --uds-button-border-primary-hover: var(--uds-color-primary-500);
+}
+
+.brand-wireframe,
+[data-brand=wireframe] {
+  --uds-button-surface-primary-default: var(--uds-color-primary-500);
+  --uds-button-surface-primary-hover: var(--uds-color-primary-600);
 }
 
 :root {

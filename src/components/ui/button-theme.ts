@@ -19,11 +19,11 @@ const buttonThemeVariants = cva(
   {
     variants: {
       variant: {
-        default: "[a]:hover:bg-primary/80",
+        default: "[a]:hover:bg-uds-button-surface-primary-hover",
         outline:
           "aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
-          "bg-uds-button-surface-secondary text-uds-text-primary hover:bg-uds-surface-quaternary dark:hover:bg-uds-surface-tertiary aria-expanded:bg-uds-button-surface-secondary aria-expanded:text-uds-text-primary",
+          "bg-uds-button-surface-secondary-default text-uds-button-text-secondary hover:bg-uds-button-surface-secondary-hover aria-expanded:bg-uds-button-surface-secondary-default aria-expanded:text-uds-button-text-secondary",
         ghost:
           "aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
@@ -32,10 +32,10 @@ const buttonThemeVariants = cva(
       },
       size: {
         default:
-          "h-11 rounded-[4px] gap-1.5 px-4 text-base has-data-[icon=inline-end]:pr-3.5 has-data-[icon=inline-start]:pl-3.5",
-        xs: "h-[32px] rounded-[4px] gap-1 px-[10px] text-[10px] has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-[36px] rounded-[4px] gap-1 px-3 text-sm has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-[52px] rounded-[4px] gap-1.5 px-[18px] text-lg has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
+          "h-11 rounded-[4px] gap-[length:var(--uds-gap-8)] px-4 text-base has-data-[icon=inline-end]:pr-3.5 has-data-[icon=inline-start]:pl-3.5",
+        xs: "h-[32px] rounded-[4px] gap-[length:var(--uds-gap-8)] px-[10px] text-[10px] has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-[36px] rounded-[4px] gap-[length:var(--uds-gap-8)] px-3 text-sm has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5 [&_svg:not([class*='size-'])]:size-3.5",
+        lg: "h-[52px] rounded-[4px] gap-[length:var(--uds-gap-8)] px-[18px] text-lg has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
         icon: "size-8 rounded-[4px] p-0 text-base",
         "icon-xs": "size-6 rounded-[4px] p-0 text-[10px] [&_svg:not([class*='size-'])]:size-3",
         "icon-sm": "size-7 rounded-[4px] p-0 text-sm",

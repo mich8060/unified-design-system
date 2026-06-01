@@ -1,0 +1,505 @@
+{
+  "badge": {
+    "figmaName": "Badge",
+    "kind": "badge",
+    "tier": 0,
+    "replaceExisting": true,
+    "gridCols": 4,
+    "gridCellW": 88,
+    "gridCellH": 32,
+    "axes": {
+      "Accent": [
+        "Transparent",
+        "Neutral",
+        "Red",
+        "Orange",
+        "Yellow",
+        "Emerald",
+        "Green",
+        "Sky",
+        "Cyan",
+        "Blue",
+        "Indigo",
+        "Purple",
+        "Fuchsia",
+        "Magenta",
+        "Inverse"
+      ],
+      "Appearance": ["Subtle", "Pastel", "Outlined", "Solid"]
+    },
+    "label": "Label",
+    "paddingH": 8,
+    "gapVar": "uds/gap/8",
+    "radiusByShape": { "Pill": "uds/radius/9999", "Rect": "uds/radius/2" },
+    "figmaMatrixNote": "Primary code API: accent × appearance (see BADGE_ACCENTS). Default pill shape; add Badge Size/Shape sets separately if needed."
+  },
+  "input": {
+    "figmaName": "Input",
+    "kind": "input",
+    "tier": 1,
+    "gridCols": 4,
+    "gridCellW": 280,
+    "gridCellH": 56,
+    "axes": {
+      "Size": ["Default", "Small"],
+      "State": ["Default", "Focused", "Error", "Disabled"]
+    },
+    "label": "Placeholder",
+    "layout": "horizontal",
+    "width": 240,
+    "heightBySize": { "Default": 44, "Small": 36 },
+    "paddingH": 12,
+    "radiusVar": "uds/radius/4",
+    "fillVar": "uds/surface/secondary",
+    "textVar": "uds/text/primary",
+    "strokeByState": {
+      "Default": "uds/border/secondary",
+      "Focused": "uds/color/primary/700",
+      "Error": "uds/system/feedback/error/border",
+      "Disabled": "uds/border/secondary"
+    }
+  },
+  "checkbox": {
+    "figmaName": "Checkbox",
+    "kind": "checkbox",
+    "tier": 1,
+    "gridCols": 3,
+    "gridCellW": 48,
+    "gridCellH": 48,
+    "axes": {
+      "State": ["Unchecked", "Checked", "Indeterminate"],
+      "Disabled": ["False", "True"]
+    },
+    "size": 20,
+    "radiusVar": "uds/radius/4",
+    "fillUnchecked": "uds/surface/primary",
+    "fillChecked": "uds/color/primary/700",
+    "strokeVar": "uds/border/secondary"
+  },
+  "switch": {
+    "figmaName": "Switch",
+    "kind": "switch",
+    "tier": 1,
+    "gridCols": 2,
+    "gridCellW": 80,
+    "gridCellH": 48,
+    "axes": {
+      "Size": ["Default", "Small"],
+      "Checked": ["False", "True"]
+    },
+    "widthBySize": { "Default": 48, "Small": 34 },
+    "heightBySize": { "Default": 28, "Small": 20 },
+    "trackOn": "uds/color/primary/700",
+    "trackOff": "uds/surface/tertiary",
+    "thumb": "uds/surface/primary"
+  },
+  "separator": {
+    "figmaName": "Separator",
+    "kind": "separator",
+    "tier": 0,
+    "gridCols": 3,
+    "gridCellW": 360,
+    "gridCellH": 48,
+    "axes": {
+      "Variant": ["Default", "Label", "Band"],
+      "Orientation": ["Horizontal", "Vertical"]
+    },
+    "width": 320,
+    "height": 1
+  },
+  "skeleton": {
+    "figmaName": "Skeleton",
+    "kind": "skeleton",
+    "tier": 0,
+    "gridCols": 3,
+    "gridCellW": 340,
+    "gridCellH": 48,
+    "axes": { "Size": ["Default", "Small", "Large"] },
+    "widthBySize": { "Default": 200, "Small": 120, "Large": 320 },
+    "heightBySize": { "Default": 20, "Small": 12, "Large": 32 },
+    "fillVar": "uds/surface/tertiary",
+    "radiusVar": "uds/radius/4"
+  },
+  "spinner": {
+    "figmaName": "Spinner",
+    "kind": "spinner",
+    "tier": 0,
+    "gridCols": 3,
+    "gridCellW": 40,
+    "gridCellH": 40,
+    "axes": { "Size": ["Default", "Small", "Large"] },
+    "sizeBySize": { "Default": 16, "Small": 12, "Large": 24 }
+  },
+  "label": {
+    "figmaName": "Label",
+    "kind": "label",
+    "tier": 0,
+    "gridCols": 2,
+    "gridCellW": 120,
+    "gridCellH": 32,
+    "axes": { "State": ["Default", "Disabled"] },
+    "label": "Label",
+    "textVar": "uds/text/primary",
+    "textDisabled": "uds/text/disabled"
+  },
+  "toggle": {
+    "figmaName": "Toggle",
+    "kind": "toggle",
+    "tier": 1,
+    "gridCols": 4,
+    "gridCellW": 100,
+    "gridCellH": 48,
+    "axes": {
+      "Appearance": ["Default", "Outline"],
+      "Size": ["Default", "Small"],
+      "Pressed": ["False", "True"]
+    },
+    "label": "Toggle",
+    "heightBySize": { "Default": 32, "Small": 28 },
+    "paddingH": 10,
+    "gapVar": "uds/gap/8",
+    "radiusVar": "uds/radius/2"
+  },
+  "radio-group": {
+    "figmaName": "Radio",
+    "kind": "radio",
+    "tier": 1,
+    "gridCols": 2,
+    "gridCellW": 48,
+    "gridCellH": 48,
+    "axes": {
+      "State": ["Unchecked", "Checked"],
+      "Disabled": ["False", "True"]
+    },
+    "size": 20,
+    "strokeVar": "uds/border/secondary"
+  },
+  "textarea": {
+    "figmaName": "Textarea",
+    "kind": "textarea",
+    "tier": 1,
+    "gridCols": 4,
+    "gridCellW": 300,
+    "gridCellH": 120,
+    "axes": {
+      "State": ["Default", "Focused", "Error", "Disabled"]
+    },
+    "width": 280,
+    "height": 96,
+    "label": "Placeholder text",
+    "radiusVar": "uds/radius/4",
+    "fillVar": "uds/surface/secondary"
+  },
+  "progress": {
+    "figmaName": "Progress",
+    "kind": "progress",
+    "tier": 0,
+    "gridCols": 3,
+    "gridCellW": 280,
+    "gridCellH": 32,
+    "axes": { "Value": ["0", "50", "100"] },
+    "width": 240,
+    "height": 8
+  },
+  "slider": {
+    "figmaName": "Slider",
+    "kind": "slider",
+    "tier": 1,
+    "gridCols": 2,
+    "gridCellW": 280,
+    "gridCellH": 40,
+    "axes": { "Size": ["Default", "Small"] },
+    "width": 240
+  },
+  "dot-status": {
+    "figmaName": "DotStatus",
+    "kind": "dot-status",
+    "tier": 0,
+    "gridCols": 5,
+    "gridCellW": 24,
+    "gridCellH": 24,
+    "axes": {
+      "Variant": ["Green", "Yellow", "Red", "Gray", "Blue"]
+    },
+    "size": 10
+  },
+  "kbd": {
+    "figmaName": "Kbd",
+    "kind": "kbd",
+    "tier": 0,
+    "gridCols": 2,
+    "gridCellW": 64,
+    "gridCellH": 32,
+    "axes": { "Size": ["Default", "Small"] },
+    "label": "⌘K",
+    "radiusVar": "uds/radius/4"
+  },
+  "link": {
+    "figmaName": "Link",
+    "kind": "link",
+    "tier": 0,
+    "gridCols": 2,
+    "gridCellW": 120,
+    "gridCellH": 32,
+    "axes": { "State": ["Default", "Hover"] },
+    "label": "Link text"
+  },
+  "avatar": {
+    "figmaName": "Avatar",
+    "kind": "avatar",
+    "tier": 0,
+    "gridCols": 4,
+    "gridCellW": 80,
+    "gridCellH": 80,
+    "axes": {
+      "Size": ["Extra Small", "Small", "Default", "Large"]
+    },
+    "sizeBySize": { "Extra Small": 32, "Small": 36, "Default": 48, "Large": 64 }
+  },
+  "text": {
+    "figmaName": "Text",
+    "kind": "text",
+    "tier": 0,
+    "gridCols": 3,
+    "gridCellW": 200,
+    "gridCellH": 40,
+    "axes": {
+      "Type": ["Body", "Heading"],
+      "Appearance": ["Primary", "Secondary", "Tertiary"],
+      "Size": ["Default", "Large"]
+    },
+    "textByAppearance": {
+      "Primary": "uds/text/primary",
+      "Secondary": "uds/text/secondary",
+      "Tertiary": "uds/text/tertiary"
+    }
+  },
+  "status": {
+    "figmaName": "Status",
+    "kind": "status",
+    "tier": 0,
+    "gridCols": 5,
+    "gridCellW": 100,
+    "gridCellH": 36,
+    "axes": {
+      "Variant": ["Neutral", "Success", "Warning", "Error", "Info"],
+      "Size": ["Default", "Compact"]
+    },
+    "tokensByVariant": {
+      "Neutral": {
+        "fill": "uds/surface/secondary",
+        "stroke": "uds/border/primary",
+        "text": "uds/text/primary"
+      },
+      "Success": {
+        "fill": "uds/color/accent/green/100",
+        "stroke": "uds/color/accent/green/300",
+        "text": "uds/color/accent/green/700"
+      },
+      "Warning": {
+        "fill": "uds/color/accent/amber/100",
+        "stroke": "uds/color/accent/amber/300",
+        "text": "uds/color/accent/amber/1000"
+      },
+      "Error": {
+        "fill": "uds/color/accent/red/100",
+        "stroke": "uds/color/accent/red/300",
+        "text": "uds/color/accent/red/700"
+      },
+      "Info": {
+        "fill": "uds/color/accent/blue/100",
+        "stroke": "uds/color/accent/blue/300",
+        "text": "uds/color/accent/blue/700"
+      }
+    }
+  },
+  "alert": {
+    "figmaName": "Alert",
+    "kind": "alert",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 2,
+    "gridCellW": 380,
+    "gridCellH": 100,
+    "axes": { "Variant": ["Default", "Destructive"] },
+    "gapVar": "uds/gap/12",
+    "radiusVar": "uds/radius/8",
+    "fillVar": "uds/surface/primary",
+    "medallionSetNodeId": "754:436",
+    "medallionSizePx": 48,
+    "medallionByVariant": {
+      "Default": { "color": "Sky", "tone": "Pastel" },
+      "Destructive": { "color": "Red", "tone": "Pastel" }
+    },
+    "copyByVariant": {
+      "Default": {
+        "title": "Note",
+        "description": "Use alerts for inline status that does not block the page."
+      },
+      "Destructive": {
+        "title": "Error",
+        "description": "Something went wrong. Try again."
+      }
+    }
+  },
+  "card": {
+    "figmaName": "Card",
+    "kind": "card",
+    "tier": 2,
+    "gridCols": 2,
+    "gridCellW": 360,
+    "gridCellH": 200,
+    "axes": { "Size": ["Default", "Small"] },
+    "width": 320
+  },
+  "tabs": {
+    "figmaName": "Tabs",
+    "kind": "tabs",
+    "replaceExisting": true,
+    "groupedByCount": true,
+    "counts": [2, 3, 4, 5, 6],
+    "tier": 2,
+    "gridCols": 2,
+    "gridCellW": 240,
+    "gridCellH": 56,
+    "activeLabels": ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"],
+    "axes": {
+      "Variant": ["Default", "Line"]
+    },
+    "figmaMatrixNote": "Five component sets: Tabs (2)…Tabs (6). Pick the set for tab count; each has Variant × Active (only First…Nth for that count). List only, no content panel."
+  },
+  "alert-dialog": {
+    "figmaName": "Alert Dialog",
+    "kind": "alert-dialog",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 2,
+    "gridCellW": 760,
+    "gridCellH": 560,
+    "viewportW": 720,
+    "viewportH": 520,
+    "dialogW": 400,
+    "medallionSetNodeId": "754:436",
+    "medallionSizePx": 64,
+    "buttonSetNodeId": "554:268",
+    "scrimVar": "uds/scrim/50",
+    "fillVar": "uds/surface/primary",
+    "strokeVar": "uds/border/secondary",
+    "radiusVar": "uds/radius/8",
+    "footerFillVar": "uds/surface/tertiary",
+    "footerStrokeVar": "uds/border/secondary",
+    "medallion": { "color": "Amber", "tone": "Pastel" },
+    "copy": {
+      "title": "Are you sure?",
+      "description": "This action cannot be undone.",
+      "cancel": "Cancel",
+      "action": "Continue"
+    },
+    "axes": {
+      "State": ["Open"],
+      "Size": ["Default", "Small"]
+    }
+  },
+  "field": {
+    "figmaName": "Field",
+    "kind": "field",
+    "tier": 2,
+    "gridCols": 2,
+    "gridCellW": 320,
+    "gridCellH": 100,
+    "axes": {
+      "Orientation": ["Vertical", "Horizontal"],
+      "State": ["Default", "Error"]
+    },
+    "width": 280
+  },
+  "empty": {
+    "figmaName": "Empty",
+    "kind": "empty",
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 360,
+    "gridCellH": 220,
+    "axes": { "Layout": ["Default"] },
+    "width": 320
+  },
+  "medallion": {
+    "figmaName": "Medallion",
+    "kind": "medallion",
+    "replaceExisting": true,
+    "tier": 0,
+    "gridCols": 2,
+    "gridCellW": 56,
+    "gridCellH": 56,
+    "defaultSizePx": 40,
+    "iconSetNodeId": "501:6",
+    "iconVariantBySize": {
+      "Extra Small": "Size=16",
+      "Small": "Size=20",
+      "Default": "Size=20",
+      "Large": "Size=24",
+      "Extra Large": "Size=32"
+    },
+    "iconPxBySize": {
+      "Extra Small": 12,
+      "Small": 14,
+      "Default": 18,
+      "Large": 22,
+      "Extra Large": 28
+    },
+    "axes": {
+      "Color": [
+        "Neutrals",
+        "Red",
+        "Orange",
+        "Yellow",
+        "Amber",
+        "Green",
+        "Emerald",
+        "Lime",
+        "Cyan",
+        "Aqua",
+        "Sky",
+        "Blue",
+        "Indigo",
+        "Purple",
+        "Magenta",
+        "Fuchsia",
+        "Rose",
+        "Violet"
+      ],
+      "Tone": ["Pastel", "Solid"]
+    },
+    "figmaMatrixNote": "Primary matrix: Color × Tone (circle, default size). Code also supports Size and Shape — see medallion-layout spec."
+  },
+  "medallion-layout": {
+    "figmaName": "Medallion / Layout",
+    "kind": "medallion",
+    "tier": 0,
+    "gridCols": 3,
+    "gridCellW": 64,
+    "gridCellH": 64,
+    "defaultSizePx": 40,
+    "iconSetNodeId": "501:6",
+    "iconVariantBySize": {
+      "Extra Small": "Size=16",
+      "Small": "Size=20",
+      "Default": "Size=20",
+      "Large": "Size=24",
+      "Extra Large": "Size=32"
+    },
+    "iconPxBySize": {
+      "Extra Small": 12,
+      "Small": 14,
+      "Default": 18,
+      "Large": 22,
+      "Extra Large": 28
+    },
+    "axes": {
+      "Size": ["Extra Small", "Small", "Default", "Large", "Extra Large"],
+      "Shape": ["Circle", "Square", "Rounded"]
+    },
+    "fixedColor": "Blue",
+    "fixedTone": "Pastel"
+  }
+}

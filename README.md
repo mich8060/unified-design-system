@@ -1,6 +1,6 @@
 # @chg-ds/unified-design-system
 
-`@chg-ds/unified-design-system` is the publishable React UI package from this Tailwind v4 and shadcn-based design system workspace. Source repository: [chghealthcare/unified-design-system](https://github.com/chghealthcare/unified-design-system).
+`@chg-ds/unified-design-system` is the React UI package from this Tailwind v4 and shadcn-based design system workspace. Source repository: [chghealthcare/unified-design-system](https://github.com/chghealthcare/unified-design-system).
 
 The package contract now has one canonical AI-readable source of truth:
 
@@ -10,17 +10,23 @@ Use that file for machine-readable guidance, then use the human-facing summaries
 
 ## Installation
 
-```bash
-npm install @chg-ds/unified-design-system react react-dom
-```
-
-For routed shells (`AppShell` with the default internal `<Outlet />`), also install:
+This package is distributed as a versioned tarball (`.tgz` from `npm pack`), not from a public registry or CDN. Obtain the tarball from your approved internal channel, place it in your repository (for example a `vendor/` folder), and install it from the local path:
 
 ```bash
-npm install react-router-dom
+npm install ./vendor/chg-ds-unified-design-system-1.0.5.tgz react react-dom
 ```
 
-Import the stylesheet once near the app root:
+Or pin it as a `file:` dependency in `package.json` so every install resolves the same committed artifact:
+
+```json
+{
+  "dependencies": {
+    "@chg-ds/unified-design-system": "file:./vendor/chg-ds-unified-design-system-1.0.5.tgz"
+  }
+}
+```
+
+For routed shells (`AppShell` with the default internal `<Outlet />`), also add `react-router-dom`. Installing the tarball preserves the package name, so imports use `@chg-ds/unified-design-system`. Import the stylesheet once near the app root:
 
 ```ts
 import "@chg-ds/unified-design-system/styles.css"
@@ -173,20 +179,20 @@ npm run build
 npm run pack:check
 ```
 
-## Publishing (maintainers)
+## Releasing (maintainers)
+
+This package is not published to a public registry or CDN. Each release is distributed as a versioned tarball that consumers install from a local path (see [Installation](#installation)).
 
 **Git:** Push branches and tags to `https://github.com/chghealthcare/unified-design-system` (remote `origin`).
-
-**npm:** The package name is `@chg-ds/unified-design-system`. Scoped packages use `publishConfig.access: "public"` in `package.json`.
 
 1. Bump `version` in `package.json` and merge to `main`.
 2. Ensure `npm ci`, `npm run build:lib`, and `npm run pack:check` pass locally (CI runs `build:lib` and `lint` on push/PR).
 3. Create a GitHub **Release** (or git tag) for that version.
-4. Publish from a clean checkout with an npm account that has rights to the `@chg-ds` org:
+4. Build and pack the distributable tarball from a clean checkout:
 
    ```bash
-   npm whoami
-   npm publish
+   npm run build:lib
+   npm pack
    ```
 
-   `prepublishOnly` runs `build:lib` automatically. Alternatively, use the **Publish npm package** GitHub Action (workflow dispatch or release), after adding an **`NPM_TOKEN`** repository secret (granular token with publish access to `@chg-ds/unified-design-system`).
+   This writes `chg-ds-unified-design-system-<version>.tgz`. Distribute that file through your approved internal channel; consumers install it from a local path. `npm pack` runs `prepublishOnly` (`build:lib`) automatically.

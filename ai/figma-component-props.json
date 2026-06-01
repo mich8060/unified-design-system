@@ -1,0 +1,224 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "components": {
+    "Button": {
+      "nodeId": "554:268",
+      "properties": {
+        "Appearance": {
+          "codeProp": "variant",
+          "renameFrom": "Variant",
+          "values": {
+            "Primary": "default",
+            "Default": "default",
+            "Secondary": "secondary",
+            "Outline": "outline",
+            "Ghost": "ghost",
+            "Destructive": "destructive",
+            "Link": "link"
+          },
+          "figmaLabels": {
+            "default": "Default",
+            "secondary": "Secondary",
+            "outline": "Outline",
+            "ghost": "Ghost",
+            "destructive": "Destructive",
+            "link": "Link"
+          }
+        },
+        "Size": {
+          "codeProp": "size",
+          "values": {
+            "Xs": "xs",
+            "Extra Small": "xs",
+            "Sm": "sm",
+            "Small": "sm",
+            "Default": "default",
+            "Lg": "lg",
+            "Large": "lg",
+            "Icon": "icon",
+            "Icon-Xs": "icon-xs",
+            "Icon Extra Small": "icon-xs",
+            "Icon-Sm": "icon-sm",
+            "Icon Small": "icon-sm",
+            "Icon-Lg": "icon-lg",
+            "Icon Large": "icon-lg"
+          },
+          "figmaLabels": {
+            "xs": "Extra Small",
+            "sm": "Small",
+            "default": "Default",
+            "lg": "Large",
+            "icon": "Icon",
+            "icon-xs": "Icon Extra Small",
+            "icon-sm": "Icon Small",
+            "icon-lg": "Icon Large"
+          },
+          "figmaMatrixNote": "Figma Button component set currently ships 4 text sizes (Default, Extra Small, Small, Large) × 6 appearances. Icon-only sizes exist in code; extend the Figma matrix when icon-only button variants are added."
+        },
+        "gapPx": 8,
+        "gapToken": "--uds-gap-8"
+      }
+    },
+    "Icon": {
+      "nodeId": "501:6",
+      "properties": {
+        "Size": {
+          "codeProp": "size",
+          "note": "Numeric labels match Phosphor Icon size prop (12, 16, 20, 24, 32)."
+        }
+      }
+    },
+    "Badge": {
+      "nodeId": "746:341",
+      "properties": {
+        "Accent": {
+          "codeProp": "accent",
+          "figmaLabels": {
+            "transparent": "Transparent",
+            "neutral": "Neutral",
+            "red": "Red",
+            "orange": "Orange",
+            "yellow": "Yellow",
+            "emerald": "Emerald",
+            "green": "Green",
+            "sky": "Sky",
+            "cyan": "Cyan",
+            "blue": "Blue",
+            "indigo": "Indigo",
+            "purple": "Purple",
+            "fuchsia": "Fuchsia",
+            "magenta": "Magenta",
+            "inverse": "Inverse"
+          }
+        },
+        "Appearance": {
+          "codeProp": "appearance",
+          "figmaLabels": {
+            "subtle": "Subtle",
+            "pastel": "Pastel",
+            "outlined": "Outlined",
+            "solid": "Solid"
+          }
+        }
+      },
+      "figmaMatrixNote": "60 variants (15 accents × 4 appearances). Default pill shape. Size/Shape are separate code props; add auxiliary Figma sets if needed."
+    },
+    "Accordion": {
+      "nodeId": "540:137",
+      "properties": {
+        "Variant": {
+          "codeProp": "variant",
+          "renameFrom": "Appearance",
+          "values": {
+            "Transparent": "divided",
+            "Divided": "divided",
+            "Outlined": "boxed",
+            "Boxed": "boxed",
+            "Outline filled": "boxed-filled",
+            "Boxed Filled": "boxed-filled"
+          },
+          "figmaLabels": {
+            "divided": "Divided",
+            "boxed": "Boxed",
+            "boxed-filled": "Boxed Filled"
+          }
+        }
+      }
+    },
+    "AccordionItem": {
+      "nodeId": "493:2",
+      "properties": {
+        "State": {
+          "codeProp": "data-state",
+          "note": "Radix accordion item open/closed; Figma State=Open maps to expanded trigger."
+        }
+      }
+    },
+    "Alert Dialog": {
+      "nodeId": "765:344",
+      "properties": {
+        "State": {
+          "codeProp": "open",
+          "note": "Open preview with overlay + content (portal state)."
+        },
+        "Size": {
+          "codeProp": "size",
+          "figmaLabels": { "default": "Default", "sm": "Small" }
+        }
+      },
+      "figmaMatrixNote": "720×520 viewport. Overlay: uds/scrim/50. Content: header (amber medallion xl), title, description, footer with Outline Cancel + Primary Continue buttons."
+    },
+    "Tabs (2)": {
+      "nodeId": "767:350",
+      "properties": {
+        "Variant": { "codeProp": "variant", "figmaLabels": { "default": "Default", "line": "Line" } },
+        "Active": { "codeProp": "value", "figmaLabels": { "first": "First", "second": "Second" } }
+      },
+      "figmaMatrixNote": "4 variants: Default|Line × First|Second. Two tabs only."
+    },
+    "Tabs (3)": {
+      "nodeId": "767:420",
+      "properties": {
+        "Variant": { "codeProp": "variant" },
+        "Active": { "codeProp": "value", "note": "First | Second | Third only." }
+      },
+      "figmaMatrixNote": "6 variants. Three tabs."
+    },
+    "Tabs (4)": { "nodeId": "767:537", "figmaMatrixNote": "8 variants. Active: First–Fourth." },
+    "Tabs (5)": { "nodeId": "767:713", "figmaMatrixNote": "10 variants. Active: First–Fifth." },
+    "Tabs (6)": {
+      "nodeId": "767:960",
+      "figmaMatrixNote": "12 variants. Active: First–Sixth. Tabs list only; line indicator flush on bottom rule."
+    },
+    "Alert": {
+      "nodeId": "758:308",
+      "properties": {
+        "Variant": {
+          "codeProp": "variant",
+          "figmaLabels": {
+            "default": "Default",
+            "destructive": "Destructive"
+          }
+        }
+      },
+      "figmaMatrixNote": "HUG horizontal layout: Medallion (lg / 48px) + Alert content (title + description). Default uses sky pastel medallion; destructive uses red pastel."
+    },
+    "Medallion": {
+      "nodeId": "754:436",
+      "properties": {
+        "Color": {
+          "codeProp": "color",
+          "figmaLabels": {
+            "neutrals": "Neutrals",
+            "red": "Red",
+            "orange": "Orange",
+            "yellow": "Yellow",
+            "amber": "Amber",
+            "green": "Green",
+            "emerald": "Emerald",
+            "lime": "Lime",
+            "cyan": "Cyan",
+            "aqua": "Aqua",
+            "sky": "Sky",
+            "blue": "Blue",
+            "indigo": "Indigo",
+            "purple": "Purple",
+            "magenta": "Magenta",
+            "fuchsia": "Fuchsia",
+            "rose": "Rose",
+            "violet": "Violet"
+          }
+        },
+        "Tone": {
+          "codeProp": "tone",
+          "figmaLabels": {
+            "pastel": "Pastel",
+            "solid": "Solid"
+          }
+        }
+      },
+      "figmaMatrixNote": "36 variants (18 colors × 2 tones). Default circle shape at 40px. Size and Shape are code-only unless Medallion / Layout set is built."
+    }
+  }
+}

@@ -35,8 +35,8 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
   accordion: [
     r(
       'variant',
-      '"boxed" | "divided"',
-      '`boxed`: outer border, 4px radius, dividers between items, light gray trigger strip. `divided`: dividers only, no outer frame.',
+      '"boxed" | "boxed-filled" | "divided"',
+      '`divided`: dividers only, no outer frame. `boxed`: outer border, 4px radius, light gray trigger strip. `boxed-filled`: outer border with `uds-surface-secondary` fill. Figma variant labels: Divided, Boxed, Boxed Filled.',
       'divided',
     ),
     r('type', '"single" | "multiple"', 'How many sections may be open at once.'),
@@ -141,12 +141,12 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     r(
       'accent',
       'BadgeAccent | undefined',
-      'UDS accent family: transparent, neutral, chromatic hues, inverse. When set, drives colors; `variant` is ignored.',
+      'UDS accent family: transparent, neutral, red, orange, yellow, emerald, green, sky, cyan, blue, indigo, purple, fuchsia, magenta, inverse. When set, drives colors; `variant` is ignored. Figma Accent property uses matching labels (e.g. Blue, Neutral).',
     ),
     r(
       'appearance',
       "'subtle' | 'pastel' | 'outlined' | 'solid'",
-      'Label-only badge treatment when `accent` is set.',
+      'Label-only badge treatment when `accent` is set. Subtle = transparent bg; Pastel = light fill; Outlined = border; Solid = filled. Figma Appearance: Subtle, Pastel, Outlined, Solid.',
       'solid',
     ),
     r(
@@ -191,8 +191,18 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     MORE,
   ],
   button: [
-    r('variant', 'enum', 'default | outline | secondary | ghost | destructive | link', 'default'),
-    r('size', 'enum', 'default | xs | sm | lg | icon | icon-xs | icon-sm | icon-lg', 'default'),
+    r(
+      'variant',
+      'enum',
+      'default | outline | secondary | ghost | destructive | link. Figma Appearance: Default, Outline, Secondary, Ghost, Destructive, Link.',
+      'default',
+    ),
+    r(
+      'size',
+      'enum',
+      'default | xs | sm | lg | icon | icon-xs | icon-sm | icon-lg. Figma Size: Default, Extra Small, Small, Large, Icon, Icon Extra Small, Icon Small, Icon Large.',
+      'default',
+    ),
     r('asChild', 'boolean', 'Render as child element.', 'false'),
     CN,
     MORE,

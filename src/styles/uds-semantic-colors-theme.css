@@ -14,7 +14,6 @@
   /* Surfaces */
   --color-uds-surface-primary: var(--uds-surface-primary);
   --color-uds-surface-secondary: var(--uds-surface-secondary);
-  --color-uds-button-surface-secondary: var(--uds-button-surface-secondary);
   --color-uds-surface-tertiary: var(--uds-surface-tertiary);
   --color-uds-surface-quaternary: var(--uds-surface-quaternary);
   --color-uds-surface-disabled: var(--uds-surface-disabled);
@@ -59,4 +58,28 @@
   --color-uds-text-link-secondary-hover: var(--uds-text-link-secondary-hover);
   --color-uds-text-link-secondary-active: var(--uds-text-link-secondary-active);
   --color-uds-text-link-secondary-visited: var(--uds-text-link-secondary-visited);
+
+  /* Button (component tokens) */
+  --color-uds-button-surface-primary-default: var(--uds-button-surface-primary-default);
+  --color-uds-button-surface-primary-hover: var(--uds-button-surface-primary-hover);
+  --color-uds-button-surface-primary-destructive: var(--uds-button-surface-primary-destructive);
+  --color-uds-button-surface-primary-disabled: var(--uds-button-surface-primary-disabled);
+  --color-uds-button-surface-secondary-default: var(--uds-button-surface-secondary-default);
+  --color-uds-button-surface-secondary-hover: var(--uds-button-surface-secondary-hover);
+  --color-uds-button-border-primary-default: var(--uds-button-border-primary-default);
+  --color-uds-button-border-primary-hover: var(--uds-button-border-primary-hover);
+  --color-uds-button-border-primary-destructive: var(--uds-button-border-primary-destructive);
+  --color-uds-button-border-primary-disabled: var(--uds-button-border-primary-disabled);
+  --color-uds-button-border-secondary-default: var(--uds-button-border-secondary-default);
+  --color-uds-button-border-secondary-hover: var(--uds-button-border-secondary-hover);
+  --color-uds-button-text-default: var(--uds-button-text-default);
+  --color-uds-button-text-secondary: var(--uds-button-text-secondary);
+  --color-uds-button-text-tertiary: var(--uds-button-text-tertiary);
+  --color-uds-button-text-quaternary: var(--uds-button-text-quaternary);
+  --color-uds-button-text-disabled: var(--uds-button-text-disabled);
+  --color-uds-button-icons-primary: var(--uds-button-icons-primary);
+  --color-uds-button-icons-secondary: var(--uds-button-icons-secondary);
+  --color-uds-button-icons-tertiary: var(--uds-button-icons-tertiary);
+  --color-uds-button-icons-quaternary: var(--uds-button-icons-quaternary);
+  --color-uds-button-icons-disabled: var(--uds-button-icons-disabled);
 }
