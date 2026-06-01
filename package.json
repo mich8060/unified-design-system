@@ -61,6 +61,7 @@
     "build:lib": "vite build --config vite.config.lib.ts && tsc -p tsconfig.lib.json && node ./scripts/prepare-package.mjs",
     "build:docs": "node ./scripts/sync-docs-version-snapshot.mjs && vite build --config vite.config.docs.ts",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.lib.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "pack:check": "npm_config_cache=/tmp/uds-tailwind-test-npm-cache npm pack --dry-run",
     "preview": "vite preview --config vite.config.docs.ts",
