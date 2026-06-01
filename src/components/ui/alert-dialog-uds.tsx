@@ -24,6 +24,7 @@ type AlertDialogMediaProps = React.ComponentProps<"div"> & {
   color?: MedallionColor
   icon?: React.ReactNode
   shape?: MedallionProps["shape"]
+  tone?: MedallionProps["tone"]
 }
 
 function UdsAlertDialogMedia({
@@ -31,34 +32,26 @@ function UdsAlertDialogMedia({
   children,
   color,
   icon,
-  shape = "rounded",
+  shape = "circle",
+  tone = "pastel",
   ...props
 }: AlertDialogMediaProps) {
   if (color && icon) {
     return (
       <Medallion
         data-slot="alert-dialog-media"
-        size="xl"
+        size="default"
         color={color}
         icon={icon}
         shape={shape}
-        className={cn(
-          "mb-2 sm:group-data-[size=default]/alert-dialog-content:row-span-2",
-          className,
-        )}
+        tone={tone}
+        className={className}
       />
     )
   }
 
   return (
-    <div
-      data-slot="alert-dialog-media"
-      className={cn(
-        "mb-2 sm:group-data-[size=default]/alert-dialog-content:row-span-2",
-        className,
-      )}
-      {...props}
-    >
+    <div data-slot="alert-dialog-media" className={className} {...props}>
       {children}
     </div>
   )
@@ -74,8 +67,10 @@ function UdsAlertDialogContent({
   return (
     <AlertDialogContent
       data-size={size}
+      overlayClassName="bg-[var(--uds-scrim-50)]"
       className={cn(
-        "group/alert-dialog-content rounded-[length:var(--uds-radius-8)] bg-popover p-4 text-popover-foreground ring-1 ring-foreground/10 data-[size=default]:max-w-xs data-[size=sm]:max-w-xs data-[size=default]:sm:max-w-sm",
+        "group/alert-dialog-content flex flex-col gap-0 overflow-hidden rounded-[length:var(--uds-radius-8)] border border-[var(--uds-border-secondary)] bg-[var(--uds-surface-primary)] p-0 text-[var(--uds-text-primary)] shadow-lg ring-0",
+        size === "sm" ? "max-w-[320px]" : "max-w-[400px]",
         className
       )}
       {...props}
@@ -90,8 +85,8 @@ function UdsAlertDialogHeader({
   return (
     <AlertDialogHeader
       className={cn(
-        "grid grid-rows-[auto_1fr] place-items-center gap-1 text-center has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr] has-data-[slot=alert-dialog-media]:gap-x-4 sm:group-data-[size=default]/alert-dialog-content:place-items-start sm:group-data-[size=default]/alert-dialog-content:text-left sm:group-data-[size=default]/alert-dialog-content:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr]",
-        className,
+        "flex flex-col items-start gap-2 p-4 text-left",
+        className
       )}
       {...props}
     />
@@ -105,8 +100,8 @@ function UdsAlertDialogFooter({
   return (
     <AlertDialogFooter
       className={cn(
-        "-mx-4 -mb-4 rounded-b-[length:var(--uds-radius-8)] border-t bg-muted/50 p-2 group-data-[size=sm]/alert-dialog-content:grid group-data-[size=sm]/alert-dialog-content:grid-cols-2",
-        className,
+        "flex flex-row justify-end gap-2 border-t border-[var(--uds-border-secondary)] bg-[var(--uds-surface-tertiary)] p-2",
+        className
       )}
       {...props}
     />
@@ -120,7 +115,7 @@ function UdsAlertDialogTitle({
   return (
     <AlertDialogTitle
       className={cn(
-        "font-sans text-uds-16 font-uds-semibold leading-uds-16 [font-family:var(--font-inter)]",
+        "font-sans text-uds-16 font-uds-semibold leading-uds-16 text-[var(--uds-text-primary)] [font-family:var(--font-inter)]",
         className
       )}
       {...props}
@@ -135,9 +130,21 @@ function UdsAlertDialogDescription({
   return (
     <AlertDialogDescription
       className={cn(
-        "font-sans text-uds-14 font-uds-regular leading-uds-14 text-uds-text-secondary [font-family:var(--font-inter)]",
+        "font-sans text-uds-14 font-uds-regular leading-uds-14 text-[var(--uds-text-secondary)] [font-family:var(--font-inter)]",
         className
       )}
+      {...props}
+    />
+  )
+}
+
+function UdsAlertDialogOverlay({
+  className,
+  ...props
+}: React.ComponentProps<typeof AlertDialogOverlay>) {
+  return (
+    <AlertDialogOverlay
+      className={cn("bg-[var(--uds-scrim-50)]", className)}
       {...props}
     />
   )
@@ -147,9 +154,9 @@ export {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
-  AlertDialogOverlay,
   AlertDialogPortal,
   AlertDialogTrigger,
+  UdsAlertDialogOverlay as AlertDialogOverlay,
   UdsAlertDialogMedia as AlertDialogMedia,
   UdsAlertDialogContent as AlertDialogContent,
   UdsAlertDialogDescription as AlertDialogDescription,

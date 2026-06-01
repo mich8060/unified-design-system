@@ -8,7 +8,21 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@chg-ds/unified-design-system'
-import { Alert, AlertContent, AlertDescription, AlertTitle } from '@chg-ds/unified-design-system'
+import {
+    Alert,
+    AlertContent,
+    AlertDescription,
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogMedia,
+    AlertDialogTitle,
+    AlertTitle,
+} from '@chg-ds/unified-design-system'
 import { AspectRatio } from '@chg-ds/unified-design-system'
 import {
     Avatar,
@@ -1074,8 +1088,8 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             'default',
             'Default',
             (
-                <Alert className="box-border w-[320px] shrink-0">
-                    <Medallion color="sky" size="lg" icon={<InfoIcon weight="bold" aria-hidden />} />
+                <Alert className="max-w-md">
+                    <Medallion color="sky" icon={<InfoIcon weight="bold" aria-hidden />} />
                     <AlertContent>
                         <AlertTitle>Note</AlertTitle>
                         <AlertDescription>Use alerts for inline status that doesn’t block the page.</AlertDescription>
@@ -1083,8 +1097,8 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                 </Alert>
             ),
             `import { Medallion } from "@chg-ds/unified-design-system"
-<Alert className="box-border w-[320px] shrink-0">
-  <Medallion color="sky" size="lg" icon={<InfoIcon weight="bold" aria-hidden />} />
+<Alert className="max-w-md">
+  <Medallion color="sky" icon={<InfoIcon weight="bold" aria-hidden />} />
   <AlertContent>
     <AlertTitle>Note</AlertTitle>
     <AlertDescription>Use alerts for inline status that doesn’t block the page.</AlertDescription>
@@ -1095,16 +1109,16 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             'destructive',
             'Destructive',
             (
-                <Alert variant="destructive" className="box-border w-[320px] shrink-0">
-                    <Medallion color="red" size="lg" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+                <Alert variant="destructive" className="max-w-md">
+                    <Medallion color="red" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
                     <AlertContent>
                         <AlertTitle>Error</AlertTitle>
                         <AlertDescription>Something went wrong. Try again.</AlertDescription>
                     </AlertContent>
                 </Alert>
             ),
-            `<Alert variant="destructive" className="box-border w-[320px] shrink-0">
-  <Medallion color="red" size="lg" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+            `<Alert variant="destructive" className="max-w-md">
+  <Medallion color="red" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
   <AlertContent>
     <AlertTitle>Error</AlertTitle>
     <AlertDescription>Something went wrong. Try again.</AlertDescription>
@@ -1115,7 +1129,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
     'alert-dialog': [
         {
             id: 'confirm',
-            title: 'Confirm action',
+            title: 'Confirm action (default)',
             preview: (
                 <ExampleCanvas>
                     <AlertDialogVariants />
@@ -1126,21 +1140,56 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             code: `<AlertDialog>
   <AlertDialogContent>
     <AlertDialogHeader>
-      <AlertDialogMedia>
-        <WarningCircleIcon weight="bold" aria-hidden />
-      </AlertDialogMedia>
-      <AlertDialogTitle>Delete job posting?</AlertDialogTitle>
+      <AlertDialogMedia color="red" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
       <AlertDialogDescription>
-        This action removes the posting from the marketplace and cannot be undone.
+        This action cannot be undone.
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
       <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction>Delete posting</AlertDialogAction>
+      <AlertDialogAction>Continue</AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>`,
         },
+        E(
+            'small',
+            'Small width (320px)',
+            (
+                <AlertDialog defaultOpen>
+                    <AlertDialogContent size="sm">
+                        <AlertDialogHeader>
+                            <AlertDialogMedia
+                                color="amber"
+                                icon={<WarningCircleIcon weight="bold" aria-hidden />}
+                            />
+                            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                This action cannot be undone.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction>Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+            ),
+            `<AlertDialog>
+  <AlertDialogContent size="sm">
+    <AlertDialogHeader>
+      <AlertDialogMedia color="amber" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+      <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction>Continue</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>`,
+        ),
     ],
     'aspect-ratio': [
         E(
@@ -4243,6 +4292,38 @@ import { toast } from "sonner"
   </TabsList>
   <TabsContent value="account">Account settings panel.</TabsContent>
   <TabsContent value="password">Password settings panel.</TabsContent>
+</Tabs>`,
+        ),
+        E(
+            'fill',
+            'Pill tabs (fill width)',
+            (
+                <Tabs defaultValue="account" className="max-w-xl">
+                    <TabsList fill>
+                        <TabsTrigger value="account">Account</TabsTrigger>
+                        <TabsTrigger value="password">Password</TabsTrigger>
+                        <TabsTrigger value="notifications">Notifications</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="account" className="text-sm text-muted-foreground">
+                        Account settings panel.
+                    </TabsContent>
+                    <TabsContent value="password" className="text-sm text-muted-foreground">
+                        Password settings panel.
+                    </TabsContent>
+                    <TabsContent value="notifications" className="text-sm text-muted-foreground">
+                        Notification preferences.
+                    </TabsContent>
+                </Tabs>
+            ),
+            `<Tabs defaultValue="account" className="max-w-xl">
+  <TabsList fill>
+    <TabsTrigger value="account">Account</TabsTrigger>
+    <TabsTrigger value="password">Password</TabsTrigger>
+    <TabsTrigger value="notifications">Notifications</TabsTrigger>
+  </TabsList>
+  <TabsContent value="account">Account settings panel.</TabsContent>
+  <TabsContent value="password">Password settings panel.</TabsContent>
+  <TabsContent value="notifications">Notification preferences.</TabsContent>
 </Tabs>`,
         ),
         E(

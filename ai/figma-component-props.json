@@ -147,29 +147,30 @@
           "figmaLabels": { "default": "Default", "sm": "Small" }
         }
       },
-      "figmaMatrixNote": "720×520 viewport. Overlay: uds/scrim/50. Content: header (amber medallion xl), title, description, footer with Outline Cancel + Primary Continue buttons."
+      "figmaMatrixNote": "720×520 viewport. Overlay uds/scrim/50. Default 400px + Red pastel medallion 40px; Small 320px + Amber. Header left-aligned p-16; footer uds/surface/tertiary with Outline Cancel + Default Continue."
     },
-    "Tabs (2)": {
-      "nodeId": "767:350",
+    "Tabs": {
+      "nodeId": "790:1022",
       "properties": {
-        "Variant": { "codeProp": "variant", "figmaLabels": { "default": "Default", "line": "Line" } },
-        "Active": { "codeProp": "value", "figmaLabels": { "first": "First", "second": "Second" } }
+        "Appearance": {
+          "codeProp": "variant",
+          "figmaLabels": { "default": "Pill", "line": "Line" }
+        },
+        "Tabs": {
+          "codeProp": "tabCount",
+          "note": "Figma variant axis 2–6; not a code prop — pick variant matching desired tab count in mockups."
+        },
+        "Active": {
+          "codeProp": "value",
+          "note": "Numeric 1–n where n = Tabs count. Maps to active tab index in list."
+        },
+        "Fill": {
+          "codeProp": "fill",
+          "figmaLabels": { "false": "Hug (w-fit)", "true": "Fill (w-full, equal triggers)" },
+          "note": "TabsList `fill` prop. Figma property Fill=false|true."
+        }
       },
-      "figmaMatrixNote": "4 variants: Default|Line × First|Second. Two tabs only."
-    },
-    "Tabs (3)": {
-      "nodeId": "767:420",
-      "properties": {
-        "Variant": { "codeProp": "variant" },
-        "Active": { "codeProp": "value", "note": "First | Second | Third only." }
-      },
-      "figmaMatrixNote": "6 variants. Three tabs."
-    },
-    "Tabs (4)": { "nodeId": "767:537", "figmaMatrixNote": "8 variants. Active: First–Fourth." },
-    "Tabs (5)": { "nodeId": "767:713", "figmaMatrixNote": "10 variants. Active: First–Fifth." },
-    "Tabs (6)": {
-      "nodeId": "767:960",
-      "figmaMatrixNote": "12 variants. Active: First–Sixth. Tabs list only; line indicator flush on bottom rule."
+      "figmaMatrixNote": "80 variants. Fill=false (hug) | Fill=true (full width). Pill list: uds/surface/secondary, radius-6, active uds/surface/brand-quaternary + inverse text. Line: border-primary bottom, active uds/text/brand-quaternary + 2px indicator."
     },
     "Alert": {
       "nodeId": "758:308",
@@ -182,7 +183,46 @@
           }
         }
       },
-      "figmaMatrixNote": "HUG horizontal layout: Medallion (lg / 48px) + Alert content (title + description). Default uses sky pastel medallion; destructive uses red pastel."
+      "figmaMatrixNote": "HUG flex row items-start gap-12 p-16. Medallion 40px: Sky pastel (default), Red pastel (destructive). Surface primary + border secondary; destructive border/text use uds-button-border-primary-destructive."
+    },
+    "Avatar": {
+      "nodeId": "818:512",
+      "properties": {
+        "Appearance": {
+          "codeProp": "appearance",
+          "figmaLabels": {
+            "initials": "Initials"
+          },
+          "note": "Initials = AvatarFallback on uds/color/primary/700. Any other Appearance value is a doctor portrait stem from DOCTOR_AVATAR_IDS (public/avatars/doctors/*.png)."
+        },
+        "Accessory": {
+          "codeProp": "accessory",
+          "figmaLabels": {
+            "none": "None",
+            "status-green": "Status Green",
+            "status-orange": "Status Orange",
+            "status-cyan": "Status Cyan",
+            "camera": "Camera"
+          },
+          "note": "Maps to AvatarStatus (DotStatus, bottom-right) or AvatarCameraAction. None = base avatar only."
+        },
+        "Size": {
+          "codeProp": "size",
+          "values": {
+            "Extra Small": "xs",
+            "Small": "sm",
+            "Default": "default",
+            "Large": "lg"
+          },
+          "figmaLabels": {
+            "xs": "Extra Small",
+            "sm": "Small",
+            "default": "Default",
+            "lg": "Large"
+          }
+        }
+      },
+      "figmaMatrixNote": "460 variants (23 Appearances × 4 Sizes × 5 Accessories). Initials use full-size centered text box. Accessories: Status Green/Orange/Cyan (DotStatus) and Camera (AvatarCameraAction) per avatar-uds.tsx."
     },
     "Medallion": {
       "nodeId": "754:436",

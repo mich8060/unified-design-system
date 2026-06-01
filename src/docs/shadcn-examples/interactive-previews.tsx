@@ -192,9 +192,7 @@ export function AlertDialogVariants() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogMedia>
-            <WarningCircleIcon weight="bold" aria-hidden />
-          </AlertDialogMedia>
+          <AlertDialogMedia color="red" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
         </AlertDialogHeader>
@@ -219,13 +217,11 @@ export function AlertDialogWelcomePreviewInner() {
         data-size="default"
         data-slot="alert-dialog-content"
         className={cn(
-          'group/alert-dialog-content relative box-border grid w-[450px] shrink-0 gap-4 rounded-[length:var(--uds-radius-8)] bg-popover p-4 text-popover-foreground shadow-lg ring-1 ring-foreground/10 sm:w-[510px]',
+          'group/alert-dialog-content relative box-border flex w-full max-w-[400px] shrink-0 flex-col gap-0 overflow-hidden rounded-[length:var(--uds-radius-8)] border border-[var(--uds-border-secondary)] bg-[var(--uds-surface-primary)] text-[var(--uds-text-primary)] shadow-lg',
         )}
       >
         <AlertDialogHeader>
-          <AlertDialogMedia>
-            <WarningCircleIcon weight="bold" aria-hidden />
-          </AlertDialogMedia>
+          <AlertDialogMedia color="red" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
           <h2
             data-slot="alert-dialog-title"
             className="font-sans text-uds-16 font-uds-semibold leading-uds-16 [font-family:var(--font-inter)]"

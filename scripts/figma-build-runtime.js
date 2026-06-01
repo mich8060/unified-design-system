@@ -106,7 +106,7 @@ async function ensurePage(name) {
   return page
 }
 
-async function buildTabsGroupedFromSpec(spec) {
+async function buildTabsFromSpec(spec) {
   const page = await ensurePage(spec.pageName ?? 'UDS Components')
   if (spec.replaceExisting) {
     for (const node of [...page.children]) {
@@ -120,55 +120,54 @@ async function buildTabsGroupedFromSpec(spec) {
   }
 
   await loadInter()
-  const activeLabels = spec.activeLabels ?? [
-    'First',
-    'Second',
-    'Third',
-    'Fourth',
-    'Fifth',
-    'Sixth',
-  ]
-  const counts = spec.counts ?? [2, 3, 4, 5, 6]
-  const variantKeys = spec.axes?.Variant ?? ['Default', 'Line']
-  const sets = []
-  let y = nextCanvasY(page)
+  const appearances = spec.axes?.Appearance ?? ['Pill', 'Line']
+  const fills = spec.axes?.Fill ?? ['false', 'true']
+  const tabCounts = spec.tabCounts ?? [2, 3, 4, 5, 6]
+  const components = []
 
-  for (const count of counts) {
-    const setName = `Tabs (${count})`
-    const components = []
-    for (const variantKey of variantKeys) {
-      for (let i = 0; i < count; i++) {
-        const activeKey = activeLabels[i]
-        const comp = figma.createComponent()
-        comp.name = `Variant=${variantKey}, Active=${activeKey}`
-        await buildTabsVariant(comp, { ...spec, tabCount: count }, {
-          Variant: variantKey,
-          Active: activeKey,
-        })
-        page.appendChild(comp)
-        components.push(comp)
+  for (const appearance of appearances) {
+    for (const fill of fills) {
+      for (const tabCount of tabCounts) {
+        const count = Number(tabCount)
+        for (let active = 1; active <= count; active++) {
+          const comp = figma.createComponent()
+          comp.name = `Appearance=${appearance}, Tabs=${tabCount}, Active=${active}, Fill=${fill}`
+          await buildTabsVariant(comp, spec, {
+            Appearance: appearance,
+            Tabs: String(tabCount),
+            Active: String(active),
+            Fill: fill,
+          })
+          page.appendChild(comp)
+          components.push(comp)
+        }
       }
     }
-    const set = figma.combineAsVariants(components, page)
-    set.name = setName
-    set.x = 100
-    set.y = y
-    gridLayoutVariants(
-      set,
-      spec.gridCols ?? 2,
-      spec.gridCellW ?? 240,
-      spec.gridCellH ?? 56,
-    )
-    y += set.height + 80
-    sets.push({ name: setName, nodeId: set.id, variantCount: set.children.length })
   }
 
-  return { skipped: false, grouped: true, sets }
+  const set = figma.combineAsVariants(components, page)
+  set.name = spec.figmaName
+  set.x = 100
+  set.y = nextCanvasY(page)
+  gridLayoutVariants(
+    set,
+    spec.gridCols ?? 6,
+    spec.gridCellW ?? 200,
+    spec.gridCellH ?? 52,
+  )
+
+  return {
+    skipped: false,
+    nodeId: set.id,
+    name: set.name,
+    variantCount: set.children.length,
+    samples: set.children.slice(0, 4).map((c) => c.name),
+  }
 }
 
 async function buildFromSpec(spec) {
-  if (spec.kind === 'tabs' && spec.groupedByCount) {
-    return await buildTabsGroupedFromSpec(spec)
+  if (spec.kind === 'tabs') {
+    return await buildTabsFromSpec(spec)
   }
 
   const page = await ensurePage(spec.pageName ?? 'UDS Components')
@@ -236,8 +235,6 @@ async function buildFromSpec(spec) {
       await buildAlertVariant(comp, spec, axis)
     } else if (spec.kind === 'card') {
       await buildCardVariant(comp, spec, axis)
-    } else if (spec.kind === 'tabs') {
-      await buildTabsVariant(comp, spec, axis)
     } else if (spec.kind === 'field') {
       await buildFieldVariant(comp, spec, axis)
     } else if (spec.kind === 'empty') {
@@ -602,19 +599,135 @@ async function buildDotStatusVariant(comp, spec, axis) {
   comp.appendChild(dot)
 }
 
+const AVATAR_STATUS_COLOR = {
+  Green: 'uds/color/accent/green/500',
+  Orange: 'uds/color/accent/orange/500',
+  Cyan: 'uds/color/accent/cyan/500',
+}
+
+function avatarStatusFromAccessory(accessory) {
+  if (!accessory?.startsWith('Status ')) return null
+  return accessory.replace('Status ', '')
+}
+
+function avatarDotSizePx(sizeKey) {
+  return sizeKey === 'Large' ? 14 : 10
+}
+
+function avatarCameraSizePx(sizeKey) {
+  return sizeKey === 'Extra Small' || sizeKey === 'Small' ? 16 : 20
+}
+
+function avatarCameraOffsetPx(sizeKey) {
+  return sizeKey === 'Extra Small' || sizeKey === 'Small' ? 2 : 4
+}
+
+async function appendAvatarStatus(comp, spec, axis, avatarSize, statusKey) {
+  const dotPx = avatarDotSizePx(axis.Size)
+  const inset = Math.max(0, Math.round((avatarSize - dotPx) * 0.12))
+  const dot = figma.createEllipse()
+  dot.resize(dotPx, dotPx)
+  await bindFill(dot, AVATAR_STATUS_COLOR[statusKey] ?? 'uds/color/accent/green/500')
+  dot.name = 'Avatar status'
+  dot.x = avatarSize - dotPx + inset
+  dot.y = avatarSize - dotPx + inset
+  const ring = figma.createEllipse()
+  ring.name = 'Status ring'
+  ring.resize(dotPx + 4, dotPx + 4)
+  ring.x = dot.x - 2
+  ring.y = dot.y - 2
+  await bindFill(ring, 'uds/surface/primary')
+  comp.appendChild(ring)
+  comp.appendChild(dot)
+}
+
+async function appendAvatarCamera(comp, spec, axis, avatarSize) {
+  const btnPx = avatarCameraSizePx(axis.Size)
+  const offset = avatarCameraOffsetPx(axis.Size)
+  const btn = figma.createFrame()
+  btn.name = 'Avatar camera action'
+  btn.resize(btnPx, btnPx)
+  btn.x = avatarSize - btnPx + offset
+  btn.y = avatarSize - btnPx + offset
+  btn.layoutMode = 'HORIZONTAL'
+  btn.primaryAxisAlignItems = 'CENTER'
+  btn.counterAxisAlignItems = 'CENTER'
+  btn.clipsContent = true
+  await bindRadius(btn, 'uds/radius/9999')
+  await bindFill(btn, 'uds/color/neutrals/300')
+  await bindStroke(btn, 'uds/surface/primary', 2)
+
+  let iconNode = null
+  const iconSetId = spec.iconSetNodeId ?? '501:6'
+  const iconSet = await figma.getNodeByIdAsync(iconSetId)
+  if (iconSet?.type === 'COMPONENT_SET') {
+    const iconSizeName = btnPx <= 16 ? 'Size=16' : 'Size=20'
+    const iconComp = iconSet.children.find((c) => c.name === iconSizeName)
+    if (iconComp?.type === 'COMPONENT') {
+      iconNode = iconComp.createInstance()
+      const iconPx = btnPx <= 16 ? 12 : 14
+      iconNode.resize(iconPx, iconPx)
+      iconNode.name = 'Camera icon'
+    }
+  }
+  if (!iconNode) {
+    const glyph = figma.createRectangle()
+    glyph.resize(Math.round(btnPx * 0.45), Math.round(btnPx * 0.4))
+    glyph.name = 'Camera icon'
+    await bindFill(glyph, 'uds/color/black')
+    iconNode = glyph
+  }
+  btn.appendChild(iconNode)
+  iconNode.layoutSizingHorizontal = 'HUG'
+  iconNode.layoutSizingVertical = 'HUG'
+  comp.appendChild(btn)
+}
+
 async function buildAvatarVariant(comp, spec, axis) {
   const s = spec.sizeBySize[axis.Size] ?? 48
+  const isInitials = axis.Appearance === 'Initials'
+  const accessory = axis.Accessory ?? 'None'
+  const statusKey = avatarStatusFromAccessory(accessory)
+  const hasAccessory = accessory !== 'None'
   comp.resize(s, s)
-  comp.cornerRadius = s / 2
-  await bindFill(comp, 'uds/surface/tertiary')
-  const text = figma.createText()
-  text.fontName = { family: 'Inter', style: 'Medium' }
-  text.fontSize = Math.round(s * 0.35)
-  text.characters = 'AB'
-  await bindText(text, { fill: 'uds/text/primary' })
-  comp.appendChild(text)
-  text.x = s * 0.28
-  text.y = s * 0.28
+  comp.layoutMode = 'NONE'
+  comp.clipsContent = !hasAccessory
+  await bindRadius(comp, 'uds/radius/9999')
+  await bindStroke(comp, 'uds/border/primary', 1)
+
+  if (isInitials) {
+    await bindFill(comp, 'uds/color/primary/700')
+    const text = figma.createText()
+    text.name = 'Initials'
+    text.fontName = { family: 'Inter', style: 'Medium' }
+    text.fontSize = spec.fontSizeBySize?.[axis.Size] ?? Math.round(s * 0.35)
+    text.characters = spec.initialsBySize?.[axis.Size] ?? 'AB'
+    text.resize(s, s)
+    text.x = 0
+    text.y = 0
+    text.textAlignHorizontal = 'CENTER'
+    text.textAlignVertical = 'CENTER'
+    text.textAutoResize = 'NONE'
+    await bindText(text, { fill: 'uds/text/inverse' })
+    comp.appendChild(text)
+  } else {
+    comp.fills = []
+    const img = figma.createRectangle()
+    img.name = 'Avatar image'
+    img.resize(s, s)
+    img.x = 0
+    img.y = 0
+    await bindRadius(img, 'uds/radius/9999')
+    await bindFill(img, 'uds/surface/tertiary')
+    comp.appendChild(img)
+  }
+
+  if (statusKey) {
+    await appendAvatarStatus(comp, spec, axis, s, statusKey)
+  }
+  if (accessory === 'Camera') {
+    await appendAvatarCamera(comp, spec, axis, s)
+  }
 }
 
 async function buildToggleVariant(comp, spec, axis) {
@@ -918,7 +1031,13 @@ async function buildAlertDialogVariant(comp, spec, axis) {
     cancel: 'Cancel',
     action: 'Continue',
   }
-  const medallion = spec.medallion ?? { color: 'Amber', tone: 'Pastel' }
+  const medallionBySize = spec.medallionBySize ?? {
+    Default: { color: 'Red', tone: 'Pastel' },
+    Small: { color: 'Amber', tone: 'Pastel' },
+  }
+  const medallion =
+    medallionBySize[axis.Size] ?? spec.medallion ?? { color: 'Red', tone: 'Pastel' }
+  const medPx = spec.medallionSizePx ?? 40
 
   comp.resize(viewportW, viewportH)
   comp.layoutMode = 'NONE'
@@ -948,8 +1067,8 @@ async function buildAlertDialogVariant(comp, spec, axis) {
   const body = figma.createFrame()
   body.name = 'Alert dialog header'
   body.layoutMode = 'VERTICAL'
-  body.primaryAxisAlignItems = 'CENTER'
-  body.counterAxisAlignItems = 'CENTER'
+  body.primaryAxisAlignItems = 'MIN'
+  body.counterAxisAlignItems = 'MIN'
   body.itemSpacing = 8
   body.paddingLeft = 16
   body.paddingRight = 16
@@ -965,7 +1084,6 @@ async function buildAlertDialogVariant(comp, spec, axis) {
     if (medComp?.type === 'COMPONENT') {
       const medInst = medComp.createInstance()
       medInst.name = 'Alert dialog media'
-      const medPx = spec.medallionSizePx ?? 64
       medInst.resize(medPx, medPx)
       body.appendChild(medInst)
     }
@@ -976,7 +1094,7 @@ async function buildAlertDialogVariant(comp, spec, axis) {
   title.fontName = { family: 'Inter', style: 'Semi Bold' }
   title.fontSize = 16
   title.characters = copy.title
-  title.textAlignHorizontal = 'CENTER'
+  title.textAlignHorizontal = 'LEFT'
   title.textAutoResize = 'HEIGHT'
   await bindText(title, { fill: 'uds/text/primary' })
   body.appendChild(title)
@@ -987,7 +1105,7 @@ async function buildAlertDialogVariant(comp, spec, axis) {
   desc.fontName = { family: 'Inter', style: 'Regular' }
   desc.fontSize = 14
   desc.characters = copy.description
-  desc.textAlignHorizontal = 'CENTER'
+  desc.textAlignHorizontal = 'LEFT'
   desc.textAutoResize = 'HEIGHT'
   await bindText(desc, { fill: 'uds/text/secondary' })
   body.appendChild(desc)
@@ -1048,7 +1166,7 @@ async function createMedallionInstance(spec, medallionAxis) {
   if (medallionComp?.type !== 'COMPONENT') return null
   const inst = medallionComp.createInstance()
   inst.name = 'Medallion'
-  const px = spec.medallionSizePx ?? 48
+  const px = spec.medallionSizePx ?? 40
   inst.resize(px, px)
   return inst
 }
@@ -1093,6 +1211,8 @@ async function buildAlertVariant(comp, spec, axis) {
   const content = figma.createFrame()
   content.name = 'Alert content'
   content.layoutMode = 'VERTICAL'
+  content.primaryAxisAlignItems = 'MIN'
+  content.counterAxisAlignItems = 'MIN'
   content.itemSpacing = 0
   content.fills = []
   const title = figma.createText()
@@ -1156,23 +1276,14 @@ async function buildCardVariant(comp, spec, axis) {
   comp.appendChild(header)
 }
 
-const TABS_ACTIVE_INDEX = {
-  First: 0,
-  Second: 1,
-  Third: 2,
-  Fourth: 3,
-  Fifth: 4,
-  Sixth: 5,
-}
-
-async function buildTabsTrigger(label, active, isLine) {
+async function buildTabsTrigger(label, active, isLine, fill = false) {
   const t = figma.createText()
   t.fontName = { family: 'Inter', style: active ? 'Semi Bold' : 'Regular' }
   t.fontSize = 14
   t.characters = label
   const textFill = isLine
     ? active
-      ? 'uds/text/primary'
+      ? 'uds/text/brand/quaternary'
       : 'uds/text/secondary'
     : active
       ? 'uds/text/inverse'
@@ -1185,17 +1296,15 @@ async function buildTabsTrigger(label, active, isLine) {
     trigger.layoutMode = 'HORIZONTAL'
     trigger.primaryAxisAlignItems = 'CENTER'
     trigger.counterAxisAlignItems = 'CENTER'
-    trigger.layoutSizingHorizontal = 'HUG'
     trigger.layoutSizingVertical = 'HUG'
     trigger.minHeight = 40
     trigger.paddingLeft = 24
     trigger.paddingRight = 24
-    trigger.paddingTop = 2
-    trigger.paddingBottom = 2
     trigger.fills = []
+    trigger.layoutSizingHorizontal = fill ? 'FILL' : 'HUG'
     if (active) {
       await bindRadius(trigger, 'uds/radius/4')
-      await bindFill(trigger, 'uds/color/primary/700')
+      await bindFill(trigger, 'uds/surface/brand/quaternary')
     }
     trigger.appendChild(t)
     t.layoutSizingHorizontal = 'HUG'
@@ -1205,98 +1314,89 @@ async function buildTabsTrigger(label, active, isLine) {
   const trigger = figma.createFrame()
   trigger.name = 'Tabs trigger'
   trigger.layoutMode = 'VERTICAL'
-  trigger.primaryAxisAlignItems = 'MAX'
-  trigger.counterAxisAlignItems = 'CENTER'
+  trigger.primaryAxisAlignItems = 'MIN'
+  trigger.counterAxisAlignItems = 'MIN'
   trigger.layoutSizingHorizontal = 'HUG'
   trigger.layoutSizingVertical = 'HUG'
   trigger.itemSpacing = 0
-  trigger.paddingLeft = 24
-  trigger.paddingRight = 24
-  trigger.paddingTop = 0
-  trigger.paddingBottom = 0
   trigger.fills = []
+  trigger.layoutSizingHorizontal = fill ? 'FILL' : 'HUG'
 
-  const labelRow = figma.createFrame()
-  labelRow.name = 'Label'
-  labelRow.layoutMode = 'HORIZONTAL'
-  labelRow.layoutSizingHorizontal = 'HUG'
-  labelRow.layoutSizingVertical = 'HUG'
-  labelRow.minHeight = 40
-  labelRow.fills = []
-  labelRow.primaryAxisAlignItems = 'CENTER'
-  labelRow.counterAxisAlignItems = 'CENTER'
-  labelRow.appendChild(t)
+  const labelWrap = figma.createFrame()
+  labelWrap.name = 'Label'
+  labelWrap.layoutMode = 'HORIZONTAL'
+  labelWrap.primaryAxisAlignItems = 'CENTER'
+  labelWrap.counterAxisAlignItems = 'CENTER'
+  labelWrap.layoutSizingHorizontal = 'HUG'
+  labelWrap.layoutSizingVertical = 'HUG'
+  labelWrap.paddingLeft = 24
+  labelWrap.paddingRight = 24
+  labelWrap.paddingTop = 12
+  labelWrap.paddingBottom = 12
+  labelWrap.fills = []
+  labelWrap.appendChild(t)
   t.layoutSizingHorizontal = 'HUG'
-  trigger.appendChild(labelRow)
+  trigger.appendChild(labelWrap)
 
-  const indicator = figma.createRectangle()
-  indicator.name = active ? 'Active indicator' : 'Indicator slot'
-  indicator.resize(24, 2)
-  indicator.fills = []
   if (active) {
-    await bindFill(indicator, 'uds/text/primary')
+    const indicator = figma.createRectangle()
+    indicator.name = 'Active indicator'
+    indicator.resize(100, 2)
+    indicator.fills = []
+    await bindFill(indicator, 'uds/text/brand/quaternary')
+    trigger.appendChild(indicator)
+    indicator.layoutAlign = 'STRETCH'
+    indicator.layoutSizingHorizontal = 'FILL'
+    indicator.layoutSizingVertical = 'FIXED'
+    indicator.minHeight = 2
+    indicator.maxHeight = 2
   }
-  trigger.appendChild(indicator)
-  indicator.layoutSizingHorizontal = 'FILL'
 
   return trigger
 }
 
 async function buildTabsVariant(comp, spec, axis) {
-  const variantKey = axis.Variant ?? 'Default'
-  const isLine = variantKey === 'Line'
-  const count = spec.tabCount ?? Math.min(6, Math.max(2, Number(axis.Count) || 2))
-  const activeIdx = TABS_ACTIVE_INDEX[axis.Active] ?? 0
+  const isLine = axis.Appearance === 'Line'
+  const isFill = axis.Fill === 'true' || axis.Fill === 'Fill' || axis.Width === 'Fill'
+  const fillWidth = spec.fillPreviewWidth ?? 360
+  const count = Math.min(6, Math.max(2, Number(axis.Tabs) || 2))
+  const activeIdx = Math.max(0, Math.min(count - 1, Number(axis.Active) - 1))
 
-  comp.layoutMode = isLine ? 'VERTICAL' : 'HORIZONTAL'
+  comp.layoutMode = 'HORIZONTAL'
   comp.primaryAxisAlignItems = 'MIN'
-  comp.counterAxisAlignItems = 'MIN'
-  comp.itemSpacing = 0
+  comp.counterAxisAlignItems = isLine ? 'MAX' : 'CENTER'
+  comp.itemSpacing = isLine ? 4 : 0
   comp.fills = []
-  comp.layoutSizingHorizontal = 'HUG'
+  comp.layoutSizingHorizontal = isFill ? 'FIXED' : 'HUG'
   comp.layoutSizingVertical = 'HUG'
+  comp.clipsContent = true
 
-  const list = figma.createFrame()
-  list.name = 'Tabs list'
-  list.layoutMode = 'HORIZONTAL'
-  list.primaryAxisAlignItems = 'MIN'
-  list.counterAxisAlignItems = 'MAX'
-  list.paddingLeft = isLine ? 0 : 3
-  list.paddingRight = isLine ? 0 : 3
-  list.paddingTop = isLine ? 0 : 3
-  list.paddingBottom = 0
-  list.itemSpacing = isLine ? 4 : 0
-  list.layoutSizingHorizontal = 'HUG'
-  list.layoutSizingVertical = 'HUG'
-  list.fills = []
-
-  if (!isLine) {
-    list.paddingLeft = 3
-    list.paddingRight = 3
-    list.paddingTop = 3
-    list.paddingBottom = 3
-    list.counterAxisAlignItems = 'CENTER'
-    await bindFill(list, 'uds/surface/tertiary')
-    await bindStroke(list, 'uds/border/secondary')
-    await bindRadius(list, 'uds/radius/8')
+  if (isLine) {
+    await bindStroke(comp, 'uds/border/primary')
+    comp.strokeTopWeight = 0
+    comp.strokeRightWeight = 0
+    comp.strokeBottomWeight = 1
+    comp.strokeLeftWeight = 0
+  } else {
+    comp.paddingLeft = 3
+    comp.paddingRight = 3
+    comp.paddingTop = 3
+    comp.paddingBottom = 3
+    comp.itemSpacing = 0
+    await bindFill(comp, 'uds/surface/secondary')
+    await bindStroke(comp, 'uds/border/secondary')
+    await bindRadius(comp, 'uds/radius/6')
   }
 
   for (let i = 0; i < count; i++) {
-    const label = `Tab ${i + 1}`
-    const trigger = await buildTabsTrigger(label, i === activeIdx, isLine)
-    list.appendChild(trigger)
+    comp.appendChild(
+      await buildTabsTrigger(`Tab ${i + 1}`, i === activeIdx, isLine, isFill),
+    )
   }
 
-  comp.appendChild(list)
-  list.layoutSizingHorizontal = isLine ? 'FILL' : 'HUG'
-
-  if (isLine) {
-    const rule = figma.createRectangle()
-    rule.name = 'Tabs line rule'
-    rule.resize(200, 1)
-    await bindFill(rule, 'uds/border/secondary')
-    comp.appendChild(rule)
-    rule.layoutSizingHorizontal = 'FILL'
+  if (isFill) {
+    comp.resize(fillWidth, comp.height)
+    comp.layoutSizingHorizontal = 'FIXED'
   }
 }
 

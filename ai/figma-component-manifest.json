@@ -54,7 +54,7 @@
       "slug": "dot-status"
     },
     "Avatar": {
-      "nodeId": "596:228",
+      "nodeId": "818:512",
       "slug": "avatar"
     },
     "Toggle": {
@@ -109,11 +109,10 @@
       "nodeId": "688:229",
       "slug": "card"
     },
-    "Tabs (2)": { "nodeId": "767:350", "slug": "tabs" },
-    "Tabs (3)": { "nodeId": "767:420", "slug": "tabs" },
-    "Tabs (4)": { "nodeId": "767:537", "slug": "tabs" },
-    "Tabs (5)": { "nodeId": "767:713", "slug": "tabs" },
-    "Tabs (6)": { "nodeId": "767:960", "slug": "tabs" },
+    "Tabs": {
+      "nodeId": "790:1022",
+      "slug": "tabs"
+    },
     "Field": {
       "nodeId": "723:237",
       "slug": "field"
@@ -150,7 +149,7 @@
     "avatar": {
       "status": "in-figma",
       "figmaName": "Avatar",
-      "nodeId": "596:228"
+      "nodeId": "818:512"
     },
     "badge": {
       "status": "in-figma",
@@ -442,8 +441,9 @@
     },
     "tabs": {
       "status": "in-figma",
-      "figmaName": "Tabs (2–6)",
-      "note": "Use Tabs (2)…Tabs (6) component sets; each groups Variant × Active for that tab count only."
+      "figmaName": "Tabs",
+      "nodeId": "790:1022",
+      "note": "Single component set: Appearance (Pill|Line), Fill (false|true), Tabs (2–6), Active (1–n). 80 variants. Node 790:1022."
     },
     "text": {
       "status": "in-figma",

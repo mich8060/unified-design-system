@@ -247,14 +247,61 @@
   "avatar": {
     "figmaName": "Avatar",
     "kind": "avatar",
+    "replaceExisting": true,
     "tier": 0,
-    "gridCols": 4,
-    "gridCellW": 80,
-    "gridCellH": 80,
+    "gridCols": 8,
+    "gridCellW": 72,
+    "gridCellH": 72,
     "axes": {
-      "Size": ["Extra Small", "Small", "Default", "Large"]
+      "Appearance": [
+        "Initials",
+        "Amanda-Lee",
+        "Andrew-Jackson",
+        "Brian-White",
+        "Christopher-Davis",
+        "Daniel-Garcia",
+        "David-Kim",
+        "Emily-Thompson",
+        "James-Wilson",
+        "Jennifer-Moore",
+        "Jessica-Martinez",
+        "Katherine-Hall",
+        "Kevin-Anderson",
+        "Laura-Harris",
+        "Michael-Roberts",
+        "Michelle-Brown",
+        "Nicole-Lewis",
+        "Rachel-Taylor",
+        "Robert-Johnson",
+        "Sarah-Chen",
+        "Stephanie-Miller",
+        "Thomas-Clark",
+        "William-Young"
+      ],
+      "Size": ["Extra Small", "Small", "Default", "Large"],
+      "Accessory": [
+        "None",
+        "Status Green",
+        "Status Orange",
+        "Status Cyan",
+        "Camera"
+      ]
     },
-    "sizeBySize": { "Extra Small": 32, "Small": 36, "Default": 48, "Large": 64 }
+    "dotStatusSetNodeId": "595:230",
+    "iconSetNodeId": "501:6",
+    "sizeBySize": { "Extra Small": 32, "Small": 36, "Default": 48, "Large": 64 },
+    "initialsBySize": {
+      "Extra Small": "SM",
+      "Small": "SM",
+      "Default": "MD",
+      "Large": "LG"
+    },
+    "fontSizeBySize": {
+      "Extra Small": 11,
+      "Small": 13,
+      "Default": 17,
+      "Large": 22
+    }
   },
   "text": {
     "figmaName": "Text",
@@ -326,7 +373,7 @@
     "radiusVar": "uds/radius/8",
     "fillVar": "uds/surface/primary",
     "medallionSetNodeId": "754:436",
-    "medallionSizePx": 48,
+    "medallionSizePx": 40,
     "medallionByVariant": {
       "Default": { "color": "Sky", "tone": "Pastel" },
       "Destructive": { "color": "Red", "tone": "Pastel" }
@@ -356,17 +403,19 @@
     "figmaName": "Tabs",
     "kind": "tabs",
     "replaceExisting": true,
-    "groupedByCount": true,
-    "counts": [2, 3, 4, 5, 6],
     "tier": 2,
-    "gridCols": 2,
-    "gridCellW": 240,
+    "gridCols": 8,
+    "gridCellW": 220,
     "gridCellH": 56,
-    "activeLabels": ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"],
+    "fillPreviewWidth": 360,
+    "tabCounts": [2, 3, 4, 5, 6],
     "axes": {
-      "Variant": ["Default", "Line"]
+      "Appearance": ["Pill", "Line"],
+      "Fill": ["false", "true"],
+      "Tabs": ["2", "3", "4", "5", "6"],
+      "Active": ["1", "2", "3", "4", "5", "6"]
     },
-    "figmaMatrixNote": "Five component sets: Tabs (2)…Tabs (6). Pick the set for tab count; each has Variant × Active (only First…Nth for that count). List only, no content panel."
+    "figmaMatrixNote": "80 variants (valid Tabs×Active × Fill false|true). Fill=true: full-width triggers; Fill=false: hug content."
   },
   "alert-dialog": {
     "figmaName": "Alert Dialog",
@@ -380,7 +429,7 @@
     "viewportH": 520,
     "dialogW": 400,
     "medallionSetNodeId": "754:436",
-    "medallionSizePx": 64,
+    "medallionSizePx": 40,
     "buttonSetNodeId": "554:268",
     "scrimVar": "uds/scrim/50",
     "fillVar": "uds/surface/primary",
@@ -388,7 +437,10 @@
     "radiusVar": "uds/radius/8",
     "footerFillVar": "uds/surface/tertiary",
     "footerStrokeVar": "uds/border/secondary",
-    "medallion": { "color": "Amber", "tone": "Pastel" },
+    "medallionBySize": {
+      "Default": { "color": "Red", "tone": "Pastel" },
+      "Small": { "color": "Amber", "tone": "Pastel" }
+    },
     "copy": {
       "title": "Are you sure?",
       "description": "This action cannot be undone.",
