@@ -1,30 +1,13 @@
-name: Figma Sync
+# Disabled: pull:figma and build:tokens are not implemented in package.json.
+# Re-enable after adding those scripts and updating git paths (see src/styles/, not src/scss/ or tokens/).
+name: Figma Sync (disabled)
 
 on:
   workflow_dispatch: {}
-  push:
-    branches: [ main ]
-  schedule:
-    - cron: "0 3 * * *" # nightly at 3am UTC
 
 jobs:
   sync:
+    if: false
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm run pull:figma
-        env:
-          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
-          FIGMA_FILE_ID: ${{ secrets.FIGMA_FILE_ID }}
-      - run: npm run build:tokens
-      - name: Commit & push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/scss/ tokens/
-          git commit -m "chore: sync tokens from Figma" || echo "No changes"
-          git push
+      - run: echo "Figma Sync is disabled."
