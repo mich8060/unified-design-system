@@ -199,12 +199,15 @@
           "codeProp": "accessory",
           "figmaLabels": {
             "none": "None",
-            "status-green": "Status Green",
-            "status-orange": "Status Orange",
-            "status-cyan": "Status Cyan",
+            "status": "Status",
             "camera": "Camera"
           },
-          "note": "Maps to AvatarStatus (DotStatus, bottom-right) or AvatarCameraAction. None = base avatar only."
+          "note": "Mutually exclusive: None, Status (nested exposed DotStatus), or Camera. Status hue is not a variant axis — change nested DotStatus Variant on the instance."
+        },
+        "DotStatus Variant": {
+          "codeProp": "statusVariant",
+          "nestedFrom": "DotStatus",
+          "note": "Exposed nested instance property on Avatar status (maps to DotStatus Variant). Not an Avatar variant axis."
         },
         "Size": {
           "codeProp": "size",
@@ -222,7 +225,7 @@
           }
         }
       },
-      "figmaMatrixNote": "460 variants (23 Appearances × 4 Sizes × 5 Accessories). Initials use full-size centered text box. Accessories: Status Green/Orange/Cyan (DotStatus) and Camera (AvatarCameraAction) per avatar-uds.tsx."
+      "figmaMatrixNote": "276 variants (23 Appearances × 4 Sizes × 3 Accessories: None | Status | Camera). Status uses one variant per matrix cell with nested DotStatus (isExposedInstance); change dot hue via surfaced DotStatus Variant, not duplicate Avatar variants."
     },
     "Medallion": {
       "nodeId": "754:436",

@@ -279,14 +279,9 @@
         "William-Young"
       ],
       "Size": ["Extra Small", "Small", "Default", "Large"],
-      "Accessory": [
-        "None",
-        "Status Green",
-        "Status Orange",
-        "Status Cyan",
-        "Camera"
-      ]
+      "Accessory": ["None", "Status", "Camera"]
     },
+    "defaultDotStatusVariant": "Variant=Green",
     "dotStatusSetNodeId": "595:230",
     "iconSetNodeId": "501:6",
     "sizeBySize": { "Extra Small": 32, "Small": 36, "Default": 48, "Large": 64 },

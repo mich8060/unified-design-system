@@ -599,17 +599,6 @@ async function buildDotStatusVariant(comp, spec, axis) {
   comp.appendChild(dot)
 }
 
-const AVATAR_STATUS_COLOR = {
-  Green: 'uds/color/accent/green/500',
-  Orange: 'uds/color/accent/orange/500',
-  Cyan: 'uds/color/accent/cyan/500',
-}
-
-function avatarStatusFromAccessory(accessory) {
-  if (!accessory?.startsWith('Status ')) return null
-  return accessory.replace('Status ', '')
-}
-
 function avatarDotSizePx(sizeKey) {
   return sizeKey === 'Large' ? 14 : 10
 }
@@ -622,23 +611,25 @@ function avatarCameraOffsetPx(sizeKey) {
   return sizeKey === 'Extra Small' || sizeKey === 'Small' ? 2 : 4
 }
 
-async function appendAvatarStatus(comp, spec, axis, avatarSize, statusKey) {
+async function appendAvatarStatus(comp, spec, axis, avatarSize) {
   const dotPx = avatarDotSizePx(axis.Size)
   const inset = Math.max(0, Math.round((avatarSize - dotPx) * 0.12))
-  const dot = figma.createEllipse()
-  dot.resize(dotPx, dotPx)
-  await bindFill(dot, AVATAR_STATUS_COLOR[statusKey] ?? 'uds/color/accent/green/500')
-  dot.name = 'Avatar status'
-  dot.x = avatarSize - dotPx + inset
-  dot.y = avatarSize - dotPx + inset
-  const ring = figma.createEllipse()
-  ring.name = 'Status ring'
-  ring.resize(dotPx + 4, dotPx + 4)
-  ring.x = dot.x - 2
-  ring.y = dot.y - 2
-  await bindFill(ring, 'uds/surface/primary')
-  comp.appendChild(ring)
-  comp.appendChild(dot)
+  const dotSetId = spec.dotStatusSetNodeId ?? '595:230'
+  const dotSet = await figma.getNodeByIdAsync(dotSetId)
+  const variantName = spec.defaultDotStatusVariant ?? 'Variant=Green'
+  const dotComp =
+    dotSet?.type === 'COMPONENT_SET'
+      ? dotSet.children.find((c) => c.name === variantName)
+      : null
+  if (!dotComp || dotComp.type !== 'COMPONENT') return
+
+  const status = dotComp.createInstance()
+  status.name = 'Avatar status'
+  status.resize(dotPx, dotPx)
+  status.x = avatarSize - dotPx + inset
+  status.y = avatarSize - dotPx + inset
+  comp.appendChild(status)
+  status.isExposedInstance = true
 }
 
 async function appendAvatarCamera(comp, spec, axis, avatarSize) {
@@ -687,8 +678,7 @@ async function buildAvatarVariant(comp, spec, axis) {
   const s = spec.sizeBySize[axis.Size] ?? 48
   const isInitials = axis.Appearance === 'Initials'
   const accessory = axis.Accessory ?? 'None'
-  const statusKey = avatarStatusFromAccessory(accessory)
-  const hasAccessory = accessory !== 'None'
+  const hasAccessory = accessory === 'Status' || accessory === 'Camera'
   comp.resize(s, s)
   comp.layoutMode = 'NONE'
   comp.clipsContent = !hasAccessory
@@ -722,8 +712,8 @@ async function buildAvatarVariant(comp, spec, axis) {
     comp.appendChild(img)
   }
 
-  if (statusKey) {
-    await appendAvatarStatus(comp, spec, axis, s, statusKey)
+  if (accessory === 'Status') {
+    await appendAvatarStatus(comp, spec, axis, s)
   }
   if (accessory === 'Camera') {
     await appendAvatarCamera(comp, spec, axis, s)
