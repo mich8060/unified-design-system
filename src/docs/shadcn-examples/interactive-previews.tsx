@@ -15,7 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   Empty,
   EmptyContent,
@@ -23,15 +23,15 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from '@chg-ds/unified-design-system'
-import { Calendar } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { Calendar } from '@chghealthcare/unified-design-system'
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   ChartContainer,
   type ChartConfig,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   Combobox,
   ComboboxContent,
@@ -40,7 +40,7 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   Command,
   CommandEmpty,
@@ -48,7 +48,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   Dialog,
   DialogContent,
@@ -56,7 +56,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   Sheet,
   SheetContent,
@@ -64,7 +64,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   Drawer,
   DrawerClose,
@@ -74,7 +74,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -82,12 +82,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   Sidebar,
   SidebarContent,
@@ -96,7 +96,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { DoctorAvatar } from '@/components/ui/doctor-avatar'
 import {
   cn,
@@ -110,7 +110,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   WarningCircleIcon,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { type DateRange } from 'react-day-picker'
 
 export function ExampleCanvas({

@@ -15,7 +15,7 @@ import {
   TooltipTrigger,
   cn,
   useMenuRail,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { useDocsVersion } from '../versions/context'
 
 export function DocsVersionSelect() {

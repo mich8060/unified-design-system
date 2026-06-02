@@ -7,9 +7,9 @@ import {
   PhoneIcon,
   getDefaultNavigation,
   type MenuUtilityItem,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import '@/fonts.css'
-import '@chg-ds/unified-design-system/styles.css'
+import '@chghealthcare/unified-design-system/styles.css'
 
 /** Active brand for this iframe demo (tokens + header/collapsed marks). */
 const MENU_DEMO_BRAND = 'connect' as const

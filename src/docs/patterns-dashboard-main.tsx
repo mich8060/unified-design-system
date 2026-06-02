@@ -1,12 +1,12 @@
-import { IconContext } from '@chg-ds/unified-design-system'
+import { IconContext } from '@chghealthcare/unified-design-system'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { MemoryRouter } from 'react-router-dom'
-import { Toaster, TooltipProvider } from '@chg-ds/unified-design-system'
+import { Toaster, TooltipProvider } from '@chghealthcare/unified-design-system'
 import { PatternsDashboardCanvas } from '@/docs/patterns-dashboard/PatternsDashboardCanvas'
 import { applyDocsBrandToDocument } from '@/docs/doc-site-brand'
 import '@/fonts.css'
-import '@chg-ds/unified-design-system/styles.css'
+import '@chghealthcare/unified-design-system/styles.css'
 
 const DASHBOARD_DEMO_BRAND = 'default' as const
 applyDocsBrandToDocument(DASHBOARD_DEMO_BRAND)

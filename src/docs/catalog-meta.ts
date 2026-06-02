@@ -163,7 +163,7 @@ export const CATALOG_META: CatalogEntry[] = [
       u(
         'icon',
         'Phosphor name',
-        'Icon identifier (e.g. Layout, Briefcase); in app UI render with `<Icon name="LayoutIcon" />` (or the matching `…Icon` export name) from `@chg-ds/unified-design-system`, not from `@phosphor-icons/react` directly.',
+        'Icon identifier (e.g. Layout, Briefcase); in app UI render with `<Icon name="LayoutIcon" />` (or the matching `…Icon` export name) from `@chghealthcare/unified-design-system`, not from `@phosphor-icons/react` directly.',
       ),
       u(
         'children',
@@ -297,7 +297,7 @@ export const CATALOG_META: CatalogEntry[] = [
     slug: 'iconography',
     name: 'Iconography',
     description:
-      'Fill, stroke, and sizing hooks for inline SVG—part of Tailwind’s iconography-related utilities. Example icons use Phosphor (`@phosphor-icons/react`) behind `Icon`: import from `@chg-ds/unified-design-system` and pass the registry key as `name` (e.g. `<Icon name="MagnifyingGlassIcon" … />`) so a future vendor swap stays inside the design system.',
+      'Fill, stroke, and sizing hooks for inline SVG—part of Tailwind’s iconography-related utilities. Example icons use Phosphor (`@phosphor-icons/react`) behind `Icon`: import from `@chghealthcare/unified-design-system` and pass the registry key as `name` (e.g. `<Icon name="MagnifyingGlassIcon" … />`) so a future vendor swap stays inside the design system.',
     props: [
       u('fill-*', 'fill', 'Current or theme colors.'),
       u('stroke-* (color)', 'stroke', 'Stroke paint from theme.'),

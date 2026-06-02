@@ -1,6 +1,6 @@
 # AppShell starter setup
 
-Use this document when you want an AI assistant or teammate to bootstrap a React app that uses the published `@chg-ds/unified-design-system` package correctly.
+Use this document when you want an AI assistant or teammate to bootstrap a React app that uses the published `@chghealthcare/unified-design-system` package correctly.
 
 The detailed rules live in:
 
@@ -12,28 +12,28 @@ This file is the shorter starter-oriented projection of that contract.
 
 ## Starter rules
 
-- Install `@chg-ds/unified-design-system`, `react`, and `react-dom`.
-- Import styles once with `import "@chg-ds/unified-design-system/styles.css"`.
+- Install `@chghealthcare/unified-design-system`, `react`, and `react-dom`.
+- Import styles once with `import "@chghealthcare/unified-design-system/styles.css"`.
 - For authenticated product screens, default to `AppShell`.
 - Compose the **`menu`** slot with the package **`Menu`** component (not `Sidebar*`).
 - Put page content in **`AppShell.Main`**.
 - Set **`enableRouterOutlet={false}`** unless you use React Router layout routes (see the navigation guide).
 - Use **`listview={…}`** for master-detail or queue flows (there is no `showListview` prop).
-- Keep imports on `@chg-ds/unified-design-system` and `@chg-ds/unified-design-system/styles.css` only.
+- Keep imports on `@chghealthcare/unified-design-system` and `@chghealthcare/unified-design-system/styles.css` only.
 - Prefer existing UDS emphasis components such as `Badge`, `Status`, `Medallion`, and `Card` before inventing custom presentation wrappers.
 
 ## Copy-paste prompt
 
 ```text
-Set up a minimal React + Vite + TypeScript application that uses `@chg-ds/unified-design-system`.
+Set up a minimal React + Vite + TypeScript application that uses `@chghealthcare/unified-design-system`.
 
 Requirements:
-- install `@chg-ds/unified-design-system`, `react`, and `react-dom`
-- import `@chg-ds/unified-design-system/styles.css` once near the app root
+- install `@chghealthcare/unified-design-system`, `react`, and `react-dom`
+- import `@chghealthcare/unified-design-system/styles.css` once near the app root
 - render `AppShell` on first load with `enableRouterOutlet={false}`
 - compose the `menu` slot with `<Menu navigationItems={…} />` (not Sidebar in menu)
 - put page content in `AppShell.Main`
-- keep imports on `@chg-ds/unified-design-system` only
+- keep imports on `@chghealthcare/unified-design-system` only
 - make the app fill the viewport (`min-h-dvh` on shell, html/body/#root full height)
 
 Before composing the screen, consult:
@@ -50,7 +50,7 @@ Before composing the screen, consult:
 ```tsx
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-import "@chg-ds/unified-design-system/styles.css"
+import "@chghealthcare/unified-design-system/styles.css"
 import "./index.css"
 import App from "./App"
 
@@ -85,7 +85,7 @@ import {
   Menu,
   TooltipProvider,
   type MenuNavigationItem,
-} from "@chg-ds/unified-design-system"
+} from "@chghealthcare/unified-design-system"
 
 const navigationItems: MenuNavigationItem[] = [
   { id: "dashboard", label: "Dashboard" },

@@ -25,9 +25,9 @@
       "additionalProperties": false,
       "required": ["name", "importEntry", "styleImport"],
       "properties": {
-        "name": { "const": "@chg-ds/unified-design-system" },
-        "importEntry": { "const": "@chg-ds/unified-design-system" },
-        "styleImport": { "const": "@chg-ds/unified-design-system/styles.css" }
+        "name": { "const": "@chghealthcare/unified-design-system" },
+        "importEntry": { "const": "@chghealthcare/unified-design-system" },
+        "styleImport": { "const": "@chghealthcare/unified-design-system/styles.css" }
       }
     },
     "component": {
@@ -197,7 +197,7 @@
       "type": "array",
       "items": { "type": "string" },
       "default": [
-        "Import AppShell only from @chg-ds/unified-design-system (and styles from @chg-ds/unified-design-system/styles.css). Never import from src/components/ui/* or dist/* in consumer code.",
+        "Import AppShell only from @chghealthcare/unified-design-system (and styles from @chghealthcare/unified-design-system/styles.css). Never import from src/components/ui/* or dist/* in consumer code.",
         "Use AppShell as the authenticated product shell default per ai/uds-contract.json layoutDefaults.",
         "Canonical navigation: compose the menu slot with the package Menu component only. Sidebar* belongs in in-page layouts, not AppShell.menu, unless the team owns full rail positioning CSS.",
         "Published props: menu, listview, headerRight, footer, enableRouterOutlet, className. There is no sidebarWidth, showListview, or mainClassName. sidebar is a deprecated alias of menu.",

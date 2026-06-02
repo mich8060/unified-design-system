@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import '@chg-ds/unified-design-system/styles.css'
+import '@chghealthcare/unified-design-system/styles.css'
 import './index.css'
 import { App } from './App'
 

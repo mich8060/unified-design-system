@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react'
-import { cn } from '@chg-ds/unified-design-system'
+import { cn } from '@chghealthcare/unified-design-system'
 import { useShadcnDocsRegistry } from './registry'
 import type { ShadcnUiSlug } from './shadcn-ui-registry'
 

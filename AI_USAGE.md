@@ -14,8 +14,8 @@ import {
   Menu,
   type MenuNavigationItem,
   TooltipProvider,
-} from "@chg-ds/unified-design-system"
-import "@chg-ds/unified-design-system/styles.css"
+} from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"
 ```
 
 ## Disallowed imports
@@ -77,7 +77,7 @@ Published prop names match **`dist/index.d.ts`**: `menu`, `listview`, `headerRig
 
 ## Styling rules
 
-- Import `@chg-ds/unified-design-system/styles.css` once near the app root.
+- Import `@chghealthcare/unified-design-system/styles.css` once near the app root.
 - **`Text` typography:** use `variant` (`body`, `heading`, `display`) with `size` and optional `lineHeight`; styles resolve from shipped `--uds-type-*` tokens in `styles.css`. Consumer Tailwind JIT does **not** scan `node_modules` to create them. Read **[docs/consumers-text-typography-tailwind-v4.md](./docs/consumers-text-typography-tailwind-v4.md)** (token chain, import order, prop table).
 - Use shipped UDS tokens, variants, and first-party components before inventing custom accents.
 - Current shipped components are the radius source of truth:

@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import type { MenuNavigationItem } from '@chg-ds/unified-design-system'
+import type { MenuNavigationItem } from '@chghealthcare/unified-design-system'
 import type { ShadcnComponentMeta } from '../shadcn-component-meta'
 import type { ShadcnExampleSection } from '../shadcn-examples/types'
 import type { ShadcnUiEntry, ShadcnUiSlug } from '../shadcn-ui-registry'

@@ -15,11 +15,11 @@
         "theme"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "Install `uds-tailwind-test`, import `styles/uds.css` from your app entrypoint, and keep your runtime component imports on the package root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -44,11 +44,11 @@
         "shell"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -73,11 +73,11 @@
         "navigation"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -95,17 +95,17 @@
       "name": "button",
       "type": "registry:item",
       "title": "UDS Button",
-      "description": "Wrapper export for the published Button surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Button surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -114,7 +114,7 @@
           "path": "registry/uds/button.tsx",
           "type": "registry:file",
           "target": "components/uds/button.tsx",
-          "content": "export { Button } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Button } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -123,17 +123,17 @@
       "name": "card",
       "type": "registry:item",
       "title": "UDS Card",
-      "description": "Wrapper export for the published Card surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Card surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -142,7 +142,7 @@
           "path": "registry/uds/card.tsx",
           "type": "registry:file",
           "target": "components/uds/card.tsx",
-          "content": "export { Card } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Card } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -151,17 +151,17 @@
       "name": "badge",
       "type": "registry:item",
       "title": "UDS Badge",
-      "description": "Wrapper export for the published Badge surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Badge surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -170,7 +170,7 @@
           "path": "registry/uds/badge.tsx",
           "type": "registry:file",
           "target": "components/uds/badge.tsx",
-          "content": "export { Badge } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Badge } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -179,17 +179,17 @@
       "name": "status",
       "type": "registry:item",
       "title": "UDS Status",
-      "description": "Wrapper export for the published Status surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Status surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -198,7 +198,7 @@
           "path": "registry/uds/status.tsx",
           "type": "registry:file",
           "target": "components/uds/status.tsx",
-          "content": "export { Status } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Status } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -207,17 +207,17 @@
       "name": "medallion",
       "type": "registry:item",
       "title": "UDS Medallion",
-      "description": "Wrapper export for the published Medallion surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Medallion surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -226,7 +226,7 @@
           "path": "registry/uds/medallion.tsx",
           "type": "registry:file",
           "target": "components/uds/medallion.tsx",
-          "content": "export { Medallion } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Medallion } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -235,17 +235,17 @@
       "name": "input",
       "type": "registry:item",
       "title": "UDS Input",
-      "description": "Wrapper export for the published Input surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Input surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -254,7 +254,7 @@
           "path": "registry/uds/input.tsx",
           "type": "registry:file",
           "target": "components/uds/input.tsx",
-          "content": "export { Input } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Input } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -263,17 +263,17 @@
       "name": "select",
       "type": "registry:item",
       "title": "UDS Select",
-      "description": "Wrapper export for the published Select surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Select surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -282,7 +282,7 @@
           "path": "registry/uds/select.tsx",
           "type": "registry:file",
           "target": "components/uds/select.tsx",
-          "content": "export { Select } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Select } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -291,17 +291,17 @@
       "name": "dialog",
       "type": "registry:item",
       "title": "UDS Dialog",
-      "description": "Wrapper export for the published Dialog surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Dialog surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -310,7 +310,7 @@
           "path": "registry/uds/dialog.tsx",
           "type": "registry:file",
           "target": "components/uds/dialog.tsx",
-          "content": "export { Dialog } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Dialog } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -319,17 +319,17 @@
       "name": "sheet",
       "type": "registry:item",
       "title": "UDS Sheet",
-      "description": "Wrapper export for the published Sheet surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Sheet surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -338,7 +338,7 @@
           "path": "registry/uds/sheet.tsx",
           "type": "registry:file",
           "target": "components/uds/sheet.tsx",
-          "content": "export { Sheet } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Sheet } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -347,17 +347,17 @@
       "name": "alert-dialog",
       "type": "registry:item",
       "title": "UDS AlertDialog",
-      "description": "Wrapper export for the published AlertDialog surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published AlertDialog surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -366,7 +366,7 @@
           "path": "registry/uds/alert-dialog.tsx",
           "type": "registry:file",
           "target": "components/uds/alert-dialog.tsx",
-          "content": "export { AlertDialog } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { AlertDialog } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -375,17 +375,17 @@
       "name": "tabs",
       "type": "registry:item",
       "title": "UDS Tabs",
-      "description": "Wrapper export for the published Tabs surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Tabs surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -394,7 +394,7 @@
           "path": "registry/uds/tabs.tsx",
           "type": "registry:file",
           "target": "components/uds/tabs.tsx",
-          "content": "export { Tabs } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Tabs } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -403,17 +403,17 @@
       "name": "table",
       "type": "registry:item",
       "title": "UDS Table",
-      "description": "Wrapper export for the published Table surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Table surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -422,7 +422,7 @@
           "path": "registry/uds/table.tsx",
           "type": "registry:file",
           "target": "components/uds/table.tsx",
-          "content": "export { Table } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Table } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -431,17 +431,17 @@
       "name": "tooltip",
       "type": "registry:item",
       "title": "UDS Tooltip",
-      "description": "Wrapper export for the published Tooltip surface from @chg-ds/unified-design-system.",
+      "description": "Wrapper export for the published Tooltip surface from @chghealthcare/unified-design-system.",
       "author": "Unified Design System",
       "categories": [
         "ui"
       ],
       "dependencies": [
-        "@chg-ds/unified-design-system@1.0.3"
+        "@chghealthcare/unified-design-system@1.0.3"
       ],
       "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
       "meta": {
-        "package": "@chg-ds/unified-design-system",
+        "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
         "localOnly": true
       },
@@ -450,7 +450,7 @@
           "path": "registry/uds/tooltip.tsx",
           "type": "registry:file",
           "target": "components/uds/tooltip.tsx",
-          "content": "export { Tooltip } from \"@chg-ds/unified-design-system\"\n"
+          "content": "export { Tooltip } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     }

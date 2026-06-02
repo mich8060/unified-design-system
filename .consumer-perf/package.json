@@ -7,7 +7,7 @@
     "build": "vite build --sourcemap"
   },
   "dependencies": {
-    "@chg-ds/unified-design-system": "file:..",
+    "@chghealthcare/unified-design-system": "file:..",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.14.0"

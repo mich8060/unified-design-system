@@ -12,7 +12,7 @@ import {
   Status,
   TooltipProvider,
   type MenuNavigationItem,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 
 const navigationItems: MenuNavigationItem[] = [
   { id: 'dashboard', label: 'Dashboard' },

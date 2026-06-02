@@ -1,5 +1,5 @@
 /**
- * @deprecated Import from `@chg-ds/unified-design-system` instead (`docsNavSubLinkClassName`, `DocsNavSectionHeader`, …).
+ * @deprecated Import from `@chghealthcare/unified-design-system` instead (`docsNavSubLinkClassName`, `DocsNavSectionHeader`, …).
  * Re-exports preserve existing doc paths during migration.
  */
 export {
@@ -9,4 +9,4 @@ export {
   DocsNavDisclosureCaret as NavDisclosureCaret,
   docsNavSubLinkClassName as subLinkCls,
   docsNavComponentLinkClassName as compLinkCls,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'

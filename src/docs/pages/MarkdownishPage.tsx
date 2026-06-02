@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { cn } from '@chg-ds/unified-design-system'
+import { cn } from '@chghealthcare/unified-design-system'
 import {
   docPageHeroBandClassName,
   docPageHeroColumnNarrowClassName,

@@ -1,6 +1,6 @@
-# @chg-ds/unified-design-system
+# @chghealthcare/unified-design-system
 
-`@chg-ds/unified-design-system` is the React UI package from this Tailwind v4 and shadcn-based design system workspace. Source repository: [chghealthcare/unified-design-system](https://github.com/chghealthcare/unified-design-system).
+`@chghealthcare/unified-design-system` is the React UI package from this Tailwind v4 and shadcn-based design system workspace. Source repository: [chghealthcare/unified-design-system](https://github.com/chghealthcare/unified-design-system).
 
 The package contract now has one canonical AI-readable source of truth:
 
@@ -10,10 +10,26 @@ Use that file for machine-readable guidance, then use the human-facing summaries
 
 ## Installation
 
-This package is distributed as a versioned tarball (`.tgz` from `npm pack`), not from a public registry or CDN. Obtain the tarball from your approved internal channel, place it in your repository (for example a `vendor/` folder), and install it from the local path:
+### GitHub Packages (recommended for internal apps)
+
+If your team publishes this package to GitHub Packages, configure npm and install from the registry:
 
 ```bash
-npm install ./vendor/chg-ds-unified-design-system-1.0.5.tgz react react-dom
+# In your app: .npmrc (see .npmrc.example in this repo)
+@chghealthcare:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+
+npm install @chghealthcare/unified-design-system react react-dom
+```
+
+See **[docs/github-packages.md](./docs/github-packages.md)** for PAT scopes, CI setup, and publishing.
+
+### Tarball (offline / vendor channel)
+
+This package can also be distributed as a versioned tarball (`.tgz` from `npm pack`), not from a public registry or CDN. Obtain the tarball from your approved internal channel, place it in your repository (for example a `vendor/` folder), and install it from the local path:
+
+```bash
+npm install ./vendor/chghealthcare-unified-design-system-1.0.5.tgz react react-dom
 ```
 
 Or pin it as a `file:` dependency in `package.json` so every install resolves the same committed artifact:
@@ -21,15 +37,15 @@ Or pin it as a `file:` dependency in `package.json` so every install resolves th
 ```json
 {
   "dependencies": {
-    "@chg-ds/unified-design-system": "file:./vendor/chg-ds-unified-design-system-1.0.5.tgz"
+    "@chghealthcare/unified-design-system": "file:./vendor/chghealthcare-unified-design-system-1.0.5.tgz"
   }
 }
 ```
 
-For routed shells (`AppShell` with the default internal `<Outlet />`), also add `react-router-dom`. Installing the tarball preserves the package name, so imports use `@chg-ds/unified-design-system`. Import the stylesheet once near the app root:
+For routed shells (`AppShell` with the default internal `<Outlet />`), also add `react-router-dom`. Installing the tarball preserves the package name, so imports use `@chghealthcare/unified-design-system`. Import the stylesheet once near the app root:
 
 ```ts
-import "@chg-ds/unified-design-system/styles.css"
+import "@chghealthcare/unified-design-system/styles.css"
 ```
 
 ## Development (this repository)
@@ -49,8 +65,8 @@ import {
   Menu,
   TooltipProvider,
   type MenuNavigationItem,
-} from "@chg-ds/unified-design-system"
-import "@chg-ds/unified-design-system/styles.css"
+} from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"
 
 const navigationItems: MenuNavigationItem[] = [
   { id: "dashboard", label: "Dashboard" },
@@ -98,14 +114,14 @@ The root package entrypoint is [`src/index.ts`](./src/index.ts). That file is th
 
 Consumers and AI tools should import only from:
 
-- `@chg-ds/unified-design-system`
-- `@chg-ds/unified-design-system/styles.css`
+- `@chghealthcare/unified-design-system`
+- `@chghealthcare/unified-design-system/styles.css`
 
 Do not infer public API from internal implementation files under `src/components/ui`.
 
 ## Consumer typography (Tailwind v4 + Vite)
 
-`Text` maps `variant` (`body`, `heading`, `display`), `size`, and `lineHeight` to the shipped `--uds-type-*` tokens. Apps **must** import `@chg-ds/unified-design-system/styles.css`; scanning `node_modules` with `@source` alone is not enough. See **[docs/consumers-text-typography-tailwind-v4.md](./docs/consumers-text-typography-tailwind-v4.md)** for the full contract (token chain, layer conflicts, prop table, debugging).
+`Text` maps `variant` (`body`, `heading`, `display`), `size`, and `lineHeight` to the shipped `--uds-type-*` tokens. Apps **must** import `@chghealthcare/unified-design-system/styles.css`; scanning `node_modules` with `@source` alone is not enough. See **[docs/consumers-text-typography-tailwind-v4.md](./docs/consumers-text-typography-tailwind-v4.md)** for the full contract (token chain, layer conflicts, prop table, debugging).
 
 ## AI contract
 
@@ -181,18 +197,18 @@ npm run pack:check
 
 ## Releasing (maintainers)
 
-This package is not published to a public registry or CDN. Each release is distributed as a versioned tarball that consumers install from a local path (see [Installation](#installation)).
-
 **Git:** Push branches and tags to `https://github.com/chghealthcare/unified-design-system` (remote `origin`).
 
 1. Bump `version` in `package.json` and merge to `main`.
 2. Ensure `npm ci`, `npm run build:lib`, and `npm run pack:check` pass locally (CI runs `build:lib` and `lint` on push/PR).
-3. Create a GitHub **Release** (or git tag) for that version.
-4. Build and pack the distributable tarball from a clean checkout:
+3. Create a GitHub **Release** for that version. That triggers:
+   - **GitHub Packages** — [`.github/workflows/publish-github-packages.yml`](./.github/workflows/publish-github-packages.yml) publishes to `npm.pkg.github.com`
+   - **npmjs** (optional) — [`.github/workflows/publish-npm.yml`](./.github/workflows/publish-npm.yml) if `NPM_TOKEN` is configured
+4. Optionally build and pack a tarball from a clean checkout:
 
    ```bash
    npm run build:lib
    npm pack
    ```
 
-   This writes `chg-ds-unified-design-system-<version>.tgz`. Distribute that file through your approved internal channel; consumers install it from a local path. `npm pack` runs `prepublishOnly` (`build:lib`) automatically.
+   This writes `chghealthcare-unified-design-system-<version>.tgz`. Distribute that file through your approved internal channel; consumers install it from a local path. `npm pack` runs `prepublishOnly` (`build:lib`) automatically.

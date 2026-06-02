@@ -19,7 +19,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { DoctorAvatar } from '@/components/ui/doctor-avatar'
 import { AccountMenuPanel } from '@/docs/layout/doc-shell-account-menu'
 import { SIDEBAR_EXPANDED_PX, SIDEBAR_MINIMIZED_PX } from '@/docs/layout/doc-shell-constants'

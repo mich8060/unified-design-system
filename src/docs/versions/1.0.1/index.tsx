@@ -1,4 +1,4 @@
-import { HouseIcon, cn } from '@chg-ds/unified-design-system'
+import { HouseIcon, cn } from '@chghealthcare/unified-design-system'
 import type { ComponentProps } from 'react'
 import { CATALOG_META } from '../../catalog-meta'
 import { getShadcnComponentMeta } from '../../shadcn-component-meta'

@@ -1,11 +1,11 @@
-import { IconContext } from '@chg-ds/unified-design-system'
+import { IconContext } from '@chghealthcare/unified-design-system'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { MemoryRouter } from 'react-router-dom'
-import { Toaster, TooltipProvider } from '@chg-ds/unified-design-system'
+import { Toaster, TooltipProvider } from '@chghealthcare/unified-design-system'
 import { AppShellDemoCanvas } from '@/docs/app-shell-demo/AppShellDemoCanvas'
 import '@/fonts.css'
-import '@chg-ds/unified-design-system/styles.css'
+import '@chghealthcare/unified-design-system/styles.css'
 
 const params = new URLSearchParams(window.location.search)
 if (params.get('dark') === '1') {

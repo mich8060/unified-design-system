@@ -1,4 +1,4 @@
-import "@chg-ds/unified-design-system/styles.css"
+import "@chghealthcare/unified-design-system/styles.css"
 
 import {
   AppShell,
@@ -14,7 +14,7 @@ import {
   Status,
   TooltipProvider,
   type MenuNavigationItem,
-} from "@chg-ds/unified-design-system"
+} from "@chghealthcare/unified-design-system"
 
 const navigationItems: MenuNavigationItem[] = [
   { id: "overview", label: "Overview" },

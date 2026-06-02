@@ -5,8 +5,8 @@ Canonical contract: [`ai/uds-contract.json`](./ai/uds-contract.json)
 - AppShell schema (regions, props, behavior): [`ai/appshell.schema.json`](./ai/appshell.schema.json)
 - AppShell navigation guide: [`ai/guides/appshell-navigation.md`](./ai/guides/appshell-navigation.md)
 
-- Import runtime components only from `@chg-ds/unified-design-system`.
-- Import styles only from `@chg-ds/unified-design-system/styles.css`.
+- Import runtime components only from `@chghealthcare/unified-design-system`.
+- Import styles only from `@chghealthcare/unified-design-system/styles.css`.
 - Do not import from `src/components/ui/*`, `dist/*`, `@/*`, or any `*-base`, `*-core`, `*-theme`, `*-uds` module in consumer-facing code.
 - For authenticated product screens, default to `AppShell`.
 - Compose the **`AppShell` `menu` slot** with the package **`Menu`** component (canonical). Do not use `Sidebar*` in `menu` unless the product owns full rail CSS.

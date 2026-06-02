@@ -5,7 +5,7 @@ import {
   SquaresFourIcon,
   StackIcon,
   type MenuNavigationItem,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import type { ShadcnUiEntry } from '../shadcn-ui-registry'
 import type { CatalogEntry } from '../types'
 import type { DocsVersionNavigation } from './types'

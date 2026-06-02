@@ -1,4 +1,4 @@
-import { DOT_STATUS_VARIANTS } from '@chg-ds/unified-design-system'
+import { DOT_STATUS_VARIANTS } from '@chghealthcare/unified-design-system'
 import { DOCTOR_AVATAR_BY_FIRST_NAME } from '@/lib/doctor-avatars'
 
 import type { ShadcnUiSlug } from './shadcn-ui-registry'
@@ -503,7 +503,7 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     r(
       'RadioGroupLabel',
       'typeof Label',
-      'Use `RadioGroupLabel` from `@chg-ds/unified-design-system`: UDS body-16 regular for `RadioGroupItem` captions.',
+      'Use `RadioGroupLabel` from `@chghealthcare/unified-design-system`: UDS body-16 regular for `RadioGroupItem` captions.',
     ),
     CN,
     MORE,

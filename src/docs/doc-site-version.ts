@@ -1,6 +1,6 @@
 /**
  * Documentation version selector (sidebar). Values should match installed
- * `@chg-ds/unified-design-system` versions consumers run; extend the list when
+ * `@chghealthcare/unified-design-system` versions consumers run; extend the list when
  * multiple hosted doc sets exist.
  */
 

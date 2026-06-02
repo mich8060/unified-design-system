@@ -138,7 +138,7 @@ function OverviewPreview() {
         <strong className="text-neutral-900 dark:text-neutral-100">Icons</strong> are Phosphor-style names in the contract; in app
         code, resolve them to components{' '}
         <strong className="text-neutral-900 dark:text-neutral-100">imported from the design system package</strong>{' '}
-        (e.g. <code className="rounded bg-neutral-100 px-1 font-mono text-xs dark:bg-neutral-800">@chg-ds/unified-design-system</code>
+        (e.g. <code className="rounded bg-neutral-100 px-1 font-mono text-xs dark:bg-neutral-800">@chghealthcare/unified-design-system</code>
         ), which re-exports them through <code className="rounded bg-neutral-100 px-1 font-mono text-xs dark:bg-neutral-800">uds-icons</code>
         — avoid importing <code className="rounded bg-neutral-100 px-1 font-mono text-xs dark:bg-neutral-800">@phosphor-icons/react</code>{' '}
         directly in consumers so a future icon library change is centralized.
@@ -159,7 +159,7 @@ function OverviewPreview() {
           </li>
           <li>
             <strong className="text-neutral-800 dark:text-neutral-200">Package export:</strong>{' '}
-            <code className="font-mono text-xs">@chg-ds/unified-design-system/ai/navigation</code> →{' '}
+            <code className="font-mono text-xs">@chghealthcare/unified-design-system/ai/navigation</code> →{' '}
             <code className="font-mono text-xs">brand-menus.json</code>
           </li>
         </ul>
@@ -252,7 +252,7 @@ const overviewCode = `// Source of truth (monorepo path may vary by package layo
 }`
 
 const menusCode = `// Map contract rows to app nav (pseudocode)
-import { Icon } from '@chg-ds/unified-design-system' // e.g. contract "Layout" → name="LayoutIcon"
+import { Icon } from '@chghealthcare/unified-design-system' // e.g. contract "Layout" → name="LayoutIcon"
 
 menu.navItems = brandMenus.chg.map((item) => ({
   label: item.label,

@@ -3,7 +3,7 @@
  * Not published from the package — compose app navigation with `Sidebar`, `AppShell`, etc. in product code.
  */
 import * as React from 'react'
-import { cn, ListIcon } from '@chg-ds/unified-design-system'
+import { cn, ListIcon } from '@chghealthcare/unified-design-system'
 
 // --- Flyout ------------------------------------------------------------------
 

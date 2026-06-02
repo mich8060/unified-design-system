@@ -15,7 +15,7 @@ import {
   TabsList,
   TabsTrigger,
   cn,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 
 const CHECKERBOARD_BG: CSSProperties = {
   backgroundColor: '#e4e4e7',

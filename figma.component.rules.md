@@ -36,5 +36,5 @@ Checkpoint with the user per component. Show a screenshot and the variant count;
 Deterministic, unique names. Name nodes consistently so work is idempotent and resumable; track created node IDs from return values and never guess/hallucinate IDs from memory.
 No destructive cleanup. Remove nodes only by returned IDs or a strict name convention you created — never by prefix-matching that could hit user-owned nodes.
 ## G. After build (optional but recommended)
-Code Connect while context is fresh. Map each finished Figma component to its @chg-ds/unified-design-system export so design-to-code stays in sync.
+Code Connect while context is fresh. Map each finished Figma component to its @chghealthcare/unified-design-system export so design-to-code stays in sync.
 QA pass: audit contrast, focus visibility, touch targets; confirm no unresolved/hardcoded fills, strokes, or spacing remain.

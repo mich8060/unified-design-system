@@ -8,7 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
   cn,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   DOCS_COMPONENT_PREVIEW_THEME_VARS,
   DocsComponentPreviewBrandToolbar,

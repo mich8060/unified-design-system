@@ -17,7 +17,7 @@ import {
   Menu,
   Toaster,
   TooltipProvider,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { DocsVersionSelect } from './components/DocsVersionSelect'
 import { useDocsHeaderSearch } from './components/DocsSearch'
 import { applyDocsBrandToDocument, DOCS_SITE_DEFAULT_BRAND } from './doc-site-brand'

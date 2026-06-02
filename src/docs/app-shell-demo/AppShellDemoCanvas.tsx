@@ -19,7 +19,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   type MenuUtilityItem,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { applyDocsBrandToDocument } from '@/docs/doc-site-brand'
 import './app-shell-demo.css'
 

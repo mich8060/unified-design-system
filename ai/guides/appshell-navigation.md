@@ -16,8 +16,8 @@ import {
   Menu,
   type MenuNavigationItem,
   TooltipProvider,
-} from "@chg-ds/unified-design-system"
-import "@chg-ds/unified-design-system/styles.css"
+} from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"
 
 const navigationItems: MenuNavigationItem[] = [
   { id: "overview", label: "Overview" },

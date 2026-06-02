@@ -6,15 +6,15 @@
     "scripts/generate-ai-artifacts.mjs"
   ],
   "package": {
-    "name": "@chg-ds/unified-design-system",
+    "name": "@chghealthcare/unified-design-system",
     "version": "1.0.3",
-    "primaryEntry": "@chg-ds/unified-design-system",
-    "styleImport": "@chg-ds/unified-design-system/styles.css"
+    "primaryEntry": "@chghealthcare/unified-design-system",
+    "styleImport": "@chghealthcare/unified-design-system/styles.css"
   },
   "imports": {
     "allowed": [
-      "@chg-ds/unified-design-system",
-      "@chg-ds/unified-design-system/styles.css"
+      "@chghealthcare/unified-design-system",
+      "@chghealthcare/unified-design-system/styles.css"
     ],
     "forbiddenPatterns": [
       "src/components/ui/*",

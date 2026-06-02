@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   MoonIcon,
   SunIcon,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 
 export function AccountMenuPanel({
   light,

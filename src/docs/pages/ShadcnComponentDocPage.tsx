@@ -8,7 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
   cn,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
   DOCS_COMPONENT_PREVIEW_THEME_VARS,
   DocsComponentPreviewBrandToolbar,
@@ -52,8 +52,8 @@ export function ShadcnComponentDocPage() {
   const name = formatShadcnComponentName(slug)
   const importExample =
     slug === 'branding'
-      ? `import { Branding } from "@chg-ds/unified-design-system"\nimport "@chg-ds/unified-design-system/styles.css"`
-      : `import { /* … */ } from "@chg-ds/unified-design-system"\nimport "@chg-ds/unified-design-system/styles.css"`
+      ? `import { Branding } from "@chghealthcare/unified-design-system"\nimport "@chghealthcare/unified-design-system/styles.css"`
+      : `import { /* … */ } from "@chghealthcare/unified-design-system"\nimport "@chghealthcare/unified-design-system/styles.css"`
   const docsUrl = getShadcnDocsUrl(slug)
   const examples = getShadcnExamples(slug)
   const meta = getShadcnComponentMeta(slug)
@@ -147,7 +147,7 @@ export function ShadcnComponentDocPage() {
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Import</h2>
           {isBranding ? (
             <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              Import from <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chg-ds/unified-design-system</code>
+              Import from <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chghealthcare/unified-design-system</code>
               ; bundled SVG wordmarks and marks live under{' '}
               <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">public/branding/svg/</code> in the package.
             </p>

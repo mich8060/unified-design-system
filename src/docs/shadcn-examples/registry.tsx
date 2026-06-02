@@ -7,7 +7,7 @@ import {
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
     Alert,
     AlertContent,
@@ -22,14 +22,14 @@ import {
     AlertDialogMedia,
     AlertDialogTitle,
     AlertTitle,
-} from '@chg-ds/unified-design-system'
-import { AspectRatio } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { AspectRatio } from '@chghealthcare/unified-design-system'
 import {
     Avatar,
     AvatarCameraAction,
     AvatarFallback,
     AvatarStatus,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { DoctorAvatar } from '@/components/ui/doctor-avatar'
 import {
     BADGE_ACCENTS,
@@ -37,7 +37,7 @@ import {
     Branding,
     type BadgeAppearance,
     type BrandingAppearance,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -45,9 +45,9 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator,
-} from '@chg-ds/unified-design-system'
-import { Button } from '@chg-ds/unified-design-system'
-import { ButtonGroup } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { Button } from '@chghealthcare/unified-design-system'
+import { ButtonGroup } from '@chghealthcare/unified-design-system'
 import {
     Card,
     CardContent,
@@ -55,9 +55,9 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from '@chg-ds/unified-design-system'
-import { Checkbox, CheckboxLabel } from '@chg-ds/unified-design-system'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { Checkbox, CheckboxLabel } from '@chghealthcare/unified-design-system'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@chghealthcare/unified-design-system'
 import {
     ContextMenu,
     ContextMenuContent,
@@ -69,9 +69,9 @@ import {
     ContextMenuSubContent,
     ContextMenuSubTrigger,
     ContextMenuTrigger,
-} from '@chg-ds/unified-design-system'
-import { DirectionProvider } from '@chg-ds/unified-design-system'
-import { DotStatus, DOT_STATUS_VARIANTS } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { DirectionProvider } from '@chghealthcare/unified-design-system'
+import { DotStatus, DOT_STATUS_VARIANTS } from '@chghealthcare/unified-design-system'
 import {
     Field,
     FieldContent,
@@ -79,11 +79,11 @@ import {
     FieldLabel,
     FieldLegend,
     FieldSet,
-} from '@chg-ds/unified-design-system'
-import { FileUpload, FileUploadCards } from '@chg-ds/unified-design-system'
-import { Footer } from '@chg-ds/unified-design-system'
-import { Header } from '@chg-ds/unified-design-system'
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { FileUpload, FileUploadCards } from '@chghealthcare/unified-design-system'
+import { Footer } from '@chghealthcare/unified-design-system'
+import { Header } from '@chghealthcare/unified-design-system'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@chghealthcare/unified-design-system'
 import {
     CheckList,
     CheckListControl,
@@ -129,29 +129,29 @@ import {
     ToolbarDivider,
     ToolbarGroup,
     UrlInput,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
     InputGroup,
     InputGroupAddon,
     InputGroupInput,
     InputGroupText,
-} from '@chg-ds/unified-design-system'
-import { InputOTP, InputOTPGroup, InputOTPSlot } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@chghealthcare/unified-design-system'
 import {
     Item,
     ItemActions,
     ItemContent,
     ItemDescription,
     ItemTitle,
-} from '@chg-ds/unified-design-system'
-import { Kbd, KbdGroup } from '@chg-ds/unified-design-system'
-import { Label, Layout, RadioGroupLabel } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { Kbd, KbdGroup } from '@chghealthcare/unified-design-system'
+import { Label, Layout, RadioGroupLabel } from '@chghealthcare/unified-design-system'
 import {
     MEDALLION_COLORS,
     Medallion,
     type MedallionShape,
     type MedallionSize,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
     Menubar,
     MenubarContent,
@@ -159,8 +159,8 @@ import {
     MenubarMenu,
     MenubarSeparator,
     MenubarTrigger,
-} from '@chg-ds/unified-design-system'
-import { NativeSelect, NativeSelectOption } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { NativeSelect, NativeSelectOption } from '@chghealthcare/unified-design-system'
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -169,7 +169,7 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import {
     getPaginationPages,
     Pagination,
@@ -182,33 +182,33 @@ import {
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from '@chg-ds/unified-design-system'
-import { Progress } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { Progress } from '@chghealthcare/unified-design-system'
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-} from '@chg-ds/unified-design-system'
-import { RadioGroup, RadioGroupItem } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { RadioGroup, RadioGroupItem } from '@chghealthcare/unified-design-system'
 import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
-} from '@chg-ds/unified-design-system'
-import { ScrollArea } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { ScrollArea } from '@chghealthcare/unified-design-system'
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@chg-ds/unified-design-system'
-import { Separator } from '@chg-ds/unified-design-system'
-import { Skeleton } from '@chg-ds/unified-design-system'
-import { Spinner } from '@chg-ds/unified-design-system'
-import { Slider } from '@chg-ds/unified-design-system'
-import { Switch } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { Separator } from '@chghealthcare/unified-design-system'
+import { Skeleton } from '@chghealthcare/unified-design-system'
+import { Spinner } from '@chghealthcare/unified-design-system'
+import { Slider } from '@chghealthcare/unified-design-system'
+import { Switch } from '@chghealthcare/unified-design-system'
 import {
     Table,
     TableBody,
@@ -218,12 +218,12 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@chg-ds/unified-design-system'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@chg-ds/unified-design-system'
-import { Text, Textarea } from '@chg-ds/unified-design-system'
-import { Toggle } from '@chg-ds/unified-design-system'
-import { ToggleGroup, ToggleGroupItem } from '@chg-ds/unified-design-system'
-import { cn } from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@chghealthcare/unified-design-system'
+import { Text, Textarea } from '@chghealthcare/unified-design-system'
+import { Toggle } from '@chghealthcare/unified-design-system'
+import { ToggleGroup, ToggleGroupItem } from '@chghealthcare/unified-design-system'
+import { cn } from '@chghealthcare/unified-design-system'
 import {
     ArrowRightIcon,
     BellIcon,
@@ -243,7 +243,7 @@ import {
     TextBIcon,
     TextItalicIcon,
     WarningCircleIcon,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { toast } from 'sonner'
 import type { ShadcnUiSlug } from '../shadcn-ui-registry'
 import {
@@ -1096,7 +1096,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     </AlertContent>
                 </Alert>
             ),
-            `import { Medallion } from "@chg-ds/unified-design-system"
+            `import { Medallion } from "@chghealthcare/unified-design-system"
 <Alert className="max-w-md">
   <Medallion color="sky" icon={<InfoIcon weight="bold" aria-hidden />} />
   <AlertContent>
@@ -1202,7 +1202,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     </div>
                 </AspectRatio>
             ),
-            `import { AspectRatio } from "@chg-ds/unified-design-system"
+            `import { AspectRatio } from "@chghealthcare/unified-design-system"
 <AspectRatio ratio={16 / 9} className="max-w-md bg-muted">
   <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
     16:9 content
@@ -1250,7 +1250,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     <DoctorAvatar doctor="michael" size="lg" />
                 </div>
             ),
-            `import { Avatar, AvatarFallback, AvatarImage } from "@chg-ds/unified-design-system"
+            `import { Avatar, AvatarFallback, AvatarImage } from "@chghealthcare/unified-design-system"
 
 <div className="flex flex-wrap items-center gap-4">
   <Avatar className="size-7">
@@ -1288,7 +1288,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     <DoctorAvatar doctor="daniel" size="lg" status="cyan" />
                 </div>
             ),
-            `import { Avatar, AvatarFallback, AvatarStatus } from "@chg-ds/unified-design-system"
+            `import { Avatar, AvatarFallback, AvatarStatus } from "@chghealthcare/unified-design-system"
 
 <Avatar>
   <AvatarFallback>AB</AvatarFallback>
@@ -1326,7 +1326,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     />
                 </div>
             ),
-            `import { Avatar, AvatarFallback, AvatarCameraAction } from "@chg-ds/unified-design-system"
+            `import { Avatar, AvatarFallback, AvatarCameraAction } from "@chghealthcare/unified-design-system"
 
 <Avatar>
   <AvatarFallback>AB</AvatarFallback>
@@ -1399,7 +1399,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     )}
                 </div>
             ),
-            `import { Badge, BADGE_ACCENTS } from "@chg-ds/unified-design-system"
+            `import { Badge, BADGE_ACCENTS } from "@chghealthcare/unified-design-system"
 
 <Badge accent="blue" appearance="pastel">Label</Badge>`,
         ),
@@ -1436,7 +1436,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     </div>
                 </div>
             ),
-            `import { Badge, Icon } from "@chg-ds/unified-design-system"
+            `import { Badge, Icon } from "@chghealthcare/unified-design-system"
 
 <Badge shape="rect" accent="neutral" appearance="pastel">Label</Badge>
 <Badge accent="neutral" appearance="outlined" icon={<Icon name="PlusIcon" weight="bold" aria-hidden />}>Add item</Badge>
@@ -1479,7 +1479,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@chg-ds/unified-design-system"
+} from "@chghealthcare/unified-design-system"
 
 <Breadcrumb>
   <BreadcrumbList>
@@ -1526,7 +1526,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     ))}
                 </div>
             ),
-            `import { Branding } from "@chg-ds/unified-design-system"
+            `import { Branding } from "@chghealthcare/unified-design-system"
 
 <Branding appearance="Connect" />
 <Branding appearance="Design System" />`,
@@ -1557,7 +1557,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     ))}
                 </div>
             ),
-            `import { Branding } from "@chg-ds/unified-design-system"
+            `import { Branding } from "@chghealthcare/unified-design-system"
 
 <Branding appearance="Modio" symbol />
 <Branding appearance="MyCompHealth" symbol />`,
@@ -1845,7 +1845,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
         ),
     ],
     chart: [E('bar', 'Bar chart', <ChartBarDemo />, `import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@chg-ds/unified-design-system"
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@chghealthcare/unified-design-system"
 
 const chartData = [
   { month: "Jan", total: 18 },
@@ -1884,7 +1884,7 @@ const chartConfig = {
                     </div>
                 </div>
             ),
-            `import { Checkbox, CheckboxLabel } from "@chg-ds/unified-design-system"
+            `import { Checkbox, CheckboxLabel } from "@chghealthcare/unified-design-system"
 
 <div className="flex flex-col gap-4">
   <div className="flex items-center gap-2">
@@ -1902,7 +1902,7 @@ const chartConfig = {
             'Indeterminate',
             <CheckboxIndeterminateDemo />,
             `import * as React from "react"
-import { Checkbox, CheckboxLabel } from "@chg-ds/unified-design-system"
+import { Checkbox, CheckboxLabel } from "@chghealthcare/unified-design-system"
 
 const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeterminate")
 
@@ -1915,7 +1915,7 @@ const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeter
             'toggle',
             'Expand / collapse',
             <CollapsibleDemo />,
-            `import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@chg-ds/unified-design-system"
+            `import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@chghealthcare/unified-design-system"
 
 <Collapsible variant="divided" className="w-full">
   <CollapsibleTrigger>Notification defaults</CollapsibleTrigger>
@@ -1936,7 +1936,7 @@ const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeter
   ComboboxItem,
   ComboboxTrigger,
   ComboboxValue,
-} from "@chg-ds/unified-design-system"
+} from "@chghealthcare/unified-design-system"
 
 <Combobox>
   <ComboboxTrigger className="w-[220px]">
@@ -1983,7 +1983,7 @@ const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeter
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "@chg-ds/unified-design-system"
+} from "@chghealthcare/unified-design-system"
 
 <ContextMenu>
   <ContextMenuTrigger className="rounded-lg border border-dashed p-8 text-sm text-muted-foreground">
@@ -2036,7 +2036,7 @@ const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeter
             'rtl',
             'Direction provider',
             <DirectionRtlDemo />,
-            `import { DirectionProvider } from "@chg-ds/unified-design-system"
+            `import { DirectionProvider } from "@chghealthcare/unified-design-system"
 
 <DirectionProvider dir="rtl">
   <ButtonGroup>
@@ -2051,7 +2051,7 @@ const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeter
             'base',
             'Base',
             <DotStatus />,
-            `import { DotStatus } from "@chg-ds/unified-design-system"
+            `import { DotStatus } from "@chghealthcare/unified-design-system"
 
 <DotStatus />`,
             'Default: green hue, medium size, solid fill.',
@@ -2069,7 +2069,7 @@ const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeter
                     ))}
                 </div>
             ),
-            `import { DotStatus, DOT_STATUS_VARIANTS } from "@chg-ds/unified-design-system"
+            `import { DotStatus, DOT_STATUS_VARIANTS } from "@chghealthcare/unified-design-system"
 
 DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
         ),
@@ -2254,7 +2254,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     </Field>
                 </FieldSet>
             ),
-            `import { FieldSet, Field, FieldLabel, FieldDescription, FieldLegend } from "@chg-ds/unified-design-system"
+            `import { FieldSet, Field, FieldLabel, FieldDescription, FieldLegend } from "@chghealthcare/unified-design-system"
 
 <FieldSet className="max-w-sm">
   <FieldLegend>Newsletter</FieldLegend>
@@ -3075,7 +3075,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     { label: 'Terms & Conditions', href: '#terms' },
                 ]}
             />,
-            `import { Footer } from "@chg-ds/unified-design-system"
+            `import { Footer } from "@chghealthcare/unified-design-system"
 
 <Footer
   links={[
@@ -3117,7 +3117,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     </>
                 }
             />,
-            `import { Header } from "@chg-ds/unified-design-system"
+            `import { Header } from "@chghealthcare/unified-design-system"
 
 <Header
   trailing={
@@ -3139,7 +3139,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
         ),
     ],
     'hover-card': [
-        E('preview', 'Hover preview', <HoverCardDemo />, `import { HoverCard, HoverCardContent, HoverCardTrigger } from "@chg-ds/unified-design-system"
+        E('preview', 'Hover preview', <HoverCardDemo />, `import { HoverCard, HoverCardContent, HoverCardTrigger } from "@chghealthcare/unified-design-system"
 
 <HoverCard>
   <HoverCardTrigger asChild>
@@ -3171,7 +3171,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             'icons',
             'With icons (leading, trailing, compact)',
             <InputIconExamples />,
-            `import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@chg-ds/unified-design-system"
+            `import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@chghealthcare/unified-design-system"
 
 <InputGroup className="max-w-sm">
   <InputGroupAddon>
@@ -3193,7 +3193,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     <InputGroupInput placeholder="example.com" />
                 </InputGroup>
             ),
-            `import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@chg-ds/unified-design-system"
+            `import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@chghealthcare/unified-design-system"
 
 <InputGroup className="max-w-sm">
   <InputGroupAddon>
@@ -3206,7 +3206,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             'icons',
             'Icons in add-ons',
             <InputIconExamples />,
-            `import { InputGroup, InputGroupAddon, InputGroupInput } from "@chg-ds/unified-design-system"
+            `import { InputGroup, InputGroupAddon, InputGroupInput } from "@chghealthcare/unified-design-system"
 
 <InputGroup className="max-w-sm">
   <InputGroupAddon>
@@ -3243,7 +3243,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     </ItemActions>
                 </Item>
             ),
-            `import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@chg-ds/unified-design-system"
+            `import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@chghealthcare/unified-design-system"
 
 <Item variant="outline" className="max-w-md">
   <ItemContent>
@@ -3332,7 +3332,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     </div>
                 </div>
             ),
-            `import { MEDALLION_COLORS, Medallion } from "@chg-ds/unified-design-system"
+            `import { MEDALLION_COLORS, Medallion } from "@chghealthcare/unified-design-system"
 
 {MEDALLION_COLORS.map((color) => (
   <Medallion
@@ -3372,7 +3372,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     </div>
                 </div>
             ),
-            `import { MEDALLION_COLORS, Medallion } from "@chg-ds/unified-design-system"
+            `import { MEDALLION_COLORS, Medallion } from "@chghealthcare/unified-design-system"
 
 {MEDALLION_COLORS.map((color) => (
   <Medallion
@@ -3444,7 +3444,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
   MenubarMenu,
   MenubarSeparator,
   MenubarTrigger,
-} from "@chg-ds/unified-design-system"
+} from "@chghealthcare/unified-design-system"
 
 <Menubar>
   <MenubarMenu>
@@ -3500,7 +3500,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@chg-ds/unified-design-system"
+} from "@chghealthcare/unified-design-system"
 
 <NavigationMenu>
   <NavigationMenuList>
@@ -3844,7 +3844,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     </div>
                 </RadioGroup>
             ),
-            `import { RadioGroup, RadioGroupItem, RadioGroupLabel } from "@chg-ds/unified-design-system"
+            `import { RadioGroup, RadioGroupItem, RadioGroupLabel } from "@chghealthcare/unified-design-system"
 
 <RadioGroup defaultValue="comfortable" className="max-w-xs">
   <div className="flex items-center gap-2">
@@ -3863,7 +3863,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
         ),
     ],
     resizable: [
-        E('split', 'Resizable panels', <ResizableDemo />, `import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@chg-ds/unified-design-system"
+        E('split', 'Resizable panels', <ResizableDemo />, `import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@chghealthcare/unified-design-system"
 
 <ResizablePanelGroup direction="horizontal" className="min-h-[200px] rounded-lg border">
   <ResizablePanel defaultSize={35}>Navigation</ResizablePanel>
@@ -4048,7 +4048,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
   SidebarFooter,
   SidebarInset,
   SidebarTrigger,
-} from "@chg-ds/unified-design-system"
+} from "@chghealthcare/unified-design-system"
 
 // Controlled icon rail (matches DocShell): set --sidebar-width / --sidebar-width-icon on the provider.
 <SidebarProvider open={open} onOpenChange={setOpen} style={{ "--sidebar-width": "280px", "--sidebar-width-icon": "72px" }}>
@@ -4118,7 +4118,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     Show toast
                 </Button>
             </div>,
-            `import { Toaster } from "@chg-ds/unified-design-system"
+            `import { Toaster } from "@chghealthcare/unified-design-system"
 import { toast } from "sonner"
 
 <>
@@ -4415,7 +4415,7 @@ import { toast } from "sonner"
                     </Text>
                 </div>
             ),
-            `import { Text } from "@chg-ds/unified-design-system"
+            `import { Text } from "@chghealthcare/unified-design-system"
 
 <Text variant="body" size="14" weight="regular">…</Text>
 <Text variant="heading" size="24" weight="semibold">…</Text>

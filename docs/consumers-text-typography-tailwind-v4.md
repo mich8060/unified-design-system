@@ -1,6 +1,6 @@
 # Text typography for consumers (Tailwind v4 + Vite)
 
-This document is the **contract for product apps** that use **`@chg-ds/unified-design-system`** with **Tailwind CSS v4** and **Vite**. It explains how the **`Text`** component gets its size, what can break, and how to debug.
+This document is the **contract for product apps** that use **`@chghealthcare/unified-design-system`** with **Tailwind CSS v4** and **Vite**. It explains how the **`Text`** component gets its size, what can break, and how to debug.
 
 ---
 
@@ -8,12 +8,12 @@ This document is the **contract for product apps** that use **`@chg-ds/unified-d
 
 **Confirmed:** The `Text` component applies typography through **CSS custom properties** from the shipped semantic type tokens (for example `--uds-type-body-14-font-size`, `--uds-type-body-14-line-regular`). Weight and appearance still use **static utility class names** from the published stylesheet (`font-uds-medium`, `text-uds-text-primary`, and similar).
 
-**They are not** produced by the consumer app’s Tailwind compiler scanning `node_modules/@chg-ds/...` for class strings. Relying only on `@import "tailwindcss"` and `@source` in the app **will not** generate the full UDS typography surface from the design system package alone.
+**They are not** produced by the consumer app’s Tailwind compiler scanning `node_modules/@chghealthcare/...` for class strings. Relying only on `@import "tailwindcss"` and `@source` in the app **will not** generate the full UDS typography surface from the design system package alone.
 
 **Required consumer step:** Import the design system stylesheet once at the app root (or an equivalent **full** build that includes the same rules):
 
 ```ts
-import "@chg-ds/unified-design-system/styles.css"
+import "@chghealthcare/unified-design-system/styles.css"
 ```
 
 If `styles.css` is missing, `<Text variant="body" size="14" />` will **not** get the intended font size, line height, letter spacing, or display text transform, even if the JSX and props are correct.
@@ -41,7 +41,7 @@ If `styles.css` is missing, `<Text variant="body" size="14" />` will **not** get
 
 **Documented recommendation:**
 
-1. Import **`@chg-ds/unified-design-system/styles.css`** in a predictable place (typically **once**, early in the app entry).
+1. Import **`@chghealthcare/unified-design-system/styles.css`** in a predictable place (typically **once**, early in the app entry).
 2. Avoid broad resets that target `span`, `p`, or `*` with higher specificity than utilities unless you intend to override the design system.
 3. If you use Tailwind’s **preflight** and custom **layers**, keep design-system guidance in mind: utilities from the published bundle should win for typography **unless** your globals are loaded later or use stronger selectors. When in doubt, **inspect computed styles** in DevTools.
 
@@ -98,10 +98,10 @@ This repo’s docs UI includes **Text** examples under component previews (`src/
 
 **Today:**
 
-- **`textVariants`** is **exported** from `@chg-ds/unified-design-system` (same module as `Text`). For debugging you can log or apply resolved weight and appearance classes:
+- **`textVariants`** is **exported** from `@chghealthcare/unified-design-system` (same module as `Text`). For debugging you can log or apply resolved weight and appearance classes:
 
   ```tsx
-  import { Text, textVariants, cn } from "@chg-ds/unified-design-system"
+  import { Text, textVariants, cn } from "@chghealthcare/unified-design-system"
 
   <span className={cn(textVariants({ weight: "medium", appearance: "secondary" }))}>debug</span>
   ```

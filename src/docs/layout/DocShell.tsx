@@ -33,7 +33,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   cn,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { DoctorAvatar } from '@/components/ui/doctor-avatar'
 import { applyDocsBrandToDocument, docsBrandToBrandingAppearance, readStoredDocsBrand } from '../doc-site-brand'
 import {

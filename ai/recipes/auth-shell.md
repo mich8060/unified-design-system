@@ -7,8 +7,8 @@ Use for authenticated application pages, internal product tools, dashboards, que
 ## Required imports
 
 ```ts
-import { AppShell, Menu, TooltipProvider } from "@chg-ds/unified-design-system"
-import "@chg-ds/unified-design-system/styles.css"
+import { AppShell, Menu, TooltipProvider } from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"
 ```
 
 ## Required layout primitives

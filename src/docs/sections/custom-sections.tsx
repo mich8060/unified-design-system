@@ -1,4 +1,4 @@
-import { Icon } from '@chg-ds/unified-design-system'
+import { Icon } from '@chghealthcare/unified-design-system'
 import type { DocSection } from '../types'
 import { getBrandNavigationMenusSections } from './BrandNavigationMenusFoundation'
 import { getColorsFoundationSections } from './ColorsFoundation'
@@ -286,7 +286,7 @@ export function getCustomSections(slug: string): DocSection[] | undefined {
         sec(
           'phosphor-examples',
           'Phosphor icons via `Icon`',
-          `import { Icon } from "@chg-ds/unified-design-system"
+          `import { Icon } from "@chghealthcare/unified-design-system"
 
 // Decorative: pair with text or aria-label on controls
 <Icon name="HouseIcon" className="size-6 text-neutral-700 dark:text-neutral-200" aria-hidden />

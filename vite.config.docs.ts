@@ -15,9 +15,9 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
-      '@chg-ds/unified-design-system/styles.css': path.resolve(__dirname, './src/styles.css'),
+      '@chghealthcare/unified-design-system/styles.css': path.resolve(__dirname, './src/styles.css'),
       'uds-tailwind-test/styles.css': path.resolve(__dirname, './src/styles.css'),
-      '@chg-ds/unified-design-system': path.resolve(__dirname, './src/index.ts'),
+      '@chghealthcare/unified-design-system': path.resolve(__dirname, './src/index.ts'),
       '@': path.resolve(__dirname, './src'),
       'uds-tailwind-test': path.resolve(__dirname, './src/index.ts'),
     },

@@ -1,0 +1,6 @@
+# Copy to your app repo as `.npmrc` (do not commit tokens).
+# GitHub Packages for @chghealthcare/unified-design-system
+# Repository: https://github.com/chghealthcare/unified-design-system
+
+@chghealthcare:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}

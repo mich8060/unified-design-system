@@ -11,7 +11,7 @@ import {
     QuestionIcon,
     SquaresFourIcon,
     UsersThreeIcon,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { useState } from 'react'
 import {
     AppShell,
@@ -38,7 +38,7 @@ import {
     TooltipContent,
     TooltipTrigger,
     type MicroCalendarDateData,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import './patterns-dashboard.css'
 
 const CRM_NAV_ITEMS = [

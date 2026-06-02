@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { DOCS_BRAND_OPTIONS, type DocsBrandId } from '../doc-site-brand'
 
 /** Scoped shadcn-style CSS variables so previews read UDS tokens after `data-brand` switches ramp. */

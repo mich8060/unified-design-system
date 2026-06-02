@@ -20,7 +20,7 @@ import {
   SquaresFourIcon,
   StackIcon,
   type MedallionColor,
-} from '@chg-ds/unified-design-system'
+} from '@chghealthcare/unified-design-system'
 import { useCallback, useEffect, useLayoutEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import {
@@ -285,17 +285,17 @@ export function InstallPage() {
         <CodePanel
           label="npm"
           language="bash"
-          code={`npm install ./vendor/chg-ds-unified-design-system-1.0.5.tgz`}
+          code={`npm install ./vendor/chghealthcare-unified-design-system-1.0.5.tgz`}
         />
         <CodePanel
           label="pnpm"
           language="bash"
-          code={`pnpm add ./vendor/chg-ds-unified-design-system-1.0.5.tgz`}
+          code={`pnpm add ./vendor/chghealthcare-unified-design-system-1.0.5.tgz`}
         />
         <CodePanel
           label="yarn"
           language="bash"
-          code={`yarn add ./vendor/chg-ds-unified-design-system-1.0.5.tgz`}
+          code={`yarn add ./vendor/chghealthcare-unified-design-system-1.0.5.tgz`}
         />
       </div>
       <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
@@ -308,7 +308,7 @@ export function InstallPage() {
         language="json"
         code={`{
   "dependencies": {
-    "@chg-ds/unified-design-system": "file:./vendor/chg-ds-unified-design-system-1.0.5.tgz"
+    "@chghealthcare/unified-design-system": "file:./vendor/chghealthcare-unified-design-system-1.0.5.tgz"
   }
 }`}
       />
@@ -327,7 +327,7 @@ export function InstallPage() {
       <CodePanel
         label="App entry (e.g. main.tsx)"
         language="tsx"
-        code={`import "@chg-ds/unified-design-system/styles.css"`}
+        code={`import "@chghealthcare/unified-design-system/styles.css"`}
       />
       <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
         The package marks CSS as side-effectful so bundlers do not drop the import during tree-shaking.
@@ -342,7 +342,7 @@ export function InstallPage() {
         </li>
         <li>
           <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">dist/styles.css</code> — the stylesheet
-          you import as <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chg-ds/unified-design-system/styles.css</code>.
+          you import as <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chghealthcare/unified-design-system/styles.css</code>.
         </li>
         <li>
           <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">dist/*.d.ts</code> — TypeScript types for
@@ -358,8 +358,8 @@ export function InstallPage() {
       <CodePanel
         label="Smoke test"
         language="tsx"
-        code={`import { Button } from "@chg-ds/unified-design-system"
-import "@chg-ds/unified-design-system/styles.css"
+        code={`import { Button } from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"
 
 export function Smoke() {
   return <Button type="button">Hello UDS</Button>
@@ -528,8 +528,8 @@ export function MenuPage() {
         <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">Menu</code>:
       </p>
       <pre className="mt-3 overflow-x-auto rounded-[4px] bg-neutral-950 p-4 text-sm text-neutral-100">
-        <code>{`import "@chg-ds/unified-design-system/styles.css"
-import { LayoutIcon, Menu } from "@chg-ds/unified-design-system"
+        <code>{`import "@chghealthcare/unified-design-system/styles.css"
+import { LayoutIcon, Menu } from "@chghealthcare/unified-design-system"
 
 const NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", icon: LayoutIcon },
@@ -556,7 +556,7 @@ export function ApplicationMenu() {
       </p>
       <pre className="mt-3 overflow-x-auto rounded-[4px] bg-neutral-950 p-4 text-sm text-neutral-100">
         <code>{`import { useState } from "react"
-import { LayoutIcon, Menu } from "@chg-ds/unified-design-system"
+import { LayoutIcon, Menu } from "@chghealthcare/unified-design-system"
 
 const NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", icon: LayoutIcon },
@@ -910,8 +910,8 @@ export function UsagePage() {
       <CodePanel
         label="Typical imports"
         language="tsx"
-        code={`import { AppShell, Button, Menu, Field, Input } from "@chg-ds/unified-design-system"
-import "@chg-ds/unified-design-system/styles.css"`}
+        code={`import { AppShell, Button, Menu, Field, Input } from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"`}
       />
 
       <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Styles and tokens</h2>
@@ -939,7 +939,7 @@ import "@chg-ds/unified-design-system/styles.css"`}
       <CodePanel
         label="Shell sketch"
         language="tsx"
-        code={`import { AppShell, Menu } from "@chg-ds/unified-design-system"
+        code={`import { AppShell, Menu } from "@chghealthcare/unified-design-system"
 
 export function ProductChrome() {
   return (

@@ -9,8 +9,8 @@
     "rootDir": "./src",
     "paths": {
       "@/*": ["./src/*"],
-      "@chg-ds/unified-design-system": ["./src/index.ts"],
-      "@chg-ds/unified-design-system/styles.css": ["./src/styles.css"],
+      "@chghealthcare/unified-design-system": ["./src/index.ts"],
+      "@chghealthcare/unified-design-system/styles.css": ["./src/styles.css"],
       "uds-tailwind-test": ["./src/index.ts"],
       "uds-tailwind-test/styles.css": ["./src/styles.css"],
       "uds-tailwind-test/tokens.css": ["./src/tokens.css"],
