@@ -16,6 +16,7 @@ import {
     AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
+    AlertDialogCopy,
     AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
@@ -243,11 +244,14 @@ import {
     TextBIcon,
     TextItalicIcon,
     WarningCircleIcon,
+    CheckCircleIcon,
 } from '@chghealthcare/unified-design-system'
 import { toast } from 'sonner'
 import type { ShadcnUiSlug } from '../shadcn-ui-registry'
 import {
     AlertDialogVariants,
+    AlertDialogCompactVariants,
+    AlertDialogSingleButtonVariants,
     AlertDialogWelcomePreviewInner,
     CalendarRangeDemo,
     CalendarSingleDemo,
@@ -1125,6 +1129,46 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
   </AlertContent>
 </Alert>`,
         ),
+        E(
+            'warning',
+            'Warning',
+            (
+                <Alert variant="warning" className="max-w-md">
+                    <Medallion color="yellow" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+                    <AlertContent>
+                        <AlertTitle>Warning</AlertTitle>
+                        <AlertDescription>Review this before you continue.</AlertDescription>
+                    </AlertContent>
+                </Alert>
+            ),
+            `<Alert variant="warning" className="max-w-md">
+  <Medallion color="yellow" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+  <AlertContent>
+    <AlertTitle>Warning</AlertTitle>
+    <AlertDescription>Review this before you continue.</AlertDescription>
+  </AlertContent>
+</Alert>`,
+        ),
+        E(
+            'success',
+            'Success',
+            (
+                <Alert variant="success" className="max-w-md">
+                    <Medallion color="green" icon={<CheckCircleIcon weight="bold" aria-hidden />} />
+                    <AlertContent>
+                        <AlertTitle>Success</AlertTitle>
+                        <AlertDescription>Your changes were saved.</AlertDescription>
+                    </AlertContent>
+                </Alert>
+            ),
+            `<Alert variant="success" className="max-w-md">
+  <Medallion color="green" icon={<CheckCircleIcon weight="bold" aria-hidden />} />
+  <AlertContent>
+    <AlertTitle>Success</AlertTitle>
+    <AlertDescription>Your changes were saved.</AlertDescription>
+  </AlertContent>
+</Alert>`,
+        ),
     ],
     'alert-dialog': [
         {
@@ -1138,13 +1182,20 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             previewInner: <AlertDialogVariants />,
             welcomePreviewInner: <AlertDialogWelcomePreviewInner />,
             code: `<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button type="button" variant="destructive" size="sm">
+      Delete item
+    </Button>
+  </AlertDialogTrigger>
   <AlertDialogContent>
     <AlertDialogHeader>
-      <AlertDialogMedia color="red" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
-      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-      <AlertDialogDescription>
-        This action cannot be undone.
-      </AlertDialogDescription>
+      <AlertDialogMedia icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+      <AlertDialogCopy>
+        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+        <AlertDialogDescription>
+          This action cannot be undone.
+        </AlertDialogDescription>
+      </AlertDialogCopy>
     </AlertDialogHeader>
     <AlertDialogFooter>
       <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -1157,31 +1208,50 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             'small',
             'Small width (320px)',
             (
-                <AlertDialog defaultOpen>
-                    <AlertDialogContent size="sm">
-                        <AlertDialogHeader>
-                            <AlertDialogMedia
-                                color="amber"
-                                icon={<WarningCircleIcon weight="bold" aria-hidden />}
-                            />
-                            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                This action cannot be undone.
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction>Continue</AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
+                <ExampleCanvas>
+                    <AlertDialogCompactVariants />
+                </ExampleCanvas>
             ),
             `<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button type="button" variant="outline" size="sm">
+      Open compact dialog
+    </Button>
+  </AlertDialogTrigger>
   <AlertDialogContent size="sm">
     <AlertDialogHeader>
-      <AlertDialogMedia color="amber" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+      <AlertDialogMedia icon={<WarningCircleIcon weight="bold" aria-hidden />} />
       <AlertDialogTitle>Are you sure?</AlertDialogTitle>
       <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction>Continue</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>`,
+        ),
+        E(
+            'single-button',
+            'Single button (Continue only)',
+            (
+                <ExampleCanvas>
+                    <AlertDialogSingleButtonVariants />
+                </ExampleCanvas>
+            ),
+            `<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button type="button" variant="outline" size="sm">
+      Confirm action
+    </Button>
+  </AlertDialogTrigger>
+  <AlertDialogContent buttons="single">
+    <AlertDialogHeader>
+      <AlertDialogMedia icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+      <AlertDialogCopy>
+        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+        <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+      </AlertDialogCopy>
     </AlertDialogHeader>
     <AlertDialogFooter>
       <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -1216,6 +1286,9 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             'Sizes & fallback',
             (
                 <div className="flex flex-wrap items-center gap-4">
+                    <Avatar size="xs">
+                        <AvatarFallback>XS</AvatarFallback>
+                    </Avatar>
                     <Avatar size="sm">
                         <AvatarFallback>SM</AvatarFallback>
                     </Avatar>
@@ -1228,6 +1301,9 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                 </div>
             ),
             `<div className="flex flex-wrap items-center gap-4">
+  <Avatar size="xs">
+    <AvatarFallback>XS</AvatarFallback>
+  </Avatar>
   <Avatar size="sm">
     <AvatarFallback>SM</AvatarFallback>
   </Avatar>
@@ -1276,22 +1352,29 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             'Status (DotStatus)',
             (
                 <div className="flex flex-wrap items-center gap-4">
-                    <Avatar>
-                        <AvatarFallback>AB</AvatarFallback>
+                    <Avatar size="xs">
+                        <AvatarFallback>XS</AvatarFallback>
                         <AvatarStatus variant="green" />
                     </Avatar>
                     <Avatar size="sm">
                         <AvatarFallback>SM</AvatarFallback>
                         <AvatarStatus variant="orange" />
                     </Avatar>
-                    <DoctorAvatar doctor="emily" status="green" />
-                    <DoctorAvatar doctor="daniel" size="lg" status="cyan" />
+                    <Avatar>
+                        <AvatarFallback>MD</AvatarFallback>
+                        <AvatarStatus variant="cyan" />
+                    </Avatar>
+                    <Avatar size="lg">
+                        <AvatarFallback>LG</AvatarFallback>
+                        <AvatarStatus variant="green" />
+                    </Avatar>
+                    <DoctorAvatar doctor="emily" size="sm" status="green" />
                 </div>
             ),
             `import { Avatar, AvatarFallback, AvatarStatus } from "@chghealthcare/unified-design-system"
 
-<Avatar>
-  <AvatarFallback>AB</AvatarFallback>
+<Avatar size="xs">
+  <AvatarFallback>XS</AvatarFallback>
   <AvatarStatus variant="green" />
 </Avatar>
 
@@ -1300,9 +1383,14 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
   <AvatarStatus variant="orange" />
 </Avatar>
 
-<Avatar size="lg">
-  <AvatarFallback>DG</AvatarFallback>
+<Avatar>
+  <AvatarFallback>MD</AvatarFallback>
   <AvatarStatus variant="cyan" />
+</Avatar>
+
+<Avatar size="lg">
+  <AvatarFallback>LG</AvatarFallback>
+  <AvatarStatus variant="green" />
 </Avatar>`,
         ),
         E(
@@ -1310,16 +1398,25 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             'Change photo (camera button)',
             (
                 <div className="flex flex-wrap items-center gap-4">
-                    <Avatar>
-                        <AvatarFallback>AB</AvatarFallback>
+                    <Avatar size="xs">
+                        <AvatarFallback>XS</AvatarFallback>
                         <AvatarCameraAction onClick={(e) => e.preventDefault()} />
                     </Avatar>
                     <Avatar size="sm">
                         <AvatarFallback>SM</AvatarFallback>
                         <AvatarCameraAction onClick={(e) => e.preventDefault()} aria-label="Upload avatar" />
                     </Avatar>
+                    <Avatar>
+                        <AvatarFallback>MD</AvatarFallback>
+                        <AvatarCameraAction onClick={(e) => e.preventDefault()} />
+                    </Avatar>
+                    <Avatar size="lg">
+                        <AvatarFallback>LG</AvatarFallback>
+                        <AvatarCameraAction onClick={(e) => e.preventDefault()} />
+                    </Avatar>
                     <DoctorAvatar
                         doctor="emily"
+                        size="sm"
                         cameraAction={{
                             onClick: (e) => e.preventDefault(),
                         }}
@@ -1328,14 +1425,24 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             ),
             `import { Avatar, AvatarFallback, AvatarCameraAction } from "@chghealthcare/unified-design-system"
 
-<Avatar>
-  <AvatarFallback>AB</AvatarFallback>
+<Avatar size="xs">
+  <AvatarFallback>XS</AvatarFallback>
   <AvatarCameraAction onClick={(e) => e.preventDefault()} />
 </Avatar>
 
 <Avatar size="sm">
   <AvatarFallback>SM</AvatarFallback>
   <AvatarCameraAction onClick={(e) => e.preventDefault()} aria-label="Upload avatar" />
+</Avatar>
+
+<Avatar>
+  <AvatarFallback>MD</AvatarFallback>
+  <AvatarCameraAction onClick={(e) => e.preventDefault()} />
+</Avatar>
+
+<Avatar size="lg">
+  <AvatarFallback>LG</AvatarFallback>
+  <AvatarCameraAction onClick={(e) => e.preventDefault()} />
 </Avatar>`,
         ),
     ],

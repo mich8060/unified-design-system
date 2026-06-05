@@ -2,6 +2,8 @@
 
 Fallback navigation items the system uses when no custom `navigationItems` array is provided to the `Menu` component. Each brand defines its own set of top-level entries with Phosphor icons.
 
+**Header logos vs text:** product apps use default `headerVariant="brand"` with a matching `brand` id. Internal or non-product apps use `headerVariant="title"` — see [`ai/guides/menu-header-identity.md`](../guides/menu-header-identity.md).
+
 ---
 
 ## `default`

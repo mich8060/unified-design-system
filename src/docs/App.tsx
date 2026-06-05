@@ -21,6 +21,8 @@ import {
 import { DocsVersionSelect } from './components/DocsVersionSelect'
 import { useDocsHeaderSearch } from './components/DocsSearch'
 import { applyDocsBrandToDocument, DOCS_SITE_DEFAULT_BRAND } from './doc-site-brand'
+import { buildDocsMenuUtilities } from './docs-menu-utilities'
+import { LATEST_READOUT_ROUTE } from './readout/readout-months'
 import { DOCS_SITE_PACKAGE_VERSION } from './doc-site-version'
 import {
   DocsVersionProvider,
@@ -50,6 +52,15 @@ const MenuPage = lazy(() =>
 const PatternsDashboardPage = lazy(() =>
   import('./pages/PlaceholderPages').then((m) => ({ default: m.PatternsDashboardPage })),
 )
+const ProjectReadoutPage = lazy(() =>
+  import('./pages/PlaceholderPages').then((m) => ({ default: m.ProjectReadoutPage })),
+)
+const ProjectReleasesPage = lazy(() =>
+  import('./pages/PlaceholderPages').then((m) => ({ default: m.ProjectReleasesPage })),
+)
+const ProjectRoadmapPage = lazy(() =>
+  import('./pages/PlaceholderPages').then((m) => ({ default: m.ProjectRoadmapPage })),
+)
 const WelcomePage = lazy(() =>
   import('./pages/PlaceholderPages').then((m) => ({ default: m.WelcomePage })),
 )
@@ -74,7 +85,10 @@ function DocsLayout() {
   const { items: navigationItems, navIdToRoute, routeToNavId } = bundle.navigation
   const { headerSearchProps, searchDialog } = useDocsHeaderSearch()
 
-  const activeId = useMemo(() => routeToNavId[pathname], [pathname, routeToNavId])
+  const activeId = useMemo(() => {
+    if (pathname.startsWith('/docs/readout')) return 'readout'
+    return routeToNavId[pathname]
+  }, [pathname, routeToNavId])
 
   const handleNavigationSelect = useCallback(
     (id: string) => {
@@ -83,6 +97,8 @@ function DocsLayout() {
     },
     [navIdToRoute, navigate],
   )
+
+  const menuUtilities = useMemo(() => buildDocsMenuUtilities(navigate), [navigate])
 
   return (
     <>
@@ -98,6 +114,7 @@ function DocsLayout() {
           toolbar={<DocsVersionSelect />}
           activeId={activeId}
           onNavigationSelect={handleNavigationSelect}
+          utilities={menuUtilities}
           className="min-h-0 flex-1"
         />
       </AppShell.Menu>
@@ -300,6 +317,14 @@ export default function DocsApp() {
                 <Route path="docs/sections/menu" element={<MenuPage />} />
                 <Route path="docs/sections/:slug" element={<ShadcnComponentDocPage />} />
                 <Route path="docs/patterns/dashboard" element={<PatternsDashboardPage />} />
+                <Route path="docs/readout" element={<Navigate to={LATEST_READOUT_ROUTE} replace />} />
+                <Route path="docs/readout/:monthId" element={<ProjectReadoutPage />} />
+                <Route path="docs/releases" element={<ProjectReleasesPage />} />
+                <Route path="docs/roadmap" element={<ProjectRoadmapPage />} />
+                <Route path="docs/project/readout" element={<Navigate to={LATEST_READOUT_ROUTE} replace />} />
+                <Route path="docs/project/updates" element={<Navigate to={LATEST_READOUT_ROUTE} replace />} />
+                <Route path="docs/project/releases" element={<Navigate to="/docs/releases" replace />} />
+                <Route path="docs/project/roadmap" element={<Navigate to="/docs/roadmap" replace />} />
                 <Route path="docs/getting-started/menu" element={<Navigate to="/docs/sections/menu" replace />} />
                 <Route path="docs/components/header" element={<Navigate to="/docs/sections/header" replace />} />
                 <Route path="docs/components/footer" element={<Navigate to="/docs/sections/footer" replace />} />

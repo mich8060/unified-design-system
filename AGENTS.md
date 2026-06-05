@@ -11,6 +11,7 @@ Canonical contract: [`ai/uds-contract.json`](./ai/uds-contract.json)
 - For authenticated product screens, default to `AppShell`.
 - Compose the **`AppShell` `menu` slot** with the package **`Menu`** component (canonical). Do not use `Sidebar*` in `menu` unless the product owns full rail CSS.
 - **`Menu`** defaults to brand **`chg`** (CHG wordmark + tokens). Override with the **`brand`** prop; do not use `docs-site-data-brand` in consumer apps.
+- **`Menu` header:** use default **`headerVariant="brand"`** (or omit) for CHG product apps with an approved lockup. Use **`headerVariant="title"`** with **`headerTitle`** (and optional **`headerShortTitle`**) for internal tools, dynamic tenant names, or apps without a product brand—see [`ai/guides/menu-header-identity.md`](./ai/guides/menu-header-identity.md).
 - Put page content in **`AppShell.Main`**. Set **`enableRouterOutlet={false}`** for static apps; use nested React Router layout routes when the default outlet is enabled.
 - Use existing UDS exports before inventing new layout or component chrome.
 - Prefer recipe-aligned patterns from `ai/recipes/*.md` and `ai/examples/*.tsx` when generating a new screen.

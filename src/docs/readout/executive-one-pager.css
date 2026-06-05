@@ -1,0 +1,162 @@
+/* Readout page — layout helpers; typography/panels use doc-page-content-classes */
+
+/* Roadmap Status — fit container; no horizontal scroll */
+.executive-roadmap-table [data-slot='table-container'] {
+  overflow-x: visible;
+  max-width: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+.executive-roadmap-table [data-slot='table'] {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+
+/* Proportional columns — Outcome gets the most room; Status stays compact */
+.executive-roadmap-col-initiative {
+  width: 22%;
+}
+
+.executive-roadmap-col-outcome {
+  width: 42%;
+}
+
+.executive-roadmap-col-milestone {
+  width: 22%;
+}
+
+.executive-roadmap-col-status {
+  width: 14%;
+}
+
+.executive-roadmap-table [data-slot='table-head'],
+.executive-roadmap-table [data-slot='table-cell'] {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  vertical-align: top;
+}
+
+.executive-roadmap-table [data-slot='table-cell'] > * {
+  max-width: 100%;
+}
+
+.executive-roadmap-table [data-slot='table-head']:nth-child(4),
+.executive-roadmap-table [data-slot='table-cell']:nth-child(4) {
+  width: 14%;
+  min-width: 7.5rem;
+  white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: normal;
+  text-align: right;
+}
+
+.executive-two-column-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4rem;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .executive-two-column-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.executive-badge-pending {
+  background-color: var(--uds-color-neutrals-200, #e5e7eb) !important;
+  border-color: var(--uds-color-neutrals-300, #d1d5db) !important;
+  color: var(--uds-text-primary) !important;
+}
+
+.executive-progress-done {
+  background: var(--uds-color-accent-lime-25);
+}
+
+.executive-progress-motion {
+  background: color-mix(
+    in srgb,
+    var(--uds-color-accent-cyan-500) 8%,
+    var(--uds-surface-primary)
+  );
+}
+
+.executive-progress-icon {
+  display: flex;
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  color: #fff;
+}
+
+.executive-progress-icon--done {
+  background: var(--uds-color-accent-lime-600);
+}
+
+.executive-progress-icon--motion {
+  background: var(--uds-color-accent-cyan-500);
+}
+
+.executive-progress-grid {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .executive-progress-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.executive-progress-item {
+  align-items: flex-start;
+}
+
+.executive-progress-item [data-slot='item-content'] {
+  min-width: 0;
+}
+
+.executive-risk-warning {
+  border-left: 4px solid var(--uds-color-accent-yellow-500);
+  background: color-mix(
+    in srgb,
+    var(--uds-color-accent-yellow-500) 12%,
+    var(--uds-surface-primary)
+  );
+}
+
+.executive-risk-error {
+  border-left: 4px solid var(--uds-color-accent-red-500);
+  background: color-mix(
+    in srgb,
+    var(--uds-color-accent-red-500) 10%,
+    var(--uds-surface-primary)
+  );
+}
+
+.executive-risk-pending {
+  border-left: 4px solid var(--uds-color-neutrals-400);
+  background: color-mix(
+    in srgb,
+    var(--uds-color-neutrals-300) 25%,
+    var(--uds-surface-primary)
+  );
+}
+
+.executive-showcase-card:hover {
+  border-color: var(--uds-border-brand-primary);
+}
+
+.executive-showcase-card:focus-visible {
+  outline: 2px solid var(--uds-border-brand-primary);
+  outline-offset: 2px;
+}

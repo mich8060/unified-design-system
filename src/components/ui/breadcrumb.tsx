@@ -10,7 +10,7 @@ function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
       aria-label="Breadcrumb"
       data-slot="breadcrumb"
       className={cn(
-        "text-sm text-neutral-500 dark:text-neutral-400",
+        "font-sans text-uds-14 font-uds-regular leading-uds-14 text-[var(--uds-text-secondary)]",
         className
       )}
       {...props}
@@ -54,7 +54,7 @@ function BreadcrumbLink({
     <Comp
       data-slot="breadcrumb-link"
       className={cn(
-        "inline-flex items-center gap-1 transition-colors hover:text-neutral-900 dark:hover:text-neutral-100 [&>svg]:shrink-0",
+        "inline-flex items-center gap-1 text-[var(--uds-text-link-secondary-default)] no-underline transition-colors hover:text-[var(--uds-text-link-secondary-hover)] [&>svg]:shrink-0",
         className
       )}
       {...props}
@@ -68,7 +68,7 @@ function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
       data-slot="breadcrumb-page"
       aria-current="page"
       className={cn(
-        "inline-flex items-center gap-1 font-medium text-neutral-900 dark:text-neutral-100 [&>svg]:shrink-0",
+        "inline-flex items-center gap-1 font-uds-medium text-[var(--uds-text-primary)] [&>svg]:shrink-0",
         className
       )}
       {...props}
@@ -86,7 +86,7 @@ function BreadcrumbSeparator({
       data-slot="breadcrumb-separator"
       role="presentation"
       aria-hidden="true"
-      className={cn("text-neutral-400", className)}
+      className={cn("text-[var(--uds-text-quaternary)] [&>svg]:size-3.5", className)}
       {...props}
     >
       {children ?? "/"}

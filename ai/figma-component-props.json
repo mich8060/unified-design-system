@@ -57,8 +57,31 @@
           "figmaMatrixNote": "Figma Button component set currently ships 4 text sizes (Default, Extra Small, Small, Large) × 6 appearances. Icon-only sizes exist in code; extend the Figma matrix when icon-only button variants are added."
         },
         "gapPx": 8,
-        "gapToken": "--uds-gap-8"
-      }
+        "gapToken": "--uds-gap-8",
+        "Slot start": {
+          "codeProp": "slotStart",
+          "figmaProperty": "Slot start#557:0",
+          "note": "Leading icon slot (max 1 child). Toggle with Show slot start."
+        },
+        "Slot end": {
+          "codeProp": "slotEnd",
+          "figmaProperty": "Slot end#557:25",
+          "note": "Trailing icon slot (max 1 child). Toggle with Show slot end."
+        },
+        "Show slot start": {
+          "codeProp": "showSlotStart",
+          "default": false
+        },
+        "Show slot end": {
+          "codeProp": "showSlotEnd",
+          "default": false
+        },
+        "Label": {
+          "codeProp": "children",
+          "figmaProperty": "Label#555:0"
+        }
+      },
+      "figmaMatrixNote": "24 variants (6 Appearance × 4 Size). Slot wrappers: HORIZONTAL, HUG×HUG, centered, clipsContent true, bound to Show slot start/end. Slot nodes: HUG×FIXED square per size (16/16/20/24 px). Child order: Slot start wrapper → Button label → Slot end wrapper. Reference layout: node 554:266 (Link, Large)."
     },
     "Icon": {
       "nodeId": "501:6",
@@ -172,6 +195,36 @@
       },
       "figmaMatrixNote": "80 variants. Fill=false (hug) | Fill=true (full width). Pill list: uds/surface/secondary, radius-6, active uds/surface/brand-quaternary + inverse text. Line: border-primary bottom, active uds/text/brand-quaternary + 2px indicator."
     },
+    "AppShell": {
+      "nodeId": "963:730",
+      "properties": {
+        "Menu": {
+          "codeProp": "menu (Menu data-expanded)",
+          "figmaLabels": {
+            "Expanded": "280px rail",
+            "Collapsed": "64px rail"
+          },
+          "note": "Compose package Menu in slot `slot / menu`. Maps to AppShell.Menu / props.menu."
+        },
+        "Listview": {
+          "codeProp": "listview",
+          "figmaLabels": {
+            "Off": "Collapsed column",
+            "On": "320px master pane"
+          },
+          "note": "Maps to AppShell.Listview / props.listview. Includes `slot / listview-scroll`."
+        },
+        "Footer": {
+          "codeProp": "footer",
+          "figmaLabels": {
+            "Off": "No footer region",
+            "On": "Footer in main column"
+          },
+          "note": "Maps to AppShell.Footer / props.footer (scrolls with main)."
+        }
+      },
+      "figmaMatrixNote": "8 variants (Menu × Listview × Footer). Slots: slot/menu, slot/header (+ slot/header-trailing), slot/listview (+ listview-scroll), slot/main, slot/footer. DOM mirrors appshell--* regions. Header always on; maps AppShell.Header → Header trailing. 1280×800 preview."
+    },
     "Alert": {
       "nodeId": "758:308",
       "properties": {
@@ -179,11 +232,13 @@
           "codeProp": "variant",
           "figmaLabels": {
             "default": "Default",
-            "destructive": "Destructive"
+            "destructive": "Destructive",
+            "warning": "Warning",
+            "success": "Success"
           }
         }
       },
-      "figmaMatrixNote": "HUG flex row items-start gap-12 p-16. Medallion 40px: Sky pastel (default), Red pastel (destructive). Surface primary + border secondary; destructive border/text use uds-button-border-primary-destructive."
+      "figmaMatrixNote": "HUG flex row items-start gap-12 p-16. Medallion 40px: Sky (default), Red (destructive), Yellow (warning), Green (success), all Pastel. Title Body/16/Semibold; description Body/14/Regular. Default: border secondary, title primary, description secondary. Destructive: button destructive border + copy. Warning: system/warning primary border + copy. Success: system/constructive primary border + copy."
     },
     "Avatar": {
       "nodeId": "818:512",
@@ -225,7 +280,33 @@
           }
         }
       },
-      "figmaMatrixNote": "276 variants (23 Appearances × 4 Sizes × 3 Accessories: None | Status | Camera). Status uses one variant per matrix cell with nested DotStatus (isExposedInstance); change dot hue via surfaced DotStatus Variant, not duplicate Avatar variants."
+      "figmaMatrixNote": "276 variants (23 Appearances × 4 Sizes × 3 Accessories: None | Status | Camera). Status: 10×10 DotStatus (Variant=Green default), positioned xs +1px / sm+default −1px / lg −4px from bottom-right (matches code AvatarStatus). Camera: xs 16×16 +8px icon +6px offset / sm+default 20×20 +12px +8px / lg 24×24 +16px +4px past corner; neutrals-300 fill, 2px surface ring, regular Camera icon. Accessories use clipsContent false. Status hue via exposed DotStatus Variant, not an Avatar axis."
+    },
+    "Branding": {
+      "properties": {
+        "Appearance": {
+          "codeProp": "appearance",
+          "figmaLabels": {
+            "wireframe": "Wireframe",
+            "connect": "Connect",
+            "chg": "CHG",
+            "locumsmart": "Locumsmart",
+            "modio": "Modio",
+            "myweatherby": "MyWeatherby",
+            "mycomphealth": "MyCompHealth",
+            "designSystem": "Design System"
+          }
+        },
+        "Symbol": {
+          "codeProp": "symbol",
+          "figmaLabels": {
+            "false": "False",
+            "true": "True"
+          },
+          "note": "False = 200×80 wordmark (left-aligned). True = 64×64 brand mark (centered)."
+        }
+      },
+      "figmaMatrixNote": "16 variants (8 appearances × Symbol). SVG from public/branding/svg. CHG and Design System share unified-design-system assets. Build: scripts/figma-run-branding-batches.mjs + use_figma on branding-batches/*.js."
     },
     "Medallion": {
       "nodeId": "754:436",

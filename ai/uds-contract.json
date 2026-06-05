@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T22:09:07.195Z",
+  "generatedAt": "2026-06-02T22:11:48.650Z",
   "generatedFrom": [
     "src/index.ts",
     "package.json",
@@ -7,7 +7,7 @@
   ],
   "package": {
     "name": "@chghealthcare/unified-design-system",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "primaryEntry": "@chghealthcare/unified-design-system",
     "styleImport": "@chghealthcare/unified-design-system/styles.css"
   },
@@ -34,7 +34,9 @@
       "listview": "Optional listview prop. Master-detail: only .appshell--main scrolls; list body uses data-slot=appshell-listview-scroll inside a flex column. See ai/recipes/detail-with-listview.md.",
       "footer": "Optional. Use only when the screen needs persistent summary or status chrome.",
       "appShellGuide": "ai/guides/appshell-navigation.md",
-      "menuBrand": "Menu defaults to brand id chg (CHG wordmark). Override with Menu brand prop; use brandStorageKey only when persisting a user choice. Do not use docs-site-data-brand in consumer apps."
+      "menuBrand": "Menu defaults to brand id chg (CHG wordmark). Override with Menu brand prop; use brandStorageKey only when persisting a user choice. Do not use docs-site-data-brand in consumer apps.",
+      "menuHeaderIdentity": "headerVariant brand (default): CHG product logos via Branding. headerVariant title: plain-text headerTitle/headerShortTitle for internal or non-product apps without an approved lockup—see ai/guides/menu-header-identity.md. Do not use title mode for standard CHG product shells.",
+      "menuHeaderGuide": "ai/guides/menu-header-identity.md"
     },
     "viewportFill": [
       "Ensure html, body, and #root span the viewport.",
@@ -1251,6 +1253,16 @@
       "module": "components/ui/context-menu",
       "roles": [
         "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "CopyIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
       ],
       "recommendation": "allowed"
     },
@@ -2973,6 +2985,16 @@
       "recommendation": "allowed"
     },
     {
+      "name": "MenuDefaultHeaderProps",
+      "exportKind": "type",
+      "module": "components/ui/menu",
+      "roles": [
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "MenuDefaultProps",
       "exportKind": "type",
       "module": "components/ui/menu",
@@ -2993,7 +3015,37 @@
       "recommendation": "allowed"
     },
     {
+      "name": "MenuHeaderIdentity",
+      "exportKind": "type",
+      "module": "components/ui/menu",
+      "roles": [
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "MenuHeaderProps",
+      "exportKind": "type",
+      "module": "components/ui/menu",
+      "roles": [
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "MenuHeaderTitle",
+      "exportKind": "component",
+      "module": "components/ui/menu",
+      "roles": [
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "MenuHeaderVariant",
       "exportKind": "type",
       "module": "components/ui/menu",
       "roles": [

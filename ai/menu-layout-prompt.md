@@ -103,18 +103,29 @@ The root `<nav>` emits `data-expanded="true"` or `"false"` for CSS hooks.
 
 ## 5. Header Slot
 
-Default header (`MenuDefaultHeader`) renders:
+Default header (`MenuDefaultHeader`) supports two identities (see **`ai/guides/menu-header-identity.md`** for AI decision rules):
+
+| `headerVariant` | Center content (expanded) | Collapsed tile |
+| --- | --- | --- |
+| **`"brand"`** (default) | `Branding` wordmark 188×56, centered | `Branding` symbol 36×36 |
+| **`"title"`** | `headerTitle` text (`text-base`, line-clamp-2) | `headerShortTitle` or first 2 chars (`text-sm`) |
+
+**Use `"brand"`** for CHG product shells with an approved `brand` id. **Use `"title"`** for internal/non-product apps without a lockup.
+
+```tsx
+<Menu headerVariant="title" headerTitle="Internal portal" headerShortTitle="IP" brand="default" />
+```
 
 **Expanded (280px):**
 
 - 3-column CSS grid: `grid-cols-[2.75rem_1fr_2.75rem]`
 - Left: ListIcon toggle button (44x44)
-- Center: Branding wordmark (188px wide, centered, `wordmarkAlign="center"`)
+- Center: branding wordmark **or** title text (188px wide, centered)
 - Right: empty spacer (44x44) for symmetry
 
 **Collapsed (64px):**
 
-- Brand symbol mark (36x36) centered, cross-fades with toggle button on hover/focus
+- Brand symbol **or** title abbreviation (36×36) centered, cross-fades with toggle button on hover/focus
 - The collapse toggle appears on `group-hover/collapsed-menu` and `group-focus-within/collapsed-menu`
 - Transition: `opacity duration-200 ease-out`
 

@@ -6,11 +6,19 @@ import {
   StackIcon,
   type MenuNavigationItem,
 } from '@chghealthcare/unified-design-system'
+import { isReadoutMonthId, isReadoutPath, LATEST_READOUT_ROUTE, READOUT_NAV_ROUTES } from '../readout/readout-months'
 import type { ShadcnUiEntry } from '../shadcn-ui-registry'
 import type { CatalogEntry } from '../types'
 import type { DocsVersionNavigation } from './types'
 
 const SECTIONS_SLUGS = new Set(['header', 'footer'])
+
+/** Routed via Menu `utilities` (not primary navigation). */
+export const DOCS_UTILITY_NAV_ROUTES: Record<string, string> = {
+  ...READOUT_NAV_ROUTES,
+  releases: '/docs/releases',
+  roadmap: '/docs/roadmap',
+}
 
 export function buildDocsVersionNavigation(
   catalog: CatalogEntry[],
@@ -80,6 +88,7 @@ export function buildDocsVersionNavigation(
     'section-header': '/docs/sections/header',
     'section-footer': '/docs/sections/footer',
     'pattern-dashboard': '/docs/patterns/dashboard',
+    ...DOCS_UTILITY_NAV_ROUTES,
     ...Object.fromEntries(catalog.map((entry) => [`foundation-${entry.slug}`, `/docs/foundations/${entry.slug}`])),
     ...Object.fromEntries(
       shadcnComponents.map((entry) => [`component-${entry.slug}`, `/docs/components/${entry.slug}`]),
@@ -96,5 +105,10 @@ export function resolveDocsRouteForVersion(
   pathname: string,
 ): string {
   if (navigation.routeToNavId[pathname]) return pathname
+  if (isReadoutPath(pathname)) {
+    const match = /^\/docs\/readout\/([^/]+)$/.exec(pathname)
+    if (match?.[1] && isReadoutMonthId(match[1])) return pathname
+    return LATEST_READOUT_ROUTE
+  }
   return '/docs/introduction'
 }

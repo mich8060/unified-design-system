@@ -21,7 +21,7 @@
     min-width: var(--uds-chrome-media-size);
     min-height: var(--uds-chrome-media-size);
     border-radius: var(--uds-chrome-media-radius);
-    background: var(--uds-alert-dialog-media-bg, var(--uds-color-accent-red-100));
+    background: var(--uds-alert-dialog-media-bg, var(--uds-color-accent-red-25));
     color: var(--uds-alert-dialog-media-fg, var(--uds-color-accent-red-700));
     font-family: var(--font-sans);
   }

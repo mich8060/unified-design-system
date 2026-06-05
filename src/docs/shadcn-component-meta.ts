@@ -18,7 +18,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Aspect Ratio preserves a fixed media frame so images, video, and cards keep their intended proportions as layouts resize.',
   },
   avatar: {
-    summary: 'Avatar presents a person or entity with fallback initials, optional status, and inline profile actions.',
+    summary:
+      'Avatar presents a person or entity at four sizes (32–64px), with optional bottom-right status dot or change-photo camera action aligned to the Figma Avatar matrix.',
   },
   badge: {
     summary: 'Badge applies compact visual labeling for status, category, or emphasis inside lists, cards, and tables.',
@@ -30,7 +31,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Branding renders approved wordmarks and brand marks so docs and app chrome stay aligned with system assets.',
   },
   button: {
-    summary: 'Button triggers primary and secondary actions with shared sizing, emphasis, and disabled/loading behavior.',
+    summary:
+      'Button triggers primary and secondary actions with six appearances, four text sizes, and optional leading/trailing icon slots aligned to the Figma Button matrix.',
   },
   'button-group': {
     summary: 'Button Group keeps related actions visually and spatially connected so the set reads as one control.',

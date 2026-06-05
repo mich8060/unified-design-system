@@ -51,6 +51,57 @@ const MenuRailContext = React.createContext<MenuRailContextValue | null>(null)
 
 const MenuBrandContext = React.createContext<UdsBrandId>(UDS_DEFAULT_BRAND)
 
+export type MenuHeaderVariant = "brand" | "title"
+
+export type MenuHeaderIdentity = {
+  variant: MenuHeaderVariant
+  /** Full product name when `variant` is `"title"`. */
+  title?: string
+  /** Collapsed-rail label; defaults to the first two characters of `title`. */
+  shortTitle?: string
+}
+
+const MenuHeaderIdentityContext = React.createContext<MenuHeaderIdentity>({ variant: "brand" })
+
+function resolveMenuHeaderShortTitle(title: string, shortTitle?: string) {
+  const trimmedShort = shortTitle?.trim()
+  if (trimmedShort) return trimmedShort
+  const compact = title.replace(/\s+/g, "").trim()
+  if (!compact) return "—"
+  return compact.slice(0, 2).toUpperCase()
+}
+
+function MenuHeaderTitle({
+  title,
+  shortTitle,
+  symbol = false,
+  className,
+}: {
+  title: string
+  shortTitle?: string
+  symbol?: boolean
+  className?: string
+}) {
+  const label = symbol ? resolveMenuHeaderShortTitle(title, shortTitle) : title
+
+  return (
+    <div
+      data-slot="uds-menu-header-title"
+      data-symbol={symbol ? "true" : "false"}
+      className={cn(
+        "flex min-w-0 items-center justify-center font-semibold text-neutral-900 dark:text-neutral-100",
+        symbol
+          ? "size-9 shrink-0 rounded-[length:var(--uds-radius-8)] bg-neutral-100 text-sm tracking-tight dark:bg-neutral-800"
+          : "h-14 w-full max-w-full px-1 text-base leading-snug",
+        className,
+      )}
+      title={title}
+    >
+      <span className={cn("min-w-0", symbol ? "uppercase" : "line-clamp-2 text-center")}>{label}</span>
+    </div>
+  )
+}
+
 /**
  * Read expand/collapse state from {@link Menu.Root}. Must be used under `Menu.Root`.
  */
@@ -883,11 +934,65 @@ function MenuMainInlays({
 export type MenuUtilityItem = {
   id: string
   label: string
-  href: string
   icon: MenuNavigationIcon
+  /** External or document links (tel:, mailto:, https:, hash anchors). */
+  href?: string
+  /** In-app or custom navigation; use instead of `href` for SPA routes. */
+  onSelect?: () => void
 }
 
-function MenuDefaultUtilities({ items }: { items: ReadonlyArray<MenuUtilityItem> }) {
+function MenuUtilityControl({
+  item,
+  className,
+  children,
+  ...rest
+}: {
+  item: MenuUtilityItem
+  className: string
+  children: React.ReactNode
+} & Omit<React.ComponentPropsWithoutRef<'button'>, 'type' | 'onClick' | 'children' | 'className'>) {
+  if (item.onSelect) {
+    return (
+      <button type="button" className={className} onClick={item.onSelect} {...rest}>
+        {children}
+      </button>
+    )
+  }
+
+  if (!item.href) {
+    if (import.meta.env.DEV) {
+      console.warn(`[Menu] utility "${item.id}" has no href or onSelect`)
+    }
+    return (
+      <span className={className} aria-disabled {...rest}>
+        {children}
+      </span>
+    )
+  }
+
+  return (
+    <a href={item.href} className={className} {...(rest as React.ComponentPropsWithoutRef<'a'>)}>
+      {children}
+    </a>
+  )
+}
+
+function menuUtilityLinkClassName(variant: "expanded" | "collapsed", active: boolean) {
+  return cn(
+    variant === "expanded" ? "menu-utility-link-expanded" : "menu-utility-link-collapsed",
+    active &&
+      (variant === "expanded" ? "menu-utility-link-expanded-active" : "menu-utility-link-collapsed-active"),
+  )
+}
+
+function MenuDefaultUtilities({
+  items,
+  activeId,
+}: {
+  items: ReadonlyArray<MenuUtilityItem>
+  /** When set, highlights the utility row whose `id` matches (same convention as navigation `activeId`). */
+  activeId?: string
+}) {
   const { expanded } = useMenuRail()
 
   if (expanded) {
@@ -895,11 +1000,18 @@ function MenuDefaultUtilities({ items }: { items: ReadonlyArray<MenuUtilityItem>
       <MenuUtilities className="flex flex-col gap-0 py-2">
         {items.map((item) => {
           const Icon = item.icon
+          const active = activeId === item.id
           return (
-            <a key={item.id} href={item.href} className="menu-utility-link-expanded">
+            <MenuUtilityControl
+              key={item.id}
+              item={item}
+              className={menuUtilityLinkClassName("expanded", active)}
+              data-active={active ? "true" : undefined}
+              aria-current={active ? "page" : undefined}
+            >
               <Icon className="size-5 shrink-0" weight="duotone" aria-hidden />
               <span className="min-w-0 flex-1 truncate">{item.label}</span>
-            </a>
+            </MenuUtilityControl>
           )
         })}
       </MenuUtilities>
@@ -910,12 +1022,19 @@ function MenuDefaultUtilities({ items }: { items: ReadonlyArray<MenuUtilityItem>
     <MenuUtilities className="flex shrink-0 flex-col items-center gap-1 py-2">
       {items.map((item) => {
         const Icon = item.icon
+        const active = activeId === item.id
         return (
           <Tooltip key={item.id}>
             <TooltipTrigger asChild>
-              <a href={item.href} className="menu-utility-link-collapsed" aria-label={item.label}>
+              <MenuUtilityControl
+                item={item}
+                className={menuUtilityLinkClassName("collapsed", active)}
+                aria-label={item.label}
+                data-active={active ? "true" : undefined}
+                aria-current={active ? "page" : undefined}
+              >
                 <Icon className="size-6 shrink-0" weight="duotone" aria-hidden />
-              </a>
+              </MenuUtilityControl>
             </TooltipTrigger>
             <TooltipContent side="right" sideOffset={8}>{item.label}</TooltipContent>
           </Tooltip>
@@ -999,10 +1118,28 @@ function MenuBrandSwitcher({
   )
 }
 
-function MenuDefaultHeader() {
+export type MenuDefaultHeaderProps = {
+  /** When `"title"`, renders `title` text instead of {@link Branding} logos. */
+  variant?: MenuHeaderVariant
+  /** Product or app name for the header when `variant` is `"title"`. */
+  title?: string
+  /** Abbreviation in the collapsed rail; defaults to the first two characters of `title`. */
+  shortTitle?: string
+}
+
+function MenuDefaultHeader({
+  variant: variantProp,
+  title: titleProp,
+  shortTitle: shortTitleProp,
+}: MenuDefaultHeaderProps = {}) {
   const { expanded, toggleExpanded } = useMenuRail()
   const brand = React.useContext(MenuBrandContext)
   const brandingAppearance = udsBrandToBrandingAppearance(brand)
+  const identity = React.useContext(MenuHeaderIdentityContext)
+  const variant = variantProp ?? identity.variant
+  const headerTitle = titleProp ?? identity.title
+  const headerShortTitle = shortTitleProp ?? identity.shortTitle
+  const useTitleHeader = variant === "title" && Boolean(headerTitle?.trim())
 
   const listToggleButton = (
     <Button
@@ -1028,11 +1165,15 @@ function MenuDefaultHeader() {
         aria-hidden={!expanded}
       >
         <div className="flex h-14 w-[188px] shrink-0 items-center justify-center overflow-hidden">
-          <Branding
-            appearance={brandingAppearance}
-            wordmarkAlign="center"
-            className="h-14 w-[188px] min-w-[188px] max-w-[188px] shrink-0"
-          />
+          {useTitleHeader ? (
+            <MenuHeaderTitle title={headerTitle!} className="h-14 w-[188px] shrink-0" />
+          ) : (
+            <Branding
+              appearance={brandingAppearance}
+              wordmarkAlign="center"
+              className="h-14 w-[188px] min-w-[188px] max-w-[188px] shrink-0"
+            />
+          )}
         </div>
       </div>
       <div
@@ -1045,7 +1186,11 @@ function MenuDefaultHeader() {
         aria-hidden={expanded}
       >
         <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden">
-          <Branding appearance={brandingAppearance} symbol className="size-9 shrink-0" />
+          {useTitleHeader ? (
+            <MenuHeaderTitle title={headerTitle!} shortTitle={headerShortTitle} symbol />
+          ) : (
+            <Branding appearance={brandingAppearance} symbol className="size-9 shrink-0" />
+          )}
         </div>
       </div>
       {!expanded ? (
@@ -1090,8 +1235,20 @@ export type MenuDefaultProps = Omit<MenuRootProps, "children"> & {
   /** Row activation handler (same as `Menu.Navigation`). */
   onNavigationSelect?: (id: string, event: React.MouseEvent<HTMLButtonElement>) => void
   /**
+   * Header identity: **`brand`** (default) shows {@link Branding} logos; **`title`** shows plain text
+   * (`headerTitle` / `headerShortTitle`) for apps that are not on a CHG product brand.
+   *
+   * AI agents: see `ai/guides/menu-header-identity.md` for when to use each variant.
+   */
+  headerVariant?: MenuHeaderVariant
+  /** Product or application name when `headerVariant` is `"title"`. */
+  headerTitle?: string
+  /** Collapsed-rail abbreviation when `headerVariant` is `"title"`. */
+  headerShortTitle?: string
+  /**
    * Brand id for theme tokens (`document.documentElement.dataset.brand`) and header wordmark.
    * Defaults to **`chg`**. When `brandStorageKey` is set, storage wins unless this prop is passed.
+   * With `headerVariant="title"`, tokens still follow `brand`; only the header artwork is text.
    */
   brand?: UdsBrandId
   /**
@@ -1122,6 +1279,7 @@ export type MenuDefaultProps = Omit<MenuRootProps, "children"> & {
   /**
    * Data-driven utility links rendered below navigation.
    * Pass an array of `{ id, label, href, icon }` items to render. Omit to hide.
+   * Rows highlight when their `id` matches {@link MenuDefaultProps.activeId}.
    */
   utilities?: ReadonlyArray<MenuUtilityItem>
   /** `className` forwarded to `Menu.Navigation`. */
@@ -1141,6 +1299,9 @@ function MenuDefault({
   navigationItems,
   activeId,
   onNavigationSelect,
+  headerVariant = "brand",
+  headerTitle,
+  headerShortTitle,
   brand,
   defaultBrand,
   brandStorageKey,
@@ -1192,13 +1353,29 @@ function MenuDefault({
 
   const resolvedTail = (
     <>
-      {utilities?.length ? <MenuDefaultUtilities items={utilities} /> : null}
+      {utilities?.length ? <MenuDefaultUtilities items={utilities} activeId={activeId} /> : null}
       {tail}
     </>
   )
 
+  const headerIdentity = React.useMemo<MenuHeaderIdentity>(
+    () => ({
+      variant: headerVariant,
+      title: headerTitle,
+      shortTitle: headerShortTitle,
+    }),
+    [headerVariant, headerTitle, headerShortTitle],
+  )
+
+  if (import.meta.env.DEV && headerVariant === "title" && !headerTitle?.trim()) {
+    console.warn(
+      "[Menu] headerVariant is \"title\" but headerTitle is empty; falling back to brand logos.",
+    )
+  }
+
   return (
     <MenuBrandContext.Provider value={activeBrand}>
+      <MenuHeaderIdentityContext.Provider value={headerIdentity}>
       <MenuRoot {...rootProps}>
         <MenuDefaultHeader />
       {toolbar != null ? (
@@ -1221,6 +1398,7 @@ function MenuDefault({
         tail={resolvedTail}
       />
       </MenuRoot>
+      </MenuHeaderIdentityContext.Provider>
     </MenuBrandContext.Provider>
   )
 }
@@ -1245,7 +1423,13 @@ export const Menu = Object.assign(MenuDefault, {
   Utilities: MenuUtilities,
 }) as MenuCallable
 
-export { useMenuRail, MenuDefaultHeader, MenuDefaultUtilities, getDefaultNavigation }
+export {
+  useMenuRail,
+  MenuDefaultHeader,
+  MenuDefaultUtilities,
+  getDefaultNavigation,
+  MenuHeaderTitle,
+}
 export type { UdsBrandId } from "@/lib/uds-brand"
 export {
   UDS_DEFAULT_BRAND,

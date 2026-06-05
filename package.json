@@ -60,6 +60,7 @@
     "prepublishOnly": "npm run build:lib",
     "build:lib": "vite build --config vite.config.lib.ts && tsc -p tsconfig.lib.json && node ./scripts/prepare-package.mjs",
     "build:docs": "node ./scripts/sync-docs-version-snapshot.mjs && vite build --config vite.config.docs.ts",
+    "build:roadmap-embed": "npm run build --prefix roadmap-embed && node ./scripts/sync-roadmap-embed.mjs roadmap-embed",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.lib.json --noEmit && tsc -p tsconfig.node.json --noEmit",
@@ -67,7 +68,7 @@
     "preview": "vite preview --config vite.config.docs.ts",
     "ci:bundle": "node ./scripts/ci-bundle.mjs",
     "test:consumer-fixture": "node ./scripts/test-consumer-fixture.mjs",
-    "test:docs-versions": "node ./scripts/docs-versions-smoke.mjs"
+    "test:docs-versions": "node --test ./scripts/lib/docs-version-policy.test.mjs && node ./scripts/docs-versions-smoke.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",

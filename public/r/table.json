@@ -9,7 +9,7 @@
     "ui"
   ],
   "dependencies": [
-    "@chghealthcare/unified-design-system@1.0.3"
+    "@chghealthcare/unified-design-system@1.0.5"
   ],
   "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
   "meta": {

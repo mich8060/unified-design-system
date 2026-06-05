@@ -1,43 +1,31 @@
 import { useEffect, useState } from 'react'
-import type { BundledLanguage, Highlighter } from 'shiki/bundle/web'
+import {
+  DOCS_HIGHLIGHTER_LANGS,
+  getSingletonHighlighter,
+  type DocsCodeLanguage,
+} from '../shiki-highlighter'
 
 type Props = {
   code: string
   label?: string
   /** Shiki grammar; defaults to tsx for JSX / Tailwind examples */
-  language?: BundledLanguage
+  language?: DocsCodeLanguage
 }
 
-const HIGHLIGHTER_LANGS: BundledLanguage[] = [
-  'tsx',
-  'typescript',
-  'jsx',
-  'javascript',
-  'css',
-  'scss',
-  'html',
-  'json',
-  'bash',
-  'shell',
-  'markdown',
-  'md',
-]
+let highlighterPromise: ReturnType<typeof getSingletonHighlighter> | null = null
 
-let highlighterPromise: Promise<Highlighter> | null = null
-
-async function loadHighlighter(): Promise<Highlighter> {
+async function loadHighlighter() {
   if (!highlighterPromise) {
-    const { getSingletonHighlighter } = await import('shiki/bundle/web')
     highlighterPromise = getSingletonHighlighter({
       themes: ['github-dark'],
-      langs: HIGHLIGHTER_LANGS,
+      langs: DOCS_HIGHLIGHTER_LANGS,
     })
   }
   return highlighterPromise
 }
 
-function highlightOrder(preferred: BundledLanguage): BundledLanguage[] {
-  return [...new Set<BundledLanguage>([preferred, ...HIGHLIGHTER_LANGS])]
+function highlightOrder(preferred: DocsCodeLanguage): DocsCodeLanguage[] {
+  return [...new Set<DocsCodeLanguage>([preferred, ...DOCS_HIGHLIGHTER_LANGS])]
 }
 
 export function CodePanel({ code, label = 'Code', language = 'tsx' }: Props) {

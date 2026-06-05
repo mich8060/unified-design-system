@@ -161,8 +161,9 @@
       "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
     },
     "branding": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "spec-ready",
+      "figmaName": "Branding",
+      "note": "Run node scripts/figma-run-branding-batches.mjs then use_figma on .tmp/figma-build/branding-batches/batch-0.js … batch-7.js and combine.js (Figma MCP required)."
     },
     "button": {
       "status": "in-figma",

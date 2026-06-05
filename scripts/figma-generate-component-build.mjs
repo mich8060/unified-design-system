@@ -55,6 +55,51 @@ const KIND_BY_SLUG = {
   medallion: 'medallion',
   'medallion-layout': 'medallion',
   'alert-dialog': 'alert-dialog',
+  branding: 'branding',
+}
+
+const BRANDING_SVG_FILES = {
+  Wireframe: {
+    wordmark: 'wireframe-wordmark.svg',
+    mark: 'wireframe-brand-mark.svg',
+  },
+  Connect: {
+    wordmark: 'connect-wordmark.svg',
+    mark: 'connect-brand-mark.svg',
+  },
+  CHG: {
+    wordmark: 'unified-design-system-wordmark.svg',
+    mark: 'unified-design-system-brand-mark.svg',
+  },
+  Locumsmart: {
+    wordmark: 'locumsmart-wordmark.svg',
+    mark: 'locumsmart-brand-mark.svg',
+  },
+  Modio: { wordmark: 'modio-wordmark.svg', mark: 'modio-brand-mark.svg' },
+  MyWeatherby: {
+    wordmark: 'weatherby-wordmark.svg',
+    mark: 'weatherby-brand-mark.svg',
+  },
+  MyCompHealth: {
+    wordmark: 'comphealth-wordmark.svg',
+    mark: 'comphealth-brand-mark.svg',
+  },
+  'Design System': {
+    wordmark: 'unified-design-system-wordmark.svg',
+    mark: 'unified-design-system-brand-mark.svg',
+  },
+}
+
+function loadBrandingSvgs() {
+  const dir = path.join(root, 'public/branding/svg')
+  const out = {}
+  for (const [appearance, files] of Object.entries(BRANDING_SVG_FILES)) {
+    out[appearance] = {
+      wordmark: fs.readFileSync(path.join(dir, files.wordmark), 'utf8'),
+      mark: fs.readFileSync(path.join(dir, files.mark), 'utf8'),
+    }
+  }
+  return out
 }
 
 const fullSpec = {
@@ -76,9 +121,13 @@ if (slug === 'input') fullSpec.strokeByState = INPUT_STROKES
 if (slug === 'textarea') fullSpec.strokeByState = INPUT_STROKES
 
 const runtime = fs.readFileSync(runtimePath, 'utf8')
+const brandingSvgsBlock =
+  slug === 'branding'
+    ? `\nconst BRANDING_SVGS = ${JSON.stringify(loadBrandingSvgs())};\n`
+    : ''
 const code = `
 ${runtime}
-
+${brandingSvgsBlock}
 const spec = ${JSON.stringify(fullSpec, null, 2)};
 return await buildFromSpec(spec);
 `.trim()

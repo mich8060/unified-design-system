@@ -2,6 +2,7 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import { Text } from "@/components/ui/text"
 
 const alertVariants = cva(
   "group/alert relative flex w-full items-start gap-[length:var(--uds-gap-12)] rounded-[length:var(--uds-radius-8)] border p-4 text-left has-data-[slot=alert-action]:pr-[length:var(--uds-spacing-10)]",
@@ -12,6 +13,10 @@ const alertVariants = cva(
           "border-uds-border-secondary bg-uds-surface-primary [&_[data-slot=alert-title]]:text-[var(--uds-text-primary)] [&_[data-slot=alert-description]]:text-[var(--uds-text-secondary)]",
         destructive:
           "border-[var(--uds-button-border-primary-destructive)] bg-uds-surface-primary [&_[data-slot=alert-title]]:text-[var(--uds-button-border-primary-destructive)] [&_[data-slot=alert-description]]:text-[var(--uds-button-border-primary-destructive)]",
+        warning:
+          "border-[var(--uds-system-warning-primary)] bg-uds-surface-primary [&_[data-slot=alert-title]]:text-[var(--uds-system-warning-primary)] [&_[data-slot=alert-description]]:text-[var(--uds-system-warning-primary)]",
+        success:
+          "border-[var(--uds-system-constructive-primary)] bg-uds-surface-primary [&_[data-slot=alert-title]]:text-[var(--uds-system-constructive-primary)] [&_[data-slot=alert-description]]:text-[var(--uds-system-constructive-primary)]",
       },
     },
     defaultVariants: {
@@ -47,12 +52,14 @@ function AlertContent({ className, ...props }: React.ComponentProps<"div">) {
 
 function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
+    <Text
+      as="div"
       data-slot="alert-title"
-      className={cn(
-        "font-sans text-uds-16 font-uds-medium leading-uds-16 [font-family:var(--font-inter)] [&_a]:underline [&_a]:underline-offset-3",
-        className
-      )}
+      variant="body"
+      size="16"
+      weight="semibold"
+      lineHeight="regular"
+      className={cn("[&_a]:underline [&_a]:underline-offset-3", className)}
       {...props}
     />
   )
@@ -63,10 +70,15 @@ function AlertDescription({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div
+    <Text
+      as="div"
       data-slot="alert-description"
+      variant="body"
+      size="14"
+      weight="regular"
+      lineHeight="regular"
       className={cn(
-        "font-sans text-uds-14 font-uds-regular leading-uds-14 [font-family:var(--font-inter)] [&_a]:underline [&_a]:underline-offset-3 [&_p:not(:last-child)]:mb-4",
+        "[&_a]:underline [&_a]:underline-offset-3 [&_p:not(:last-child)]:mb-4",
         className
       )}
       {...props}

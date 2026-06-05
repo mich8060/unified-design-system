@@ -111,7 +111,7 @@
 /* ── Utility links ── */
 
 .menu-utility-link-expanded {
-    @apply flex h-9 min-h-9 w-full shrink-0 cursor-pointer items-center gap-3 rounded-none px-4 py-0 text-left font-sans no-underline transition-colors outline-none;
+    @apply flex h-9 min-h-9 w-full shrink-0 cursor-pointer items-center gap-3 rounded-none border-0 bg-transparent px-4 py-0 text-left font-sans no-underline transition-colors outline-none;
     @apply text-uds-14 font-uds-medium leading-uds-14;
     @apply focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
     @apply dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950;
@@ -121,9 +121,39 @@
 }
 
 .menu-utility-link-collapsed {
-    @apply flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-[4px] no-underline transition-colors;
+    @apply flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-[4px] border-0 bg-transparent p-0 no-underline transition-colors;
     @apply outline-none focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
     @apply dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950;
     @apply hover:bg-neutral-100 dark:hover:bg-neutral-800;
     color: var(--uds-text-primary);
+}
+
+.menu-utility-link-expanded-active {
+    background-color: var(--uds-surface-brand-quaternary);
+    color: var(--uds-text-inverse);
+    @apply dark:bg-[var(--uds-color-primary-300)];
+}
+
+.menu-utility-link-expanded-active svg {
+    color: var(--uds-text-inverse);
+}
+
+.menu-utility-link-expanded-active:hover {
+    background-color: var(--uds-surface-brand-quaternary);
+    @apply dark:bg-[var(--uds-color-primary-300)];
+}
+
+.menu-utility-link-collapsed-active {
+    background-color: var(--uds-surface-brand-quaternary);
+    color: var(--uds-text-inverse);
+    @apply dark:bg-[var(--uds-color-primary-300)];
+}
+
+.menu-utility-link-collapsed-active svg {
+    color: var(--uds-text-inverse);
+}
+
+.menu-utility-link-collapsed-active:hover {
+    background-color: var(--uds-surface-brand-quaternary);
+    @apply dark:bg-[var(--uds-color-primary-300)];
 }

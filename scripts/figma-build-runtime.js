@@ -61,6 +61,16 @@ async function bindText(node, { fill, size, weight }) {
   if (familyVar) node.setBoundVariable('fontFamily', familyVar)
 }
 
+/** Apply a local Figma text style (e.g. `Body/16/Medium`), then optional fill token. */
+async function applyLocalTextStyle(node, styleName, fillVarName) {
+  const style = (await figma.getLocalTextStylesAsync()).find((s) => s.name === styleName)
+  if (!style || node.type !== 'TEXT') return null
+  await figma.loadFontAsync(style.fontName)
+  await node.setTextStyleIdAsync(style.id)
+  if (fillVarName) await bindFill(node, fillVarName)
+  return style
+}
+
 async function loadInter() {
   await figma.loadFontAsync({ family: 'Inter', style: 'Regular' })
   await figma.loadFontAsync({ family: 'Inter', style: 'Medium' })
@@ -243,6 +253,8 @@ async function buildFromSpec(spec) {
       await buildMedallionVariant(comp, spec, axis)
     } else if (spec.kind === 'alert-dialog') {
       await buildAlertDialogVariant(comp, spec, axis)
+    } else if (spec.kind === 'branding') {
+      await buildBrandingVariant(comp, spec, axis)
     } else {
       comp.resize(80, 32)
       await bindFill(comp, 'uds/surface/tertiary')
@@ -599,21 +611,37 @@ async function buildDotStatusVariant(comp, spec, axis) {
   comp.appendChild(dot)
 }
 
-function avatarDotSizePx(sizeKey) {
-  return sizeKey === 'Large' ? 14 : 10
+function avatarDotSizePx() {
+  return 10
+}
+
+function avatarStatusOffsetPx(sizeKey) {
+  if (sizeKey === 'Extra Small') return 1
+  if (sizeKey === 'Large') return -4
+  return -1
 }
 
 function avatarCameraSizePx(sizeKey) {
-  return sizeKey === 'Extra Small' || sizeKey === 'Small' ? 16 : 20
+  if (sizeKey === 'Extra Small') return 16
+  if (sizeKey === 'Small' || sizeKey === 'Default') return 20
+  return 24
+}
+
+function avatarCameraIconPx(sizeKey) {
+  if (sizeKey === 'Extra Small') return 8
+  if (sizeKey === 'Small' || sizeKey === 'Default') return 12
+  return 16
 }
 
 function avatarCameraOffsetPx(sizeKey) {
-  return sizeKey === 'Extra Small' || sizeKey === 'Small' ? 2 : 4
+  if (sizeKey === 'Extra Small') return 6
+  if (sizeKey === 'Large') return 4
+  return 8
 }
 
 async function appendAvatarStatus(comp, spec, axis, avatarSize) {
-  const dotPx = avatarDotSizePx(axis.Size)
-  const inset = Math.max(0, Math.round((avatarSize - dotPx) * 0.12))
+  const dotPx = avatarDotSizePx()
+  const offset = avatarStatusOffsetPx(axis.Size)
   const dotSetId = spec.dotStatusSetNodeId ?? '595:230'
   const dotSet = await figma.getNodeByIdAsync(dotSetId)
   const variantName = spec.defaultDotStatusVariant ?? 'Variant=Green'
@@ -626,8 +654,8 @@ async function appendAvatarStatus(comp, spec, axis, avatarSize) {
   const status = dotComp.createInstance()
   status.name = 'Avatar status'
   status.resize(dotPx, dotPx)
-  status.x = avatarSize - dotPx + inset
-  status.y = avatarSize - dotPx + inset
+  status.x = avatarSize - dotPx + offset
+  status.y = avatarSize - dotPx + offset
   comp.appendChild(status)
   status.isExposedInstance = true
 }
@@ -640,9 +668,7 @@ async function appendAvatarCamera(comp, spec, axis, avatarSize) {
   btn.resize(btnPx, btnPx)
   btn.x = avatarSize - btnPx + offset
   btn.y = avatarSize - btnPx + offset
-  btn.layoutMode = 'HORIZONTAL'
-  btn.primaryAxisAlignItems = 'CENTER'
-  btn.counterAxisAlignItems = 'CENTER'
+  btn.layoutMode = 'NONE'
   btn.clipsContent = true
   await bindRadius(btn, 'uds/radius/9999')
   await bindFill(btn, 'uds/color/neutrals/300')
@@ -652,25 +678,31 @@ async function appendAvatarCamera(comp, spec, axis, avatarSize) {
   const iconSetId = spec.iconSetNodeId ?? '501:6'
   const iconSet = await figma.getNodeByIdAsync(iconSetId)
   if (iconSet?.type === 'COMPONENT_SET') {
-    const iconSizeName = btnPx <= 16 ? 'Size=16' : 'Size=20'
-    const iconComp = iconSet.children.find((c) => c.name === iconSizeName)
+    const iconComp = iconSet.children.find((c) => c.name === 'Size=16')
     if (iconComp?.type === 'COMPONENT') {
       iconNode = iconComp.createInstance()
-      const iconPx = btnPx <= 16 ? 12 : 14
+      iconNode.name = 'Icon'
+      const iconPx = avatarCameraIconPx(axis.Size)
+      const cameraCompId = spec.cameraIconComponentId ?? '938:447'
+      const cameraComp = await figma.getNodeByIdAsync(cameraCompId)
+      if (cameraComp?.type === 'COMPONENT' && iconNode.type === 'INSTANCE') {
+        iconNode.swapComponent(cameraComp)
+      }
       iconNode.resize(iconPx, iconPx)
-      iconNode.name = 'Camera icon'
+      iconNode.x = (btnPx - iconPx) / 2
+      iconNode.y = (btnPx - iconPx) / 2
     }
   }
   if (!iconNode) {
     const glyph = figma.createRectangle()
     glyph.resize(Math.round(btnPx * 0.45), Math.round(btnPx * 0.4))
     glyph.name = 'Camera icon'
+    glyph.x = (btnPx - glyph.width) / 2
+    glyph.y = (btnPx - glyph.height) / 2
     await bindFill(glyph, 'uds/color/black')
     iconNode = glyph
   }
   btn.appendChild(iconNode)
-  iconNode.layoutSizingHorizontal = 'HUG'
-  iconNode.layoutSizingVertical = 'HUG'
   comp.appendChild(btn)
 }
 
@@ -1172,12 +1204,22 @@ async function buildAlertVariant(comp, spec, axis) {
     tone: 'Pastel',
   }
   const destructive = variantKey === 'Destructive'
+  const warning = variantKey === 'Warning'
+  const constructive = variantKey === 'Success'
   const titleToken = destructive
     ? 'uds/button/border/primary/destructive'
-    : 'uds/text/primary'
+    : warning
+      ? 'uds/system/warning/primary'
+      : constructive
+        ? 'uds/system/constructive/primary'
+        : 'uds/text/primary'
   const descToken = destructive
     ? 'uds/button/border/primary/destructive'
-    : 'uds/text/secondary'
+    : warning
+      ? 'uds/system/warning/primary'
+      : constructive
+        ? 'uds/system/constructive/primary'
+        : 'uds/text/secondary'
 
   comp.layoutMode = 'HORIZONTAL'
   comp.primaryAxisAlignItems = 'MIN'
@@ -1192,7 +1234,13 @@ async function buildAlertVariant(comp, spec, axis) {
   await bindFill(comp, spec.fillVar ?? 'uds/surface/primary')
   await bindStroke(
     comp,
-    destructive ? 'uds/button/border/primary/destructive' : 'uds/border/secondary',
+    destructive
+      ? 'uds/button/border/primary/destructive'
+      : warning
+        ? 'uds/system/warning/primary'
+        : constructive
+          ? 'uds/system/constructive/primary'
+          : 'uds/border/secondary',
   )
 
   const medallion = await createMedallionInstance(spec, medallionAxis)
@@ -1208,19 +1256,17 @@ async function buildAlertVariant(comp, spec, axis) {
   const title = figma.createText()
   title.name = 'Alert title'
   title.fontName = { family: 'Inter', style: 'Medium' }
-  title.fontSize = 16
   title.characters = copy.title
   title.textAutoResize = 'HEIGHT'
-  await bindText(title, { fill: titleToken })
+  await applyLocalTextStyle(title, 'Body/16/Semibold', titleToken)
   content.appendChild(title)
   title.layoutSizingHorizontal = 'HUG'
   const desc = figma.createText()
   desc.name = 'Alert description'
   desc.fontName = { family: 'Inter', style: 'Regular' }
-  desc.fontSize = 14
   desc.characters = copy.description
   desc.textAutoResize = 'HEIGHT'
-  await bindText(desc, { fill: descToken })
+  await applyLocalTextStyle(desc, 'Body/14/Regular', descToken)
   content.appendChild(desc)
   desc.layoutSizingHorizontal = 'HUG'
   comp.appendChild(content)
@@ -1525,6 +1571,48 @@ async function buildMedallionVariant(comp, spec, axis) {
   iconNode.x = Math.round((sizePx - iconNode.width) / 2)
   iconNode.y = Math.round((sizePx - iconNode.height) / 2)
   comp.appendChild(iconNode)
+}
+
+function brandingSvgForAppearance(appearance, symbol) {
+  if (typeof BRANDING_SVGS === 'undefined' || !BRANDING_SVGS[appearance]) return null
+  return symbol ? BRANDING_SVGS[appearance].mark : BRANDING_SVGS[appearance].wordmark
+}
+
+async function buildBrandingVariant(comp, spec, axis) {
+  const isSymbol = axis.Symbol === 'True'
+  const frame = isSymbol
+    ? (spec.markFrame ?? { width: 64, height: 64 })
+    : (spec.wordmarkFrame ?? { width: 200, height: 80 })
+  const frameW = frame.width
+  const frameH = frame.height
+  comp.resize(frameW, frameH)
+  comp.layoutMode = 'NONE'
+  comp.clipsContent = true
+  comp.fills = []
+
+  const svgString = brandingSvgForAppearance(axis.Appearance, isSymbol)
+  if (!svgString) {
+    const placeholder = figma.createRectangle()
+    placeholder.name = isSymbol ? 'Mark placeholder' : 'Wordmark placeholder'
+    placeholder.resize(frameW, frameH)
+    placeholder.x = 0
+    placeholder.y = 0
+    await bindFill(placeholder, 'uds/surface/tertiary')
+    await bindRadius(placeholder, 'uds/radius/4')
+    comp.appendChild(placeholder)
+    return
+  }
+
+  const art = figma.createNodeFromSvg(svgString)
+  art.name = isSymbol ? 'Mark' : 'Wordmark'
+  const scale = Math.min(frameW / art.width, frameH / art.height, 1)
+  const w = Math.max(1, art.width * scale)
+  const h = Math.max(1, art.height * scale)
+  art.resize(w, h)
+  const alignStart = !isSymbol
+  art.x = alignStart ? 0 : Math.round((frameW - w) / 2)
+  art.y = Math.round((frameH - h) / 2)
+  comp.appendChild(art)
 }
 
 async function buildEmptyVariant(comp, spec, axis) {

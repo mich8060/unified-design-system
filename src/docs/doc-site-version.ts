@@ -1,10 +1,10 @@
 /**
- * Documentation version selector (sidebar). Values should match installed
- * `@chghealthcare/unified-design-system` versions consumers run; extend the list when
- * multiple hosted doc sets exist.
+ * Documentation version selector (sidebar). Frozen snapshots are added on minor/major
+ * package releases only (see docs/docs-version-snapshots.md). `DOCS_SITE_PACKAGE_VERSION`
+ * is always the current package.json version; the default snapshot may be an earlier patch.
  */
 
-import { getDocsVersionManifest } from './versions/manifest'
+import { getDocsVersionManifest, shouldShowDocsVersionSelector } from './versions/manifest'
 import type { DocsVersionId } from './versions/types'
 
 export type { DocsVersionId } from './versions/types'
@@ -13,6 +13,8 @@ export const DOCS_VERSION_STORAGE_KEY = 'docs-site-data-version'
 
 /** Semver for the package this documentation build documents (Vite-injected). */
 export const DOCS_SITE_PACKAGE_VERSION: string = __DOCS_VERSION__
+
+export { shouldShowDocsVersionSelector }
 
 export const DOCS_VERSION_OPTIONS: { value: DocsVersionId; label: string }[] = getDocsVersionManifest().versions.map(
   (entry) => ({

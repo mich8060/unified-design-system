@@ -59,7 +59,10 @@ function AvatarStatus({
       outline={outline}
       className={cn(
         "absolute right-0 bottom-0 z-10 ring-2 ring-background",
-        "group-data-[size=lg]/avatar:size-3.5",
+        "group-data-[size=xs]/avatar:translate-x-px group-data-[size=xs]/avatar:translate-y-px",
+        "group-data-[size=sm]/avatar:-translate-x-px group-data-[size=sm]/avatar:-translate-y-px",
+        "group-data-[size=default]/avatar:-translate-x-px group-data-[size=default]/avatar:-translate-y-px",
+        "group-data-[size=lg]/avatar:-translate-x-1 group-data-[size=lg]/avatar:-translate-y-1",
         className,
       )}
       {...props}
@@ -87,19 +90,19 @@ function AvatarCameraAction({
       data-slot="avatar-camera-action"
       aria-label={ariaLabel}
       className={cn(
-        "absolute right-0 bottom-0 z-20 flex cursor-pointer items-center justify-center rounded-full bg-[var(--uds-color-neutrals-300)] p-0 text-[var(--uds-color-black)] shadow-sm ring-2 ring-background",
+        "absolute right-0 bottom-0 z-20 flex cursor-pointer items-center justify-center rounded-full bg-[var(--uds-color-neutrals-300)] p-0 text-[var(--uds-color-black)] ring-2 ring-background",
         "hover:bg-[var(--uds-color-neutrals-400)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         "dark:bg-[var(--uds-color-neutrals-700)] dark:text-[var(--uds-color-white)] dark:hover:bg-[var(--uds-color-neutrals-600)]",
         "disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        "group-data-[size=xs]/avatar:size-4 group-data-[size=xs]/avatar:translate-x-0.5 group-data-[size=xs]/avatar:translate-y-0.5 group-data-[size=xs]/avatar:[&_svg]:size-2.5",
-        "group-data-[size=sm]/avatar:size-4 group-data-[size=sm]/avatar:translate-x-0.5 group-data-[size=sm]/avatar:translate-y-0.5 group-data-[size=sm]/avatar:[&_svg]:size-2.5",
-        "group-data-[size=default]/avatar:size-5 group-data-[size=default]/avatar:translate-x-1 group-data-[size=default]/avatar:translate-y-1 group-data-[size=default]/avatar:[&_svg]:size-3",
-        "group-data-[size=lg]/avatar:size-5 group-data-[size=lg]/avatar:translate-x-1 group-data-[size=lg]/avatar:translate-y-1 group-data-[size=lg]/avatar:[&_svg]:size-3",
+        "group-data-[size=xs]/avatar:size-4 group-data-[size=xs]/avatar:translate-x-1.5 group-data-[size=xs]/avatar:translate-y-1.5 group-data-[size=xs]/avatar:[&_svg]:size-2",
+        "group-data-[size=sm]/avatar:size-5 group-data-[size=sm]/avatar:translate-x-2 group-data-[size=sm]/avatar:translate-y-2 group-data-[size=sm]/avatar:[&_svg]:size-3",
+        "group-data-[size=default]/avatar:size-5 group-data-[size=default]/avatar:translate-x-2 group-data-[size=default]/avatar:translate-y-2 group-data-[size=default]/avatar:[&_svg]:size-3",
+        "group-data-[size=lg]/avatar:size-6 group-data-[size=lg]/avatar:translate-x-1 group-data-[size=lg]/avatar:translate-y-1 group-data-[size=lg]/avatar:[&_svg]:size-4",
         className,
       )}
       {...props}
     >
-      {icon ?? <CameraIcon weight="bold" aria-hidden />}
+      {icon ?? <CameraIcon weight="regular" aria-hidden />}
     </button>
   )
 }

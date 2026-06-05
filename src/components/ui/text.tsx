@@ -138,4 +138,4 @@ function Text({
   } as never)
 }
 
-export { Text, textVariants }
+export { Text, textVariants, typographyStyle }

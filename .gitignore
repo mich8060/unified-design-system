@@ -7,14 +7,18 @@ dist/
 docs-dist/
 
 # Scratch / generated artifacts
+.npm-cache/
 .tmp/
+.audit/
 
 # Environment files
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
+
+# IDE / AI tooling
+.cursor/
+.claude/
 
 # Logs
 *.log

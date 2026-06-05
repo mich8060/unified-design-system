@@ -24,6 +24,8 @@ export default defineConfig({
   },
   build: {
     outDir: 'docs-dist',
+    // Frozen docs version snapshots (e.g. 1.0.5-*.js ~950KB) are intentionally large async chunks.
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),

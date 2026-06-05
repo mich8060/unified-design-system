@@ -201,10 +201,11 @@ npm run pack:check
 
 1. Bump `version` in `package.json` and merge to `main`.
 2. Ensure `npm ci`, `npm run build:lib`, and `npm run pack:check` pass locally (CI runs `build:lib` and `lint` on push/PR).
-3. Create a GitHub **Release** for that version. That triggers:
+3. **Documentation snapshots** (sidebar version history): created only on **minor** or **major** bumps, not every patch. Run `npm run build:docs` on minor/major releases and commit generated files under `src/docs/versions/`. See **[docs/docs-version-snapshots.md](./docs/docs-version-snapshots.md)**.
+4. Create a GitHub **Release** for that version. That triggers:
    - **GitHub Packages** — [`.github/workflows/publish-github-packages.yml`](./.github/workflows/publish-github-packages.yml) publishes to `npm.pkg.github.com`
    - **npmjs** (optional) — [`.github/workflows/publish-npm.yml`](./.github/workflows/publish-npm.yml) if `NPM_TOKEN` is configured
-4. Optionally build and pack a tarball from a clean checkout:
+5. Optionally build and pack a tarball from a clean checkout:
 
    ```bash
    npm run build:lib

@@ -284,6 +284,7 @@
     "defaultDotStatusVariant": "Variant=Green",
     "dotStatusSetNodeId": "595:230",
     "iconSetNodeId": "501:6",
+    "cameraIconComponentId": "938:447",
     "sizeBySize": { "Extra Small": 32, "Small": 36, "Default": 48, "Large": 64 },
     "initialsBySize": {
       "Extra Small": "SM",
@@ -355,6 +356,21 @@
       }
     }
   },
+  "app-shell": {
+    "figmaName": "AppShell",
+    "kind": "app-shell",
+    "replaceExisting": true,
+    "tier": 3,
+    "gridCols": 2,
+    "gridCellW": 1280,
+    "gridCellH": 800,
+    "axes": {
+      "Menu": ["Expanded", "Collapsed"],
+      "Listview": ["Off", "On"],
+      "Footer": ["Off", "On"]
+    },
+    "figmaMatrixNote": "Authenticated layout shell with labeled slots matching ai/appshell.schema.json compound regions."
+  },
   "alert": {
     "figmaName": "Alert",
     "kind": "alert",
@@ -363,7 +379,7 @@
     "gridCols": 2,
     "gridCellW": 380,
     "gridCellH": 100,
-    "axes": { "Variant": ["Default", "Destructive"] },
+    "axes": { "Variant": ["Default", "Destructive", "Warning", "Success"] },
     "gapVar": "uds/gap/12",
     "radiusVar": "uds/radius/8",
     "fillVar": "uds/surface/primary",
@@ -371,7 +387,9 @@
     "medallionSizePx": 40,
     "medallionByVariant": {
       "Default": { "color": "Sky", "tone": "Pastel" },
-      "Destructive": { "color": "Red", "tone": "Pastel" }
+      "Destructive": { "color": "Red", "tone": "Pastel" },
+      "Warning": { "color": "Yellow", "tone": "Pastel" },
+      "Success": { "color": "Green", "tone": "Pastel" }
     },
     "copyByVariant": {
       "Default": {
@@ -381,6 +399,14 @@
       "Destructive": {
         "title": "Error",
         "description": "Something went wrong. Try again."
+      },
+      "Warning": {
+        "title": "Warning",
+        "description": "Review this before you continue."
+      },
+      "Success": {
+        "title": "Success",
+        "description": "Your changes were saved."
       }
     }
   },
@@ -548,5 +574,30 @@
     },
     "fixedColor": "Blue",
     "fixedTone": "Pastel"
+  },
+  "branding": {
+    "figmaName": "Branding",
+    "kind": "branding",
+    "tier": 0,
+    "replaceExisting": true,
+    "gridCols": 8,
+    "gridCellW": 220,
+    "gridCellH": 96,
+    "axes": {
+      "Appearance": [
+        "Wireframe",
+        "Connect",
+        "CHG",
+        "Locumsmart",
+        "Modio",
+        "MyWeatherby",
+        "MyCompHealth",
+        "Design System"
+      ],
+      "Symbol": ["False", "True"]
+    },
+    "wordmarkFrame": { "width": 200, "height": 80 },
+    "markFrame": { "width": 64, "height": 64 },
+    "figmaMatrixNote": "8 appearances × wordmark (200×80) or mark (64×64). SVG sources: public/branding/svg/*.svg. Matches Branding React component."
   }
 }

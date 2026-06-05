@@ -8,6 +8,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogCopy,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
@@ -178,13 +179,9 @@ export function DialogVariants() {
   )
 }
 
-function isFigmaCaptureSession(): boolean {
-  return typeof window !== 'undefined' && window.location.hash.includes('figmacapture=')
-}
-
 export function AlertDialogVariants() {
   return (
-    <AlertDialog defaultOpen={isFigmaCaptureSession()}>
+    <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button type="button" variant="destructive" size="sm">
           Delete item
@@ -192,9 +189,61 @@ export function AlertDialogVariants() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogMedia color="red" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+          <AlertDialogMedia icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+          <AlertDialogCopy>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+          </AlertDialogCopy>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+}
+
+/** Compact (320px) layout — title and description sit directly under media; no AlertDialogCopy. */
+export function AlertDialogCompactVariants() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button type="button" variant="outline" size="sm">
+          Open compact dialog
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent size="sm">
+        <AlertDialogHeader>
+          <AlertDialogMedia icon={<WarningCircleIcon weight="bold" aria-hidden />} />
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+}
+
+/** Figma Buttons=Single — Continue only; Cancel is omitted at runtime. */
+export function AlertDialogSingleButtonVariants() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button type="button" variant="outline" size="sm">
+          Confirm action
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent buttons="single">
+        <AlertDialogHeader>
+          <AlertDialogMedia icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+          <AlertDialogCopy>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+          </AlertDialogCopy>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -221,19 +270,21 @@ export function AlertDialogWelcomePreviewInner() {
         )}
       >
         <AlertDialogHeader>
-          <AlertDialogMedia color="red" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
-          <h2
-            data-slot="alert-dialog-title"
-            className="font-sans text-uds-16 font-uds-semibold leading-uds-16 [font-family:var(--font-inter)]"
-          >
-            Are you sure?
-          </h2>
-          <p
-            data-slot="alert-dialog-description"
-            className="font-sans text-uds-14 font-uds-regular leading-uds-14 text-uds-text-secondary [font-family:var(--font-inter)]"
-          >
-            This action cannot be undone.
-          </p>
+          <AlertDialogMedia icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+          <AlertDialogCopy>
+            <h2
+              data-slot="alert-dialog-title"
+              className="w-full font-sans text-base font-semibold leading-normal text-[var(--uds-text-primary)] [font-family:var(--font-inter)]"
+            >
+              Are you sure?
+            </h2>
+            <p
+              data-slot="alert-dialog-description"
+              className="w-full font-sans text-sm font-normal leading-normal text-[var(--uds-text-secondary)] [font-family:var(--font-inter)]"
+            >
+              This action cannot be undone.
+            </p>
+          </AlertDialogCopy>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <Button variant="outline" type="button">

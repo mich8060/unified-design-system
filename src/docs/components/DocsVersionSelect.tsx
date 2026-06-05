@@ -16,11 +16,16 @@ import {
   cn,
   useMenuRail,
 } from '@chghealthcare/unified-design-system'
+import { shouldShowDocsVersionSelector } from '../doc-site-version'
 import { useDocsVersion } from '../versions/context'
 
 export function DocsVersionSelect() {
   const { expanded } = useMenuRail()
   const { versionId, setDocsVersion, versionOptions } = useDocsVersion()
+
+  if (!shouldShowDocsVersionSelector()) {
+    return null
+  }
   const activeOption = versionOptions.find((o) => o.id === versionId)
   const activeLabel = activeOption?.label ?? versionId
 

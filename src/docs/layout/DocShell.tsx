@@ -40,6 +40,7 @@ import {
   DOCS_VERSION_OPTIONS,
   persistDocsVersion,
   readStoredDocsVersion,
+  shouldShowDocsVersionSelector,
   type DocsVersionId,
 } from '../doc-site-version'
 import { getAllComponents } from '../registry'
@@ -271,29 +272,31 @@ export function DocShell() {
                   />
                 </DocsRailMenu.SidebarHeaderSlot>
 
-                <DocsRailMenu.Toolbar>
-                  <div className="flex w-full min-w-0 flex-col gap-1 px-1">
-                    <label htmlFor="docs-site-version-select" className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
-                      Docs version
-                    </label>
-                    <Select value={docsVersion} onValueChange={(v) => setDocsVersion(v as DocsVersionId)}>
-                      <SelectTrigger
-                        id="docs-site-version-select"
-                        inputSize="sm"
-                        className="w-full min-w-0 max-w-full shadow-none"
-                      >
-                        <SelectValue placeholder="Documentation version" />
-                      </SelectTrigger>
-                      <SelectContent position="popper" align="start" className="min-w-[var(--radix-select-trigger-width)]">
-                        {DOCS_VERSION_OPTIONS.map((o) => (
-                          <SelectItem key={o.value} value={o.value}>
-                            {o.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </DocsRailMenu.Toolbar>
+                {shouldShowDocsVersionSelector() ? (
+                  <DocsRailMenu.Toolbar>
+                    <div className="flex w-full min-w-0 flex-col gap-1 px-1">
+                      <label htmlFor="docs-site-version-select" className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
+                        Docs version
+                      </label>
+                      <Select value={docsVersion} onValueChange={(v) => setDocsVersion(v as DocsVersionId)}>
+                        <SelectTrigger
+                          id="docs-site-version-select"
+                          inputSize="sm"
+                          className="w-full min-w-0 max-w-full shadow-none"
+                        >
+                          <SelectValue placeholder="Documentation version" />
+                        </SelectTrigger>
+                        <SelectContent position="popper" align="start" className="min-w-[var(--radix-select-trigger-width)]">
+                          {DOCS_VERSION_OPTIONS.map((o) => (
+                            <SelectItem key={o.value} value={o.value}>
+                              {o.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </DocsRailMenu.Toolbar>
+                ) : null}
 
                 <DocsRailMenu.Nav aria-label="Documentation">
           {sidebarExpanded ? (

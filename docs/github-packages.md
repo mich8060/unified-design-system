@@ -9,8 +9,17 @@ The npm scope **`@chghealthcare`** matches the GitHub organization, which is req
 
 Workflow: [`.github/workflows/publish-github-packages.yml`](../.github/workflows/publish-github-packages.yml)
 
+Triggers:
+
+| Trigger | When it runs |
+|--------|----------------|
+| **`release: published`** | You publish a GitHub Release (recommended for production versions). |
+| **`workflow_dispatch`** | Actions → **Publish GitHub Package** → **Run workflow** (use dry run first). |
+
+Until the first successful run, the workflow page may show **0 workflow runs** and only highlight the manual trigger. That is normal—the release trigger still runs when you publish a release.
+
 1. Bump `version` in `package.json` and merge to `main`.
-2. Create a **GitHub Release** for that tag (or run **Publish GitHub Package** manually).
+2. Create a **GitHub Release** for that tag (published, not draft), **or** run **Publish GitHub Package** manually on `main`.
 3. CI runs `npm run build:lib` and publishes to `https://npm.pkg.github.com` using `GITHUB_TOKEN` (`packages: write`).
 
 Manual publish:
@@ -33,7 +42,16 @@ Use a PAT with `write:packages` (and `repo` if the repository is private).
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
 ```
 
-In GitHub Actions, use `secrets.GITHUB_TOKEN` or a PAT with `packages: read` and the same lines.
+In GitHub Actions, set job `permissions.packages: read`, configure `setup-node` with `registry-url: https://npm.pkg.github.com` and `scope: "@chghealthcare"`, then:
+
+```yaml
+- name: Install dependencies
+  env:
+    NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  run: npm ci
+```
+
+Use a PAT secret instead of `GITHUB_TOKEN` if the package is private or cross-org.
 
 3. Install:
 

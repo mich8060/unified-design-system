@@ -6,6 +6,15 @@ Normative machine-readable contract: [`ai/appshell.schema.json`](../appshell.sch
 
 `Menu` applies **`document.documentElement.dataset.brand`** and header **`Branding`** from the **`brand`** prop (default **`chg`**). Product apps and the docs site both use **`defaultBrand="chg"`** unless a stored brand exists in `localStorage`.
 
+## Header identity: product logo vs plain text
+
+| Mode | When | Props |
+| --- | --- | --- |
+| **Brand** (default) | CHG product apps (`connect`, `comphealth`, `weatherby`, …) | `brand="connect"` — logos from `Branding` |
+| **Title** | Internal tools, dynamic app names, no approved lockup | `headerVariant="title"` + `headerTitle` (+ optional `headerShortTitle`) |
+
+Full decision rules, examples, and anti-patterns: **[`menu-header-identity.md`](./menu-header-identity.md)**.
+
 ## Canonical pattern (Option A — recommended)
 
 Use the package **`Menu`** in the **`menu`** slot. AppShell shipped CSS offsets the content column from **`[data-slot="uds-menu-root"]`** (280px expanded / 64px collapsed). This is the only pattern that works without consumer layout hacks.

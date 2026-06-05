@@ -49,7 +49,18 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     MORE,
   ],
   alert: [
-    r('variant', '"default" | "destructive"', 'Semantic tone.', 'default'),
+    r(
+      'variant',
+      '"default" | "destructive" | "warning" | "success"',
+      'Matches Figma `Variant`. Semantic variants tint border and copy; default keeps description secondary.',
+      'default',
+    ),
+    r(
+      'AlertTitle / AlertDescription',
+      '—',
+      'Figma text styles `Body/16/Semibold` (title) and `Body/14/Regular` (description), implemented via `Text`.',
+      '—',
+    ),
     r(
       'children',
       'ReactNode',
@@ -65,7 +76,18 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     r(
       'AlertDialogMedia (slot)',
       'ReactNode',
-      'Optional header icon; chrome (size, radius, colors) comes from theme: `src/styles/uds-chrome-media.css` via `[data-slot="alert-dialog-media"]`.',
+      'Optional header icon via `Medallion` when `icon` is set. Default size uses red pastel; `size="sm"` / `compact` uses amber. Override with `color`.',
+    ),
+    r(
+      'AlertDialogCopy',
+      'ReactNode',
+      'Wraps title + description in the default (400px) layout. Omit for compact (320px) where title and description stack directly in the header.',
+    ),
+    r('size (AlertDialogContent)', '"default" | "sm" | "compact"', '400px wide by default; 320px for sm/compact.'),
+    r(
+      'buttons (AlertDialogContent)',
+      '"multiple" | "single"',
+      'Matches Figma `Buttons` variant. `multiple` shows Cancel + Continue; `single` shows Continue only.',
     ),
     CN,
     MORE,
@@ -93,7 +115,7 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     r(
       'AvatarStatus.variant',
       DOT_STATUS_VARIANT_PROP_TYPE,
-      'Bottom-right `DotStatus` (always `size="medium"` / 10px). Place `AvatarStatus` after image/fallback.',
+      'Bottom-right `DotStatus` (always `size="medium"` / 10px). Per-size nudge from avatar corner: `xs` +1px out; `sm`/`default` −1px in; `lg` −4px in. Place `AvatarStatus` after image/fallback.',
       'green',
     ),
     r('AvatarStatus.outline', 'boolean', 'Forwarded to `DotStatus` ring treatment.', 'false'),
@@ -107,7 +129,7 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     r(
       'AvatarCameraAction',
       'button + icon',
-      '`xs`/`sm`: 16×16, nudge 2px right + down; `default`/`lg`: 20×20, nudge 4px right + down. UDS gray fill, black camera icon (inverted in dark). Forwards `<button>` props; default `type="button"`, Phosphor `Camera`; override with `icon`.',
+      '`xs`: 16×16 badge, 8px icon, +6px past corner; `sm`/`default`: 20×20 badge, 12px icon, +8px; `lg`: 24×24 badge, 16px icon, +4px. UDS gray fill, regular-weight camera icon (inverted in dark). Forwards `<button>` props; default `type="button"`, Phosphor `Camera`; override with `icon`.',
       '—',
     ),
     r(
@@ -202,6 +224,11 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
       'enum',
       'default | xs | sm | lg | icon | icon-xs | icon-sm | icon-lg. Figma Size: Default, Extra Small, Small, Large, Icon, Icon Extra Small, Icon Small, Icon Large.',
       'default',
+    ),
+    r(
+      'children / icons',
+      'ReactNode',
+      'Label text plus optional leading/trailing icons (`data-icon="inline-start"` / `inline-end"`). Figma mirrors this with `Slot start` / `Slot end` (16–24px per size) toggled via `Show slot start` / `Show slot end`; wrappers are HUG, centered, 8px gap to label.',
     ),
     r('asChild', 'boolean', 'Render as child element.', 'false'),
     CN,

@@ -1,4 +1,5 @@
 import type { MenuNavigationItem } from '@chghealthcare/unified-design-system'
+import { LATEST_READOUT_ROUTE, READOUT_MONTHS } from './readout/readout-months'
 import type { ShadcnUiEntry } from './shadcn-ui-registry'
 import type { CatalogEntry } from './types'
 import type { DocsVersionNavigation } from './versions/types'
@@ -18,7 +19,39 @@ const GROUP_ORDER = [
   'Components',
   'Modules',
   'Patterns',
+  'Projects',
 ] as const
+
+const DOCS_UTILITY_SEARCH_RESULTS: DocsSearchResult[] = [
+  {
+    id: 'readout',
+    label: 'Readout',
+    route: LATEST_READOUT_ROUTE,
+    group: 'Projects',
+    description: 'Design system monthly executive readout (latest month)',
+  },
+  ...READOUT_MONTHS.map((month) => ({
+    id: `readout-${month.id}`,
+    label: `Readout — ${month.label}`,
+    route: month.route,
+    group: 'Projects',
+    description: `Design system update for ${month.label}`,
+  })),
+  {
+    id: 'releases',
+    label: 'Releases',
+    route: '/docs/releases',
+    group: 'Projects',
+    description: 'Published package versions and changelogs',
+  },
+  {
+    id: 'roadmap',
+    label: 'Roadmap',
+    route: '/docs/roadmap',
+    group: 'Projects',
+    description: 'Planned foundations, components, and platform work',
+  },
+]
 
 function descriptionForNavId(
   id: string,
@@ -73,6 +106,7 @@ export function buildDocsSearchIndex(
   const results: DocsSearchResult[] = []
 
   walkNavigation(navigation.items, navigation.navIdToRoute, catalogBySlug, shadcnBySlug, null, results)
+  results.push(...DOCS_UTILITY_SEARCH_RESULTS)
 
   const order = new Map(GROUP_ORDER.map((name, index) => [name, index]))
 

@@ -436,6 +436,9 @@ function buildContract(version, componentCatalog) {
         appShellGuide: "ai/guides/appshell-navigation.md",
         menuBrand:
           "Menu defaults to brand id chg (CHG wordmark). Override with Menu brand prop; use brandStorageKey only when persisting a user choice. Do not use docs-site-data-brand in consumer apps.",
+        menuHeaderIdentity:
+          "headerVariant brand (default): CHG product logos via Branding. headerVariant title: plain-text headerTitle/headerShortTitle for internal or non-product apps without an approved lockup—see ai/guides/menu-header-identity.md. Do not use title mode for standard CHG product shells.",
+        menuHeaderGuide: "ai/guides/menu-header-identity.md",
       },
       viewportFill: [
         "Ensure html, body, and #root span the viewport.",

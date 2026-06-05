@@ -29,6 +29,7 @@ import {
   readStoredIntroPreviewBrand,
   type DocsBrandId,
 } from '../doc-site-brand'
+import type { UdsBrandId } from '@/lib/uds-brand'
 import {
   docPageHeroBandClassName,
   docPageHeroColumnNarrowClassName,
@@ -40,6 +41,8 @@ import { useShadcnDocsRegistry } from '../registry'
 import { WelcomeCardPreview } from '../welcome-card-preview'
 import { CodePanel } from '../components/CodePanel'
 import { DocShellLayoutVisuals } from './DocShellLayoutVisuals'
+import { ReadoutPage } from '../readout/ReadoutPage'
+import { RoadmapPage } from '../roadmap/RoadmapPage'
 import { MarkdownishPage } from './MarkdownishPage'
 
 const WELCOME_CARD_EXCLUDED_SLUGS = new Set(['header', 'footer'])
@@ -199,25 +202,85 @@ function useDocsRootDarkClass() {
   return dark
 }
 
-function MenuDemoPreview() {
+function BrandMenuDemoFrame({
+  brand,
+  label,
+  headerVariant,
+  headerTitle,
+  headerShortTitle,
+}: {
+  brand: UdsBrandId
+  label: string
+  headerVariant?: 'brand' | 'title'
+  headerTitle?: string
+  headerShortTitle?: string
+}) {
   const dark = useDocsRootDarkClass()
-  const iframeSrc = `/menu-demo.html${dark ? '?dark=1' : ''}`
+  const query = new URLSearchParams({ brand })
+  if (dark) query.set('dark', '1')
+  if (headerVariant === 'title' && headerTitle) {
+    query.set('headerVariant', 'title')
+    query.set('headerTitle', headerTitle)
+    if (headerShortTitle) query.set('headerShortTitle', headerShortTitle)
+  }
+  const iframeSrc = `/menu-demo.html?${query.toString()}`
 
+  return (
+    <section className="scroll-mt-8">
+      <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">{label}</h3>
+      <p className="mt-1 font-mono text-xs text-neutral-500 dark:text-neutral-400">
+        {headerVariant === 'title' && headerTitle ? (
+          <>
+            headerVariant=
+            <span className="text-neutral-700 dark:text-neutral-300">title</span>
+            {' · '}
+            headerTitle=
+            <span className="text-neutral-700 dark:text-neutral-300">{headerTitle}</span>
+            {headerShortTitle ? (
+              <>
+                {' · '}
+                headerShortTitle=
+                <span className="text-neutral-700 dark:text-neutral-300">{headerShortTitle}</span>
+              </>
+            ) : null}
+            {' · '}
+            brand=
+            <span className="text-neutral-700 dark:text-neutral-300">{brand}</span>
+          </>
+        ) : (
+          <>
+            brand=<span className="text-neutral-700 dark:text-neutral-300">{brand}</span>
+          </>
+        )}
+      </p>
+      <div className="mx-auto mt-4 box-border w-full max-w-[375px]">
+        <iframe
+          title={`Menu demo — ${label}`}
+          className="box-border block h-[min(680px,80vh)] w-[375px] max-w-full rounded-[length:var(--uds-radius-8)] border-2 border-neutral-200 bg-neutral-800 shadow-sm dark:border-neutral-700"
+          src={iframeSrc}
+          key={`${brand}-${dark ? 'dark' : 'light'}`}
+        />
+      </div>
+    </section>
+  )
+}
+
+function AllBrandMenuDemosPreview() {
   return (
     <>
       <p className="text-sm text-neutral-600 dark:text-neutral-400">
-        Demos load in an isolated frame so <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">fixed</code>{' '}
-        layout is anchored to the preview viewport (375px wide; the rail is 280px or 64px wide × 100vh), not the documentation shell.
+        Each preview loads <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">menu-demo.html</code> with a{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">brand</code> query param. The rail uses{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">getDefaultNavigation(brand)</code> for contract
+        nav items, brand tokens on <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">document.documentElement</code>
+        , and the matching header wordmark. Frames are 375px wide so{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">fixed</code> layout matches a product viewport, not
+        the documentation shell.
       </p>
-      <div className="w-full min-w-0">
-        <div className="mx-auto box-border w-full max-w-[375px] px-4 sm:px-6 lg:px-8">
-          <iframe
-            title="Menu component demo"
-            className="my-6 box-border block h-[min(720px,85vh)] w-[375px] max-w-full rounded-[4px] border-2 border-neutral-200 bg-neutral-800 shadow-sm dark:border-neutral-700"
-            src={iframeSrc}
-            key={dark ? 'dark' : 'light'}
-          />
-        </div>
+      <div className="mt-8 grid gap-12 lg:grid-cols-2 lg:gap-x-10">
+        {DOCS_BRAND_OPTIONS.map(({ value, label }) => (
+          <BrandMenuDemoFrame key={value} brand={value} label={label} />
+        ))}
       </div>
     </>
   )
@@ -246,9 +309,27 @@ export function InstallPage() {
   return (
     <MarkdownishPage kicker="Getting Started" title="Install">
       <p>
-        Add the published package to a React app, wire the design-system stylesheet once at the root, and import
-        components from the package entry. This page covers prerequisites, install commands, and what gets shipped in
-        the tarball.
+        Add <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chghealthcare/unified-design-system</code>{' '}
+        to a React app, import the stylesheet once at the root, and import components from the package entry. Internal
+        apps should install from{' '}
+        <a
+          href="https://github.com/chghealthcare/unified-design-system/packages"
+          className="docs-link font-medium"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub Packages
+        </a>{' '}
+        under the <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chghealthcare</code> scope (
+        <a
+          href="https://github.com/chghealthcare/unified-design-system"
+          className="docs-link font-medium"
+          target="_blank"
+          rel="noreferrer"
+        >
+          chghealthcare/unified-design-system
+        </a>
+        ).
       </p>
 
       <h2 className="pt-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Prerequisites</h2>
@@ -261,62 +342,87 @@ export function InstallPage() {
           installing.
         </li>
         <li>
-          <strong className="text-neutral-900 dark:text-neutral-100">Node</strong> — use a current LTS (for example
-          Node 22.x) for local dev and CI so tooling matches the ecosystem this library is built with.
+          <strong className="text-neutral-900 dark:text-neutral-100">Node</strong> — use Node 22 LTS (or 24+) for local
+          dev and CI. This repo pins <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm@10.9.2</code>{' '}
+          via <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">packageManager</code> so lockfiles stay
+          compatible with GitHub Actions.
         </li>
         <li>
           <strong className="text-neutral-900 dark:text-neutral-100">Bundler</strong> — Vite, webpack, or other
           modern ESM-aware bundlers work. The package exposes ESM and CJS builds plus a single aggregated{' '}
           <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">styles.css</code>.
         </li>
+        <li>
+          <strong className="text-neutral-900 dark:text-neutral-100">GitHub access</strong> — a token with{' '}
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">read:packages</code> (and{' '}
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">repo</code> if the package is private).
+        </li>
       </ul>
 
-      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Install the package</h2>
+      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Install from GitHub Packages (recommended)
+      </h2>
       <p className="mt-3 text-neutral-600 dark:text-neutral-300">
-        The design system is distributed as a versioned tarball (a{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">.tgz</code> produced by{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm pack</code>), not from a public registry
-        or CDN. Place the tarball in your repository and install it from the local path. You still declare{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">react</code> and{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">react-dom</code> in your app; they are not bundled
-        inside the design system.
+        Point npm at the GitHub registry for the <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chghealthcare</code>{' '}
+        scope. Commit <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">.npmrc</code> in your app; do not
+        commit tokens—use an environment variable.
       </p>
+      <CodePanel
+        label=".npmrc (app repo)"
+        language="text"
+        code={`@chghealthcare:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=\${NODE_AUTH_TOKEN}`}
+      />
       <div className="mt-4 space-y-4">
         <CodePanel
           label="npm"
           language="bash"
-          code={`npm install ./vendor/chghealthcare-unified-design-system-1.0.5.tgz`}
+          code={`export NODE_AUTH_TOKEN=ghp_your_pat_with_read_packages
+npm install @chghealthcare/unified-design-system react react-dom`}
         />
         <CodePanel
-          label="pnpm"
-          language="bash"
-          code={`pnpm add ./vendor/chghealthcare-unified-design-system-1.0.5.tgz`}
-        />
-        <CodePanel
-          label="yarn"
-          language="bash"
-          code={`yarn add ./vendor/chghealthcare-unified-design-system-1.0.5.tgz`}
+          label="package.json"
+          language="json"
+          code={`{
+  "dependencies": {
+    "@chghealthcare/unified-design-system": "^1.0.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}`}
         />
       </div>
       <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-        Reference the tarball with a <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">file:</code>{' '}
-        dependency in <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">package.json</code> so every
-        install resolves the same committed artifact:
+        For routed shells (<code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">AppShell</code> with the
+        default outlet), also add <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">react-router-dom</code>.
+        React is not bundled inside the design system.
+      </p>
+
+      <h3 className="pt-5 text-base font-semibold text-neutral-900 dark:text-neutral-100">CI in your application</h3>
+      <p className="mt-2 text-neutral-600 dark:text-neutral-300">
+        In GitHub Actions, grant <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">packages: read</code>{' '}
+        and pass <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">GITHUB_TOKEN</code> (same org) or a
+        PAT secret if installs fail.
       </p>
       <CodePanel
-        label="package.json"
-        language="json"
-        code={`{
-  "dependencies": {
-    "@chghealthcare/unified-design-system": "file:./vendor/chghealthcare-unified-design-system-1.0.5.tgz"
-  }
-}`}
+        label=".github/workflows/ci.yml (excerpt)"
+        language="yaml"
+        code={`permissions:
+  contents: read
+  packages: read
+
+- uses: actions/setup-node@v4
+  with:
+    node-version: "22"
+    cache: npm
+    registry-url: https://npm.pkg.github.com
+    scope: "@chghealthcare"
+
+- name: Install dependencies
+  env:
+    NODE_AUTH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+  run: npm ci`}
       />
-      <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-        Maintainers produce the tarball with <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm run build:lib</code>{' '}
-        then <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm pack</code>; the filename is derived
-        from the package name and version.
-      </p>
 
       <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Add global styles</h2>
       <p className="mt-3 text-neutral-600 dark:text-neutral-300">
@@ -365,6 +471,70 @@ export function Smoke() {
   return <Button type="button">Hello UDS</Button>
 }`}
       />
+
+      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Alternative: install from a tarball
+      </h2>
+      <p className="mt-3 text-neutral-600 dark:text-neutral-300">
+        For offline or vendor distribution, commit a <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">.tgz</code>{' '}
+        from <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm pack</code> and install from a local path.
+        The package name in imports stays{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chghealthcare/unified-design-system</code>.
+      </p>
+      <div className="mt-4 space-y-4">
+        <CodePanel
+          label="npm"
+          language="bash"
+          code={`npm install ./vendor/chghealthcare-unified-design-system-1.0.5.tgz`}
+        />
+        <CodePanel
+          label="package.json"
+          language="json"
+          code={`{
+  "dependencies": {
+    "@chghealthcare/unified-design-system": "file:./vendor/chghealthcare-unified-design-system-1.0.5.tgz"
+  }
+}`}
+        />
+      </div>
+      <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+        Maintainers: <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm run build:lib</code> then{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm pack</code> produces{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">chghealthcare-unified-design-system-&lt;version&gt;.tgz</code>.
+      </p>
+
+      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Publishing (maintainers)
+      </h2>
+      <p className="mt-3 text-neutral-600 dark:text-neutral-300">
+        The <strong className="text-neutral-900 dark:text-neutral-100">Publish GitHub Package</strong> workflow (
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">publish-github-packages.yml</code>) publishes to{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm.pkg.github.com</code>. Until the first run,
+        Actions may show &ldquo;0 workflow runs&rdquo; and only the manual trigger—that is expected.
+      </p>
+      <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600 dark:text-neutral-300">
+        <li>
+          <strong className="text-neutral-900 dark:text-neutral-100">Automatic (recommended)</strong> — bump{' '}
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">version</code> in{' '}
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">package.json</code>, push to{' '}
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">main</code>, then create a{' '}
+          <strong className="text-neutral-900 dark:text-neutral-100">GitHub Release</strong> for that tag (published, not
+          draft). The workflow runs on <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">release: published</code>.
+        </li>
+        <li>
+          <strong className="text-neutral-900 dark:text-neutral-100">Manual test</strong> — Actions → Publish GitHub
+          Package → <strong className="text-neutral-900 dark:text-neutral-100">Run workflow</strong> on{' '}
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">main</code>. Use dry run{' '}
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">true</code> first, then{' '}
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">false</code> to publish.
+        </li>
+      </ul>
+      <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
+        After a successful publish, the package appears under Packages on the repository. Consumer apps can pin the new
+        version in <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">package.json</code> and run{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm install</code> with registry auth configured
+        above.
+      </p>
 
       <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Next steps</h2>
       <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600 dark:text-neutral-300">
@@ -517,18 +687,75 @@ export function MenuPage() {
         unrelated to this component.
       </p>
 
-      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Live preview</h2>
+      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Live preview by brand</h2>
       <div className="not-prose">
-        <MenuDemoPreview />
+        <AllBrandMenuDemosPreview />
       </div>
 
-      <p className="mt-6 text-sm text-neutral-600 dark:text-neutral-400">
+      <h2 className="pt-10 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Title header (non-brand apps)
+      </h2>
+      <p className="mt-3 text-neutral-600 dark:text-neutral-300">
+        Product shells that are <strong className="text-neutral-900 dark:text-neutral-100">not</strong> tied to a CHG brand
+        lockup can swap the header logos for plain text. Set{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">headerVariant="title"</code> with{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">headerTitle</code> (required) and optional{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">headerShortTitle</code> for the collapsed rail.
+        The <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">brand</code> prop still controls design tokens
+        only—it does not render a logo when the title variant is active.
+      </p>
+      <div className="not-prose mt-6">
+        <BrandMenuDemoFrame
+          brand="default"
+          label="Title header example"
+          headerVariant="title"
+          headerTitle="Internal portal"
+          headerShortTitle="IP"
+        />
+      </div>
+      <div className="mt-6">
+      <CodePanel
+        label="Non-brand application menu"
+        language="tsx"
+        code={`import "@chghealthcare/unified-design-system/styles.css"
+import { LayoutIcon, Menu } from "@chghealthcare/unified-design-system"
+
+const NAV_ITEMS = [
+  { id: "dashboard", label: "Dashboard", icon: LayoutIcon },
+  { id: "settings", label: "Settings", icon: LayoutIcon },
+] as const
+
+export function InternalAppMenu() {
+  return (
+    <Menu
+      headerVariant="title"
+      headerTitle="Internal portal"
+      headerShortTitle="IP"
+      brand="default"
+      defaultExpanded
+      aria-label="Application menu"
+      navigationItems={NAV_ITEMS}
+      navigationProps={{ "aria-label": "Primary navigation" }}
+    />
+  )
+}`}
+      />
+      </div>
+
+      <h2 className="pt-10 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Usage</h2>
+      <p className="mt-3 text-neutral-600 dark:text-neutral-300">
         Import the stylesheet once, define your tree as data, and pass it to{' '}
         <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">navigationItems</code> on{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">Menu</code>:
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">Menu</code>. Omit{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">headerVariant</code> (or set{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">headerVariant="brand"</code>) to use product
+        logos from the active <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">brand</code>.
       </p>
-      <pre className="mt-3 overflow-x-auto rounded-[4px] bg-neutral-950 p-4 text-sm text-neutral-100">
-        <code>{`import "@chghealthcare/unified-design-system/styles.css"
+      <div className="mt-4">
+      <CodePanel
+        label="Branded application menu"
+        language="tsx"
+        code={`import "@chghealthcare/unified-design-system/styles.css"
 import { LayoutIcon, Menu } from "@chghealthcare/unified-design-system"
 
 const NAV_ITEMS = [
@@ -537,9 +764,10 @@ const NAV_ITEMS = [
 ] as const
 
 export function ApplicationMenu() {
-  return <Menu navigationItems={NAV_ITEMS} />
-}`}</code>
-      </pre>
+  return <Menu brand="connect" navigationItems={NAV_ITEMS} />
+}`}
+      />
+      </div>
 
       <p className="mt-6 text-sm text-neutral-600 dark:text-neutral-400">
         App rails usually add <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">defaultExpanded</code>,{' '}
@@ -685,6 +913,35 @@ function PatternsDashboardPreview() {
       />
     </div>
   )
+}
+
+export function ProjectReadoutPage() {
+  return <ReadoutPage />
+}
+
+export function ProjectReleasesPage() {
+  return (
+    <MarkdownishPage kicker="Projects" title="Releases">
+      <p>
+        Published package versions for{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chghealthcare/unified-design-system</code>.
+        See{' '}
+        <a
+          href="https://github.com/chghealthcare/unified-design-system/releases"
+          className="docs-link font-medium"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub Releases
+        </a>{' '}
+        for changelogs and install tags.
+      </p>
+    </MarkdownishPage>
+  )
+}
+
+export function ProjectRoadmapPage() {
+  return <RoadmapPage />
 }
 
 export function PatternsDashboardPage() {

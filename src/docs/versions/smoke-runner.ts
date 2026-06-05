@@ -33,11 +33,14 @@ for (const entry of manifest.versions) {
   )
 }
 
-const legacyBundle = await loadDocsVersionBundle('1.0.1')
-const currentBundle = await loadDocsVersionBundle(manifest.defaultVersion)
-assert(
-  legacyBundle.shadcnSlugs.length < currentBundle.shadcnSlugs.length,
-  'legacy snapshot should expose fewer component slugs than the current snapshot',
-)
+if (manifest.versions.length >= 2) {
+  const olderId = manifest.versions[manifest.versions.length - 1]?.id
+  const currentBundle = await loadDocsVersionBundle(manifest.defaultVersion)
+  const olderBundle = await loadDocsVersionBundle(olderId)
+  assert(
+    olderBundle.shadcnSlugs.length <= currentBundle.shadcnSlugs.length,
+    'older minor/major snapshot should not expose more component slugs than the current snapshot',
+  )
+}
 
 console.log(`docs versions smoke: ${manifest.versions.length} bundles validated`)
