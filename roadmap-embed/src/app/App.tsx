@@ -11,7 +11,6 @@ import {
 } from "./roadmap-data";
 import {
   applyEventPositionsFile,
-  EVENT_POSITIONS_API,
   fetchEventPositions,
   getInitialRoadmapDataFromCode,
   downloadEventPositionsFile,
@@ -41,18 +40,18 @@ export default function App() {
       if (!e.metaKey && !e.ctrlKey) return;
       if (e.key.toLowerCase() !== "e") return;
       e.preventDefault();
-      setEditMode((on) => !on);
+      setEditMode((on) => {
+        const next = !on;
+        if (!next) {
+          setInlineEditEventId(null);
+          setCreateEventOpen(false);
+        }
+        return next;
+      });
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
-
-  useEffect(() => {
-    if (!editMode) {
-      setInlineEditEventId(null);
-      setCreateEventOpen(false);
-    }
-  }, [editMode]);
 
   useEffect(() => {
     let cancelled = false;
@@ -135,19 +134,17 @@ export default function App() {
     }));
   };
 
-  const inlineEditEvent =
-    inlineEditEventId === null
-      ? null
-      : (roadmapData.events.find((e) => e.id === inlineEditEventId) ?? null);
+  const activeInlineEditEventId =
+    inlineEditEventId !== null &&
+    roadmapData.events.some((e) => e.id === inlineEditEventId)
+      ? inlineEditEventId
+      : null;
 
-  useEffect(() => {
-    if (
-      inlineEditEventId !== null &&
-      !roadmapData.events.some((e) => e.id === inlineEditEventId)
-    ) {
-      setInlineEditEventId(null);
-    }
-  }, [roadmapData.events, inlineEditEventId]);
+  const inlineEditEvent =
+    activeInlineEditEventId === null
+      ? null
+      : (roadmapData.events.find((e) => e.id === activeInlineEditEventId) ??
+        null);
 
   const persistErrorMessage = import.meta.env.DEV
     ? "Not saved — run npm run dev (API + Vite)"
@@ -205,7 +202,7 @@ export default function App() {
       />
 
       <EventCreateModal
-        open={createEventOpen}
+        open={editMode && createEventOpen}
         onOpenChange={setCreateEventOpen}
         trackIndex={createEventTrackIndex}
         onCreate={handleCreateEvent}

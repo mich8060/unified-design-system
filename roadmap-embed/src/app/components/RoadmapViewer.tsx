@@ -87,6 +87,28 @@ export function RoadmapViewer({
     const [trackBandViewportCenters, setTrackBandViewportCenters] = useState<
         number[]
     >([]);
+    const [resizing, setResizing] = useState<{
+        eventId: string;
+        edge: "left" | "right";
+        startX: number;
+        startLeft: number;
+        startWidth: number;
+    } | null>(null);
+    const [dragging, setDragging] = useState<{
+        eventId: string;
+    } | null>(null);
+    const [dragIntent, setDragIntent] = useState<{
+        eventId: string;
+        startX: number;
+        startY: number;
+    } | null>(null);
+    const [hoveredTrackIndex, setHoveredTrackIndex] = useState<number | null>(
+        null,
+    );
+    const activeResizing = layoutEditMode ? resizing : null;
+    const activeDragging = layoutEditMode ? dragging : null;
+    const activeDragIntent = layoutEditMode ? dragIntent : null;
+    const activeHoveredTrackIndex = layoutEditMode ? hoveredTrackIndex : null;
 
     const syncViewportOverlayPositions = useCallback(() => {
         const canvas = canvasScrollRef.current;
@@ -137,11 +159,12 @@ export function RoadmapViewer({
 
         let intervalId = 0;
         let timeoutId = 0;
-        let resizeObserver: ResizeObserver | undefined;
+
+        const resizeObserver = new ResizeObserver(attemptScroll);
 
         const stopRetry = () => {
             cancelled = true;
-            resizeObserver?.disconnect();
+            resizeObserver.disconnect();
             if (intervalId) window.clearInterval(intervalId);
             if (timeoutId) window.clearTimeout(timeoutId);
         };
@@ -150,7 +173,6 @@ export function RoadmapViewer({
         requestAnimationFrame(attemptScroll);
         requestAnimationFrame(() => requestAnimationFrame(attemptScroll));
 
-        resizeObserver = new ResizeObserver(attemptScroll);
         resizeObserver.observe(canvas);
         const capture = canvas.querySelector("[data-roadmap-capture]");
         if (capture instanceof HTMLElement) {
@@ -162,15 +184,6 @@ export function RoadmapViewer({
 
         return stopRetry;
     }, [timelineReady, syncViewportOverlayPositions, data.trackCount]);
-
-    useEffect(() => {
-        if (!layoutEditMode) {
-            setResizing(null);
-            setDragging(null);
-            setDragIntent(null);
-            setHoveredTrackIndex(null);
-        }
-    }, [layoutEditMode]);
 
     useEffect(() => {
         const canvas = canvasScrollRef.current;
@@ -185,28 +198,6 @@ export function RoadmapViewer({
             window.removeEventListener("resize", syncViewportOverlayPositions);
         };
     }, [syncViewportOverlayPositions]);
-
-    const [resizing, setResizing] = useState<{
-        eventId: string;
-        edge: "left" | "right";
-        startX: number;
-        startLeft: number;
-        startWidth: number;
-    } | null>(null);
-
-    const [dragging, setDragging] = useState<{
-        eventId: string;
-    } | null>(null);
-
-    const [dragIntent, setDragIntent] = useState<{
-        eventId: string;
-        startX: number;
-        startY: number;
-    } | null>(null);
-
-    const [hoveredTrackIndex, setHoveredTrackIndex] = useState<number | null>(
-        null,
-    );
 
     const weekPositions = useRef(calculateWeekPositions());
 
@@ -258,32 +249,34 @@ export function RoadmapViewer({
     };
 
     const handleResizeMove = (e: React.MouseEvent) => {
-        if (!resizing) return;
+        if (!activeResizing) return;
 
-        const deltaX = e.clientX - resizing.startX;
-        const event = data.events.find((e) => e.id === resizing.eventId);
+        const deltaX = e.clientX - activeResizing.startX;
+        const event = data.events.find((ev) => ev.id === activeResizing.eventId);
         if (!event) return;
 
-        if (resizing.edge === "right") {
+        if (activeResizing.edge === "right") {
             // Resize from right edge
-            const newWidth = resizing.startWidth + deltaX;
-            const newRight = resizing.startLeft + newWidth;
+            const newWidth = activeResizing.startWidth + deltaX;
+            const newRight = activeResizing.startLeft + newWidth;
             const snappedRight = snapToWeek(newRight, weekPositions.current);
-            const snappedWidth = snappedRight - resizing.startLeft;
+            const snappedWidth = snappedRight - activeResizing.startLeft;
 
             if (snappedWidth >= 50) {
                 // Minimum width
-                onEventUpdate?.(resizing.eventId, { width: snappedWidth });
+                onEventUpdate?.(activeResizing.eventId, { width: snappedWidth });
             }
         } else {
             // Resize from left edge
-            const newLeft = resizing.startLeft + deltaX;
+            const newLeft = activeResizing.startLeft + deltaX;
             const snappedLeft = snapToWeek(newLeft, weekPositions.current);
-            const newWidth = resizing.startWidth + (resizing.startLeft - snappedLeft);
+            const newWidth =
+                activeResizing.startWidth +
+                (activeResizing.startLeft - snappedLeft);
 
             if (newWidth >= 50) {
                 // Minimum width
-                onEventUpdate?.(resizing.eventId, {
+                onEventUpdate?.(activeResizing.eventId, {
                     left: snappedLeft,
                     width: newWidth,
                 });
@@ -306,7 +299,7 @@ export function RoadmapViewer({
     };
 
     const handleDragMove = (e: React.MouseEvent) => {
-        if (!dragging) return;
+        if (!activeDragging) return;
         const canvas = canvasScrollRef.current;
         if (!canvas) return;
         const rect = canvas.getBoundingClientRect();
@@ -315,7 +308,7 @@ export function RoadmapViewer({
         const snappedTop =
             TRACK_EVENT_TOP_BASE + clampedTrackIndex * TRACK_HEIGHT_PX;
 
-        onEventUpdate?.(dragging.eventId, {
+        onEventUpdate?.(activeDragging.eventId, {
             top: snappedTop,
             track: clampedTrackIndex,
         });
@@ -329,19 +322,19 @@ export function RoadmapViewer({
         if (layoutEditMode) {
             updateHoveredTrack(e);
         }
-        if (resizing) {
+        if (activeResizing) {
             handleResizeMove(e);
             return;
         }
-        if (dragging) {
+        if (activeDragging) {
             handleDragMove(e);
             return;
         }
-        if (dragIntent) {
-            const dx = e.clientX - dragIntent.startX;
-            const dy = e.clientY - dragIntent.startY;
+        if (activeDragIntent) {
+            const dx = e.clientX - activeDragIntent.startX;
+            const dy = e.clientY - activeDragIntent.startY;
             if (dx * dx + dy * dy >= DRAG_THRESHOLD_PX * DRAG_THRESHOLD_PX) {
-                setDragging({ eventId: dragIntent.eventId });
+                setDragging({ eventId: activeDragIntent.eventId });
                 setDragIntent(null);
             }
         }
@@ -411,14 +404,13 @@ export function RoadmapViewer({
                                 trackHeight={TRACK_HEIGHT_PX}
                                 totalWidth={TOTAL_WIDTH}
                                 highlighted={
-                                    layoutEditMode && hoveredTrackIndex === index
+                                    activeHoveredTrackIndex === index
                                 }
                             />
                         ),
                     )}
 
-                    {layoutEditMode &&
-                        hoveredTrackIndex !== null &&
+                    {activeHoveredTrackIndex !== null &&
                         onAddEventInTrack && (
                             <Button
                                 type="button"
@@ -430,15 +422,19 @@ export function RoadmapViewer({
                                     right: VIEWPORT_FIXED_RIGHT_PX,
                                     top:
                                         Number.isFinite(
-                                            trackBandViewportCenters[hoveredTrackIndex] ?? Number.NaN,
+                                            trackBandViewportCenters[
+                                                activeHoveredTrackIndex
+                                            ] ?? Number.NaN,
                                         )
-                                            ? trackBandViewportCenters[hoveredTrackIndex]!
+                                            ? trackBandViewportCenters[
+                                                  activeHoveredTrackIndex
+                                              ]!
                                             : -9999,
                                 }}
                                 onMouseDown={(e) => e.stopPropagation()}
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    onAddEventInTrack(hoveredTrackIndex);
+                                    onAddEventInTrack(activeHoveredTrackIndex);
                                 }}
                             >
                                 <PlusIcon size={20} weight="bold" aria-hidden />

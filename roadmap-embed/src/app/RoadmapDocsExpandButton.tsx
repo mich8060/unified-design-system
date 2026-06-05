@@ -13,12 +13,8 @@ import {
 
 /** Icon button in the embed header; docs host toggles fullscreen via postMessage. */
 export function RoadmapDocsExpandButton() {
-  const [embedded, setEmbedded] = useState(false);
+  const [embedded] = useState(() => isRoadmapEmbeddedInParent());
   const [expanded, setExpanded] = useState(false);
-
-  useEffect(() => {
-    setEmbedded(isRoadmapEmbeddedInParent());
-  }, []);
 
   useEffect(() => {
     if (!embedded) return;

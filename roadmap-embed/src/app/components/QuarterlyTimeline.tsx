@@ -122,6 +122,7 @@ export function Quarterly({
         top: "92px",
       }}
       data-name="Quarterly"
+      data-roadmap-quarter={label}
       data-roadmap-quarter-start={leftPosition}
     >
       <div className="relative flex w-full min-h-px min-w-px flex-[1_0_0] content-stretch items-start">

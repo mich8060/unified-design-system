@@ -11,7 +11,7 @@ import {
 function resolveEventPositionsApiUrl(): string {
   const raw = import.meta.env.VITE_EVENT_POSITIONS_API_BASE?.trim() ?? "";
   if (!raw) return "/api/event-positions";
-  let base = raw.replace(/\/$/, "");
+  const base = raw.replace(/\/$/, "");
   if (base.endsWith("/api/event-positions")) {
     return base;
   }

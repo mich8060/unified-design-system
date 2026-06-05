@@ -12,16 +12,6 @@ import {
     Alert,
     AlertContent,
     AlertDescription,
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogCopy,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogMedia,
-    AlertDialogTitle,
     AlertTitle,
 } from '@chghealthcare/unified-design-system'
 import { AspectRatio } from '@chghealthcare/unified-design-system'

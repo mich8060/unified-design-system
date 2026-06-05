@@ -1,5 +1,4 @@
 import {
-  BLUE_SWIMLANE_FILL,
   TRACK_HIGHLIGHT_FILL,
   TRACK_HIGHLIGHT_RING,
 } from "../roadmap-tokens";
