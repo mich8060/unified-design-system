@@ -1,0 +1,145 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-03",
+  "nodes": {
+    "Card": {
+      "nodeId": "1340:4222",
+      "name": "Card",
+      "x": 100,
+      "y": 26354,
+      "width": 1108,
+      "height": 360
+    }
+  },
+  "layerNaming": {
+    "rule": "Child layers: leading period, lowercase, dash-separated words (e.g. .image, .header, .content, .footer).",
+    "template": [
+      ".image",
+      "Slot3|Slot2",
+      ".header",
+      ".header-text",
+      ".title",
+      ".description",
+      ".content",
+      "Slot",
+      ".footer",
+      ".footer-action"
+    ]
+  },
+  "Card": {
+    "nodeId": "1340:4222",
+    "variants": ["Size=Default", "Size=Small"],
+    "variantCount": 2,
+    "variantNodeIds": {
+      "Size=Default": "1340:4194",
+      "Size=Small": "1341:4179"
+    },
+    "sizes": {
+      "Size=Default": { "width": 320, "height": 211 },
+      "Size=Small": { "width": 320, "height": 211 }
+    },
+    "componentProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Small"],
+        "codeProp": "size",
+        "codeValues": { "Default": "default", "Small": "sm" }
+      },
+      "Title#card": {
+        "type": "TEXT",
+        "defaultValue": "Default card",
+        "codeProp": "title",
+        "linkedLayer": ".title"
+      },
+      "Description#card": {
+        "type": "TEXT",
+        "defaultValue": "Supporting description text.",
+        "codeProp": "description",
+        "linkedLayer": ".description"
+      },
+      "Slot#1341:0": {
+        "type": "SLOT",
+        "codeProp": "children",
+        "linkedLayer": ".content/Slot",
+        "note": "Main content area — maps to CardContent children in code."
+      },
+      "Slot2#1341:3": {
+        "type": "SLOT",
+        "codeProp": "image",
+        "linkedLayer": ".image/Slot2",
+        "note": "Image/media slot on Size=Small."
+      },
+      "Slot3#1341:6": {
+        "type": "SLOT",
+        "codeProp": "image",
+        "linkedLayer": ".image/Slot3",
+        "note": "Image/media slot on Size=Default."
+      }
+    },
+    "tokens": {
+      "fill": "uds/surface/primary",
+      "stroke": "uds/border/primary",
+      "radius": "uds/radius/8",
+      "headerPaddingX": "uds/gap/16",
+      "headerPaddingY": "uds/spacing/12",
+      "footerPaddingX": "uds/gap/16",
+      "footerPaddingY": "uds/gap/12",
+      "footerFill": "uds/surface/tertiary",
+      "footerStroke": "uds/border/primary",
+      "titleText": "uds/text/primary",
+      "descriptionText": "uds/text/secondary"
+    },
+    "typography": {
+      "Size=Default": {
+        "title": "Body/16/Medium",
+        "description": "Body/14/Regular"
+      },
+      "Size=Small": {
+        "title": "Body/14/Medium",
+        "description": "Body/14/Regular"
+      }
+    },
+    "nestedInstances": {
+      ".footer-action": {
+        "componentSet": "Button",
+        "variantBySize": {
+          "Default": "Appearance=Default, Size=Default",
+          "Small": "Appearance=Default, Size=Small"
+        }
+      }
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/card.tsx",
+    "exports": [
+      "Card",
+      "CardImage",
+      "CardHeader",
+      "CardTitle",
+      "CardDescription",
+      "CardAction",
+      "CardContent",
+      "CardFooter"
+    ],
+    "sizeProp": {
+      "default": "Size=Default",
+      "sm": "Size=Small"
+    },
+    "structure": {
+      "Card": "root — border + radius, gap-0, no root padding",
+      "CardImage": ".image (Slot3 / Slot2)",
+      "CardHeader": ".header — px uds/gap/16, py uds/spacing-12",
+      "CardTitle": ".title",
+      "CardDescription": ".description",
+      "CardContent": ".content — flex-1 slot for children",
+      "CardFooter": ".footer — tertiary fill, top border, justify-end, Button instance"
+    },
+    "notes": [
+      "No shadow — uds/border/primary stroke only.",
+      "Body#card text property removed; content is a SLOT.",
+      "Header and footer use the same horizontal padding at both sizes; title drops to 14px on sm."
+    ]
+  }
+}

@@ -480,7 +480,7 @@ export function CalendarSingleDemo() {
   const [date, setDate] = useState<Date | undefined>(new Date())
   return (
     <div className="flex flex-col gap-3 md:flex-row md:items-start">
-      <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-lg border shadow-sm" />
+      <Calendar mode="single" selected={date} onSelect={setDate} />
       <p className="text-sm text-muted-foreground">
         Selected: {date ? date.toDateString() : 'none'}
       </p>
@@ -493,7 +493,7 @@ export function CalendarWelcomePreviewInner() {
   const [date, setDate] = useState<Date | undefined>(new Date())
   return (
     <div className="flex w-full justify-center">
-      <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-lg border shadow-sm" />
+      <Calendar mode="single" selected={date} onSelect={setDate} />
     </div>
   )
 }
@@ -506,7 +506,6 @@ export function CalendarRangeDemo() {
       selected={range}
       onSelect={setRange}
       numberOfMonths={2}
-      className="rounded-lg border shadow-sm"
     />
   )
 }

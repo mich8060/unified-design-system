@@ -17,7 +17,6 @@ const SECTIONS_SLUGS = new Set(['header', 'footer'])
 export const DOCS_UTILITY_NAV_ROUTES: Record<string, string> = {
   ...READOUT_NAV_ROUTES,
   releases: '/docs/releases',
-  roadmap: '/docs/roadmap',
 }
 
 export function buildDocsVersionNavigation(

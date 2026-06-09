@@ -4,6 +4,17 @@ Source of truth: [`ai/uds-contract.json`](./ai/uds-contract.json)
 
 Use this package as a published dependency, not as a source-code template. When prose docs disagree, follow the contract JSON and the recipe/example fixtures under [`ai/`](./ai).
 
+## Consumer install (no shadcn init)
+
+`npm install @chghealthcare/unified-design-system` does **not** show Table / Board / Roadmap or other template prompts. Those come from **`npx shadcn@latest init`** / **`create`** (or similar scaffolders), not from the package.
+
+When generating or bootstrapping consumer apps:
+
+- Install UDS + `react` + `react-dom`; import `styles.css` once.
+- Compose **`AppShell`**, **`Menu`**, and **`AppShell.Main`** per [`setup.md`](./setup.md) and [`ai/recipes/*.md`](./ai/recipes/).
+- **Do not** run `npx shadcn init`, `npx shadcn create`, or install the global shadcn/ui agent skill as part of default UDS adoption.
+- **Do not** copy from `src/components/ui/*` in this monorepo — import only from `@chghealthcare/unified-design-system`.
+
 ## Allowed imports
 
 ```ts
@@ -124,10 +135,11 @@ Canonical example outputs:
 - Do not default to neutral placeholder divs when UDS emphasis components already fit the screen.
 - Do not use `.appshell--main > :first-child` zero-height hacks.
 - Do not assume a consumer-only `BrowserRouter` fills AppShell’s outlet by default.
+- Do not run **`npx shadcn init`** or **`npx shadcn create`** when adopting UDS in a consumer app — use the published package and [`setup.md`](./setup.md) instead.
 
-## Registry consumers
+## Registry consumers (maintainers only)
 
-This repo now exposes a local-first shadcn registry namespace:
+The **`@uds`** shadcn registry in this monorepo is for **docs and maintainers**, not the default consumer install path:
 
 - namespace: `@uds`
 - default development URL template: `http://localhost:5173/r/{name}.json`

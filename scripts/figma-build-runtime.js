@@ -1028,10 +1028,10 @@ async function buildStatusVariant(comp, spec, axis) {
   text.layoutSizingHorizontal = 'HUG'
 }
 
-async function createButtonInstance(buttonSetId, appearance, label) {
+async function createButtonInstance(buttonSetId, appearance, label, size = 'Default') {
   const set = await figma.getNodeByIdAsync(buttonSetId ?? '554:268')
   if (set?.type !== 'COMPONENT_SET') return null
-  const variantName = `Appearance=${appearance}, Size=Default`
+  const variantName = `Appearance=${appearance}, Size=${size}`
   const btnComp = set.children.find((c) => c.name === variantName)
   if (btnComp?.type !== 'COMPONENT') return null
   const inst = btnComp.createInstance()
@@ -1277,39 +1277,152 @@ async function buildAlertVariant(comp, spec, axis) {
   comp.layoutSizingVertical = 'HUG'
 }
 
+async function bindPaddingAxis(node, varName, axis) {
+  const v = await findVar(varName)
+  if (!v) return
+  node.setBoundVariable(axis, v)
+}
+
 async function buildCardVariant(comp, spec, axis) {
   const w = spec.width ?? 320
   const small = axis.Size === 'Small'
-  comp.resize(w, small ? 140 : 160)
+  const copy =
+    spec.copyBySize?.[axis.Size] ??
+    spec.copy ?? {
+      title: 'Default card',
+      description: 'Supporting description text.',
+      footerAction: 'Save',
+    }
+
   comp.layoutMode = 'VERTICAL'
   comp.primaryAxisAlignItems = 'MIN'
-  comp.itemSpacing = small ? 12 : 16
-  comp.paddingTop = small ? 12 : 16
-  comp.paddingBottom = small ? 12 : 16
-  comp.paddingLeft = small ? 12 : 16
-  comp.paddingRight = small ? 12 : 16
-  await bindGap(comp, 'uds/gap/8')
-  await bindFill(comp, 'uds/surface/primary')
-  await bindRadius(comp, 'uds/radius/8')
-  await bindStroke(comp, 'uds/border/secondary')
+  comp.counterAxisAlignItems = 'MIN'
+  comp.layoutSizingHorizontal = 'FIXED'
+  comp.layoutSizingVertical = 'HUG'
+  comp.clipsContent = true
+  comp.resize(w, 211)
+  comp.paddingTop = 0
+  comp.paddingBottom = 0
+  comp.paddingLeft = 0
+  comp.paddingRight = 0
+  comp.itemSpacing = 0
+  await bindFill(comp, spec.fillVar ?? 'uds/surface/primary')
+  await bindStroke(comp, spec.strokeVar ?? 'uds/border/primary')
+  await bindRadius(comp, spec.radiusVar ?? 'uds/radius/8')
+
+  const image = figma.createFrame()
+  image.name = '.image'
+  image.layoutMode = 'VERTICAL'
+  image.primaryAxisAlignItems = 'MIN'
+  image.counterAxisAlignItems = 'MIN'
+  image.itemSpacing = 0
+  image.fills = []
+  image.layoutGrow = 1
+  const imageSlot = figma.createFrame()
+  imageSlot.name = small ? 'Slot2' : 'Slot3'
+  imageSlot.fills = []
+  imageSlot.layoutGrow = 1
+  image.appendChild(imageSlot)
+  imageSlot.layoutSizingHorizontal = 'FILL'
+  comp.appendChild(image)
+  image.layoutSizingHorizontal = 'FILL'
+
   const header = figma.createFrame()
-  header.layoutMode = 'VERTICAL'
-  header.itemSpacing = 4
+  header.name = '.header'
+  header.layoutMode = 'HORIZONTAL'
+  header.primaryAxisAlignItems = 'MIN'
+  header.counterAxisAlignItems = 'MIN'
+  header.itemSpacing = 0
   header.fills = []
+  await bindPaddingAxis(header, 'uds/gap/16', 'paddingLeft')
+  await bindPaddingAxis(header, 'uds/gap/16', 'paddingRight')
+  await bindPaddingAxis(header, 'uds/gap/12', 'paddingTop')
+  await bindPaddingAxis(header, 'uds/gap/12', 'paddingBottom')
+
+  const headerText = figma.createFrame()
+  headerText.name = '.header-text'
+  headerText.layoutMode = 'VERTICAL'
+  headerText.primaryAxisAlignItems = 'MIN'
+  headerText.counterAxisAlignItems = 'MIN'
+  headerText.itemSpacing = 0
+  headerText.fills = []
+
   const title = figma.createText()
+  title.name = '.title'
   title.fontName = { family: 'Inter', style: 'Medium' }
-  title.fontSize = small ? 14 : 16
-  title.characters = 'Card title'
-  await bindText(title, { fill: 'uds/text/primary' })
-  header.appendChild(title)
+  title.characters = copy.title
+  title.textAutoResize = 'HEIGHT'
+  await applyLocalTextStyle(
+    title,
+    small ? 'Body/14/Medium' : 'Body/16/Medium',
+    'uds/text/primary',
+  )
+  headerText.appendChild(title)
+  title.layoutSizingHorizontal = 'FILL'
+
   const desc = figma.createText()
+  desc.name = '.description'
   desc.fontName = { family: 'Inter', style: 'Regular' }
-  desc.fontSize = 14
-  desc.characters = 'Card description'
-  await bindText(desc, { fill: 'uds/text/secondary' })
-  header.appendChild(desc)
-  header.layoutSizingHorizontal = 'FILL'
+  desc.characters = copy.description
+  desc.textAutoResize = 'HEIGHT'
+  await applyLocalTextStyle(desc, 'Body/14/Regular', 'uds/text/secondary')
+  headerText.appendChild(desc)
+  desc.layoutSizingHorizontal = 'FILL'
+
+  header.appendChild(headerText)
+  headerText.layoutSizingHorizontal = 'FILL'
   comp.appendChild(header)
+  header.layoutSizingHorizontal = 'FILL'
+
+  const content = figma.createFrame()
+  content.name = '.content'
+  content.layoutMode = 'VERTICAL'
+  content.primaryAxisAlignItems = 'MIN'
+  content.counterAxisAlignItems = 'MIN'
+  content.itemSpacing = 0
+  content.fills = []
+  content.layoutGrow = 1
+  const contentSlot = figma.createFrame()
+  contentSlot.name = 'Slot'
+  contentSlot.fills = []
+  contentSlot.layoutGrow = 1
+  content.appendChild(contentSlot)
+  contentSlot.layoutSizingHorizontal = 'FILL'
+  comp.appendChild(content)
+  content.layoutSizingHorizontal = 'FILL'
+
+  const footer = figma.createFrame()
+  footer.name = '.footer'
+  footer.layoutMode = 'HORIZONTAL'
+  footer.primaryAxisAlignItems = 'MAX'
+  footer.counterAxisAlignItems = 'CENTER'
+  footer.itemSpacing = 8
+  footer.fills = []
+  await bindFill(footer, spec.footerFillVar ?? 'uds/surface/tertiary')
+  await bindStroke(footer, spec.footerStrokeVar ?? 'uds/border/primary')
+  footer.strokeTopWeight = 1
+  footer.strokeRightWeight = 0
+  footer.strokeBottomWeight = 0
+  footer.strokeLeftWeight = 0
+  await bindPaddingAxis(footer, 'uds/gap/16', 'paddingLeft')
+  await bindPaddingAxis(footer, 'uds/gap/16', 'paddingRight')
+  await bindPaddingAxis(footer, 'uds/gap/12', 'paddingTop')
+  await bindPaddingAxis(footer, 'uds/gap/12', 'paddingBottom')
+
+  const footerBtn = await createButtonInstance(
+    spec.buttonSetNodeId,
+    'Default',
+    copy.footerAction,
+    small ? 'Small' : 'Default',
+  )
+  if (footerBtn) {
+    footerBtn.name = '.footer-action'
+    footer.appendChild(footerBtn)
+    footerBtn.layoutSizingHorizontal = 'HUG'
+  }
+
+  comp.appendChild(footer)
+  footer.layoutSizingHorizontal = 'FILL'
 }
 
 async function buildTabsTrigger(label, active, isLine, fill = false) {

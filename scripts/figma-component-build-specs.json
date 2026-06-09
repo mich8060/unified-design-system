@@ -413,12 +413,31 @@
   "card": {
     "figmaName": "Card",
     "kind": "card",
+    "replaceExisting": true,
     "tier": 2,
     "gridCols": 2,
     "gridCellW": 360,
-    "gridCellH": 200,
+    "gridCellH": 280,
     "axes": { "Size": ["Default", "Small"] },
-    "width": 320
+    "width": 320,
+    "buttonSetNodeId": "554:268",
+    "fillVar": "uds/surface/primary",
+    "strokeVar": "uds/border/primary",
+    "radiusVar": "uds/radius/8",
+    "footerFillVar": "uds/surface/tertiary",
+    "footerStrokeVar": "uds/border/primary",
+    "copyBySize": {
+      "Default": {
+        "title": "Default card",
+        "description": "Supporting description text.",
+        "footerAction": "Save"
+      },
+      "Small": {
+        "title": "Default card",
+        "description": "Supporting description text.",
+        "footerAction": "Save"
+      }
+    }
   },
   "tabs": {
     "figmaName": "Tabs",
@@ -574,6 +593,81 @@
     },
     "fixedColor": "Blue",
     "fixedTone": "Pastel"
+  },
+  "calendar-day": {
+    "figmaName": ".calendar-day",
+    "kind": "calendar-day",
+    "tier": 1,
+    "gridCols": 4,
+    "gridCellW": 40,
+    "gridCellH": 40,
+    "axes": {
+      "State": [
+        "Default",
+        "Selected",
+        "Today",
+        "Disabled",
+        "Outside",
+        "Blank",
+        "Range start",
+        "Range middle",
+        "Range end"
+      ]
+    },
+    "cellSizePx": 40,
+    "figmaNodeId": "1186:575",
+    "figmaSnapshot": "ai/figma-calendar.snapshot.json",
+    "stateTokens": {
+      "Default": { "fill": "uds/surface/primary", "label": "uds/text/secondary", "stroke": "uds/border/primary", "textStyle": "Body/14/Medium" },
+      "Selected": { "fill": "uds/surface/brand/primary", "label": "uds/text/primary", "stroke": "uds/border/primary", "textStyle": "Body/14/Medium" },
+      "Today": { "fill": "uds/surface/primary", "label": "uds/text/secondary", "textStyle": "Body/14/Medium", "stroke": "uds/border/primary" },
+      "Disabled": { "fill": "uds/surface/primary", "label": "uds/text/disabled", "stroke": "uds/border/primary" },
+      "Outside": { "fill": "uds/surface/tertiary", "label": "uds/text/primary", "labelOpacity": 0, "stroke": "uds/border/primary" },
+      "Range start": { "fill": "uds/surface/brand/primary", "label": "uds/text/primary", "stroke": "uds/border/primary" },
+      "Range middle": { "fill": "uds/surface/brand/primary", "label": "uds/text/primary", "stroke": "uds/border/primary" },
+      "Range end": { "fill": "uds/surface/brand/primary", "label": "uds/text/primary", "stroke": "uds/border/primary" },
+      "Blank": { "fill": "uds/surface/primary", "label": "", "labelOpacity": 0, "stroke": "uds/border/primary" }
+    },
+    "figmaMatrixNote": "Atom for Calendar day cells. See ai/figma-calendar.snapshot.json for demo grid mapping. State=Blank = empty month padding; State=Outside = adjacent-month cell (hidden label)."
+  },
+  "calendar": {
+    "figmaName": "Calendar",
+    "kind": "calendar",
+    "tier": 2,
+    "gridCols": 4,
+    "gridCellW": 320,
+    "gridCellH": 272,
+    "axes": {
+      "Mode": ["Single", "Range"],
+      "Month": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    },
+    "width": 320,
+    "rangeWidth": 672,
+    "rangeGapVar": "uds/gap/32",
+    "subComponents": {
+      ".calendar-day": "1186:575",
+      ".calendar-month": "1188:639"
+    },
+    "navGlyphs": {
+      "caretLeftRegular": "1180:1154",
+      "caretRightRegular": "1180:1175"
+    },
+    "figmaNodeId": "1188:807",
+    "figmaSnapshot": "ai/figma-calendar.snapshot.json",
+    "figmaMatrixNote": "24 variants (Mode × Month). Single: 320×272, one exposed .calendar-month (uds/radius/8). Range: 672×272, variant shell uds/radius/8, month instances corner radius 0. Selected + range states use uds/surface/brand/primary; default/today labels uds/text/secondary; outside fill uds/surface/tertiary."
   },
   "branding": {
     "figmaName": "Branding",

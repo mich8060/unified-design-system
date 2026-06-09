@@ -58,9 +58,6 @@ const ProjectReadoutPage = lazy(() =>
 const ProjectReleasesPage = lazy(() =>
   import('./pages/PlaceholderPages').then((m) => ({ default: m.ProjectReleasesPage })),
 )
-const ProjectRoadmapPage = lazy(() =>
-  import('./pages/PlaceholderPages').then((m) => ({ default: m.ProjectRoadmapPage })),
-)
 const WelcomePage = lazy(() =>
   import('./pages/PlaceholderPages').then((m) => ({ default: m.WelcomePage })),
 )
@@ -320,11 +317,11 @@ export default function DocsApp() {
                 <Route path="docs/readout" element={<Navigate to={LATEST_READOUT_ROUTE} replace />} />
                 <Route path="docs/readout/:monthId" element={<ProjectReadoutPage />} />
                 <Route path="docs/releases" element={<ProjectReleasesPage />} />
-                <Route path="docs/roadmap" element={<ProjectRoadmapPage />} />
                 <Route path="docs/project/readout" element={<Navigate to={LATEST_READOUT_ROUTE} replace />} />
                 <Route path="docs/project/updates" element={<Navigate to={LATEST_READOUT_ROUTE} replace />} />
                 <Route path="docs/project/releases" element={<Navigate to="/docs/releases" replace />} />
-                <Route path="docs/project/roadmap" element={<Navigate to="/docs/roadmap" replace />} />
+                <Route path="docs/project/roadmap" element={<Navigate to={LATEST_READOUT_ROUTE} replace />} />
+                <Route path="docs/roadmap" element={<Navigate to={LATEST_READOUT_ROUTE} replace />} />
                 <Route path="docs/getting-started/menu" element={<Navigate to="/docs/sections/menu" replace />} />
                 <Route path="docs/components/header" element={<Navigate to="/docs/sections/header" replace />} />
                 <Route path="docs/components/footer" element={<Navigate to="/docs/sections/footer" replace />} />

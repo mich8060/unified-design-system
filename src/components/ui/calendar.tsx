@@ -123,8 +123,8 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        "group/calendar relative overflow-hidden rounded-lg border border-border bg-card text-card-foreground shadow-none [--cell-size:2.5rem] in-data-[slot=card-content]:border-0 in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:border-0 in-data-[slot=popover-content]:bg-transparent",
-        props.mode === "range" ? "max-w-[640px]" : "max-w-[320px]",
+        "group/calendar relative bg-uds-surface-primary text-uds-text-primary shadow-none [--cell-size:2.5rem] in-data-[slot=card-content]:border-0 in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:border-0 in-data-[slot=popover-content]:bg-transparent",
+        props.mode === "range" ? "max-w-[672px]" : "max-w-[320px]",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className
@@ -145,10 +145,23 @@ function Calendar({
       classNames={{
         root: cn("w-fit", defaultClassNames.root),
         months: cn(
-          "relative flex w-full flex-col gap-0 md:flex-row md:gap-8",
+          "relative flex w-full flex-col gap-0 md:flex-row md:gap-[length:var(--uds-gap-32)]",
+          props.mode === "range" && [
+            "overflow-hidden rounded-[length:var(--uds-radius-8)] border border-uds-border-primary",
+            "md:[&:has(>.rdp-nav)>.rdp-month:nth-child(2)]:border-r",
+            "md:[&:has(>.rdp-nav)>.rdp-month:nth-child(3)]:border-l",
+            "md:[&:not(:has(>.rdp-nav))>.rdp-month:nth-child(1)]:border-r",
+            "md:[&:not(:has(>.rdp-nav))>.rdp-month:nth-child(2)]:border-l",
+            "[&>.rdp-month]:border-uds-border-primary",
+          ],
           defaultClassNames.months
         ),
-        month: cn("flex w-full flex-col gap-0", defaultClassNames.month),
+        month: cn(
+          "flex w-full flex-col gap-0 overflow-hidden",
+          props.mode !== "range" &&
+            "rounded-[length:var(--uds-radius-8)] border border-uds-border-primary",
+          defaultClassNames.month
+        ),
         nav: cn(
           /* Let clicks reach the caption / year `<select>` in the center; only arrows capture input. */
           "pointer-events-none absolute inset-x-0 top-0 z-20 flex h-10 w-full items-center justify-between gap-1 px-1",
@@ -156,16 +169,16 @@ function Calendar({
         ),
         button_previous: cn(
           buttonVariants({ variant: buttonVariant }),
-          "pointer-events-auto size-8 shrink-0 p-0 text-foreground select-none aria-disabled:opacity-50",
+          "pointer-events-auto size-8 shrink-0 p-0 text-uds-text-primary select-none aria-disabled:opacity-50",
           defaultClassNames.button_previous
         ),
         button_next: cn(
           buttonVariants({ variant: buttonVariant }),
-          "pointer-events-auto size-8 shrink-0 p-0 text-foreground select-none aria-disabled:opacity-50",
+          "pointer-events-auto size-8 shrink-0 p-0 text-uds-text-primary select-none aria-disabled:opacity-50",
           defaultClassNames.button_next
         ),
         month_caption: cn(
-          "relative z-10 flex h-10 w-full items-center justify-center border-b border-border px-10",
+          "relative z-10 flex h-10 w-full items-center justify-center border-b border-uds-border-primary px-10",
           defaultClassNames.month_caption
         ),
         dropdowns: cn(
@@ -181,57 +194,60 @@ function Calendar({
           defaultClassNames.dropdown
         ),
         caption_label: cn(
-          "select-none font-semibold text-foreground",
+          "select-none text-sm font-semibold text-uds-text-primary",
           pickerCaptionLayout === "label"
-            ? "text-sm"
-            : "flex items-center gap-1 rounded-md text-sm [&>svg]:size-3.5 [&>svg]:text-muted-foreground",
+            ? undefined
+            : "flex items-center gap-1 rounded-md [&>svg]:size-3.5 [&>svg]:text-uds-text-tertiary",
           defaultClassNames.caption_label
         ),
         month_grid: cn(
-          "w-full table-fixed border-collapse bg-card text-sm",
-          // No top border on header cells (month caption already has border-b)
-          "[&_thead_th]:border-b [&_thead_th]:border-l [&_thead_th]:border-r [&_thead_th]:border-border [&_thead_th]:border-t-0",
-          "[&_thead_tr_th:last-child]:border-r-0",
-          "[&_thead_th]:bg-card [&_thead_th]:py-2 [&_thead_th]:text-center [&_thead_th]:text-xs [&_thead_th]:font-normal [&_thead_th]:text-muted-foreground",
-          "[&_tbody_td]:border [&_tbody_td]:border-border [&_tbody_td]:bg-card [&_tbody_td]:p-0",
-          "[&_tbody_tr_td:last-child]:border-r-0",
+          "w-full table-fixed border-collapse bg-uds-surface-primary text-sm [&_tbody_tr:last-child_td]:border-b-0",
           defaultClassNames.month_grid
         ),
         weekdays: cn(defaultClassNames.weekdays),
-        weekday: cn("font-normal", defaultClassNames.weekday),
+        weekday: cn(
+          "border-b border-r border-uds-border-primary bg-uds-surface-primary py-2 text-center text-xs font-normal text-uds-text-tertiary last:border-r-0",
+          defaultClassNames.weekday
+        ),
         week: cn(defaultClassNames.week),
         week_number_header: cn(
-          "w-(--cell-size) border border-border bg-card px-0 py-2 text-center text-xs font-normal text-muted-foreground select-none",
+          "w-(--cell-size) border border-uds-border-primary bg-uds-surface-primary px-0 py-2 text-center text-xs font-normal text-uds-text-tertiary select-none",
           defaultClassNames.week_number_header
         ),
         week_number: cn(
-          "border border-border bg-card text-xs text-muted-foreground select-none",
+          "border border-uds-border-primary bg-uds-surface-primary text-xs text-uds-text-tertiary select-none",
           defaultClassNames.week_number
         ),
         day: cn(
-          "group/day relative h-10 min-h-10 p-0 text-center align-middle select-none",
+          "group/day relative h-10 min-h-10 border-b border-r border-uds-border-primary bg-uds-surface-primary p-0 text-center align-middle select-none last:border-r-0",
           defaultClassNames.day
         ),
         day_button: cn(
-          "relative z-10 flex size-full min-h-(--cell-size) w-full flex-col justify-center rounded-none border-0 bg-transparent p-0 text-sm leading-none font-normal shadow-none !h-full hover:bg-muted/50 focus-visible:z-20 dark:hover:bg-muted/40",
+          "relative z-10 flex size-full min-h-(--cell-size) w-full flex-col justify-center rounded-none border-0 bg-transparent p-0 text-sm leading-none font-medium text-uds-text-secondary shadow-none !h-full hover:bg-uds-surface-secondary focus-visible:z-20",
           defaultClassNames.day_button
         ),
-        range_start: cn("rounded-none bg-transparent", defaultClassNames.range_start),
+        range_start: cn(
+          "rounded-none bg-transparent bg-none",
+          defaultClassNames.range_start
+        ),
         range_middle: cn(
-          "rounded-none bg-transparent",
+          "rounded-none bg-transparent bg-none",
           defaultClassNames.range_middle
         ),
-        range_end: cn("rounded-none bg-transparent", defaultClassNames.range_end),
+        range_end: cn(
+          "rounded-none bg-transparent bg-none",
+          defaultClassNames.range_end
+        ),
         today: cn(
-          "font-semibold text-foreground data-[selected=true]:font-semibold",
+          "font-medium text-uds-text-secondary",
           defaultClassNames.today
         ),
         outside: cn(
-          "[&_button]:pointer-events-none [&_button]:text-transparent [&_button]:opacity-0",
+          "bg-uds-surface-tertiary [&_button]:pointer-events-none [&_button]:text-transparent [&_button]:opacity-0",
           defaultClassNames.outside
         ),
         disabled: cn(
-          "text-muted-foreground opacity-50",
+          "[&_button]:text-uds-text-disabled [&_button]:pointer-events-none",
           defaultClassNames.disabled
         ),
         hidden: cn("invisible", defaultClassNames.hidden),
@@ -283,10 +299,10 @@ function CalendarDayButton({
         className,
         "isolate text-center !h-full max-w-none",
         "group-data-[focused=true]/day:z-20 group-data-[focused=true]/day:border group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50",
-        "data-[selected-single=true]:bg-[var(--uds-color-accent-sky-100)] data-[selected-single=true]:text-foreground dark:data-[selected-single=true]:bg-[var(--uds-color-accent-sky-900)]",
-        "data-[range-start=true]:rounded-none data-[range-start=true]:bg-[var(--uds-color-accent-sky-100)] data-[range-start=true]:text-foreground dark:data-[range-start=true]:bg-[var(--uds-color-accent-sky-900)]",
-        "data-[range-end=true]:rounded-none data-[range-end=true]:bg-[var(--uds-color-accent-sky-100)] data-[range-end=true]:text-foreground dark:data-[range-end=true]:bg-[var(--uds-color-accent-sky-900)]",
-        "data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-[var(--uds-color-accent-sky-50)] data-[range-middle=true]:text-foreground dark:data-[range-middle=true]:bg-[var(--uds-color-accent-sky-900)]"
+        "data-[selected-single=true]:bg-uds-surface-brand-primary data-[selected-single=true]:font-medium data-[selected-single=true]:text-uds-text-primary",
+        "data-[range-start=true]:rounded-none data-[range-start=true]:bg-uds-surface-brand-primary data-[range-start=true]:font-medium data-[range-start=true]:text-uds-text-primary",
+        "data-[range-end=true]:rounded-none data-[range-end=true]:bg-uds-surface-brand-primary data-[range-end=true]:font-medium data-[range-end=true]:text-uds-text-primary",
+        "data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-uds-surface-brand-primary data-[range-middle=true]:font-medium data-[range-middle=true]:text-uds-text-primary"
       )}
       {...props}
     />

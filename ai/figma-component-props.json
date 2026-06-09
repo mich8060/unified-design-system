@@ -172,6 +172,31 @@
       },
       "figmaMatrixNote": "720×520 viewport. Overlay uds/scrim/50. Default 400px + Red pastel medallion 40px; Small 320px + Amber. Header left-aligned p-16; footer uds/surface/tertiary with Outline Cancel + Default Continue."
     },
+    "AspectRatio": {
+      "nodeId": "1111:543",
+      "figmaSnapshot": "ai/figma-aspect-ratio.snapshot.json",
+      "properties": {
+        "Ratio": {
+          "codeProp": "ratio",
+          "values": {
+            "1:1": 1,
+            "4:3": 1.3333333333,
+            "16:9": 1.7777777778,
+            "3:2": 1.5,
+            "21:9": 2.3333333333
+          },
+          "figmaLabels": {
+            "1": "1:1",
+            "1.3333333333": "4:3",
+            "1.7777777778": "16:9",
+            "1.5": "3:2",
+            "2.3333333333": "21:9"
+          },
+          "note": "Figma named presets; code accepts any continuous width/height number via ASPECT_RATIO_PRESETS."
+        }
+      },
+      "figmaMatrixNote": "5 variants at 240px reference width. Root: uds/surface/secondary fill, uds/color/neutrals/300 stroke, uds/radius/8, overflow clip. Child `.image` rectangle with IMAGE fill (object-cover). Default placeholder: /showcase/aspect-ratio-placeholder.png."
+    },
     "Tabs": {
       "nodeId": "790:1022",
       "properties": {
@@ -343,6 +368,161 @@
         }
       },
       "figmaMatrixNote": "36 variants (18 colors × 2 tones). Default circle shape at 40px. Size and Shape are code-only unless Medallion / Layout set is built."
+    },
+    "Calendar": {
+      "nodeId": "1188:807",
+      "figmaSnapshot": "ai/figma-calendar.snapshot.json",
+      "properties": {
+        "Mode": {
+          "codeProp": "mode",
+          "values": {
+            "Single": "single",
+            "Range": "range"
+          },
+          "figmaLabels": {
+            "single": "Single",
+            "range": "Range"
+          }
+        },
+        "Month": {
+          "codeProp": "month",
+          "values": {
+            "January": "january",
+            "February": "february",
+            "March": "march",
+            "April": "april",
+            "May": "may",
+            "June": "june",
+            "July": "july",
+            "August": "august",
+            "September": "september",
+            "October": "october",
+            "November": "november",
+            "December": "december"
+          },
+          "figmaLabels": {
+            "january": "January",
+            "february": "February",
+            "march": "March",
+            "april": "April",
+            "may": "May",
+            "june": "June",
+            "july": "July",
+            "august": "August",
+            "september": "September",
+            "october": "October",
+            "november": "November",
+            "december": "December"
+          },
+          "note": "Applies to both Single (one month) and Range (left month; right = next month, December wraps to January next year)."
+        },
+        "Caption": {
+          "codeProp": "captionLabel",
+          "figmaProperty": "Caption#1247:0",
+          "nestedFrom": ".calendar-month",
+          "note": "Exposed nested TEXT property on each .calendar-month / .calendar-month-2 instance."
+        }
+      },
+      "subComponents": {
+        ".calendar-month": "1188:639",
+        ".calendar-day": "1186:575"
+      },
+      "layerNaming": "Child layers: .lowercase-dash (e.g. .header, .nav-prev, .weekdays, .week-1, .day-15).",
+      "figmaMatrixNote": "24 variants (Mode=Single|Range × Month=January..December). Single: 320×272, one exposed .calendar-month. Range: 672×272, exposed .calendar-month + .calendar-month-2; month instances radius 0. Selected/range fills: uds/surface/brand/primary. Default/today labels: uds/text/secondary."
+    },
+    "Card": {
+      "nodeId": "1340:4222",
+      "figmaSnapshot": "ai/figma-card.snapshot.json",
+      "properties": {
+        "Size": {
+          "codeProp": "size",
+          "values": {
+            "Default": "default",
+            "Small": "sm"
+          },
+          "figmaLabels": {
+            "default": "Default",
+            "sm": "Small"
+          }
+        },
+        "Title#card": {
+          "codeProp": "title",
+          "figmaProperty": "Title#card",
+          "linkedLayer": ".title"
+        },
+        "Description#card": {
+          "codeProp": "description",
+          "figmaProperty": "Description#card",
+          "linkedLayer": ".description"
+        },
+        "Slot": {
+          "codeProp": "children",
+          "figmaProperty": "Slot",
+          "linkedLayer": ".content/Slot"
+        },
+        "Slot2": {
+          "codeProp": "image",
+          "figmaProperty": "Slot2",
+          "linkedLayer": ".image/Slot2",
+          "size": "Small"
+        },
+        "Slot3": {
+          "codeProp": "image",
+          "figmaProperty": "Slot3",
+          "linkedLayer": ".image/Slot3",
+          "size": "Default"
+        }
+      },
+      "layerNaming": ".image, .header, .header-text, .title, .description, .content, Slot, .footer, .footer-action.",
+      "figmaMatrixNote": "2 variants (Size=Default|Small). 320×211; image slot + header + content slot + footer with Button (Default/Small by size). Tokens: uds/surface/primary, uds/border/primary, uds/radius/8."
+    },
+    ".calendar-day": {
+      "nodeId": "1186:575",
+      "figmaSnapshot": "ai/figma-calendar.snapshot.json",
+      "properties": {
+        "State": {
+          "codeProp": "dayState",
+          "values": {
+            "Default": "default",
+            "Selected": "selected",
+            "Today": "today",
+            "Disabled": "disabled",
+            "Outside": "outside",
+            "Range start": "range_start",
+            "Range middle": "range_middle",
+            "Range end": "range_end",
+            "Blank": "blank"
+          },
+          "figmaLabels": {
+            "default": "Default",
+            "selected": "Selected",
+            "today": "Today",
+            "disabled": "Disabled",
+            "outside": "Outside",
+            "range_start": "Range start",
+            "range_middle": "Range middle",
+            "range_end": "Range end",
+            "blank": "Blank"
+          }
+        },
+        "Day": {
+          "codeProp": "dayLabel",
+          "figmaProperty": "Day#1180:0",
+          "note": "Visible day number; empty for Blank cells. Set per grid position when building month layouts."
+        }
+      },
+      "figmaMatrixNote": "9 states × 40×40 cell. Selected + range states: uds/surface/brand/primary fill. Default/today labels: uds/text/secondary (today Body/14/Medium). Outside: uds/surface/tertiary. All states: uds/border/primary stroke. Token bindings in ai/figma-calendar.snapshot.json."
+    },
+    ".calendar-month": {
+      "nodeId": "1188:639",
+      "figmaSnapshot": "ai/figma-calendar.snapshot.json",
+      "properties": {
+        "Caption": {
+          "figmaProperty": "Caption#1247:0",
+          "note": "Month title in .header > .caption."
+        }
+      },
+      "figmaMatrixNote": "Reusable month grid (header, weekdays, 5 week rows). Composed inside Calendar variants."
     }
   }
 }

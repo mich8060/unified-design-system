@@ -48,6 +48,21 @@ For routed shells (`AppShell` with the default internal `<Outlet />`), also add 
 import "@chghealthcare/unified-design-system/styles.css"
 ```
 
+## Consumer setup (product apps)
+
+**`npm install` is the whole install step.** The published package has no CLI, no `postinstall` script, and no project template wizard. If you see prompts such as **Table / Board / Roadmap** or **Select a template**, that is **not** from UDS — it comes from another tool (usually `npx shadcn@latest init` or `npx shadcn@latest create`) run during onboarding.
+
+For consumer apps:
+
+1. Install `@chghealthcare/unified-design-system`, `react`, and `react-dom` (see above).
+2. Import `@chghealthcare/unified-design-system/styles.css` once at the app root.
+3. Import components from `@chghealthcare/unified-design-system` only.
+4. Compose **`AppShell`** + **`Menu`** + **`AppShell.Main`** — see [Quick start](#quick-start-appshell--menu) and [`setup.md`](./setup.md).
+
+**Do not** run `npx shadcn init`, `npx shadcn create`, or copy UDS source from this monorepo when adopting the package. UDS is a **published dependency**, not a shadcn scaffold. The [`@uds` registry](./registry.json) in this repository is for **maintainers and docs** (`npm run generate:ai`); consumer apps do not need `components.json` or the shadcn CLI unless your team explicitly chose a copy-into-repo workflow.
+
+If an AI agent or starter script runs shadcn for you, stop it and follow [`setup.md`](./setup.md) instead. To run shadcn non-interactively in an unrelated project, use flags such as `-y` and `--defaults` — but that is separate from installing UDS.
+
 ## Development (this repository)
 
 Use **Node.js 22 LTS** (or **24+**) for local installs so `npm` does not report `EBADENGINE` for `eslint-visitor-keys@5` (its `engines` field does not list Node 23). Run `nvm use` (or `fnm use`) in the repo root; the [`.nvmrc`](./.nvmrc) file pins `22`. If you use [Volta](https://volta.sh/), the repo’s `package.json` includes a matching `volta.node` pin.

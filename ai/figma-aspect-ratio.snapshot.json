@@ -1,0 +1,81 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-03",
+  "nodes": {
+    "AspectRatio": {
+      "nodeId": "1111:543",
+      "name": "AspectRatio",
+      "x": 0,
+      "y": 2328,
+      "width": 1392,
+      "height": 304
+    }
+  },
+  "AspectRatio": {
+    "nodeId": "1111:543",
+    "description": "Constrains content to a fixed width-to-height ratio. Maps to Radix AspectRatio (`ratio` prop). Ratio variant exposes common presets.",
+    "variants": [
+      "Ratio=1:1",
+      "Ratio=4:3",
+      "Ratio=16:9",
+      "Ratio=3:2",
+      "Ratio=21:9"
+    ],
+    "variantCount": 5,
+    "variantNodeIds": {
+      "Ratio=1:1": "1111:533",
+      "Ratio=4:3": "1111:535",
+      "Ratio=16:9": "1111:537",
+      "Ratio=3:2": "1111:539",
+      "Ratio=21:9": "1111:541"
+    },
+    "referenceWidthPx": 240,
+    "sizes": {
+      "Ratio=1:1": { "width": 240, "height": 240, "ratio": 1 },
+      "Ratio=4:3": { "width": 240, "height": 180, "ratio": 1.333 },
+      "Ratio=16:9": { "width": 240, "height": 135, "ratio": 1.778 },
+      "Ratio=3:2": { "width": 240, "height": 160, "ratio": 1.5 },
+      "Ratio=21:9": { "width": 240, "height": 103, "ratio": 2.333 }
+    },
+    "componentProperties": {
+      "Ratio": {
+        "type": "VARIANT",
+        "defaultValue": "1:1",
+        "variantOptions": ["1:1", "4:3", "16:9", "3:2", "21:9"],
+        "codeProp": "ratio",
+        "codeValues": {
+          "1:1": 1,
+          "4:3": 1.3333333333,
+          "16:9": 1.7777777778,
+          "3:2": 1.5,
+          "21:9": 2.3333333333
+        }
+      }
+    },
+    "layerNaming": {
+      "rule": "Single child `.image` rectangle with IMAGE fill (object-cover). No ratio label text.",
+      "template": [".image"]
+    },
+    "tokens": {
+      "fill": "uds/surface/secondary",
+      "stroke": "uds/color/neutrals/300",
+      "strokeWidth": "uds/border-width-1",
+      "radius": "uds/radius/8",
+      "imageScaleMode": "FILL"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/aspect-ratio.tsx",
+    "exports": ["AspectRatio", "AspectRatioImage", "ASPECT_RATIO_PRESETS", "ASPECT_RATIO_PLACEHOLDER_SRC"],
+    "placeholderSrc": "/showcase/aspect-ratio-placeholder.png",
+    "structure": {
+      "AspectRatio": "bordered shell — uds/surface/secondary, uds/border/primary, uds/radius/8",
+      "AspectRatioImage": ".image — absolute inset-0 object-cover img"
+    },
+    "notes": [
+      "Code uses continuous `ratio` number; Figma uses named Ratio variant presets.",
+      "Docs/demo width matches Figma reference frames at 240px."
+    ]
+  }
+}

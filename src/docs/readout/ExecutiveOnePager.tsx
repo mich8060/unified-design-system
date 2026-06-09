@@ -182,6 +182,7 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
         </div>
       </ReadoutDocSection>
 
+      {content.showcaseTiles && content.showcaseTiles.length > 0 ? (
       <ReadoutDocSection title="Showcase" lead={content.showcaseIntro}>
         <div className="flex flex-wrap gap-4 sm:gap-5 md:gap-5 lg:gap-6 [&>*]:min-w-0 [&>*]:flex-[1_1_240px]">
           {content.showcaseTiles.map((tile) => (
@@ -228,12 +229,28 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
           ))}
         </div>
       </ReadoutDocSection>
+      ) : null}
 
       <ReadoutDocSection title="Roadmap Status">
         <RoadmapStatusSection rows={roadmapRows} />
+        {content.roadmapEmbedUrl ? (
+          <div
+            className={cn(
+              docPagePanelClassName,
+              'mt-4 overflow-hidden p-0 sm:mt-5 print:hidden',
+            )}
+          >
+            <iframe
+              src={content.roadmapEmbedUrl}
+              title="Roadmap"
+              loading="lazy"
+              className="block h-[600px] w-full border-0"
+            />
+          </div>
+        ) : null}
       </ReadoutDocSection>
 
-      <RoadmapLinkedRisks />
+      <RoadmapLinkedRisks summary={content.roadmapDetailsSummary} />
 
       <ReadoutDocSection title="Next 30 Days">
         <div className="flex flex-wrap gap-4 md:gap-6 [&>*]:min-w-0 [&>*]:flex-[1_1_280px] md:[&>*]:flex-1">
@@ -247,31 +264,6 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
               </p>
             </div>
           ))}
-        </div>
-      </ReadoutDocSection>
-
-      <ReadoutDocSection title="Roadmap" className="print:hidden">
-        <div
-          className={cn(
-            docPagePanelClassName,
-            'relative overflow-hidden p-0',
-          )}
-        >
-          <div className="relative h-[min(42vh,420px)] min-h-[220px] sm:min-h-[280px] md:h-[min(50vh,480px)] lg:h-[min(560px,70vh)] lg:min-h-[320px]">
-            <iframe
-              src="/roadmap/index.html"
-              title="Design System Roadmap"
-              className="h-full w-full border-0"
-            />
-            <Link
-              href="/docs/roadmap"
-              showExternalIcon={false}
-              aria-label="Open full roadmap page"
-              className="absolute bottom-3 right-3 z-10 flex size-10 items-center justify-center rounded-[length:var(--uds-radius-4)] border border-neutral-200 bg-white text-[var(--uds-text-brand-primary)] shadow-lg transition-all duration-200 hover:border-[var(--uds-border-brand-primary)] hover:shadow-xl dark:border-neutral-700 dark:bg-neutral-900 sm:bottom-5 sm:right-5 sm:size-12"
-            >
-              <Icon name="ArrowUpRightIcon" size={20} weight="bold" aria-hidden />
-            </Link>
-          </div>
         </div>
       </ReadoutDocSection>
 
@@ -309,9 +301,11 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
         </ReadoutDocSection>
       </div>
 
-      <ReadoutDocSection title={content.accomplishmentsTitle}>
-        <ExecutiveBulletList items={content.accomplishments} />
-      </ReadoutDocSection>
+      {content.accomplishments && content.accomplishments.length > 0 ? (
+        <ReadoutDocSection title={content.accomplishmentsTitle}>
+          <ExecutiveBulletList items={content.accomplishments} />
+        </ReadoutDocSection>
+      ) : null}
 
       <ReadoutDocSection title="Reference">
         <div className="flex flex-wrap gap-3 sm:gap-4 [&>*]:min-w-0 [&>*]:flex-[1_1_280px]">

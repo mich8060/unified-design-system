@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System 2026 Roadmap</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: #f9fafb;
+      color: #0f172a;
+    }
+    .page-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      background: #202938;
+      color: #fff;
+      padding: 1.5rem;
+    }
+    .page-header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .page-header p {
+      margin: 0.25rem 0 0;
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.625;
+      opacity: 0.9;
+    }
+    .canvas-scroll {
+      position: fixed;
+      top: 100px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: auto;
+      background: #f9fafb;
+    }
+    .canvas {
+      position: relative;
+      width: 3000px;
+      min-height: 1504px;
+      background: transparent;
+    }
+    .timeline-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      height: 100px;
+      width: 3000px;
+      background: #f9fafc;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .quarter-label {
+      position: absolute;
+      top: 24px;
+      width: 600px;
+      margin: 0;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: #606060;
+    }
+    .month-label {
+      position: absolute;
+      top: 73px;
+      width: 200px;
+      margin: 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #606060;
+    }
+    .header-quarter-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .quarter-grid {
+      position: absolute;
+      top: 0;
+      border-right: 1px solid rgba(102, 102, 102, 0.4);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .month-line {
+      position: absolute;
+      top: 0;
+      width: 1px;
+      background: rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .week-line {
+      position: absolute;
+      top: 0;
+      width: 0;
+      border-right: 1px dashed #ccc;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .track {
+      position: absolute;
+      left: 0;
+      width: 3000px;
+      z-index: 5;
+    }
+    .resource-strip {
+      position: absolute;
+      left: 0;
+      width: 3000px;
+      background: rgba(186, 231, 254, 0.40);
+      pointer-events: none;
+      z-index: 12;
+    }
+    .capacity-callout {
+      position: fixed;
+      z-index: 35;
+      left: 24px;
+      bottom: 24px;
+      width: min(36rem, calc(100vw - 48px));
+      padding: 0.5rem 0.75rem;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.375rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+      color: #334155;
+    }
+    .capacity-title {
+      margin: 0;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      color: #1e293b;
+    }
+    .capacity-body {
+      margin: 0.125rem 0 0;
+      font-size: 0.75rem;
+      font-weight: 400;
+      line-height: 1.375;
+      color: #475569;
+    }
+    .event {
+      position: absolute;
+      z-index: 20;
+      transform: translateY(-50%);
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-left-width: 4px;
+      border-left-style: solid;
+      border-radius: 2px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+      padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .badge {
+      align-self: flex-start;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      padding: 2px 6px;
+      border-radius: 2px;
+      border: 1px solid transparent;
+    }
+    .badge-pending { background: #f1f5f9; color: #1e293b; border-color: rgba(226, 232, 240, 0.9); }
+    .badge-in-motion { background: #ccfbf1; color: #134e4a; border-color: rgba(153, 246, 228, 0.8); }
+    .badge-on-track { background: #d1fae5; color: #064e3b; border-color: rgba(167, 243, 208, 0.8); }
+    .badge-at-risk { background: #fef3c7; color: #451a03; border-color: rgba(253, 230, 138, 0.8); }
+    .badge-blocked { background: #fee2e2; color: #7f1d1d; border-color: rgba(254, 202, 202, 0.8); }
+    .badge-complete { background: #dbeafe; color: #1e3a8a; border-color: rgba(191, 219, 254, 0.8); }
+    .event-title {
+      margin: 0;
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.25;
+      color: #0f172a;
+    }
+    .event-desc {
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.25;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>Design System 2026 Roadmap</h1>
+    <p>Building the foundation for scalable, AI-enabled product development.</p>
+  </header>
+  <div class="canvas-scroll">
+    <div class="canvas">
+      <div class="timeline-header"><p class="quarter-label" style="left:0px">Q1</p>
+<p class="quarter-label" style="left:600px">Q2</p>
+<p class="quarter-label" style="left:1200px">Q3</p>
+<p class="quarter-label" style="left:1800px">Q4</p>
+<p class="quarter-label" style="left:2400px">Q1 2027</p><p class="month-label" style="left:0px">January</p>
+<p class="month-label" style="left:200px">February</p>
+<p class="month-label" style="left:400px">March</p>
+<p class="month-label" style="left:600px">April</p>
+<p class="month-label" style="left:800px">May</p>
+<p class="month-label" style="left:1000px">June</p>
+<p class="month-label" style="left:1200px">July</p>
+<p class="month-label" style="left:1400px">August</p>
+<p class="month-label" style="left:1600px">September</p>
+<p class="month-label" style="left:1800px">October</p>
+<p class="month-label" style="left:2000px">November</p>
+<p class="month-label" style="left:2200px">December</p>
+<p class="month-label" style="left:2400px">January</p>
+<p class="month-label" style="left:2600px">February</p>
+<p class="month-label" style="left:2800px">March</p><div class="header-quarter-divider" style="left:599px"></div>
+<div class="header-quarter-divider" style="left:1199px"></div>
+<div class="header-quarter-divider" style="left:1799px"></div>
+<div class="header-quarter-divider" style="left:2399px"></div>
+<div class="header-quarter-divider" style="left:2999px"></div></div>
+      <div class="quarter-grid" style="left:0px;width:600px;height:1504px"></div>
+<div class="week-line" style="left:50px;height:1504px"></div>
+<div class="week-line" style="left:100px;height:1504px"></div>
+<div class="week-line" style="left:150px;height:1504px"></div>
+<div class="month-line" style="left:200px;height:1504px"></div>
+<div class="week-line" style="left:250px;height:1504px"></div>
+<div class="week-line" style="left:300px;height:1504px"></div>
+<div class="week-line" style="left:350px;height:1504px"></div>
+<div class="month-line" style="left:400px;height:1504px"></div>
+<div class="week-line" style="left:440px;height:1504px"></div>
+<div class="week-line" style="left:480px;height:1504px"></div>
+<div class="week-line" style="left:520px;height:1504px"></div>
+<div class="week-line" style="left:560px;height:1504px"></div>
+<div class="quarter-grid" style="left:600px;width:600px;height:1504px"></div>
+<div class="week-line" style="left:650px;height:1504px"></div>
+<div class="week-line" style="left:700px;height:1504px"></div>
+<div class="week-line" style="left:750px;height:1504px"></div>
+<div class="month-line" style="left:800px;height:1504px"></div>
+<div class="week-line" style="left:850px;height:1504px"></div>
+<div class="week-line" style="left:900px;height:1504px"></div>
+<div class="week-line" style="left:950px;height:1504px"></div>
+<div class="month-line" style="left:1000px;height:1504px"></div>
+<div class="week-line" style="left:1050px;height:1504px"></div>
+<div class="week-line" style="left:1100px;height:1504px"></div>
+<div class="week-line" style="left:1150px;height:1504px"></div>
+<div class="quarter-grid" style="left:1200px;width:600px;height:1504px"></div>
+<div class="week-line" style="left:1240px;height:1504px"></div>
+<div class="week-line" style="left:1280px;height:1504px"></div>
+<div class="week-line" style="left:1320px;height:1504px"></div>
+<div class="week-line" style="left:1360px;height:1504px"></div>
+<div class="month-line" style="left:1400px;height:1504px"></div>
+<div class="week-line" style="left:1450px;height:1504px"></div>
+<div class="week-line" style="left:1500px;height:1504px"></div>
+<div class="week-line" style="left:1550px;height:1504px"></div>
+<div class="month-line" style="left:1600px;height:1504px"></div>
+<div class="week-line" style="left:1650px;height:1504px"></div>
+<div class="week-line" style="left:1700px;height:1504px"></div>
+<div class="week-line" style="left:1750px;height:1504px"></div>
+<div class="quarter-grid" style="left:1800px;width:600px;height:1504px"></div>
+<div class="week-line" style="left:1840px;height:1504px"></div>
+<div class="week-line" style="left:1880px;height:1504px"></div>
+<div class="week-line" style="left:1920px;height:1504px"></div>
+<div class="week-line" style="left:1960px;height:1504px"></div>
+<div class="month-line" style="left:2000px;height:1504px"></div>
+<div class="week-line" style="left:2050px;height:1504px"></div>
+<div class="week-line" style="left:2100px;height:1504px"></div>
+<div class="week-line" style="left:2150px;height:1504px"></div>
+<div class="month-line" style="left:2200px;height:1504px"></div>
+<div class="week-line" style="left:2250px;height:1504px"></div>
+<div class="week-line" style="left:2300px;height:1504px"></div>
+<div class="week-line" style="left:2350px;height:1504px"></div>
+<div class="quarter-grid" style="left:2400px;width:600px;height:1504px"></div>
+<div class="week-line" style="left:2450px;height:1504px"></div>
+<div class="week-line" style="left:2500px;height:1504px"></div>
+<div class="week-line" style="left:2550px;height:1504px"></div>
+<div class="month-line" style="left:2600px;height:1504px"></div>
+<div class="week-line" style="left:2650px;height:1504px"></div>
+<div class="week-line" style="left:2700px;height:1504px"></div>
+<div class="week-line" style="left:2750px;height:1504px"></div>
+<div class="month-line" style="left:2800px;height:1504px"></div>
+<div class="week-line" style="left:2840px;height:1504px"></div>
+<div class="week-line" style="left:2880px;height:1504px"></div>
+<div class="week-line" style="left:2920px;height:1504px"></div>
+<div class="week-line" style="left:2960px;height:1504px"></div>
+      <div class="track" style="top:116px;height:100px;background-color:transparent"></div>
+<div class="track" style="top:216px;height:100px;background-color:transparent"></div>
+<div class="track" style="top:316px;height:100px;background-color:transparent"></div>
+<div class="track" style="top:416px;height:100px;background-color:transparent"></div>
+<div class="track" style="top:516px;height:100px;background-color:transparent"></div>
+<div class="track" style="top:704px;height:100px;background-color:rgba(186, 231, 254, 0.40)"></div>
+<div class="track" style="top:804px;height:100px;background-color:rgba(186, 231, 254, 0.40)"></div>
+<div class="track" style="top:904px;height:100px;background-color:rgba(186, 231, 254, 0.40)"></div>
+<div class="track" style="top:1004px;height:100px;background-color:rgba(186, 231, 254, 0.40)"></div>
+<div class="track" style="top:1104px;height:100px;background-color:rgba(186, 231, 254, 0.40)"></div>
+<div class="track" style="top:1204px;height:100px;background-color:rgba(186, 231, 254, 0.40)"></div>
+<div class="track" style="top:1304px;height:100px;background-color:rgba(186, 231, 254, 0.40)"></div>
+<div class="track" style="top:1404px;height:100px;background-color:rgba(186, 231, 254, 0.40)"></div>
+      <div class="resource-strip" style="top:616px;height:88px"></div>
+      
+    <div class="event" style="left:440px;width:310px;top:166px;border-left-color:#2563eb">
+      <span class="badge badge-complete">Complete</span>
+      <h3 class="event-title">Design System to Code</h3>
+      <p class="event-desc">React Production Baseline</p>
+    </div>
+
+    <div class="event" style="left:750px;width:250px;top:266px;border-left-color:#2563eb">
+      <span class="badge badge-complete">Complete</span>
+      <h3 class="event-title">Documents AISquad</h3>
+      <p class="event-desc">Pilot: Design → React</p>
+    </div>
+
+    <div class="event" style="left:1000px;width:600px;top:754px;border-left-color:#64748b">
+      <span class="badge badge-pending">Pending</span>
+      <h3 class="event-title">Locumsmart</h3>
+      <p class="event-desc">End-to-End Tier Deployment</p>
+    </div>
+
+    <div class="event" style="left:1400px;width:1600px;top:854px;border-left-color:#64748b">
+      <span class="badge badge-pending">Pending</span>
+      <h3 class="event-title">Rollout Standardization</h3>
+      <p class="event-desc">System Usage Standards</p>
+    </div>
+
+    <div class="event" style="left:2400px;width:600px;top:166px;border-left-color:#64748b">
+      <span class="badge badge-pending">Pending</span>
+      <h3 class="event-title">Connect</h3>
+      <p class="event-desc">End-to-End Tier Deployment</p>
+    </div>
+
+    <div class="event" style="left:1200px;width:1800px;top:466px;border-left-color:#22c55e">
+      <span class="badge badge-on-track">On Track</span>
+      <h3 class="event-title">Establish Governance</h3>
+      <p class="event-desc">Establish clear contribution rules, UX validation gates, and cross-functional ownership</p>
+    </div>
+
+    <div class="event" style="left:1600px;width:1400px;top:266px;border-left-color:#64748b">
+      <span class="badge badge-pending">Pending</span>
+      <h3 class="event-title">Other Product System Adoption</h3>
+      <p class="event-desc">Implement Tiers 1 &amp; 2</p>
+    </div>
+
+    <div class="event" style="left:1000px;width:960px;top:954px;border-left-color:#eab308">
+      <span class="badge badge-at-risk">At Risk</span>
+      <h3 class="event-title">Complex Component Coverage</h3>
+      <p class="event-desc">Support advanced use cases, reduce custom UI.</p>
+    </div>
+
+    <div class="event" style="left:1600px;width:400px;top:1054px;border-left-color:#eab308">
+      <span class="badge badge-at-risk">At Risk</span>
+      <h3 class="event-title">Design System for Native</h3>
+      <p class="event-desc">Extend system to native platforms.</p>
+    </div>
+
+    <div class="event" style="left:1800px;width:400px;top:1154px;border-left-color:#eab308">
+      <span class="badge badge-at-risk">At Risk</span>
+      <h3 class="event-title">DS: Native to Code</h3>
+      <p class="event-desc">Translate components into native code.</p>
+    </div>
+
+    <div class="event" style="left:1400px;width:300px;top:1254px;border-left-color:#eab308">
+      <span class="badge badge-at-risk">At Risk</span>
+      <h3 class="event-title">DS: Graphs Extension</h3>
+      <p class="event-desc">Standardize data visualization patterns.</p>
+    </div>
+
+    <div class="event" style="left:1800px;width:400px;top:1354px;border-left-color:#64748b">
+      <span class="badge badge-pending">Pending</span>
+      <h3 class="event-title">DS: Accessibility</h3>
+      <p class="event-desc">Embed accessibility into components.</p>
+    </div>
+
+    <div class="event" style="left:2200px;width:400px;top:1454px;border-left-color:#22c55e">
+      <span class="badge badge-on-track">On Track</span>
+      <h3 class="event-title">DS: Analytics Standardization</h3>
+      <p class="event-desc">Standardize tracking across products.</p>
+    </div>
+
+    <div class="event" style="left:1000px;width:600px;top:366px;border-left-color:#64748b">
+      <span class="badge badge-pending">Pending</span>
+      <h3 class="event-title">Credentialing</h3>
+      <p class="event-desc">Ensuring the design system is ready for Credentialing workflows.</p>
+    </div>
+
+    <div class="event" style="left:600px;width:600px;top:566px;border-left-color:#0d9488">
+      <span class="badge badge-in-motion">In Motion</span>
+      <h3 class="event-title">Preparing UDS for AI Squads</h3>
+      <p class="event-desc">Preparing the UDS for AI Squads to take and start developing with.</p>
+    </div>
+    </div>
+  </div>
+  
+    <div class="capacity-callout">
+      <p class="capacity-title">Additional Capacity</p>
+      <p class="capacity-body">Light blue is stretch work we can't staff yet—not the same as Blocked on a card.</p>
+    </div>
+</body>
+</html>

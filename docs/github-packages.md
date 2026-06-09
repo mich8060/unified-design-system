@@ -71,6 +71,26 @@ Example import:
 import { AppShell, Menu, Button } from "@chghealthcare/unified-design-system"
 ```
 
+## Consumer setup — not shadcn init
+
+Installing UDS does **not** run an interactive setup wizard. A plain install is enough:
+
+```bash
+npm install @chghealthcare/unified-design-system react react-dom
+```
+
+If developers see **Table / Board / Roadmap**, **Select a template**, or similar prompts, that almost always means **`npx shadcn@latest init`** or **`npx shadcn@latest create`** was run (often by an AI agent or an app starter script) — not `npm install` of this package.
+
+**Recommended consumer flow:**
+
+1. Install the package (steps above).
+2. Import `@chghealthcare/unified-design-system/styles.css` once.
+3. Build the app with **`AppShell`**, **`Menu`**, and **`AppShell.Main`** — see [`setup.md`](../setup.md) and [`AI_USAGE.md`](../AI_USAGE.md).
+
+**Do not** use shadcn CLI scaffolding as the default way to adopt UDS. Consumer apps import from the package root; they do not need `components.json` or `npx shadcn init` unless your team deliberately uses a copy-into-repo registry workflow.
+
+For AI-assisted setup, point agents at [`setup.md`](../setup.md) and tell them **not** to run `shadcn init` / `shadcn create` when adding UDS to an existing app.
+
 ## Other distribution channels
 
 | Channel | Workflow / command | Registry |

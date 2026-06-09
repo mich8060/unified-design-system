@@ -6,6 +6,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
+  compareBrandSemanticEntries,
+  compareLayoutEntries,
+  compareResponsiveEntries,
+} from './lib/figma-variable-order.mjs'
+import {
   compareColorTokenEntries,
   compareCssTokenNames,
   compareTypeTokenEntries,
@@ -197,6 +202,7 @@ const buttonByBrand = {}
 const spacing = {}
 const radius = {}
 const gap = {}
+const blur = {}
 const lightCtx = {}
 const darkCtx = {}
 
@@ -232,6 +238,8 @@ for (const { selectors, vars } of blocks) {
       radius[name] = value
     } else if (name.startsWith('--uds-gap-') && isPx(value)) {
       gap[name] = value
+    } else if (name.startsWith('--uds-blur-') && isPx(value)) {
+      blur[name] = value
     }
   }
 }
@@ -248,6 +256,7 @@ const layoutTokenNames = new Set([
   ...Object.keys(spacing),
   ...Object.keys(radius),
   ...Object.keys(gap),
+  ...Object.keys(blur),
 ])
 
 const semanticKeys = new Set(
@@ -337,7 +346,7 @@ for (const name of Object.keys(lightCtx)) {
   if (desktop == null || tablet == null || mobile == null) continue
   responsiveType.push([name, mobile, tablet, desktop])
 }
-responsiveType.sort(compareTypeTokenEntries)
+responsiveType.sort(compareResponsiveEntries)
 
 // --- Group A extras: sizing, elevation (z-index), font family/weights, letter-spacing ---
 function remOrPxToPx(value) {
@@ -360,7 +369,7 @@ for (const name of Object.keys(lightCtx)) {
   const px = remOrPxToPx(lightCtx[name])
   if (px != null) sizing.push([name, px])
 }
-sizing.sort((a, b) => a[1] - b[1])
+sizing.sort(compareLayoutEntries)
 
 /** @type {[string, number][]} cssName, z-index */
 const elevation = []
@@ -369,7 +378,7 @@ for (const name of Object.keys(lightCtx)) {
   const n = Number(String(lightCtx[name]).trim())
   if (Number.isFinite(n)) elevation.push([name, n])
 }
-elevation.sort((a, b) => a[1] - b[1])
+elevation.sort(compareLayoutEntries)
 
 /** @type {{ family: string|null, weights: [string, number][] }} */
 const font = { family: null, weights: [] }
@@ -381,7 +390,7 @@ for (const name of Object.keys(lightCtx)) {
     if (Number.isFinite(n)) font.weights.push([name, n])
   }
 }
-font.weights.sort((a, b) => a[1] - b[1])
+font.weights.sort(compareLayoutEntries)
 
 /** @type {[string, number][]} cssBase, letter-spacing percent (em*100) */
 const letterSpacing = []
@@ -406,7 +415,7 @@ for (const mode of brandModes) {
   for (const k of Object.keys(brandByMode[mode])) allBrandKeys.add(k)
 }
 
-semanticColors.sort(compareColorTokenEntries)
+semanticColors.sort(compareBrandSemanticEntries)
 
 // Button component tokens: the subset of semanticColors under --uds-button-*.
 // Created in the Brand collection (base) with Light/Dark aliases.
@@ -443,9 +452,10 @@ for (const [brand, tokens] of Object.entries(buttonByBrand)) {
 const out = {
   systemColors: Object.entries(systemColors).sort(compareColorTokenEntries),
   brand: { modes: brandModes, keys: [...allBrandKeys].sort(compareCssTokenNames), byMode: brandByMode },
-  spacing: Object.entries(spacing).sort(([a], [b]) => a.localeCompare(b)),
-  radius: Object.entries(radius).sort(([a], [b]) => a.localeCompare(b)),
-  gap: Object.entries(gap).sort(([a], [b]) => a.localeCompare(b)),
+  spacing: Object.entries(spacing).sort(compareLayoutEntries),
+  radius: Object.entries(radius).sort(compareLayoutEntries),
+  gap: Object.entries(gap).sort(compareLayoutEntries),
+  blur: Object.entries(blur).sort(compareLayoutEntries),
   semanticColors,
   buttonTokens,
   buttonOverrides,

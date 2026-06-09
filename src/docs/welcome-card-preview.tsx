@@ -102,7 +102,7 @@ export function WelcomeCardPreview({ slug }: { slug: string }) {
                   ? 'flex w-full min-w-0 max-w-full justify-center'
                   : 'inline-flex w-max max-w-none',
               slug === 'aspect-ratio' &&
-                '[&_[data-slot=aspect-ratio]]:box-border [&_[data-slot=aspect-ratio]]:!w-[200px] [&_[data-slot=aspect-ratio]]:!h-[112.5px] [&_[data-slot=aspect-ratio]]:!border-0 [&_[data-slot=aspect-ratio]]:!bg-[repeating-linear-gradient(45deg,#ececf1_0px,#ececf1_12px,#dadbe2_12px,#dadbe2_24px)] [&_[data-slot=aspect-ratio]]:!translate-x-[-100px] [&_[data-slot=aspect-ratio]]:!translate-y-[-60px]',
+                '[&_[data-slot=aspect-ratio]]:box-border [&_[data-slot=aspect-ratio]]:w-[200px] [&_[data-slot=aspect-ratio-image]]:size-full [&_[data-slot=aspect-ratio-image]]:object-cover',
             )}
           >
             {previewInner}

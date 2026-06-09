@@ -403,7 +403,7 @@ export function YearGridMonthGrid(props: React.ComponentProps<typeof MonthGridPr
             <td
               key={m}
               className={cn(
-                "relative h-10 min-h-10 border border-border bg-card p-0 text-center align-middle select-none",
+                "relative h-10 min-h-10 border border-uds-border-primary bg-uds-surface-primary p-0 text-center align-middle select-none",
                 disabled && "pointer-events-none opacity-40"
               )}
             >
@@ -412,10 +412,10 @@ export function YearGridMonthGrid(props: React.ComponentProps<typeof MonthGridPr
                   type="button"
                   className={cn(
                     buttonVariants({ variant: "ghost" }),
-                    "size-full min-h-10 w-full rounded-none px-0 text-sm font-normal shadow-none",
+                    "size-full min-h-10 w-full rounded-none px-0 text-sm font-medium text-uds-text-secondary shadow-none",
                     isSelected &&
-                      "bg-[var(--uds-color-accent-sky-100)] font-medium text-foreground dark:bg-[var(--uds-color-accent-sky-900)]",
-                    isThisMonth && !isSelected && "font-semibold text-foreground"
+                      "bg-uds-surface-brand-primary text-uds-text-primary",
+                    isThisMonth && !isSelected && "font-medium text-uds-text-secondary"
                   )}
                   onClick={() => {
                     goToMonth(new Date(y, m, 1))
@@ -425,7 +425,7 @@ export function YearGridMonthGrid(props: React.ComponentProps<typeof MonthGridPr
                   {label}
                 </button>
               ) : (
-                <span className="flex size-full min-h-10 items-center justify-center text-sm text-muted-foreground">
+                <span className="flex size-full min-h-10 items-center justify-center text-sm text-uds-text-tertiary">
                   {label}
                 </span>
               )}
@@ -463,7 +463,7 @@ export function YearGridMonthGrid(props: React.ComponentProps<typeof MonthGridPr
           <td
             key={year}
             className={cn(
-              "relative h-10 min-h-10 border border-border bg-card p-0 text-center align-middle select-none",
+              "relative h-10 min-h-10 border border-uds-border-primary bg-uds-surface-primary p-0 text-center align-middle select-none",
               disabled && "pointer-events-none opacity-40"
             )}
           >
@@ -472,10 +472,10 @@ export function YearGridMonthGrid(props: React.ComponentProps<typeof MonthGridPr
                 type="button"
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
-                  "size-full min-h-10 w-full rounded-none px-0 text-sm font-normal shadow-none",
+                  "size-full min-h-10 w-full rounded-none px-0 text-sm font-medium text-uds-text-secondary shadow-none",
                   isCurrentSelection &&
-                    "bg-[var(--uds-color-accent-sky-100)] font-medium text-foreground dark:bg-[var(--uds-color-accent-sky-900)]",
-                  isThisYear && !isCurrentSelection && "font-semibold text-foreground"
+                    "bg-uds-surface-brand-primary text-uds-text-primary",
+                  isThisYear && !isCurrentSelection && "font-medium text-uds-text-secondary"
                 )}
                 onClick={() => {
                   goToMonth(new Date(year, anchorMonth, 1))
@@ -485,7 +485,7 @@ export function YearGridMonthGrid(props: React.ComponentProps<typeof MonthGridPr
                 {year}
               </button>
             ) : (
-              <span className="flex size-full min-h-10 items-center justify-center text-sm text-muted-foreground">
+              <span className="flex size-full min-h-10 items-center justify-center text-sm text-uds-text-tertiary">
                 {year}
               </span>
             )}
