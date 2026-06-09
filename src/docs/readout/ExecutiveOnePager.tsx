@@ -30,6 +30,7 @@ import {
 import { RoadmapLinkedRisks } from './RoadmapLinkedRisks'
 import { ReadoutDocSection } from './ReadoutDocSection'
 import type { ReadoutMonthContent } from './types'
+import { withBasePath } from '../base-path'
 
 const tableCellClass =
   'min-w-0 whitespace-normal break-words align-top px-2 py-2.5 text-sm leading-6 text-neutral-600 dark:text-neutral-300 sm:px-4 sm:py-4 md:px-6 md:py-5'
@@ -193,7 +194,7 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
               )}
             >
               <Link
-                href={tile.href}
+                href={withBasePath(tile.href)}
                 external={isExternalHref(tile.href)}
                 showExternalIcon={false}
                 className="group text-inherit no-underline hover:text-inherit"
@@ -201,7 +202,7 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
                 <Layout direction="col">
                   <div className="relative h-44 w-full shrink-0 overflow-hidden bg-neutral-100 dark:bg-neutral-800 sm:h-48 md:h-52 lg:h-56">
                     <img
-                      src={tile.img}
+                      src={withBasePath(tile.img)}
                       alt=""
                       className="h-full w-full object-cover object-top transition-transform duration-200 group-hover:scale-[1.02]"
                       loading="lazy"
@@ -259,12 +260,12 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
         >
           <div className="relative h-[min(42vh,420px)] min-h-[220px] sm:min-h-[280px] md:h-[min(50vh,480px)] lg:h-[min(560px,70vh)] lg:min-h-[320px]">
             <iframe
-              src="/roadmap/index.html"
+              src={withBasePath('/roadmap/index.html')}
               title="Design System Roadmap"
               className="h-full w-full border-0"
             />
             <Link
-              href="/docs/roadmap"
+              href={withBasePath('/docs/roadmap')}
               showExternalIcon={false}
               aria-label="Open full roadmap page"
               className="absolute bottom-3 right-3 z-10 flex size-10 items-center justify-center rounded-[length:var(--uds-radius-4)] border border-neutral-200 bg-white text-[var(--uds-text-brand-primary)] shadow-lg transition-all duration-200 hover:border-[var(--uds-border-brand-primary)] hover:shadow-xl dark:border-neutral-700 dark:bg-neutral-900 sm:bottom-5 sm:right-5 sm:size-12"
@@ -337,7 +338,7 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
             )}
           >
             <Link
-              href="/docs/introduction"
+              href={withBasePath('/docs/introduction')}
               showExternalIcon={false}
               className="flex w-full p-4 text-sm font-semibold text-neutral-900 no-underline hover:text-[var(--uds-text-link-primary-hover)] dark:text-neutral-100 sm:p-5 md:p-6"
             >

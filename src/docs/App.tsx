@@ -24,6 +24,7 @@ import { applyDocsBrandToDocument, DOCS_SITE_DEFAULT_BRAND } from './doc-site-br
 import { buildDocsMenuUtilities } from './docs-menu-utilities'
 import { LATEST_READOUT_ROUTE } from './readout/readout-months'
 import { DOCS_SITE_PACKAGE_VERSION } from './doc-site-version'
+import { docsRouterBasename } from './base-path'
 import {
   DocsVersionProvider,
   DocsVersionRouteGuard,
@@ -301,7 +302,7 @@ export default function DocsApp() {
     <IconContext.Provider value={{ weight: 'bold', mirrored: false }}>
       <TooltipProvider>
         <Toaster />
-        <BrowserRouter>
+        <BrowserRouter basename={docsRouterBasename}>
           <DocsVersionProvider key={DOCS_SITE_PACKAGE_VERSION}>
             <DocsGlobalDefaultBrand />
             <DocWindowScrollRestoration />

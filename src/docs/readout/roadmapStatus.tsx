@@ -6,6 +6,7 @@ import {
   type BadgeAccent,
 } from "@chghealthcare/unified-design-system";
 import { udsLinkClass } from "./uds-link";
+import { withBasePath } from "../base-path";
 
 const statusBadgeConfig: Record<
   string,
@@ -67,7 +68,7 @@ export const roadmapStatusRows: RoadmapStatusRow[] = [
     outcome: (
       <>
         Teams can build directly from DS React components.{" "}
-        <Link href="/docs/introduction" className={udsLinkClass}>
+        <Link href={withBasePath("/docs/introduction")} className={udsLinkClass}>
           Documentation
         </Link>
       </>

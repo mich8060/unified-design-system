@@ -10,8 +10,9 @@ import {
   isRoadmapDocsHostMessage,
   postRoadmapExpandedState,
 } from './roadmap-docs-bridge'
+import { withBasePath } from '../base-path'
 
-const ROADMAP_EMBED_SRC = '/roadmap/index.html'
+const ROADMAP_EMBED_SRC = withBasePath('/roadmap/index.html')
 
 function resetDocsMainScrollTop() {
   const el = document.querySelector('[data-slot="appshell"] .appshell--main')

@@ -8,7 +8,13 @@ import tailwindcss from '@tailwindcss/vite'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8')) as { version: string }
 
-export default defineConfig({
+// GitHub Pages serves project sites from a repo subpath
+// (e.g. https://<org>.github.io/unified-design-system/). Set the base only for
+// production builds so local `vite dev`/`preview` keep serving from root.
+const GITHUB_PAGES_BASE = '/unified-design-system/'
+
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? GITHUB_PAGES_BASE : '/',
   define: {
     __DOCS_VERSION__: JSON.stringify(pkg.version),
   },
@@ -35,4 +41,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))
