@@ -3,7 +3,8 @@
   "pageName": "UDS Components",
   "rulesDoc": "figma.component.rules.md",
   "buildScript": "node scripts/figma-generate-component-build.mjs <slug> --write",
-  "lastInventoryAt": "2026-05-29",
+  "lastInventoryAt": "2026-06-03",
+  "figmaCalendarSnapshot": "ai/figma-calendar.snapshot.json",
   "inFigma": {
     "Button": {
       "nodeId": "554:268",
@@ -124,6 +125,18 @@
     "Medallion": {
       "nodeId": "754:436",
       "slug": "medallion"
+    },
+    ".calendar-day": {
+      "nodeId": "1186:575",
+      "slug": "calendar-day"
+    },
+    "Calendar": {
+      "nodeId": "1188:807",
+      "slug": "calendar"
+    },
+    ".calendar-month": {
+      "nodeId": "1188:639",
+      "slug": "calendar"
     }
   },
   "statusBySlug": {
@@ -143,8 +156,9 @@
       "nodeId": "765:344"
     },
     "aspect-ratio": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "AspectRatio",
+      "nodeId": "1111:543"
     },
     "avatar": {
       "status": "in-figma",
@@ -175,8 +189,15 @@
       "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
     },
     "calendar": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Calendar",
+      "nodeId": "1188:807",
+      "note": "Composite with .calendar-day (1186:575) and .calendar-month (1188:639). Snapshot: ai/figma-calendar.snapshot.json"
+    },
+    "calendar-day": {
+      "status": "in-figma",
+      "figmaName": ".calendar-day",
+      "nodeId": "1186:575"
     },
     "card": {
       "status": "in-figma",

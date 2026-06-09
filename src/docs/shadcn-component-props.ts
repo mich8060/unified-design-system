@@ -93,7 +93,17 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     MORE,
   ],
   'aspect-ratio': [
-    r('ratio', 'number', 'Width / height ratio (e.g. 16/9).'),
+    r(
+      'ratio',
+      'number',
+      'Width / height ratio. Figma presets: ASPECT_RATIO_PRESETS (1:1, 4:3, 16:9, 3:2, 21:9).',
+    ),
+    r(
+      'AspectRatioImage.src',
+      'string',
+      'Image URL. Defaults to /showcase/aspect-ratio-placeholder.png; pass your own asset path or URL.',
+    ),
+    r('AspectRatioImage.alt', 'string', 'Accessible description for the image.'),
     CN,
     MORE,
   ],

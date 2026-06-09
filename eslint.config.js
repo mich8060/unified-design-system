@@ -32,10 +32,4 @@ export default defineConfig([
       'react-refresh/only-export-components': 'off',
     },
   },
-  {
-    files: ['roadmap-embed/**/*.{ts,tsx}'],
-    rules: {
-      'react-refresh/only-export-components': 'off',
-    },
-  },
 ])

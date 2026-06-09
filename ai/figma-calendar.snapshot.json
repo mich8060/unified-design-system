@@ -1,0 +1,297 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-03",
+  "nodes": {
+    "Calendar": {
+      "nodeId": "1188:807",
+      "name": "Calendar",
+      "x": 3302,
+      "y": 572
+    },
+    ".calendar-day": {
+      "nodeId": "1186:575",
+      "name": ".calendar-day",
+      "x": 4032,
+      "y": 234,
+      "width": 520,
+      "height": 232
+    },
+    ".calendar-month": {
+      "nodeId": "1188:639",
+      "name": ".calendar-month",
+      "x": 3668,
+      "y": 240,
+      "width": 320,
+      "height": 272
+    }
+  },
+  "layerNaming": {
+    "rule": "Child layers: leading period, lowercase, dash-separated words (e.g. .header, .nav-prev, .week-1, .day-15, .label).",
+    "monthTemplate": [
+      ".header",
+      ".nav-prev",
+      ".icon",
+      ".caption",
+      ".nav-next",
+      ".weekdays",
+      ".wd-0",
+      ".week-1",
+      ".day-1"
+    ]
+  },
+  "Calendar": {
+    "nodeId": "1188:807",
+    "variants": {
+      "single": [
+        "Mode=Single, Month=January",
+        "Mode=Single, Month=February",
+        "Mode=Single, Month=March",
+        "Mode=Single, Month=April",
+        "Mode=Single, Month=May",
+        "Mode=Single, Month=June",
+        "Mode=Single, Month=July",
+        "Mode=Single, Month=August",
+        "Mode=Single, Month=September",
+        "Mode=Single, Month=October",
+        "Mode=Single, Month=November",
+        "Mode=Single, Month=December"
+      ],
+      "range": [
+        "Mode=Range, Month=January",
+        "Mode=Range, Month=February",
+        "Mode=Range, Month=March",
+        "Mode=Range, Month=April",
+        "Mode=Range, Month=May",
+        "Mode=Range, Month=June",
+        "Mode=Range, Month=July",
+        "Mode=Range, Month=August",
+        "Mode=Range, Month=September",
+        "Mode=Range, Month=October",
+        "Mode=Range, Month=November",
+        "Mode=Range, Month=December"
+      ]
+    },
+    "variantCount": 24,
+    "sizes": {
+      "Mode=Single": { "width": 320, "height": 272 },
+      "Mode=Range": { "width": 672, "height": 272 }
+    },
+    "componentProperties": {
+      "Mode": {
+        "type": "VARIANT",
+        "defaultValue": "Single",
+        "variantOptions": ["Single", "Range"],
+        "codeProp": "mode"
+      },
+      "Month": {
+        "type": "VARIANT",
+        "defaultValue": "January",
+        "variantOptions": [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
+        ],
+        "codeProp": "month"
+      }
+    },
+    "exposedInstances": {
+      "Mode=Single": [".calendar-month"],
+      "Mode=Range": [".calendar-month", ".calendar-month-2"],
+      "nestedFromCalendarMonth": ["Icon (nav-prev)", "Icon (nav-next)", "Caption#1247:0"]
+    },
+    "tokens": {
+      "fill": "uds/surface/primary",
+      "stroke": "uds/border/primary",
+      "radiusMode=Single": "uds/radius/8",
+      "radiusMode=Range": {
+        "shell": "months wrapper — uds/radius/8 + border around both months",
+        "monthInstances": 0
+      },
+      "rangeGap": "uds/gap/32"
+    },
+    "nav": {
+      "iconComponent": "Icon",
+      "iconSize": "Size=16",
+      "prevGlyph": { "componentSet": "CaretLeft", "weight": "Regular" },
+      "nextGlyph": { "componentSet": "CaretRight", "weight": "Regular" }
+    },
+    "subComponents": {
+      ".calendar-month": "1188:639",
+      ".calendar-day": "1186:575"
+    }
+  },
+  ".calendar-day": {
+    "nodeId": "1186:575",
+    "cellSizePx": 40,
+    "componentProperties": {
+      "Day#1180:0": {
+        "type": "TEXT",
+        "defaultValue": "10",
+        "codeProp": "dayLabel",
+        "note": "Visible day number per cell. Set to empty string for Blank padding cells. Must be updated per grid position when building month variants."
+      }
+    },
+    "variants": [
+      "State=Default",
+      "State=Selected",
+      "State=Today",
+      "State=Disabled",
+      "State=Outside",
+      "State=Range start",
+      "State=Range middle",
+      "State=Range end",
+      "State=Blank"
+    ],
+    "stateTokens": {
+      "Default": {
+        "fill": "uds/surface/primary",
+        "label": "uds/text/secondary",
+        "stroke": "uds/border/primary",
+        "textStyle": "Body/14/Medium"
+      },
+      "Selected": {
+        "fill": "uds/surface/brand/primary",
+        "label": "uds/text/primary",
+        "stroke": "uds/border/primary",
+        "textStyle": "Body/14/Medium"
+      },
+      "Today": {
+        "fill": "uds/surface/primary",
+        "label": "uds/text/secondary",
+        "stroke": "uds/border/primary",
+        "textStyle": "Body/14/Medium"
+      },
+      "Disabled": {
+        "fill": "uds/surface/primary",
+        "label": "uds/text/disabled",
+        "stroke": "uds/border/primary",
+        "textStyle": "Body/14/Medium"
+      },
+      "Outside": {
+        "fill": "uds/surface/tertiary",
+        "label": "uds/text/primary",
+        "labelOpacity": 0,
+        "stroke": "uds/border/primary",
+        "textStyle": "Body/14/Medium"
+      },
+      "Range start": {
+        "fill": "uds/surface/brand/primary",
+        "label": "uds/text/primary",
+        "stroke": "uds/border/primary",
+        "textStyle": "Body/14/Medium"
+      },
+      "Range middle": {
+        "fill": "uds/surface/brand/primary",
+        "label": "uds/text/primary",
+        "stroke": "uds/border/primary",
+        "textStyle": "Body/14/Medium"
+      },
+      "Range end": {
+        "fill": "uds/surface/brand/primary",
+        "label": "uds/text/primary",
+        "stroke": "uds/border/primary",
+        "textStyle": "Body/14/Medium"
+      },
+      "Blank": {
+        "fill": "uds/surface/primary",
+        "label": "",
+        "labelOpacity": 0,
+        "stroke": "uds/border/primary",
+        "textStyle": "Body/14/Medium"
+      }
+    },
+    "codeModifierMap": {
+      "Default": null,
+      "Selected": "selected (single)",
+      "Today": "today",
+      "Disabled": "disabled",
+      "Outside": "outside",
+      "Range start": "range_start",
+      "Range middle": "range_middle",
+      "Range end": "range_end",
+      "Blank": "padding cell (Figma-only; code uses empty/hidden grid slots)"
+    }
+  },
+  ".calendar-month": {
+    "nodeId": "1188:639",
+    "fill": "uds/surface/primary",
+    "cornerRadius": "uds/radius/8",
+    "componentProperties": {
+      "Caption#1247:0": { "type": "TEXT", "defaultValue": "June 2026" }
+    },
+    "typography": {
+      "caption": { "textStyle": "Body/14/Semibold", "fill": "uds/text/primary" },
+      "weekday": { "textStyle": "Body/12/Regular", "fill": "uds/text/tertiary" }
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/calendar.tsx",
+      "shell": {
+      "singleWidthPx": 320,
+      "rangeWidthPx": 672,
+      "rangeGapToken": "--uds-gap-32",
+      "radiusToken": "--uds-radius-8",
+      "singleShell": "month wrapper border + radius",
+      "rangeShell": "months wrapper border + radius (both months inside)",
+      "surface": "bg-uds-surface-primary",
+      "border": "border-uds-border-primary"
+    },
+    "dayCell": {
+      "sizeToken": "--cell-size: 2.5rem (40px)",
+      "defaultLabel": "font-medium text-uds-text-secondary",
+      "todayLabel": "font-medium text-uds-text-secondary",
+      "selectedFill": "bg-uds-surface-brand-primary text-uds-text-primary",
+      "rangeFill": "bg-uds-surface-brand-primary text-uds-text-primary (start/middle/end, rounded-none)",
+      "outsideFill": "bg-uds-surface-tertiary (hidden label)",
+      "disabledLabel": "text-uds-text-disabled",
+      "gridBorder": "border border-uds-border-primary on day (td) and weekday (th) — not table descendant selectors"
+    }
+  },
+  "demo": {
+    "singleMonthNote": "Mode=Single × Month=January..December: one exposed .calendar-month each. 2026 grid: set Day#1180:0 label + State per cell index (42 cells, Sun-start). Demo: Today on 3, Range start on 10 when in month.",
+    "rangeMonthNote": "Mode=Range × Month=January..December: left month + next month (Dec→Jan 2027). Each cell: Day#1180:0 + State. Left demo: Today 3, Range start 10. Right demo: Today 3, Range 10–12.",
+    "Mode=Single, Month=June": {
+      "instance": ".calendar-month",
+      "caption": "June 2026",
+      "days": {
+        ".week-1": { ".day-31": "Blank", ".day-1": "Default", ".day-2": "Default", ".day-3": "Today", ".day-4": "Default", ".day-5": "Default", ".day-6": "Default" },
+        ".week-2": { ".day-7": "Default", ".day-8": "Default", ".day-9": "Default", ".day-10": "Range start", ".day-11": "Default", ".day-12": "Default", ".day-13": "Default" },
+        ".week-5": { ".day-28": "Default", ".day-29": "Default", ".day-30": "Default", ".day-1": "Blank", ".day-2": "Blank", ".day-3": "Blank", ".day-4": "Blank" }
+      }
+    },
+    "Mode=Range, Month=June": {
+      "left": {
+        "instance": ".calendar-month",
+        "caption": "June 2026",
+        "days": {
+          ".week-1": { ".day-31": "Blank", ".day-1": "Default", ".day-2": "Default", ".day-3": "Today", ".day-4": "Default", ".day-5": "Default", ".day-6": "Default" },
+          ".week-2": { ".day-10": "Range start" }
+        }
+      },
+      "right": {
+        "instance": ".calendar-month-2",
+        "caption": "July 2026",
+        "days": {
+          ".week-1": { ".day-3": "Default", ".day-5": "Today" },
+          ".week-2": { ".day-12": "Range start", ".day-13": "Range middle" },
+          ".week-3": { ".day-14": "Range end" },
+          ".week-5": { ".day-1": "Default", ".day-2": "Default", ".day-3": "Default", ".day-4": "Blank" }
+        }
+      }
+    },
+    "Mode=Range, Month=December": {
+      "left": { "instance": ".calendar-month", "caption": "December 2026" },
+      "right": { "instance": ".calendar-month-2", "caption": "January 2027" }
+    }
+  }
+}

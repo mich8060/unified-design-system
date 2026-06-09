@@ -1,6 +1,5 @@
 import {
   HeartbeatIcon,
-  MapTrifoldIcon,
   RocketLaunchIcon,
   type MenuUtilityItem,
 } from '@chghealthcare/unified-design-system'
@@ -20,12 +19,6 @@ export function buildDocsMenuUtilities(navigate: (path: string) => void): MenuUt
       label: 'Releases',
       icon: RocketLaunchIcon,
       onSelect: () => navigate(DOCS_UTILITY_NAV_ROUTES.releases),
-    },
-    {
-      id: 'roadmap',
-      label: 'Roadmap',
-      icon: MapTrifoldIcon,
-      onSelect: () => navigate(DOCS_UTILITY_NAV_ROUTES.roadmap),
     },
   ]
 }

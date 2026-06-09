@@ -27,13 +27,17 @@ export type ReadoutValueRow = {
 export type ReadoutMonthContent = {
   callout: string
   progressItems: ReadoutProgressItem[]
-  showcaseIntro: string
-  showcaseTiles: ReadoutShowcaseTile[]
+  showcaseIntro?: string
+  showcaseTiles?: ReadoutShowcaseTile[]
   roadmapRows?: RoadmapStatusRow[]
+  /** Optional roadmap embedded as an iframe under the Roadmap Status table */
+  roadmapEmbedUrl?: string
+  /** Condensed Details copy for months where full risk detail was already reported */
+  roadmapDetailsSummary?: ReactNode
   next30Cards: ReadoutNext30Card[]
   valueSnapshot: ReadoutValueRow[]
-  accomplishmentsTitle: string
-  accomplishments: readonly string[]
+  accomplishmentsTitle?: string
+  accomplishments?: readonly string[]
 }
 
 export type ReadoutMonthId = '2026-05' | '2026-06'

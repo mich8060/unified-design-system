@@ -42,7 +42,6 @@ import { WelcomeCardPreview } from '../welcome-card-preview'
 import { CodePanel } from '../components/CodePanel'
 import { DocShellLayoutVisuals } from './DocShellLayoutVisuals'
 import { ReadoutPage } from '../readout/ReadoutPage'
-import { RoadmapPage } from '../roadmap/RoadmapPage'
 import { MarkdownishPage } from './MarkdownishPage'
 
 const WELCOME_CARD_EXCLUDED_SLUGS = new Set(['header', 'footer'])
@@ -938,10 +937,6 @@ export function ProjectReleasesPage() {
       </p>
     </MarkdownishPage>
   )
-}
-
-export function ProjectRoadmapPage() {
-  return <RoadmapPage />
 }
 
 export function PatternsDashboardPage() {

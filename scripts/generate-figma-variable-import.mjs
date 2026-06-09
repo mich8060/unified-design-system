@@ -10,10 +10,16 @@
  * node scripts/generate-figma-variable-import.mjs semantic-layout-merge
  * node scripts/generate-figma-variable-import.mjs typography-line-height
  * node scripts/generate-figma-variable-import.mjs migrate-responsive-type
+ * node scripts/apply-figma-variable-scopes.mjs  (re-apply scopes only; run via use_figma)
+ *
+ * Variable scopes and collection order: scripts/lib/figma-variable-scopes.snippet.js,
+ * scripts/lib/figma-variable-order.mjs (keep aligned with the Figma UDS Tokens file).
  */
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { FIGMA_SCOPES_SNIPPET } from './lib/figma-variable-scopes.mjs'
+import { compareBrandSemanticEntries, compareLayoutEntries, RESPONSIVE_MODE_ORDER } from './lib/figma-variable-order.mjs'
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 const data = JSON.parse(fs.readFileSync(path.join(root, '.tmp/figma-tokens.json'), 'utf8'))
@@ -31,6 +37,7 @@ const defaultEnd =
 const end = Number(endArg ?? defaultEnd)
 
 const HELPERS = `
+${FIGMA_SCOPES_SNIPPET}
 function parseColor(input) {
   const hex = input.match(/^#([0-9a-f]{3,8})$/i);
   if (hex) {
@@ -111,7 +118,7 @@ async function upsertColorVar(coll, modeId, cssName, hex) {
     (v) => v.variableCollectionId === coll.id && v.name === name,
   );
   const v = existing ?? figma.variables.createVariable(name, coll, 'COLOR');
-  v.scopes = ['FRAME_FILL', 'SHAPE_FILL', 'STROKE_COLOR'];
+  v.scopes = scopesForFigmaVariable(name, 'COLOR', coll.name);
   v.setValueForMode(modeId, color);
   v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
   return v.id;
@@ -125,9 +132,7 @@ async function upsertFloatVar(coll, modeId, cssName, pxValue) {
     (v) => v.variableCollectionId === coll.id && v.name === name,
   );
   const v = existing ?? figma.variables.createVariable(name, coll, 'FLOAT');
-  if (cssName.includes('radius')) v.scopes = ['CORNER_RADIUS'];
-  else if (cssName.includes('gap') || cssName.includes('spacing')) v.scopes = ['GAP'];
-  else v.scopes = ['WIDTH_HEIGHT'];
+  v.scopes = scopesForFigmaVariable(name, 'FLOAT', coll.name);
   v.setValueForMode(modeId, num);
   v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
   return v.id;
@@ -369,7 +374,7 @@ return {
 }
 
 function emitBrandSemantic() {
-  const slice = data.semanticColors.slice(start, end)
+  const slice = data.semanticColors.slice(start, end).sort(compareBrandSemanticEntries)
   const wipeFirst = start === 0
   return `${HELPERS}
 const PAGE = await ensurePage('UDS Tokens');
@@ -434,7 +439,7 @@ for (const [cssName, lightSystemRef, darkSystemRef, lightBrandRef, darkBrandRef,
   const [lightKind, lightTarget] = pickTarget(lightSystemRef, lightBrandRef);
   const [darkKind, darkTarget] = pickTarget(darkSystemRef, darkBrandRef);
   const v = figma.variables.createVariable(name, base, 'COLOR');
-  v.scopes = ['FRAME_FILL', 'SHAPE_FILL', 'STROKE_COLOR', 'TEXT_FILL'];
+  v.scopes = scopesForFigmaVariable(name, 'COLOR', base.name);
   const rLight = setColorModeValue(v, lightId, lightTarget, lightHex);
   const rDark = setColorModeValue(v, darkId, darkTarget, darkHex);
   if (!rLight || !rDark) {
@@ -515,7 +520,7 @@ let unresolved = 0;
 for (const [cssName, lightSystemRef, darkSystemRef, lightBrandRef, darkBrandRef, lightHex, darkHex] of TOKENS) {
   const name = tokenPath(cssName);
   const v = figma.variables.createVariable(name, base, 'COLOR');
-  v.scopes = ['FRAME_FILL', 'SHAPE_FILL', 'STROKE_COLOR', 'TEXT_FILL'];
+  v.scopes = scopesForFigmaVariable(name, 'COLOR', base.name);
   const rl = setColorModeValue(v, lightId, pickTarget(lightSystemRef, lightBrandRef), lightHex);
   const rd = setColorModeValue(v, darkId, pickTarget(darkSystemRef, darkBrandRef), darkHex);
   if (!rl || !rd) { v.remove(); unresolved++; continue; }
@@ -571,18 +576,49 @@ return { deleted: true, removedVariables: removed, remaining };
 }
 
 function emitLayout() {
-  const spacing = data.spacing
-  const radius = data.radius
-  const gap = data.gap
+  const layoutFloats = [
+    ...data.spacing,
+    ...data.radius,
+    ...data.gap,
+    ...(data.blur || []),
+    ...data.semanticFloats,
+    ...data.sizing,
+    ...data.elevation,
+  ].sort(compareLayoutEntries)
+  const font = data.font || { family: null, weights: [] }
   return `${HELPERS}
 const PAGE = await ensurePage('UDS Tokens');
 const { coll, modeIds } = await ensureColorCollection('Layout', ['Value']);
 const modeId = modeIds.Value;
-const entries = ${JSON.stringify([...spacing, ...radius, ...gap])};
+const floatEntries = ${JSON.stringify(layoutFloats)};
 const created = [];
-for (const [cssName, px] of entries) {
+for (const [cssName, px] of floatEntries) {
   const id = await upsertFloatVar(coll, modeId, cssName, px);
   if (id) created.push(id);
+}
+const family = ${JSON.stringify(font.family)};
+const weights = ${JSON.stringify(font.weights)};
+if (family) {
+  const name = 'uds/font/family';
+  const existing = (await figma.variables.getLocalVariablesAsync('STRING')).find(
+    (v) => v.variableCollectionId === coll.id && v.name === name,
+  );
+  const v = existing ?? figma.variables.createVariable(name, coll, 'STRING');
+  v.scopes = scopesForFigmaVariable(name, 'STRING', coll.name);
+  v.setValueForMode(modeId, family);
+  v.setVariableCodeSyntax('WEB', 'var(--uds-font-family)');
+  created.push(name);
+}
+for (const [cssName, weight] of weights) {
+  const name = tokenPath(cssName);
+  const existing = (await figma.variables.getLocalVariablesAsync('FLOAT')).find(
+    (v) => v.variableCollectionId === coll.id && v.name === name,
+  );
+  const v = existing ?? figma.variables.createVariable(name, coll, 'FLOAT');
+  v.scopes = scopesForFigmaVariable(name, 'FLOAT', coll.name);
+  v.setValueForMode(modeId, weight);
+  v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
+  created.push(name);
 }
 return { pageId: PAGE.id, collectionId: coll.id, createdCount: created.length };
 `
@@ -622,7 +658,7 @@ const result = {};
       (v) => v.variableCollectionId === coll.id && v.name === name,
     );
     const v = existing ?? figma.variables.createVariable(name, coll, 'FLOAT');
-    v.scopes = [];
+    v.scopes = scopesForFigmaVariable(name, 'FLOAT', coll.name);
     v.setValueForMode(modeId, num);
     v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
     n++;
@@ -643,7 +679,7 @@ const result = {};
       (v) => v.variableCollectionId === coll.id && v.name === name,
     );
     const v = existing ?? figma.variables.createVariable(name, coll, 'STRING');
-    v.scopes = ['FONT_FAMILY'];
+    v.scopes = scopesForFigmaVariable(name, 'STRING', coll.name);
     v.setValueForMode(modeId, family);
     v.setVariableCodeSyntax('WEB', 'var(--uds-font-family)');
     n++;
@@ -654,7 +690,7 @@ const result = {};
       (v) => v.variableCollectionId === coll.id && v.name === name,
     );
     const v = existing ?? figma.variables.createVariable(name, coll, 'FLOAT');
-    v.scopes = ['FONT_WEIGHT'];
+    v.scopes = scopesForFigmaVariable(name, 'FLOAT', coll.name);
     v.setValueForMode(modeId, weight);
     v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
     n++;
@@ -674,7 +710,7 @@ const result = {};
       (v) => v.variableCollectionId === coll.id && v.name === name,
     );
     const v = existing ?? figma.variables.createVariable(name, coll, 'FLOAT');
-    v.scopes = ['LETTER_SPACING'];
+    v.scopes = scopesForFigmaVariable(name, 'FLOAT', coll.name);
     v.setValueForMode(modeId, percent);
     v.setVariableCodeSyntax('WEB', 'var(' + cssBase + '-letter-spacing)');
     n++;
@@ -729,7 +765,7 @@ for (const [cssName, lightSystemRef, darkSystemRef, , , lightHex, darkHex] of en
     (v) => v.variableCollectionId === coll.id && v.name === name,
   );
   const v = existing ?? figma.variables.createVariable(name, coll, 'COLOR');
-  v.scopes = ['FRAME_FILL', 'SHAPE_FILL', 'STROKE_COLOR', 'TEXT_FILL'];
+  v.scopes = scopesForFigmaVariable(name, 'COLOR', base.name);
   const rLight = setColorModeValue(v, lightId, lightTarget, lightHex);
   const rDark = setColorModeValue(v, darkId, darkTarget, darkHex);
   if (!rLight || !rDark) continue;
@@ -765,13 +801,7 @@ async function upsertSemanticFloatVar(coll, modeId, cssName, pxValue) {
     (v) => v.variableCollectionId === coll.id && v.name === name,
   );
   const v = existing ?? figma.variables.createVariable(name, coll, 'FLOAT');
-  if (cssName.includes('border-width') || cssName.includes('focus-ring')) {
-    v.scopes = ['STROKE_FLOAT'];
-  } else if (cssName.includes('gap') || cssName.includes('spacing') || cssName.includes('line')) {
-    v.scopes = ['GAP'];
-  } else {
-    v.scopes = ['WIDTH_HEIGHT'];
-  }
+  v.scopes = scopesForFigmaVariable(name, 'FLOAT', coll.name);
   v.setValueForMode(modeId, num);
   v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
   return v.id;
@@ -818,11 +848,7 @@ async function upsertLayoutFloatVar(coll, modeId, name, num, cssName) {
     (v) => v.variableCollectionId === coll.id && v.name === name,
   );
   const v = existing ?? figma.variables.createVariable(name, coll, 'FLOAT');
-  if (cssName && cssName.includes('border-width')) v.scopes = ['STROKE_FLOAT'];
-  else if (cssName && (cssName.includes('gap') || cssName.includes('spacing') || cssName.includes('line'))) {
-    v.scopes = ['GAP'];
-  } else if (cssName && cssName.includes('radius')) v.scopes = ['CORNER_RADIUS'];
-  else v.scopes = ['WIDTH_HEIGHT'];
+  v.scopes = scopesForFigmaVariable(name, 'FLOAT', coll.name);
   v.setValueForMode(modeId, num);
   if (cssName) v.setVariableCodeSyntax('WEB', 'var(' + cssName + ')');
   return v.id;
@@ -934,7 +960,7 @@ return {
 }
 
 function emitReorderSemanticColors() {
-  const entries = data.semanticColors.slice(start, end)
+  const entries = data.semanticColors.slice(start, end).sort(compareBrandSemanticEntries)
   const deleteBlock =
     start === 0
       ? `
@@ -981,7 +1007,7 @@ for (const [cssName, lightSystemRef, darkSystemRef, , , lightHex, darkHex] of en
   const lightTarget = lightSystemRef ? systemVarByPath.get(tokenPath(lightSystemRef)) : null;
   const darkTarget = darkSystemRef ? systemVarByPath.get(tokenPath(darkSystemRef)) : null;
   const v = figma.variables.createVariable(name, coll, 'COLOR');
-  v.scopes = ['FRAME_FILL', 'SHAPE_FILL', 'STROKE_COLOR', 'TEXT_FILL'];
+  v.scopes = scopesForFigmaVariable(name, 'COLOR', base.name);
   const rLight = setColorModeValue(v, lightId, lightTarget, lightHex);
   const rDark = setColorModeValue(v, darkId, darkTarget, darkHex);
   if (!rLight || !rDark) {
@@ -1003,10 +1029,11 @@ return {
 
 function emitMigrateResponsiveType() {
   const entries = data.responsiveType
+  const modeOrder = RESPONSIVE_MODE_ORDER
   return `${HELPERS}
 const PAGE = await ensurePage('UDS Tokens');
 const RESPONSIVE_COLLECTION = 'Responsive';
-const MODE_ORDER = ['Mobile', 'Tablet', 'Desktop'];
+const MODE_ORDER = ${JSON.stringify(modeOrder)};
 
 async function ensureResponsiveCollection() {
   let coll = await findCollection(RESPONSIVE_COLLECTION);
@@ -1065,7 +1092,7 @@ const created = [];
 for (const [cssName, mobile, tablet, desktop] of entries) {
   const name = tokenPath(cssName).replace(/\\/font\\/size$/, '');
   const v = figma.variables.createVariable(name, coll, 'FLOAT');
-  v.scopes = ['FONT_SIZE'];
+  v.scopes = scopesForFigmaVariable(name, 'FLOAT', coll.name);
   v.setValueForMode(modeIds.Mobile, mobile);
   v.setValueForMode(modeIds.Tablet, tablet);
   v.setValueForMode(modeIds.Desktop, desktop);
@@ -1167,7 +1194,7 @@ const created = [];
 for (const [cssBase, presets] of entries) {
   const name = tokenPath(cssBase);
   const v = figma.variables.createVariable(name, coll, 'FLOAT');
-  v.scopes = ['LINE_HEIGHT'];
+  v.scopes = scopesForFigmaVariable(name, 'FLOAT', coll.name);
   v.setValueForMode(modeIds.Regular, presets.regular);
   v.setValueForMode(modeIds.Tight, presets.tight);
   v.setValueForMode(modeIds.Loose, presets.loose);

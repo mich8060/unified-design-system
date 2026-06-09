@@ -399,6 +399,6 @@ Parallelize `unit` and `docs-smoke` where possible; `visual` may stay serial or 
 2. Full visual matrix on every PR vs **labeled/nightly** job?
 3. Commit screenshot baselines to **git** vs **CI cache** only?
 4. Add **`data-docs-example`** hooks in docs vs screenshot full component pages?
-5. Include **roadmap-embed** or other apps in scope, or UDS package + docs only?
+5. UDS package + docs only?
 
 Record decisions here when the suite is implemented.

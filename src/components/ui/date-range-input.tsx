@@ -235,29 +235,7 @@ function DateRangeInput({
             endMonth={endMonth ?? defaultCalendarEndMonth()}
             min={1}
             numberOfMonths={2}
-            className={cn(
-              "rounded-lg border bg-card shadow-lg",
-              /*
-               * Vertical rule below the month/year caption only (`month_caption` is `h-10` → `after:top-10`).
-               * With top nav, first `.rdp-month` is `nth-child(2)`; without nav, it is `nth-child(1)`.
-               */
-              "md:[&_.rdp-months:has(>.rdp-nav)>.rdp-month:nth-child(2)]:relative",
-              "md:[&_.rdp-months:has(>.rdp-nav)>.rdp-month:nth-child(2)]:after:pointer-events-none",
-              "md:[&_.rdp-months:has(>.rdp-nav)>.rdp-month:nth-child(2)]:after:absolute",
-              "md:[&_.rdp-months:has(>.rdp-nav)>.rdp-month:nth-child(2)]:after:right-0",
-              "md:[&_.rdp-months:has(>.rdp-nav)>.rdp-month:nth-child(2)]:after:top-10",
-              "md:[&_.rdp-months:has(>.rdp-nav)>.rdp-month:nth-child(2)]:after:bottom-0",
-              "md:[&_.rdp-months:has(>.rdp-nav)>.rdp-month:nth-child(2)]:after:w-px",
-              "md:[&_.rdp-months:has(>.rdp-nav)>.rdp-month:nth-child(2)]:after:bg-border",
-              "md:[&_.rdp-months:not(:has(>.rdp-nav))>.rdp-month:nth-child(1)]:relative",
-              "md:[&_.rdp-months:not(:has(>.rdp-nav))>.rdp-month:nth-child(1)]:after:pointer-events-none",
-              "md:[&_.rdp-months:not(:has(>.rdp-nav))>.rdp-month:nth-child(1)]:after:absolute",
-              "md:[&_.rdp-months:not(:has(>.rdp-nav))>.rdp-month:nth-child(1)]:after:right-0",
-              "md:[&_.rdp-months:not(:has(>.rdp-nav))>.rdp-month:nth-child(1)]:after:top-10",
-              "md:[&_.rdp-months:not(:has(>.rdp-nav))>.rdp-month:nth-child(1)]:after:bottom-0",
-              "md:[&_.rdp-months:not(:has(>.rdp-nav))>.rdp-month:nth-child(1)]:after:w-px",
-              "md:[&_.rdp-months:not(:has(>.rdp-nav))>.rdp-month:nth-child(1)]:after:bg-border"
-            )}
+            className="rounded-lg border bg-card"
           />
         </div>
       ) : null}

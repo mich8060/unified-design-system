@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Layout, cn } from '@chghealthcare/unified-design-system'
 import { docPageProseClassName } from '../doc-page-content-classes'
 import type { RoadmapStatusRow } from './roadmapStatus'
@@ -7,6 +8,8 @@ import { ReadoutDocSection } from './ReadoutDocSection'
 type Props = {
   rows?: RoadmapStatusRow[]
   className?: string
+  /** When provided, render a condensed summary instead of the full risk breakdown */
+  summary?: ReactNode
 }
 
 function LocumsmartPendingDetail() {
@@ -32,9 +35,43 @@ function LocumsmartPendingDetail() {
   )
 }
 
-export function RoadmapLinkedRisks({ rows, className = '' }: Props) {
+export function RoadmapLinkedRisks({ rows, className = '', summary }: Props) {
   const riskRows = rows ?? roadmapRowsWithRiskDetail()
   const hasRiskCallouts = riskRows.length > 0
+
+  if (summary) {
+    return (
+      <ReadoutDocSection
+        title="Details"
+        lead={
+          <>
+            Summary of{' '}
+            <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+              Roadmap Status
+            </span>{' '}
+            risk items—full detail was reported in a prior month.
+          </>
+        }
+        className={cn('print:break-inside-avoid', className)}
+      >
+        <div className="executive-risk-warning rounded-[length:var(--uds-radius-12)] py-3 pl-4 pr-3 sm:py-4 sm:pl-5 sm:pr-4">
+          {hasRiskCallouts ? (
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              {riskRows.map((row) => (
+                <div key={row.initiative} className="flex items-center gap-2">
+                  <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                    {row.initiative}
+                  </h3>
+                  <RoadmapStatusBadge status={row.status} />
+                </div>
+              ))}
+            </div>
+          ) : null}
+          <div className={cn(docPageProseClassName, 'space-y-3')}>{summary}</div>
+        </div>
+      </ReadoutDocSection>
+    )
+  }
 
   const lead = hasRiskCallouts ? (
     <>

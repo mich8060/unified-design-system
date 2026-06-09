@@ -12,7 +12,7 @@ This file is the shorter starter-oriented projection of that contract.
 
 ## Starter rules
 
-- Install `@chghealthcare/unified-design-system`, `react`, and `react-dom`.
+- Install `@chghealthcare/unified-design-system`, `react`, and `react-dom` only — **do not** run `npx shadcn init` or `npx shadcn create` (Table / Board / Roadmap prompts come from shadcn scaffolding, not UDS install).
 - Import styles once with `import "@chghealthcare/unified-design-system/styles.css"`.
 - For authenticated product screens, default to `AppShell`.
 - Compose the **`menu`** slot with the package **`Menu`** component (not `Sidebar*`).

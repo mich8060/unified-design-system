@@ -44,13 +44,6 @@ const DOCS_UTILITY_SEARCH_RESULTS: DocsSearchResult[] = [
     group: 'Projects',
     description: 'Published package versions and changelogs',
   },
-  {
-    id: 'roadmap',
-    label: 'Roadmap',
-    route: '/docs/roadmap',
-    group: 'Projects',
-    description: 'Planned foundations, components, and platform work',
-  },
 ]
 
 function descriptionForNavId(

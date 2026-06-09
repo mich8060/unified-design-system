@@ -14,7 +14,7 @@ import {
     AlertDescription,
     AlertTitle,
 } from '@chghealthcare/unified-design-system'
-import { AspectRatio } from '@chghealthcare/unified-design-system'
+import { AspectRatio, AspectRatioImage, ASPECT_RATIO_PRESETS } from '@chghealthcare/unified-design-system'
 import {
     Avatar,
     AvatarCameraAction,
@@ -45,6 +45,7 @@ import {
     CardDescription,
     CardFooter,
     CardHeader,
+    CardImage,
     CardTitle,
 } from '@chghealthcare/unified-design-system'
 import { Checkbox, CheckboxLabel } from '@chghealthcare/unified-design-system'
@@ -1253,21 +1254,30 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
     ],
     'aspect-ratio': [
         E(
-            'video',
-            '16:9 frame',
+            'presets',
+            'Ratio presets',
             (
-                <AspectRatio ratio={16 / 9} className="max-w-md bg-muted">
-                    <div className="flex h-full w-full items-center justify-center object-cover text-sm text-muted-foreground">
-                        16:9 content
-                    </div>
+                <div className="flex flex-wrap gap-4">
+                    {(Object.entries(ASPECT_RATIO_PRESETS) as [keyof typeof ASPECT_RATIO_PRESETS, number][]).map(
+                        ([label, ratio]) => (
+                            <AspectRatio key={label} ratio={ratio} className="w-[240px]">
+                                <AspectRatioImage alt={`${label} placeholder`} />
+                            </AspectRatio>
+                        ),
+                    )}
+                </div>
+            ),
+            `import { AspectRatio, AspectRatioImage, ASPECT_RATIO_PRESETS } from "@chghealthcare/unified-design-system"
+
+<AspectRatio ratio={ASPECT_RATIO_PRESETS["16:9"]} className="w-[240px]">
+  <AspectRatioImage alt="16:9 placeholder" src="/path/to/your-image.jpg" />
+</AspectRatio>`,
+            undefined,
+            (
+                <AspectRatio ratio={16 / 9} className="w-[240px] max-w-full">
+                    <AspectRatioImage alt="16:9 placeholder" />
                 </AspectRatio>
             ),
-            `import { AspectRatio } from "@chghealthcare/unified-design-system"
-<AspectRatio ratio={16 / 9} className="max-w-md bg-muted">
-  <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
-    16:9 content
-  </div>
-</AspectRatio>`,
         ),
     ],
     avatar: [
@@ -1893,20 +1903,23 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                             <CardDescription>Supporting description text.</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-muted-foreground">Card body copy.</p>
+                            <p className="text-uds-text-secondary">Card body copy.</p>
                         </CardContent>
                         <CardFooter>
-                            <Button size="sm" variant="secondary">
-                                Action
-                            </Button>
+                            <Button>Save</Button>
                         </CardFooter>
                     </Card>
                     <Card size="sm">
                         <CardHeader>
-                            <CardTitle>Small density</CardTitle>
-                            <CardDescription>Uses size=&quot;sm&quot; on Card.</CardDescription>
+                            <CardTitle>Default card</CardTitle>
+                            <CardDescription>Supporting description text.</CardDescription>
                         </CardHeader>
-                        <CardContent className="text-muted-foreground">Compact padding.</CardContent>
+                        <CardContent>
+                            <p className="text-uds-text-secondary">Card body copy.</p>
+                        </CardContent>
+                        <CardFooter>
+                            <Button size="sm">Save</Button>
+                        </CardFooter>
                     </Card>
                 </div>
             ),
@@ -1916,10 +1929,10 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
     <CardDescription>Supporting description text.</CardDescription>
   </CardHeader>
   <CardContent>
-    <p className="text-muted-foreground">Card body copy.</p>
+    <p className="text-uds-text-secondary">Card body copy.</p>
   </CardContent>
   <CardFooter>
-    <Button size="sm" variant="secondary">Action</Button>
+    <Button>Save</Button>
   </CardFooter>
 </Card>`,
             undefined,
@@ -1930,12 +1943,10 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                         <CardDescription>Supporting description text.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-muted-foreground">Card body copy.</p>
+                        <p className="text-uds-text-secondary">Card body copy.</p>
                     </CardContent>
                     <CardFooter>
-                        <Button size="sm" variant="secondary">
-                            Action
-                        </Button>
+                        <Button>Save</Button>
                     </CardFooter>
                 </Card>
             ),

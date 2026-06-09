@@ -198,7 +198,7 @@ function DateInput({
             captionLayout={yearSelection === "caption" ? captionLayout : "label"}
             startMonth={startMonth ?? defaultCalendarStartMonth()}
             endMonth={endMonth ?? defaultCalendarEndMonth()}
-            className="rounded-lg border bg-card shadow-lg"
+            className="rounded-lg border bg-card"
           />
         </div>
       ) : null}
