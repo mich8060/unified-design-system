@@ -21,6 +21,9 @@ export default defineConfig({
   build: {
     emptyOutDir: true,
     copyPublicDir: false,
+    // Never inline assets (fonts) into styles.css — keep them as separate,
+    // cacheable files. Inlining base64-bloated the bundle by ~1.8MB.
+    assetsInlineLimit: 0,
     lib: {
       entry: {
         index: path.resolve(__dirname, './src/index.ts'),
