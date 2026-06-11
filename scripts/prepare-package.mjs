@@ -54,7 +54,49 @@ async function sanitizeViteQueryAssetFilenames() {
   }
 }
 
+/**
+ * Tailwind/lightningcss inlines @font-face `url()` as base64 data URIs in
+ * styles.css, regardless of Vite's `assetsInlineLimit`. That bloated the
+ * shipped CSS by the full (base64-inflated) font payload. Decode each inlined
+ * font back to a real file under dist/fonts/ and rewrite the url() to a
+ * relative reference so the CSS stays small and fonts cache separately.
+ *
+ * Order of data URIs in the bundle matches @font-face order in src/fonts.css.
+ */
+const FONT_NAMES_IN_ORDER = ['Inter-Variable.woff2', 'Menlo-Regular.woff2']
+
+async function externalizeInlinedFonts() {
+  const cssPath = path.join(distRoot, 'styles.css')
+  let css
+  try {
+    css = await fs.readFile(cssPath, 'utf8')
+  } catch {
+    return
+  }
+
+  const fontsDir = path.join(distRoot, 'fonts')
+  let index = 0
+  const dataUriPattern = /url\((?:"|')?data:font\/woff2;base64,([A-Za-z0-9+/=]+)(?:"|')?\)/g
+  const writes = []
+
+  const next = css.replace(dataUriPattern, (_match, base64) => {
+    const name = FONT_NAMES_IN_ORDER[index] ?? `uds-font-${index + 1}.woff2`
+    index += 1
+    writes.push({ name, base64 })
+    return `url("./fonts/${name}")`
+  })
+
+  if (writes.length === 0) return
+
+  await fs.mkdir(fontsDir, { recursive: true })
+  for (const { name, base64 } of writes) {
+    await fs.writeFile(path.join(fontsDir, name), Buffer.from(base64, 'base64'))
+  }
+  await fs.writeFile(cssPath, next)
+}
+
 await sanitizeViteQueryAssetFilenames()
+await externalizeInlinedFonts()
 
 const declarationFiles = (await walkAllFiles(distRoot)).filter(
   (f) => f.endsWith('.d.ts') || f.endsWith('.d.ts.map'),
