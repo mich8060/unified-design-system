@@ -17,7 +17,7 @@ import {
 } from '../components/DocsComponentPreviewBrandToolbar'
 import { CodePanel } from '../components/CodePanel'
 import { PropsTable } from '../components/PropsTable'
-import { readStoredDocsBrand, type DocsBrandId } from '../doc-site-brand'
+import { persistDocsBrand, readStoredDocsPreviewBrand, type DocsBrandId } from '../doc-site-brand'
 import {
   docPageHeroBandClassName,
   docPageHeroColumnNarrowClassName,
@@ -28,7 +28,7 @@ import { useDocsRegistry } from '../registry'
 
 export function ComponentDocPage() {
   const { slug } = useParams<{ slug: string }>()
-  const [previewBrand, setPreviewBrand] = useState<DocsBrandId>(() => readStoredDocsBrand())
+  const [previewBrand, setPreviewBrand] = useState<DocsBrandId>(() => readStoredDocsPreviewBrand())
   const { getCatalogEntry, resolveSections } = useDocsRegistry()
   const entry = slug ? getCatalogEntry(slug) : undefined
 
@@ -45,6 +45,11 @@ export function ComponentDocPage() {
 
   const sections = resolveSections(entry)
   const showPreviewBrand = Boolean(slug && FOUNDATION_DOC_BRAND_PREVIEW_SLUGS.has(slug))
+
+  function setPreviewBrandAndPersist(id: DocsBrandId) {
+    setPreviewBrand(id)
+    persistDocsBrand(id)
+  }
 
   return (
     <article className="w-full min-w-0 max-w-none overflow-x-hidden">
@@ -85,7 +90,7 @@ export function ComponentDocPage() {
           <div className="not-prose border-b border-neutral-200 pb-8 dark:border-neutral-800">
             <DocsComponentPreviewBrandToolbar
               brand={previewBrand}
-              onBrandChange={setPreviewBrand}
+              onBrandChange={setPreviewBrandAndPersist}
               selectId={`docs-foundation-preview-brand-${slug}`}
               className="mt-0"
             />

@@ -26,6 +26,11 @@ export function readStoredDocsBrand(): DocsBrandId {
   return DOCS_SITE_DEFAULT_BRAND
 }
 
+/** Component/foundation preview toolbar — scoped `[data-brand]` wrapper, not `document`. */
+export function readStoredDocsPreviewBrand(): DocsBrandId {
+  return readBrandFromStorage(DOCS_BRAND_STORAGE_KEY, DOCS_SITE_DEFAULT_BRAND)
+}
+
 export function persistDocsBrand(id: DocsBrandId) {
   persistBrandToStorage(DOCS_BRAND_STORAGE_KEY, id)
 }

@@ -8,7 +8,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@chghealthcare/unified-design-system'
+import { isUdsBrandId } from '@/lib/uds-brand'
 import { DOCS_BRAND_OPTIONS, type DocsBrandId } from '../doc-site-brand'
+
+/** Re-bind button tokens on the scoped preview root so ramps resolve from `[data-brand]`. */
+const DOCS_COMPONENT_PREVIEW_BUTTON_VARS = {
+  '--uds-button-surface-primary-default': 'var(--uds-color-primary-700)',
+  '--uds-button-surface-primary-hover': 'var(--uds-color-primary-800)',
+  '--uds-button-surface-secondary-default': 'var(--uds-color-primary-50)',
+  '--uds-button-surface-secondary-hover': 'var(--uds-color-primary-100)',
+  '--uds-button-border-primary-default': 'var(--uds-color-primary-700)',
+  '--uds-button-border-primary-hover': 'var(--uds-color-primary-800)',
+  '--uds-button-border-secondary-default': 'var(--uds-color-primary-50)',
+  '--uds-button-border-secondary-hover': 'var(--uds-color-primary-100)',
+  '--uds-button-text-tertiary': 'var(--uds-color-primary-700)',
+  '--uds-button-text-quaternary': 'var(--uds-color-primary-800)',
+  '--uds-button-icons-tertiary': 'var(--uds-color-primary-700)',
+  '--uds-button-icons-quaternary': 'var(--uds-color-primary-800)',
+} as CSSProperties
 
 /** Scoped shadcn-style CSS variables so previews read UDS tokens after `data-brand` switches ramp. */
 export const DOCS_COMPONENT_PREVIEW_THEME_VARS = {
@@ -29,6 +46,7 @@ export const DOCS_COMPONENT_PREVIEW_THEME_VARS = {
   '--border': 'var(--uds-border-primary)',
   '--input': 'var(--uds-border-primary)',
   '--ring': 'var(--uds-focus-ring-border)',
+  ...DOCS_COMPONENT_PREVIEW_BUTTON_VARS,
 } as CSSProperties
 
 /** shadcn UI doc routes whose live examples respect `[data-brand]` ramps. */
@@ -77,7 +95,12 @@ export function DocsComponentPreviewBrandToolbar({
         </span>
       </p>
       <div className="flex w-full shrink-0 flex-col gap-1 sm:w-auto sm:min-w-[12rem]">
-        <Select value={brand} onValueChange={(v) => onBrandChange(v as DocsBrandId)}>
+        <Select
+          value={brand}
+          onValueChange={(v) => {
+            if (isUdsBrandId(v)) onBrandChange(v)
+          }}
+        >
           <SelectTrigger id={selectId} inputSize="sm" className="w-full shadow-none">
             <SelectValue placeholder="Brand" />
           </SelectTrigger>

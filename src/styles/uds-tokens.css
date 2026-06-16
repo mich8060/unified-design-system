@@ -508,14 +508,23 @@
 }
 
 .brand-default,
+[data-brand=default],
 .brand-comphealth,
+[data-brand=comphealth],
 .brand-weatherby,
+[data-brand=weatherby],
 .brand-connect,
+[data-brand=connect],
 .brand-locumsmart,
+[data-brand=locumsmart],
 .brand-wireframe,
+[data-brand=wireframe],
 .brand-modio,
+[data-brand=modio],
 .brand-gms,
-.brand-chg {
+[data-brand=gms],
+.brand-chg,
+[data-brand=chg] {
   --uds-color-primary-25: var(--brand-primary-25);
   --uds-color-primary-50: var(--brand-primary-50);
   --uds-color-primary-100: var(--brand-primary-100);

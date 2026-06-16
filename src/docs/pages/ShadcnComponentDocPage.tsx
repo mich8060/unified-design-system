@@ -17,7 +17,7 @@ import {
 } from '../components/DocsComponentPreviewBrandToolbar'
 import { CodePanel } from '../components/CodePanel'
 import { PropsTable } from '../components/PropsTable'
-import { readStoredDocsBrand, type DocsBrandId } from '../doc-site-brand'
+import { persistDocsBrand, readStoredDocsPreviewBrand, type DocsBrandId } from '../doc-site-brand'
 import {
   docPageHeroBandClassName,
   docPageHeroColumnNarrowClassName,
@@ -28,7 +28,7 @@ import { useShadcnDocsRegistry } from '../registry'
 
 export function ShadcnComponentDocPage() {
   const { slug } = useParams<{ slug: string }>()
-  const [previewBrand, setPreviewBrand] = useState<DocsBrandId>(() => readStoredDocsBrand())
+  const [previewBrand, setPreviewBrand] = useState<DocsBrandId>(() => readStoredDocsPreviewBrand())
   const {
     isShadcnUiSlug,
     formatShadcnComponentName,
@@ -62,6 +62,11 @@ export function ShadcnComponentDocPage() {
   const isDotStatus = slug === 'dot-status'
   const isText = slug === 'text'
   const showPreviewBrand = Boolean(slug && SHADCN_DOC_BRAND_PREVIEW_SLUGS.has(slug))
+
+  function setPreviewBrandAndPersist(id: DocsBrandId) {
+    setPreviewBrand(id)
+    persistDocsBrand(id)
+  }
 
   function getSectionDescription(title: string, explicitDescription: string | undefined, index: number) {
     if (explicitDescription) return explicitDescription
@@ -137,7 +142,7 @@ export function ShadcnComponentDocPage() {
           <div className="not-prose border-b border-neutral-200 pb-8 dark:border-neutral-800">
             <DocsComponentPreviewBrandToolbar
               brand={previewBrand}
-              onBrandChange={setPreviewBrand}
+              onBrandChange={setPreviewBrandAndPersist}
               selectId={`docs-component-preview-brand-${slug}`}
               className="mt-0"
             />
