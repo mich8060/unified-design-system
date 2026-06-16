@@ -162,8 +162,12 @@ export function ShadcnComponentDocPage() {
 
         {showPreviewBrand ? (
           <div
+            data-docs-preview-brand
             data-brand={previewBrand}
-            className={cn('min-w-0 space-y-16', docsPreviewBrandScopeClassName(previewBrand))}
+            className={cn(
+              'docs-preview-brand-scope min-w-0 space-y-16',
+              docsPreviewBrandScopeClassName(previewBrand),
+            )}
             style={DOCS_COMPONENT_PREVIEW_THEME_VARS}
           >
             {examples.map((section, index) => (

@@ -13,6 +13,8 @@ const _fontPreload = Object.assign(document.createElement('link'), {
 })
 document.head.prepend(_fontPreload)
 import '@chghealthcare/unified-design-system/styles.css'
+import '@/components/ui/app-shell.css'
+import '@/components/ui/menu.css'
 
 const params = new URLSearchParams(window.location.search)
 if (params.get('dark') === '1') {

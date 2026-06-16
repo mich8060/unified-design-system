@@ -11,124 +11,124 @@
   background: var(--background);
   font-family: var(--font-sans);
   color: var(--foreground);
+}
 
-  /* Master–detail: lock shell height so listview and main scroll independently. */
-  &:has(.appshell--listview-open) {
-    height: 100dvh;
-    max-height: 100dvh;
-    overflow: hidden;
-  }
+/* Master–detail: lock shell height so listview and main scroll independently. */
+.appshell:has(.appshell--listview-open) {
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
 
-  &--body {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0;
-    min-height: 0;
-    overflow: hidden;
-    margin-left: var(--appshell-menu-width-expanded);
-    width: calc(100% - var(--appshell-menu-width-expanded));
-    min-width: 0;
-    transition:
-      margin-left 200ms ease-out,
-      width 200ms ease-out;
-    position: relative;
-  }
+.appshell--body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  margin-left: var(--appshell-menu-width-expanded);
+  width: calc(100% - var(--appshell-menu-width-expanded));
+  min-width: 0;
+  transition:
+    margin-left 200ms ease-out,
+    width 200ms ease-out;
+  position: relative;
+}
 
-  &:has([data-slot="uds-menu-root"][data-expanded="false"]) .appshell--body {
-    margin-left: var(--appshell-menu-width-collapsed);
-    width: calc(100% - var(--appshell-menu-width-collapsed));
-  }
+.appshell:has([data-slot="uds-menu-root"][data-expanded="false"]) .appshell--body {
+  margin-left: var(--appshell-menu-width-collapsed);
+  width: calc(100% - var(--appshell-menu-width-collapsed));
+}
 
-  /* In-flow header: only `.appshell--main` scrolls, so no fixed offset or content padding-top is needed. */
-  &--header {
-    position: relative;
-    z-index: 20;
-    flex-shrink: 0;
-    width: 100%;
-    height: var(--appshell-header-height);
-  }
+/* In-flow header: only `.appshell--main` scrolls, so no fixed offset or content padding-top is needed. */
+.appshell--header {
+  position: relative;
+  z-index: 20;
+  flex-shrink: 0;
+  width: 100%;
+  height: var(--appshell-header-height);
+}
 
-  /* Region below header: listview + main share one row, constrained to viewport. */
-  &--content {
-    display: flex;
-    flex: 1 1 0;
-    min-height: 0;
-    overflow: hidden;
-  }
+/* Region below header: listview + main share one row, constrained to viewport. */
+.appshell--content {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+}
 
-  &--listview {
-    width: 0;
-    min-width: 0;
-    overflow: hidden;
-    flex-shrink: 0;
-    align-self: stretch;
-    border-right: 0 solid transparent;
-    transition:
-      width 250ms ease-out,
-      min-width 250ms ease-out,
-      border-color 250ms ease-out;
+.appshell--listview {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  align-self: stretch;
+  border-right: 0 solid transparent;
+  transition:
+    width 250ms ease-out,
+    min-width 250ms ease-out,
+    border-color 250ms ease-out;
+}
 
-    > * {
-      width: var(--appshell-listview-width);
-      min-width: var(--appshell-listview-width);
-      opacity: 0;
-      transition: opacity 250ms ease-out;
-    }
+.appshell--listview > * {
+  width: var(--appshell-listview-width);
+  min-width: var(--appshell-listview-width);
+  opacity: 0;
+  transition: opacity 250ms ease-out;
+}
 
-    &-open {
-      width: var(--appshell-listview-width);
-      min-width: var(--appshell-listview-width);
-      overflow: hidden;
-      border-right: var(--uds-border-width-1) solid var(--border);
+.appshell--listview-open {
+  width: var(--appshell-listview-width);
+  min-width: var(--appshell-listview-width);
+  overflow: hidden;
+  border-right: var(--uds-border-width-1) solid var(--border);
+}
 
-      /* Direct child: full-height column; pane header stays put, body scrolls inside. */
-      > * {
-        width: 100%;
-        min-width: 0;
-        height: 100%;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        opacity: 1;
-      }
-    }
-  }
+/* Direct child: full-height column; pane header stays put, body scrolls inside. */
+.appshell--listview-open > * {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 1;
+}
 
-  /* Scrollable list body inside listview (see detail-with-listview recipe). */
-  [data-slot="appshell-listview-scroll"] {
-    flex: 1 1 0;
-    min-height: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
+/* Scrollable list body inside listview (see detail-with-listview recipe). */
+.appshell [data-slot="appshell-listview-scroll"] {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
-  &--main-column {
-    display: flex;
-    flex: 1 1 0;
-    flex-direction: column;
-    min-width: 0;
-    min-height: 0;
-    overflow: hidden;
-  }
+.appshell--main-column {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
 
-  /* Only the main region scrolls when listview is open. */
-  &--main {
-    display: flex;
-    flex: 1 1 0;
-    flex-direction: column;
-    min-width: 0;
-    min-height: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
+/* Only the main region scrolls when listview is open. */
+.appshell--main {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
-  &--footer {
-    flex-shrink: 0;
-    width: 100%;
+.appshell--footer {
+  flex-shrink: 0;
+  width: 100%;
+}
 
-    [data-slot="uds-footer"] {
-      border-top: none;
-    }
-  }
+.appshell--footer [data-slot="uds-footer"] {
+  border-top: none;
 }

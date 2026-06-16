@@ -103,7 +103,7 @@ export function PatternsDashboardCanvas() {
             <div
                 className="patterns-dashboard-frame"
             >
-                <AppShell className="patterns-dashboard-root">
+                <AppShell className="patterns-dashboard-root" enableRouterOutlet={false}>
                     <AppShell.Menu>
                         <Menu
                             className="patterns-dashboard-menu"
@@ -169,46 +169,50 @@ export function PatternsDashboardCanvas() {
 
                             </div>
 
-                            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                                <Card className="rounded-sm border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] py-4 ring-1 ring-[var(--uds-border-primary)]/60">
-                                    <div className="px-4">
+                            <div className="grid items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                <Card className="h-full self-stretch rounded-sm border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] py-4 ring-1 ring-[var(--uds-border-primary)]/60">
+                                    <div className="flex h-full flex-col px-4">
                                         <p className="text-xs font-medium tracking-wide text-[var(--uds-text-tertiary)]">Total revenue</p>
-                                        <div className="mt-3 flex items-baseline gap-2">
-                                            <p className="text-3xl font-semibold tabular-nums text-[var(--uds-text-primary)]">$2,445,744</p>
+                                        <p className="mt-3 text-3xl font-semibold tabular-nums text-[var(--uds-text-primary)]">$2,445,744</p>
+                                        <div className="mt-auto pt-3">
+                                            <Badge
+                                                appearance="pastel"
+                                                accent="emerald"
+                                                shape="pill"
+                                                icon={<ArrowUpIcon className="size-3" aria-hidden />}
+                                            >
+                                                +8.2%
+                                            </Badge>
                                         </div>
-                                        <Badge
-                                            appearance="pastel"
-                                            accent="emerald"
-                                            shape="pill"
-                                            className="mt-3"
-                                            icon={<ArrowUpIcon className="size-3" aria-hidden />}
-                                        >
-                                            +8.2%
-                                        </Badge>
                                     </div>
                                 </Card>
-                                <Card className="rounded-sm border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] py-4 ring-1 ring-[var(--uds-border-primary)]/60">
-                                    <div className="px-4">
+                                <Card className="h-full self-stretch rounded-sm border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] py-4 ring-1 ring-[var(--uds-border-primary)]/60">
+                                    <div className="flex h-full flex-col px-4">
                                         <p className="text-xs font-medium tracking-wide text-[var(--uds-text-tertiary)]">Avg deal size</p>
                                         <p className="mt-3 text-3xl font-semibold tabular-nums text-[var(--uds-text-primary)]">$489,149</p>
+                                        <div className="mt-auto pt-3 min-h-7" aria-hidden />
                                     </div>
                                 </Card>
-                                <Card className="rounded-sm border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] py-4 ring-1 ring-[var(--uds-border-primary)]/60">
-                                    <div className="px-4">
+                                <Card className="h-full self-stretch rounded-sm border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] py-4 ring-1 ring-[var(--uds-border-primary)]/60">
+                                    <div className="flex h-full flex-col px-4">
                                         <p className="text-xs font-medium tracking-wide text-[var(--uds-text-tertiary)]">Total clients</p>
                                         <p className="mt-3 text-3xl font-semibold tabular-nums text-[var(--uds-text-primary)]">5</p>
-                                        <Badge appearance="pastel" accent="emerald" shape="pill" className="mt-3">
-                                            +20%
-                                        </Badge>
+                                        <div className="mt-auto pt-3">
+                                            <Badge appearance="pastel" accent="emerald" shape="pill">
+                                                +20%
+                                            </Badge>
+                                        </div>
                                     </div>
                                 </Card>
-                                <Card className="rounded-sm border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] py-4 ring-1 ring-[var(--uds-border-primary)]/60">
-                                    <div className="px-4">
+                                <Card className="h-full self-stretch rounded-sm border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] py-4 ring-1 ring-[var(--uds-border-primary)]/60">
+                                    <div className="flex h-full flex-col px-4">
                                         <p className="text-xs font-medium tracking-wide text-[var(--uds-text-tertiary)]">Total invoices</p>
                                         <p className="mt-3 text-3xl font-semibold tabular-nums text-[var(--uds-text-primary)]">31</p>
-                                        <Badge appearance="pastel" accent="red" shape="pill" className="mt-3">
-                                            +8.2%
-                                        </Badge>
+                                        <div className="mt-auto pt-3">
+                                            <Badge appearance="pastel" accent="red" shape="pill">
+                                                +8.2%
+                                            </Badge>
+                                        </div>
                                     </div>
                                 </Card>
                             </div>

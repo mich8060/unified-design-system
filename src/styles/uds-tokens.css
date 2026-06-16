@@ -569,6 +569,20 @@
   --uds-color-quaternary-700: var(--brand-quaternary-700);
   --uds-color-quaternary-800: var(--brand-quaternary-800);
   --uds-color-quaternary-900: var(--brand-quaternary-900);
+
+  /* Button tokens follow scoped brand ramp (not :root defaults). */
+  --uds-button-surface-primary-default: var(--brand-primary-700);
+  --uds-button-surface-primary-hover: var(--brand-primary-800);
+  --uds-button-surface-secondary-default: var(--brand-primary-50);
+  --uds-button-surface-secondary-hover: var(--brand-primary-100);
+  --uds-button-border-primary-default: var(--brand-primary-700);
+  --uds-button-border-primary-hover: var(--brand-primary-800);
+  --uds-button-border-secondary-default: var(--brand-primary-50);
+  --uds-button-border-secondary-hover: var(--brand-primary-100);
+  --uds-button-text-tertiary: var(--brand-primary-700);
+  --uds-button-text-quaternary: var(--brand-primary-800);
+  --uds-button-icons-tertiary: var(--brand-primary-700);
+  --uds-button-icons-quaternary: var(--brand-primary-800);
 }
 
 :root {

@@ -33,6 +33,26 @@ body {
   color: var(--color-uds-text-link-primary-visited);
 }
 
+/*
+ * Component doc previews: re-bind Tailwind `@theme` button color utilities to the
+ * scoped `[data-brand]` ramp (`--brand-primary-*`), not `:root` semantic tokens.
+ */
+.docs-preview-brand-scope {
+  --color-uds-button-surface-primary-default: var(--brand-primary-700);
+  --color-uds-button-surface-primary-hover: var(--brand-primary-800);
+  --color-uds-button-surface-secondary-default: var(--brand-primary-50);
+  --color-uds-button-surface-secondary-hover: var(--brand-primary-100);
+  --color-uds-button-border-primary-default: var(--brand-primary-700);
+  --color-uds-button-border-primary-hover: var(--brand-primary-800);
+  --color-uds-button-border-secondary-default: var(--brand-primary-50);
+  --color-uds-button-border-secondary-hover: var(--brand-primary-100);
+  --color-uds-button-text-tertiary: var(--brand-primary-700);
+  --color-uds-button-text-quaternary: var(--brand-primary-800);
+  --color-uds-button-icons-tertiary: var(--brand-primary-700);
+  --color-uds-button-icons-quaternary: var(--brand-primary-800);
+  --primary: var(--brand-primary-700);
+}
+
 /* Breadcrumb on primary doc hero — overrides neutral defaults from the package. */
 .docs-page-hero [data-slot='breadcrumb'] {
   color: color-mix(in srgb, white 72%, transparent);

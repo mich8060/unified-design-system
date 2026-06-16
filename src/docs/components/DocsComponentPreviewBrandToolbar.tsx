@@ -11,20 +11,36 @@ import {
 import { isUdsBrandId } from '@/lib/uds-brand'
 import { DOCS_BRAND_OPTIONS, type DocsBrandId } from '../doc-site-brand'
 
-/** Re-bind button tokens on the scoped preview root so ramps resolve from `[data-brand]`. */
+/** Map Tailwind `@theme` `--color-uds-button-*` utilities to the scoped `--brand-primary-*` ramp. */
+const DOCS_COMPONENT_PREVIEW_BUTTON_COLOR_VARS = {
+  '--color-uds-button-surface-primary-default': 'var(--brand-primary-700)',
+  '--color-uds-button-surface-primary-hover': 'var(--brand-primary-800)',
+  '--color-uds-button-surface-secondary-default': 'var(--brand-primary-50)',
+  '--color-uds-button-surface-secondary-hover': 'var(--brand-primary-100)',
+  '--color-uds-button-border-primary-default': 'var(--brand-primary-700)',
+  '--color-uds-button-border-primary-hover': 'var(--brand-primary-800)',
+  '--color-uds-button-border-secondary-default': 'var(--brand-primary-50)',
+  '--color-uds-button-border-secondary-hover': 'var(--brand-primary-100)',
+  '--color-uds-button-text-tertiary': 'var(--brand-primary-700)',
+  '--color-uds-button-text-quaternary': 'var(--brand-primary-800)',
+  '--color-uds-button-icons-tertiary': 'var(--brand-primary-700)',
+  '--color-uds-button-icons-quaternary': 'var(--brand-primary-800)',
+} as CSSProperties
+
+/** Re-bind legacy `--uds-button-*` tokens on the scoped preview root (non-Tailwind consumers). */
 const DOCS_COMPONENT_PREVIEW_BUTTON_VARS = {
-  '--uds-button-surface-primary-default': 'var(--uds-color-primary-700)',
-  '--uds-button-surface-primary-hover': 'var(--uds-color-primary-800)',
-  '--uds-button-surface-secondary-default': 'var(--uds-color-primary-50)',
-  '--uds-button-surface-secondary-hover': 'var(--uds-color-primary-100)',
-  '--uds-button-border-primary-default': 'var(--uds-color-primary-700)',
-  '--uds-button-border-primary-hover': 'var(--uds-color-primary-800)',
-  '--uds-button-border-secondary-default': 'var(--uds-color-primary-50)',
-  '--uds-button-border-secondary-hover': 'var(--uds-color-primary-100)',
-  '--uds-button-text-tertiary': 'var(--uds-color-primary-700)',
-  '--uds-button-text-quaternary': 'var(--uds-color-primary-800)',
-  '--uds-button-icons-tertiary': 'var(--uds-color-primary-700)',
-  '--uds-button-icons-quaternary': 'var(--uds-color-primary-800)',
+  '--uds-button-surface-primary-default': 'var(--brand-primary-700)',
+  '--uds-button-surface-primary-hover': 'var(--brand-primary-800)',
+  '--uds-button-surface-secondary-default': 'var(--brand-primary-50)',
+  '--uds-button-surface-secondary-hover': 'var(--brand-primary-100)',
+  '--uds-button-border-primary-default': 'var(--brand-primary-700)',
+  '--uds-button-border-primary-hover': 'var(--brand-primary-800)',
+  '--uds-button-border-secondary-default': 'var(--brand-primary-50)',
+  '--uds-button-border-secondary-hover': 'var(--brand-primary-100)',
+  '--uds-button-text-tertiary': 'var(--brand-primary-700)',
+  '--uds-button-text-quaternary': 'var(--brand-primary-800)',
+  '--uds-button-icons-tertiary': 'var(--brand-primary-700)',
+  '--uds-button-icons-quaternary': 'var(--brand-primary-800)',
 } as CSSProperties
 
 /** Scoped shadcn-style CSS variables so previews read UDS tokens after `data-brand` switches ramp. */
@@ -35,7 +51,7 @@ export const DOCS_COMPONENT_PREVIEW_THEME_VARS = {
   '--card-foreground': 'var(--uds-text-primary)',
   '--popover': 'var(--uds-surface-primary)',
   '--popover-foreground': 'var(--uds-text-primary)',
-  '--primary': 'var(--uds-color-primary-700)',
+  '--primary': 'var(--brand-primary-700)',
   '--primary-foreground': 'var(--uds-text-inverse)',
   '--secondary': 'var(--uds-surface-secondary)',
   '--secondary-foreground': 'var(--uds-text-primary)',
@@ -46,6 +62,7 @@ export const DOCS_COMPONENT_PREVIEW_THEME_VARS = {
   '--border': 'var(--uds-border-primary)',
   '--input': 'var(--uds-border-primary)',
   '--ring': 'var(--uds-focus-ring-border)',
+  ...DOCS_COMPONENT_PREVIEW_BUTTON_COLOR_VARS,
   ...DOCS_COMPONENT_PREVIEW_BUTTON_VARS,
 } as CSSProperties
 
