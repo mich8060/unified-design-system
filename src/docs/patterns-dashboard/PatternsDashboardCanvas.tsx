@@ -32,13 +32,15 @@ import {
     EmptyTitle,
     Footer,
     Menu,
-    MicroCalendar,
     Separator,
     Tooltip,
     TooltipContent,
     TooltipTrigger,
-    type MicroCalendarDateData,
 } from '@chghealthcare/unified-design-system'
+import {
+    MicroCalendar,
+    type MicroCalendarDateData,
+} from '@/components/ui/micro-calendar'
 import './patterns-dashboard.css'
 
 const CRM_NAV_ITEMS = [

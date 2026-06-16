@@ -65,13 +65,15 @@ function TabsList({
 
 function TabsTrigger({
   className,
+  style,
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
   return (
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
+      style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--uds-font-size-14)', lineHeight: 'var(--uds-line-14)', ...style }}
       className={cn(
-        "relative inline-flex max-w-full shrink-0 items-center justify-center gap-1.5 border border-transparent font-sans font-uds-regular whitespace-nowrap transition-all [font-family:var(--font-inter)] [font-size:var(--uds-font-size-14)] [line-height:var(--uds-line-14)] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50",
+        "relative inline-flex max-w-full shrink-0 items-center justify-center gap-1.5 border border-transparent font-sans font-uds-regular whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50",
         "text-[var(--uds-text-secondary)] hover:text-[var(--uds-text-primary)] data-[state=active]:font-uds-semibold",
         "group-data-[variant=default]/tabs-list:min-h-10 group-data-[variant=default]/tabs-list:rounded-[length:var(--uds-radius-4)] group-data-[variant=default]/tabs-list:px-6 group-data-[variant=default]/tabs-list:py-0",
         "group-data-[variant=default]/tabs-list:data-[state=active]:border-transparent group-data-[variant=default]/tabs-list:data-[state=active]:bg-[var(--uds-surface-brand-quaternary)] group-data-[variant=default]/tabs-list:data-[state=active]:text-[var(--uds-text-inverse)] group-data-[variant=default]/tabs-list:data-[state=active]:[&_svg]:text-[var(--uds-text-inverse)]",

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { type SearchInputProps } from '@chghealthcare/unified-design-system'
 import {
   Command,
   CommandDialog,
@@ -8,8 +9,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  type SearchInputProps,
-} from '@chghealthcare/unified-design-system'
+} from '@/components/ui/command'
 import {
   buildDocsSearchIndex,
   docsSearchResultValue,

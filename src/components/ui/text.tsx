@@ -86,7 +86,7 @@ const textVariants = cva("min-w-0 font-sans text-foreground [font-family:var(--f
   },
 })
 
-/** Typography from `--uds-type-*` tokens (inline styles — dynamic `[font-size:var(...)]` classes are not emitted by Tailwind). */
+/** Typography from `--uds-type-*` tokens via inline styles (not Tailwind arbitrary font-size utilities). */
 function typographyStyle(
   variant: TextVariant,
   size: TextSize,

@@ -1,10 +1,10 @@
 import * as React from "react"
-import { Suspense } from "react"
-import { Outlet } from "react-router-dom"
+import { Suspense, lazy } from "react"
+
+const RouterOutlet = lazy(() => import('react-router-dom').then(m => ({ default: m.Outlet })))
 
 import { Header, type HeaderProps } from "@/components/ui/header"
 import { cn } from "@/lib/utils"
-import "./app-shell.scss"
 
 function AppShellFallback() {
   return (
@@ -155,7 +155,7 @@ function AppShell({
             <div className="appshell--main">
               {enableRouterOutlet ? (
                 <Suspense fallback={<AppShellFallback />}>
-                  <Outlet />
+                  <RouterOutlet />
                 </Suspense>
               ) : null}
               {resolvedMain}

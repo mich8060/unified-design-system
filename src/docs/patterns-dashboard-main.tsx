@@ -2,10 +2,17 @@ import { IconContext } from '@chghealthcare/unified-design-system'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { MemoryRouter } from 'react-router-dom'
-import { Toaster, TooltipProvider } from '@chghealthcare/unified-design-system'
+import { TooltipProvider } from '@chghealthcare/unified-design-system'
+import { Toaster } from '@/components/ui/sonner'
 import { PatternsDashboardCanvas } from '@/docs/patterns-dashboard/PatternsDashboardCanvas'
 import { applyDocsBrandToDocument } from '@/docs/doc-site-brand'
+import interUrl from '@/assets/fonts/Inter-Variable.woff2?url'
 import '@/fonts.css'
+
+const _fontPreload = Object.assign(document.createElement('link'), {
+  rel: 'preload', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous', href: interUrl,
+})
+document.head.prepend(_fontPreload)
 import '@chghealthcare/unified-design-system/styles.css'
 
 const DASHBOARD_DEMO_BRAND = 'default' as const

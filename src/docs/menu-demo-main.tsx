@@ -9,8 +9,14 @@ import {
   getDefaultNavigation,
   type MenuUtilityItem,
 } from '@chghealthcare/unified-design-system'
+import interUrl from '@/assets/fonts/Inter-Variable.woff2?url'
 import '@/fonts.css'
 import '@chghealthcare/unified-design-system/styles.css'
+
+const _fontPreload = Object.assign(document.createElement('link'), {
+  rel: 'preload', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous', href: interUrl,
+})
+document.head.prepend(_fontPreload)
 
 const params = new URLSearchParams(window.location.search)
 

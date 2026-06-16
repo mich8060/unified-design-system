@@ -9,4 +9,4 @@ export {
   DocsNavDisclosureCaret as NavDisclosureCaret,
   docsNavSubLinkClassName as subLinkCls,
   docsNavComponentLinkClassName as compLinkCls,
-} from '@chghealthcare/unified-design-system'
+} from '@/components/ui/docs-nav'

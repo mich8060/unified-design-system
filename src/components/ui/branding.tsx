@@ -1,21 +1,7 @@
+"use client"
+
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
-
-import connectMark from "../../../public/branding/svg/connect-brand-mark.svg?url"
-import connectWordmark from "../../../public/branding/svg/connect-wordmark.svg?url"
-import comphealthMark from "../../../public/branding/svg/comphealth-brand-mark.svg?url"
-import comphealthWordmark from "../../../public/branding/svg/comphealth-wordmark.svg?url"
-import locumsmartMark from "../../../public/branding/svg/locumsmart-brand-mark.svg?url"
-import locumsmartWordmark from "../../../public/branding/svg/locumsmart-wordmark.svg?url"
-import modioMark from "../../../public/branding/svg/modio-brand-mark.svg?url"
-import modioWordmark from "../../../public/branding/svg/modio-wordmark.svg?url"
-import unifiedDesignSystemMark from "../../../public/branding/svg/unified-design-system-brand-mark.svg?url"
-import unifiedDesignSystemWordmark from "../../../public/branding/svg/unified-design-system-wordmark.svg?url"
-import weatherbyMark from "../../../public/branding/svg/weatherby-brand-mark.svg?url"
-import weatherbyWordmark from "../../../public/branding/svg/weatherby-wordmark.svg?url"
-import wireframeMark from "../../../public/branding/svg/wireframe-brand-mark.svg?url"
-import wireframeWordmark from "../../../public/branding/svg/wireframe-wordmark.svg?url"
 
 export type BrandingAppearance =
   | "Connect"
@@ -27,41 +13,45 @@ export type BrandingAppearance =
   | "Modio"
   | "Design System"
 
-const SVG_ASSETS: Record<BrandingAppearance, { mark: string; wordmark: string }> =
-  {
+type SvgLoader = () => Promise<string>
+
+const SVG_LOADERS: Record<BrandingAppearance, { mark: SvgLoader; wordmark: SvgLoader }> = {
   Wireframe: {
-    mark: wireframeMark,
-    wordmark: wireframeWordmark,
+    mark: () => import("../../../public/branding/svg/wireframe-brand-mark.svg?url").then(m => m.default),
+    wordmark: () => import("../../../public/branding/svg/wireframe-wordmark.svg?url").then(m => m.default),
   },
   Connect: {
-    mark: connectMark,
-    wordmark: connectWordmark,
+    mark: () => import("../../../public/branding/svg/connect-brand-mark.svg?url").then(m => m.default),
+    wordmark: () => import("../../../public/branding/svg/connect-wordmark.svg?url").then(m => m.default),
   },
   CHG: {
-    mark: unifiedDesignSystemMark,
-    wordmark: unifiedDesignSystemWordmark,
+    mark: () => import("../../../public/branding/svg/unified-design-system-brand-mark.svg?url").then(m => m.default),
+    wordmark: () => import("../../../public/branding/svg/unified-design-system-wordmark.svg?url").then(m => m.default),
   },
   Locumsmart: {
-    mark: locumsmartMark,
-    wordmark: locumsmartWordmark,
+    mark: () => import("../../../public/branding/svg/locumsmart-brand-mark.svg?url").then(m => m.default),
+    wordmark: () => import("../../../public/branding/svg/locumsmart-wordmark.svg?url").then(m => m.default),
   },
   Modio: {
-    mark: modioMark,
-    wordmark: modioWordmark,
+    mark: () => import("../../../public/branding/svg/modio-brand-mark.svg?url").then(m => m.default),
+    wordmark: () => import("../../../public/branding/svg/modio-wordmark.svg?url").then(m => m.default),
   },
   MyWeatherby: {
-    mark: weatherbyMark,
-    wordmark: weatherbyWordmark,
+    mark: () => import("../../../public/branding/svg/weatherby-brand-mark.svg?url").then(m => m.default),
+    wordmark: () => import("../../../public/branding/svg/weatherby-wordmark.svg?url").then(m => m.default),
   },
   MyCompHealth: {
-    mark: comphealthMark,
-    wordmark: comphealthWordmark,
+    mark: () => import("../../../public/branding/svg/comphealth-brand-mark.svg?url").then(m => m.default),
+    wordmark: () => import("../../../public/branding/svg/comphealth-wordmark.svg?url").then(m => m.default),
   },
   "Design System": {
-    mark: unifiedDesignSystemMark,
-    wordmark: unifiedDesignSystemWordmark,
+    mark: () => import("../../../public/branding/svg/unified-design-system-brand-mark.svg?url").then(m => m.default),
+    wordmark: () => import("../../../public/branding/svg/unified-design-system-wordmark.svg?url").then(m => m.default),
   },
 }
+
+// Module-level cache so each brand/variant pair loads at most once.
+const urlCache = new Map<string, string>()
 
 export type BrandingProps = React.ComponentProps<"div"> & {
   /** Product / brand row from the design system. */
@@ -79,14 +69,28 @@ function Branding({
   wordmarkAlign = "start",
   ...props
 }: BrandingProps) {
+  const variant = symbol ? "mark" : "wordmark"
+  const cacheKey = `${appearance}:${variant}`
+
+  const [src, setSrc] = React.useState<string>(() => urlCache.get(cacheKey) ?? "")
+
+  React.useEffect(() => {
+    if (urlCache.has(cacheKey)) {
+      setSrc(urlCache.get(cacheKey)!)
+      return
+    }
+    let active = true
+    SVG_LOADERS[appearance]?.[variant]?.().then(url => {
+      urlCache.set(cacheKey, url)
+      if (active) setSrc(url)
+    })
+    return () => { active = false }
+  }, [cacheKey, appearance, variant])
+
   const label =
     appearance === "Design System"
-      ? symbol
-        ? "UNIFIED DS mark"
-        : "UNIFIED DS logo"
+      ? symbol ? "UNIFIED DS mark" : "UNIFIED DS logo"
       : `${appearance}${symbol ? " mark" : " logo"}`
-
-  const src = symbol ? SVG_ASSETS[appearance].mark : SVG_ASSETS[appearance].wordmark
 
   return (
     <div
@@ -106,16 +110,18 @@ function Branding({
       )}
       {...props}
     >
-      <img
-        alt=""
-        src={src}
-        draggable={false}
-        className={cn(
-          "h-full w-full object-contain",
-          symbol || wordmarkAlign === "center" ? "object-center" : "object-left",
-          "dark:brightness-0 dark:invert"
-        )}
-      />
+      {src ? (
+        <img
+          alt=""
+          src={src}
+          draggable={false}
+          className={cn(
+            "h-full w-full object-contain",
+            symbol || wordmarkAlign === "center" ? "object-center" : "object-left",
+            "dark:brightness-0 dark:invert"
+          )}
+        />
+      ) : null}
     </div>
   )
 }

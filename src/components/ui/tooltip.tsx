@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 
 const tooltipContentVariants = cva(
   [
-    "z-50 inline-flex w-fit max-w-xs origin-(--radix-tooltip-content-transform-origin) items-center gap-1.5 rounded-[4px] px-2 py-2 font-uds-medium [font-family:var(--font-inter)] [font-size:var(--uds-font-size-10)] [line-height:var(--uds-line-10)] tracking-[0.5px] has-data-[slot=kbd]:pr-2 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-[length:var(--uds-radius-4)] data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+    "z-50 inline-flex w-fit max-w-xs origin-(--radix-tooltip-content-transform-origin) items-center gap-1.5 rounded-[4px] px-2 py-2 font-uds-medium tracking-[0.5px] has-data-[slot=kbd]:pr-2 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-[length:var(--uds-radius-4)] data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
   ],
   {
     variants: {
@@ -70,6 +70,7 @@ function TooltipContent({
   className,
   variant,
   sideOffset = 0,
+  style,
   children,
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Content> &
@@ -80,6 +81,7 @@ function TooltipContent({
         data-slot="tooltip-content"
         data-variant={variant ?? "theme"}
         sideOffset={sideOffset}
+        style={{ fontFamily: 'var(--font-inter)', fontSize: 'var(--uds-font-size-10)', lineHeight: 'var(--uds-line-10)', ...style }}
         className={cn(tooltipContentVariants({ variant }), className)}
         {...props}
       >

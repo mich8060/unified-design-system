@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { CalendarBlankIcon } from "@phosphor-icons/react"
-import { type DateRange } from "react-day-picker"
+import type { DateRange } from "react-day-picker"
 
 import { Calendar } from "@/components/ui/calendar"
 import {

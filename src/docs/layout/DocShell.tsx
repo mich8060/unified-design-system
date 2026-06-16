@@ -1,8 +1,6 @@
 import { Suspense, useCallback, useEffect, useState, type CSSProperties } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import {
-  Branding,
-  DiamondsFourIcon,
   DocsNavRailTrigger,
   DocsNavSectionColumn,
   DocsNavSectionHeader,
@@ -12,6 +10,10 @@ import {
   docsNavParentChildActiveCls,
   docsNavParentStickyCls,
   docsNavSubLinkClassName,
+} from '@/components/ui/docs-nav'
+import {
+  Branding,
+  DiamondsFourIcon,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,

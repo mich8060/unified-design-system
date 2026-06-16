@@ -25,14 +25,16 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '@chghealthcare/unified-design-system'
-import { Calendar } from '@chghealthcare/unified-design-system'
+import { Calendar } from '@/components/ui/calendar'
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
+} from '@chghealthcare/unified-design-system'
+import {
   ChartContainer,
   type ChartConfig,
-} from '@chghealthcare/unified-design-system'
+} from '@/components/ui/chart'
 import {
   Combobox,
   ComboboxContent,
@@ -48,7 +50,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@chghealthcare/unified-design-system'
+} from '@/components/ui/command'
 import {
   Dialog,
   DialogBody,
@@ -77,7 +79,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@chghealthcare/unified-design-system'
+} from '@/components/ui/drawer'
 import {
   DropdownMenu,
   DropdownMenuContent,

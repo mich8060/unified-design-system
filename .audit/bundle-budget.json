@@ -1,4 +1,24 @@
 {
-  "maxBundleBytes": 1500000,
-  "description": "Upper bound for esbuild output of `.audit/entry-button.mjs` (Button-only tree from preserveModules dist). Lib build must keep per-module files under dist/ so this audit tree-shakes; a single dist/index.js bundle defeats the check."
+  "components": {
+    "button": {
+      "entry": ".audit/entry-button.mjs",
+      "gzipBytes": 3000,
+      "description": "Button + cn + cva (tree-shaken from dist/index.js, node_modules external)"
+    },
+    "menu": {
+      "entry": ".audit/entry-menu.mjs",
+      "gzipBytes": 50000,
+      "description": "Menu component subgraph incl. all referenced UDS sub-components (node_modules external)"
+    },
+    "branding": {
+      "entry": ".audit/entry-branding.mjs",
+      "gzipBytes": 37000,
+      "description": "Branding.js + all lazy SVG chunks bundled (node_modules external). SVGs load lazily per-brand at runtime."
+    },
+    "app-shell": {
+      "entry": ".audit/entry-app-shell.mjs",
+      "gzipBytes": 12000,
+      "description": "AppShell subgraph, react-router-dom deferred via React.lazy (node_modules external)"
+    }
+  }
 }

@@ -23,6 +23,7 @@ const subpathEntryModules = [
   'components/ui/calendar',
   'components/ui/date-input',
   'components/ui/date-range-input',
+  'components/ui/menu',
   'components/ui/micro-calendar',
   'components/ui/resizable',
   'components/ui/sonner',

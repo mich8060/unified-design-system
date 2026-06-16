@@ -1,0 +1,25 @@
+/*
+ * Base library stylesheet (dist/styles-base.css).
+ *
+ * Identical to styles.lib.css but WITHOUT AppShell/Menu chrome CSS
+ * (app-shell.css and menu.css). Use this entry when your app does not use
+ * AppShell or Menu and you want to avoid shipping their layout chrome.
+ *
+ * Full stylesheet (with chrome): import "@chghealthcare/unified-design-system/styles.css"
+ * Base stylesheet (without chrome): import "@chghealthcare/unified-design-system/styles/base.css"
+ */
+@import "./fonts.css";
+
+@import "tailwindcss" source(none);
+
+@source "./index.ts";
+@source "./components/**/*.{ts,tsx}";
+@source "./hooks/**/*.{ts,tsx}";
+@source "./lib/**/*.{ts,tsx}";
+
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "./styles/tokens.css";
+@import "./styles/components.css";
+@import "./styles/uds-semantic-components.css";
+@import "./styles/uds-chrome-media.css";

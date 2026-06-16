@@ -303,7 +303,7 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
       </div>
 
       {content.accomplishments && content.accomplishments.length > 0 ? (
-        <ReadoutDocSection title={content.accomplishmentsTitle}>
+        <ReadoutDocSection title={content.accomplishmentsTitle ?? 'Accomplishments'}>
           <ExecutiveBulletList items={content.accomplishments} />
         </ReadoutDocSection>
       ) : null}

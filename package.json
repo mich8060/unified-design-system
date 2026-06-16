@@ -1,6 +1,6 @@
 {
   "name": "@chghealthcare/unified-design-system",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "packageManager": "npm@10.9.2",
   "description": "React UI primitives and styles built with Tailwind CSS v4 and shadcn-style components (UDS).",
   "license": "MIT",
@@ -39,11 +39,17 @@
       "require": "./dist/index.cjs"
     },
     "./styles.css": "./dist/styles.css",
+    "./styles/base.css": "./dist/styles-base.css",
     "./fonts/Inter-Variable.woff2": "./dist/fonts/Inter-Variable.woff2",
     "./chart": {
       "types": "./dist/components/ui/chart.d.ts",
       "import": "./dist/components/ui/chart.js",
       "require": "./dist/components/ui/chart.cjs"
+    },
+    "./menu": {
+      "types": "./dist/components/ui/menu.d.ts",
+      "import": "./dist/components/ui/menu.js",
+      "require": "./dist/components/ui/menu.cjs"
     },
     "./calendar": {
       "types": "./dist/components/ui/calendar.d.ts",
@@ -109,7 +115,7 @@
     "dev": "vite --config vite.config.docs.ts",
     "build": "npm run build:lib && npm run build:docs",
     "prepublishOnly": "npm run build:lib",
-    "build:lib": "vite build --config vite.config.lib.ts && tsc -p tsconfig.lib.json && node ./scripts/prepare-package.mjs",
+    "build:lib": "vite build --config vite.config.lib.ts && vite build --config vite.config.lib-base-css.ts && tsc -p tsconfig.lib.json && node ./scripts/prepare-package.mjs",
     "build:docs": "node ./scripts/sync-docs-version-snapshot.mjs && vite build --config vite.config.docs.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

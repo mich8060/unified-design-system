@@ -8,6 +8,42 @@ import tailwindcss from '@tailwindcss/vite'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8')) as { version: string }
 
+const PKG = '@chghealthcare/unified-design-system'
+
+/** Subpath entry points (mirror package.json exports + vite.config.lib.ts). */
+const udsSubpathModules = [
+  'chart',
+  'command',
+  'drawer',
+  'calendar',
+  'date-input',
+  'date-range-input',
+  'menu',
+  'micro-calendar',
+  'resizable',
+  'sonner',
+  'input-otp',
+] as const
+
+import type { AliasOptions } from 'vite'
+
+function createDocsUdsAliases(rootDir: string): AliasOptions {
+  const aliases: AliasOptions = [
+    { find: `${PKG}/styles.css`, replacement: path.resolve(rootDir, './src/styles.css') },
+    { find: `${PKG}/styles/base.css`, replacement: path.resolve(rootDir, './src/styles.base.lib.css') },
+    ...udsSubpathModules.map((mod) => ({
+      find: `${PKG}/${mod}`,
+      replacement: path.resolve(rootDir, `./src/components/ui/${mod}.tsx`),
+    })),
+    { find: PKG, replacement: path.resolve(rootDir, './src/index.ts') },
+    { find: 'uds-tailwind-test/styles.css', replacement: path.resolve(rootDir, './src/styles.css') },
+    { find: 'uds-tailwind-test', replacement: path.resolve(rootDir, './src/index.ts') },
+    { find: '@', replacement: path.resolve(rootDir, './src') },
+  ]
+
+  return aliases
+}
+
 // This repo's GitHub Pages site is served at the domain root
 // (private-repo Pages use a dedicated https://<random>.pages.github.io/ origin
 // with no /<repo>/ subpath), so the base is "/". If this ever moves to a public
@@ -20,13 +56,7 @@ export default defineConfig(() => ({
   },
   plugins: [react(), tailwindcss()],
   resolve: {
-    alias: {
-      '@chghealthcare/unified-design-system/styles.css': path.resolve(__dirname, './src/styles.css'),
-      'uds-tailwind-test/styles.css': path.resolve(__dirname, './src/styles.css'),
-      '@chghealthcare/unified-design-system': path.resolve(__dirname, './src/index.ts'),
-      '@': path.resolve(__dirname, './src'),
-      'uds-tailwind-test': path.resolve(__dirname, './src/index.ts'),
-    },
+    alias: createDocsUdsAliases(__dirname),
   },
   build: {
     outDir: 'docs-dist',

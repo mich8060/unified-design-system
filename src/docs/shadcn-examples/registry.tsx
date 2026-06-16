@@ -85,9 +85,6 @@ import {
     DescriptionTerm,
     Input,
     Link,
-    MicroCalendar,
-    MicroCalendarTile,
-    type MicroCalendarDateData,
     NumberInput,
     PasswordInput,
     PhoneInput,
@@ -181,10 +178,15 @@ import {
 } from '@chghealthcare/unified-design-system'
 import { RadioGroup, RadioGroupItem } from '@chghealthcare/unified-design-system'
 import {
+    MicroCalendar,
+    MicroCalendarTile,
+    type MicroCalendarDateData,
+} from '@chghealthcare/unified-design-system/micro-calendar'
+import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
-} from '@chghealthcare/unified-design-system'
+} from '@chghealthcare/unified-design-system/resizable'
 import { ScrollArea } from '@chghealthcare/unified-design-system'
 import {
     Select,

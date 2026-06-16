@@ -15,9 +15,9 @@ import {
   Footer,
   IconContext,
   Menu,
-  Toaster,
   TooltipProvider,
 } from '@chghealthcare/unified-design-system'
+import { Toaster } from '@/components/ui/sonner'
 import { DocsVersionSelect } from './components/DocsVersionSelect'
 import { useDocsHeaderSearch } from './components/DocsSearch'
 import { applyDocsBrandToDocument, DOCS_SITE_DEFAULT_BRAND } from './doc-site-brand'

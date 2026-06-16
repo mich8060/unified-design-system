@@ -9,6 +9,8 @@
  * `source(none)` disables Tailwind's automatic content detection so the explicit
  * @source globs below are the complete, authoritative scan set.
  */
+@import "./fonts.css";
+
 @import "tailwindcss" source(none);
 
 @source "./index.ts";
@@ -18,8 +20,9 @@
 
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "./fonts.css";
 @import "./styles/tokens.css";
 @import "./styles/components.css";
 @import "./styles/uds-semantic-components.css";
 @import "./styles/uds-chrome-media.css";
+@import "./components/ui/app-shell.css";
+@import "./components/ui/menu.css";
