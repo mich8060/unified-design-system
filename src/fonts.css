@@ -1,15 +1,16 @@
+/*
+ * Inter is the only bundled web font. It is a Latin-Extended subset of Inter
+ * Variable (Google Fonts `latin` + `latin-ext` ranges) that retains the full
+ * opsz + wght variable axes — see scripts/ + docs for the subset definition.
+ *
+ * Menlo is intentionally NOT bundled: it is a native system monospace on macOS,
+ * and `--font-mono` falls back to ui-monospace / SFMono / Consolas / Liberation
+ * Mono on other platforms, so monospace text costs zero font download.
+ */
 @font-face {
   font-family: "Inter Variable";
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
   src: url("./assets/fonts/Inter-Variable.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Menlo";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./assets/fonts/Menlo-Regular.woff2") format("woff2");
 }

@@ -39,6 +39,57 @@
       "require": "./dist/index.cjs"
     },
     "./styles.css": "./dist/styles.css",
+    "./fonts/Inter-Variable.woff2": "./dist/fonts/Inter-Variable.woff2",
+    "./chart": {
+      "types": "./dist/components/ui/chart.d.ts",
+      "import": "./dist/components/ui/chart.js",
+      "require": "./dist/components/ui/chart.cjs"
+    },
+    "./calendar": {
+      "types": "./dist/components/ui/calendar.d.ts",
+      "import": "./dist/components/ui/calendar.js",
+      "require": "./dist/components/ui/calendar.cjs"
+    },
+    "./micro-calendar": {
+      "types": "./dist/components/ui/micro-calendar.d.ts",
+      "import": "./dist/components/ui/micro-calendar.js",
+      "require": "./dist/components/ui/micro-calendar.cjs"
+    },
+    "./date-input": {
+      "types": "./dist/components/ui/date-input.d.ts",
+      "import": "./dist/components/ui/date-input.js",
+      "require": "./dist/components/ui/date-input.cjs"
+    },
+    "./date-range-input": {
+      "types": "./dist/components/ui/date-range-input.d.ts",
+      "import": "./dist/components/ui/date-range-input.js",
+      "require": "./dist/components/ui/date-range-input.cjs"
+    },
+    "./command": {
+      "types": "./dist/components/ui/command.d.ts",
+      "import": "./dist/components/ui/command.js",
+      "require": "./dist/components/ui/command.cjs"
+    },
+    "./drawer": {
+      "types": "./dist/components/ui/drawer.d.ts",
+      "import": "./dist/components/ui/drawer.js",
+      "require": "./dist/components/ui/drawer.cjs"
+    },
+    "./resizable": {
+      "types": "./dist/components/ui/resizable.d.ts",
+      "import": "./dist/components/ui/resizable.js",
+      "require": "./dist/components/ui/resizable.cjs"
+    },
+    "./sonner": {
+      "types": "./dist/components/ui/sonner.d.ts",
+      "import": "./dist/components/ui/sonner.js",
+      "require": "./dist/components/ui/sonner.cjs"
+    },
+    "./input-otp": {
+      "types": "./dist/components/ui/input-otp.d.ts",
+      "import": "./dist/components/ui/input-otp.js",
+      "require": "./dist/components/ui/input-otp.cjs"
+    },
     "./package.json": "./package.json"
   },
   "volta": {

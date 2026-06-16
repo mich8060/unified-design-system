@@ -1,0 +1,144 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Field": {
+      "nodeId": "1857:5033",
+      "name": "Field",
+      "width": 756,
+      "height": 413
+    }
+  },
+  "Field": {
+    "nodeId": "1857:5033",
+    "description": "Form field shell with label, Content instance-swap slot (Input, Checkbox, Radio, Switch, etc.), and hint text. Appearance maps to Field orientation; State drives destructive label/hint styling.",
+    "variantAxes": ["Appearance", "State"],
+    "variantCount": 4,
+    "variants": [
+      "Appearance=Vertical, State=Default",
+      "Appearance=Vertical, State=Error",
+      "Appearance=Horizontal, State=Default",
+      "Appearance=Horizontal, State=Error"
+    ],
+    "variantNodeIds": {
+      "Appearance=Vertical, State=Default": "1857:5001",
+      "Appearance=Vertical, State=Error": "1857:5006",
+      "Appearance=Horizontal, State=Default": "1857:5011",
+      "Appearance=Horizontal, State=Error": "1848:5122"
+    },
+    "componentProperties": {
+      "Appearance": {
+        "type": "VARIANT",
+        "defaultValue": "Vertical",
+        "variantOptions": ["Vertical", "Horizontal"],
+        "codeProp": "orientation",
+        "codeValues": {
+          "Vertical": "vertical",
+          "Horizontal": "horizontal"
+        }
+      },
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Error"],
+        "codeProp": "data-invalid / FieldError presence",
+        "codeValues": {
+          "Default": "default",
+          "Error": "error"
+        }
+      },
+      "Field Label": {
+        "type": "TEXT",
+        "propertyId": "Field Label#1848:6",
+        "defaultValue": "Email",
+        "linkedLayer": "Field label",
+        "codeProp": "FieldLabel children"
+      },
+      "Hint": {
+        "type": "TEXT",
+        "propertyId": "Hint#1848:12",
+        "defaultValue": "We never share your email.",
+        "linkedLayer": "Field description | Field error",
+        "codeProp": "FieldDescription children (Default) or FieldError children (Error)"
+      },
+      "Content": {
+        "type": "SLOT",
+        "propertyId": "Content#1848:32",
+        "linkedLayer": "Content",
+        "codeProp": "children — swap Input, Checkbox, Radio, Switch, Textarea, etc."
+      }
+    },
+    "sizes": {
+      "width": 756,
+      "verticalHeight": 96,
+      "horizontalHeight": 64,
+      "contentSlotHeight": 44,
+      "labelWidthHorizontal": 128,
+      "fieldContentWidth": 620
+    },
+    "layers": {
+      "label": "Field label",
+      "contentSlot": "Content",
+      "description": "Field description",
+      "error": "Field error",
+      "fieldContent": "Field content"
+    },
+    "structureByAppearance": {
+      "Vertical": ["Field label", "Content (slot)", "Field description | Field error"],
+      "Horizontal": ["Field label (128px)", "Field content → Content (slot) + Field description"]
+    },
+    "tokenBindings": {
+      "labelDefault": "uds/text/primary",
+      "labelErrorVertical": "uds/button/border/primary/destructive",
+      "labelErrorHorizontal": "uds/system/destructive/primary",
+      "hintDefault": "uds/text/tertiary",
+      "hintErrorVertical": "uds/button/border/primary/destructive",
+      "hintErrorHorizontal": "uds/system/destructive/primary",
+      "fieldGap": "uds/gap/8",
+      "fieldContentGap": "uds/gap/4"
+    },
+    "typography": {
+      "label": "Body/14/Medium",
+      "hint": "Body/12/Regular"
+    },
+    "composeFrom": {
+      "contentSlot": {
+        "note": "INSTANCE_SWAP — designers place Input (589:236), Checkbox (590:230), Radio (1849:5009), Switch (1854:5019), or other controls in Content slot."
+      },
+      "input": { "componentSet": "Input", "nodeId": "589:236" },
+      "checkbox": { "componentSet": "Checkbox", "nodeId": "590:230" },
+      "radio": { "componentSet": "Radio", "nodeId": "1849:5009" },
+      "switch": { "componentSet": "Switch", "nodeId": "1854:5019" }
+    },
+    "gridLayout": {
+      "cols": 2,
+      "note": "2×2 stack: Vertical Default/Error, Horizontal Default/Error"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/field.tsx",
+    "exports": [
+      "Field",
+      "FieldLabel",
+      "FieldDescription",
+      "FieldError",
+      "FieldContent",
+      "FieldGroup",
+      "FieldSet",
+      "FieldLegend",
+      "FieldSeparator",
+      "FieldTitle"
+    ],
+    "mapping": {
+      "Field": "role=group shell; orientation via Appearance",
+      "FieldContent": "Horizontal only — wraps control + description (Field content frame)",
+      "FieldDescription": "Hint text in Default state",
+      "FieldError": "Hint text in Error state (vertical layer named Field error)"
+    },
+    "notes": [
+      "Figma uses a single Hint TEXT property for both description and error copy; color changes by State.",
+      "Horizontal Error keeps layer name Field description; Vertical Error uses Field error."
+    ]
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-11",
+  "hierarchy": "Table \u2192 .table-row \u2192 .table-cell",
+  "nodes": {
+    "Table": {
+      "nodeId": "1430:4180",
+      "name": "Table",
+      "x": 4602,
+      "y": 23172,
+      "width": 837,
+      "height": 96
+    },
+    ".table-row": {
+      "nodeId": "1436:4245",
+      "name": ".table-row",
+      "x": 4606,
+      "y": 23082,
+      "width": 470,
+      "height": 17
+    },
+    ".table-cell": {
+      "nodeId": "1436:4192",
+      "name": ".table-cell",
+      "x": 100,
+      "y": 26570,
+      "width": 200,
+      "height": 138
+    }
+  },
+  "layerNaming": {
+    "rule": "Public wrapper `Table`; private parts `.table-row` and `.table-cell` (leading period, lowercase, dash-separated). Each level exposes a `Content` slot.",
+    "template": [
+      "Table",
+      "Content",
+      ".table-row",
+      "Content",
+      ".table-cell",
+      "Content"
+    ]
+  },
+  "Table": {
+    "nodeId": "1430:4180",
+    "layout": "GRID (single cell) wrapping a VERTICAL Content slot of rows",
+    "variants": [],
+    "variantCount": 0,
+    "componentProperties": {
+      "Content#1436:2": {
+        "type": "SLOT",
+        "linkedLayer": "Content",
+        "slotSettings": {
+          "allowPreferredValuesOnly": true,
+          "stretchChildOnInsert": false,
+          "displayEmptyByDefault": false
+        },
+        "preferredValues": [".table-row (key 6b50a22ee7b413d2280e51feb11d4ebd4c16f750)"],
+        "codeProp": "children",
+        "note": "Restricted slot (allowPreferredValuesOnly) \u2014 only .table-row instances may be inserted. Maps to TableHeader/TableBody rows in code."
+      },
+      "Cell#1430:0": {
+        "type": "INSTANCE_SWAP",
+        "defaultValue": ".table-cell / Appearance=Body (1429:4180)",
+        "preferredValues": [".table-cell (key 80a47e88388f3937dfcb46c520d097f78059024e)"],
+        "note": "Legacy single-cell swap from the first build, retained on the component. The Content (rows) slot is now the primary composition path."
+      }
+    },
+    "tokens": {
+      "fill": "uds/surface/primary",
+      "stroke": "uds/border/primary",
+      "strokeWidth": "uds/border/width/1",
+      "radius": "uds/radius/4",
+      "strokeAlign": "INSIDE",
+      "clipsContent": true
+    },
+    "notes": [
+      "Outer chrome only: border + background + rounded corners; rows/cells supply their own dividers.",
+      "Reference instance ships a Head row (uds/surface/tertiary cells) followed by Body rows (uds/surface/primary cells)."
+    ]
+  },
+  ".table-row": {
+    "nodeId": "1436:4245",
+    "layout": "VERTICAL wrapper; Content slot is HORIZONTAL (cells run left-to-right)",
+    "variants": [],
+    "variantCount": 0,
+    "componentProperties": {
+      "Content#1436:1": {
+        "type": "SLOT",
+        "linkedLayer": "Content",
+        "slotSettings": {
+          "allowPreferredValuesOnly": true,
+          "stretchChildOnInsert": false,
+          "displayEmptyByDefault": false
+        },
+        "preferredValues": [".table-cell set (key 0732fbe042c91bac9ff610e5ace4a48adfc9dfe6)"],
+        "codeProp": "children",
+        "note": "Restricted slot (allowPreferredValuesOnly) \u2014 only .table-cell instances may be inserted. Maps to a TableRow's TableCell/TableHead children."
+      }
+    },
+    "tokens": {
+      "fill": "white (#ffffff, not token-bound)",
+      "gap": 10,
+      "strokeAlign": "INSIDE"
+    },
+    "notes": [
+      "Structural row wrapper holding a horizontal run of .table-cell instances.",
+      "Header rows use Appearance=Head cells; body rows use Appearance=Body cells (set per-instance, not a row variant).",
+      "Row fill is an unbound white \u2014 bind to uds/surface/primary if a token is required."
+    ]
+  },
+  ".table-cell": {
+    "nodeId": "1436:4192",
+    "variants": ["Appearance=Body", "Appearance=Head", "Appearance=Footer"],
+    "variantCount": 3,
+    "defaultVariant": "Appearance=Head",
+    "variantNodeIds": {
+      "Appearance=Body": "1429:4180",
+      "Appearance=Head": "1436:4193",
+      "Appearance=Footer": "1455:4896"
+    },
+    "componentProperties": {
+      "Appearance": {
+        "type": "VARIANT",
+        "defaultValue": "Head",
+        "variantOptions": ["Body", "Head", "Footer"],
+        "codeProp": "element",
+        "codeValues": {
+          "Body": "TableCell (td)",
+          "Head": "TableHead (th)",
+          "Footer": "TableCell (td) within TableFooter"
+        }
+      },
+      "Content#1436:0": {
+        "type": "SLOT",
+        "codeProp": "children",
+        "linkedLayer": "Content",
+        "note": "Open slot \u2014 accepts any element (text, shapes, instances)."
+      }
+    },
+    "tokens": {
+      "fill (Body)": "uds/surface/primary",
+      "fill (Head)": "uds/surface/tertiary",
+      "fill (Footer)": "uds/surface/quaternary",
+      "stroke": "uds/border/primary",
+      "strokeWidth": "uds/border/width/1",
+      "strokeSides": "bottom only (strokeBottomWeight bound; top/left/right = 0)",
+      "padding": "uds/spacing/0",
+      "radius": "uds/radius/0",
+      "text": "uds/text/primary",
+      "strokeAlign": "INSIDE"
+    },
+    "typography": {
+      "Appearance=Body": "Inter Regular 16",
+      "Appearance=Head": "Inter Regular 16",
+      "Appearance=Footer": "Inter Regular 16"
+    },
+    "notes": [
+      "3 variants by Appearance: Body (surface/primary), Head (surface/tertiary), Footer (surface/quaternary). Default = Head.",
+      "Cell text is Inter Regular 16; vertically centered in a 160\u00d724 cell (counterAxis CENTER).",
+      "Bottom border only acts as the row divider (replaces a full box border).",
+      "No internal padding (spacing/0) and square corners (radius/0); the wrapper owns the rounded corner clip."
+    ]
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/table.tsx",
+    "exports": [
+      "Table",
+      "TableHeader",
+      "TableBody",
+      "TableFooter",
+      "TableHead",
+      "TableRow",
+      "TableCell",
+      "TableCaption"
+    ],
+    "structure": {
+      "Table (Figma wrapper)": "table-container div + table \u2014 outer border, uds/radius/4, overflow-x-auto",
+      ".table-row": "TableRow (tr); first row \u2248 TableHeader > tr, remaining \u2248 TableBody > tr",
+      ".table-cell Appearance=Body": "TableCell (td)",
+      ".table-cell Appearance=Head": "TableHead (th) \u2014 muted header cell",
+      "Content slots": "children at each level (table rows, row cells, cell content)"
+    },
+    "notes": [
+      "Divider: Figma binds the bottom border on the cell; code applies it on TableRow via `border-b` with border-border (uds/border/primary) \u2014 same visual result.",
+      "Padding: aligned \u2014 TableCell and TableHead use p-0 to match Figma spacing/0; cell content supplies its own spacing.",
+      "Header fill: aligned \u2014 TableHead uses bg-accent (--accent = uds/surface/tertiary) to match Figma Head; weight is Regular (font-medium removed).",
+      "Surface: aligned \u2014 table-container uses bg-background (uds/surface/primary) to match the Figma Table fill.",
+      "Slot enforcement: Figma uses slot allowPreferredValuesOnly to restrict Table\u2192.table-row and .table-row\u2192.table-cell; code enforces the same nesting structurally via JSX."
+    ]
+  }
+}

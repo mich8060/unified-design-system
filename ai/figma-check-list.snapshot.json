@@ -1,0 +1,109 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "CheckList": {
+      "nodeId": "1629:4568",
+      "name": "CheckList",
+      "width": 2888,
+      "height": 68
+    }
+  },
+  "CheckList": {
+    "nodeId": "1629:4568",
+    "description": "Single checklist task row — bordered card (.check-list-item shell) with checkbox, label, and optional description. Compose multiple instances vertically for full lists.",
+    "variants": [
+      "Checked=False, Disabled=False, Description=False",
+      "Checked=True, Disabled=False, Description=False",
+      "Checked=False, Disabled=False, Description=True",
+      "Checked=True, Disabled=False, Description=True",
+      "Checked=False, Disabled=True, Description=False",
+      "Checked=True, Disabled=True, Description=False",
+      "Checked=False, Disabled=True, Description=True",
+      "Checked=True, Disabled=True, Description=True"
+    ],
+    "variantCount": 8,
+    "variantNodeIds": {
+      "Checked=False, Disabled=False, Description=False": "1629:4520",
+      "Checked=True, Disabled=False, Description=False": "1629:4542",
+      "Checked=False, Disabled=False, Description=True": "1629:4525",
+      "Checked=True, Disabled=False, Description=True": "1629:4548",
+      "Checked=False, Disabled=True, Description=False": "1629:4531",
+      "Checked=True, Disabled=True, Description=False": "1629:4555",
+      "Checked=False, Disabled=True, Description=True": "1629:4536",
+      "Checked=True, Disabled=True, Description=True": "1629:4561"
+    },
+    "componentProperties": {
+      "Checked": {
+        "type": "VARIANT",
+        "defaultValue": "False",
+        "variantOptions": ["False", "True"],
+        "codeProp": "checked"
+      },
+      "Disabled": {
+        "type": "VARIANT",
+        "defaultValue": "False",
+        "variantOptions": ["False", "True"],
+        "codeProp": "disabled"
+      },
+      "Description": {
+        "type": "VARIANT",
+        "defaultValue": "False",
+        "variantOptions": ["False", "True"],
+        "codeProp": "description",
+        "note": "True shows .description helper text below .label."
+      },
+      "task": {
+        "type": "TEXT",
+        "defaultValue": "Task label",
+        "codeProp": "label",
+        "linkedLayer": ".label"
+      },
+      "descriptionLabel": {
+        "type": "TEXT",
+        "defaultValue": "Supporting description for the task.",
+        "codeProp": "description",
+        "linkedLayer": ".description",
+        "note": "Visible when Description variant is True."
+      }
+    },
+    "layerNaming": {
+      "root": "CheckList (card shell — maps to CheckListItem + CheckListControl)",
+      "control": ".check-list-control",
+      "checkbox": "Checkbox (instance of Checkbox set 590:230)",
+      "text": ".text",
+      "label": ".label",
+      "description": ".description"
+    },
+    "tokens": {
+      "itemFill": "uds/surface/primary",
+      "itemStroke": "uds/border/primary",
+      "itemRadius": "uds/radius/8",
+      "itemPadding": "uds/gap/12",
+      "rowGap": "uds/gap/8",
+      "textGap": "uds/gap/4",
+      "labelStyle": "Body/14/Medium",
+      "labelFill": "uds/text/primary",
+      "labelFillDisabled": "uds/text/disabled",
+      "descriptionStyle": "Body/14/Regular",
+      "descriptionFill": "uds/text/secondary"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/check-list.tsx",
+    "exports": ["CheckList", "CheckListItem", "CheckListControl"],
+    "figmaToCode": {
+      "CheckList (Figma)": "CheckListItem wrapping CheckListControl — one instance per task row",
+      "CheckList (React ul)": "Vertical stack of CheckListItem instances (compose in design/code)"
+    },
+    "structure": {
+      "CheckListItem": "Root card — uds/surface/primary, uds/border/primary, uds/radius/8, uds/gap/12 padding",
+      "CheckListControl": ".check-list-control — checkbox + .text (.label + optional .description)"
+    },
+    "checkboxSetNodeId": "590:230",
+    "removedNodes": {
+      "note": "Composite list variant set (1630:4601) removed — item-level CheckList is canonical."
+    }
+  }
+}

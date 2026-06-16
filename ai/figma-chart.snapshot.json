@@ -1,0 +1,366 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "architecture": "self-contained-series",
+  "nodes": {
+    "Chart": {
+      "nodeId": "1521:4549",
+      "name": "Chart",
+      "canvas": { "x": 0, "y": 0, "width": 2156, "height": 306 },
+      "description": "Recipe variant selects a fully self-contained series instance (y-axis, grid, plot, x-axis, legend). No ChartPlot wrapper."
+    }
+  },
+  "Chart": {
+    "nodeId": "1521:4549",
+    "description": "Recipe variants embed a self-contained series instance directly. Each variant is 412×242 with 24px padding.",
+    "variantOrder": [
+      "Recipe=Bar",
+      "Recipe=Stacked Bar",
+      "Recipe=Line",
+      "Recipe=Grouped",
+      "Recipe=Area"
+    ],
+    "variantCount": 5,
+    "variantNodeIds": {
+      "Recipe=Bar": "1521:4529",
+      "Recipe=Stacked Bar": "1521:4544",
+      "Recipe=Line": "1521:4536",
+      "Recipe=Grouped": "1521:4548",
+      "Recipe=Area": "1521:4540"
+    },
+    "variantDimensions": {
+      "outer": { "width": 412, "height": 242, "padding": 24 },
+      "seriesInstance": { "width": 364, "height": 194 }
+    },
+    "componentProperties": {
+      "Recipe": {
+        "type": "VARIANT",
+        "defaultValue": "Bar",
+        "variantOptions": ["Bar", "Line", "Area", "Stacked Bar", "Grouped"],
+        "codeNote": "Maps to Recharts chart type; all chrome baked into series"
+      }
+    },
+    "recipes": {
+      "Recipe=Bar": {
+        "instanceLayer": ".chart-series-bar",
+        "series": ".chart-series-bar",
+        "seriesInstanceId": "1514:4308",
+        "legendItems": 1,
+        "defaultPoints": "Points=6"
+      },
+      "Recipe=Line": {
+        "instanceLayer": ".chart-series-line",
+        "series": ".chart-series-line",
+        "seriesInstanceId": "1514:4315",
+        "legendItems": 1,
+        "defaultPoints": "Points=6"
+      },
+      "Recipe=Area": {
+        "instanceLayer": ".chart-series-area",
+        "series": ".chart-series-area",
+        "seriesInstanceId": "1515:4296",
+        "legendItems": 1,
+        "defaultPoints": "Points=6"
+      },
+      "Recipe=Stacked Bar": {
+        "instanceLayer": ".chart-series-stacked-bar",
+        "series": ".chart-series-stacked",
+        "seriesInstanceId": "1515:4299",
+        "legendItems": 2,
+        "defaultPoints": "Points=6"
+      },
+      "Recipe=Grouped": {
+        "instanceLayer": ".chart-series-grouped",
+        "series": ".chart-series-grouped",
+        "seriesInstanceId": "1515:4312",
+        "legendItems": 2,
+        "defaultPoints": "Points=6"
+      }
+    },
+    "layerNaming": {
+      "template": ["{series-instance}"],
+      "note": "Direct series INSTANCE child per recipe; no .plot-area wrapper"
+    }
+  },
+  "deletedAtoms": {
+    ".chart-y-axis": { "formerNodeId": "1513:4296", "status": "deleted", "embeddedIn": "series .y-axis" },
+    ".chart-grid": { "formerNodeId": "1513:4309", "status": "deleted", "embeddedIn": "series .plot .grid-line" },
+    ".chart-x-axis": { "formerNodeId": "1513:4302", "status": "deleted", "embeddedIn": "series .x-axis" },
+    ".chart-legend": { "formerNodeId": "1514:4307", "status": "deleted", "embeddedIn": "series .legend" },
+    "ChartPlot": { "formerNodeId": "1516:4296", "status": "deleted", "note": "Chart recipes now instance series directly" },
+    "ChartExamples": { "formerNodeId": "1502:4404", "status": "deleted" }
+  },
+  "seriesStructure": {
+    "root": {
+      "layout": "HORIZONTAL",
+      "itemSpacing": 8,
+      "width": 364,
+      "children": [".y-axis", ".chart-body"]
+    },
+    "yAxis": {
+      "width": 23,
+      "height": 148,
+      "layout": "VERTICAL",
+      "primaryAxisAlignItems": "SPACE_BETWEEN",
+      "counterAxisAlignItems": "MAX",
+      "layoutSizing": "HUG × FIXED",
+      "labels": [320, 240, 160, 80, 0]
+    },
+    "chartBody": {
+      "width": 333,
+      "layout": "VERTICAL",
+      "itemSpacing": 8,
+      "children": [".plot", ".x-axis", ".legend"],
+      "layoutSizing": "FILL × HUG"
+    },
+    "plot": {
+      "height": 148,
+      "layout": "NONE",
+      "children": [".grid-line ×5", ".data or vectors"]
+    },
+    "data": {
+      "layout": "HORIZONTAL",
+      "primaryAxisAlignItems": "MIN",
+      "counterAxisAlignItems": "MAX",
+      "itemSpacing": 4,
+      "fills": "solid white",
+      "clipsContent": true,
+      "note": "Bottom-aligned slot row; shares slot grid with .x-axis"
+    },
+    "xAxis": {
+      "layout": "HORIZONTAL",
+      "itemSpacing": 4,
+      "children": ".tick-slot (layoutGrow 1) > .tick"
+    },
+    "legend": {
+      "layout": "HORIZONTAL",
+      "itemSpacing": 16,
+      "children": ".legend-item > .swatch + .label"
+    },
+    "textStyles": {
+      ".y-tick": { "textStyle": "Body/12/Regular", "fill": "uds/text/tertiary" },
+      ".tick": { "textStyle": "Body/12/Regular", "fill": "uds/text/tertiary" },
+      ".label": { "textStyle": "Body/12/Regular", "fill": "uds/text/secondary" }
+    }
+  },
+  "atoms": {
+    ".chart-series-bar": {
+      "nodeId": "1534:4577",
+      "canvas": { "x": 0, "y": 456, "width": 1608, "height": 734 },
+      "variantAxis": "Points",
+      "variantRange": [2, 12],
+      "defaultVariant": "Points=2",
+      "defaultVariantNodeId": "1534:4490",
+      "points6NodeId": "1514:4308",
+      "variantCount": 11,
+      "variantHeight": 194,
+      "variantNodeIds": {
+        "Points=2": "1534:4490",
+        "Points=3": "1534:4493",
+        "Points=4": "1534:4497",
+        "Points=5": "1534:4502",
+        "Points=6": "1514:4308",
+        "Points=7": "1534:4514",
+        "Points=8": "1534:4522",
+        "Points=9": "1534:4531",
+        "Points=10": "1534:4541",
+        "Points=11": "1534:4552",
+        "Points=12": "1534:4564"
+      },
+      "layers": [".y-axis", ".chart-body"],
+      "barSlot": {
+        "layout": "VERTICAL",
+        "primaryAxisAlignItems": "MAX",
+        "counterAxisAlignItems": "CENTER",
+        "layoutSizingVertical": "HUG"
+      },
+      "bar": { "width": 20, "layoutSizingHorizontal": "FIXED" },
+      "plotChildren": [".grid-line", ".data"],
+      "legendItems": 1
+    },
+    ".chart-series-line": {
+      "nodeId": "1535:4589",
+      "canvas": { "x": 0, "y": 1340, "width": 1608, "height": 872 },
+      "variantAxis": "Points",
+      "variantRange": [2, 12],
+      "defaultVariant": "Points=2",
+      "points6NodeId": "1514:4315",
+      "variantCount": 11,
+      "variantHeight": 240,
+      "variantNodeIds": {
+        "Points=2": "1535:4491",
+        "Points=3": "1535:4495",
+        "Points=4": "1535:4500",
+        "Points=5": "1535:4506",
+        "Points=6": "1514:4315",
+        "Points=7": "1535:4520",
+        "Points=8": "1535:4529",
+        "Points=9": "1535:4539",
+        "Points=10": "1535:4550",
+        "Points=11": "1535:4562",
+        "Points=12": "1535:4575"
+      },
+      "layers": [".y-axis", ".chart-body"],
+      "legendItems": 1,
+      "plotChildren": [".grid-line", ".data", ".series-line"],
+      "pointSlot": {
+        "layout": "NONE",
+        "layoutGrow": 1,
+        "layoutSizingHorizontal": "FILL",
+        "layoutSizingVertical": "FILL",
+        "note": ".point 6×6; y positioned by data value; x centered in slot"
+      },
+      "point": { "width": 6, "height": 6 },
+      "seriesLine": {
+        "type": "FRAME",
+        "children": ".line-segment",
+        "segmentType": "LINE",
+        "strokeWeight": 2,
+        "endpointMethod": "relativeTransform from slot centers",
+        "layerOrder": "above .data so line segments are visible"
+      },
+      "xAxisSync": "Same HORIZONTAL layout, itemSpacing=4, layoutGrow=1 as .data .point-slot"
+    },
+    ".chart-series-area": {
+      "nodeId": "1536:4523",
+      "canvas": { "x": 0, "y": 2362, "width": 1608, "height": 734 },
+      "variantAxis": "Points",
+      "variantRange": [2, 12],
+      "defaultVariant": "Points=6",
+      "points6NodeId": "1515:4296",
+      "variantCount": 11,
+      "variantHeight": 194,
+      "variantNodeIds": {
+        "Points=2": "1536:4491",
+        "Points=3": "1536:4494",
+        "Points=4": "1536:4497",
+        "Points=5": "1536:4500",
+        "Points=6": "1515:4296",
+        "Points=7": "1536:4505",
+        "Points=8": "1536:4508",
+        "Points=9": "1536:4511",
+        "Points=10": "1536:4514",
+        "Points=11": "1536:4517",
+        "Points=12": "1536:4520"
+      },
+      "layers": [".y-axis", ".chart-body"],
+      "legendItems": 1,
+      "plotChildren": [".grid-line", ".area-fill", ".series-line"],
+      "areaFill": { "stroke": false, "note": "Fill only — no border on .area-fill" }
+    },
+    ".chart-series-stacked": {
+      "nodeId": "1537:4655",
+      "canvas": { "x": 0, "y": 4130, "width": 1608, "height": 734 },
+      "variantAxis": "Points",
+      "variantRange": [2, 12],
+      "defaultVariant": "Points=2",
+      "points6NodeId": "1515:4299",
+      "variantCount": 11,
+      "variantHeight": 194,
+      "variantNodeIds": {
+        "Points=2": "1537:4491",
+        "Points=3": "1537:4496",
+        "Points=4": "1537:4503",
+        "Points=5": "1537:4512",
+        "Points=6": "1515:4299",
+        "Points=7": "1537:4535",
+        "Points=8": "1537:4550",
+        "Points=9": "1537:4567",
+        "Points=10": "1537:4586",
+        "Points=11": "1537:4607",
+        "Points=12": "1537:4630"
+      },
+      "layers": [".y-axis", ".chart-body"],
+      "legendItems": 2,
+      "stackSlot": {
+        "layout": "VERTICAL",
+        "primaryAxisAlignItems": "MAX",
+        "counterAxisAlignItems": "CENTER",
+        "layoutSizingVertical": "FILL"
+      },
+      "stack": { "width": 23, "layoutSizingHorizontal": "HUG" },
+      "stackedBarMaxWidth": 23,
+      "plotChildren": [".grid-line", ".data"]
+    },
+    ".chart-series-grouped": {
+      "nodeId": "1538:4655",
+      "canvas": { "x": 0, "y": 3246, "width": 1608, "height": 734 },
+      "variantAxis": "Points",
+      "variantRange": [2, 12],
+      "defaultVariant": "Points=6",
+      "points6NodeId": "1515:4312",
+      "variantCount": 11,
+      "variantHeight": 194,
+      "variantOrder": ["Points=6", "Points=2", "Points=3", "Points=4", "Points=5", "Points=7", "Points=8", "Points=9", "Points=10", "Points=11", "Points=12"],
+      "variantNodeIds": {
+        "Points=2": "1538:4491",
+        "Points=3": "1538:4496",
+        "Points=4": "1538:4503",
+        "Points=5": "1538:4512",
+        "Points=6": "1515:4312",
+        "Points=7": "1538:4535",
+        "Points=8": "1538:4550",
+        "Points=9": "1538:4567",
+        "Points=10": "1538:4586",
+        "Points=11": "1538:4607",
+        "Points=12": "1538:4630"
+      },
+      "layers": [".y-axis", ".chart-body"],
+      "legendItems": 2,
+      "groupSlot": {
+        "layout": "HORIZONTAL",
+        "primaryAxisAlignItems": "CENTER",
+        "counterAxisAlignItems": "MAX",
+        "layoutSizingVertical": "FILL"
+      },
+      "groupBar": { "names": [".bar-desktop", ".bar-mobile"], "width": 8, "layoutSizingHorizontal": "FIXED" },
+      "plotChildren": [".grid-line", ".data"]
+    }
+  },
+  "tokens": {
+    "grid": "uds/border/primary",
+    "axisLabel": "uds/text/tertiary",
+    "axisTextStyle": "Body/12/Regular",
+    "yAxisValues": [320, 240, 160, 80, 0],
+    "legendLabel": "uds/text/secondary",
+    "legendTextStyle": "Body/12/Regular",
+    "series1": "uds/color/primary/600",
+    "series2": "uds/color/primary/400",
+    "seriesPrimary": "uds/color/primary/700",
+    "areaFill": "uds/color/primary/100",
+    "background": "uds/surface/primary"
+  },
+  "colorBindings": {
+    ".grid-line": { "stroke": "uds/border/primary" },
+    ".bar": { "fill": "uds/color/primary/600" },
+    ".point": { "fill": "uds/color/primary/600" },
+    ".line-segment": { "stroke": "uds/color/primary/600" },
+    ".series-line": { "stroke": "uds/color/primary/600" },
+    ".area-fill": { "fill": "uds/color/primary/100" },
+    ".bar-desktop": { "fill": "uds/color/primary/700" },
+    ".bar-mobile": { "fill": "uds/color/primary/400" },
+    ".stack/.bar-desktop": { "fill": "uds/color/primary/700" },
+    ".stack/.bar-mobile": { "fill": "uds/color/primary/400" },
+    ".swatch (series 1)": { "fill": "uds/color/primary/600" },
+    ".swatch (series 2)": { "fill": "uds/color/primary/700" },
+    ".y-tick": { "fill": "uds/text/tertiary" },
+    ".tick": { "fill": "uds/text/tertiary" },
+    ".label": { "fill": "uds/text/secondary" },
+    "structuralFrames": {
+      "layers": [".y-axis", ".chart-body", ".plot", ".data", ".x-axis", ".tick-slot", ".legend", ".bar-slot", ".point-slot", ".stack-slot", ".group-slot", ".stack"],
+      "fill": "uds/surface/primary"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/chart-core.tsx",
+    "exports": ["ChartContainer", "ChartTooltip", "ChartLegend", "ChartTooltipContent", "ChartLegendContent"],
+    "mapping": {
+      "Chart Recipe=Bar": "BarChart + YAxis + XAxis + ChartLegend",
+      "Chart Recipe=Line": "LineChart + YAxis + XAxis + ChartLegend",
+      "Chart Recipe=Area": "AreaChart + YAxis + XAxis + ChartLegend",
+      "Chart Recipe=Stacked Bar": "StackedBarChart + YAxis + XAxis + dual legend",
+      "Chart Recipe=Grouped": "Grouped BarChart + YAxis + XAxis + dual legend"
+    }
+  }
+}

@@ -11,24 +11,14 @@ import {
   PaletteIcon,
   PenNibIcon,
   PresentationChartIcon,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
   SparkleIcon,
   SquaresFourIcon,
   StackIcon,
   type MedallionColor,
 } from '@chghealthcare/unified-design-system'
-import { useCallback, useEffect, useLayoutEffect, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  DOCS_BRAND_OPTIONS,
-  persistIntroPreviewBrand,
-  readStoredIntroPreviewBrand,
-  type DocsBrandId,
-} from '../doc-site-brand'
+import { DOCS_BRAND_OPTIONS } from '../doc-site-brand'
 import type { UdsBrandId } from '@/lib/uds-brand'
 import {
   docPageHeroBandClassName,
@@ -37,14 +27,11 @@ import {
   docPageHeroShellClassName,
   docPageHorizontalGutterClassName,
 } from '../doc-page-hero-classes'
-import { useShadcnDocsRegistry } from '../registry'
-import { WelcomeCardPreview } from '../welcome-card-preview'
 import { CodePanel } from '../components/CodePanel'
 import { DocShellLayoutVisuals } from './DocShellLayoutVisuals'
 import { ReadoutPage } from '../readout/ReadoutPage'
 import { MarkdownishPage } from './MarkdownishPage'
 
-const WELCOME_CARD_EXCLUDED_SLUGS = new Set(['header', 'footer'])
 
 /** Custom property used by `.welcome-header-icon-flux` in docs CSS (not in React's CSSProperties index). */
 function welcomeHeaderFluxStyle(fluxBase: string, animationDelay: string): CSSProperties {
@@ -100,92 +87,6 @@ const INTRO_PRINCIPLES: {
     icon: <PresentationChartIcon weight="bold" aria-hidden />,
   },
 ]
-const previewThemeVars: CSSProperties = {
-  '--background': 'var(--uds-surface-primary)',
-  '--foreground': 'var(--uds-text-primary)',
-  '--card': 'var(--uds-surface-primary)',
-  '--card-foreground': 'var(--uds-text-primary)',
-  '--popover': 'var(--uds-surface-primary)',
-  '--popover-foreground': 'var(--uds-text-primary)',
-  '--primary': 'var(--uds-color-primary-700)',
-  '--primary-foreground': 'var(--uds-text-inverse)',
-  '--secondary': 'var(--uds-surface-secondary)',
-  '--secondary-foreground': 'var(--uds-text-primary)',
-  '--muted': 'var(--uds-surface-secondary)',
-  '--muted-foreground': 'var(--uds-text-secondary)',
-  '--accent': 'var(--uds-surface-tertiary)',
-  '--accent-foreground': 'var(--uds-text-primary)',
-  '--border': 'var(--uds-border-primary)',
-  '--input': 'var(--uds-border-primary)',
-  '--ring': 'var(--uds-focus-ring-border)',
-} as CSSProperties
-
-function WelcomeComponentGrid({
-  previewBrand,
-  onPreviewBrandChange,
-}: {
-  previewBrand: DocsBrandId
-  onPreviewBrandChange: (id: DocsBrandId) => void
-}) {
-  const { getAllShadcnUiComponents } = useShadcnDocsRegistry()
-  const items = getAllShadcnUiComponents().filter((e) => !WELCOME_CARD_EXCLUDED_SLUGS.has(e.slug))
-
-  return (
-    <div className="not-prose mt-10">
-      <div className="sticky top-0 z-40 isolate -mx-2 mb-4 flex flex-col gap-4 border-b border-neutral-200 bg-white px-2 py-2 dark:border-neutral-800 dark:bg-neutral-950 sm:flex-row sm:items-end sm:justify-between">
-        <h2 className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">Components</h2>
-        <div className="flex w-full shrink-0 flex-col gap-1 sm:w-auto sm:min-w-[12rem]">
-          <Select
-            value={previewBrand}
-            onValueChange={(v) => onPreviewBrandChange(v as DocsBrandId)}
-          >
-            <SelectTrigger id="intro-preview-brand-select" inputSize="sm" className="w-full shadow-none">
-              <SelectValue placeholder="Brand" />
-            </SelectTrigger>
-            <SelectContent position="popper" align="end" className="min-w-[var(--radix-select-trigger-width)]">
-              {DOCS_BRAND_OPTIONS.map((o) => (
-                <SelectItem key={o.value} value={o.value}>
-                  {o.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-      <div className="grid grid-cols-3 gap-8">
-        {items.map((c, i) => (
-          <div
-            key={c.slug}
-            className={cn(
-              'welcome-component-card relative block overflow-hidden rounded-[12px] border border-neutral-200 bg-white px-4 pb-4 pt-0',
-              'dark:border-neutral-800 dark:bg-neutral-950',
-            )}
-            style={{ animationDelay: `${Math.min(i, 48) * 24}ms` }}
-          >
-            {/* Overlay link avoids nested <a> inside previews (e.g. BreadcrumbLink). */}
-            <Link
-              to={`/docs/components/${c.slug}`}
-              className="absolute inset-0 z-10 rounded-[12px] focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 dark:focus-visible:ring-neutral-600"
-              aria-label={`${c.name} component documentation`}
-            />
-            <div className="relative min-w-0">
-              <div
-                data-brand={previewBrand}
-                className={cn('min-w-0', `brand-${previewBrand}`)}
-                style={previewThemeVars}
-              >
-                <WelcomeCardPreview slug={c.slug} />
-              </div>
-              <span className="font-medium text-neutral-900 dark:text-neutral-100">{c.name}</span>
-              <span className="mt-1 block font-mono text-xs text-neutral-500 dark:text-neutral-400">{c.slug}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 function useDocsRootDarkClass() {
   const [dark, setDark] = useState(
     () => typeof document !== 'undefined' && document.documentElement.classList.contains('dark'),
@@ -955,28 +856,58 @@ export function PatternsDashboardPage() {
   )
 }
 
-function resetDocsMainScrollTop() {
-  const el = document.querySelector('[data-slot="appshell"] .appshell--main')
-  if (el) {
-    el.scrollTop = 0
-  }
-}
-
 export function WelcomePage() {
-  const [introPreviewBrand, setIntroPreviewBrand] = useState<DocsBrandId>(() => readStoredIntroPreviewBrand())
-
-  const handleIntroPreviewBrand = useCallback((id: DocsBrandId) => {
-    setIntroPreviewBrand(id)
-    persistIntroPreviewBrand(id)
-  }, [])
-
   useLayoutEffect(() => {
-    resetDocsMainScrollTop()
-    const id = requestAnimationFrame(() => {
-      resetDocsMainScrollTop()
-      requestAnimationFrame(resetDocsMainScrollTop)
-    })
-    return () => cancelAnimationFrame(id)
+    // The intro page has no open listview, so `.appshell` only sets `min-height`
+    // (not a capped height) and the *window* scrolls — not `.appshell--main`,
+    // which only becomes the scroller in the master–detail (listview-open)
+    // layout. Pin both so we're correct regardless of which one actually scrolls.
+    const getMain = () => document.querySelector<HTMLElement>('[data-slot="appshell"] .appshell--main')
+    const readTop = () => {
+      const main = getMain()
+      return Math.max(window.scrollY, main ? main.scrollTop : 0)
+    }
+    const snapTop = () => {
+      const main = getMain()
+      if (main && main.scrollTop !== 0) main.scrollTop = 0
+      if (window.scrollY !== 0) window.scrollTo(0, 0)
+    }
+
+    // The intro page is lazy-loaded and dense with live component previews that
+    // keep reflowing (and can pull focus / scrollIntoView) for many frames after
+    // mount, scrolling the main region away from the top long after a fixed
+    // 2-frame reset would have stopped. Pin to the top on every frame until the
+    // first genuine user interaction (or a safety cap), then release so normal
+    // scrolling works untouched.
+    let pinned = true
+    let rafId = 0
+    snapTop()
+
+    const tick = () => {
+      if (!pinned) return
+      if (readTop() !== 0) snapTop()
+      rafId = requestAnimationFrame(tick)
+    }
+    rafId = requestAnimationFrame(tick)
+
+    const release = () => {
+      if (!pinned) return
+      pinned = false
+      cancelAnimationFrame(rafId)
+      window.clearTimeout(timer)
+      window.removeEventListener('wheel', release)
+      window.removeEventListener('touchmove', release)
+      window.removeEventListener('keydown', release)
+      window.removeEventListener('pointerdown', release)
+    }
+
+    window.addEventListener('wheel', release, { passive: true })
+    window.addEventListener('touchmove', release, { passive: true })
+    window.addEventListener('keydown', release)
+    window.addEventListener('pointerdown', release)
+    const timer = window.setTimeout(release, 2000)
+
+    return release
   }, [])
 
   return (
@@ -1109,10 +1040,6 @@ export function WelcomePage() {
               ))}
             </ul>
           </section>
-        </div>
-
-        <div className="mt-16 border-t border-neutral-200 pt-12 dark:border-neutral-800">
-          <WelcomeComponentGrid previewBrand={introPreviewBrand} onPreviewBrandChange={handleIntroPreviewBrand} />
         </div>
 
         <section

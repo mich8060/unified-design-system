@@ -63,7 +63,7 @@ async function sanitizeViteQueryAssetFilenames() {
  *
  * Order of data URIs in the bundle matches @font-face order in src/fonts.css.
  */
-const FONT_NAMES_IN_ORDER = ['Inter-Variable.woff2', 'Menlo-Regular.woff2']
+const FONT_NAMES_IN_ORDER = ['Inter-Variable.woff2']
 
 async function externalizeInlinedFonts() {
   const cssPath = path.join(distRoot, 'styles.css')

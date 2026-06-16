@@ -22,6 +22,32 @@ This file is the shorter starter-oriented projection of that contract.
 - Keep imports on `@chghealthcare/unified-design-system` and `@chghealthcare/unified-design-system/styles.css` only.
 - Prefer existing UDS emphasis components such as `Badge`, `Status`, `Medallion`, and `Card` before inventing custom presentation wrappers.
 
+## Fonts & preload
+
+- The package bundles **one** web font: a **Latin-Extended** subset of Inter Variable (Google Fonts `latin` + `latin-ext` ranges, full `opsz` + `wght` axes). It covers Western European languages and accented names (e.g. José, García, Müller, Zoë, François, Łukasz). It does **not** include Greek, Cyrillic, or CJK glyphs — those fall back to system fonts.
+- Monospace text uses the **native system stack** (`ui-monospace` / SF Mono / Menlo / Consolas / Liberation Mono); no monospace web font is downloaded.
+- `font-display: swap` is set, so text paints immediately in a fallback and swaps to Inter when it loads.
+- To remove the first-paint font swap on the primary font, **preload Inter** in your app's `index.html`. With Vite you can resolve the bundled file via the package export:
+
+```ts
+// near your app entry (e.g. main.tsx)
+import interHref from "@chghealthcare/unified-design-system/fonts/Inter-Variable.woff2?url"
+
+const link = document.createElement("link")
+link.rel = "preload"
+link.as = "font"
+link.type = "font/woff2"
+link.crossOrigin = "anonymous"
+link.href = interHref
+document.head.prepend(link)
+```
+
+Or, if you serve the asset from a known static path, add directly to `index.html`:
+
+```html
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/Inter-Variable.woff2" />
+```
+
 ## Copy-paste prompt
 
 ```text

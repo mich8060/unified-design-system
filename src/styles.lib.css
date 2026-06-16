@@ -1,0 +1,25 @@
+/*
+ * Published library stylesheet (dist/styles.css).
+ *
+ * Unlike src/styles.css (which the docs site uses and which scans the whole
+ * src/ tree, including src/docs), this entry scans ONLY the shippable component
+ * source. That keeps utility classes that exist purely for the docs site out of
+ * the stylesheet consumers download.
+ *
+ * `source(none)` disables Tailwind's automatic content detection so the explicit
+ * @source globs below are the complete, authoritative scan set.
+ */
+@import "tailwindcss" source(none);
+
+@source "./index.ts";
+@source "./components/**/*.{ts,tsx}";
+@source "./hooks/**/*.{ts,tsx}";
+@source "./lib/**/*.{ts,tsx}";
+
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "./fonts.css";
+@import "./styles/tokens.css";
+@import "./styles/components.css";
+@import "./styles/uds-semantic-components.css";
+@import "./styles/uds-chrome-media.css";

@@ -1,0 +1,88 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Dialog": {
+      "nodeId": "1812:4665",
+      "name": "Dialog",
+      "width": 3764,
+      "height": 616
+    }
+  },
+  "Dialog": {
+    "nodeId": "1812:4665",
+    "description": "Open dialog preview with scrim overlay baked into each variant. Edit-profile recipe: header, Content2 body slot, footer actions, top-right close.",
+    "variantAxis": "Size",
+    "variantCount": 5,
+    "variants": ["Size=Small", "Size=Medium", "Size=Large", "Size=XLarge", "Size=2XL"],
+    "variantNodeIds": {
+      "Size=Small": "1812:4638",
+      "Size=Medium": "1812:4611",
+      "Size=Large": "1816:4599",
+      "Size=XLarge": "1816:4623",
+      "Size=2XL": "1816:4647"
+    },
+    "viewport": { "width": 720, "height": 520 },
+    "panelWidths": {
+      "Small": 384,
+      "Medium": 448,
+      "Large": 512,
+      "XLarge": 576,
+      "2XL": 672
+    },
+    "layers": {
+      "overlay": "Dialog overlay",
+      "content": "Dialog content",
+      "main": "Dialog main",
+      "header": "Dialog header",
+      "title": "Dialog title",
+      "description": "Dialog description",
+      "body": "Dialog body",
+      "bodySlot": "Content2",
+      "footer": "Dialog footer",
+      "footerSlot": "Content",
+      "close": "Dialog close"
+    },
+    "tokenBindings": {
+      "overlay": "uds/scrim/50",
+      "contentFill": "uds/surface/primary",
+      "contentStroke": "uds/border/secondary",
+      "contentRadius": "uds/radius/8",
+      "titleFill": "uds/text/primary",
+      "descriptionFill": "uds/text/tertiary",
+      "footerFill": "uds/surface/tertiary",
+      "footerStroke": "uds/border/secondary"
+    },
+    "spacing": {
+      "mainPadding": "uds/gap/16",
+      "mainGap": "uds/gap/16",
+      "headerGap": "uds/spacing/4",
+      "headerPaddingRight": 28,
+      "footerPadding": "uds/spacing/8",
+      "closeOffset": 7,
+      "closeSize": 36
+    },
+    "gridLayout": {
+      "cols": 5,
+      "cellWidth": 720,
+      "cellHeight": 520,
+      "gap": 24,
+      "padding": 48
+    },
+    "copy": {
+      "title": "Edit profile",
+      "description": "Update the public details shown on your account.",
+      "cancel": "Cancel",
+      "action": "Save changes"
+    },
+    "properties": {
+      "Size": ["Small", "Medium", "Large", "XLarge", "2XL"],
+      "title": "TEXT",
+      "description": "BOOLEAN",
+      "descriptionLabel": "TEXT",
+      "content2": "SLOT",
+      "content": "SLOT"
+    }
+  }
+}

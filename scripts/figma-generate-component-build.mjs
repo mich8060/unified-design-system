@@ -15,8 +15,11 @@ const runtimePath = path.join(root, 'scripts/figma-build-runtime.js')
 
 const slug = process.argv[2]
 const write = process.argv.includes('--write')
+const minimal = process.argv.includes('--minimal')
 if (!slug) {
-  console.error('Usage: node scripts/figma-generate-component-build.mjs <slug> [--write]')
+  console.error(
+    'Usage: node scripts/figma-generate-component-build.mjs <slug> [--write] [--minimal]',
+  )
   process.exit(1)
 }
 
@@ -51,11 +54,17 @@ const KIND_BY_SLUG = {
   card: 'card',
   tabs: 'tabs',
   field: 'field',
+  'check-list': 'check-list',
+  collapsible: 'collapsible',
   empty: 'empty',
   medallion: 'medallion',
   'medallion-layout': 'medallion',
   'alert-dialog': 'alert-dialog',
+  'dialog': 'dialog',
+  'drawer': 'drawer',
+  'dropdown-menu': 'dropdown-menu',
   branding: 'branding',
+  menu: 'menu',
 }
 
 const BRANDING_SVG_FILES = {
@@ -120,12 +129,255 @@ const INPUT_STROKES = {
 if (slug === 'input') fullSpec.strokeByState = INPUT_STROKES
 if (slug === 'textarea') fullSpec.strokeByState = INPUT_STROKES
 
+if (slug === 'menu') {
+  const navData = JSON.parse(
+    fs.readFileSync(path.join(root, 'scripts/figma-menu-nav-data.json'), 'utf8'),
+  )
+  fullSpec.brandToAppearance = navData.brandToAppearance
+  fullSpec.navigationByBrand = navData.navigationByBrand
+}
+
 const runtime = fs.readFileSync(runtimePath, 'utf8')
 const brandingSvgsBlock =
   slug === 'branding'
     ? `\nconst BRANDING_SVGS = ${JSON.stringify(loadBrandingSvgs())};\n`
     : ''
-const code = `
+
+function extractFunction(name) {
+  const m = runtime.match(
+    new RegExp(
+      `(?:async )?function ${name}\\([^)]*\\)[\\s\\S]*?(?=\\n(?:async )?function |\\nconst [A-Z_]|$)`,
+    ),
+  )
+  if (!m) throw new Error(`Missing runtime function: ${name}`)
+  return m[0].trim()
+}
+
+function atomVariantBuildTail(builderFn) {
+  return `
+const spec = ${JSON.stringify(fullSpec, null, 2)};
+const page = await ensurePage(spec.pageName ?? 'UDS Components');
+const existing = page.findOne((n) => n.type === 'COMPONENT_SET' && n.name === spec.figmaName);
+if (existing) existing.remove();
+await loadInter();
+const axisNames = Object.keys(spec.axes);
+const axisValues = axisNames.map((k) => spec.axes[k]);
+const combinations = cartesianProduct(axisValues);
+const components = [];
+for (const combo of combinations) {
+  const comp = figma.createComponent();
+  comp.name = variantName(axisNames, combo);
+  const axis = Object.fromEntries(axisNames.map((k, i) => [k, combo[i]]));
+  await ${builderFn}(comp, spec, axis);
+  page.appendChild(comp);
+  components.push(comp);
+}
+const set = figma.combineAsVariants(components, page);
+set.name = spec.figmaName;
+set.x = 100;
+set.y = nextCanvasY(page);
+gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 48, spec.gridCellH ?? 48);
+return { nodeId: set.id, name: set.name, variantCount: set.children.length, samples: set.children.slice(0, 5).map((c) => c.name) };
+`.trim()
+}
+
+function medallionMinimalCode() {
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindRadius',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'medallionColorSlug',
+    'medallionTokenPath',
+    'resolveMedallionTokens',
+    'buildMedallionVariant',
+  ]
+  const consts = runtime.match(/const MEDALLION_PASTEL_FG_1000[\s\S]*?^}/m)?.[0] ?? ''
+  const sizePx = runtime.match(/const MEDALLION_SIZE_PX[\s\S]*?^}/m)?.[0] ?? ''
+  return [consts, sizePx, ...fnNames.map(extractFunction), atomVariantBuildTail('buildMedallionVariant')]
+    .filter(Boolean)
+    .join('\n\n')
+}
+
+function radioMinimalCode() {
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindRadius',
+    'bindStroke',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'buildRadioVariant',
+  ]
+  return [...fnNames.map(extractFunction), atomVariantBuildTail('buildRadioVariant')].join('\n\n')
+}
+
+function switchMinimalCode() {
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindRadius',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'buildSwitchVariant',
+  ]
+  return [...fnNames.map(extractFunction), atomVariantBuildTail('buildSwitchVariant')].join('\n\n')
+}
+
+function fieldMinimalCode() {
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindGap',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'applyLocalTextStyle',
+    'createInputInstance',
+    'buildFieldVariant',
+  ]
+  return [...fnNames.map(extractFunction), atomVariantBuildTail('buildFieldVariant')].join('\n\n')
+}
+
+function fileUploadMinimalCode() {
+  const constBlocks = [
+    runtime.match(/const GLYPH_COMPONENT_CACHE = \{\}/m)?.[0],
+    runtime.match(/const FILE_UPLOAD_MEDALLION_SIZE[\s\S]*?^}/m)?.[0],
+    runtime.match(/const FILE_UPLOAD_COPY[\s\S]*?^}/m)?.[0],
+    extractFunction('importGlyphComponent'),
+  ].filter(Boolean)
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindStroke',
+    'bindRadius',
+    'bindGap',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'applyLocalTextStyle',
+    'medallionVariantName',
+    'createMedallionInstance',
+    'bindDashedStroke',
+    'swapMedallionGlyph',
+    'createUploadMedallionInstance',
+    'buildFileUploadVariant',
+  ]
+  return [...constBlocks, ...fnNames.map(extractFunction), atomVariantBuildTail('buildFileUploadVariant')]
+    .filter(Boolean)
+    .join('\n\n')
+}
+
+function fileUploadCardsMinimalCode() {
+  const constBlocks = [
+    runtime.match(/const GLYPH_COMPONENT_CACHE = \{\}/m)?.[0],
+    runtime.match(/const FILE_UPLOAD_MEDALLION_SIZE[\s\S]*?^}/m)?.[0],
+    runtime.match(/const FILE_UPLOAD_COPY[\s\S]*?^}/m)?.[0],
+    extractFunction('importGlyphComponent'),
+  ].filter(Boolean)
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindStroke',
+    'bindRadius',
+    'bindGap',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'applyLocalTextStyle',
+    'createIcon16Instance',
+    'medallionVariantName',
+    'createMedallionInstance',
+    'bindDashedStroke',
+    'swapMedallionGlyph',
+    'createUploadMedallionInstance',
+    'createBadgeInstance',
+    'createFileUploadInstance',
+    'fileUploadStatusBadge',
+    'createFileActionButton',
+    'appendFileUploadCard',
+    'buildFileUploadCardsVariant',
+  ]
+  return [
+    ...constBlocks,
+    ...fnNames.map(extractFunction),
+    atomVariantBuildTail('buildFileUploadCardsVariant'),
+  ]
+    .filter(Boolean)
+    .join('\n\n')
+}
+
+function menuMinimalCode() {
+  const constBlocks = [
+    runtime.match(/const GLYPH_COMPONENT_CACHE = \{\}/m)?.[0],
+    extractFunction('importGlyphComponent'),
+  ].filter(Boolean)
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindStroke',
+    'bindRadius',
+    'bindGap',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'applyLocalTextStyle',
+    'createBrandingInstance',
+    'bindIconFill',
+    'createMenuGlyph',
+    'createMenuToggleButton',
+    'appendMenuNavLeaf',
+    'appendMenuNavBranch',
+    'appendMenuNavRow',
+    'appendMenuNavCollapsed',
+    'appendMenuHeader',
+    'appendMenuNavigation',
+    'buildMenuVariant',
+  ]
+  return [...constBlocks, ...fnNames.map(extractFunction), atomVariantBuildTail('buildMenuVariant')]
+    .filter(Boolean)
+    .join('\n\n')
+}
+
+const MINIMAL_BUILDERS = {
+  medallion: medallionMinimalCode,
+  'medallion-layout': medallionMinimalCode,
+  'radio-group': radioMinimalCode,
+  switch: switchMinimalCode,
+  field: fieldMinimalCode,
+  'file-upload': fileUploadMinimalCode,
+  'file-upload-cards': fileUploadCardsMinimalCode,
+  menu: menuMinimalCode,
+}
+
+const code = minimal && MINIMAL_BUILDERS[slug]
+  ? MINIMAL_BUILDERS[slug]()
+  : `
 ${runtime}
 ${brandingSvgsBlock}
 const spec = ${JSON.stringify(fullSpec, null, 2)};
@@ -133,11 +385,25 @@ return await buildFromSpec(spec);
 `.trim()
 
 const outDir = path.join(root, '.tmp/figma-build')
-const outPath = path.join(outDir, `${slug}.js`)
+const outPath = path.join(outDir, `${slug}${minimal ? '-minimal' : ''}.js`)
+const mcpPath = path.join(outDir, `${slug}-mcp-args.json`)
 if (write) {
   fs.mkdirSync(outDir, { recursive: true })
   fs.writeFileSync(outPath, code)
-  console.error(`Wrote ${outPath}`)
+  if (minimal) {
+    fs.writeFileSync(
+      mcpPath,
+      JSON.stringify({
+        fileKey: '3bTua8rojOOC7tYWIEWJl0',
+        description: `Rebuild ${fullSpec.figmaName ?? slug} (${Object.values(fullSpec.axes ?? {}).reduce((a, b) => a * b.length, 1)} variants)`,
+        skillNames: 'resource:figma-use,resource:figma-generate-library',
+        code,
+      }),
+    )
+    console.error(`Wrote ${outPath} and ${mcpPath}`)
+  } else {
+    console.error(`Wrote ${outPath}`)
+  }
 } else {
   process.stdout.write(code)
 }

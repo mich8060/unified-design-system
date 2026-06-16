@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-02T22:11:48.650Z",
+  "generatedAt": "2026-06-15T22:16:26.168Z",
   "generatedFrom": [
     "src/index.ts",
     "package.json",
@@ -7,7 +7,7 @@
   ],
   "package": {
     "name": "@chghealthcare/unified-design-system",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "primaryEntry": "@chghealthcare/unified-design-system",
     "styleImport": "@chghealthcare/unified-design-system/styles.css"
   },
@@ -172,6 +172,15 @@
       "recommendation": "allowed"
     },
     {
+      "name": "AlertDialogCopy",
+      "exportKind": "component",
+      "module": "components/ui/alert-dialog-uds",
+      "roles": [
+        "overlay"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "AlertDialogDescription",
       "exportKind": "component",
       "module": "components/ui/alert-dialog-uds",
@@ -294,6 +303,26 @@
     },
     {
       "name": "ArrowRightIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ArrowsInIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ArrowsOutIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
       "roles": [
@@ -835,25 +864,7 @@
       "recommendation": "preferred"
     },
     {
-      "name": "CardAction",
-      "exportKind": "component",
-      "module": "components/ui/card",
-      "roles": [
-        "data-display"
-      ],
-      "recommendation": "preferred"
-    },
-    {
       "name": "CardContent",
-      "exportKind": "component",
-      "module": "components/ui/card",
-      "roles": [
-        "data-display"
-      ],
-      "recommendation": "preferred"
-    },
-    {
-      "name": "CardDescription",
       "exportKind": "component",
       "module": "components/ui/card",
       "roles": [
@@ -871,16 +882,7 @@
       "recommendation": "preferred"
     },
     {
-      "name": "CardHeader",
-      "exportKind": "component",
-      "module": "components/ui/card",
-      "roles": [
-        "data-display"
-      ],
-      "recommendation": "preferred"
-    },
-    {
-      "name": "CardTitle",
+      "name": "CardImage",
       "exportKind": "component",
       "module": "components/ui/card",
       "roles": [
@@ -1281,7 +1283,8 @@
       "exportKind": "component",
       "module": "components/ui/date-input",
       "roles": [
-        "input"
+        "input",
+        "input-group"
       ],
       "recommendation": "allowed"
     },
@@ -1290,7 +1293,8 @@
       "exportKind": "type",
       "module": "components/ui/date-input",
       "roles": [
-        "input"
+        "input",
+        "input-group"
       ],
       "recommendation": "allowed"
     },
@@ -1299,7 +1303,8 @@
       "exportKind": "type",
       "module": "components/ui/date-input",
       "roles": [
-        "input"
+        "input",
+        "input-group"
       ],
       "recommendation": "allowed"
     },
@@ -1308,7 +1313,8 @@
       "exportKind": "type",
       "module": "components/ui/date-input",
       "roles": [
-        "input"
+        "input",
+        "input-group"
       ],
       "recommendation": "allowed"
     },
@@ -1394,6 +1400,15 @@
       "recommendation": "preferred"
     },
     {
+      "name": "DialogBody",
+      "exportKind": "component",
+      "module": "components/ui/dialog-uds",
+      "roles": [
+        "overlay"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "DialogClose",
       "exportKind": "component",
       "module": "components/ui/dialog-uds",
@@ -1440,6 +1455,15 @@
     },
     {
       "name": "DialogHeader",
+      "exportKind": "component",
+      "module": "components/ui/dialog-uds",
+      "roles": [
+        "overlay"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "DialogMain",
       "exportKind": "component",
       "module": "components/ui/dialog-uds",
       "roles": [
@@ -2221,6 +2245,16 @@
       "recommendation": "allowed"
     },
     {
+      "name": "HeartbeatIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "HouseIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -2672,6 +2706,16 @@
     },
     {
       "name": "MagnifyingGlassIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "MapTrifoldIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
       "roles": [
@@ -3642,6 +3686,16 @@
       "name": "resolveMenuBrand",
       "exportKind": "component",
       "module": "lib/uds-brand",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "RocketLaunchIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
       "roles": [
         "utility",
         "first-party"
@@ -4689,6 +4743,16 @@
       "module": "components/ui/tooltip",
       "roles": [
         "overlay"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "typographyStyle",
+      "exportKind": "utility",
+      "module": "components/ui/text",
+      "roles": [
+        "data-display",
+        "first-party"
       ],
       "recommendation": "allowed"
     },

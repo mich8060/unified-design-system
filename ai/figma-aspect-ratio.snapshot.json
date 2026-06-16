@@ -67,11 +67,16 @@
   },
   "codeAlignment": {
     "source": "src/components/ui/aspect-ratio.tsx",
-    "exports": ["AspectRatio", "AspectRatioImage", "ASPECT_RATIO_PRESETS", "ASPECT_RATIO_PLACEHOLDER_SRC"],
-    "placeholderSrc": "/showcase/aspect-ratio-placeholder.png",
+    "exports": ["AspectRatio"],
+    "placeholderSrcs": {
+      "1:1": "/showcase/aspect-ratio-1-1.png",
+      "4:3": "/showcase/aspect-ratio-4-3.png",
+      "16:9": "/showcase/aspect-ratio-16-9.png",
+      "3:2": "/showcase/aspect-ratio-3-2.png",
+      "21:9": "/showcase/aspect-ratio-21-9.png"
+    },
     "structure": {
-      "AspectRatio": "bordered shell — uds/surface/secondary, uds/border/primary, uds/radius/8",
-      "AspectRatioImage": ".image — absolute inset-0 object-cover img"
+      "AspectRatio": "bordered shell with optional built-in img — uds/surface/secondary, uds/border/primary"
     },
     "notes": [
       "Code uses continuous `ratio` number; Figma uses named Ratio variant presets.",

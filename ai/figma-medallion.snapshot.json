@@ -1,0 +1,107 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Medallion": {
+      "nodeId": "1847:5417",
+      "name": "Medallion",
+      "width": 1016,
+      "height": 1784
+    }
+  },
+  "Medallion": {
+    "nodeId": "1847:5417",
+    "description": "Circular icon container for empty states, alerts, and feature highlights. Size × Color × Tone variant matrix with nested Icon instance swap.",
+    "variantAxes": ["Size", "Color", "Tone"],
+    "variantCount": 180,
+    "componentProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Extra Small", "Small", "Default", "Large", "Extra Large"],
+        "codeProp": "size",
+        "codeValues": {
+          "Extra Small": "xs",
+          "Small": "sm",
+          "Default": "default",
+          "Large": "lg",
+          "Extra Large": "xl"
+        }
+      },
+      "Color": {
+        "type": "VARIANT",
+        "defaultValue": "Blue",
+        "variantOptions": [
+          "Neutrals",
+          "Red",
+          "Orange",
+          "Yellow",
+          "Amber",
+          "Green",
+          "Emerald",
+          "Lime",
+          "Cyan",
+          "Aqua",
+          "Sky",
+          "Blue",
+          "Indigo",
+          "Purple",
+          "Magenta",
+          "Fuchsia",
+          "Rose",
+          "Violet"
+        ],
+        "codeProp": "color"
+      },
+      "Tone": {
+        "type": "VARIANT",
+        "defaultValue": "Pastel",
+        "variantOptions": ["Pastel", "Solid"],
+        "codeProp": "tone",
+        "codeValues": {
+          "Pastel": "pastel",
+          "Solid": "solid"
+        }
+      }
+    },
+    "sizes": {
+      "Extra Small": { "containerPx": 24, "iconPx": 12, "iconVariant": "Size=16" },
+      "Small": { "containerPx": 32, "iconPx": 14, "iconVariant": "Size=20" },
+      "Default": { "containerPx": 40, "iconPx": 18, "iconVariant": "Size=20" },
+      "Large": { "containerPx": 48, "iconPx": 22, "iconVariant": "Size=24" },
+      "Extra Large": { "containerPx": 64, "iconPx": 28, "iconVariant": "Size=32" }
+    },
+    "layers": {
+      "icon": "Icon"
+    },
+    "tokenBindings": {
+      "pastelFill": "uds/color/accent/{color}/25 or uds/color/neutrals/25",
+      "pastelIcon": "uds/color/accent/{color}/700 (yellow/amber/lime use 1000)",
+      "solidFill": "uds/color/accent/{color}/500 or uds/color/neutrals/500",
+      "solidIcon": "uds/color/white",
+      "radius": "uds/radius/9999"
+    },
+    "gridLayout": {
+      "cols": 10,
+      "cellWidth": 72,
+      "cellHeight": 72,
+      "gap": 24,
+      "padding": 40,
+      "note": "Rows group by Size; within each size block, Color × Tone pairs (Pastel then Solid)."
+    },
+    "composeFrom": {
+      "icon": { "componentSet": "Icon", "nodeId": "501:6" }
+    },
+    "sampleVariants": [
+      "Size=Extra Small, Color=Neutrals, Tone=Pastel",
+      "Size=Default, Color=Blue, Tone=Pastel",
+      "Size=Extra Large, Color=Blue, Tone=Pastel"
+    ]
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/medallion.tsx",
+    "exports": ["Medallion"],
+    "shapeNote": "Figma set is circle-only. Code also supports square and rounded shapes."
+  }
+}

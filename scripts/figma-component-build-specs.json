@@ -36,27 +36,205 @@
   "input": {
     "figmaName": "Input",
     "kind": "input",
+    "replaceExisting": true,
+    "tier": 1,
+    "figmaSnapshot": "ai/figma-input.snapshot.json",
+    "gridCols": 1,
+    "gridCellW": 500,
+    "gridCellH": 56,
+    "axes": {
+      "Size": ["Compact", "Default"],
+      "State": ["Default", "Focused", "Error", "Disabled"]
+    },
+    "label": "Placeholder",
+    "width": 452,
+    "paddingH": 12,
+    "heightBySize": { "Default": 44, "Compact": 36 },
+    "radiusVar": "uds/radius/4",
+    "fillByState": {
+      "Default": "uds/surface/primary",
+      "Focused": "uds/surface/primary",
+      "Error": "uds/surface/secondary",
+      "Disabled": "uds/surface/secondary"
+    },
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    }
+  },
+  "input-group": {
+    "figmaName": "InputGroup",
+    "kind": "input-group",
+    "replaceExisting": true,
     "tier": 1,
     "gridCols": 4,
-    "gridCellW": 280,
+    "gridCellW": 300,
     "gridCellH": 56,
     "axes": {
       "Size": ["Default", "Small"],
       "State": ["Default", "Focused", "Error", "Disabled"]
     },
     "label": "Placeholder",
-    "layout": "horizontal",
-    "width": 240,
+    "width": 280,
     "heightBySize": { "Default": 44, "Small": 36 },
-    "paddingH": 12,
+    "radiusVar": "uds/radius/4",
+    "fillByState": {
+      "Default": "uds/surface/primary",
+      "Focused": "uds/surface/primary",
+      "Error": "uds/surface/secondary",
+      "Disabled": "uds/surface/secondary"
+    },
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    }
+  },
+  "search-input": {
+    "figmaName": "SearchInput",
+    "kind": "search-input",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 2,
+    "gridCellW": 320,
+    "gridCellH": 56,
+    "axes": {
+      "Recipe": ["Default", "Shortcut"],
+      "Size": ["Default", "Small"]
+    },
+    "width": 300,
+    "heightBySize": { "Default": 44, "Small": 36 },
     "radiusVar": "uds/radius/4",
     "fillVar": "uds/surface/secondary",
-    "textVar": "uds/text/primary",
     "strokeByState": {
-      "Default": "uds/border/secondary",
-      "Focused": "uds/color/primary/700",
-      "Error": "uds/system/feedback/error/border",
-      "Disabled": "uds/border/secondary"
+      "Default": "uds/border/secondary"
+    },
+    "iconSetNodeId": "501:6",
+    "magnifyingGlassGlyphId": "1733:4",
+    "kbdSetNodeId": "1686:4530",
+    "copy": {
+      "placeholder": "Search",
+      "shortcutPlaceholder": "Search…"
+    }
+  },
+  "date-input": {
+    "figmaName": "Date Input",
+    "kind": "date-input",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 500,
+    "gridCellH": 56,
+    "figmaSnapshot": "ai/figma-date-input.snapshot.json",
+    "axes": {
+      "Size": ["Compact", "Default"],
+      "State": ["Default", "Focused", "Error", "Disabled"]
+    },
+    "width": 452,
+    "heightBySize": { "Compact": 36, "Default": 44 },
+    "radiusVar": "uds/radius/4",
+    "fillByState": {
+      "Default": "uds/surface/primary",
+      "Focused": "uds/surface/primary",
+      "Error": "uds/surface/secondary",
+      "Disabled": "uds/surface/secondary"
+    },
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    },
+    "iconSetNodeId": "501:6",
+    "calendarBlankGlyphId": "1739:4579",
+    "copy": {
+      "segments": { "month": "mm", "day": "dd", "year": "yyyy" }
+    }
+  },
+  "date-range-input": {
+    "figmaName": "Date Range Input",
+    "kind": "date-range-input",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 500,
+    "gridCellH": 56,
+    "figmaSnapshot": "ai/figma-date-range-input.snapshot.json",
+    "axes": {
+      "Size": ["Compact", "Default"],
+      "State": ["Default", "Focused", "Error", "Disabled"]
+    },
+    "width": 452,
+    "heightBySize": { "Compact": 36, "Default": 44 },
+    "radiusVar": "uds/radius/4",
+    "fillByState": {
+      "Default": "uds/surface/primary",
+      "Focused": "uds/surface/primary",
+      "Error": "uds/surface/secondary",
+      "Disabled": "uds/surface/secondary"
+    },
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    },
+    "iconSetNodeId": "501:6",
+    "calendarBlankGlyphId": "1739:4579",
+    "copy": {
+      "segments": { "month": "mm", "day": "dd", "year": "yyyy" },
+      "rangeSeparator": " – "
+    }
+  },
+  "combobox-input": {
+    "figmaName": "ComboboxInput",
+    "kind": "combobox-input",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 320,
+    "gridCellH": 56,
+    "figmaSnapshot": "ai/figma-combobox.snapshot.json",
+    "axes": {
+      "Size": ["Default", "Small"],
+      "State": ["Default"]
+    },
+    "width": 280,
+    "heightBySize": { "Default": 44, "Small": 36 },
+    "radiusVar": "uds/radius/4",
+    "fillVar": "uds/surface/secondary",
+    "strokeByState": {
+      "Default": "uds/border/secondary"
+    },
+    "iconSetNodeId": "501:6",
+    "caretDownGlyphId": "527:6",
+    "copy": {
+      "placeholder": "Select an option"
+    }
+  },
+  "combobox-item": {
+    "figmaName": ".combobox-item",
+    "kind": "combobox-item",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 280,
+    "gridCellH": 48,
+    "figmaSnapshot": "ai/figma-combobox.snapshot.json",
+    "axes": {
+      "State": ["Default", "Highlighted", "Selected", "Disabled"]
+    },
+    "width": 240,
+    "iconSetNodeId": "501:6",
+    "copy": {
+      "label": "React",
+      "Default": "React",
+      "Highlighted": "Vue",
+      "Selected": "Svelte",
+      "Disabled": "Angular"
     }
   },
   "checkbox": {
@@ -79,19 +257,31 @@
   "switch": {
     "figmaName": "Switch",
     "kind": "switch",
+    "replaceExisting": true,
     "tier": 1,
-    "gridCols": 2,
+    "figmaSnapshot": "ai/figma-switch.snapshot.json",
+    "gridCols": 3,
     "gridCellW": 80,
     "gridCellH": 48,
     "axes": {
       "Size": ["Default", "Small"],
-      "Checked": ["False", "True"]
+      "Checked": ["False", "Intermediary", "True"]
     },
     "widthBySize": { "Default": 48, "Small": 34 },
     "heightBySize": { "Default": 28, "Small": 20 },
+    "thumbSizeBySize": { "Default": 20, "Small": 16 },
+    "thumbInsetPx": 2,
+    "radiusVar": "uds/radius/9999",
     "trackOn": "uds/color/primary/700",
-    "trackOff": "uds/surface/tertiary",
-    "thumb": "uds/surface/primary"
+    "trackOff": "uds/border/primary",
+    "trackIntermediary": "uds/color/primary/700",
+    "thumb": "uds/surface/primary",
+    "intermediaryBarFill": "uds/icon/inverse",
+    "intermediaryIndicatorSvg": "<svg width=\"20\" height=\"6\" viewBox=\"0 0 20 6\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 3C0 1.34315 1.34315 0 3 0H17C18.6569 0 20 1.34315 20 3C20 4.65685 18.6569 6 17 6H3C1.34315 6 0 4.65685 0 3Z\" fill=\"white\"/></svg>",
+    "intermediaryIndicatorBySize": {
+      "Default": { "width": 20, "height": 6 },
+      "Small": { "width": 14, "height": 4 }
+    }
   },
   "separator": {
     "figmaName": "Separator",
@@ -163,16 +353,24 @@
   "radio-group": {
     "figmaName": "Radio",
     "kind": "radio",
+    "replaceExisting": true,
     "tier": 1,
-    "gridCols": 2,
+    "figmaSnapshot": "ai/figma-radio.snapshot.json",
+    "gridCols": 3,
     "gridCellW": 48,
     "gridCellH": 48,
     "axes": {
-      "State": ["Unchecked", "Checked"],
+      "State": ["Unchecked", "Checked", "Invalid"],
       "Disabled": ["False", "True"]
     },
     "size": 20,
-    "strokeVar": "uds/border/secondary"
+    "dotSize": 8,
+    "radiusVar": "uds/radius/9999",
+    "fillChecked": "uds/color/primary/700",
+    "strokeUnchecked": "uds/border/primary",
+    "strokeChecked": "uds/color/primary/700",
+    "strokeInvalid": "uds/button/border/primary/destructive",
+    "dotFill": "uds/text/inverse"
   },
   "textarea": {
     "figmaName": "Textarea",
@@ -214,25 +412,51 @@
   "dot-status": {
     "figmaName": "DotStatus",
     "kind": "dot-status",
+    "replaceExisting": true,
     "tier": 0,
     "gridCols": 5,
-    "gridCellW": 24,
-    "gridCellH": 24,
+    "gridCellW": 16,
+    "gridCellH": 16,
     "axes": {
-      "Variant": ["Green", "Yellow", "Red", "Gray", "Blue"]
+      "Variant": [
+        "Red",
+        "Blue",
+        "Inverse",
+        "Orange",
+        "Sky",
+        "Indigo",
+        "Rose",
+        "Neutral",
+        "Celery",
+        "Lime",
+        "Yellow",
+        "Green",
+        "Cyan",
+        "Purple",
+        "Fuchsia"
+      ],
+      "Outline": ["False", "True"]
     },
-    "size": 10
+    "sizeByVariant": {},
+    "defaultSize": 10
   },
   "kbd": {
     "figmaName": "Kbd",
     "kind": "kbd",
+    "replaceExisting": true,
     "tier": 0,
-    "gridCols": 2,
-    "gridCellW": 64,
-    "gridCellH": 32,
-    "axes": { "Size": ["Default", "Small"] },
-    "label": "⌘K",
-    "radiusVar": "uds/radius/4"
+    "gridCols": 3,
+    "gridCellW": 72,
+    "gridCellH": 36,
+    "axes": {
+      "Appearance": ["Default", "Black", "Tooltip"]
+    },
+    "labelsByAppearance": {
+      "Default": "⌘",
+      "Black": "⌘",
+      "Tooltip": "⌘"
+    },
+    "radiusVar": "uds/radius/2"
   },
   "link": {
     "figmaName": "Link",
@@ -281,8 +505,8 @@
       "Size": ["Extra Small", "Small", "Default", "Large"],
       "Accessory": ["None", "Status", "Camera"]
     },
-    "defaultDotStatusVariant": "Variant=Green",
-    "dotStatusSetNodeId": "595:230",
+    "defaultDotStatusVariant": "Variant=Green, Outline=False",
+    "dotStatusSetNodeId": "1813:4697",
     "iconSetNodeId": "501:6",
     "cameraIconComponentId": "938:447",
     "sizeBySize": { "Extra Small": 32, "Small": 36, "Default": 48, "Large": 64 },
@@ -383,7 +607,7 @@
     "gapVar": "uds/gap/12",
     "radiusVar": "uds/radius/8",
     "fillVar": "uds/surface/primary",
-    "medallionSetNodeId": "754:436",
+    "medallionSetNodeId": "1847:5417",
     "medallionSizePx": 40,
     "medallionByVariant": {
       "Default": { "color": "Sky", "tone": "Pastel" },
@@ -468,7 +692,7 @@
     "viewportW": 720,
     "viewportH": 520,
     "dialogW": 400,
-    "medallionSetNodeId": "754:436",
+    "medallionSetNodeId": "1847:5417",
     "medallionSizePx": 40,
     "buttonSetNodeId": "554:268",
     "scrimVar": "uds/scrim/50",
@@ -492,37 +716,495 @@
       "Size": ["Default", "Small"]
     }
   },
+  "dialog": {
+    "figmaName": "Dialog",
+    "kind": "dialog",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 5,
+    "gridCellW": 760,
+    "gridCellH": 560,
+    "viewportW": 720,
+    "viewportH": 520,
+    "dialogWidths": {
+      "Small": 384,
+      "Medium": 448,
+      "Large": 512,
+      "XLarge": 576,
+      "2XL": 672
+    },
+    "buttonSetNodeId": "554:268",
+    "closeSizePx": 36,
+    "closeOffsetPx": 7,
+    "scrimVar": "uds/scrim/50",
+    "fillVar": "uds/surface/primary",
+    "strokeVar": "uds/border/secondary",
+    "radiusVar": "uds/radius/8",
+    "footerFillVar": "uds/surface/tertiary",
+    "footerStrokeVar": "uds/border/secondary",
+    "copy": {
+      "title": "Edit profile",
+      "description": "Update the public details shown on your account.",
+      "cancel": "Cancel",
+      "action": "Save changes"
+    },
+    "axes": {
+      "Size": ["Small", "Medium", "Large", "XLarge", "2XL"]
+    }
+  },
+  "drawer": {
+    "figmaName": "Drawer",
+    "kind": "drawer",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-drawer.snapshot.json",
+    "gridCols": 4,
+    "gridCellW": 760,
+    "gridCellH": 560,
+    "viewportW": 720,
+    "viewportH": 520,
+    "sidePanelW": 384,
+    "bottomPanelH": 300,
+    "buttonSetNodeId": "554:268",
+    "scrimVar": "uds/scrim/50",
+    "fillVar": "uds/surface/primary",
+    "strokeVar": "uds/border/secondary",
+    "radiusVar": "uds/radius/8",
+    "handleFillVar": "uds/surface/tertiary",
+    "copy": {
+      "title": "Assign clinician",
+      "description": "Review fit before confirming the assignment.",
+      "close": "Close"
+    },
+    "axes": {
+      "Direction": ["Bottom", "Top", "Left", "Right"]
+    }
+  },
   "field": {
     "figmaName": "Field",
     "kind": "field",
+    "replaceExisting": false,
     "tier": 2,
+    "figmaSnapshot": "ai/figma-field.snapshot.json",
     "gridCols": 2,
-    "gridCellW": 320,
-    "gridCellH": 100,
+    "gridCellW": 800,
+    "gridCellH": 120,
     "axes": {
-      "Orientation": ["Vertical", "Horizontal"],
+      "Appearance": ["Vertical", "Horizontal"],
       "State": ["Default", "Error"]
     },
-    "width": 280
+    "width": 756,
+    "labelWidthPx": 128,
+    "contentSlotHeight": 44,
+    "inputSetNodeId": "589:236",
+    "copy": {
+      "label": "Email",
+      "hint": "We never share your email.",
+      "errorHint": "Enter a valid email address."
+    }
+  },
+  "file-upload": {
+    "figmaName": "FileUpload",
+    "kind": "file-upload",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-file-upload.snapshot.json",
+    "gridCols": 3,
+    "gridCellW": 520,
+    "gridCellH": 320,
+    "axes": {
+      "Size": ["Default", "Small", "XS"],
+      "State": ["Default", "Disabled", "Dragging"]
+    },
+    "width": 480,
+    "widthXs": 400,
+    "medallionSetNodeId": "1847:5417",
+    "uploadSimpleIconKey": "58381645f3f638a5348482f5deda708fdec4f12e",
+    "iconSetNodeId": "501:6"
+  },
+  "file-upload-cards": {
+    "figmaName": "FileUploadCards",
+    "kind": "file-upload-cards",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-file-upload-cards.snapshot.json",
+    "gridCols": 2,
+    "gridCellW": 520,
+    "gridCellH": 720,
+    "axes": {
+      "Density": ["Default", "Compact"]
+    },
+    "width": 480,
+    "fileUploadSetNodeId": "1887:5090",
+    "badgeSetNodeId": "746:341",
+    "iconSetNodeId": "501:6",
+    "uploadSimpleIconKey": "58381645f3f638a5348482f5deda708fdec4f12e",
+    "fileIconKey": "b6abfee2cc2369d1fa0b5decc772e806ad8e8436",
+    "imageIconKey": "68c2b3b798f7884bee893c4b943055978f8395d6",
+    "eyeIconKey": "f5ccd714d3f6cb4441e56c7d4626c31224301113",
+    "downloadIconKey": "df2da3892f5d897c9198b88a12b6f94822100df1",
+    "retryIconKey": "88e807f6551a60fa9c3d3f18ad7649d66237359a",
+    "removeIconKey": "51df6cfead413600e416d3fe72013237453a0194",
+    "demoItems": [
+      {
+        "name": "Credentialing packet.pdf",
+        "type": "application/pdf",
+        "status": "success",
+        "meta": "2.1 MB · application/pdf · Uploaded today"
+      },
+      {
+        "name": "headshot.png",
+        "type": "image/png",
+        "status": "uploading",
+        "progress": 62,
+        "meta": "845.0 KB · image/png"
+      },
+      {
+        "name": "license-front.jpg",
+        "type": "image/jpeg",
+        "status": "error",
+        "errorMessage": "Upload failed. Try again.",
+        "meta": "1.1 MB · image/jpeg"
+      },
+      {
+        "name": "w9-form.pdf",
+        "type": "application/pdf",
+        "status": "disabled",
+        "meta": "390.0 KB · application/pdf"
+      }
+    ]
+  },
+  "menu": {
+    "figmaName": "Menu",
+    "kind": "menu",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-menu.snapshot.json",
+    "gridCols": 6,
+    "gridCellW": 300,
+    "gridCellH": 760,
+    "axes": {
+      "Brand": [
+        "Default",
+        "CHG",
+        "CompHealth",
+        "Weatherby",
+        "Connect",
+        "Locumsmart",
+        "Modio",
+        "GMS",
+        "Wireframe"
+      ],
+      "Rail": ["Expanded", "Collapsed"]
+    },
+    "expandedWidth": 280,
+    "collapsedWidth": 64,
+    "height": 720,
+    "brandingSetNodeId": "1103:533",
+    "iconSetNodeId": "501:6",
+    "iconKeys": {
+      "Layout": "b22ad50f11f6ec80e9b42867f038c232aea7efef",
+      "Briefcase": "b94c41d0a53e02a2b58a930333c233e11ea9b85a",
+      "Users": "f6f9c739d17f6bc2728de09fe4318034a2be979a",
+      "CalendarBlank": "7a16d2e02aa03a0bc99bb70b204ac6abb93923ba",
+      "ChartBar": "1d0a7fc10a51917015317b5ca286c522eaf3e8ce",
+      "CalendarPlus": "fdd34b83cee403d1aa459e85bf5b64e39ac6c0e1",
+      "UserList": "59e14ae03754311f6e1f33fb84d56780ead27fc1",
+      "SortDescending": "2ec5f0a2eb16a678a68e7a486c435ac3d67d187f",
+      "FolderOpen": "756c09feb18b96ab939ad9b9de9efc5af1bd4a37",
+      "NotePencil": "1e53dcf93e11b3b5fa4c7a5a87c1e4e63ab58b48",
+      "Clock": "eb5696acad5002e0ee3c32b68abda01b8067d481",
+      "Airplane": "62dcb95ead94defd2cd5b2d151044b1baa33f872",
+      "BuildingApartment": "fb811ae50f4356cc87457d9d6888f7b5fe90a7fb",
+      "Buildings": "53633c191f106888e753bbd295d3b768fdb4c862",
+      "Wallet": "1e1ee364e0e42afc9fcffea8dca33c0942bfcac2",
+      "GpsFix": "5ab918a7803fc95ddc141fb9e442fdda7a4eb54a",
+      "List": "6327b25b8432edff80f7d995fce355780e00932c",
+      "CaretDown": "7ed34575164e200e597689be8a9c1d7e3a24abbe"
+    },
+    "figmaMatrixNote": "9 brands × Expanded/Collapsed rail (280px / 64px). Header uses Branding wordmark or mark; nav uses per-brand default tree from menu-default-navigation."
+  },
+  "collapsible": {
+    "figmaName": "Collapsible",
+    "kind": "collapsible",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 4,
+    "gridCellW": 384,
+    "gridCellH": 64,
+    "axes": {
+      "Variant": ["Divided", "Boxed"],
+      "State": ["Collapsed", "Expanded"],
+      "IconPosition": ["Right", "Left"]
+    },
+    "width": 360,
+    "iconSetNodeId": "501:6",
+    "iconVariant": "Size=16",
+    "collapsedHeight": 40,
+    "expandedHeight": 64
+  },
+  "check-list": {
+    "figmaName": "CheckList",
+    "kind": "check-list",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 4,
+    "gridCellW": 360,
+    "gridCellH": 88,
+    "axes": {
+      "Checked": ["False", "True"],
+      "Disabled": ["False", "True"],
+      "Description": ["False", "True"]
+    },
+    "checkboxSetNodeId": "590:230",
+    "width": 340,
+    "copy": {
+      "label": "Task label",
+      "description": "Supporting description for the task."
+    }
+  },
+  "context-menu-item": {
+    "figmaName": ".context-menu-item",
+    "kind": "context-menu-item",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 248,
+    "gridCellH": 48,
+    "axes": {
+      "Type": [
+        "Default",
+        "Focused",
+        "Destructive",
+        "DestructiveFocused",
+        "Disabled",
+        "SubTrigger",
+        "SubTriggerFocused",
+        "WithShortcut",
+        "CheckboxChecked",
+        "CheckboxUnchecked"
+      ]
+    },
+    "width": 224,
+    "iconSetNodeId": "501:6",
+    "caretRightIconComponentId": "1033:1857",
+    "kbdSetNodeId": "1686:4530",
+    "copy": {
+      "label": "Menu item",
+      "shortcutChars": ["⌘", "["],
+      "SubTrigger": "More",
+      "SubTriggerFocused": "More",
+      "Destructive": "Delete",
+      "DestructiveFocused": "Delete",
+      "CheckboxChecked": "Show Bookmarks",
+      "CheckboxUnchecked": "Show Full URLs"
+    }
+  },
+  "context-menu-label": {
+    "figmaName": ".context-menu-label",
+    "kind": "context-menu-label",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 248,
+    "gridCellH": 40,
+    "axes": {
+      "Label": ["Default"]
+    },
+    "width": 224,
+    "copy": {
+      "label": "Navigation"
+    }
+  },
+  "context-menu-separator": {
+    "figmaName": ".context-menu-separator",
+    "kind": "context-menu-separator",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 248,
+    "gridCellH": 24,
+    "axes": {
+      "Separator": ["Default"]
+    },
+    "width": 224
+  },
+  "context-menu": {
+    "figmaName": "ContextMenu",
+    "kind": "context-menu",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 280,
+    "gridCellH": 220,
+    "axes": {
+      "Recipe": ["Default"]
+    },
+    "width": 224,
+    "iconSetNodeId": "501:6",
+    "caretRightIconComponentId": "1033:1857"
+  },
+  "dropdown-menu": {
+    "figmaName": "DropdownMenu",
+    "kind": "dropdown-menu",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-dropdown-menu.snapshot.json",
+    "gridCols": 2,
+    "gridCellW": 280,
+    "gridCellH": 300,
+    "axes": {
+      "Recipe": ["Default", "Account"]
+    },
+    "width": 224,
+    "buttonSetNodeId": "554:268",
+    "triggerGapVar": "uds/gap/8",
+    "copy": {
+      "Default": {
+        "trigger": "Open menu",
+        "triggerAppearance": "Outline",
+        "triggerSize": "Default"
+      },
+      "Account": {
+        "trigger": "Account",
+        "triggerAppearance": "Outline",
+        "triggerSize": "Small"
+      },
+      "labels": {
+        "section": "My account",
+        "profile": "Profile",
+        "billing": "Billing",
+        "signOut": "Sign out",
+        "delete": "Delete team"
+      }
+    }
+  },
+  "command-item": {
+    "figmaName": ".command-item",
+    "kind": "command-item",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 320,
+    "gridCellH": 40,
+    "axes": {
+      "State": ["Default", "Selected", "Disabled", "WithShortcut"]
+    },
+    "width": 288,
+    "kbdSetNodeId": "1686:4530",
+    "iconSetNodeId": "501:6",
+    "copy": {
+      "Default": "Calendar",
+      "Selected": "Settings",
+      "Disabled": "Calculator",
+      "WithShortcut": "Search Emoji",
+      "shortcutChars": ["⌘", "K"]
+    }
+  },
+  "command-group-heading": {
+    "figmaName": ".command-group-heading",
+    "kind": "command-group-heading",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 320,
+    "gridCellH": 36,
+    "axes": { "Heading": ["Default"] },
+    "width": 288,
+    "copy": { "heading": "Suggestions" }
+  },
+  "command-separator": {
+    "figmaName": ".command-separator",
+    "kind": "command-separator",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 320,
+    "gridCellH": 24,
+    "axes": { "Separator": ["Default"] },
+    "width": 288
+  },
+  "command-empty": {
+    "figmaName": ".command-empty",
+    "kind": "command-empty",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 320,
+    "gridCellH": 88,
+    "axes": { "Empty": ["Default"] },
+    "width": 288,
+    "copy": { "message": "No results found." }
+  },
+  "command": {
+    "figmaName": "Command",
+    "kind": "command",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 1,
+    "gridCellW": 640,
+    "gridCellH": 200,
+    "axes": {
+      "Recipe": ["Default"]
+    },
+    "width": 600,
+    "kbdSetNodeId": "1686:4530",
+    "iconSetNodeId": "501:6",
+    "inlineInput": true,
+    "copy": { "placeholder": "Search…" }
   },
   "empty": {
     "figmaName": "Empty",
     "kind": "empty",
+    "replaceExisting": true,
     "tier": 2,
-    "gridCols": 1,
-    "gridCellW": 360,
-    "gridCellH": 220,
-    "axes": { "Layout": ["Default"] },
-    "width": 320
+    "figmaSnapshot": "ai/figma-empty.snapshot.json",
+    "gridCols": 2,
+    "gridCellW": 480,
+    "gridCellH": 400,
+    "axes": {
+      "Recipe": ["Default", "SingleAction", "TwoActions", "Search404"]
+    },
+    "width": 448,
+    "medallionSetNodeId": "1847:5417",
+    "medallionSizePx": 64,
+    "medallionSize": "Extra Large",
+    "medallionIconPx": 28,
+    "medallion": { "color": "Blue", "tone": "Pastel" },
+    "buttonSetNodeId": "554:268",
+    "inputSetNodeId": "589:236",
+    "copy": {
+      "Default": {
+        "title": "No messages",
+        "description": "Inbox is clear for now."
+      },
+      "SingleAction": {
+        "title": "No messages",
+        "description": "Inbox is clear for now.",
+        "action": "Compose message"
+      },
+      "TwoActions": {
+        "title": "Nothing queued",
+        "description": "Send a note now or import conversations from another inbox.",
+        "primary": "Compose message",
+        "secondary": "Import messages"
+      },
+      "Search404": {
+        "title": "404 - Not Found",
+        "description": "The page you are looking for does not exist or may have been moved.",
+        "searchPlaceholder": "Search documentation…"
+      }
+    }
   },
   "medallion": {
     "figmaName": "Medallion",
     "kind": "medallion",
     "replaceExisting": true,
     "tier": 0,
-    "gridCols": 2,
-    "gridCellW": 56,
-    "gridCellH": 56,
+    "figmaSnapshot": "ai/figma-medallion.snapshot.json",
+    "gridCols": 10,
+    "gridCellW": 72,
+    "gridCellH": 72,
     "defaultSizePx": 40,
     "iconSetNodeId": "501:6",
     "iconVariantBySize": {
@@ -540,6 +1222,7 @@
       "Extra Large": 28
     },
     "axes": {
+      "Size": ["Extra Small", "Small", "Default", "Large", "Extra Large"],
       "Color": [
         "Neutrals",
         "Red",
@@ -562,7 +1245,7 @@
       ],
       "Tone": ["Pastel", "Solid"]
     },
-    "figmaMatrixNote": "Primary matrix: Color × Tone (circle, default size). Code also supports Size and Shape — see medallion-layout spec."
+    "figmaMatrixNote": "180 variants (5 sizes × 18 colors × 2 tones). Circle shape. Sizes: 24 / 32 / 40 / 48 / 64px."
   },
   "medallion-layout": {
     "figmaName": "Medallion / Layout",

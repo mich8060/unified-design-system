@@ -1,0 +1,85 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Switch": {
+      "nodeId": "1854:5019",
+      "name": "Switch",
+      "width": 368,
+      "height": 200
+    }
+  },
+  "Switch": {
+    "nodeId": "1854:5019",
+    "description": "Binary toggle track with sliding thumb. Unchecked track uses input border tone; checked uses primary fill. Intermediary mirrors checkbox indeterminate: primary track + centered inverse dash.",
+    "variants": [
+      "Size=Default, Checked=False",
+      "Size=Default, Checked=Intermediary",
+      "Size=Default, Checked=True",
+      "Size=Small, Checked=False",
+      "Size=Small, Checked=Intermediary",
+      "Size=Small, Checked=True"
+    ],
+    "variantCount": 6,
+    "componentProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Small"],
+        "codeProp": "size",
+        "codeValues": {
+          "Default": "default",
+          "Small": "sm"
+        }
+      },
+      "Checked": {
+        "type": "VARIANT",
+        "defaultValue": "False",
+        "variantOptions": ["False", "Intermediary", "True"],
+        "codeProp": "checked",
+        "codeValues": {
+          "False": false,
+          "True": true,
+          "Intermediary": "prototype-only (primary track + centered dash, like checkbox indeterminate)"
+        }
+      }
+    },
+    "sizes": {
+      "Default": { "track": { "width": 48, "height": 28 }, "thumb": 20, "thumbInset": 2 },
+      "Small": { "track": { "width": 34, "height": 20 }, "thumb": 16, "thumbInset": 2 }
+    },
+    "tokens": {
+      "radius": "uds/radius/9999",
+      "trackOff": "uds/border/primary",
+      "trackIntermediary": "uds/color/primary/700",
+      "trackOn": "uds/color/primary/700",
+      "thumb": "uds/surface/primary",
+      "intermediaryIndicator": "pill path SVG, uds/icon/inverse fill"
+    },
+    "layerNaming": {
+      "thumb": "Thumb — ellipse, bg-background (uds/surface/primary)",
+      "indicator": "Indicator — imported pill SVG (20×6 default, 14×4 small), fill uds/icon/inverse"
+    },
+    "gridLayout": {
+      "cols": 3,
+      "cellWidth": 80,
+      "cellHeight": 48,
+      "gap": 24,
+      "padding": 40
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/switch.tsx",
+    "exports": ["Switch"],
+    "structure": {
+      "unchecked": "bg-input → uds/border/primary track, thumb left (2px inset)",
+      "checked": "bg-primary track, thumb right",
+      "thumb": "bg-background (uds/surface/primary), 20px default / 16px sm"
+    },
+    "notes": [
+      "Intermediary is a Figma-only prototype state: primary track + centered inverse dash (checkbox indeterminate pattern). Radix Switch has no native indeterminate.",
+      "Disabled uses data-disabled opacity 50% in code — not a separate Figma variant."
+    ]
+  }
+}

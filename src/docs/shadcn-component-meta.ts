@@ -56,7 +56,7 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Collapsible progressively discloses secondary content inline without forcing a full accordion pattern.',
   },
   combobox: {
-    summary: 'Combobox merges search and selection for long option lists where filtering is faster than scanning.',
+    summary: 'Combobox merges search and selection for long option lists. ComboboxInput matches Figma: secondary shell, 44px default / 36px compact (`inputSize`), CaretDown in the trailing addon.',
   },
   command: {
     summary: 'Command provides a palette-style list for quick navigation, action launching, and keyboard-first search.',

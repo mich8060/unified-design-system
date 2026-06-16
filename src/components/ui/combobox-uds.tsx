@@ -6,20 +6,52 @@ import { XIcon } from "@phosphor-icons/react"
 
 import { Button } from "@/components/ui/button"
 import {
-  InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
 } from "@/components/ui/input-group"
+import { type InputProps } from "@/components/ui/input"
 import { ComboboxTrigger } from "@/components/ui/combobox-base"
 import {
+  comboboxAddonClass,
   comboboxChipClass,
   comboboxChipsClass,
   comboboxChipsInputClass,
+  comboboxControlPaddingClass,
   comboboxInputGroupClass,
+  comboboxInputGroupSizeClass,
+  comboboxInputGroupShellClass,
   comboboxTriggerButtonClass,
 } from "@/components/ui/combobox-theme"
 import { cn } from "@/lib/utils"
+
+function ComboboxInputGroupShell({
+  inputSize = "default",
+  className,
+  children,
+}: {
+  inputSize?: "default" | "sm"
+  className?: string
+  children: React.ReactNode
+}) {
+  const size = inputSize ?? "default"
+  return (
+    <ComboboxPrimitive.InputGroup
+      data-slot="input-group"
+      data-input-size={size}
+      className={cn(
+        "w-auto",
+        comboboxInputGroupShellClass,
+        size === "sm" ? "uds-input-group--size-sm" : "uds-input-group--size-default",
+        comboboxInputGroupClass,
+        comboboxInputGroupSizeClass[size],
+        className,
+      )}
+    >
+      {children}
+    </ComboboxPrimitive.InputGroup>
+  )
+}
 
 function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
   return (
@@ -38,36 +70,40 @@ function ComboboxInput({
   className,
   children,
   disabled = false,
+  inputSize = "default",
   showTrigger = true,
   showClear = false,
   ...props
-}: ComboboxPrimitive.Input.Props & {
-  showTrigger?: boolean
-  showClear?: boolean
-}) {
+}: ComboboxPrimitive.Input.Props &
+  Pick<InputProps, "inputSize"> & {
+    showTrigger?: boolean
+    showClear?: boolean
+  }) {
+  const size = inputSize ?? "default"
   return (
-    <InputGroup inputSize="sm" className={cn(comboboxInputGroupClass, className)}>
+    <ComboboxInputGroupShell inputSize={size} className={className}>
       <ComboboxPrimitive.Input
-        render={<InputGroupInput inputSize="sm" disabled={disabled} />}
+        render={
+          <InputGroupInput
+            inputSize={size}
+            disabled={disabled}
+            className={comboboxControlPaddingClass[size]}
+          />
+        }
+        disabled={disabled}
         {...props}
       />
-      <InputGroupAddon align="inline-end">
+      <InputGroupAddon align="inline-end" className={comboboxAddonClass}>
         {showTrigger ? (
-          <InputGroupButton
-            size="icon-xs"
-            variant="ghost"
-            asChild
-            data-slot="input-group-button"
-            className={comboboxTriggerButtonClass}
+          <ComboboxTrigger
             disabled={disabled}
-          >
-            <ComboboxTrigger />
-          </InputGroupButton>
+            className={comboboxTriggerButtonClass}
+          />
         ) : null}
         {showClear ? <ComboboxClear disabled={disabled} /> : null}
       </InputGroupAddon>
       {children}
-    </InputGroup>
+    </ComboboxInputGroupShell>
   )
 }
 

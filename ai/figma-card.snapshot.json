@@ -1,113 +1,112 @@
 {
   "fileKey": "3bTua8rojOOC7tYWIEWJl0",
   "pageName": "UDS Components",
-  "syncedAt": "2026-06-03",
+  "syncedAt": "2026-06-11",
   "nodes": {
     "Card": {
       "nodeId": "1340:4222",
       "name": "Card",
-      "x": 100,
-      "y": 26354,
-      "width": 1108,
-      "height": 360
+      "x": 5932,
+      "y": 23458,
+      "width": 676,
+      "height": 271
     }
   },
   "layerNaming": {
-    "rule": "Child layers: leading period, lowercase, dash-separated words (e.g. .image, .header, .content, .footer).",
+    "rule": "Child layers: leading period, lowercase, dash-separated words (e.g. .image, .content, .footer). Content is exposed via the `Content` slot.",
     "template": [
       ".image",
-      "Slot3|Slot2",
-      ".header",
-      ".header-text",
+      "AspectRatio",
+      ".content",
+      "Content",
       ".title",
       ".description",
-      ".content",
-      "Slot",
       ".footer",
-      ".footer-action"
+      "Button"
     ]
   },
   "Card": {
     "nodeId": "1340:4222",
-    "variants": ["Size=Default", "Size=Small"],
+    "variants": ["Size=Default", "Size=Compact"],
     "variantCount": 2,
     "variantNodeIds": {
       "Size=Default": "1340:4194",
-      "Size=Small": "1341:4179"
+      "Size=Compact": "1341:4179"
     },
     "sizes": {
-      "Size=Default": { "width": 320, "height": 211 },
-      "Size=Small": { "width": 320, "height": 211 }
+      "Size=Default": { "width": 320, "height": 271 },
+      "Size=Compact": { "width": 320, "height": 231 }
     },
     "componentProperties": {
       "Size": {
         "type": "VARIANT",
         "defaultValue": "Default",
-        "variantOptions": ["Default", "Small"],
+        "variantOptions": ["Default", "Compact"],
         "codeProp": "size",
-        "codeValues": { "Default": "default", "Small": "sm" }
+        "codeValues": { "Default": "default", "Compact": "sm" }
       },
-      "Title#card": {
-        "type": "TEXT",
-        "defaultValue": "Default card",
-        "codeProp": "title",
-        "linkedLayer": ".title"
-      },
-      "Description#card": {
-        "type": "TEXT",
-        "defaultValue": "Supporting description text.",
-        "codeProp": "description",
-        "linkedLayer": ".description"
-      },
-      "Slot#1341:0": {
+      "Content#1341:0": {
         "type": "SLOT",
         "codeProp": "children",
-        "linkedLayer": ".content/Slot",
-        "note": "Main content area — maps to CardContent children in code."
+        "linkedLayer": ".content/Content",
+        "note": "Main content area (maps to CardContent children). Default content is .title + .description text layers."
       },
-      "Slot2#1341:3": {
-        "type": "SLOT",
-        "codeProp": "image",
-        "linkedLayer": ".image/Slot2",
-        "note": "Image/media slot on Size=Small."
+      "Image#1458:3": {
+        "type": "BOOLEAN",
+        "defaultValue": true,
+        "codeProp": "render CardImage",
+        "linkedLayer": ".image",
+        "note": "Toggles the media region (.image frame holding an AspectRatio instance). True = show image."
       },
-      "Slot3#1341:6": {
-        "type": "SLOT",
-        "codeProp": "image",
-        "linkedLayer": ".image/Slot3",
-        "note": "Image/media slot on Size=Default."
+      "Footer#1458:12": {
+        "type": "BOOLEAN",
+        "defaultValue": true,
+        "codeProp": "render CardFooter",
+        "linkedLayer": ".footer",
+        "note": "Toggles the footer region (.footer frame holding a Button). True = show footer."
       }
     },
     "tokens": {
       "fill": "uds/surface/primary",
       "stroke": "uds/border/primary",
       "radius": "uds/radius/8",
-      "headerPaddingX": "uds/gap/16",
-      "headerPaddingY": "uds/spacing/12",
-      "footerPaddingX": "uds/gap/16",
-      "footerPaddingY": "uds/gap/12",
+      "rootPadding": "uds/spacing/0",
+      "rootGap": "uds/spacing/0",
+      "contentPaddingX": "uds/spacing/16",
+      "contentPaddingY": "uds/spacing/12",
+      "footerPaddingX": "uds/spacing/16",
+      "footerPaddingY": "uds/spacing/12",
       "footerFill": "uds/surface/tertiary",
       "footerStroke": "uds/border/primary",
       "titleText": "uds/text/primary",
-      "descriptionText": "uds/text/secondary"
+      "descriptionText": "uds/text/secondary",
+      "imageFill": "uds/surface/secondary",
+      "imageStroke": "uds/color/neutrals/300"
     },
     "typography": {
       "Size=Default": {
         "title": "Body/16/Medium",
         "description": "Body/14/Regular"
       },
-      "Size=Small": {
-        "title": "Body/14/Medium",
+      "Size=Compact": {
+        "title": "Body/16/Medium",
         "description": "Body/14/Regular"
       }
     },
+    "media": {
+      "component": "AspectRatio",
+      "Size=Default": "Ratio=16:9",
+      "Size=Compact": "Ratio=21:9",
+      "note": "Fixed nested AspectRatio instance (no longer an image swap slot). Toggled by the Image boolean."
+    },
     "nestedInstances": {
-      ".footer-action": {
+      ".footer / Button": {
         "componentSet": "Button",
         "variantBySize": {
           "Default": "Appearance=Default, Size=Default",
-          "Small": "Appearance=Default, Size=Small"
-        }
+          "Compact": "Appearance=Default, Size=Small"
+        },
+        "label": "Save"
       }
     }
   },
@@ -116,30 +115,25 @@
     "exports": [
       "Card",
       "CardImage",
-      "CardHeader",
-      "CardTitle",
-      "CardDescription",
-      "CardAction",
       "CardContent",
       "CardFooter"
     ],
     "sizeProp": {
       "default": "Size=Default",
-      "sm": "Size=Small"
+      "sm": "Size=Compact"
     },
     "structure": {
-      "Card": "root — border + radius, gap-0, no root padding",
-      "CardImage": ".image (Slot3 / Slot2)",
-      "CardHeader": ".header — px uds/gap/16, py uds/spacing-12",
-      "CardTitle": ".title",
-      "CardDescription": ".description",
-      "CardContent": ".content — flex-1 slot for children",
-      "CardFooter": ".footer — tertiary fill, top border, justify-end, Button instance"
+      "Card": "root wrapper \u2014 border + uds/radius/8, gap-0, no root padding",
+      ".image (Image boolean)": "CardImage — media slot, images only (AspectRatio with src/alt); omit to turn off",
+      ".content/Content (slot)": "CardContent \u2014 body slot, accepts any children; carries content padding (gap/16 \u00d7 spacing/12)",
+      ".footer (Footer boolean)": "CardFooter \u2014 actions slot, buttons only; uds/surface/tertiary fill + top border; omit to turn off"
     },
     "notes": [
-      "No shadow — uds/border/primary stroke only.",
-      "Body#card text property removed; content is a SLOT.",
-      "Header and footer use the same horizontal padding at both sizes; title drops to 14px on sm."
+      "Card is a three-slot wrapper (CardImage / CardContent / CardFooter) with no built-in title/description \u2014 CardHeader/CardTitle/CardDescription/CardAction were removed.",
+      "The Figma .title/.description are sample slot content only, not component properties.",
+      "Image slot holds images only; Footer slot holds buttons only (documented convention, children stay permissive).",
+      "Size axis renamed Small \u2192 Compact (code `sm` maps to the compact variant).",
+      "Image is a fixed AspectRatio instance toggled by the Image boolean; Footer presence toggled by the Footer boolean (render/omit in code)."
     ]
   }
 }

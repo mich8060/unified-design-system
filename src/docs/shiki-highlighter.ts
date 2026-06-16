@@ -15,6 +15,7 @@ const bundledLangs = {
   shell: () => import('@shikijs/langs/shell'),
   markdown: () => import('@shikijs/langs/markdown'),
   md: () => import('@shikijs/langs/md'),
+  yaml: () => import('@shikijs/langs/yaml'),
 } as const
 
 const bundledThemes = {
@@ -44,4 +45,5 @@ export const DOCS_HIGHLIGHTER_LANGS: DocsCodeLanguage[] = [
   'shell',
   'markdown',
   'md',
+  'yaml',
 ]

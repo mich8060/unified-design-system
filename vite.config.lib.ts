@@ -11,6 +11,27 @@ const external = [
   ...Object.keys(pkg.peerDependencies ?? {}),
 ]
 
+// Heavy components exposed as dedicated subpath entry points so consumers can
+// import them in isolation (and so re-export-only barrels like chart/command/
+// drawer are preserved as files instead of being elided by Rollup). Keys use the
+// natural module path under src/ so preserveModules emits them at
+// dist/components/ui/<name>.{js,cjs} alongside the rest of the tree.
+const subpathEntryModules = [
+  'components/ui/chart',
+  'components/ui/command',
+  'components/ui/drawer',
+  'components/ui/calendar',
+  'components/ui/date-input',
+  'components/ui/date-range-input',
+  'components/ui/micro-calendar',
+  'components/ui/resizable',
+  'components/ui/sonner',
+  'components/ui/input-otp',
+]
+const subpathEntries = Object.fromEntries(
+  subpathEntryModules.map((mod) => [mod, path.resolve(__dirname, `./src/${mod}.tsx`)]),
+)
+
 export default defineConfig({
   plugins: [tailwindcss()],
   resolve: {
@@ -28,6 +49,7 @@ export default defineConfig({
       entry: {
         index: path.resolve(__dirname, './src/index.ts'),
         styles: path.resolve(__dirname, './src/styles.ts'),
+        ...subpathEntries,
       },
       formats: ['es', 'cjs'],
       cssFileName: 'styles',

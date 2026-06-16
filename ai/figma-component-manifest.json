@@ -3,7 +3,7 @@
   "pageName": "UDS Components",
   "rulesDoc": "figma.component.rules.md",
   "buildScript": "node scripts/figma-generate-component-build.mjs <slug> --write",
-  "lastInventoryAt": "2026-06-03",
+  "lastInventoryAt": "2026-06-11",
   "figmaCalendarSnapshot": "ai/figma-calendar.snapshot.json",
   "inFigma": {
     "Button": {
@@ -35,7 +35,7 @@
       "slug": "checkbox"
     },
     "Switch": {
-      "nodeId": "591:228",
+      "nodeId": "1854:5019",
       "slug": "switch"
     },
     "Skeleton": {
@@ -51,7 +51,7 @@
       "slug": "label"
     },
     "DotStatus": {
-      "nodeId": "595:230",
+      "nodeId": "1813:4697",
       "slug": "dot-status"
     },
     "Avatar": {
@@ -63,7 +63,7 @@
       "slug": "toggle"
     },
     "Radio": {
-      "nodeId": "617:227",
+      "nodeId": "1849:5009",
       "slug": "radio-group"
     },
     "Textarea": {
@@ -83,7 +83,7 @@
       "slug": "separator"
     },
     "Kbd": {
-      "nodeId": "632:225",
+      "nodeId": "1686:4530",
       "slug": "kbd"
     },
     "Link": {
@@ -106,24 +106,88 @@
       "nodeId": "765:344",
       "slug": "alert-dialog"
     },
+    "Dialog": {
+      "nodeId": "1812:4665",
+      "slug": "dialog"
+    },
+    "Drawer": {
+      "nodeId": "1821:4739",
+      "slug": "drawer"
+    },
     "Card": {
-      "nodeId": "688:229",
+      "nodeId": "1340:4222",
       "slug": "card"
+    },
+    "Chart": {
+      "nodeId": "1521:4549",
+      "slug": "chart"
+    },
+    "CheckList": {
+      "nodeId": "1629:4568",
+      "slug": "check-list"
+    },
+    "Collapsible": {
+      "nodeId": "1642:55",
+      "slug": "collapsible"
+    },
+    ".context-menu-item": {
+      "nodeId": "1669:4570",
+      "slug": "context-menu"
+    },
+    ".context-menu-label": {
+      "nodeId": "1670:4547",
+      "slug": "context-menu"
+    },
+    ".context-menu-separator": {
+      "nodeId": "1670:4554",
+      "slug": "context-menu"
+    },
+    "ContextMenu": {
+      "nodeId": "1671:4687",
+      "slug": "context-menu"
+    },
+    "DropdownMenu": {
+      "nodeId": "1827:4726",
+      "slug": "dropdown-menu"
+    },
+    "Menu": {
+      "nodeId": "1895:6336",
+      "slug": "menu"
+    },
+    ".command-item": {
+      "nodeId": "1711:4580",
+      "slug": "command"
+    },
+    ".command-group-heading": {
+      "nodeId": "1711:4587",
+      "slug": "command"
+    },
+    ".command-separator": {
+      "nodeId": "1711:4594",
+      "slug": "command"
+    },
+    ".command-empty": {
+      "nodeId": "1711:4601",
+      "slug": "command"
+    },
+    "Command": {
+      "nodeId": "1713:4626",
+      "slug": "command"
     },
     "Tabs": {
       "nodeId": "790:1022",
       "slug": "tabs"
     },
     "Field": {
-      "nodeId": "723:237",
+      "nodeId": "1857:5033",
       "slug": "field"
     },
     "Empty": {
-      "nodeId": "728:225",
+      "nodeId": "1845:4755",
       "slug": "empty"
     },
     "Medallion": {
-      "nodeId": "754:436",
+      "nodeId": "1847:5417",
       "slug": "medallion"
     },
     ".calendar-day": {
@@ -137,6 +201,18 @@
     ".calendar-month": {
       "nodeId": "1188:639",
       "slug": "calendar"
+    },
+    "Table": {
+      "nodeId": "1430:4180",
+      "slug": "table"
+    },
+    ".table-row": {
+      "nodeId": "1436:4245",
+      "slug": "table"
+    },
+    ".table-cell": {
+      "nodeId": "1436:4192",
+      "slug": "table"
     }
   },
   "statusBySlug": {
@@ -202,44 +278,62 @@
     "card": {
       "status": "in-figma",
       "figmaName": "Card",
-      "nodeId": "688:229"
+      "nodeId": "1340:4222",
+      "note": "Size=Default|Compact. Content slot (.title + .description default), Image/Footer booleans, AspectRatio media. Snapshot: ai/figma-card.snapshot.json"
     },
     "chart": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Chart",
+      "nodeId": "1521:4549",
+      "note": "Chart recipes (412×242, 24px pad) embed self-contained series instances directly (y-axis 23px, plot 333px, Points=2..12). ChartPlot removed. Snapshot: ai/figma-chart.snapshot.json"
     },
     "check-list": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "CheckList",
+      "nodeId": "1629:4568",
+      "note": "Item-level task row (8 variants: Checked × Disabled × Description). TEXT props: task, descriptionLabel. Compose instances for lists. Snapshot: ai/figma-check-list.snapshot.json"
     },
     "checkbox": {
       "status": "in-figma",
       "figmaName": "Checkbox",
-      "nodeId": "590:230"
+      "nodeId": "590:230",
+      "note": "6 variants (State × Disabled). Snapshot: ai/figma-checkbox.snapshot.json"
     },
     "collapsible": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Collapsible",
+      "nodeId": "1642:55",
+      "note": "Variant × State × IconPosition=Right|Left (8 variants). Content + .content slots. Snapshot: ai/figma-collapsible.snapshot.json"
     },
     "combobox": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "ComboboxInput",
+      "nodeId": "1791:4702",
+      "note": "Figma atom: ComboboxInput only (1791:4702). List/popover parts (ComboboxContent, ComboboxItem) are code-only. Snapshot: ai/figma-combobox.snapshot.json"
     },
     "command": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Command",
+      "nodeId": "1713:4626",
+      "note": "Inline .command-input frame on Command (not a child component). Content slot for .command-item, .command-group-heading, .command-empty, .command-separator. Recipe=Default. Snapshot: ai/figma-command.snapshot.json"
     },
     "context-menu": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "ContextMenu",
+      "nodeId": "1671:4687",
+      "note": "Child parts: .context-menu-item (10 Type variants + Submenu/Slot on SubTrigger), .context-menu-label, .context-menu-separator. ContextMenu Content slot (Recipe=Default). Snapshot: ai/figma-context-menu.snapshot.json"
     },
     "description-list": {
       "status": "deferred",
       "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
     },
     "dialog": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Dialog",
+      "nodeId": "1812:4665",
+      "variantCount": 5,
+      "variantAxis": "Size",
+      "variants": ["Small", "Medium", "Large", "XLarge", "2XL"]
     },
     "direction": {
       "status": "deferred",
@@ -248,41 +342,97 @@
     "dot-status": {
       "status": "in-figma",
       "figmaName": "DotStatus",
-      "nodeId": "595:230"
+      "nodeId": "1813:4697",
+      "variantCount": 30,
+      "variantAxes": ["Variant", "Outline"],
+      "variants": [
+        "Red",
+        "Blue",
+        "Inverse",
+        "Orange",
+        "Sky",
+        "Indigo",
+        "Rose",
+        "Neutral",
+        "Celery",
+        "Lime",
+        "Yellow",
+        "Green",
+        "Cyan",
+        "Purple",
+        "Fuchsia"
+      ]
     },
     "drawer": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Drawer",
+      "nodeId": "1821:4739",
+      "variantCount": 4,
+      "variantAxis": "Direction",
+      "variants": ["Bottom", "Top", "Left", "Right"],
+      "note": "720×520 open preview per variant (overlay included). Snapshot: ai/figma-drawer.snapshot.json"
     },
     "dropdown-menu": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "DropdownMenu",
+      "nodeId": "1827:4726",
+      "variantCount": 2,
+      "variantAxis": "Recipe",
+      "variants": ["Default", "Account"],
+      "note": "Button trigger (554:268) + Content panel from .context-menu-* parts. Snapshot: ai/figma-dropdown-menu.snapshot.json"
     },
     "date-input": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Date Input",
+      "nodeId": "1739:4557",
+      "note": "Size=Compact|Default × State. Segmented mm/dd/yyyy + CalendarBlank; tokens aligned with Input. Snapshot: ai/figma-date-input.snapshot.json"
     },
     "date-range-input": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Date Range Input",
+      "nodeId": "1761:4731",
+      "note": "Cloned from Date Input (1739:4557). Size=Compact|Default × State; mm/dd/yyyy – mm/dd/yyyy + CalendarBlank. Snapshot: ai/figma-date-range-input.snapshot.json"
     },
     "empty": {
       "status": "in-figma",
       "figmaName": "Empty",
-      "nodeId": "728:225"
+      "nodeId": "1845:4755",
+      "variantCount": 4,
+      "variantAxis": "Recipe",
+      "variants": ["Default", "SingleAction", "TwoActions", "Search404"],
+      "note": "Medallion Blue Pastel 64px + docs recipes. Snapshot: ai/figma-empty.snapshot.json"
     },
     "field": {
       "status": "in-figma",
       "figmaName": "Field",
-      "nodeId": "723:237"
+      "nodeId": "1857:5033",
+      "variantCount": 4,
+      "variantAxes": ["Appearance", "State"],
+      "figmaSnapshot": "ai/figma-field.snapshot.json"
     },
     "file-upload": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "FileUpload",
+      "nodeId": "1887:5090",
+      "variantCount": 9,
+      "variantAxes": ["Size", "State"],
+      "figmaSnapshot": "ai/figma-file-upload.snapshot.json"
     },
     "file-upload-cards": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "FileUploadCards",
+      "nodeId": "1888:5350",
+      "variantCount": 2,
+      "variantAxes": ["Density"],
+      "figmaSnapshot": "ai/figma-file-upload-cards.snapshot.json"
+    },
+    "menu": {
+      "status": "in-figma",
+      "figmaName": "Menu",
+      "nodeId": "1895:6336",
+      "variantCount": 18,
+      "variantAxes": ["Brand", "Rail"],
+      "figmaSnapshot": "ai/figma-menu.snapshot.json"
     },
     "footer": {
       "status": "deferred",
@@ -299,11 +449,14 @@
     "input": {
       "status": "in-figma",
       "figmaName": "Input",
-      "nodeId": "589:236"
+      "nodeId": "589:236",
+      "note": "Size=Compact|Default × State. uds/surface/primary fill (error/disabled: secondary). Placeholder TEXT layer. Snapshot: ai/figma-input.snapshot.json"
     },
     "input-group": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "InputGroup",
+      "nodeId": "1731:4599",
+      "note": "Size × State shell with embedded .input-group-control frame. TEXT prop: placeholder. Snapshot: ai/figma-input-group.snapshot.json"
     },
     "input-otp": {
       "status": "deferred",
@@ -316,7 +469,8 @@
     "kbd": {
       "status": "in-figma",
       "figmaName": "Kbd",
-      "nodeId": "632:225"
+      "nodeId": "1686:4530",
+      "note": "Appearance=Default|Black|Tooltip (3 variants). TEXT prop: key. Snapshot: ai/figma-kbd.snapshot.json"
     },
     "label": {
       "status": "in-figma",
@@ -335,7 +489,10 @@
     "medallion": {
       "status": "in-figma",
       "figmaName": "Medallion",
-      "nodeId": "754:436"
+      "nodeId": "1847:5417",
+      "variantCount": 180,
+      "variantAxes": ["Size", "Color", "Tone"],
+      "figmaSnapshot": "ai/figma-medallion.snapshot.json"
     },
     "menubar": {
       "status": "deferred",
@@ -385,7 +542,10 @@
     "radio-group": {
       "status": "in-figma",
       "figmaName": "Radio",
-      "nodeId": "617:227"
+      "nodeId": "1849:5009",
+      "variantCount": 6,
+      "variantAxes": ["State", "Disabled"],
+      "figmaSnapshot": "ai/figma-radio.snapshot.json"
     },
     "resizable": {
       "status": "deferred",
@@ -396,8 +556,10 @@
       "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
     },
     "search-input": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "SearchInput",
+      "nodeId": "1733:4633",
+      "note": "Recipe=Default|Shortcut × Size. MagnifyingGlass inline-start addon + optional Kbd shortcut. Snapshot: ai/figma-search-input.snapshot.json"
     },
     "select": {
       "status": "deferred",
@@ -455,11 +617,16 @@
     "switch": {
       "status": "in-figma",
       "figmaName": "Switch",
-      "nodeId": "591:228"
+      "nodeId": "1854:5019",
+      "variantCount": 6,
+      "variantAxes": ["Size", "Checked"],
+      "figmaSnapshot": "ai/figma-switch.snapshot.json"
     },
     "table": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Table",
+      "nodeId": "1430:4180",
+      "note": "Hierarchy Table (1430:4180) \u2192 .table-row (1436:4245) \u2192 .table-cell (1436:4192, Appearance=Body|Head). Restricted slots (allowPreferredValuesOnly) enforce nesting. Snapshot: ai/figma-table.snapshot.json"
     },
     "tabs": {
       "status": "in-figma",
@@ -513,9 +680,9 @@
   },
   "summary": {
     "total": 83,
-    "inFigma": 28,
+    "inFigma": 31,
     "specReady": 0,
-    "deferred": 55,
+    "deferred": 52,
     "needsSpec": 0
   }
 }

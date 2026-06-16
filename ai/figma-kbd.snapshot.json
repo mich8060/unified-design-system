@@ -1,0 +1,88 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Kbd": {
+      "nodeId": "1686:4530",
+      "name": "Kbd",
+      "width": 180,
+      "height": 20
+    }
+  },
+  "Kbd": {
+    "nodeId": "1686:4530",
+    "description": "Single key cap for keyboard shortcuts. Compose multiple instances in a row with gap-1 (KbdGroup).",
+    "variants": [
+      "Appearance=Default",
+      "Appearance=Black",
+      "Appearance=Tooltip"
+    ],
+    "variantCount": 3,
+    "variantNodeIds": {
+      "Appearance=Default": "1686:4524",
+      "Appearance=Black": "1686:4526",
+      "Appearance=Tooltip": "1686:4528"
+    },
+    "sizes": {
+      "cap": {
+        "width": 20,
+        "height": 20,
+        "note": "Hugs key label; min 20×20."
+      }
+    },
+    "gridLayout": {
+      "cols": 3,
+      "cellWidth": 60,
+      "note": "Three appearances in one row."
+    },
+    "componentProperties": {
+      "Appearance": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Black", "Tooltip"],
+        "codeMapping": {
+          "Default": "Kbd default — bg-uds-surface-quaternary text-muted-foreground",
+          "Black": "Kbd with className bg-black text-white shadow-sm (docs black keycaps)",
+          "Tooltip": "Kbd inside TooltipContent — contextual styling on tooltip surfaces"
+        }
+      },
+      "key": {
+        "type": "TEXT",
+        "propertyId": "key#1686:0",
+        "defaultValue": "⌘",
+        "codeProp": "children",
+        "linkedLayer": "key"
+      }
+    },
+    "layerNaming": {
+      "root": "Kbd",
+      "label": "key"
+    },
+    "tokens": {
+      "defaultFill": "uds/surface/quaternary",
+      "defaultText": "uds/text/secondary",
+      "blackFill": "uds/color/black",
+      "blackText": "uds/text/inverse",
+      "tooltipFill": "uds/surface/primary",
+      "tooltipText": "uds/text/primary",
+      "radius": "uds/radius/2",
+      "paddingX": "uds/gap/4",
+      "paddingY": 0,
+      "typography": "Body/12/Medium"
+    },
+    "composition": {
+      "KbdGroup": "inline-flex items-center gap-1 — place multiple Kbd instances side by side (e.g. ⌘ + S, ⌘ + K in SearchInput)"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/kbd.tsx",
+    "exports": ["Kbd", "KbdGroup"],
+    "docsExamples": "src/docs/shadcn-examples/registry.tsx — shortcut (default), black (bg-black text-white)",
+    "figmaDriftNotes": {
+      "radius": "Figma uses uds/radius/2; code uses --uds-radius-4 (4px).",
+      "paddingY": "Figma uses 0 vertical padding; code uses py implied via h-5 centering.",
+      "tooltip": "Figma Tooltip appearance uses solid surface primary + primary text; code uses bg-background/20 on tooltip-content parent."
+    }
+  }
+}

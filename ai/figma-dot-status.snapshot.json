@@ -1,0 +1,102 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "DotStatus": {
+      "nodeId": "1813:4697",
+      "name": "DotStatus",
+      "width": 256,
+      "height": 296
+    }
+  },
+  "DotStatus": {
+    "nodeId": "1813:4697",
+    "description": "Compact availability / severity dot (10px medium). Variant = fill hue; Outline = 2px uds/border/primary stroke. Size remains code-only.",
+    "variantAxes": ["Variant", "Outline"],
+    "variantCount": 30,
+    "outlineStroke": {
+      "weightPx": 2,
+      "token": "uds/border/primary",
+      "codeProp": "outline"
+    },
+    "variants": [
+      "Variant=Red, Outline=False",
+      "Variant=Red, Outline=True",
+      "Variant=Blue, Outline=False",
+      "Variant=Blue, Outline=True",
+      "Variant=Inverse, Outline=False",
+      "Variant=Inverse, Outline=True",
+      "Variant=Orange, Outline=False",
+      "Variant=Orange, Outline=True",
+      "Variant=Sky, Outline=False",
+      "Variant=Sky, Outline=True",
+      "Variant=Indigo, Outline=False",
+      "Variant=Indigo, Outline=True",
+      "Variant=Rose, Outline=False",
+      "Variant=Rose, Outline=True",
+      "Variant=Neutral, Outline=False",
+      "Variant=Neutral, Outline=True",
+      "Variant=Celery, Outline=False",
+      "Variant=Celery, Outline=True",
+      "Variant=Lime, Outline=False",
+      "Variant=Lime, Outline=True",
+      "Variant=Yellow, Outline=False",
+      "Variant=Yellow, Outline=True",
+      "Variant=Green, Outline=False",
+      "Variant=Green, Outline=True",
+      "Variant=Cyan, Outline=False",
+      "Variant=Cyan, Outline=True",
+      "Variant=Purple, Outline=False",
+      "Variant=Purple, Outline=True",
+      "Variant=Fuchsia, Outline=False",
+      "Variant=Fuchsia, Outline=True"
+    ],
+    "codeVariantMap": {
+      "red": "Red",
+      "blue": "Blue",
+      "inverse": "Inverse",
+      "orange": "Orange",
+      "sky": "Sky",
+      "indigo": "Indigo",
+      "rose": "Rose",
+      "neutral": "Neutral",
+      "celery": "Celery",
+      "lime": "Lime",
+      "yellow": "Yellow",
+      "green": "Green",
+      "cyan": "Cyan",
+      "purple": "Purple",
+      "fuchsia": "Fuchsia"
+    },
+    "tokenBindings": {
+      "Red": "uds/color/accent/red/500",
+      "Blue": "uds/color/accent/blue/500",
+      "Inverse": "uds/color/black",
+      "Orange": "uds/color/accent/orange/500",
+      "Sky": "uds/color/accent/sky/500",
+      "Indigo": "uds/color/accent/indigo/500",
+      "Rose": "uds/color/accent/rose/500",
+      "Neutral": "uds/color/neutrals/500",
+      "Celery": "uds/color/accent/emerald/500",
+      "Lime": "uds/color/accent/lime/500",
+      "Yellow": "uds/color/accent/yellow/500",
+      "Green": "uds/color/accent/green/500",
+      "Cyan": "uds/color/accent/cyan/500",
+      "Purple": "uds/color/accent/purple/500",
+      "Fuchsia": "uds/color/accent/fuchsia/500"
+    },
+    "sizes": {
+      "dotPx": 10,
+      "note": "Figma atom is medium (10px). Code also supports small (8px) and large (12px)."
+    },
+    "gridLayout": {
+      "cols": 5,
+      "cellWidth": 16,
+      "cellHeight": 16,
+      "gap": 24,
+      "padding": 40,
+      "note": "Each color pair: Outline=False then Outline=True in row order"
+    }
+  }
+}

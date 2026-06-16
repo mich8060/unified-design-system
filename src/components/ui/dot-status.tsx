@@ -53,7 +53,7 @@ const dotStyles = cva('inline-block shrink-0 rounded-full', {
       large: 'size-3',
     },
     outline: {
-      true: 'ring-2 ring-[var(--uds-border-primary)] ring-offset-2 ring-offset-background',
+      true: 'box-border border-2 border-[var(--uds-border-primary)]',
       false: '',
     },
   },

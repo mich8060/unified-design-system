@@ -1,0 +1,212 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "lastFigmaEdit": "Detached .command-input — inline frame on Command; Content slot for list items",
+  "nodes": {
+    ".command-item": {
+      "nodeId": "1711:4580",
+      "name": ".command-item",
+      "width": 328,
+      "height": 200
+    },
+    ".command-group-heading": {
+      "nodeId": "1711:4587",
+      "name": ".command-group-heading"
+    },
+    ".command-separator": {
+      "nodeId": "1711:4594",
+      "name": ".command-separator"
+    },
+    ".command-empty": {
+      "nodeId": "1711:4601",
+      "name": ".command-empty"
+    },
+    "Command": {
+      "nodeId": "1713:4626",
+      "name": "Command",
+      "width": 600,
+      "height": 166
+    }
+  },
+  ".command-item": {
+    "nodeId": "1711:4580",
+    "description": "Command list row (CommandItem). Selected shows check; WithShortcut uses Kbd instances.",
+    "variants": [
+      "State=Default",
+      "State=Selected",
+      "State=Disabled",
+      "State=WithShortcut"
+    ],
+    "variantCount": 4,
+    "variantNodeIds": {
+      "State=Default": "1711:4564",
+      "State=Selected": "1711:4567",
+      "State=Disabled": "1711:4570",
+      "State=WithShortcut": "1711:4573"
+    },
+    "componentProperties": {
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Selected", "Disabled", "WithShortcut"],
+        "codeMapping": {
+          "Default": "CommandItem",
+          "Selected": "CommandItem data-selected",
+          "Disabled": "CommandItem disabled",
+          "WithShortcut": "CommandItem + CommandShortcut (Kbd)"
+        }
+      },
+      "itemLabel": {
+        "type": "TEXT",
+        "defaultValue": "Calendar",
+        "codeProp": "children",
+        "linkedLayer": "label"
+      }
+    },
+    "layerNaming": {
+      "label": "label",
+      "check": "check (visible when State=Selected)",
+      "shortcut": "shortcut (Kbd group when State=WithShortcut)"
+    },
+    "tokens": {
+      "selectedFill": "uds/surface/secondary",
+      "radius": "uds/radius/2",
+      "padding": "uds/gap/8 horizontal, uds/gap/6 vertical",
+      "text": "Body/14/Regular",
+      "shortcutKbd": "Kbd Appearance=Default (1686:4530)"
+    }
+  },
+  ".command-group-heading": {
+    "nodeId": "1711:4587",
+    "description": "CommandGroup heading (cmdk-group-heading).",
+    "variants": ["Heading=Default"],
+    "variantCount": 1,
+    "variantNodeIds": {
+      "Heading=Default": "1711:4585"
+    },
+    "componentProperties": {
+      "heading": {
+        "type": "TEXT",
+        "defaultValue": "Suggestions",
+        "codeProp": "heading prop on CommandGroup",
+        "linkedLayer": "heading"
+      }
+    },
+    "tokens": {
+      "text": "Body/12/Medium",
+      "fill": "uds/text/secondary"
+    }
+  },
+  ".command-separator": {
+    "nodeId": "1711:4594",
+    "description": "CommandSeparator between groups.",
+    "variants": ["Separator=Default"],
+    "variantCount": 1,
+    "variantNodeIds": {
+      "Separator=Default": "1711:4592"
+    },
+    "tokens": {
+      "line": "uds/border/primary"
+    }
+  },
+  ".command-empty": {
+    "nodeId": "1711:4601",
+    "description": "CommandEmpty zero-results state — compose into Command Content slot.",
+    "variants": ["Empty=Default"],
+    "variantCount": 1,
+    "variantNodeIds": {
+      "Empty=Default": "1711:4599"
+    },
+    "layerNaming": {
+      "message": "message"
+    },
+    "tokens": {
+      "padding": "uds/gap/24 vertical",
+      "text": "Body/14/Regular"
+    }
+  },
+  "Command": {
+    "nodeId": "1713:4626",
+    "description": "Command palette panel. Search input is an inline frame (not a separate component). List rows compose into the Content slot.",
+    "variants": ["Recipe=Default"],
+    "variantCount": 1,
+    "variantNodeIds": {
+      "Recipe=Default": "1713:4568"
+    },
+    "sizes": {
+      "panel": { "width": 600, "height": 166 }
+    },
+    "componentProperties": {
+      "Recipe": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default"],
+        "codeMapping": {
+          "Default": "Command with inline CommandInput frame + Content slot (CommandList items)"
+        }
+      },
+      "Content": {
+        "type": "SLOT",
+        "propertyId": "Content#1636:23",
+        "linkedLayer": "Content",
+        "codeProp": "CommandList children (CommandGroup, CommandItem, CommandEmpty, CommandSeparator)",
+        "preferredComponentSets": [
+          ".command-empty",
+          ".command-group-heading",
+          ".command-item",
+          ".command-separator"
+        ]
+      }
+    },
+    "structure": {
+      "root": "Command — vertical auto-layout panel",
+      "input": ".command-input (FRAME, not component) — CommandInput wrapper",
+      "inputGroup": ".command-input/.input-group — search field + trailing Icon Size=16",
+      "placeholder": ".command-input/.input-group/placeholder (TEXT, default “Search…”)",
+      "content": "Content (SLOT) — CommandList; compose heading + items + empty/separator"
+    },
+    "inlineInput": {
+      "frameNodeId": "1636:4752",
+      "note": "Detached from deleted .command-input component set. Edit placeholder text directly on the frame.",
+      "tokens": {
+        "inputGroupFill": "uds/surface/secondary",
+        "inputGroupBorder": "uds/border/secondary",
+        "inputGroupRadius": "uds/radius/4",
+        "placeholderText": "Body/14/Regular, uds/text/placeholder"
+      }
+    },
+    "defaultComposition": {
+      "Content": [
+        { "instance": ".command-group-heading", "variant": "Heading=Default" },
+        { "instance": ".command-item", "variant": "State=Default", "note": "Calendar" },
+        { "instance": ".command-item", "variant": "State=Default", "note": "Settings" },
+        { "instance": ".command-item", "variant": "State=Default", "note": "Calculator" }
+      ]
+    },
+    "composeFrom": [
+      ".command-group-heading",
+      ".command-item",
+      ".command-empty",
+      ".command-separator"
+    ]
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/command-base.tsx",
+    "theme": "src/components/ui/command-theme.ts",
+    "exports": [
+      "Command",
+      "CommandInput",
+      "CommandList",
+      "CommandEmpty",
+      "CommandGroup",
+      "CommandItem",
+      "CommandSeparator",
+      "CommandShortcut",
+      "CommandDialog"
+    ],
+    "figmaNote": "CommandInput is modeled as inline frame .command-input on Command, not a swappable child component.",
+    "kbdSetNodeId": "1686:4530",
+    "iconSetNodeId": "501:6"
+  }
+}

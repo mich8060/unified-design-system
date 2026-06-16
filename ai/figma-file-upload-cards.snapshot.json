@@ -1,0 +1,70 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "FileUploadCards": {
+      "nodeId": "1888:5350",
+      "name": "FileUploadCards",
+      "width": 1144,
+      "height": 800
+    }
+  },
+  "FileUploadCards": {
+    "nodeId": "1888:5350",
+    "description": "Composite upload workflow: FileUpload dropzone instance + stacked file cards with Badge status, metadata, Progress (uploading), error copy, and icon action buttons.",
+    "variantAxes": ["Density"],
+    "variantCount": 2,
+    "variants": ["Density=Default", "Density=Compact"],
+    "componentProperties": {
+      "Density": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Compact"],
+        "codeProp": "density",
+        "codeValues": {
+          "Default": "default",
+          "Compact": "compact"
+        }
+      }
+    },
+    "composition": {
+      "dropzone": "FileUpload instance — Default size (default density) or XS (compact)",
+      "cards": [
+        "Credentialing packet.pdf — success / Uploaded badge",
+        "headshot.png — uploading / 62% progress",
+        "license-front.jpg — error + retry action",
+        "w9-form.pdf — disabled"
+      ],
+      "atoms": {
+        "badge": "746:341 — Accent × Pastel (Neutral, Sky, Green, Red)",
+        "progress": "inline track — uds/surface/quaternary + uds/color/primary/700",
+        "icons": "Icon Size=16 with Phosphor swaps (File, Image, Eye, DownloadSimple, ArrowClockwise, X)"
+      }
+    },
+    "tokens": {
+      "cardRadius": "uds/radius/8",
+      "cardFill": "uds/surface/secondary",
+      "cardBorder": "uds/border/primary",
+      "thumbFill": "uds/surface/tertiary",
+      "stackGapDefault": "uds/gap/16",
+      "stackGapCompact": "uds/gap/8"
+    },
+    "gridLayout": {
+      "cols": 2,
+      "cellWidth": 520,
+      "cellHeight": 720,
+      "gap": 24,
+      "padding": 40
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/file-upload-cards.tsx",
+    "exports": ["FileUploadCards", "FileUploadCardItem", "FileUploadCardStatus", "FileUploadCardsDensity"],
+    "notes": [
+      "Default density uses FileUpload size default; compact uses xs dropzone.",
+      "Card statuses: idle, uploading, success, error, disabled — demo shows 4 representative rows.",
+      "Action buttons are icon-only frames with 8px radius hover surface tokens."
+    ]
+  }
+}

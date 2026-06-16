@@ -32,7 +32,7 @@ function InputGroup({
       className={cn(
         "uds-input-group group/input-group",
         /* Shell + row layout also as utilities so SearchInput matches the demo when semantic CSS loads late or is absent. */
-        "relative flex w-full min-w-0 flex-row flex-nowrap items-center rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-secondary)] transition-colors outline-none",
+        "relative flex w-full min-w-0 flex-row flex-nowrap items-center rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-primary)] transition-colors outline-none",
         inputGroupSizeVariants({ inputSize }),
         className,
       )}

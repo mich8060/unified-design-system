@@ -12,24 +12,20 @@ function Checkbox({
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        "peer group/checkbox relative flex size-5 shrink-0 items-center justify-center rounded-[4px] border border-input bg-background transition-colors outline-none group-has-disabled/field:opacity-50 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 aria-invalid:aria-checked:border-[var(--uds-color-primary-700)] dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 data-[state=checked]:border-[var(--uds-color-primary-700)] data-[state=checked]:bg-[var(--uds-color-primary-700)] data-[state=checked]:text-white dark:data-[state=checked]:border-[var(--uds-color-primary-700)] dark:data-[state=checked]:bg-[var(--uds-color-primary-700)] data-[state=indeterminate]:border-[var(--uds-color-primary-700)] data-[state=indeterminate]:bg-[var(--uds-color-primary-700)] data-[state=indeterminate]:text-white dark:data-[state=indeterminate]:border-[var(--uds-color-primary-700)] dark:data-[state=indeterminate]:bg-[var(--uds-color-primary-700)]",
+        "peer group/checkbox relative flex size-5 shrink-0 items-center justify-center rounded-[length:var(--uds-radius-4)] border border-uds-border-secondary bg-uds-surface-primary transition-colors outline-none group-has-disabled/field:opacity-50 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-[state=checked]:bg-[var(--uds-color-primary-700)] data-[state=checked]:text-[var(--uds-text-inverse)] data-[state=indeterminate]:bg-[var(--uds-color-primary-700)] data-[state=indeterminate]:text-[var(--uds-text-inverse)]",
         className
       )}
       {...props}
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="flex items-center justify-center text-current transition-none [&>svg]:size-3 [&>svg]:shrink-0"
+        className="flex items-center justify-center text-current transition-none"
       >
-        <CheckIcon className="hidden group-data-[state=checked]/checkbox:block group-data-[state=indeterminate]/checkbox:hidden" />
-        <svg
+        <CheckIcon className="size-3 shrink-0 group-data-[state=indeterminate]/checkbox:hidden" />
+        <span
           aria-hidden
-          className="hidden group-data-[state=indeterminate]/checkbox:block group-data-[state=checked]/checkbox:hidden"
-          fill="currentColor"
-          viewBox="0 0 12 12"
-        >
-          <rect height="2" shapeRendering="crispEdges" width="10" x="1" y="5" />
-        </svg>
+          className="absolute left-1/2 top-1/2 hidden h-[2px] w-[10px] -translate-x-1/2 -translate-y-1/2 bg-[var(--uds-icon-inverse)] group-data-[state=indeterminate]/checkbox:block"
+        />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   )

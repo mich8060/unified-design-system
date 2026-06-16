@@ -346,7 +346,7 @@ export function getCustomSections(slug: string): DocSection[] | undefined {
               </div>
             </div>
           </div>,
-          'Icons are Phosphor React components re-exported through `UDS_ICON_REGISTRY` in `src/components/ui/uds-icons.tsx`. Add a new import from `@phosphor-icons/react`, register it there, and use `<Icon name="…Icon" />` so apps never import the vendor package directly.',
+          'Icons are Phosphor React components registered in `UDS_ICON_REGISTRY` in `src/components/ui/uds-icons.tsx`. Add a new entry there (plus the matching re-export) and use `<Icon name="…Icon" />` so apps never import the vendor package directly.',
         ),
       ]
     case 'accessibility':

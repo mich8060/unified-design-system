@@ -8,8 +8,8 @@ import {
 type Props = {
   code: string
   label?: string
-  /** Shiki grammar; defaults to tsx for JSX / Tailwind examples */
-  language?: DocsCodeLanguage
+  /** Shiki grammar; defaults to tsx for JSX / Tailwind examples. `'text'` renders verbatim (no highlighting). */
+  language?: DocsCodeLanguage | 'text'
 }
 
 let highlighterPromise: ReturnType<typeof getSingletonHighlighter> | null = null
@@ -36,11 +36,19 @@ export function CodePanel({ code, label = 'Code', language = 'tsx' }: Props) {
   useEffect(() => {
     let cancelled = false
 
+    if (language === 'text') {
+      setHtml('')
+      return () => {
+        cancelled = true
+      }
+    }
+
+    const preferred: DocsCodeLanguage = language
     void (async () => {
       try {
         const highlighter = await loadHighlighter()
         let out: string | null = null
-        for (const lang of highlightOrder(language)) {
+        for (const lang of highlightOrder(preferred)) {
           try {
             out = highlighter.codeToHtml(trimmed, {
               lang,

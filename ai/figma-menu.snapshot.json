@@ -1,0 +1,134 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Menu": {
+      "nodeId": "1895:6336",
+      "name": "Menu",
+      "width": 2000,
+      "height": 2408
+    }
+  },
+  "Menu": {
+    "nodeId": "1895:6336",
+    "description": "Product sidebar rail with brand header and per-brand default navigation. Compose inside AppShell slot `menu`. Expanded rail is 280px with wordmark + toggle; collapsed rail is 64px with brand mark and icon-only root nav.",
+    "variantAxes": ["Brand", "Rail"],
+    "variantCount": 18,
+    "variants": [
+      "Brand=Default, Rail=Expanded",
+      "Brand=Default, Rail=Collapsed",
+      "Brand=CHG, Rail=Expanded",
+      "Brand=CHG, Rail=Collapsed",
+      "Brand=CompHealth, Rail=Expanded",
+      "Brand=CompHealth, Rail=Collapsed",
+      "Brand=Weatherby, Rail=Expanded",
+      "Brand=Weatherby, Rail=Collapsed",
+      "Brand=Connect, Rail=Expanded",
+      "Brand=Connect, Rail=Collapsed",
+      "Brand=Locumsmart, Rail=Expanded",
+      "Brand=Locumsmart, Rail=Collapsed",
+      "Brand=Modio, Rail=Expanded",
+      "Brand=Modio, Rail=Collapsed",
+      "Brand=GMS, Rail=Expanded",
+      "Brand=GMS, Rail=Collapsed",
+      "Brand=Wireframe, Rail=Expanded",
+      "Brand=Wireframe, Rail=Collapsed"
+    ],
+    "variantNodeIds": {
+      "Brand=Default, Rail=Expanded": "1895:5078",
+      "Brand=Default, Rail=Collapsed": "1895:5208",
+      "Brand=CHG, Rail=Expanded": "1895:5248",
+      "Brand=CHG, Rail=Collapsed": "1895:5380",
+      "Brand=CompHealth, Rail=Expanded": "1895:5432",
+      "Brand=CompHealth, Rail=Collapsed": "1895:5571",
+      "Brand=Weatherby, Rail=Expanded": "1895:5616",
+      "Brand=Weatherby, Rail=Collapsed": "1895:5698",
+      "Brand=Connect, Rail=Expanded": "1895:5742",
+      "Brand=Connect, Rail=Collapsed": "1895:5832",
+      "Brand=Locumsmart, Rail=Expanded": "1895:5882",
+      "Brand=Locumsmart, Rail=Collapsed": "1895:5959",
+      "Brand=Modio, Rail=Expanded": "1895:5999",
+      "Brand=Modio, Rail=Collapsed": "1895:6102",
+      "Brand=GMS, Rail=Expanded": "1895:6145",
+      "Brand=GMS, Rail=Collapsed": "1895:6228",
+      "Brand=Wireframe, Rail=Expanded": "1895:6274",
+      "Brand=Wireframe, Rail=Collapsed": "1895:6316"
+    },
+    "componentProperties": {
+      "Brand": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": [
+          "Default",
+          "CHG",
+          "CompHealth",
+          "Weatherby",
+          "Connect",
+          "Locumsmart",
+          "Modio",
+          "GMS",
+          "Wireframe"
+        ],
+        "codeProp": "brand",
+        "codeMapping": {
+          "Default": "default",
+          "CHG": "chg",
+          "CompHealth": "comphealth",
+          "Weatherby": "weatherby",
+          "Connect": "connect",
+          "Locumsmart": "locumsmart",
+          "Modio": "modio",
+          "GMS": "gms",
+          "Wireframe": "wireframe"
+        }
+      },
+      "Rail": {
+        "type": "VARIANT",
+        "defaultValue": "Expanded",
+        "variantOptions": ["Expanded", "Collapsed"],
+        "codeProp": "data-expanded / collapsed",
+        "codeMapping": {
+          "Expanded": "expanded (280px rail)",
+          "Collapsed": "collapsed (64px rail)"
+        }
+      }
+    },
+    "sizes": {
+      "Expanded": { "width": 280, "height": 720, "headerHeight": 56 },
+      "Collapsed": { "width": 64, "height": 720, "headerHeight": 56 }
+    },
+    "layers": {
+      "header": "Menu header",
+      "toggle": "Menu toggle",
+      "brandingWordmark": "Branding wordmark",
+      "brandingMark": "Branding mark",
+      "navigation": "Navigation"
+    },
+    "composeFrom": {
+      "branding": { "componentSet": "Branding", "nodeId": "1103:533" },
+      "icon": { "componentSet": "Icon", "nodeId": "501:6" }
+    },
+    "brandToBrandingAppearance": {
+      "Default": "Design System",
+      "CHG": "Design System",
+      "CompHealth": "MyCompHealth",
+      "Weatherby": "MyWeatherby",
+      "Connect": "Connect",
+      "Locumsmart": "Locumsmart",
+      "Modio": "Modio",
+      "GMS": "Design System",
+      "Wireframe": "Wireframe"
+    },
+    "tokens": {
+      "surface": "uds/surface/primary",
+      "border": "uds/border/primary",
+      "navActiveFill": "uds/surface/brand/quaternary",
+      "navActiveLabel": "uds/text/inverse",
+      "navInactiveLabel": "uds/text/primary",
+      "navLeafBorder": "uds/border/primary",
+      "navLeafActiveBorder": "uds/surface/brand/quaternary"
+    },
+    "figmaMatrixNote": "9 brands × Expanded/Collapsed. Expanded shows List toggle, Branding wordmark, full nav (Dashboard active; branch children for Pooling/Documents where applicable). Collapsed shows Branding mark + icon-only root items (branches omitted)."
+  }
+}

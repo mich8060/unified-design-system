@@ -1,0 +1,87 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "lastFigmaEdit": "User simplified ComboboxInput to Size=Default|Small × State=Default only; secondary shell; CaretDown icon in addon (no button wrapper); placeholder Selected=Select an option",
+  "nodes": {
+    "ComboboxInput": {
+      "nodeId": "1791:4702",
+      "name": "ComboboxInput",
+      "width": 280,
+      "height": 116
+    }
+  },
+  "ComboboxInput": {
+    "nodeId": "1791:4702",
+    "description": "Filterable combobox trigger field. InputGroup-style shell with uds/surface/secondary + uds/border/secondary; .input-group-control + inline-end .input-group-addon with CaretDown icon (16px, no .input-group-button wrapper).",
+    "variants": [
+      "Size=Default, State=Default",
+      "Size=Small, State=Default"
+    ],
+    "variantCount": 2,
+    "variantNodeIds": {
+      "Size=Default, State=Default": "1791:4631",
+      "Size=Small, State=Default": "1791:4666"
+    },
+    "componentProperties": {
+      "Selected": {
+        "type": "TEXT",
+        "propertyId": "Selected#1798:0",
+        "defaultValue": "Select an option",
+        "linkedLayer": "placeholder",
+        "codeProp": "placeholder"
+      },
+      "Size": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Small"],
+        "codeProp": "inputSize",
+        "codeValues": { "Default": "default", "Small": "sm" }
+      },
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default"],
+        "codeProp": "default interactive state only in Figma; use aria-invalid / disabled / focus-visible in code"
+      }
+    },
+    "structure": {
+      "root": "ComboboxInput — InputGroup shell (secondary surface)",
+      "control": ".input-group-control — placeholder text (px 12 Default / px 10 Small)",
+      "endAddon": ".input-group-addon — icon (CaretDown Size=16, px 12)"
+    },
+    "heightDefault": "44px",
+    "heightSmall": "36px",
+    "controlPaddingDefault": "12px",
+    "controlPaddingSmall": "10px",
+    "addonPadding": "12px",
+    "tokens": {
+      "fill": "uds/surface/secondary",
+      "stroke": "uds/border/secondary",
+      "radius": "uds/radius/4",
+      "placeholderText": "Body/16/Regular Default, Body/14/Regular Small",
+      "placeholderColor": "uds/text/disabled",
+      "caretIcon": "CaretDown (527:6)"
+    },
+    "rebuildCommand": "node scripts/figma-slim-build.mjs combobox-input"
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/combobox-uds.tsx, combobox-base.tsx, combobox-theme.ts",
+    "exports": [
+      "Combobox",
+      "ComboboxInput",
+      "ComboboxContent",
+      "ComboboxList",
+      "ComboboxItem",
+      "ComboboxEmpty",
+      "ComboboxTrigger",
+      "ComboboxValue",
+      "ComboboxChips",
+      "ComboboxChip"
+    ],
+    "primaryTrigger": "ComboboxInput — InputGroup + uds-combobox-field (secondary shell) + ComboboxTrigger icon in inline-end addon",
+    "defaultPlaceholder": "Select an option",
+    "defaultInputSize": "default",
+    "popoverParts": "ComboboxContent / ComboboxItem / ComboboxEmpty are code-only until rebuilt in Figma"
+  }
+}

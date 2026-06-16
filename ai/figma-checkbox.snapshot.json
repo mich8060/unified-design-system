@@ -1,0 +1,73 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-11",
+  "nodes": {
+    "Checkbox": {
+      "nodeId": "590:230",
+      "name": "Checkbox",
+      "width": 272,
+      "height": 200
+    }
+  },
+  "Checkbox": {
+    "nodeId": "590:230",
+    "description": "Square 20px control for independent yes/no selection. Supports checked, unchecked, and indeterminate states with a disabled axis.",
+    "variants": [
+      "State=Unchecked, Disabled=False",
+      "State=Unchecked, Disabled=True",
+      "State=Checked, Disabled=False",
+      "State=Checked, Disabled=True",
+      "State=Indeterminate, Disabled=False",
+      "State=Indeterminate, Disabled=True"
+    ],
+    "variantCount": 6,
+    "componentProperties": {
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Unchecked",
+        "variantOptions": ["Unchecked", "Checked", "Indeterminate"],
+        "codeProp": "checked",
+        "codeValues": {
+          "Unchecked": false,
+          "Checked": true,
+          "Indeterminate": "\"indeterminate\""
+        }
+      },
+      "Disabled": {
+        "type": "VARIANT",
+        "defaultValue": "False",
+        "variantOptions": ["False", "True"],
+        "codeProp": "disabled"
+      }
+    },
+    "tokens": {
+      "size": "20px",
+      "radius": "uds/radius/4",
+      "uncheckedFill": "uds/surface/primary",
+      "checkedFill": "uds/color/primary/700",
+      "stroke": "uds/border/secondary",
+      "checkmarkText": "uds/text/inverse",
+      "indeterminateBar": "uds/icon/inverse"
+    },
+    "layerNaming": {
+      "checked": "✓ text (Inter Bold 12)",
+      "indeterminate": "Rectangle 1 — 10×2 bar centered, uds/icon/inverse"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/checkbox.tsx",
+    "exports": ["Checkbox", "CheckboxLabel"],
+    "structure": {
+      "Checkbox": "Radix root — 20px, uds/radius/4, uds/border/secondary stroke",
+      "unchecked": "uds/surface/primary fill",
+      "checked": "uds/color/primary/700 fill + CheckIcon (uds/text/inverse)",
+      "indeterminate": "uds/color/primary/700 fill + 10×2 bar (uds/icon/inverse)",
+      "disabled": "opacity 0.5 on root"
+    },
+    "notes": [
+      "Border stays uds/border/secondary in all Figma variants.",
+      "Indeterminate mark is a centered rectangle, not a minus glyph."
+    ]
+  }
+}

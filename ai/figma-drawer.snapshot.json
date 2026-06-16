@@ -1,0 +1,81 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Drawer": {
+      "nodeId": "1821:4739",
+      "name": "Drawer",
+      "width": 3192,
+      "height": 640
+    }
+  },
+  "Drawer": {
+    "nodeId": "1821:4739",
+    "description": "Open drawer preview with scrim overlay baked into each variant. Assign-clinician recipe: optional handle (bottom only), header, Content body slot, footer Close.",
+    "variantAxis": "Direction",
+    "variantCount": 4,
+    "variants": ["Direction=Bottom", "Direction=Top", "Direction=Left", "Direction=Right"],
+    "variantNodeIds": {
+      "Direction=Bottom": "1821:4677",
+      "Direction=Top": "1821:4694",
+      "Direction=Left": "1821:4709",
+      "Direction=Right": "1821:4724"
+    },
+    "viewport": { "width": 720, "height": 520 },
+    "panelSizes": {
+      "Bottom": { "width": 720, "height": 300 },
+      "Top": { "width": 720, "height": 300 },
+      "Left": { "width": 384, "height": 520 },
+      "Right": { "width": 384, "height": 520 }
+    },
+    "layers": {
+      "overlay": "Drawer overlay",
+      "content": "Drawer content",
+      "handle": "Drawer handle",
+      "handlePill": "Handle",
+      "header": "Drawer header",
+      "title": "Drawer title",
+      "description": "Drawer description",
+      "body": "Drawer body",
+      "bodySlot": "Content",
+      "footer": "Drawer footer"
+    },
+    "tokenBindings": {
+      "overlay": "uds/scrim/50",
+      "contentFill": "uds/surface/primary",
+      "contentStroke": "uds/border/secondary",
+      "contentRadius": "uds/radius/8",
+      "titleFill": "uds/text/primary",
+      "descriptionFill": "uds/text/tertiary",
+      "handleFill": "uds/surface/tertiary"
+    },
+    "spacing": {
+      "headerPadding": 16,
+      "headerGap": 2,
+      "bodyPadding": 16,
+      "footerPadding": 16,
+      "footerGap": 8,
+      "handlePaddingTop": 16,
+      "handleSize": { "width": 100, "height": 4 }
+    },
+    "gridLayout": {
+      "cols": 4,
+      "cellWidth": 760,
+      "cellHeight": 560,
+      "gap": 24,
+      "padding": 40
+    },
+    "copy": {
+      "title": "Assign clinician",
+      "description": "Review fit before confirming the assignment.",
+      "close": "Close"
+    },
+    "properties": {
+      "Direction": ["Bottom", "Top", "Left", "Right"],
+      "title": "TEXT",
+      "description": "TEXT",
+      "content": "SLOT"
+    }
+  }
+}

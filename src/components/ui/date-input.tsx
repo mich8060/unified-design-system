@@ -10,7 +10,12 @@ import {
   tryParseUsDate,
   useFlipPopoverSide,
 } from "@/components/ui/date-picker-field-helpers"
-import { Input, type InputProps } from "@/components/ui/input"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group"
+import { type InputProps } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
 export type DateInputCaptionLayout = NonNullable<
@@ -67,6 +72,7 @@ function DateInput({
   placeholder = "mm/dd/yyyy",
   inputMode = "numeric",
   autoComplete = "bday",
+  inputSize,
   date,
   defaultDate,
   onDateChange,
@@ -152,36 +158,48 @@ function DateInput({
 
   return (
     <div ref={rootRef} className={cn("relative w-full", className)}>
-      <Input
-        type="text"
-        value={text}
-        placeholder={placeholder}
-        inputMode={inputMode}
-        autoComplete={autoComplete}
-        onChange={(e) => setText(formatDigitsAsMmDdYyyy(e.target.value))}
-        onKeyDown={(e) => {
-          rejectNonNumericDateInputKey(e)
-          onKeyDown?.(e)
-        }}
-        onFocus={(event) => {
-          setOpen(true)
-          onFocus?.(event)
-        }}
-        onBlur={(event) => {
-          commitText()
-          onBlur?.(event)
-        }}
-        onClick={(event) => {
-          setOpen(true)
-          onClick?.(event)
-        }}
-        className={cn("pr-10", inputClassName)}
-        {...props}
-      />
-      <CalendarBlankIcon
-        aria-hidden
-        className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground"
-      />
+      <InputGroup inputSize={inputSize} className="w-full min-w-0">
+        <InputGroupInput
+          type="text"
+          inputSize={inputSize}
+          value={text}
+          placeholder={placeholder}
+          inputMode={inputMode}
+          autoComplete={autoComplete}
+          onChange={(e) => setText(formatDigitsAsMmDdYyyy(e.target.value))}
+          onKeyDown={(e) => {
+            rejectNonNumericDateInputKey(e)
+            onKeyDown?.(e)
+          }}
+          onFocus={(event) => {
+            setOpen(true)
+            onFocus?.(event)
+          }}
+          onBlur={(event) => {
+            commitText()
+            onBlur?.(event)
+          }}
+          onClick={(event) => {
+            setOpen(true)
+            onClick?.(event)
+          }}
+          className={cn(
+            "placeholder:text-uds-text-primary disabled:placeholder:text-uds-text-disabled",
+            inputClassName,
+          )}
+          {...props}
+        />
+        <InputGroupAddon
+          align="inline-end"
+          className="uds-input-group-addon--flush-y pointer-events-none"
+        >
+          <CalendarBlankIcon
+            aria-hidden
+            className="size-4 shrink-0 text-uds-text-primary"
+            weight="regular"
+          />
+        </InputGroupAddon>
+      </InputGroup>
       {open ? (
         <div
           ref={popoverRef}

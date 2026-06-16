@@ -37,7 +37,6 @@ import {
   Combobox,
   ComboboxContent,
   ComboboxEmpty,
-  ComboboxGroup,
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
@@ -52,9 +51,12 @@ import {
 } from '@chghealthcare/unified-design-system'
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
+  DialogMain,
   DialogTitle,
   DialogTrigger,
 } from '@chghealthcare/unified-design-system'
@@ -111,6 +113,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   WarningCircleIcon,
+  XIcon,
 } from '@chghealthcare/unified-design-system'
 import { type DateRange } from 'react-day-picker'
 
@@ -133,44 +136,49 @@ export function ExampleCanvas({
   )
 }
 
-const dialogWidthExamples = [
-  { label: 'Small (sm:max-w-sm)', widthClass: 'sm:max-w-sm' },
-  { label: 'Medium (sm:max-w-md)', widthClass: 'sm:max-w-md' },
-  { label: 'Large (sm:max-w-lg)', widthClass: 'sm:max-w-lg' },
-  { label: 'XL (sm:max-w-xl)', widthClass: 'sm:max-w-xl' },
-  { label: '2XL (sm:max-w-2xl)', widthClass: 'sm:max-w-2xl' },
+const dialogSizeExamples = [
+  { label: 'Small', size: 'sm' as const },
+  { label: 'Medium', size: 'md' as const },
+  { label: 'Large', size: 'lg' as const },
+  { label: 'XL', size: 'xl' as const },
+  { label: '2XL', size: '2xl' as const },
 ] as const
 
 export function DialogVariants() {
   return (
     <div className="flex flex-col gap-4">
       <p className="max-w-2xl text-sm text-muted-foreground">
-        Pass{' '}
-        <code className="font-mono text-xs text-foreground">className</code> on{' '}
-        <code className="font-mono text-xs text-foreground">DialogContent</code> — e.g.{' '}
-        <code className="font-mono text-xs text-foreground">sm:max-w-lg</code> — to set max width per
-        dialog. Defaults use <code className="font-mono text-xs text-foreground">sm:max-w-sm</code>.
+        Set panel width with the{' '}
+        <code className="font-mono text-xs text-foreground">size</code> prop on{' '}
+        <code className="font-mono text-xs text-foreground">DialogContent</code> —{' '}
+        <code className="font-mono text-xs text-foreground">sm</code> through{' '}
+        <code className="font-mono text-xs text-foreground">2xl</code> (384–672px). Default is{' '}
+        <code className="font-mono text-xs text-foreground">md</code> (448px).
       </p>
       <div className="flex flex-wrap gap-2">
-        {dialogWidthExamples.map(({ label, widthClass }) => (
-          <Dialog key={widthClass}>
+        {dialogSizeExamples.map(({ label, size }) => (
+          <Dialog key={size}>
             <DialogTrigger asChild>
               <Button type="button" variant="outline">
                 {label}
               </Button>
             </DialogTrigger>
-            <DialogContent className={widthClass}>
-              <DialogHeader>
-                <DialogTitle>{label}</DialogTitle>
-                <DialogDescription>
-                  This panel uses{' '}
-                  <code className="font-mono text-xs text-foreground">{widthClass}</code> on{' '}
-                  <code className="font-mono text-xs text-foreground">DialogContent</code>. Still full
-                  width below <code className="font-mono text-xs text-foreground">sm</code> with{' '}
-                  <code className="font-mono text-xs text-foreground">max-w-[calc(100%-2rem)]</code> from
-                  the primitive. Esc or the close control dismisses.
-                </DialogDescription>
-              </DialogHeader>
+            <DialogContent size={size}>
+              <DialogMain>
+                <DialogHeader>
+                  <DialogTitle>Edit profile</DialogTitle>
+                  <DialogDescription>
+                    Update the public details shown on your account.
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogBody />
+              </DialogMain>
+              <DialogFooter>
+                <Button type="button" variant="outline">
+                  Cancel
+                </Button>
+                <Button type="button">Save changes</Button>
+              </DialogFooter>
             </DialogContent>
           </Dialog>
         ))}
@@ -292,6 +300,64 @@ export function AlertDialogWelcomePreviewInner() {
           </Button>
           <Button type="button">Continue</Button>
         </AlertDialogFooter>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Inline shell for the welcome card preview: Figma Edit profile recipe (Size=Medium),
+ * without portal or Radix root (preview is inert and non-interactive).
+ */
+export function DialogWelcomePreviewInner() {
+  return (
+    <div className="flex w-full justify-center">
+      <div
+        data-size="md"
+        data-slot="dialog-content"
+        className={cn(
+          'group/dialog-content relative box-border flex w-full max-w-[448px] shrink-0 flex-col gap-0 overflow-hidden rounded-[length:var(--uds-radius-8)] border border-[var(--uds-border-secondary)] bg-[var(--uds-surface-primary)] text-[var(--uds-text-primary)] shadow-lg',
+        )}
+      >
+        <div data-slot="dialog-main" className="relative flex w-full flex-col gap-4 p-4">
+          <div
+            data-slot="dialog-header"
+            className="flex flex-col items-start gap-1 pr-7 text-left"
+          >
+            <h2
+              data-slot="dialog-title"
+              className="w-full font-sans text-base font-semibold leading-normal text-[var(--uds-text-primary)] [font-family:var(--font-inter)]"
+            >
+              Edit profile
+            </h2>
+            <p
+              data-slot="dialog-description"
+              className="w-full font-sans text-sm font-normal leading-normal text-[var(--uds-text-tertiary)] [font-family:var(--font-inter)]"
+            >
+              Update the public details shown on your account.
+            </p>
+          </div>
+          <div data-slot="dialog-body" className="flex w-full flex-col gap-4" />
+        </div>
+        <div
+          data-slot="dialog-footer"
+          className="mt-0 flex flex-row items-center justify-end gap-2 border-t border-[var(--uds-border-secondary)] bg-[var(--uds-surface-tertiary)] p-2"
+        >
+          <Button variant="outline" type="button">
+            Cancel
+          </Button>
+          <Button type="button">Save changes</Button>
+        </div>
+        <Button
+          type="button"
+          variant="ghost"
+          aria-hidden
+          tabIndex={-1}
+          className="pointer-events-none absolute top-[7px] right-[7px] size-9 shrink-0 rounded-[length:var(--uds-radius-4)] border border-transparent bg-transparent p-2 text-[var(--uds-text-secondary)]"
+          size="icon-sm"
+        >
+          <XIcon className="size-4" />
+        </Button>
       </div>
     </div>
   )
@@ -535,37 +601,55 @@ export function ChartBarDemo() {
   )
 }
 
-const comboItems = [
-  { value: 'next', label: 'Next.js' },
-  { value: 'vite', label: 'Vite' },
-  { value: 'remix', label: 'Remix' },
-  { value: 'nuxt', label: 'Nuxt' },
-  { value: 'svelte', label: 'SvelteKit' },
-  { value: 'astro', label: 'Astro' },
-]
+const frameworks = [
+  'Next.js',
+  'SvelteKit',
+  'Nuxt.js',
+  'Remix',
+  'Astro',
+] as const
 
-/** Root `items` is required for list filtering and for `ComboboxEmpty` (see Base UI Combobox docs). */
-const comboItemValues = comboItems.map((item) => item.value)
-
-export function ComboboxDemo() {
+function ComboboxListDemo({
+  inputSize = "default",
+}: {
+  inputSize?: "default" | "sm"
+}) {
   const [value, setValue] = useState<string | null>(null)
   return (
-    <Combobox value={value} onValueChange={setValue} items={comboItemValues}>
-      <ComboboxInput placeholder="Pick a framework…" className="w-[240px]" />
+    <Combobox
+      value={value}
+      onValueChange={setValue}
+      items={frameworks}
+    >
+      <ComboboxInput
+        inputSize={inputSize}
+        placeholder="Select an option"
+        className="w-[280px]"
+      />
       <ComboboxContent>
+        <ComboboxEmpty>No items found.</ComboboxEmpty>
         <ComboboxList>
-          <ComboboxEmpty>No results.</ComboboxEmpty>
-          <ComboboxGroup>
-            {comboItems.map((item) => (
-              <ComboboxItem key={item.value} value={item.value}>
-                {item.label}
-              </ComboboxItem>
-            ))}
-          </ComboboxGroup>
+          {(item) => (
+            <ComboboxItem key={item} value={item}>
+              {item}
+            </ComboboxItem>
+          )}
         </ComboboxList>
       </ComboboxContent>
     </Combobox>
   )
+}
+
+export function ComboboxDefaultDemo() {
+  return <ComboboxListDemo />
+}
+
+export function ComboboxCompactDemo() {
+  return <ComboboxListDemo inputSize="sm" />
+}
+
+export function ComboboxDemo() {
+  return <ComboboxListDemo />
 }
 
 export function CommandInlineDemo() {

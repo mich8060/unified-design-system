@@ -5,18 +5,74 @@
  */
 
 @layer components {
+  /* ---- Input field focus rings (Figma Focus/ring/focus + Focus/ring/error) ---- */
+
+  /* Standalone Input atom — shell chrome matches Figma Input (589:236) */
+  [data-slot="input"]:focus-visible {
+    border-color: var(--uds-focus-ring-border);
+    outline: none;
+    box-shadow:
+      -3px 3px 0 var(--uds-system-action-tertiary),
+      3px -3px 0 var(--uds-system-action-tertiary),
+      3px 3px 0 var(--uds-system-action-tertiary),
+      -3px -3px 0 var(--uds-system-action-tertiary);
+  }
+
+  [data-slot="input"][aria-invalid="true"] {
+    border-color: var(--uds-button-border-primary-destructive);
+    background-color: var(--uds-surface-secondary);
+    box-shadow:
+      -3px 3px 0 var(--uds-system-destructive-tertiary),
+      3px -3px 0 var(--uds-system-destructive-tertiary),
+      3px 3px 0 var(--uds-system-destructive-tertiary),
+      -3px -3px 0 var(--uds-system-destructive-tertiary);
+  }
+
   /* ---- Input group (field row shell + addons + embedded control) ---- */
 
   .uds-input-group {
     /* Named group `input-group` is applied in TSX (`group/input-group`) — not valid inside @apply in Tailwind v4. */
-    @apply relative flex w-full min-w-0 items-center rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-secondary)] transition-colors outline-none;
-    @apply in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0;
-    @apply has-disabled:bg-[var(--uds-surface-disabled)] has-disabled:opacity-50;
-    @apply has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50;
-    @apply has-[[data-slot][aria-invalid=true]]:border-destructive has-[[data-slot][aria-invalid=true]]:ring-3 has-[[data-slot][aria-invalid=true]]:ring-destructive/20;
+    @apply relative flex w-full min-w-0 items-center rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-primary)] transition-colors outline-none;
+    @apply in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:shadow-none;
     @apply has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto;
-    @apply dark:has-disabled:bg-[var(--uds-surface-disabled)] dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40;
-    @apply has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5;
+    @apply has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-0 has-[>[data-align=inline-start]]:[&>input]:pl-3;
+  }
+
+  /* Date Input / SearchInput shell — focus ring on the group when the embedded control is focused */
+  .uds-input-group:focus-within:not(:has([data-slot="input-group-control"][aria-invalid="true"])) {
+    border-color: var(--uds-focus-ring-border);
+    outline: none;
+    box-shadow:
+      -3px 3px 0 var(--uds-system-action-tertiary),
+      3px -3px 0 var(--uds-system-action-tertiary),
+      3px 3px 0 var(--uds-system-action-tertiary),
+      -3px -3px 0 var(--uds-system-action-tertiary);
+  }
+
+  .uds-input-group:has([data-slot="input-group-control"][aria-invalid="true"]) {
+    border-color: var(--uds-button-border-primary-destructive);
+    background-color: var(--uds-surface-secondary);
+    box-shadow:
+      -3px 3px 0 var(--uds-system-destructive-tertiary),
+      3px -3px 0 var(--uds-system-destructive-tertiary),
+      3px 3px 0 var(--uds-system-destructive-tertiary),
+      -3px -3px 0 var(--uds-system-destructive-tertiary);
+  }
+
+  .uds-input-group:has([data-slot="input-group-control"]:disabled) {
+    border-color: var(--uds-border-disabled);
+    background-color: var(--uds-surface-secondary);
+    opacity: 0.5;
+  }
+
+  .dark .uds-input-group:has([data-slot="input-group-control"]:disabled) {
+    background-color: var(--uds-surface-disabled);
+  }
+
+  /* Combobox chip field — suppress InputGroup focus ring inside the popover shell */
+  [data-slot="combobox-content"] .uds-input-group:focus-within {
+    border-color: inherit;
+    box-shadow: none;
   }
 
   .uds-input-group--size-default {
@@ -34,11 +90,11 @@
   }
 
   .uds-input-group-addon--inline-start {
-    @apply order-first pl-2 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem];
+    @apply order-first pl-3 has-[>button]:ml-[-0.3rem] has-[>kbd]:ml-[-0.15rem];
   }
 
   .uds-input-group-addon--inline-end {
-    @apply order-last pr-2 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem];
+    @apply order-last pr-3 has-[>button]:mr-[-0.3rem] has-[>kbd]:mr-[-0.15rem];
   }
 
   .uds-input-group-addon--block-start {
@@ -86,5 +142,19 @@
 
   .uds-search-field {
     @apply box-border w-full min-w-0;
+  }
+
+  /* ---- Combobox trigger (ComboboxInput uses InputGroup + secondary shell) ---- */
+
+  .uds-combobox-field {
+    @apply box-border min-h-0 border-[var(--uds-border-secondary)] bg-[var(--uds-surface-secondary)];
+  }
+
+  .uds-combobox-field.uds-input-group--size-default {
+    @apply h-11 min-h-11;
+  }
+
+  .uds-combobox-field.uds-input-group--size-sm {
+    @apply h-9 min-h-9;
   }
 }

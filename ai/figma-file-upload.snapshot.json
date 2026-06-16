@@ -1,0 +1,85 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "FileUpload": {
+      "nodeId": "1887:5090",
+      "name": "FileUpload",
+      "width": 1688,
+      "height": 1088
+    }
+  },
+  "FileUpload": {
+    "nodeId": "1887:5090",
+    "description": "Dashed-border dropzone with Blue solid Medallion (UploadSimple bold), instruction and helper text. Size drives layout density; State covers default, disabled, and drag-hover chrome.",
+    "variantAxes": ["Size", "State"],
+    "variantCount": 9,
+    "variants": [
+      "Size=Default, State=Default",
+      "Size=Default, State=Disabled",
+      "Size=Default, State=Dragging",
+      "Size=Small, State=Default",
+      "Size=Small, State=Disabled",
+      "Size=Small, State=Dragging",
+      "Size=XS, State=Default",
+      "Size=XS, State=Disabled",
+      "Size=XS, State=Dragging"
+    ],
+    "componentProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Small", "XS"],
+        "codeProp": "size",
+        "codeValues": {
+          "Default": "default",
+          "Small": "small",
+          "XS": "xs"
+        }
+      },
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Disabled", "Dragging"],
+        "codeProp": "disabled / isDragging",
+        "codeValues": {
+          "Default": "default",
+          "Disabled": "disabled",
+          "Dragging": "drag-hover (prototype)"
+        }
+      }
+    },
+    "sizes": {
+      "Default": { "width": 480, "minHeight": 272, "padding": 24, "medallion": "Extra Large (64px)" },
+      "Small": { "width": 480, "minHeight": 128, "padding": 24, "medallion": "Small (32px)" },
+      "XS": { "width": 400, "minHeight": 48, "padding": 12, "medallion": "Extra Small (24px)", "layout": "horizontal" }
+    },
+    "tokens": {
+      "radius": "uds/radius/8",
+      "fill": "uds/surface/secondary",
+      "fillDragging": "uds/surface/tertiary",
+      "border": "uds/border/primary (dashed)",
+      "borderDragging": "uds/border/secondary (dashed)",
+      "instruction": "Body/16/Medium (default) · Body/16/Semibold (small) · Body/14/Semibold (xs inline)",
+      "helper": "Body/14/Regular (default) · Body/12/Regular (small)",
+      "medallion": "Size=Extra Large|Small|Extra Small, Color=Blue, Tone=Solid + UploadSimple Weight=Bold swap"
+    },
+    "gridLayout": {
+      "cols": 3,
+      "cellWidth": 520,
+      "cellHeight": 320,
+      "gap": 24,
+      "padding": 40
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/file-upload.tsx",
+    "exports": ["FileUpload", "FileUploadSize", "FileUploadProps"],
+    "notes": [
+      "Medallion maps default→xl, small→sm, xs→xs with UploadSimpleIcon weight bold.",
+      "Dragging variant mirrors hover/drag surface and border tokens.",
+      "XS uses single-line instruction · helper copy by default."
+    ]
+  }
+}

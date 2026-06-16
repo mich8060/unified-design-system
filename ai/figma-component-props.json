@@ -158,6 +158,571 @@
         }
       }
     },
+    ".context-menu-item": {
+      "nodeId": "1669:4570",
+      "figmaSnapshot": "ai/figma-context-menu.snapshot.json",
+      "properties": {
+        "Type": {
+          "codeProp": "variant / component kind",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "destructive": "Destructive",
+            "destructive-focused": "DestructiveFocused",
+            "disabled": "Disabled",
+            "sub-trigger": "SubTrigger",
+            "sub-trigger-open": "SubTriggerFocused",
+            "with-shortcut": "WithShortcut",
+            "checkbox-checked": "CheckboxChecked",
+            "checkbox-unchecked": "CheckboxUnchecked"
+          }
+        },
+        "itemLabel": {
+          "codeProp": "children",
+          "linkedLayer": "label"
+        },
+        "shortcut": {
+          "codeProp": "ContextMenuShortcut / KbdGroup",
+          "linkedLayer": "shortcut",
+          "note": "Horizontal frame of Kbd (Appearance=Default) instances — one cap per character."
+        },
+        "Slot": {
+          "codeProp": "ContextMenuSubContent children",
+          "linkedLayer": "Submenu/Slot",
+          "note": "SubTrigger and SubTriggerFocused only. Preferred: .context-menu-item, .context-menu-label, .context-menu-separator."
+        }
+      }
+    },
+    ".context-menu-label": {
+      "nodeId": "1670:4547",
+      "figmaSnapshot": "ai/figma-context-menu.snapshot.json",
+      "properties": {
+        "sectionLabel": {
+          "codeProp": "children",
+          "linkedLayer": "label"
+        }
+      }
+    },
+    "Empty": {
+      "nodeId": "1845:4755",
+      "figmaSnapshot": "ai/figma-empty.snapshot.json",
+      "properties": {
+        "Recipe": {
+          "codeProp": "docs example composition",
+          "figmaLabels": {
+            "default": "Default",
+            "singleAction": "SingleAction",
+            "twoActions": "TwoActions",
+            "search404": "Search404"
+          },
+          "note": "Default: Medallion Blue Pastel + title/description. SingleAction/TwoActions add Button footer. Search404 omits medallion and uses Input."
+        },
+        "title": {
+          "codeProp": "EmptyTitle children",
+          "figmaType": "TEXT",
+          "linkedLayer": "Empty title"
+        },
+        "description": {
+          "codeProp": "EmptyDescription children",
+          "figmaType": "TEXT",
+          "linkedLayer": "Empty description"
+        },
+        "Medallion": {
+          "codeProp": "EmptyMedia children (code: EnvelopeIcon + chrome tokens)",
+          "linkedLayer": "Medallion",
+          "note": "Figma instance Size=Extra Large, Color=Blue, Tone=Pastel from Medallion set 1847:5417."
+        }
+      },
+      "figmaMatrixNote": "448px centered column, p-24. Empty header: Medallion (64px Blue Pastel) + 24px gap + title Body/18/Medium + description Body/16/Regular tertiary. Empty content: gap-16 with Default/Outline Button or Input (Search404)."
+    },
+    "DropdownMenu": {
+      "nodeId": "1827:4726",
+      "figmaSnapshot": "ai/figma-dropdown-menu.snapshot.json",
+      "properties": {
+        "Recipe": {
+          "codeProp": "docs example composition",
+          "figmaLabels": {
+            "default": "Default",
+            "account": "Account"
+          },
+          "note": "Default: Outline Open menu + Profile/Billing/Delete team. Account: Outline sm Account + My account label section."
+        },
+        "triggerLabel": {
+          "codeProp": "DropdownMenuTrigger → Button children",
+          "figmaType": "TEXT",
+          "linkedLayer": "Trigger"
+        },
+        "Content": {
+          "codeProp": "DropdownMenuContent children",
+          "linkedLayer": "Content",
+          "note": "Compose .context-menu-label, .context-menu-item, and .context-menu-separator instances (shared with ContextMenu)."
+        }
+      },
+      "figmaMatrixNote": "Open state: Button Outline trigger + 8px gap + 224px menu panel (uds/surface/primary, uds/border/primary, uds/radius/8). Reuses context-menu row atoms; destructive rows use .context-menu-item Type=Destructive."
+    },
+    "Menu": {
+      "nodeId": "1895:6336",
+      "figmaSnapshot": "ai/figma-menu.snapshot.json",
+      "properties": {
+        "Brand": {
+          "codeProp": "brand",
+          "figmaLabels": {
+            "default": "Default",
+            "chg": "CHG",
+            "comphealth": "CompHealth",
+            "weatherby": "Weatherby",
+            "connect": "Connect",
+            "locumsmart": "Locumsmart",
+            "modio": "Modio",
+            "gms": "GMS",
+            "wireframe": "Wireframe"
+          },
+          "note": "Maps to Branding Appearance + default navigation tree from menu-default-navigation / uds.ai.brand-menus."
+        },
+        "Rail": {
+          "codeProp": "data-expanded / collapsed",
+          "figmaLabels": {
+            "expanded": "Expanded",
+            "collapsed": "Collapsed"
+          },
+          "note": "Expanded 280px rail with wordmark + toggle; collapsed 64px rail with brand mark and icon-only root nav."
+        },
+        "headerBranding": {
+          "codeProp": "Branding appearance + symbol",
+          "linkedLayer": "Branding wordmark / Branding mark",
+          "note": "Instance from Branding set 1103:533. Symbol=False when Expanded; Symbol=True when Collapsed."
+        },
+        "navigationItems": {
+          "codeProp": "navigationItems / getDefaultNavigation(brand)",
+          "linkedLayer": "Navigation",
+          "note": "Per-brand demo nav with Duotone Phosphor icons via Icon Size=24; expanded branch children for Pooling/Documents on applicable brands."
+        }
+      },
+      "figmaMatrixNote": "18 variants (Brand × Rail). Header 56px; nav active row uds/surface/brand/quaternary. Wireframe brand uses placeholder bars instead of icons."
+    },
+    "ContextMenu": {
+      "nodeId": "1671:4687",
+      "figmaSnapshot": "ai/figma-context-menu.snapshot.json",
+      "properties": {
+        "Recipe": {
+          "codeProp": "docs composition",
+          "figmaLabels": {
+            "default": "Default"
+          }
+        },
+        "Content": {
+          "codeProp": "ContextMenuContent children",
+          "linkedLayer": "Content",
+          "note": "Compose .context-menu-label, .context-menu-item, and .context-menu-separator instances."
+        }
+      }
+    },
+    ".command-item": {
+      "nodeId": "1711:4580",
+      "figmaSnapshot": "ai/figma-command.snapshot.json",
+      "properties": {
+        "State": {
+          "codeProp": "data-selected / disabled / shortcut",
+          "figmaLabels": {
+            "default": "Default",
+            "selected": "Selected",
+            "disabled": "Disabled",
+            "with-shortcut": "WithShortcut"
+          }
+        },
+        "itemLabel": {
+          "codeProp": "children",
+          "linkedLayer": "label"
+        }
+      }
+    },
+    ".command-group-heading": {
+      "nodeId": "1711:4587",
+      "figmaSnapshot": "ai/figma-command.snapshot.json",
+      "properties": {
+        "heading": {
+          "codeProp": "heading on CommandGroup",
+          "linkedLayer": "heading"
+        }
+      }
+    },
+    "ComboboxInput": {
+      "nodeId": "1791:4702",
+      "figmaSnapshot": "ai/figma-combobox.snapshot.json",
+      "properties": {
+        "Selected": {
+          "codeProp": "placeholder",
+          "linkedLayer": "placeholder",
+          "defaultValue": "Select an option"
+        },
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Small" }
+        },
+        "State": {
+          "codeProp": "default state only in Figma",
+          "figmaLabels": { "default": "Default" }
+        }
+      }
+    },
+    "Command": {
+      "nodeId": "1713:4626",
+      "figmaSnapshot": "ai/figma-command.snapshot.json",
+      "properties": {
+        "Recipe": {
+          "codeProp": "composition",
+          "figmaLabels": {
+            "default": "Default"
+          }
+        },
+        "Content": {
+          "codeProp": "CommandList children",
+          "linkedLayer": "Content",
+          "note": "Compose .command-group-heading, .command-item, .command-empty, .command-separator instances."
+        },
+        ".command-input": {
+          "codeProp": "CommandInput",
+          "linkedLayer": ".command-input",
+          "note": "Inline FRAME on Command (not a component). Edit .input-group/placeholder text directly."
+        }
+      }
+    },
+    "InputGroup": {
+      "nodeId": "1731:4599",
+      "figmaSnapshot": "ai/figma-input-group.snapshot.json",
+      "properties": {
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Small" }
+        },
+        "State": {
+          "codeProp": "state / aria-invalid / disabled",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          }
+        },
+        "placeholder": {
+          "codeProp": "placeholder",
+          "linkedLayer": "placeholder",
+          "figmaProperty": "placeholder#1735:0"
+        }
+      }
+    },
+    "Field": {
+      "nodeId": "1857:5033",
+      "figmaSnapshot": "ai/figma-field.snapshot.json",
+      "properties": {
+        "Appearance": {
+          "codeProp": "orientation",
+          "figmaLabels": {
+            "vertical": "Vertical",
+            "horizontal": "Horizontal"
+          }
+        },
+        "State": {
+          "codeProp": "data-invalid / FieldError",
+          "figmaLabels": {
+            "default": "Default",
+            "error": "Error"
+          }
+        },
+        "Field Label": {
+          "codeProp": "FieldLabel children",
+          "figmaType": "TEXT",
+          "linkedLayer": "Field label",
+          "figmaProperty": "Field Label#1848:6"
+        },
+        "Hint": {
+          "codeProp": "FieldDescription | FieldError children",
+          "figmaType": "TEXT",
+          "linkedLayer": "Field description | Field error",
+          "figmaProperty": "Hint#1848:12",
+          "note": "Single TEXT property; maps to FieldDescription (Default) or FieldError (Error). Error tints label + hint destructive."
+        },
+        "Content": {
+          "codeProp": "children",
+          "figmaType": "SLOT",
+          "linkedLayer": "Content",
+          "figmaProperty": "Content#1848:32",
+          "note": "INSTANCE_SWAP slot for Input, Checkbox, Radio, Switch, Textarea, etc."
+        }
+      },
+      "figmaMatrixNote": "4 variants (Appearance Vertical|Horizontal × State Default|Error). 756px shell; Content slot 44px tall. Vertical: label + Content + description/error. Horizontal: 128px label + Field content (Content + description). Default Input demo in rebuild script only — Figma uses empty SLOT."
+    },
+    "FileUpload": {
+      "nodeId": "1887:5090",
+      "figmaSnapshot": "ai/figma-file-upload.snapshot.json",
+      "properties": {
+        "Size": {
+          "codeProp": "size",
+          "figmaLabels": {
+            "default": "Default",
+            "small": "Small",
+            "xs": "XS"
+          }
+        },
+        "State": {
+          "codeProp": "disabled / isDragging",
+          "figmaLabels": {
+            "default": "Default",
+            "disabled": "Disabled",
+            "dragging": "Dragging"
+          },
+          "note": "Dragging is a prototype/visual state for drag-hover chrome (border secondary + surface tertiary)."
+        }
+      },
+      "figmaMatrixNote": "9 variants (3 sizes × 3 states). Dashed border dropzone with Blue solid Medallion + UploadSimple bold icon swap. Text layers: Instruction, Helper (or inline Instruction on XS)."
+    },
+    "FileUploadCards": {
+      "nodeId": "1888:5350",
+      "figmaSnapshot": "ai/figma-file-upload-cards.snapshot.json",
+      "properties": {
+        "Density": {
+          "codeProp": "density",
+          "figmaLabels": {
+            "default": "Default",
+            "compact": "Compact"
+          }
+        }
+      },
+      "figmaMatrixNote": "2 variants (Default | Compact). Composes FileUpload instance + 4 demo file cards (success, uploading, error, disabled) with Badge, Progress, and icon actions."
+    },
+    "Input": {
+      "nodeId": "589:236",
+      "figmaSnapshot": "ai/figma-input.snapshot.json",
+      "properties": {
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Compact" }
+        },
+        "State": {
+          "codeProp": "disabled / aria-invalid / focus-visible",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          }
+        }
+      }
+    },
+    "SearchInput": {
+      "nodeId": "1733:4633",
+      "figmaSnapshot": "ai/figma-search-input.snapshot.json",
+      "properties": {
+        "Recipe": {
+          "codeProp": "variant",
+          "figmaLabels": { "default": "Default", "shortcut": "Shortcut" }
+        },
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Small" }
+        },
+        "placeholder": {
+          "codeProp": "placeholder",
+          "linkedLayer": "placeholder",
+          "figmaProperty": "placeholder#1735:9"
+        }
+      }
+    },
+    "Date Input": {
+      "nodeId": "1739:4557",
+      "figmaSnapshot": "ai/figma-date-input.snapshot.json",
+      "properties": {
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Compact" }
+        },
+        "State": {
+          "codeProp": "disabled / aria-invalid / focus-visible",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          }
+        },
+        "Month": {
+          "codeProp": "Figma segment label only",
+          "linkedLayer": "mm",
+          "figmaProperty": "Month#1739:26"
+        },
+        "Day": {
+          "codeProp": "Figma segment label only",
+          "linkedLayer": "dd",
+          "figmaProperty": "Day#1739:43"
+        },
+        "Year": {
+          "codeProp": "Figma segment label only",
+          "linkedLayer": "yyyy",
+          "figmaProperty": "Year#1739:60"
+        }
+      }
+    },
+    "Date Range Input": {
+      "nodeId": "1761:4731",
+      "figmaSnapshot": "ai/figma-date-range-input.snapshot.json",
+      "properties": {
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Compact" }
+        },
+        "State": {
+          "codeProp": "disabled / aria-invalid / focus-visible",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          }
+        },
+        "range-separator": {
+          "codeProp": "separator",
+          "linkedLayer": "range-separator",
+          "defaultValue": " – "
+        }
+      }
+    },
+    "Kbd": {
+      "nodeId": "1686:4530",
+      "figmaSnapshot": "ai/figma-kbd.snapshot.json",
+      "properties": {
+        "Appearance": {
+          "codeProp": "className / parent context",
+          "figmaLabels": {
+            "default": "Default",
+            "black": "Black",
+            "tooltip": "Tooltip"
+          },
+          "note": "Default: quaternary surface + secondary text. Black: uds/color/black + inverse text. Tooltip: primary surface + primary text (Figma); code uses parent tooltip-content tint."
+        },
+        "key": {
+          "codeProp": "children",
+          "linkedLayer": "key"
+        }
+      }
+    },
+    "DotStatus": {
+      "nodeId": "1813:4697",
+      "figmaSnapshot": "ai/figma-dot-status.snapshot.json",
+      "properties": {
+        "Variant": {
+          "codeProp": "variant",
+          "figmaLabels": {
+            "red": "Red",
+            "blue": "Blue",
+            "inverse": "Inverse",
+            "orange": "Orange",
+            "sky": "Sky",
+            "indigo": "Indigo",
+            "rose": "Rose",
+            "neutral": "Neutral",
+            "celery": "Celery",
+            "lime": "Lime",
+            "yellow": "Yellow",
+            "green": "Green",
+            "cyan": "Cyan",
+            "purple": "Purple",
+            "fuchsia": "Fuchsia"
+          },
+          "note": "15 hues from DOT_STATUS_VARIANTS. Celery maps to emerald accent; Neutral replaces legacy Gray; Inverse uses uds/color/black (dark mode swaps in code)."
+        },
+        "Outline": {
+          "codeProp": "outline",
+          "figmaLabels": {
+            "false": "False",
+            "true": "True"
+          },
+          "note": "True adds 2px stroke bound to uds/border/primary on the dot ellipse."
+        }
+      },
+      "figmaMatrixNote": "30 variants (15 Variant × Outline False|True). 10×10px medium dot. Outline=True: 2px uds/border/primary stroke. Size (8/10/12px) remains code-only."
+    },
+    "Radio": {
+      "nodeId": "1849:5009",
+      "figmaSnapshot": "ai/figma-radio.snapshot.json",
+      "properties": {
+        "State": {
+          "codeProp": "checked / aria-invalid",
+          "figmaLabels": {
+            "unchecked": "Unchecked",
+            "checked": "Checked",
+            "invalid": "Invalid"
+          },
+          "note": "Invalid maps to unchecked RadioGroupItem with aria-invalid (destructive border). Checked uses data-checked primary fill + 8px inverse indicator."
+        },
+        "Disabled": {
+          "codeProp": "disabled",
+          "figmaLabels": {
+            "false": "False",
+            "true": "True"
+          }
+        }
+      },
+      "figmaMatrixNote": "6 variants (State Unchecked|Checked|Invalid × Disabled False|True). 20px circle, uds/radius/9999. Unchecked: uds/border/primary stroke, transparent fill. Checked: uds/color/primary/700 fill/stroke + Indicator 8px uds/text/inverse. Invalid: uds/button/border/primary/destructive stroke. Disabled: 50% opacity."
+    },
+    "Switch": {
+      "nodeId": "1854:5019",
+      "figmaSnapshot": "ai/figma-switch.snapshot.json",
+      "properties": {
+        "Size": {
+          "codeProp": "size",
+          "figmaLabels": {
+            "default": "Default",
+            "sm": "Small"
+          }
+        },
+        "Checked": {
+          "codeProp": "checked",
+          "figmaLabels": {
+            "false": "False",
+            "true": "True",
+            "intermediary": "Intermediary"
+          },
+          "note": "False/True map to Radix checked state. Intermediary is Figma-only: primary track + centered inverse dash (checkbox indeterminate pattern)."
+        }
+      },
+      "figmaMatrixNote": "6 variants (Size Default|Small × Checked False|Intermediary|True). Off track: uds/border/primary. On/intermediary track: uds/color/primary/700. Intermediary uses pill SVG Indicator (20×6 / 14×4) bound to uds/icon/inverse."
+    },
+    "Collapsible": {
+      "nodeId": "1642:55",
+      "figmaSnapshot": "ai/figma-collapsible.snapshot.json",
+      "properties": {
+        "Variant": {
+          "codeProp": "variant",
+          "figmaLabels": {
+            "divided": "Divided",
+            "boxed": "Boxed"
+          }
+        },
+        "State": {
+          "codeProp": "open",
+          "figmaLabels": {
+            "false": "Collapsed",
+            "true": "Expanded"
+          }
+        },
+        "IconPosition": {
+          "codeProp": "CollapsibleTrigger children order",
+          "figmaLabels": {
+            "right": "Right",
+            "left": "Left"
+          },
+          "note": "Right = Content then caret; Left = caret then Content."
+        },
+        "Content": {
+          "codeProp": "CollapsibleTrigger children",
+          "linkedLayer": ".trigger/Content"
+        },
+        ".content": {
+          "codeProp": "CollapsibleContent children",
+          "linkedLayer": ".content"
+        }
+      }
+    },
     "Alert Dialog": {
       "nodeId": "765:344",
       "properties": {
@@ -171,6 +736,79 @@
         }
       },
       "figmaMatrixNote": "720×520 viewport. Overlay uds/scrim/50. Default 400px + Red pastel medallion 40px; Small 320px + Amber. Header left-aligned p-16; footer uds/surface/tertiary with Outline Cancel + Default Continue."
+    },
+    "Dialog": {
+      "nodeId": "1812:4665",
+      "figmaSnapshot": "ai/figma-dialog.snapshot.json",
+      "properties": {
+        "Size": {
+          "codeProp": "size on DialogContent",
+          "figmaLabels": {
+            "sm": "Small",
+            "md": "Medium",
+            "lg": "Large",
+            "xl": "XLarge",
+            "2xl": "2XL"
+          },
+          "note": "384 / 448 / 512 / 576 / 672px panel widths. Default md (448px)."
+        },
+        "title": {
+          "codeProp": "DialogTitle children",
+          "figmaType": "TEXT",
+          "linkedLayer": "Dialog title"
+        },
+        "description": {
+          "codeProp": "DialogDescription (omit to hide)",
+          "figmaType": "BOOLEAN",
+          "linkedLayer": "Dialog description",
+          "note": "Figma toggles description visibility; omit DialogDescription in code when not needed."
+        },
+        "descriptionLabel": {
+          "codeProp": "DialogDescription children",
+          "figmaType": "TEXT",
+          "linkedLayer": "Dialog description"
+        },
+        "content2": {
+          "codeProp": "DialogBody children",
+          "linkedLayer": "Content2"
+        },
+        "content": {
+          "codeProp": "DialogFooter children",
+          "linkedLayer": "Content"
+        }
+      },
+      "figmaMatrixNote": "720×520 open preview per variant (overlay included). Dialog overlay uds/scrim/50; Dialog content uds/surface/primary + uds/border/secondary + uds/radius/8. Dialog main p-16 with header (title uds/text/primary, optional description uds/text/tertiary) and Content2 body slot; footer uds/surface/tertiary with Outline Cancel + Default Save changes. Top-right transparent Button close (36px, 7px offset, 16px X icon)."
+    },
+    "Drawer": {
+      "nodeId": "1821:4739",
+      "figmaSnapshot": "ai/figma-drawer.snapshot.json",
+      "properties": {
+        "Direction": {
+          "codeProp": "direction on Drawer",
+          "figmaLabels": {
+            "bottom": "Bottom",
+            "top": "Top",
+            "left": "Left",
+            "right": "Right"
+          },
+          "note": "Bottom panel 720×300 with handle; Top 720×300; Left/Right side panels 384×520. Default bottom."
+        },
+        "title": {
+          "codeProp": "DrawerTitle children",
+          "figmaType": "TEXT",
+          "linkedLayer": "Drawer title"
+        },
+        "description": {
+          "codeProp": "DrawerDescription children",
+          "figmaType": "TEXT",
+          "linkedLayer": "Drawer description"
+        },
+        "content": {
+          "codeProp": "DrawerBody / main slot children",
+          "linkedLayer": "Content"
+        }
+      },
+      "figmaMatrixNote": "720×520 open preview per variant (overlay included). Drawer overlay uds/scrim/50; Drawer content uds/surface/primary + single-edge uds/border/secondary + directional uds/radius/8. Bottom variant includes Drawer handle (100×4 pill, uds/surface/tertiary). Header title uds/text/primary + description uds/text/tertiary; Content body slot; footer Outline Close button."
     },
     "AspectRatio": {
       "nodeId": "1111:543",
@@ -192,10 +830,10 @@
             "1.5": "3:2",
             "2.3333333333": "21:9"
           },
-          "note": "Figma named presets; code accepts any continuous width/height number via ASPECT_RATIO_PRESETS."
+          "note": "Figma named presets; code accepts preset strings (e.g. \"16:9\") or any continuous width/height number."
         }
       },
-      "figmaMatrixNote": "5 variants at 240px reference width. Root: uds/surface/secondary fill, uds/color/neutrals/300 stroke, uds/radius/8, overflow clip. Child `.image` rectangle with IMAGE fill (object-cover). Default placeholder: /showcase/aspect-ratio-placeholder.png."
+      "figmaMatrixNote": "5 variants at 240px reference width. Root: uds/surface/secondary fill, uds/color/neutrals/300 stroke, uds/radius/8, overflow clip. Built-in img with ratio-matched demo placeholders when src is omitted."
     },
     "Tabs": {
       "nodeId": "790:1022",
@@ -334,8 +972,26 @@
       "figmaMatrixNote": "16 variants (8 appearances × Symbol). SVG from public/branding/svg. CHG and Design System share unified-design-system assets. Build: scripts/figma-run-branding-batches.mjs + use_figma on branding-batches/*.js."
     },
     "Medallion": {
-      "nodeId": "754:436",
+      "nodeId": "1847:5417",
+      "figmaSnapshot": "ai/figma-medallion.snapshot.json",
       "properties": {
+        "Size": {
+          "codeProp": "size",
+          "values": {
+            "Extra Small": "xs",
+            "Small": "sm",
+            "Default": "default",
+            "Large": "lg",
+            "Extra Large": "xl"
+          },
+          "figmaLabels": {
+            "xs": "Extra Small",
+            "sm": "Small",
+            "default": "Default",
+            "lg": "Large",
+            "xl": "Extra Large"
+          }
+        },
         "Color": {
           "codeProp": "color",
           "figmaLabels": {
@@ -367,7 +1023,7 @@
           }
         }
       },
-      "figmaMatrixNote": "36 variants (18 colors × 2 tones). Default circle shape at 40px. Size and Shape are code-only unless Medallion / Layout set is built."
+      "figmaMatrixNote": "180 variants (5 sizes × 18 colors × 2 tones). Circle shape. Container sizes: 24 / 32 / 40 / 48 / 64px with matched Icon glyph scale."
     },
     "Calendar": {
       "nodeId": "1188:807",
@@ -438,43 +1094,38 @@
           "codeProp": "size",
           "values": {
             "Default": "default",
-            "Small": "sm"
+            "Compact": "sm"
           },
           "figmaLabels": {
             "default": "Default",
-            "sm": "Small"
+            "sm": "Compact"
           }
         },
-        "Title#card": {
-          "codeProp": "title",
-          "figmaProperty": "Title#card",
-          "linkedLayer": ".title"
-        },
-        "Description#card": {
-          "codeProp": "description",
-          "figmaProperty": "Description#card",
-          "linkedLayer": ".description"
-        },
-        "Slot": {
+        "Content": {
           "codeProp": "children",
-          "figmaProperty": "Slot",
-          "linkedLayer": ".content/Slot"
+          "figmaProperty": "Content#1341:0",
+          "linkedLayer": ".content/Content",
+          "note": "Main content slot. Default content = .title (CardTitle) + .description (CardDescription)."
         },
-        "Slot2": {
-          "codeProp": "image",
-          "figmaProperty": "Slot2",
-          "linkedLayer": ".image/Slot2",
-          "size": "Small"
+        "Image": {
+          "codeProp": "render CardImage",
+          "figmaProperty": "Image#1458:3",
+          "type": "BOOLEAN",
+          "default": true,
+          "linkedLayer": ".image",
+          "note": "Toggles the AspectRatio media region."
         },
-        "Slot3": {
-          "codeProp": "image",
-          "figmaProperty": "Slot3",
-          "linkedLayer": ".image/Slot3",
-          "size": "Default"
+        "Footer": {
+          "codeProp": "render CardFooter",
+          "figmaProperty": "Footer#1458:12",
+          "type": "BOOLEAN",
+          "default": true,
+          "linkedLayer": ".footer",
+          "note": "Toggles the footer region (Button)."
         }
       },
-      "layerNaming": ".image, .header, .header-text, .title, .description, .content, Slot, .footer, .footer-action.",
-      "figmaMatrixNote": "2 variants (Size=Default|Small). 320×211; image slot + header + content slot + footer with Button (Default/Small by size). Tokens: uds/surface/primary, uds/border/primary, uds/radius/8."
+      "layerNaming": ".image (AspectRatio), .content/Content (slot), .title, .description, .footer (Button).",
+      "figmaMatrixNote": "2 variants (Size=Default|Compact). 320px wide. Fixed AspectRatio media (16:9 Default, 21:9 Compact) toggled by Image boolean; content slot (.title + .description default); footer with Button (Default/Small by size) toggled by Footer boolean. Title/Description are slot content, not TEXT props. Tokens: uds/surface/primary, uds/border/primary, uds/radius/8."
     },
     ".calendar-day": {
       "nodeId": "1186:575",
@@ -523,6 +1174,66 @@
         }
       },
       "figmaMatrixNote": "Reusable month grid (header, weekdays, 5 week rows). Composed inside Calendar variants."
+    },
+    "Table": {
+      "nodeId": "1430:4180",
+      "figmaSnapshot": "ai/figma-table.snapshot.json",
+      "properties": {
+        "Content": {
+          "codeProp": "children",
+          "figmaProperty": "Content#1436:2",
+          "type": "SLOT",
+          "linkedLayer": "Content",
+          "note": "Restricted slot (allowPreferredValuesOnly) \u2014 only .table-row instances. Maps to TableHeader/TableBody rows."
+        },
+        "Cell": {
+          "codeProp": "children",
+          "figmaProperty": "Cell#1430:0",
+          "type": "INSTANCE_SWAP",
+          "note": "Legacy single-cell swap retained from the first build; the Content (rows) slot is now the primary composition path."
+        }
+      },
+      "figmaMatrixNote": "Single component (no variants). GRID wrapper with a restricted Content slot of .table-row. uds/surface/primary fill, uds/border/primary @ uds/border/width/1, uds/radius/4, clipsContent. Maps to the code table-container div + table."
+    },
+    ".table-row": {
+      "nodeId": "1436:4245",
+      "figmaSnapshot": "ai/figma-table.snapshot.json",
+      "properties": {
+        "Content": {
+          "codeProp": "children",
+          "figmaProperty": "Content#1436:1",
+          "type": "SLOT",
+          "linkedLayer": "Content",
+          "note": "Restricted slot (allowPreferredValuesOnly) \u2014 only .table-cell instances. Maps to a TableRow's cells."
+        }
+      },
+      "figmaMatrixNote": "Single component (no variants). VERTICAL wrapper with a HORIZONTAL Content slot of .table-cell. Maps to TableRow (tr). Header rows use Appearance=Head cells; body rows use Appearance=Body."
+    },
+    ".table-cell": {
+      "nodeId": "1436:4192",
+      "figmaSnapshot": "ai/figma-table.snapshot.json",
+      "properties": {
+        "Appearance": {
+          "codeProp": "element",
+          "defaultValue": "Head",
+          "values": {
+            "Body": "TableCell",
+            "Head": "TableHead",
+            "Footer": "TableCell (within TableFooter)"
+          },
+          "figmaLabels": {
+            "TableCell": "Body",
+            "TableHead": "Head"
+          }
+        },
+        "Content": {
+          "codeProp": "children",
+          "figmaProperty": "Content#1436:0",
+          "linkedLayer": "Content",
+          "note": "Open SLOT \u2014 accepts any element."
+        }
+      },
+      "figmaMatrixNote": "3 variants (Appearance=Body|Head|Footer; default Head). Bottom-border-only divider (uds/border/width/1), padding uds/spacing/0, radius uds/radius/0, text uds/text/primary Inter Regular 16. Fills: Body uds/surface/primary, Head uds/surface/tertiary, Footer uds/surface/quaternary."
     }
   }
 }

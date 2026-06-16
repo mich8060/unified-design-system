@@ -1,0 +1,80 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Radio": {
+      "nodeId": "1849:5009",
+      "name": "Radio",
+      "width": 272,
+      "height": 200
+    }
+  },
+  "Radio": {
+    "nodeId": "1849:5009",
+    "description": "Circular 20px radio control for single selection within a group. Mirrors RadioGroupItem: primary border when unchecked, primary fill + inverse indicator when checked, destructive border when invalid.",
+    "variants": [
+      "State=Unchecked, Disabled=False",
+      "State=Unchecked, Disabled=True",
+      "State=Checked, Disabled=False",
+      "State=Checked, Disabled=True",
+      "State=Invalid, Disabled=False",
+      "State=Invalid, Disabled=True"
+    ],
+    "variantCount": 6,
+    "componentProperties": {
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Unchecked",
+        "variantOptions": ["Unchecked", "Checked", "Invalid"],
+        "codeProp": "checked / aria-invalid",
+        "codeValues": {
+          "Unchecked": "unchecked",
+          "Checked": "checked (data-checked)",
+          "Invalid": "unchecked + aria-invalid"
+        }
+      },
+      "Disabled": {
+        "type": "VARIANT",
+        "defaultValue": "False",
+        "variantOptions": ["False", "True"],
+        "codeProp": "disabled"
+      }
+    },
+    "tokens": {
+      "size": "20px",
+      "radius": "uds/radius/9999",
+      "strokeUnchecked": "uds/border/primary",
+      "fillChecked": "uds/color/primary/700",
+      "strokeChecked": "uds/color/primary/700",
+      "strokeInvalid": "uds/button/border/primary/destructive",
+      "indicatorSize": "8px",
+      "indicatorFill": "uds/text/inverse"
+    },
+    "layerNaming": {
+      "indicator": "Indicator — 8×8 ellipse centered, uds/text/inverse (primary-foreground)"
+    },
+    "gridLayout": {
+      "cols": 3,
+      "cellWidth": 48,
+      "cellHeight": 48,
+      "gap": 24,
+      "padding": 40
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/radio-group.tsx",
+    "exports": ["RadioGroup", "RadioGroupItem", "RadioGroupLabel"],
+    "structure": {
+      "RadioGroupItem": "20px circle (size-5), border-input → uds/border/primary",
+      "unchecked": "transparent fill, primary border",
+      "checked": "bg-primary (uds/color/primary/700) + 8px primary-foreground dot",
+      "invalid": "aria-invalid destructive border",
+      "disabled": "opacity 0.5 on root"
+    },
+    "notes": [
+      "RadioGroup container (grid gap-2) is composed in docs/examples, not a Figma atom.",
+      "Focus ring (ring-3 ring-ring/50) is interaction-only — not modeled as a static variant."
+    ]
+  }
+}

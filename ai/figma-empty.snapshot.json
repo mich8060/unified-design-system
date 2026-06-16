@@ -1,0 +1,130 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Empty": {
+      "nodeId": "1845:4755",
+      "name": "Empty",
+      "width": 1064,
+      "height": 904
+    }
+  },
+  "Empty": {
+    "nodeId": "1845:4755",
+    "description": "Centered empty state with optional Blue Pastel Medallion icon, title, description, and footer actions or search field.",
+    "variantAxis": "Recipe",
+    "variantCount": 4,
+    "variants": [
+      "Recipe=Default",
+      "Recipe=SingleAction",
+      "Recipe=TwoActions",
+      "Recipe=Search404"
+    ],
+    "variantNodeIds": {
+      "Recipe=Default": "1845:4701",
+      "Recipe=SingleAction": "1845:4710",
+      "Recipe=TwoActions": "1845:4726",
+      "Recipe=Search404": "1845:4748"
+    },
+    "sizes": {
+      "panelWidth": 448
+    },
+    "layers": {
+      "header": "Empty header",
+      "icon": "Empty icon",
+      "medallion": "Medallion",
+      "title": "Empty title",
+      "description": "Empty description",
+      "content": "Empty content"
+    },
+    "componentProperties": {
+      "Recipe": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "SingleAction", "TwoActions", "Search404"],
+        "codeMapping": {
+          "Default": "Empty + EmptyHeader + EmptyMedia(Medallion) + EmptyTitle + EmptyDescription",
+          "SingleAction": "Default + EmptyContent + Button Default",
+          "TwoActions": "Default + EmptyContent + Button Outline + Button Default",
+          "Search404": "Empty without medallion + Input search placeholder"
+        }
+      },
+      "title": {
+        "type": "TEXT",
+        "linkedLayer": "Empty title",
+        "codeProp": "EmptyTitle children"
+      },
+      "description": {
+        "type": "TEXT",
+        "linkedLayer": "Empty description",
+        "codeProp": "EmptyDescription children"
+      }
+    },
+    "composeFrom": {
+      "medallion": {
+        "componentSet": "Medallion",
+        "nodeId": "1847:5417",
+        "variant": "Size=Extra Large, Color=Blue, Tone=Pastel",
+        "sizePx": 64,
+        "note": "Code uses EmptyMedia chrome tokens + EnvelopeIcon; Figma uses Medallion instance (default House glyph until Envelope glyph is published)."
+      },
+      "button": { "componentSet": "Button", "nodeId": "554:268" },
+      "input": { "componentSet": "Input", "nodeId": "589:236" }
+    },
+    "tokenBindings": {
+      "title": "uds/text/primary",
+      "description": "uds/text/tertiary",
+      "padding": "uds/gap/24",
+      "headerIconGap": "uds/gap/24",
+      "contentGap": "uds/gap/16",
+      "actionsGap": "uds/gap/8"
+    },
+    "gridLayout": {
+      "cols": 2,
+      "cellWidth": 480,
+      "cellHeight": 400,
+      "gap": 24,
+      "padding": 40
+    },
+    "copy": {
+      "Default": {
+        "title": "No messages",
+        "description": "Inbox is clear for now."
+      },
+      "SingleAction": {
+        "title": "No messages",
+        "description": "Inbox is clear for now.",
+        "action": "Compose message"
+      },
+      "TwoActions": {
+        "title": "Nothing queued",
+        "description": "Send a note now or import conversations from another inbox.",
+        "primary": "Compose message",
+        "secondary": "Import messages"
+      },
+      "Search404": {
+        "title": "404 - Not Found",
+        "description": "The page you are looking for does not exist or may have been moved.",
+        "searchPlaceholder": "Search documentation…"
+      }
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/empty.tsx",
+    "exports": [
+      "Empty",
+      "EmptyHeader",
+      "EmptyMedia",
+      "EmptyTitle",
+      "EmptyDescription",
+      "EmptyContent"
+    ],
+    "structure": {
+      "Empty": "Root vertical stack, centered, p-6, gap-4 when content present",
+      "EmptyHeader": "Empty header — medallion wrapper + title + description",
+      "EmptyMedia": "Empty icon — Medallion Blue Pastel 64px in Figma; code uses theme chrome on data-slot empty-icon",
+      "EmptyContent": "Empty content — buttons or input"
+    }
+  }
+}

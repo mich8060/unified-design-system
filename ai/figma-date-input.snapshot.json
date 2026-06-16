@@ -1,0 +1,123 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "lastFigmaEdit": "User restyle: aligned with Input tokens; all variants use Text frame (mm/dd/yyyy) + CalendarBlank icon",
+  "nodes": {
+    "Date Input": {
+      "nodeId": "1739:4557",
+      "name": "Date Input",
+      "width": 500,
+      "height": 480
+    }
+  },
+  "Date Input": {
+    "nodeId": "1739:4557",
+    "description": "Single-date field with trailing CalendarBlank icon. InputGroup-style shell in code; Figma shows segmented mm/dd/yyyy labels in all variants. Calendar popover composes outside this atom.",
+    "variants": [
+      "Size=Compact, State=Default",
+      "Size=Compact, State=Focused",
+      "Size=Compact, State=Error",
+      "Size=Compact, State=Disabled",
+      "Size=Default, State=Default",
+      "Size=Default, State=Focused",
+      "Size=Default, State=Error",
+      "Size=Default, State=Disabled"
+    ],
+    "variantCount": 8,
+    "variantNodeIds": {
+      "Size=Compact, State=Default": "1739:4558",
+      "Size=Compact, State=Focused": "1739:4560",
+      "Size=Compact, State=Error": "1739:4562",
+      "Size=Compact, State=Disabled": "1739:4564",
+      "Size=Default, State=Default": "1739:4566",
+      "Size=Default, State=Focused": "1739:4568",
+      "Size=Default, State=Error": "1739:4570",
+      "Size=Default, State=Disabled": "1739:4572"
+    },
+    "componentProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "defaultValue": "Compact",
+        "variantOptions": ["Default", "Compact"],
+        "codeProp": "inputSize",
+        "codeValues": { "Default": "default", "Compact": "sm" }
+      },
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Focused", "Error", "Disabled"],
+        "codeMapping": {
+          "Default": "empty field",
+          "Focused": "focus-visible on control",
+          "Error": "aria-invalid on control",
+          "Disabled": "disabled on control"
+        }
+      },
+      "Month": {
+        "type": "TEXT",
+        "propertyId": "Month#1739:26",
+        "defaultValue": "mm",
+        "linkedLayer": "mm"
+      },
+      "Day": {
+        "type": "TEXT",
+        "propertyId": "Day#1739:43",
+        "defaultValue": "dd",
+        "linkedLayer": "dd"
+      },
+      "Year": {
+        "type": "TEXT",
+        "propertyId": "Year#1739:60",
+        "defaultValue": "yyyy",
+        "linkedLayer": "yyyy"
+      }
+    },
+    "structure": {
+      "root": "Date Input — horizontal auto-layout shell (12px pad, uds/radius/4)",
+      "text": "Text (FRAME) — mm + / + dd + / + yyyy in all variants",
+      "icon": "Icon — CalendarBlank via Icon Size=16 instance swap"
+    },
+    "presentationRules": {
+      "segmented": "All 8 variants use Text frame with Month/Day/Year TEXT props (uds/text/primary on segments)",
+      "disabledPresentation": "Root opacity 0.5; segment text uses uds/text/disabled",
+      "placeholderPresentation": "Empty segments use uds/text/primary (not uds/text/disabled like standalone Input)"
+    },
+    "tokens": {
+      "fillDefault": "uds/surface/primary",
+      "fillError": "uds/surface/secondary",
+      "fillDisabled": "uds/surface/secondary",
+      "radius": "uds/radius/4",
+      "paddingH": "uds/gap/12",
+      "strokeDefault": "uds/border/primary",
+      "strokeFocused": "uds/focus/ring/border",
+      "strokeError": "uds/button/border/primary/destructive",
+      "strokeDisabled": "uds/border/disabled",
+      "segmentText": "uds/text/primary",
+      "heightCompact": "36px",
+      "heightDefault": "44px",
+      "typographyCompact": "Body/14/Regular",
+      "typographyDefault": "Body/16/Regular",
+      "icon": "CalendarBlank Weight=Regular (1739:4579)",
+      "disabledOpacity": 0.5,
+      "focusRing": "4-offset box-shadow using uds/system/action/tertiary",
+      "errorRing": "4-offset box-shadow using uds/system/destructive/tertiary"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/date-input.tsx",
+    "exports": [
+      "DateInput",
+      "DateInputProps",
+      "DateInputCaptionLayout",
+      "DateInputYearSelection"
+    ],
+    "shell": "InputGroup + InputGroupInput + InputGroupAddon (inline-end CalendarBlankIcon)",
+    "popover": "Calendar popover is outside the Figma atom",
+    "placeholderDefault": "mm/dd/yyyy",
+    "iconSetNodeId": "501:6",
+    "calendarBlankGlyphId": "1739:4579",
+    "rebuildSpec": "scripts/figma-component-build-specs.json → date-input",
+    "rebuildCommand": "node scripts/figma-slim-build.mjs date-input"
+  }
+}

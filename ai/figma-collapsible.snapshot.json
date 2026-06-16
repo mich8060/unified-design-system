@@ -1,0 +1,128 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Collapsible": {
+      "nodeId": "1642:55",
+      "name": "Collapsible",
+      "width": 1688,
+      "height": 232
+    }
+  },
+  "Collapsible": {
+    "nodeId": "1642:55",
+    "description": "Single inline disclosure unit with slot-based trigger and content areas. IconPosition controls caret placement in the trigger row.",
+    "variants": [
+      "Variant=Divided, State=Collapsed, IconPosition=Right",
+      "Variant=Divided, State=Collapsed, IconPosition=Left",
+      "Variant=Boxed, State=Collapsed, IconPosition=Right",
+      "Variant=Boxed, State=Collapsed, IconPosition=Left",
+      "Variant=Divided, State=Expanded, IconPosition=Right",
+      "Variant=Divided, State=Expanded, IconPosition=Left",
+      "Variant=Boxed, State=Expanded, IconPosition=Right",
+      "Variant=Boxed, State=Expanded, IconPosition=Left"
+    ],
+    "variantCount": 8,
+    "variantNodeIds": {
+      "Variant=Divided, State=Collapsed, IconPosition=Right": "1642:2",
+      "Variant=Divided, State=Collapsed, IconPosition=Left": "1642:9",
+      "Variant=Boxed, State=Collapsed, IconPosition=Right": "1642:15",
+      "Variant=Boxed, State=Collapsed, IconPosition=Left": "1642:21",
+      "Variant=Divided, State=Expanded, IconPosition=Right": "1642:27",
+      "Variant=Divided, State=Expanded, IconPosition=Left": "1642:34",
+      "Variant=Boxed, State=Expanded, IconPosition=Right": "1642:41",
+      "Variant=Boxed, State=Expanded, IconPosition=Left": "1642:48"
+    },
+    "sizes": {
+      "collapsed": { "width": 360, "height": 40 },
+      "expanded": { "width": 360, "height": 64 }
+    },
+    "gridLayout": {
+      "cols": 4,
+      "rows": 2,
+      "note": "Row 0: collapsed (Divided/Boxed × Right/Left). Row 1: expanded (Divided/Boxed × Right/Left)."
+    },
+    "componentProperties": {
+      "Variant": {
+        "type": "VARIANT",
+        "defaultValue": "Divided",
+        "variantOptions": ["Divided", "Boxed"],
+        "codeProp": "variant",
+        "codeValues": {
+          "Divided": "divided",
+          "Boxed": "boxed"
+        }
+      },
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Collapsed",
+        "variantOptions": ["Collapsed", "Expanded"],
+        "codeProp": "open",
+        "codeValues": {
+          "Collapsed": false,
+          "Expanded": true
+        }
+      },
+      "IconPosition": {
+        "type": "VARIANT",
+        "defaultValue": "Right",
+        "variantOptions": ["Right", "Left"],
+        "codeProp": "CollapsibleTrigger className / flex order",
+        "codeValues": {
+          "Right": "caret trailing (default docs pattern)",
+          "Left": "caret leading — reorder icon before Content in trigger"
+        },
+        "note": "Right: Content then icon. Left: icon then Content."
+      },
+      "Content": {
+        "type": "FRAME",
+        "codeProp": "CollapsibleTrigger children",
+        "linkedLayer": ".trigger/Content",
+        "note": "Trigger slot placeholder (re-bind as SLOT in Figma if needed)."
+      },
+      ".content": {
+        "type": "FRAME",
+        "codeProp": "CollapsibleContent children",
+        "linkedLayer": ".content",
+        "note": "Body slot placeholder; present when State=Expanded."
+      }
+    },
+    "layerNaming": {
+      "root": "Collapsible",
+      "trigger": ".trigger",
+      "triggerSlot": "Content",
+      "icon": "icon (Icon Size=16, CaretDown collapsed / CaretUp expanded)",
+      "contentSlot": ".content",
+      "iconOrder": {
+        "Right": ["Content", "icon"],
+        "Left": ["icon", "Content"]
+      }
+    },
+    "tokens": {
+      "dividedBorder": "uds/border/secondary",
+      "boxedFill": "uds/surface/primary",
+      "boxedBorder": "uds/border/primary",
+      "boxedRadius": "uds/radius/4",
+      "triggerPaddingX": "uds/gap/16",
+      "triggerPaddingY": "uds/gap/8",
+      "triggerGap": "uds/gap/12"
+    },
+    "variantChrome": {
+      "Divided": "Bottom hairline only (uds/border/secondary). No outer radius or fill.",
+      "Boxed": "Rounded 4px frame with uds/surface/primary fill and uds/border/primary stroke. Trigger gains bottom border when expanded."
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/collapsible.tsx",
+    "exports": ["Collapsible", "CollapsibleTrigger", "CollapsibleContent"],
+    "structure": {
+      "Collapsible": "Root — variant=divided (border-b) or boxed (rounded border + bg)",
+      "CollapsibleTrigger": ".trigger — Content slot + caret icon (leading or trailing)",
+      "CollapsibleContent": ".content slot — disclosed panel"
+    },
+    "iconSetNodeId": "501:6",
+    "iconVariant": "Size=16",
+    "composeNote": "No dedicated iconPosition prop in code — place CaretDownIcon before or after trigger children to match IconPosition Left/Right."
+  }
+}

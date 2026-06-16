@@ -14,7 +14,7 @@ import {
     AlertDescription,
     AlertTitle,
 } from '@chghealthcare/unified-design-system'
-import { AspectRatio, AspectRatioImage, ASPECT_RATIO_PRESETS } from '@chghealthcare/unified-design-system'
+import { AspectRatio } from '@chghealthcare/unified-design-system'
 import {
     Avatar,
     AvatarCameraAction,
@@ -42,11 +42,8 @@ import { ButtonGroup } from '@chghealthcare/unified-design-system'
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
-    CardHeader,
     CardImage,
-    CardTitle,
 } from '@chghealthcare/unified-design-system'
 import { Checkbox, CheckboxLabel } from '@chghealthcare/unified-design-system'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@chghealthcare/unified-design-system'
@@ -249,8 +246,11 @@ import {
     CalendarWelcomePreviewInner,
     ChartBarDemo,
     ComboboxDemo,
+    ComboboxCompactDemo,
+    ComboboxDefaultDemo,
     CommandInlineDemo,
     DialogVariants,
+    DialogWelcomePreviewInner,
     DrawerVariants,
     DropdownVariants,
     EmptyVariants,
@@ -1258,26 +1258,79 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             'Ratio presets',
             (
                 <div className="flex flex-wrap gap-4">
-                    {(Object.entries(ASPECT_RATIO_PRESETS) as [keyof typeof ASPECT_RATIO_PRESETS, number][]).map(
-                        ([label, ratio]) => (
-                            <AspectRatio key={label} ratio={ratio} className="w-[240px]">
-                                <AspectRatioImage alt={`${label} placeholder`} />
-                            </AspectRatio>
-                        ),
-                    )}
+                    {(
+                        [
+                            { label: '1:1', ratio: 1, src: '/showcase/aspect-ratio-1-1.png' },
+                            { label: '4:3', ratio: 4 / 3, src: '/showcase/aspect-ratio-4-3.png' },
+                            { label: '16:9', ratio: 16 / 9, src: '/showcase/aspect-ratio-16-9.png' },
+                            { label: '3:2', ratio: 3 / 2, src: '/showcase/aspect-ratio-3-2.png' },
+                            { label: '21:9', ratio: 21 / 9, src: '/showcase/aspect-ratio-21-9.png' },
+                        ] as const
+                    ).map(({ label, ratio, src }) => (
+                        <div key={label} className="w-[240px] max-w-full">
+                            <AspectRatio ratio={ratio} src={src} alt={`${label} placeholder`} />
+                        </div>
+                    ))}
                 </div>
             ),
-            `import { AspectRatio, AspectRatioImage, ASPECT_RATIO_PRESETS } from "@chghealthcare/unified-design-system"
+            `import { AspectRatio } from "@chghealthcare/unified-design-system"
 
-<AspectRatio ratio={ASPECT_RATIO_PRESETS["16:9"]} className="w-[240px]">
-  <AspectRatioImage alt="16:9 placeholder" src="/path/to/your-image.jpg" />
-</AspectRatio>`,
+<div className="w-[240px]">
+  <AspectRatio ratio={16 / 9} src="/path/to/image.jpg" alt="16:9 media" />
+</div>`,
             undefined,
             (
-                <AspectRatio ratio={16 / 9} className="w-[240px] max-w-full">
-                    <AspectRatioImage alt="16:9 placeholder" />
-                </AspectRatio>
+                <div className="w-[240px] max-w-full">
+                    <AspectRatio
+                        ratio={16 / 9}
+                        src="/showcase/aspect-ratio-16-9.png"
+                        alt="16:9 placeholder"
+                    />
+                </div>
             ),
+        ),
+        E(
+            'common-ratios',
+            'Common ratios',
+            (
+                <div className="flex flex-wrap items-start gap-3">
+                    {[
+                        { label: '9:16', ratio: 9 / 16 },
+                        { label: '2:3', ratio: 2 / 3 },
+                        { label: '3:4', ratio: 3 / 4 },
+                        { label: '4:5', ratio: 4 / 5 },
+                        { label: '1:1', ratio: 1 },
+                        { label: '5:4', ratio: 5 / 4 },
+                        { label: '4:3', ratio: 4 / 3 },
+                        { label: '3:2', ratio: 3 / 2 },
+                        { label: '16:10', ratio: 16 / 10 },
+                        { label: '16:9', ratio: 16 / 9 },
+                        { label: '2:1', ratio: 2 },
+                        { label: '21:9', ratio: 21 / 9 },
+                    ].map(({ label, ratio }) => (
+                        <div key={label} style={{ width: Math.round(140 * ratio) }}>
+                            <AspectRatio ratio={ratio}>
+                                <div className="flex size-full items-center justify-center">
+                                    <span className="text-sm font-medium tabular-nums text-muted-foreground">
+                                        {label}
+                                    </span>
+                                </div>
+                            </AspectRatio>
+                        </div>
+                    ))}
+                </div>
+            ),
+            `import { AspectRatio } from "@chghealthcare/unified-design-system"
+
+// Any ratio works — pass a number (width / height).
+const RATIOS = [9 / 16, 2 / 3, 3 / 4, 4 / 5, 1, 5 / 4, 4 / 3, 3 / 2, 16 / 10, 16 / 9, 2, 21 / 9]
+
+{RATIOS.map((ratio) => (
+  <div key={ratio} style={{ width: Math.round(140 * ratio) }}>
+    <AspectRatio ratio={ratio}>{/* media or label */}</AspectRatio>
+  </div>
+))}`,
+            'A reference strip of common aspect ratios at a shared height — portrait (9:16, 2:3, 3:4, 4:5), square (1:1), and landscape (5:4, 4:3, 3:2, 16:10, 16:9, 2:1, 21:9). Labels read `width:height`, so the value passed to the `ratio` prop is width ÷ height (e.g. `16:9` → `16 / 9`).',
         ),
     ],
     avatar: [
@@ -1894,28 +1947,36 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
     card: [
         E(
             'sizes',
-            'Default & small',
+            'Default & compact',
             (
                 <div className="grid gap-4 md:grid-cols-2">
                     <Card>
-                        <CardHeader>
-                            <CardTitle>Default card</CardTitle>
-                            <CardDescription>Supporting description text.</CardDescription>
-                        </CardHeader>
+                        <CardImage>
+                            <AspectRatio
+                                ratio={16 / 9}
+                                src="/showcase/aspect-ratio-16-9.png"
+                                alt="Card media"
+                            />
+                        </CardImage>
                         <CardContent>
-                            <p className="text-uds-text-secondary">Card body copy.</p>
+                            <p className="font-medium text-uds-text-primary">Default card</p>
+                            <p className="text-uds-text-secondary">Body content goes here — any elements you like.</p>
                         </CardContent>
                         <CardFooter>
                             <Button>Save</Button>
                         </CardFooter>
                     </Card>
                     <Card size="sm">
-                        <CardHeader>
-                            <CardTitle>Default card</CardTitle>
-                            <CardDescription>Supporting description text.</CardDescription>
-                        </CardHeader>
+                        <CardImage>
+                            <AspectRatio
+                                ratio={21 / 9}
+                                src="/showcase/aspect-ratio-21-9.png"
+                                alt="Card media"
+                            />
+                        </CardImage>
                         <CardContent>
-                            <p className="text-uds-text-secondary">Card body copy.</p>
+                            <p className="font-medium text-uds-text-primary">Compact card</p>
+                            <p className="text-uds-text-secondary">Body content goes here — any elements you like.</p>
                         </CardContent>
                         <CardFooter>
                             <Button size="sm">Save</Button>
@@ -1923,13 +1984,16 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     </Card>
                 </div>
             ),
-            `<Card>
-  <CardHeader>
-    <CardTitle>Default card</CardTitle>
-    <CardDescription>Supporting description text.</CardDescription>
-  </CardHeader>
+            `// Card is a three-slot wrapper: CardImage (images only),
+// CardContent (any children), CardFooter (buttons only).
+// size="sm" renders the Compact variant; image and footer are optional.
+<Card>
+  <CardImage>
+    <AspectRatio ratio={16 / 9} src="/path/to/image.jpg" alt="Card media" />
+  </CardImage>
   <CardContent>
-    <p className="text-uds-text-secondary">Card body copy.</p>
+    <p className="font-medium text-uds-text-primary">Default card</p>
+    <p className="text-uds-text-secondary">Body content goes here.</p>
   </CardContent>
   <CardFooter>
     <Button>Save</Button>
@@ -1938,18 +2002,41 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             undefined,
             (
                 <Card className="w-full max-w-sm">
-                    <CardHeader>
-                        <CardTitle>Default card</CardTitle>
-                        <CardDescription>Supporting description text.</CardDescription>
-                    </CardHeader>
+                    <CardImage>
+                        <AspectRatio
+                            ratio={16 / 9}
+                            src="/showcase/aspect-ratio-16-9.png"
+                            alt="Card media"
+                        />
+                    </CardImage>
                     <CardContent>
-                        <p className="text-uds-text-secondary">Card body copy.</p>
+                        <p className="font-medium text-uds-text-primary">Default card</p>
+                        <p className="text-uds-text-secondary">Body content goes here — any elements you like.</p>
                     </CardContent>
                     <CardFooter>
                         <Button>Save</Button>
                     </CardFooter>
                 </Card>
             ),
+        ),
+        E(
+            'content-only',
+            'Without image or footer',
+            (
+                <Card className="w-full max-w-sm">
+                    <CardContent>
+                        <p className="font-medium text-uds-text-primary">Content-only card</p>
+                        <p className="text-uds-text-secondary">Image and footer are optional regions.</p>
+                    </CardContent>
+                </Card>
+            ),
+            `// Omit CardImage and CardFooter to render a content-only card.
+<Card>
+  <CardContent>
+    <p className="font-medium text-uds-text-primary">Content-only card</p>
+    <p className="text-uds-text-secondary">Image and footer are optional regions.</p>
+  </CardContent>
+</Card>`,
         ),
     ],
     chart: [E('bar', 'Bar chart', <ChartBarDemo />, `import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
@@ -2036,28 +2123,84 @@ const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeter
 </Collapsible>`,
         ),
     ],
-    combobox: [E('search', 'Filterable list', <ComboboxDemo />, `import {
+    combobox: [
+        E(
+            'default',
+            'Default (44px)',
+            <ComboboxDefaultDemo />,
+            `import {
   Combobox,
   ComboboxContent,
   ComboboxEmpty,
   ComboboxInput,
   ComboboxItem,
-  ComboboxTrigger,
-  ComboboxValue,
+  ComboboxList,
 } from "@chghealthcare/unified-design-system"
 
-<Combobox>
-  <ComboboxTrigger className="w-[220px]">
-    <ComboboxValue placeholder="Select a framework" />
-  </ComboboxTrigger>
+const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
+
+<Combobox items={frameworks}>
+  <ComboboxInput placeholder="Select an option" className="w-[280px]" />
   <ComboboxContent>
-    <ComboboxInput placeholder="Search frameworks..." />
-    <ComboboxEmpty>No framework found.</ComboboxEmpty>
-    <ComboboxItem value="react">React</ComboboxItem>
-    <ComboboxItem value="vue">Vue</ComboboxItem>
-    <ComboboxItem value="svelte">Svelte</ComboboxItem>
+    <ComboboxEmpty>No items found.</ComboboxEmpty>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item} value={item}>
+          {item}
+        </ComboboxItem>
+      )}
+    </ComboboxList>
   </ComboboxContent>
-</Combobox>`)],
+</Combobox>`,
+        ),
+        E(
+            'compact',
+            'Compact (36px)',
+            <ComboboxCompactDemo />,
+            `<Combobox items={frameworks}>
+  <ComboboxInput inputSize="sm" placeholder="Select an option" className="w-[280px]" />
+  <ComboboxContent>
+    <ComboboxEmpty>No items found.</ComboboxEmpty>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item} value={item}>
+          {item}
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>`,
+        ),
+        E(
+            'search',
+            'Filterable list',
+            <ComboboxDemo />,
+            `import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@chghealthcare/unified-design-system"
+
+const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
+
+<Combobox items={frameworks}>
+  <ComboboxInput placeholder="Select an option" className="w-[280px]" />
+  <ComboboxContent>
+    <ComboboxEmpty>No items found.</ComboboxEmpty>
+    <ComboboxList>
+      {(item) => (
+        <ComboboxItem key={item} value={item}>
+          {item}
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>`,
+        ),
+    ],
     command: [
         E(
             'palette',
@@ -2122,21 +2265,24 @@ const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeter
   <DialogTrigger asChild>
     <Button variant="outline">Edit profile</Button>
   </DialogTrigger>
-  <DialogContent className="sm:max-w-md">
-    <DialogHeader>
-      <DialogTitle>Edit profile</DialogTitle>
-      <DialogDescription>Update the public details shown on your account.</DialogDescription>
-    </DialogHeader>
-    <div className="grid gap-4 py-2">
-      <Input placeholder="Display name" />
-      <Input placeholder="Role" />
-    </div>
+  <DialogContent size="md">
+    <DialogMain>
+      <DialogHeader>
+        <DialogTitle>Edit profile</DialogTitle>
+        <DialogDescription>Update the public details shown on your account.</DialogDescription>
+      </DialogHeader>
+      <DialogBody>
+        {/* slot for form fields or other content */}
+      </DialogBody>
+    </DialogMain>
     <DialogFooter>
       <Button variant="outline">Cancel</Button>
       <Button>Save changes</Button>
     </DialogFooter>
   </DialogContent>
 </Dialog>`,
+            undefined,
+            <DialogWelcomePreviewInner />,
         ),
     ],
     direction: [
@@ -2162,7 +2308,7 @@ const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeter
             `import { DotStatus } from "@chghealthcare/unified-design-system"
 
 <DotStatus />`,
-            'Default: green hue, medium size, solid fill.',
+            'Default: green hue, medium size, solid fill. Use outline for a 2px primary border.',
         ),
         E(
             'variants',

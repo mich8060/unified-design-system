@@ -1,0 +1,120 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "DropdownMenu": {
+      "nodeId": "1827:4726",
+      "name": "DropdownMenu",
+      "width": 664,
+      "height": 380
+    }
+  },
+  "DropdownMenu": {
+    "nodeId": "1827:4726",
+    "description": "Open dropdown preview: Button trigger + menu panel composed from context-menu atoms (.context-menu-item, .context-menu-label, .context-menu-separator).",
+    "variantAxis": "Recipe",
+    "variantCount": 2,
+    "variants": ["Recipe=Default", "Recipe=Account"],
+    "variantNodeIds": {
+      "Recipe=Default": "1827:4692",
+      "Recipe=Account": "1827:4708"
+    },
+    "sizes": {
+      "panel": { "width": 224 }
+    },
+    "layers": {
+      "trigger": "Trigger",
+      "content": "Content"
+    },
+    "componentProperties": {
+      "Recipe": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Account"],
+        "codeMapping": {
+          "Default": "DropdownMenuTrigger Outline + Profile/Billing/Delete team",
+          "Account": "DropdownMenuTrigger Outline sm Account + My account label recipe"
+        }
+      },
+      "Content": {
+        "type": "SLOT",
+        "linkedLayer": "Content",
+        "codeProp": "DropdownMenuContent children",
+        "preferredComponentSets": [
+          ".context-menu-separator",
+          ".context-menu-item",
+          ".context-menu-label"
+        ],
+        "note": "Menu panel reuses ContextMenu content frame tokens and child part instances."
+      }
+    },
+    "defaultComposition": {
+      "Default": {
+        "trigger": { "component": "Button", "appearance": "Outline", "size": "Default", "label": "Open menu" },
+        "content": [
+          { "kind": "item", "label": "Profile" },
+          { "kind": "item", "label": "Billing" },
+          { "kind": "separator" },
+          { "kind": "item", "type": "Destructive", "label": "Delete team" }
+        ]
+      },
+      "Account": {
+        "trigger": { "component": "Button", "appearance": "Outline", "size": "Small", "label": "Account" },
+        "content": [
+          { "kind": "label", "label": "My account" },
+          { "kind": "separator" },
+          { "kind": "item", "label": "Profile" },
+          { "kind": "item", "label": "Billing" },
+          { "kind": "item", "label": "Sign out" }
+        ]
+      }
+    },
+    "composeFrom": {
+      "trigger": { "componentSet": "Button", "nodeId": "554:268" },
+      "menuParts": [
+        ".context-menu-label",
+        ".context-menu-item",
+        ".context-menu-separator"
+      ]
+    },
+    "tokenBindings": {
+      "panelFill": "uds/surface/primary",
+      "panelStroke": "uds/border/primary",
+      "panelRadius": "uds/radius/8",
+      "panelPadding": "uds/gap/4",
+      "triggerGap": "uds/gap/8"
+    },
+    "gridLayout": {
+      "cols": 2,
+      "cellWidth": 280,
+      "cellHeight": 300,
+      "gap": 24,
+      "padding": 40
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/dropdown-menu.tsx",
+    "exports": [
+      "DropdownMenu",
+      "DropdownMenuTrigger",
+      "DropdownMenuContent",
+      "DropdownMenuItem",
+      "DropdownMenuLabel",
+      "DropdownMenuSeparator"
+    ],
+    "structure": {
+      "DropdownMenuTrigger": "Trigger — Button instance (Outline)",
+      "DropdownMenuContent": "Content — compose .context-menu-* instances",
+      "DropdownMenuItem": ".context-menu-item Type=Default|Destructive|…",
+      "DropdownMenuLabel": ".context-menu-label",
+      "DropdownMenuSeparator": ".context-menu-separator"
+    },
+    "buttonSetNodeId": "554:268",
+    "contextMenuParts": {
+      ".context-menu-item": "1669:4570",
+      ".context-menu-label": "1670:4547",
+      ".context-menu-separator": "1670:4554"
+    }
+  }
+}

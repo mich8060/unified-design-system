@@ -1,0 +1,261 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "lastFigmaEdit": "WithShortcut uses Kbd component instances in shortcut frame",
+  "nodes": {
+    ".context-menu-item": {
+      "nodeId": "1669:4570",
+      "name": ".context-menu-item",
+      "width": 224,
+      "height": 536
+    },
+    ".context-menu-label": {
+      "nodeId": "1670:4547",
+      "name": ".context-menu-label",
+      "width": 224,
+      "height": 32
+    },
+    ".context-menu-separator": {
+      "nodeId": "1670:4554",
+      "name": ".context-menu-separator",
+      "width": 224,
+      "height": 9
+    },
+    "ContextMenu": {
+      "nodeId": "1671:4687",
+      "name": "ContextMenu",
+      "width": 1700,
+      "height": 320
+    }
+  },
+  ".context-menu-item": {
+    "nodeId": "1669:4570",
+    "description": "Atomic menu row variants. SubTrigger rows include a Submenu frame with Slot for nested ContextMenuSubContent. Compose instances inside ContextMenu Content slot.",
+    "variants": [
+      "Type=Default",
+      "Type=Focused",
+      "Type=Destructive",
+      "Type=DestructiveFocused",
+      "Type=Disabled",
+      "Type=SubTrigger",
+      "Type=SubTriggerFocused",
+      "Type=WithShortcut",
+      "Type=CheckboxChecked",
+      "Type=CheckboxUnchecked"
+    ],
+    "variantCount": 10,
+    "variantNodeIds": {
+      "Type=Default": "1669:4541",
+      "Type=Focused": "1669:4543",
+      "Type=Destructive": "1669:4545",
+      "Type=DestructiveFocused": "1669:4547",
+      "Type=Disabled": "1669:4549",
+      "Type=SubTrigger": "1669:4551",
+      "Type=SubTriggerFocused": "1669:4556",
+      "Type=WithShortcut": "1669:4562",
+      "Type=CheckboxChecked": "1669:4565",
+      "Type=CheckboxUnchecked": "1669:4568"
+    },
+    "gridLayout": {
+      "cols": 1,
+      "rows": 10,
+      "note": "Variants stacked vertically (224×32 each) in a single column."
+    },
+    "componentProperties": {
+      "Type": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": [
+          "Default",
+          "Focused",
+          "Destructive",
+          "DestructiveFocused",
+          "Disabled",
+          "SubTrigger",
+          "SubTriggerFocused",
+          "WithShortcut",
+          "CheckboxChecked",
+          "CheckboxUnchecked"
+        ],
+        "codeMapping": {
+          "Default": "ContextMenuItem",
+          "Focused": "ContextMenuItem focus:bg-accent",
+          "Destructive": "ContextMenuItem variant=\"destructive\"",
+          "DestructiveFocused": "ContextMenuItem variant=\"destructive\" focused",
+          "Disabled": "ContextMenuItem disabled",
+          "SubTrigger": "ContextMenuSubTrigger",
+          "SubTriggerFocused": "ContextMenuSubTrigger data-open",
+          "WithShortcut": "ContextMenuItem + ContextMenuShortcut",
+          "CheckboxChecked": "ContextMenuCheckboxItem checked",
+          "CheckboxUnchecked": "ContextMenuCheckboxItem"
+        }
+      },
+      "itemLabel": {
+        "type": "TEXT",
+        "propertyId": "itemLabel#1676:0",
+        "defaultValue": "Menu item",
+        "codeProp": "children / label text",
+        "linkedLayer": "label"
+      },
+      "shortcut": {
+        "type": "FRAME",
+        "linkedLayer": "shortcut",
+        "codeProp": "ContextMenuShortcut — compose Kbd instances (KbdGroup pattern)",
+        "composition": {
+          "layout": "horizontal auto-layout, uds/gap/4",
+          "children": "Kbd Appearance=Default per key character",
+          "examples": {
+            "default": ["⌘", "["],
+            "back": ["⌘", "["],
+            "forward": ["⌘", "]"]
+          }
+        },
+        "kbdSetNodeId": "1686:4530"
+      },
+      "Slot": {
+        "type": "SLOT",
+        "propertyId": "Slot#1636:12",
+        "linkedLayer": "Submenu/Slot",
+        "codeProp": "ContextMenuSubContent children",
+        "preferredComponentSets": [
+          ".context-menu-item",
+          ".context-menu-label",
+          ".context-menu-separator"
+        ],
+        "note": "Present on Type=SubTrigger and Type=SubTriggerFocused. Drop nested menu rows or a composed panel into Submenu → Slot."
+      }
+    },
+    "layerNaming": {
+      "root": ".context-menu-item",
+      "label": "label",
+      "shortcut": "shortcut (Kbd × n in horizontal group)",
+      "icon": "icon (Icon Size=16 → Icon/CaretRight)",
+      "check": "check",
+      "submenu": "Submenu",
+      "submenuSlot": "Submenu/Slot"
+    },
+    "tokens": {
+      "rowPadding": "uds/gap/12 horizontal, uds/gap/6 vertical",
+      "focusFill": "uds/surface/tertiary",
+      "destructiveText": "uds/system/destructive/primary",
+      "destructiveFocusFill": "uds/system/destructive/quaternary",
+      "text": "Body/14/Regular",
+      "shortcutKbd": "Kbd Appearance=Default (1686:4530)",
+      "caretIcon": "Icon Size=16 → Icon/CaretRight (1033:1857)"
+    }
+  },
+  ".context-menu-label": {
+    "nodeId": "1670:4547",
+    "description": "Section label row (ContextMenuLabel).",
+    "variants": ["Label=Default"],
+    "variantCount": 1,
+    "variantNodeIds": {
+      "Label=Default": "1670:4545"
+    },
+    "componentProperties": {
+      "sectionLabel": {
+        "type": "TEXT",
+        "propertyId": "sectionLabel#1676:22",
+        "defaultValue": "Navigation",
+        "codeProp": "ContextMenuLabel children",
+        "linkedLayer": "label"
+      }
+    },
+    "tokens": {
+      "text": "Body/14/Semibold",
+      "fill": "uds/text/secondary"
+    }
+  },
+  ".context-menu-separator": {
+    "nodeId": "1670:4554",
+    "description": "Horizontal divider between menu groups (ContextMenuSeparator).",
+    "variants": ["Separator=Default"],
+    "variantCount": 1,
+    "variantNodeIds": {
+      "Separator=Default": "1670:4552"
+    },
+    "tokens": {
+      "line": "uds/border/primary",
+      "margin": "uds/gap/4 vertical"
+    }
+  },
+  "ContextMenu": {
+    "nodeId": "1671:4687",
+    "description": "Popover shell with Content slot for composing label, items, separators, and destructive actions. Nested submenus use SubTrigger rows + Submenu/Slot on .context-menu-item.",
+    "variants": ["Recipe=Default"],
+    "variantCount": 1,
+    "variantNodeIds": {
+      "Recipe=Default": "1671:4545"
+    },
+    "sizes": {
+      "panel": { "width": 224, "height": 194 }
+    },
+    "componentProperties": {
+      "Recipe": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default"],
+        "codeMapping": {
+          "Default": "ContextMenuContent — compose child part instances in Content slot"
+        }
+      },
+      "Content": {
+        "type": "SLOT",
+        "propertyId": "Content#1636:10",
+        "linkedLayer": "Content",
+        "codeProp": "ContextMenuContent children",
+        "preferredComponentSets": [
+          ".context-menu-separator",
+          ".context-menu-item",
+          ".context-menu-label"
+        ]
+      }
+    },
+    "defaultComposition": {
+      "slot": "Content",
+      "children": [
+        { "instance": ".context-menu-label", "variant": "Label=Default" },
+        { "instance": ".context-menu-item", "variant": "Type=WithShortcut", "note": "Back ⌘[" },
+        { "instance": ".context-menu-item", "variant": "Type=WithShortcut", "note": "Forward ⌘]" },
+        { "instance": ".context-menu-separator", "variant": "Separator=Default" },
+        { "instance": ".context-menu-item", "variant": "Type=Default" },
+        { "instance": ".context-menu-separator", "variant": "Separator=Default" },
+        { "instance": ".context-menu-item", "variant": "Type=Destructive", "note": "Delete" }
+      ]
+    },
+    "structure": {
+      "contentSlot": "Content — vertical auto-layout, 8px vertical padding, 8px corner radius, 1px border (popover panel)",
+      "nestedSubmenu": "Use Type=SubTriggerFocused in Content; attach nested rows to Submenu/Slot on the item instance"
+    },
+    "composeFrom": [
+      ".context-menu-label",
+      ".context-menu-item",
+      ".context-menu-separator"
+    ]
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/context-menu.tsx",
+    "exports": [
+      "ContextMenu",
+      "ContextMenuTrigger",
+      "ContextMenuContent",
+      "ContextMenuItem",
+      "ContextMenuSub",
+      "ContextMenuSubTrigger",
+      "ContextMenuSubContent",
+      "ContextMenuLabel",
+      "ContextMenuSeparator",
+      "ContextMenuShortcut",
+      "ContextMenuCheckboxItem"
+    ],
+    "structure": {
+      "ContextMenuContent": "ContextMenu → Content slot",
+      "ContextMenuSubContent": ".context-menu-item Submenu/Slot on SubTrigger rows",
+      "ContextMenuItem": ".context-menu-item Type=Default|Focused|Destructive|…",
+      "ContextMenuSubTrigger": ".context-menu-item Type=SubTrigger|SubTriggerFocused"
+    },
+    "iconSetNodeId": "501:6",
+    "caretRightIconComponentId": "1033:1857"
+  }
+}

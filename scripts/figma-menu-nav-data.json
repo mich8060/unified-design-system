@@ -1,0 +1,131 @@
+{
+  "brandToAppearance": {
+    "Default": "Design System",
+    "CHG": "Design System",
+    "CompHealth": "MyCompHealth",
+    "Weatherby": "MyWeatherby",
+    "Connect": "Connect",
+    "Locumsmart": "Locumsmart",
+    "Modio": "Modio",
+    "GMS": "Design System",
+    "Wireframe": "Wireframe"
+  },
+  "navigationByBrand": {
+    "Default": [
+      { "label": "Dashboard", "icon": "Layout", "active": true },
+      { "label": "Requests", "icon": "Briefcase" },
+      { "label": "Providers", "icon": "Users" },
+      { "label": "Calendar", "icon": "CalendarBlank" },
+      { "label": "Reporting", "icon": "ChartBar" }
+    ],
+    "CHG": [
+      { "label": "Dashboard", "icon": "Layout", "active": true },
+      { "label": "Requests", "icon": "Briefcase" },
+      { "label": "Providers", "icon": "Users" },
+      { "label": "Scheduling", "icon": "CalendarPlus" },
+      {
+        "label": "Pooling",
+        "icon": "UserList",
+        "expanded": true,
+        "children": [
+          { "label": "Open requisitions" },
+          { "label": "Candidates" }
+        ]
+      },
+      { "label": "Escalations", "icon": "SortDescending" },
+      { "label": "Calendar", "icon": "CalendarBlank" },
+      { "label": "Reporting", "icon": "ChartBar" }
+    ],
+    "CompHealth": [
+      { "label": "Dashboard", "icon": "Layout", "active": true },
+      { "label": "Schedule", "icon": "CalendarBlank" },
+      { "label": "Job Board", "icon": "Briefcase" },
+      { "label": "Application", "icon": "NotePencil" },
+      {
+        "label": "Documents",
+        "icon": "FolderOpen",
+        "expanded": true,
+        "children": [
+          { "label": "Credentialing" },
+          { "label": "Financial" }
+        ]
+      },
+      { "label": "Time Entry", "icon": "Clock" },
+      { "label": "Travel", "icon": "Airplane" }
+    ],
+    "Weatherby": [
+      { "label": "Dashboard", "icon": "Layout", "active": true },
+      { "label": "Schedule", "icon": "CalendarBlank" },
+      { "label": "Job Board", "icon": "Briefcase" },
+      { "label": "Application", "icon": "NotePencil" },
+      {
+        "label": "Documents",
+        "icon": "FolderOpen",
+        "expanded": true,
+        "children": [
+          { "label": "Credentialing" },
+          { "label": "Financial" }
+        ]
+      },
+      { "label": "Time Entry", "icon": "Clock" },
+      { "label": "Travel", "icon": "Airplane" }
+    ],
+    "Connect": [
+      { "label": "Dashboard", "icon": "Layout", "active": true },
+      { "label": "Requests", "icon": "Briefcase" },
+      { "label": "Providers", "icon": "Users" },
+      { "label": "Scheduling", "icon": "CalendarPlus" },
+      {
+        "label": "Pooling",
+        "icon": "UserList",
+        "expanded": true,
+        "children": [
+          { "label": "Open requisitions" },
+          { "label": "Candidates" }
+        ]
+      },
+      { "label": "Escalations", "icon": "SortDescending" },
+      { "label": "Calendar", "icon": "CalendarBlank" },
+      { "label": "Reporting", "icon": "ChartBar" }
+    ],
+    "Locumsmart": [
+      { "label": "Dashboard", "icon": "Layout", "active": true },
+      { "label": "Workflow", "icon": "FolderOpen" },
+      { "label": "CRM", "icon": "Users" },
+      { "label": "Analytics", "icon": "ChartBar" },
+      { "label": "Administration", "icon": "BuildingApartment" }
+    ],
+    "Modio": [
+      { "label": "Dashboard", "icon": "Layout", "active": true },
+      { "label": "Reports", "icon": "FolderOpen" },
+      { "label": "Providers", "icon": "Users" },
+      { "label": "Facilities", "icon": "Buildings" },
+      { "label": "Payors", "icon": "Wallet" },
+      { "label": "Tracking", "icon": "GpsFix" }
+    ],
+    "GMS": [
+      { "label": "Dashboard", "icon": "Layout", "active": true },
+      { "label": "Schedule", "icon": "CalendarBlank" },
+      { "label": "Job Board", "icon": "Briefcase" },
+      { "label": "Application", "icon": "NotePencil" },
+      {
+        "label": "Documents",
+        "icon": "FolderOpen",
+        "expanded": true,
+        "children": [
+          { "label": "Credentialing" },
+          { "label": "Financial" }
+        ]
+      },
+      { "label": "Time Entry", "icon": "Clock" },
+      { "label": "Travel", "icon": "Airplane" }
+    ],
+    "Wireframe": [
+      { "label": "Menu Item", "active": true },
+      { "label": "Menu Item" },
+      { "label": "Menu Item" },
+      { "label": "Menu Item" },
+      { "label": "Menu Item" }
+    ]
+  }
+}
