@@ -80,8 +80,10 @@ function ComboboxInput({
     showClear?: boolean
   }) {
   const size = inputSize ?? "default"
+  const groupClassName = typeof className === "string" ? className : undefined
+  const inputClassName = typeof className === "function" ? className : undefined
   return (
-    <ComboboxInputGroupShell inputSize={size} className={className}>
+    <ComboboxInputGroupShell inputSize={size} className={groupClassName}>
       <ComboboxPrimitive.Input
         render={
           <InputGroupInput
@@ -91,6 +93,7 @@ function ComboboxInput({
           />
         }
         disabled={disabled}
+        className={inputClassName}
         {...props}
       />
       <InputGroupAddon align="inline-end" className={comboboxAddonClass}>
