@@ -9,7 +9,9 @@ docs-dist/
 # Scratch / generated artifacts
 .npm-cache/
 .tmp/
-.audit/
+.audit/*
+!.audit/bundle-budget.json
+!.audit/entry-*.mjs
 
 # Environment files
 .env
