@@ -32,16 +32,14 @@ export function CodePanel({ code, label = 'Code', language = 'tsx' }: Props) {
   const [copied, setCopied] = useState(false)
   const [html, setHtml] = useState<string | null>(null)
   const trimmed = code.trim()
+  const isPlainText = language === 'text'
 
   useEffect(() => {
-    let cancelled = false
-
-    if (language === 'text') {
-      setHtml('')
-      return () => {
-        cancelled = true
-      }
+    if (isPlainText) {
+      return
     }
+
+    let cancelled = false
 
     const preferred: DocsCodeLanguage = language
     void (async () => {
@@ -72,7 +70,7 @@ export function CodePanel({ code, label = 'Code', language = 'tsx' }: Props) {
     return () => {
       cancelled = true
     }
-  }, [trimmed, language])
+  }, [trimmed, language, isPlainText])
 
   async function copy() {
     await navigator.clipboard.writeText(trimmed)
@@ -80,7 +78,7 @@ export function CodePanel({ code, label = 'Code', language = 'tsx' }: Props) {
     window.setTimeout(() => setCopied(false), 2000)
   }
 
-  const showHighlighted = html !== null && html !== ''
+  const showHighlighted = !isPlainText && html !== null && html !== ''
 
   return (
     <div className="group relative overflow-hidden rounded-[8px] border border-neutral-200 bg-neutral-950 dark:border-neutral-800">
