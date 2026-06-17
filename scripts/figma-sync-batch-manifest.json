@@ -1,0 +1,25 @@
+{
+  "sourceFileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "targetFileKey": "LkIyThUA0oVNsDEAyOF7ER",
+  "batches": [
+    { "collection": "Colors", "start": 0, "end": 66, "status": "imported" },
+    { "collection": "Colors", "start": 66, "end": 132, "status": "exported" },
+    { "collection": "Colors", "start": 132, "end": 198, "status": "pending" },
+    { "collection": "Colors", "start": 198, "end": 263, "status": "pending" },
+    { "collection": "Layout", "start": 0, "end": 82, "status": "pending" },
+    { "collection": "Brand", "start": 0, "end": 40, "status": "pending" },
+    { "collection": "Brand", "start": 40, "end": 80, "status": "pending" },
+    { "collection": "Brand", "start": 80, "end": 120, "status": "pending" },
+    { "collection": "Brand", "start": 120, "end": 160, "status": "pending" },
+    { "collection": "Brand", "start": 160, "end": 200, "status": "pending" },
+    { "collection": "Brand", "start": 200, "end": 240, "status": "pending" },
+    { "collection": "Brand", "start": 240, "end": 280, "status": "pending" },
+    { "collection": "Brand", "start": 280, "end": 320, "status": "pending" },
+    { "collection": "Brand", "start": 320, "end": 360, "status": "pending" },
+    { "collection": "Brand", "start": 360, "end": 400, "status": "pending" },
+    { "collection": "Brand", "start": 400, "end": 440, "status": "pending" },
+    { "collection": "Brand", "start": 440, "end": 456, "status": "pending" },
+    { "collection": "Typography", "start": 0, "end": 16, "status": "pending" },
+    { "collection": "Responsive", "start": 0, "end": 38, "status": "pending" }
+  ]
+}

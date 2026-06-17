@@ -109,22 +109,7 @@ export const june2026Content: ReadoutMonthContent = {
       milestone: 'Resourcing decision needed',
     },
   ],
-  roadmapEmbedUrl: '/roadmap/roadmap.html',
-  roadmapDetailsSummary: (
-    <>
-      <p>
-        The Partnership Model remains the primary risk and is unchanged from last month: the design
-        system still has no named Product or Engineering partners, and one person spans both
-        design-system design and engineering—so adoption work continues to compete with foundation
-        delivery. The pending resourcing decision is still the gating item.
-      </p>
-      <p>
-        LocumSmart and Connect UDS readiness stay pending, sequenced after core UDS work and
-        capacity. Full risk breakdown and the specific unblock asks were reported in the May
-        readout.
-      </p>
-    </>
-  ),
+  roadmapEmbedUrl: '/roadmap/embed.html',
   next30Cards: [
     {
       title: 'Credentialing UDS readiness',

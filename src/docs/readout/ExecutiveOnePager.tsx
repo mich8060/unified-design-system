@@ -135,6 +135,20 @@ function isExternalHref(href: string) {
   return /^https?:\/\//i.test(href)
 }
 
+const ROADMAP_EMBED_HEIGHT = 800
+
+function RoadmapEmbed({ src }: { src: string }) {
+  return (
+    <iframe
+      src={src}
+      title="Design System 2026 Roadmap"
+      loading="lazy"
+      className="block w-full border-0"
+      style={{ height: ROADMAP_EMBED_HEIGHT }}
+    />
+  )
+}
+
 export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent }) {
   const roadmapRows = content.roadmapRows ?? roadmapStatusRows
 
@@ -234,24 +248,23 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
 
       <ReadoutDocSection title="Roadmap Status">
         <RoadmapStatusSection rows={roadmapRows} />
-        {content.roadmapEmbedUrl ? (
-          <div
-            className={cn(
-              docPagePanelClassName,
-              'mt-4 overflow-hidden p-0 sm:mt-5 print:hidden',
-            )}
-          >
-            <iframe
-              src={content.roadmapEmbedUrl}
-              title="Roadmap"
-              loading="lazy"
-              className="block h-[600px] w-full border-0"
-            />
-          </div>
-        ) : null}
       </ReadoutDocSection>
 
       <RoadmapLinkedRisks summary={content.roadmapDetailsSummary} />
+
+      {content.roadmapEmbedUrl ? (
+        <ReadoutDocSection title="Roadmap" className="print:hidden">
+          <div className={cn(docPagePanelClassName, 'overflow-hidden p-0')}>
+            <RoadmapEmbed
+              src={
+                isExternalHref(content.roadmapEmbedUrl)
+                  ? content.roadmapEmbedUrl
+                  : withBasePath(content.roadmapEmbedUrl)
+              }
+            />
+          </div>
+        </ReadoutDocSection>
+      ) : null}
 
       <ReadoutDocSection title="Next 30 Days">
         <div className="flex flex-wrap gap-4 md:gap-6 [&>*]:min-w-0 [&>*]:flex-[1_1_280px] md:[&>*]:flex-1">

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UDS Performance Audit — June 16, 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    color: #1a1a1a;
+    background: #fff;
+    padding: 0;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 48px 64px;
+  }
+
+  /* ── header ── */
+  .report-header {
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 16px;
+    margin-bottom: 32px;
+  }
+  .report-title {
+    font-size: 20pt;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .report-sub {
+    font-size: 10pt;
+    color: #666;
+    margin-top: 4px;
+  }
+  .report-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 12px;
+    font-size: 9pt;
+    color: #555;
+  }
+  .report-meta span { white-space: nowrap; }
+  .report-meta strong { color: #1a1a1a; }
+
+  /* ── section ── */
+  .section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 0.5px solid #e0e0e0;
+  }
+
+  /* ── comparison table ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+    table-layout: fixed;
+  }
+  col.metric { width: 26%; }
+  col.before { width: 28%; }
+  col.after  { width: 28%; }
+  col.delta  { width: 18%; }
+
+  thead th {
+    font-size: 8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #888;
+    padding: 6px 10px 5px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  tbody tr { border-bottom: 0.5px solid #ebebeb; }
+  tbody tr:last-child { border-bottom: none; }
+  td {
+    padding: 9px 10px;
+    vertical-align: top;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+  td.metric { color: #555; font-size: 9pt; }
+  td.before { color: #1a1a1a; }
+  td.after  { color: #1a1a1a; }
+
+  .val-bad  { color: #993C1D; font-weight: 600; }
+  .val-good { color: #0F6E56; font-weight: 600; }
+  .sub      { font-size: 8pt; color: #888; font-weight: 400; display: block; margin-top: 2px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 8pt;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .badge.better { background: #E1F5EE; color: #0F6E56; }
+  .badge.new    { background: #EEF4FF; color: #185FA5; }
+  .badge.pass   { background: #E1F5EE; color: #0F6E56; }
+
+  /* ── budget mini-table ── */
+  .budget-table { margin-top: 8px; }
+  .budget-table table { font-size: 8.5pt; }
+  .budget-table thead th { font-size: 7.5pt; }
+  .budget-table col.bcomp { width: 30%; }
+  .budget-table col.bgzip { width: 22%; }
+  .budget-table col.bbudg { width: 22%; }
+  .budget-table col.bstat { width: 26%; }
+
+  /* ── summary callout ── */
+  .callout {
+    background: #f7f7f7;
+    border-left: 3px solid #1a1a1a;
+    padding: 12px 16px;
+    margin-bottom: 28px;
+    font-size: 9.5pt;
+    line-height: 1.6;
+    color: #333;
+  }
+  .callout strong { color: #1a1a1a; }
+
+  /* ── open items ── */
+  .open-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 10px;
+    border: 0.5px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 9pt;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  .open-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #BA7517;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  /* ── footer ── */
+  .report-footer {
+    margin-top: 40px;
+    padding-top: 12px;
+    border-top: 0.5px solid #e0e0e0;
+    font-size: 8pt;
+    color: #aaa;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { padding: 32px 40px 48px; }
+    .section { page-break-inside: avoid; }
+    table { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="report-header">
+    <div class="report-title">UDS Performance Audit</div>
+    <div class="report-sub">@chghealthcare/unified-design-system — before &amp; after report</div>
+    <div class="report-meta">
+      <span><strong>Date:</strong> June 16, 2026</span>
+      <span><strong>Package:</strong> v1.0.6</span>
+      <span><strong>Prepared by:</strong> Michael Stevens</span>
+      <span><strong>Branch:</strong> main</span>
+    </div>
+  </div>
+
+  <div class="callout">
+    Audit covered bundle size, CSS delivery, font loading, tree-shaking, and component runtime footprint.
+    <strong>10 of 11 findings resolved.</strong> All 4 per-component gzip budgets passing in CI.
+    One cosmetic build warning remains (pre-existing, no runtime impact).
+  </div>
+
+  <!-- ── FONT & CSS ── -->
+  <div class="section">
+    <div class="section-title">Font &amp; CSS delivery</div>
+    <table>
+      <colgroup><col class="metric"><col class="before"><col class="after"><col class="delta"></colgroup>
+      <thead>
+        <tr><th>Metric</th><th>Before</th><th>After</th><th>Delta</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric">@font-face position in styles.css</td>
+          <td class="before"><span class="val-bad">71% into file</span><span class="sub">~byte 203 K of 287 K</span></td>
+          <td class="after"><span class="val-good">0% into file</span><span class="sub">byte 2,480 of 332 K</span></td>
+          <td><span class="badge better">−71%</span></td>
+        </tr>
+        <tr>
+          <td class="metric">Font &lt;link rel=preload&gt; in entry files</td>
+          <td class="before"><span class="val-bad">Not injected</span></td>
+          <td class="after"><span class="val-good">All 4 docs entry files</span><span class="sub">Inter-Variable.woff2 preloaded at startup</span></td>
+          <td><span class="badge better">added</span></td>
+        </tr>
+        <tr>
+          <td class="metric">styles.css raw size</td>
+          <td class="before">~617 KB raw<span class="sub">256 KB gzip</span></td>
+          <td class="after"><span class="val-good">332 KB raw</span><span class="sub">~45 KB gzip</span></td>
+          <td><span class="badge better">−46% raw</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── CSS ARCHITECTURE ── -->
+  <div class="section">
+    <div class="section-title">CSS architecture</div>
+    <table>
+      <colgroup><col class="metric"><col class="before"><col class="after"><col class="delta"></colgroup>
+      <thead>
+        <tr><th>Metric</th><th>Before</th><th>After</th><th>Delta</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric">styles/base.css<br>(no AppShell/Menu chrome)</td>
+          <td class="before"><span class="val-bad">Did not exist</span></td>
+          <td class="after"><span class="val-good">dist/styles-base.css</span><span class="sub">540 KB raw — 0 AppShell/Menu selectors</span></td>
+          <td><span class="badge new">new</span></td>
+        </tr>
+        <tr>
+          <td class="metric">Invalid Tailwind [font-size:var()] classes</td>
+          <td class="before"><span class="val-bad">2 components</span><span class="sub">tabs.tsx, tooltip.tsx — generating CSS optimizer warnings</span></td>
+          <td class="after"><span class="val-good">0 occurrences</span><span class="sub">Moved to inline style props; 0 warnings from affected components</span></td>
+          <td><span class="badge better">fixed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── TREE-SHAKING ── -->
+  <div class="section">
+    <div class="section-title">Tree-shaking &amp; barrel exports</div>
+    <table>
+      <colgroup><col class="metric"><col class="before"><col class="after"><col class="delta"></colgroup>
+      <thead>
+        <tr><th>Metric</th><th>Before</th><th>After</th><th>Delta</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric">Heavy components in main barrel</td>
+          <td class="before"><span class="val-bad">7 re-exported</span><span class="sub">chart, command, drawer, micro-calendar, resizable, sonner, docs-nav</span></td>
+          <td class="after"><span class="val-good">0</span><span class="sub">All behind dedicated subpath exports (./chart, ./command, etc.)</span></td>
+          <td><span class="badge better">−7</span></td>
+        </tr>
+        <tr>
+          <td class="metric">Menu subpath export</td>
+          <td class="before"><span class="val-bad">None</span><span class="sub">Consumers required full lib import</span></td>
+          <td class="after"><span class="val-good">@chghealthcare/uds/menu</span><span class="sub">Isolated in package.json exports map</span></td>
+          <td><span class="badge new">new</span></td>
+        </tr>
+        <tr>
+          <td class="metric">Bare react-day-picker side-effect in dist</td>
+          <td class="before"><span class="val-bad">Present</span><span class="sub">import "react-day-picker" in date-range-input.js</span></td>
+          <td class="after"><span class="val-good">Absent</span><span class="sub">import type (statement-level) fully erased by esbuild</span></td>
+          <td><span class="badge better">fixed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── RUNTIME FOOTPRINT ── -->
+  <div class="section">
+    <div class="section-title">Runtime &amp; component footprint</div>
+    <table>
+      <colgroup><col class="metric"><col class="before"><col class="after"><col class="delta"></colgroup>
+      <thead>
+        <tr><th>Metric</th><th>Before</th><th>After</th><th>Delta</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric">Branding SVG loading</td>
+          <td class="before"><span class="val-bad">14 url.js modules loaded eagerly</span><span class="sub">~100 KB on first Branding import regardless of which brand is used</span></td>
+          <td class="after"><span class="val-good">Lazy — 1 brand loads on render</span><span class="sub">branding.js: 3.2 KB raw / 1.0 KB gzip. SVG chunks split per-brand.</span></td>
+          <td><span class="badge better">−93%</span></td>
+        </tr>
+        <tr>
+          <td class="metric">react-router-dom in AppShell</td>
+          <td class="before"><span class="val-bad">Static import — always loaded</span><span class="sub">Even when enableRouterOutlet=false, the module was required</span></td>
+          <td class="after"><span class="val-good">React.lazy — deferred</span><span class="sub">Dynamic import fires only when Outlet actually renders</span></td>
+          <td><span class="badge better">lazy</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── CI BUDGETS ── -->
+  <div class="section">
+    <div class="section-title">CI gzip budget checks — new in this session</div>
+    <p style="font-size:9pt;color:#555;margin-bottom:10px;">
+      <code>npm run ci:bundle</code> now measures each component tree individually (node_modules external),
+      reports raw + gzip sizes, and exits non-zero if any budget is exceeded.
+    </p>
+    <div class="budget-table">
+      <table>
+        <colgroup><col class="bcomp"><col class="bgzip"><col class="bbudg"><col class="bstat"></colgroup>
+        <thead>
+          <tr><th>Component</th><th>Gzip size</th><th>Budget</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>button</td>
+            <td>1.4 KB</td>
+            <td>2.9 KB</td>
+            <td><span class="badge pass">✓ pass</span></td>
+          </tr>
+          <tr>
+            <td>menu</td>
+            <td>45.3 KB</td>
+            <td>48.8 KB</td>
+            <td><span class="badge pass">✓ pass</span></td>
+          </tr>
+          <tr>
+            <td>branding</td>
+            <td>33.7 KB</td>
+            <td>36.1 KB</td>
+            <td><span class="badge pass">✓ pass</span></td>
+          </tr>
+          <tr>
+            <td>app-shell</td>
+            <td>4.1 KB</td>
+            <td>11.7 KB</td>
+            <td><span class="badge pass">✓ pass</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    <span>@chghealthcare/unified-design-system v1.0.6 — Performance Audit — June 16, 2026</span>
+    <span>Created by Michael Stevens with assistance from AI. Data elements not reviewed by CHG's analytics team.</span>
+  </div>
+
+</div>
+</body>
+</html>
