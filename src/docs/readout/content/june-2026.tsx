@@ -86,7 +86,7 @@ export const june2026Content: ReadoutMonthContent = {
     },
     {
       initiative: 'Credentialing UDS readiness',
-      status: 'Pending',
+      status: 'In motion',
       outcome: 'DS ready for Credentialing workflows',
       milestone: 'Q2–Q3 readiness checkpoint',
     },
@@ -98,7 +98,7 @@ export const june2026Content: ReadoutMonthContent = {
     },
     {
       initiative: 'Connect UDS readiness',
-      status: 'Pending',
+      status: 'In motion',
       outcome: 'DS ready for Connect workflows',
       milestone: 'Sequenced after core UDS + capacity',
     },

@@ -13,6 +13,7 @@ const statusBadgeConfig: Record<
   { accent: BadgeAccent; appearance: "solid" | "pastel" }
 > = {
   "In Progress": { accent: "green", appearance: "solid" },
+  "In motion": { accent: "blue", appearance: "pastel" },
   Complete: { accent: "green", appearance: "solid" },
   "On Track": { accent: "green", appearance: "pastel" },
   "At Risk": { accent: "yellow", appearance: "solid" },
