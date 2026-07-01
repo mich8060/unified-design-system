@@ -79,6 +79,76 @@ const STRING_ANTI_PATTERNS = [
   },
 ]
 
+/** Prose anti-patterns already enforced by STRING_ANTI_PATTERNS or forbidden imports */
+const COVERED_ANTI_PATTERN_RE =
+  /docs-site-data-brand|Sidebar\* in AppShell\.menu|\.appshell--main\s*>\s*:first-child|sidebarWidth|showListview|mainClassName|src\/components\/ui|dist\/\*/i
+
+/**
+ * Derive machine-checkable rules from contract anti-pattern prose.
+ * @param {string} anti
+ * @returns {{ id: string, message: string, lineRe: RegExp, test: (content: string) => boolean }[]}
+ */
+function deriveAntiPatternChecks(anti) {
+  /** @type {{ id: string, message: string, lineRe: RegExp, test: (content: string) => boolean }[]} */
+  const checks = []
+
+  if (/fixed inset-y-0 rail CSS/i.test(anti)) {
+    checks.push({
+      id: "anti-sidebar-fixed-rail",
+      message: anti,
+      lineRe: /\bfixed\s+inset-y-0\b/,
+      test: (content) => /\bfixed\s+inset-y-0\b/.test(content),
+    })
+  }
+
+  if (COVERED_ANTI_PATTERN_RE.test(anti)) return checks
+
+  if (/react-router-dom fills AppShell/i.test(anti)) {
+    checks.push({
+      id: "anti-router-without-layout-route",
+      message: anti,
+      lineRe: /\bAppShell\b/,
+      test: (content) =>
+        /from\s+["']react-router-dom["']/.test(content) &&
+        /\bAppShell\b/.test(content) &&
+        !/<Route\b|createBrowserRouter|<Outlet\b/.test(content),
+    })
+  }
+
+  if (/stock shadcn layout patterns/i.test(anti)) {
+    checks.push({
+      id: "anti-shadcn-ui-import",
+      message: anti,
+      lineRe: /from\s+["']@\/components\/ui\//,
+      test: (content) => /from\s+["']@\/components\/ui\//.test(content),
+    })
+  }
+
+  if (/parallel component system/i.test(anti)) {
+    checks.push({
+      id: "anti-parallel-primitive-component",
+      message: anti,
+      lineRe: /(?:function|const)\s+Custom(?:Button|Badge|Status|Field)\b/,
+      test: (content) =>
+        /(?:function|const)\s+Custom(?:Button|Badge|Status|Field)\b/.test(content),
+    })
+  }
+
+  if (/bespoke outer shell/i.test(anti)) {
+    checks.push({
+      id: "anti-bespoke-aside-shell",
+      message: anti,
+      lineRe: /<aside\b/,
+      test: (content) =>
+        /<aside\b[^>]*className=["'][^"']*(?:fixed|inset-y-0|min-h-(?:screen|dvh))/.test(content),
+    })
+  }
+
+  return checks
+}
+
+const CONTRACT_ANTI_PATTERN_CHECKS = ANTI_PATTERNS.flatMap(deriveAntiPatternChecks)
+
 /** @param {string} filePath */
 function getConsumerRoot(filePath) {
   const rel = path.relative(ROOT, filePath).replace(/\\/g, "/")
@@ -175,7 +245,6 @@ function matchesForbiddenPattern(importPath) {
   for (const pattern of FORBIDDEN_PATTERNS) {
     const glob = pattern.replace(/\*/g, ".*")
     if (new RegExp(`^${glob}$`).test(importPath)) return pattern
-    if (importPath.includes(pattern.replace(/\*/g, ""))) return pattern
   }
   return null
 }
@@ -270,13 +339,14 @@ function validateFile(filePath) {
     }
   }
 
-  for (const anti of ANTI_PATTERNS) {
-    const needle = anti.slice(0, Math.min(40, anti.length))
-    if (content.includes(needle)) {
-      // Only flag high-signal substrings to reduce noise
-      if (/docs-site-data-brand|Sidebar\* in AppShell\.menu|appshell--main > :first-child/.test(anti)) {
-        continue // already covered
-      }
+  for (const check of CONTRACT_ANTI_PATTERN_CHECKS) {
+    if (check.test(content)) {
+      violations.push({
+        file: rel,
+        rule: check.id,
+        line: findLine(lines, check.lineRe),
+        message: check.message,
+      })
     }
   }
 
