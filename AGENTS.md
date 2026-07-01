@@ -21,7 +21,7 @@ Canonical contract: [`ai/uds-contract.json`](./ai/uds-contract.json)
 
 ## Figma component builds
 
-When creating or updating UDS components in Figma (`use_figma`, Code Connect, token binding), treat [`figma.component.rules.md`](./figma.component.rules.md) as **normative**. Workflow and inventory: [`ai/guides/figma-component-build.md`](./ai/guides/figma-component-build.md), [`ai/figma-component-manifest.json`](./ai/figma-component-manifest.json).
+When creating or updating UDS components in Figma (`use_figma`, Code Connect, token binding), treat [`figma.component.rules.md`](./figma.component.rules.md) as **normative**. Workflow and inventory: [`ai/guides/figma-component-build.md`](./ai/guides/figma-component-build.md), [`ai/figma-component-manifest.json`](./ai/figma-component-manifest.json). Variable/token sync scripts: [`ai/guides/figma-variable-sync.md`](./ai/guides/figma-variable-sync.md).
 
 - Load **`figma-use`** and **`figma-generate-library`** before any mutating `use_figma` call.
 - **Never one-shot** a component — work in small sequential phases; validate with `get_metadata` / `get_screenshot` after each step.
