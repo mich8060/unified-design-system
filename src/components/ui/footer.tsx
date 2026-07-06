@@ -10,8 +10,10 @@ export type FooterLink = {
 export type FooterProps = React.ComponentProps<"footer"> & {
   /** Copyright text displayed on the left. */
   copyright?: string
-  /** Navigation links displayed on the right. */
+  /** Navigation links displayed in the Content slot on the right (Links=On). */
   links?: FooterLink[]
+  /** Custom Content slot — replaces the default link nav when `links` is provided. */
+  children?: React.ReactNode
 }
 
 function Footer({
@@ -21,20 +23,25 @@ function Footer({
   links,
   ...props
 }: FooterProps) {
+  const showLinks = links != null && links.length > 0
+
   return (
     <footer
       data-slot="uds-footer"
       className={cn(
-        "flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] px-4 py-2 text-xs text-[var(--uds-text-tertiary)]",
+        "flex h-10 shrink-0 items-center gap-[length:var(--uds-gap-12)] border-t border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] px-[length:var(--uds-gap-16)] py-[length:var(--uds-gap-8)] text-xs text-[var(--uds-text-tertiary)]",
         className,
       )}
       {...props}
     >
-      {children ?? (
+      {showLinks ? (
         <>
-          <span>{copyright}</span>
-          {links != null && links.length > 0 && (
-            <nav aria-label="Footer links" className="flex flex-wrap items-center gap-4">
+          <span className="min-w-0 flex-1">{copyright}</span>
+          {children ?? (
+            <nav
+              aria-label="Footer links"
+              className="flex shrink-0 items-center gap-[length:var(--uds-gap-16)]"
+            >
               {links.map((link) => (
                 <a
                   key={link.href}
@@ -47,6 +54,8 @@ function Footer({
             </nav>
           )}
         </>
+      ) : (
+        <span>{copyright}</span>
       )}
     </footer>
   )

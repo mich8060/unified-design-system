@@ -1,0 +1,104 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Footer": {
+      "nodeId": "2229:5569",
+      "name": "Footer",
+      "width": 2744,
+      "height": 128
+    }
+  },
+  "Footer": {
+    "nodeId": "2229:5569",
+    "description": "App shell footer bar with copyright and optional right-aligned link slot.",
+    "variants": ["Links=Off", "Links=On"],
+    "variantCount": 2,
+    "variantNodeIds": {
+      "Links=Off": "2229:5562",
+      "Links=On": "2229:5564"
+    },
+    "width": 1280,
+    "height": 40,
+    "gridLayout": {
+      "cols": 2,
+      "cellWidth": 1320,
+      "cellHeight": 48
+    },
+    "componentProperties": {
+      "Links": {
+        "type": "VARIANT",
+        "defaultValue": "Off",
+        "variantOptions": ["Off", "On"],
+        "codeMapping": {
+          "Off": "links omitted or empty array",
+          "On": "links array with one or more FooterLink entries"
+        }
+      },
+      "Copyright": {
+        "type": "TEXT",
+        "propertyId": "Copyright#2229:0",
+        "defaultValue": "© 2026 CHG Management, Inc. All rights reserved.",
+        "codeProp": "copyright",
+        "linkedLayer": ".copyright"
+      },
+      "Link 1": {
+        "type": "TEXT",
+        "propertyId": "Link 1#2229:3",
+        "defaultValue": "Privacy Policy",
+        "codeProp": "links[0].label (default slot content)",
+        "note": "Designer default for first link when Content slot is empty."
+      },
+      "Link 2": {
+        "type": "TEXT",
+        "propertyId": "Link 2#2229:6",
+        "defaultValue": "Terms & Conditions",
+        "codeProp": "links[1].label (default slot content)",
+        "note": "Designer default for second link when Content slot is empty."
+      },
+      "Content": {
+        "type": "SLOT",
+        "propertyId": "Content#2227:0",
+        "codeProp": "children",
+        "linkedLayer": "Content",
+        "note": "Links=On only. Horizontal slot for custom link rows; defaults to Link 1 + Link 2 text when empty."
+      }
+    },
+    "layerNaming": {
+      "copyright": ".copyright",
+      "contentSlot": "Content"
+    },
+    "layout": {
+      "Links=Off": {
+        "primaryAxisAlignItems": "MIN",
+        "counterAxisAlignItems": "CENTER",
+        "children": [".copyright (HUG)"]
+      },
+      "Links=On": {
+        "primaryAxisAlignItems": "MIN",
+        "counterAxisAlignItems": "CENTER",
+        "children": [".copyright (FILL, layoutGrow 1)", "Content (HUG slot, horizontal)"]
+      }
+    },
+    "tokens": {
+      "fill": "uds/surface/primary",
+      "stroke": "uds/border/primary",
+      "strokeWeight": "uds/border/width/1",
+      "paddingX": "uds/gap/16",
+      "paddingY": "uds/gap/8",
+      "itemGap": "uds/gap/12",
+      "contentGap": "uds/gap/16",
+      "textFill": "uds/text/tertiary",
+      "typography": "Body/12/Regular"
+    },
+    "composition": {
+      "AppShell.Footer": "Place Footer instance inside AppShell.Footer region; full width of main column."
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/footer.tsx",
+    "exports": ["Footer", "FooterLink", "FooterProps"],
+    "docsExamples": "src/docs/shadcn-examples/registry.tsx — default with Privacy Policy + Terms links"
+  }
+}

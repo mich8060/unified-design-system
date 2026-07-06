@@ -26,14 +26,21 @@ async function bindFill(node, varName) {
   node.fills = [{ ...bound, visible: true }]
 }
 
-async function bindStroke(node, varName, weight = 1) {
+async function bindStroke(node, varName, weightVarName = 'uds/border/width/1') {
   const v = await findVar(varName)
   if (!v || !('strokes' in node)) return
   node.strokes = [{ type: 'SOLID', color: { r: 0, g: 0, b: 0 } }]
-  node.strokeWeight = weight
   node.strokes = [
     figma.variables.setBoundVariableForPaint(node.strokes[0], 'color', v),
   ]
+  await bindStrokeWeight(node, weightVarName)
+}
+
+async function bindStrokeWeight(node, varName = 'uds/border/width/1') {
+  const v = await findVar(varName)
+  if (!v || !('strokeWeight' in node)) return false
+  node.setBoundVariable('strokeWeight', v)
+  return true
 }
 
 async function bindRadius(node, varName) {
@@ -80,6 +87,96 @@ async function loadInter() {
 
 function variantName(axes, combo) {
   return axes.map((ax, i) => `${ax}=${combo[i]}`).join(', ')
+}
+
+/** Link a text layer to one shared TEXT component property across all variants in a set. */
+function linkTextComponentProperty(componentSet, options = {}) {
+  const {
+    propertyName = 'label',
+    layerName = 'Label',
+    defaultValue = 'Label',
+  } = options
+  const defs = componentSet.componentPropertyDefinitions ?? {}
+  let propId = Object.keys(defs).find(
+    (key) =>
+      defs[key]?.type === 'TEXT' &&
+      (key === propertyName || key.startsWith(`${propertyName}#`)),
+  )
+  if (!propId) {
+    propId = componentSet.addComponentProperty(propertyName, 'TEXT', defaultValue)
+  }
+  let linked = 0
+  for (const variant of componentSet.children) {
+    const text =
+      variant.findOne((n) => n.type === 'TEXT' && n.name === layerName) ??
+      variant.findOne((n) => n.type === 'TEXT')
+    if (!text) continue
+    text.name = layerName
+    text.componentPropertyReferences = {
+      ...(text.componentPropertyReferences ?? {}),
+      characters: propId,
+    }
+    linked++
+  }
+  return { propId, linked }
+}
+
+/** Map a nested INSTANCE component property to a parent set TEXT/VARCHAR property. */
+function linkInstanceComponentProperty(instance, nestedPropKey, parentPropId) {
+  if (!instance || instance.type !== 'INSTANCE' || !parentPropId) return false
+  instance.componentPropertyReferences = {
+    ...(instance.componentPropertyReferences ?? {}),
+    [nestedPropKey]: parentPropId,
+  }
+  return true
+}
+
+function findComponentPropertyId(componentSet, propertyName) {
+  const defs = componentSet.componentPropertyDefinitions ?? {}
+  return Object.keys(defs).find(
+    (key) => key === propertyName || key.startsWith(`${propertyName}#`),
+  )
+}
+
+function ensureTextComponentProperty(componentSet, propertyName, defaultValue) {
+  const existing = findComponentPropertyId(componentSet, propertyName)
+  if (existing) return existing
+  return componentSet.addComponentProperty(propertyName, 'TEXT', defaultValue)
+}
+
+/** Link FileUploadCards card-row text layers to shared TEXT properties on the set. */
+function linkFileUploadCardTextProperties(componentSet, spec = {}) {
+  const titleProp = ensureTextComponentProperty(
+    componentSet,
+    'Title',
+    spec.titleDefault ?? 'Credentialing packet.pdf',
+  )
+  const metaProp = ensureTextComponentProperty(
+    componentSet,
+    'Metadata',
+    spec.metadataDefault ?? '1.1 MB · image/jpeg',
+  )
+  const errorProp = ensureTextComponentProperty(
+    componentSet,
+    'Error Message',
+    spec.errorDefault ?? 'Upload failed. Try again.',
+  )
+  const linkLayer = (variant, layerName, propId) => {
+    const text = variant.findOne((n) => n.type === 'TEXT' && n.name === layerName)
+    if (!text) return false
+    text.componentPropertyReferences = {
+      ...(text.componentPropertyReferences ?? {}),
+      characters: propId,
+    }
+    return true
+  }
+  let linked = 0
+  for (const variant of componentSet.children) {
+    if (linkLayer(variant, 'File name', titleProp)) linked++
+    if (linkLayer(variant, 'Metadata', metaProp)) linked++
+    if (linkLayer(variant, 'Error message', errorProp)) linked++
+  }
+  return { titleProp, metaProp, errorProp, linked }
 }
 
 function gridLayoutVariants(set, cols, cellW, cellH, gap = 24) {
@@ -237,6 +334,8 @@ async function buildFromSpec(spec) {
       await buildKbdVariant(comp, spec, axis)
     } else if (spec.kind === 'link') {
       await buildLinkVariant(comp, spec, axis)
+    } else if (spec.kind === 'footer') {
+      await buildFooterVariant(comp, spec, axis)
     } else if (spec.kind === 'text') {
       await buildTextVariant(comp, spec, axis)
     } else if (spec.kind === 'status') {
@@ -308,6 +407,22 @@ async function buildFromSpec(spec) {
   const cellW = spec.gridCellW ?? 280
   const cellH = spec.gridCellH ?? 64
   gridLayoutVariants(set, cols, cellW, cellH)
+
+  if (spec.kind === 'badge') {
+    linkTextComponentProperty(set, {
+      propertyName: 'label',
+      layerName: 'Label',
+      defaultValue: spec.label ?? 'Label',
+    })
+  }
+
+  if (spec.kind === 'file-upload-cards') {
+    linkFileUploadCardTextProperties(set, spec)
+  }
+
+  if (spec.kind === 'footer') {
+    linkFooterTextProperties(set, spec)
+  }
 
   return {
     skipped: false,
@@ -494,18 +609,23 @@ function resolveBadgeStyle(figmaAccent, figmaAppearance) {
 async function buildBadgeVariant(comp, spec, axis) {
   const sizeKey = axis.Size ?? 'Default'
   const shapeKey = axis.Shape ?? 'Pill'
-  const padH = spec.paddingH?.[sizeKey] ?? spec.paddingH ?? 8
   comp.layoutMode = 'HORIZONTAL'
   comp.primaryAxisAlignItems = 'CENTER'
   comp.counterAxisAlignItems = 'CENTER'
   comp.layoutSizingHorizontal = 'HUG'
   comp.layoutSizingVertical = 'HUG'
-  comp.paddingLeft = padH
-  comp.paddingRight = padH
-  comp.paddingTop = sizeKey === 'Small' ? 2 : 4
-  comp.paddingBottom = sizeKey === 'Small' ? 2 : 4
-  comp.itemSpacing = 8
-  await bindGap(comp, spec.gapVar ?? 'uds/gap/8')
+
+  const padHVar =
+    spec.paddingHVarBySize?.[sizeKey] ?? spec.paddingHVar ?? 'uds/gap/8'
+  const padVVar =
+    spec.paddingVVarBySize?.[sizeKey] ??
+    spec.paddingVVar ??
+    (sizeKey === 'Small' ? 'uds/gap/2' : 'uds/gap/4')
+  await bindPaddingAxis(comp, padHVar, 'paddingLeft')
+  await bindPaddingAxis(comp, padHVar, 'paddingRight')
+  await bindPaddingAxis(comp, padVVar, 'paddingTop')
+  await bindPaddingAxis(comp, padVVar, 'paddingBottom')
+  await bindGap(comp, spec.gapVar ?? 'uds/gap/4')
 
   const style = resolveBadgeStyle(axis.Accent, axis.Appearance)
   if (style.fill) await bindFill(comp, style.fill)
@@ -516,10 +636,14 @@ async function buildBadgeVariant(comp, spec, axis) {
   await bindRadius(comp, radiusToken)
 
   const text = figma.createText()
-  text.fontName = { family: 'Inter', style: 'Medium' }
-  text.fontSize = sizeKey === 'Small' ? 10 : 12
+  text.name = 'Label'
+  text.textAutoResize = 'WIDTH_AND_HEIGHT'
   text.characters = spec.label ?? 'Label'
-  await bindText(text, { fill: style.text })
+  await applyLocalTextStyle(
+    text,
+    spec.labelTextStyle ?? 'Body/12/Medium',
+    style.text,
+  )
   comp.appendChild(text)
   text.layoutSizingHorizontal = 'HUG'
 }
@@ -1100,6 +1224,113 @@ async function buildLinkVariant(comp, spec, axis) {
   if (axis.State === 'Hover') text.textDecoration = 'UNDERLINE'
   comp.appendChild(text)
   text.layoutSizingHorizontal = 'HUG'
+}
+
+/** Link Footer text layers and Content slot to shared component properties on the set. */
+function linkFooterTextProperties(componentSet, spec = {}) {
+  const copyrightProp = ensureTextComponentProperty(
+    componentSet,
+    'Copyright',
+    spec.copyright ?? '© 2026 CHG Management, Inc. All rights reserved.',
+  )
+  ensureTextComponentProperty(componentSet, 'Link 1', spec.link1 ?? 'Privacy Policy')
+  ensureTextComponentProperty(componentSet, 'Link 2', spec.link2 ?? 'Terms & Conditions')
+
+  let contentPropId = findComponentPropertyId(componentSet, 'Content')
+  if (!contentPropId) {
+    contentPropId = componentSet.addComponentProperty('Content', 'SLOT', '')
+  }
+
+  const linkLayer = (variant, layerName, propId) => {
+    const text = variant.findOne((n) => n.type === 'TEXT' && n.name === layerName)
+    if (!text) return false
+    text.componentPropertyReferences = {
+      ...(text.componentPropertyReferences ?? {}),
+      characters: propId,
+    }
+    return true
+  }
+
+  let linked = 0
+  for (const variant of componentSet.children) {
+    if (linkLayer(variant, '.copyright', copyrightProp)) linked++
+
+    const link1Prop = findComponentPropertyId(componentSet, 'Link 1')
+    const link2Prop = findComponentPropertyId(componentSet, 'Link 2')
+    if (linkLayer(variant, '.link-1', link1Prop)) linked++
+    if (linkLayer(variant, '.link-2', link2Prop)) linked++
+
+    const content = variant.findOne((n) => n.name === 'Content')
+    if (content) {
+      content.componentPropertyReferences = {
+        ...(content.componentPropertyReferences ?? {}),
+        slotContentId: contentPropId,
+      }
+    }
+  }
+  return { copyrightProp, contentPropId, linked }
+}
+
+async function buildFooterVariant(comp, spec, axis) {
+  const showLinks = axis.Links === 'On'
+  const width = spec.width ?? 1280
+
+  comp.layoutMode = 'HORIZONTAL'
+  comp.primaryAxisAlignItems = 'MIN'
+  comp.counterAxisAlignItems = 'CENTER'
+  comp.layoutSizingHorizontal = 'FIXED'
+  comp.layoutSizingVertical = 'HUG'
+  comp.clipsContent = false
+  comp.resize(width, 40)
+
+  await bindFill(comp, spec.fillVar ?? 'uds/surface/primary')
+  await bindStroke(comp, spec.strokeVar ?? 'uds/border/primary')
+  comp.strokeTopWeight = 1
+  comp.strokeRightWeight = 0
+  comp.strokeBottomWeight = 0
+  comp.strokeLeftWeight = 0
+
+  await bindPaddingAxis(comp, 'uds/gap/16', 'paddingLeft')
+  await bindPaddingAxis(comp, 'uds/gap/16', 'paddingRight')
+  await bindPaddingAxis(comp, 'uds/gap/8', 'paddingTop')
+  await bindPaddingAxis(comp, 'uds/gap/8', 'paddingBottom')
+  await bindGap(comp, 'uds/gap/12')
+
+  const copyright = figma.createText()
+  copyright.name = '.copyright'
+  copyright.characters =
+    spec.copyright ?? '© 2026 CHG Management, Inc. All rights reserved.'
+  await applyLocalTextStyle(copyright, 'Body/12/Regular', 'uds/text/tertiary')
+  comp.appendChild(copyright)
+  copyright.layoutSizingHorizontal = showLinks ? 'FILL' : 'HUG'
+  if (showLinks) copyright.layoutGrow = 1
+
+  if (showLinks) {
+    const content = figma.createFrame()
+    content.name = 'Content'
+    content.layoutMode = 'HORIZONTAL'
+    content.primaryAxisAlignItems = 'MIN'
+    content.counterAxisAlignItems = 'CENTER'
+    content.fills = []
+    await bindGap(content, 'uds/gap/16')
+
+    const link1 = figma.createText()
+    link1.name = '.link-1'
+    link1.characters = spec.link1 ?? 'Privacy Policy'
+    await applyLocalTextStyle(link1, 'Body/12/Regular', 'uds/text/tertiary')
+    content.appendChild(link1)
+    link1.layoutSizingHorizontal = 'HUG'
+
+    const link2 = figma.createText()
+    link2.name = '.link-2'
+    link2.characters = spec.link2 ?? 'Terms & Conditions'
+    await applyLocalTextStyle(link2, 'Body/12/Regular', 'uds/text/tertiary')
+    content.appendChild(link2)
+    link2.layoutSizingHorizontal = 'HUG'
+
+    comp.appendChild(content)
+    content.layoutSizingHorizontal = 'HUG'
+  }
 }
 
 async function buildTextVariant(comp, spec, axis) {
@@ -2272,9 +2503,10 @@ const FILE_UPLOAD_COPY = {
     helper: 'All files up to 10MB',
   },
   XS: {
-    instruction: 'Drop file or click',
-    helper: 'Max 10MB',
+    instruction: 'Drop file here or click to upload',
+    helper: 'All files up to 10MB',
     inline: true,
+    separator: '-',
   },
 }
 
@@ -2315,14 +2547,42 @@ async function createUploadMedallionInstance(spec, uploadSize) {
   return medallion
 }
 
-async function createBadgeInstance(badgeSetId, accent, appearance, label) {
-  const set = await figma.getNodeByIdAsync(badgeSetId ?? '746:341')
+async function createProgressInstance(setNodeId, value = 50) {
+  const set = await figma.getNodeByIdAsync(setNodeId ?? '623:227')
   if (set?.type !== 'COMPONENT_SET') return null
-  const variantName = `Accent=${accent}, Appearance=${appearance}`
-  const badgeComp = set.children.find((c) => c.name === variantName)
+  const pct = Math.max(0, Math.min(100, value))
+  const bucket = pct >= 100 ? '100' : pct >= 50 ? '50' : '0'
+  const comp = set.children.find((c) => c.name === `Value=${bucket}`)
+  if (comp?.type !== 'COMPONENT') return null
+  const inst = comp.createInstance()
+  inst.name = 'Progress'
+  return inst
+}
+
+async function createBadgeInstance(badgeSetId, accent, appearance, label, shape = 'Pill') {
+  const set = await figma.getNodeByIdAsync(badgeSetId ?? '2214:5801')
+  if (set?.type !== 'COMPONENT_SET') return null
+  const variantName = `Shape=${shape}, Accent=${accent}, Appearance=${appearance}`
+  const badgeComp =
+    set.children.find((c) => c.name === variantName) ??
+    set.children.find(
+      (c) =>
+        c.name.includes(`Shape=${shape}`) &&
+        c.name.includes(`Accent=${accent}`) &&
+        c.name.includes(`Appearance=${appearance}`),
+    )
   if (badgeComp?.type !== 'COMPONENT') return null
   const inst = badgeComp.createInstance()
   inst.name = 'Badge'
+  const labelPropKey = Object.keys(set.componentPropertyDefinitions ?? {}).find(
+    (key) =>
+      set.componentPropertyDefinitions[key]?.type === 'TEXT' &&
+      (key === 'label' || key.startsWith('label#')),
+  )
+  if (labelPropKey && label != null) {
+    inst.setProperties({ [labelPropKey]: String(label) })
+    return inst
+  }
   const text = inst.findOne((n) => n.type === 'TEXT')
   if (text) {
     await figma.loadFontAsync(text.fontName)
@@ -2396,9 +2656,9 @@ async function appendFileUploadCard(parent, spec, item, compact) {
   const status = item.status ?? 'idle'
   const badgeConfig = fileUploadStatusBadge(status)
   const isDisabled = status === 'disabled'
-  const pad = compact ? 8 : 12
-  const thumbPx = compact ? 32 : 40
   const actionPx = compact ? 28 : 32
+  const cardPadVar = compact ? 'uds/gap/8' : 'uds/gap/12'
+  const rowGapVar = compact ? 'uds/gap/8' : 'uds/gap/12'
 
   const card = figma.createFrame()
   card.name = 'File upload card'
@@ -2408,13 +2668,13 @@ async function appendFileUploadCard(parent, spec, item, compact) {
   card.fills = []
   card.strokes = []
   card.itemSpacing = 0
-  card.paddingLeft = pad
-  card.paddingRight = pad
-  card.paddingTop = pad
-  card.paddingBottom = pad
+  for (const axis of ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom']) {
+    await bindPaddingAxis(card, cardPadVar, axis)
+  }
   await bindRadius(card, 'uds/radius/8')
   await bindFill(card, 'uds/surface/secondary')
   await bindStroke(card, 'uds/border/primary')
+  await bindStrokeWeight(card, 'uds/border/width/1')
   if (isDisabled) card.opacity = 0.6
 
   const row = figma.createFrame()
@@ -2426,31 +2686,25 @@ async function appendFileUploadCard(parent, spec, item, compact) {
   row.fills = []
   row.strokes = []
   row.layoutSizingHorizontal = 'FILL'
+  await bindGap(row, rowGapVar)
 
-  const thumb = figma.createFrame()
-  thumb.name = 'Thumb'
-  thumb.resize(thumbPx, thumbPx)
-  thumb.layoutMode = 'HORIZONTAL'
-  thumb.primaryAxisAlignItems = 'CENTER'
-  thumb.counterAxisAlignItems = 'CENTER'
-  thumb.clipsContent = true
-  await bindRadius(thumb, 'uds/radius/8')
-  await bindFill(thumb, 'uds/surface/tertiary')
-  const thumbGlyphKey =
-    item.thumbIconKey ??
-    (item.type?.startsWith('image/')
-      ? spec.imageIconKey ?? '68c2b3b798f7884bee893c4b943055978f8395d6'
-      : spec.fileIconKey ?? 'b6abfee2cc2369d1fa0b5decc772e806ad8e8436')
-  const thumbIcon = await createIcon16Instance(
-    spec,
-    (await importGlyphComponent(thumbGlyphKey, 'Regular'))?.id,
+  const medallionSize = compact ? 'Small' : 'Default'
+  const medallion = await createMedallionInstance(
+    { ...spec, medallionSetNodeId: spec.medallionSetNodeId ?? '1847:5417' },
+    { Size: medallionSize, Color: 'Blue', Tone: 'Pastel' },
   )
-  if (thumbIcon) {
-    thumbIcon.resize(compact ? 16 : 20, compact ? 16 : 20)
-    thumb.appendChild(thumbIcon)
+  if (medallion) {
+    medallion.name = 'Medallion'
+    const thumbGlyphKey =
+      item.thumbIconKey ??
+      (item.type?.startsWith('image/')
+        ? spec.imageIconKey ?? '68c2b3b798f7884bee893c4b943055978f8395d6'
+        : spec.fileIconKey ?? 'b6abfee2cc2369d1fa0b5decc772e806ad8e8436')
+    const glyph = await importGlyphComponent(thumbGlyphKey, 'Regular')
+    await swapMedallionGlyph(medallion, glyph, 'uds/color/accent/blue/600')
+    row.appendChild(medallion)
+    medallion.layoutSizingHorizontal = 'HUG'
   }
-  row.appendChild(thumb)
-  thumb.layoutSizingHorizontal = 'HUG'
 
   const body = figma.createFrame()
   body.name = 'Body'
@@ -2460,6 +2714,7 @@ async function appendFileUploadCard(parent, spec, item, compact) {
   body.itemSpacing = compact ? 4 : 4
   body.fills = []
   body.layoutGrow = 1
+  await bindGap(body, 'uds/gap/4')
 
   const titleRow = figma.createFrame()
   titleRow.name = 'Title row'
@@ -2511,40 +2766,14 @@ async function appendFileUploadCard(parent, spec, item, compact) {
   }
 
   if (status === 'uploading') {
-    const progressWrap = figma.createFrame()
-    progressWrap.name = 'Progress'
-    progressWrap.layoutMode = 'VERTICAL'
-    progressWrap.primaryAxisAlignItems = 'MIN'
-    progressWrap.counterAxisAlignItems = 'MIN'
-    progressWrap.itemSpacing = 4
-    progressWrap.fills = []
-    progressWrap.layoutSizingHorizontal = 'FILL'
-    await bindGap(progressWrap, 'uds/gap/4')
-
-    const track = figma.createFrame()
-    track.name = 'Progress track'
-    track.resize(200, 8)
-    track.layoutMode = 'NONE'
-    track.clipsContent = true
-    track.cornerRadius = 4
-    await bindFill(track, 'uds/surface/quaternary')
-    const pct = Math.max(0, Math.min(100, item.progress ?? 0))
-    const bar = figma.createRectangle()
-    bar.resize(Math.max(8, Math.round(track.width * (pct / 100))), 8)
-    bar.cornerRadius = 4
-    await bindFill(bar, 'uds/color/primary/700')
-    track.appendChild(bar)
-    progressWrap.appendChild(track)
-    track.layoutSizingHorizontal = 'FILL'
-
-    const pctText = figma.createText()
-    pctText.name = 'Progress label'
-    pctText.characters = `${pct}% uploaded`
-    pctText.textAutoResize = 'WIDTH_AND_HEIGHT'
-    await applyLocalTextStyle(pctText, 'Body/12/Regular', 'uds/text/secondary')
-    progressWrap.appendChild(pctText)
-    body.appendChild(progressWrap)
-    progressWrap.layoutSizingHorizontal = 'FILL'
+    const progress = await createProgressInstance(
+      spec.progressSetNodeId ?? '623:227',
+      item.progress ?? 50,
+    )
+    if (progress) {
+      body.appendChild(progress)
+      progress.layoutSizingHorizontal = 'FILL'
+    }
   }
 
   if (status === 'error' && item.errorMessage) {
@@ -2560,47 +2789,32 @@ async function appendFileUploadCard(parent, spec, item, compact) {
   row.appendChild(body)
   body.layoutSizingHorizontal = 'FILL'
 
-  const actions = figma.createFrame()
-  actions.name = 'Actions'
-  actions.layoutMode = 'HORIZONTAL'
-  actions.primaryAxisAlignItems = 'CENTER'
-  actions.counterAxisAlignItems = 'CENTER'
-  actions.itemSpacing = 4
-  actions.fills = []
-  await bindGap(actions, 'uds/gap/4')
+  if (status !== 'disabled') {
+    const actions = figma.createFrame()
+    actions.name = 'Actions'
+    actions.layoutMode = 'HORIZONTAL'
+    actions.primaryAxisAlignItems = 'CENTER'
+    actions.counterAxisAlignItems = 'CENTER'
+    actions.fills = []
+    await bindGap(actions, 'uds/gap/8')
 
-  if (status !== 'disabled') {
-    const eye = await createFileActionButton(
-      spec,
-      spec.eyeIconKey ?? 'f5ccd714d3f6cb4441e56c7d4626c31224301113',
-      actionPx,
-    )
-    const download = await createFileActionButton(
-      spec,
-      spec.downloadIconKey ?? 'df2da3892f5d897c9198b88a12b6f94822100df1',
-      actionPx,
-    )
-    if (eye) actions.appendChild(eye)
-    if (download) actions.appendChild(download)
-  }
-  if (status === 'error') {
-    const retry = await createFileActionButton(
-      spec,
-      spec.retryIconKey ?? '88e807f6551a60fa9c3d3f18ad7649d66237359a',
-      actionPx,
-    )
-    if (retry) actions.appendChild(retry)
-  }
-  if (status !== 'disabled') {
+    if (status === 'error') {
+      const retry = await createFileActionButton(
+        spec,
+        spec.retryIconKey ?? '88e807f6551a60fa9c3d3f18ad7649d66237359a',
+        actionPx,
+      )
+      if (retry) actions.appendChild(retry)
+    }
     const remove = await createFileActionButton(
       spec,
       spec.removeIconKey ?? '51df6cfead413600e416d3fe72013237453a0194',
       actionPx,
     )
     if (remove) actions.appendChild(remove)
+    row.appendChild(actions)
+    actions.layoutSizingHorizontal = 'HUG'
   }
-  row.appendChild(actions)
-  actions.layoutSizingHorizontal = 'HUG'
 
   card.appendChild(row)
   row.layoutSizingHorizontal = 'FILL'
@@ -2616,15 +2830,17 @@ async function buildFileUploadVariant(comp, spec, axis) {
   const isDragging = state === 'Dragging'
   const isDisabled = state === 'Disabled'
   const copy = FILE_UPLOAD_COPY[size] ?? FILE_UPLOAD_COPY.Default
-  const w = isXs ? (spec.widthXs ?? 400) : (spec.width ?? 480)
-  const minH = isXs ? 48 : size === 'Small' ? 128 : 272
+  const w = spec.width ?? 520
+  const minH = isXs ? 48 : size === 'Small' ? 128 : 168
   const pad = isXs ? 12 : 24
 
   comp.layoutMode = isXs ? 'HORIZONTAL' : 'VERTICAL'
   comp.primaryAxisAlignItems = isXs ? 'MIN' : 'CENTER'
   comp.counterAxisAlignItems = isXs ? 'CENTER' : 'CENTER'
-  comp.itemSpacing = isXs ? 8 : 0
+  comp.itemSpacing = isXs ? 8 : size === 'Small' ? 4 : 8
   if (isXs) await bindGap(comp, 'uds/gap/8')
+  else if (size === 'Small') await bindGap(comp, 'uds/gap/4')
+  else await bindGap(comp, 'uds/gap/8')
   comp.paddingLeft = pad
   comp.paddingRight = pad
   comp.paddingTop = pad
@@ -2657,36 +2873,62 @@ async function buildFileUploadVariant(comp, spec, axis) {
   textWrap.fills = []
 
   if (isXs && copy.inline) {
-    const line = figma.createText()
-    line.name = 'Instruction'
-    line.characters = `${copy.instruction} · ${copy.helper}`
-    line.textAutoResize = 'HEIGHT'
-    line.resize(w - pad * 2 - 24 - 8, line.height)
-    await applyLocalTextStyle(line, 'Body/14/Semibold', 'uds/text/primary')
-    textWrap.appendChild(line)
+    textWrap.layoutMode = 'HORIZONTAL'
+    textWrap.primaryAxisAlignItems = 'CENTER'
+    textWrap.counterAxisAlignItems = 'CENTER'
+    textWrap.itemSpacing = 4
+
+    const title = figma.createText()
+    title.name = 'Title'
+    title.characters = copy.instruction
+    title.textAutoResize = 'WIDTH_AND_HEIGHT'
+    await applyLocalTextStyle(title, 'Body/14/Semibold', 'uds/text/primary')
+    textWrap.appendChild(title)
+    title.layoutSizingHorizontal = 'HUG'
+
+    const separator = figma.createText()
+    separator.name = 'Separator'
+    separator.characters = copy.separator ?? '-'
+    separator.textAutoResize = 'WIDTH_AND_HEIGHT'
+    await applyLocalTextStyle(separator, 'Body/14/Regular', 'uds/text/secondary')
+    textWrap.appendChild(separator)
+    separator.layoutSizingHorizontal = 'HUG'
+
+    const desc = figma.createText()
+    desc.name = 'Desc'
+    desc.characters = copy.helper
+    desc.textAutoResize = 'WIDTH_AND_HEIGHT'
+    await applyLocalTextStyle(desc, 'Body/14/Regular', 'uds/text/secondary')
+    textWrap.appendChild(desc)
+    desc.layoutSizingHorizontal = 'HUG'
+
     comp.appendChild(textWrap)
     textWrap.layoutGrow = 1
-    line.layoutSizingHorizontal = 'FILL'
+    textWrap.layoutSizingHorizontal = 'FILL'
   } else {
     const instruction = figma.createText()
-    instruction.name = 'Instruction'
+    instruction.name = isXs ? 'Title' : 'Instruction'
     instruction.characters = copy.instruction
     instruction.textAutoResize = 'WIDTH_AND_HEIGHT'
     await applyLocalTextStyle(
       instruction,
-      size === 'Small' ? 'Body/16/Semibold' : 'Body/16/Medium',
+      isXs
+        ? 'Body/14/Semibold'
+        : size === 'Small'
+          ? 'Body/16/Semibold'
+          : 'Body/16/Medium',
       'uds/text/primary',
     )
     textWrap.appendChild(instruction)
     instruction.layoutSizingHorizontal = 'HUG'
 
     const helper = figma.createText()
-    helper.name = 'Helper'
+    helper.name = isXs ? 'Desc' : 'Helper'
     helper.characters = copy.helper
     helper.textAutoResize = 'WIDTH_AND_HEIGHT'
     await applyLocalTextStyle(
       helper,
-      size === 'Small' ? 'Body/12/Regular' : 'Body/14/Regular',
+      isXs ? 'Body/14/Regular' : size === 'Small' ? 'Body/12/Regular' : 'Body/14/Regular',
       'uds/text/secondary',
     )
     textWrap.appendChild(helper)
@@ -2695,9 +2937,7 @@ async function buildFileUploadVariant(comp, spec, axis) {
     textWrap.layoutSizingHorizontal = 'FILL'
   }
 
-  if (!isXs) {
-    comp.resize(w, Math.max(minH, comp.height))
-  }
+  comp.resize(w, isXs ? minH : Math.max(minH, comp.height))
 }
 
 async function buildFileUploadCardsVariant(comp, spec, axis) {
@@ -2720,7 +2960,7 @@ async function buildFileUploadCardsVariant(comp, spec, axis) {
     (await (async () => {
       const frame = figma.createFrame()
       frame.name = 'FileUpload placeholder'
-      frame.resize(w, compact ? 48 : 272)
+      frame.resize(w, compact ? 48 : 168)
       await bindDashedStroke(frame, 'uds/border/primary')
       await bindFill(frame, 'uds/surface/secondary')
       return frame

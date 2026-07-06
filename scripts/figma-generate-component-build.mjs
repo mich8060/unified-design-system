@@ -48,6 +48,7 @@ const KIND_BY_SLUG = {
   separator: 'separator',
   kbd: 'kbd',
   link: 'link',
+  footer: 'footer',
   text: 'text',
   status: 'status',
   alert: 'alert',
@@ -364,6 +365,34 @@ function menuMinimalCode() {
     .join('\n\n')
 }
 
+function footerMinimalCode() {
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindStroke',
+    'bindStrokeWeight',
+    'bindGap',
+    'bindPaddingAxis',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'applyLocalTextStyle',
+    'findComponentPropertyId',
+    'ensureTextComponentProperty',
+    'linkFooterTextProperties',
+    'buildFooterVariant',
+  ]
+  const tail = atomVariantBuildTail('buildFooterVariant').replace(
+    'gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 48, spec.gridCellH ?? 48);',
+    `gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 48, spec.gridCellH ?? 48);
+linkFooterTextProperties(set, spec);`,
+  )
+  return [...fnNames.map(extractFunction), tail].filter(Boolean).join('\n\n')
+}
+
 const MINIMAL_BUILDERS = {
   medallion: medallionMinimalCode,
   'medallion-layout': medallionMinimalCode,
@@ -373,6 +402,7 @@ const MINIMAL_BUILDERS = {
   'file-upload': fileUploadMinimalCode,
   'file-upload-cards': fileUploadCardsMinimalCode,
   menu: menuMinimalCode,
+  footer: footerMinimalCode,
 }
 
 const code = minimal && MINIMAL_BUILDERS[slug]

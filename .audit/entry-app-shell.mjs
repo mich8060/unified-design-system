@@ -1,2 +1,2 @@
-import { AppShellCompound } from '../dist/components/ui/app-shell.js';
-console.log(AppShellCompound);
+import { AppShell } from '../dist/components/ui/app-shell.js';
+console.log(AppShell);

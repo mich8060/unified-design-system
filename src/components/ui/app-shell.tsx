@@ -113,7 +113,7 @@ function parseAppShellRegions(children: React.ReactNode): ParsedAppShellRegions 
   return parsed
 }
 
-function AppShell({
+function AppShellRoot({
   className,
   children,
   menu,
@@ -168,7 +168,7 @@ function AppShell({
   )
 }
 
-const AppShellCompound = Object.assign(AppShell, {
+const AppShell = Object.assign(AppShellRoot, {
   Menu: AppShellMenuRegion,
   Header: AppShellHeaderRegion,
   Listview: AppShellListviewRegion,
@@ -176,4 +176,4 @@ const AppShellCompound = Object.assign(AppShell, {
   Footer: AppShellFooterRegion,
 })
 
-export { AppShellCompound as AppShell }
+export { AppShell }

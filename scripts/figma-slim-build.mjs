@@ -24,7 +24,73 @@ if (!spec) {
 }
 
 const runtime = fs.readFileSync(runtimePath, 'utf8')
-const fnNames = [
+const BADGE_BUILD_FROM_SPEC = `
+async function buildFromSpec(spec) {
+  const page = await ensurePage(spec.pageName ?? 'UDS Components')
+  const existing = page.findOne(
+    (n) => n.type === 'COMPONENT_SET' && n.name === spec.figmaName,
+  )
+  if (existing && spec.replaceExisting) {
+    existing.remove()
+  } else if (existing) {
+    return { skipped: true, nodeId: existing.id, name: existing.name }
+  }
+
+  await loadInter()
+  const axisNames = Object.keys(spec.axes)
+  const axisValues = axisNames.map((k) => spec.axes[k])
+  const combinations = cartesianProduct(axisValues)
+  const components = []
+
+  for (const combo of combinations) {
+    const comp = figma.createComponent()
+    comp.name = variantName(axisNames, combo)
+    const axis = Object.fromEntries(axisNames.map((k, i) => [k, combo[i]]))
+    await buildBadgeVariant(comp, spec, axis)
+    page.appendChild(comp)
+    components.push(comp)
+  }
+
+  const set = figma.combineAsVariants(components, page)
+  set.name = spec.figmaName
+  set.x = 100
+  set.y = nextCanvasY(page)
+  gridLayoutVariants(
+    set,
+    spec.gridCols ?? 8,
+    spec.gridCellW ?? 88,
+    spec.gridCellH ?? 32,
+  )
+
+  const labelLink = linkTextComponentProperty(set, {
+    propertyName: 'label',
+    layerName: 'Label',
+    defaultValue: spec.label ?? 'Label',
+  })
+
+  return {
+    skipped: false,
+    nodeId: set.id,
+    name: set.name,
+    variantCount: set.children.length,
+    samples: set.children.slice(0, 4).map((c) => c.name),
+    labelProperty: labelLink,
+  }
+}
+`.trim()
+
+const SLIM_EXTRA_BY_SLUG = {
+  badge: [
+    'accentColorToken',
+    'badgeAccentSlug',
+    'resolveBadgeStyle',
+    'buildBadgeVariant',
+    'applyLocalTextStyle',
+    'bindPaddingAxis',
+  ],
+}
+
+const BASE_FN_NAMES = [
   'cartesianProduct',
   'findVar',
   'bindFill',
@@ -32,12 +98,16 @@ const fnNames = [
   'bindRadius',
   'bindGap',
   'bindText',
-  'applyLocalTextStyle',
   'loadInter',
   'variantName',
+  'linkTextComponentProperty',
   'gridLayoutVariants',
   'nextCanvasY',
   'ensurePage',
+]
+
+const FULL_FN_NAMES = [
+  ...BASE_FN_NAMES,
   'buildFromSpec',
   'bindPaddingAxis',
   'buildKbdVariant',
@@ -79,13 +149,22 @@ const fnNames = [
   'bindCornerRadius',
   'createInputInstance',
   'appendDialogCloseButton',
-  'createMenuIcon16',
-  'createMenuCheckIndicator',
   'buildComboboxItemVariant',
 ]
 
+const slugFnNames =
+  slug === 'badge'
+    ? [...BASE_FN_NAMES, ...(SLIM_EXTRA_BY_SLUG.badge ?? [])]
+    : [...FULL_FN_NAMES, ...(SLIM_EXTRA_BY_SLUG[slug] ?? [])]
+
+const constBlocks = []
+if (slug === 'badge') {
+  const m = runtime.match(/const BADGE_CHROMATIC_ACCENTS = [\s\S]*?\]\n/)
+  if (m) constBlocks.push(m[0].trim())
+}
+
 const chunks = []
-for (const name of fnNames) {
+for (const name of slugFnNames) {
   const re = new RegExp(
     `(?:async )?function ${name}\\([^)]*\\)[\\s\\S]*?(?=\\n(?:async )?function |\\nconst [A-Z_]|$)`,
   )
@@ -93,9 +172,15 @@ for (const name of fnNames) {
   if (m) chunks.push(m[0].trim())
 }
 
-const code = `${chunks.join('\n\n')}
+const buildFromSpecBlock = slug === 'badge' ? BADGE_BUILD_FROM_SPEC : null
 
-const spec = ${JSON.stringify({ pageName: 'UDS Components', ...spec }, null, 2)};
+const code = `${constBlocks.join('\n\n')}
+
+${chunks.join('\n\n')}
+
+${buildFromSpecBlock ?? ''}
+
+const spec = ${JSON.stringify({ pageName: 'UDS Components', kind: 'badge', replaceExisting: true, ...spec }, null, 2)};
 return await buildFromSpec(spec);
 `
 

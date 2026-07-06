@@ -2620,13 +2620,11 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             (
                 <FileUpload
                     size="small"
-                    instructionText="Drop file or click to upload"
                     onFileSelect={() => {}}
                 />
             ),
             `<FileUpload
   size="small"
-  instructionText="Drop file or click to upload"
   onFileSelect={(files) => console.log(files)}
 />`,
             'Use the small size for compact forms, side panels, and dense layouts.',
@@ -2644,7 +2642,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
   size="xs"
   onFileSelect={(files) => console.log(files)}
 />`,
-            'Use `xs` for the tightest dropzones (tables, inline panels, settings rows). Default copy inlines instruction + helper on one line; set `instructionText` or a custom `helperText` node to fall back to two stacked lines.',
+            'Use `xs` for the tightest dropzones (tables, inline panels, settings rows). Default copy is a single row: semibold title, hyphen, desc; set `title` or `desc` to fall back to stacked lines.',
         ),
     ],
     'file-upload-cards': [
@@ -2653,8 +2651,8 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             'Upload cards with status states',
             (
                 <FileUploadCards
-                    instructionText="Drop files here or click to upload"
-                    helperText="PDF, DOCX, PNG up to 10MB each"
+                    title="Drop files here or click to upload"
+                    desc="PDF, DOCX, PNG up to 10MB each"
                     defaultItems={[
                         {
                             id: 'file-a',
@@ -2692,8 +2690,8 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                 />
             ),
             `<FileUploadCards
-  instructionText="Drop files here or click to upload"
-  helperText="PDF, DOCX, PNG up to 10MB each"
+  title="Drop files here or click to upload"
+  desc="PDF, DOCX, PNG up to 10MB each"
   defaultItems={[
     { id: "a", name: "Credentialing packet.pdf", status: "success", size: 2150000, type: "application/pdf" },
     { id: "b", name: "headshot.png", status: "uploading", progress: 62, size: 845000, type: "image/png" },
@@ -2702,7 +2700,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
   ]}
   onRetry={(item) => console.log("retry", item)}
 />`,
-            'Demonstrates idle/uploading/success/error/disabled card states with metadata and actions.',
+            'Demonstrates success/uploading/error/disabled card states with Medallion thumb, Pill pastel badges, metadata, Progress bar (uploading), and remove/retry actions.',
         ),
         E(
             'cards-compact',
@@ -2710,8 +2708,8 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             (
                 <FileUploadCards
                     density="compact"
-                    instructionText="Drop files or click"
-                    helperText="Max 10MB each"
+                    title="Drop files or click"
+                    desc="Max 10MB each"
                     defaultItems={[
                         {
                             id: 'c-a',

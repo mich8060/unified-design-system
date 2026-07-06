@@ -101,7 +101,7 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'File Upload Cards presents each file as a rich card with preview, metadata, status, progress, and per-file actions.',
   },
   footer: {
-    summary: 'Footer renders a fixed bottom bar with copyright text and optional navigation links.',
+    summary: 'Footer renders a fixed 40px bottom bar with copyright and an optional Content link slot.',
   },
   header: {
     summary: 'Header provides a top bar above the main content area with leading content (search, breadcrumbs) and trailing utility actions.',

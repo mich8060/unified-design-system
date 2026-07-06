@@ -93,7 +93,7 @@
       }
     },
     "Badge": {
-      "nodeId": "746:341",
+      "nodeId": "2214:5801",
       "properties": {
         "Accent": {
           "codeProp": "accent",
@@ -123,9 +123,24 @@
             "outlined": "Outlined",
             "solid": "Solid"
           }
+        },
+        "Shape": {
+          "codeProp": "shape",
+          "figmaLabels": {
+            "pill": "Pill",
+            "rect": "Rect"
+          }
+        },
+        "label": {
+          "codeProp": "children",
+          "figmaType": "TEXT",
+          "linkedLayer": "Label",
+          "figmaProperty": "label#2216:0",
+          "textStyle": "Body/12/Medium",
+          "defaultValue": "Label"
         }
       },
-      "figmaMatrixNote": "60 variants (15 accents × 4 appearances). Default pill shape. Size/Shape are separate code props; add auxiliary Figma sets if needed."
+      "figmaMatrixNote": "120 variants (2 shapes × 15 accents × 4 appearances). Shared TEXT property label on layer Label (Body/12/Medium, maps to React children). Shape=Pill | Rect maps to code shape pill | rect. Padding/gap/radius bound to uds/gap/* and uds/radius/* tokens."
     },
     "Accordion": {
       "nodeId": "540:137",
@@ -472,23 +487,63 @@
             "dragging": "Dragging"
           },
           "note": "Dragging is a prototype/visual state for drag-hover chrome (border secondary + surface tertiary)."
+        },
+        "title": {
+          "codeProp": "title",
+          "figmaType": "TEXT",
+          "linkedLayer": "Instruction | Title"
+        },
+        "desc": {
+          "codeProp": "desc",
+          "figmaType": "TEXT",
+          "linkedLayer": "Helper | Desc"
         }
       },
-      "figmaMatrixNote": "9 variants (3 sizes × 3 states). Dashed border dropzone with Blue solid Medallion + UploadSimple bold icon swap. Text layers: Instruction, Helper (or inline Instruction on XS)."
+      "figmaMatrixNote": "9 variants (3 sizes × 3 states). Dashed border dropzone with Blue solid Medallion + UploadSimple bold icon swap. Text layers: Instruction + Helper (default/small), or Title + Separator + Desc (xs). Figma text props title/desc map to code props title/desc."
     },
     "FileUploadCards": {
       "nodeId": "1888:5350",
       "figmaSnapshot": "ai/figma-file-upload-cards.snapshot.json",
       "properties": {
-        "Density": {
-          "codeProp": "density",
+        "Appearance": {
+          "codeProp": "status (demo)",
           "figmaLabels": {
             "default": "Default",
-            "compact": "Compact"
+            "uploading": "Uploading",
+            "error": "Error",
+            "disabled": "Disabled"
           }
+        },
+        "Title": {
+          "codeProp": "name",
+          "figmaType": "TEXT",
+          "linkedLayer": "File name",
+          "figmaProperty": "Title#1866:9",
+          "textStyle": "Body/16/Semibold"
+        },
+        "Metadata": {
+          "codeProp": "meta",
+          "figmaType": "TEXT",
+          "linkedLayer": "Metadata",
+          "figmaProperty": "Metadata#1866:0",
+          "textStyle": "Body/14/Regular"
+        },
+        "Error Message": {
+          "codeProp": "errorMessage",
+          "figmaType": "TEXT",
+          "linkedLayer": "Error message",
+          "figmaProperty": "Error Message#1866:3",
+          "textStyle": "Body/12/Regular"
+        },
+        "label": {
+          "codeProp": "badgeLabel",
+          "figmaType": "TEXT",
+          "linkedLayer": "Badge / Label",
+          "figmaProperty": "label#2216:0 (nested Badge instance)",
+          "textStyle": "Body/12/Medium"
         }
       },
-      "figmaMatrixNote": "2 variants (Default | Compact). Composes FileUpload instance + 4 demo file cards (success, uploading, error, disabled) with Badge, Progress, and icon actions."
+      "figmaMatrixNote": "Figma card set 1888:5350: Appearance axis (Default/success, Uploading, Error, Disabled) with Medallion + Pill Badge (2214:5801). Uploading uses Progress instance (623:227). Actions SLOT: remove (X) on Default/Uploading; retry + X on Error. Layout tokens: uds/gap/12 padding & row gap, uds/gap/4 body gap, uds/gap/8 title row & actions, uds/radius/8 card, uds/border/width/1 stroke."
     },
     "Input": {
       "nodeId": "589:236",
@@ -604,6 +659,38 @@
           "linkedLayer": "key"
         }
       }
+    },
+    "Footer": {
+      "nodeId": "2229:5569",
+      "figmaSnapshot": "ai/figma-footer.snapshot.json",
+      "properties": {
+        "Links": {
+          "codeProp": "links",
+          "figmaLabels": {
+            "Off": "Copyright only",
+            "On": "Copyright + link slot"
+          },
+          "note": "On when links array is non-empty."
+        },
+        "Copyright": {
+          "codeProp": "copyright",
+          "linkedLayer": ".copyright"
+        },
+        "Link 1": {
+          "codeProp": "links[0].label",
+          "note": "Default first link label when Content slot is empty."
+        },
+        "Link 2": {
+          "codeProp": "links[1].label",
+          "note": "Default second link label when Content slot is empty."
+        },
+        "Content": {
+          "codeProp": "children",
+          "linkedLayer": "Content",
+          "note": "Links=On only. Replaces default link nav row."
+        }
+      },
+      "figmaMatrixNote": "1280×40 horizontal bar. uds/surface/primary fill, top border uds/border/primary + uds/border/width/1. Padding uds/gap/16 (H) / uds/gap/8 (V). Links=Off: .copyright HUG left. Links=On: .copyright FILL + Content slot (horizontal, uds/gap/16). Body/12/Regular, uds/text/tertiary."
     },
     "DotStatus": {
       "nodeId": "1813:4697",

@@ -1,70 +1,137 @@
 {
   "fileKey": "3bTua8rojOOC7tYWIEWJl0",
   "pageName": "UDS Components",
-  "syncedAt": "2026-06-12",
+  "syncedAt": "2026-07-01",
   "nodes": {
     "FileUploadCards": {
       "nodeId": "1888:5350",
       "name": "FileUploadCards",
-      "width": 1144,
-      "height": 800
+      "width": 480,
+      "height": 440
     }
   },
   "FileUploadCards": {
     "nodeId": "1888:5350",
-    "description": "Composite upload workflow: FileUpload dropzone instance + stacked file cards with Badge status, metadata, Progress (uploading), error copy, and icon action buttons.",
-    "variantAxes": ["Density"],
-    "variantCount": 2,
-    "variants": ["Density=Default", "Density=Compact"],
+    "description": "File upload card row with Blue pastel Medallion (File/Image icon), Pill Pastel Badge status, metadata, optional Progress (uploading), error copy, and Actions slot.",
+    "variantAxes": ["Appearance"],
+    "variantCount": 4,
+    "variants": [
+      {
+        "name": "Appearance=Default",
+        "nodeId": "1888:5039",
+        "cardStatus": "success",
+        "badge": "Shape=Pill, Accent=Green, Appearance=Pastel, label=Uploaded",
+        "actions": ["X"]
+      },
+      {
+        "name": "Appearance=Uploading",
+        "nodeId": "1890:5088",
+        "cardStatus": "uploading",
+        "badge": "Shape=Pill, Accent=Sky, Appearance=Pastel, label=Uploading",
+        "progress": "Progress Value=50 (623:227)",
+        "actions": ["X"]
+      },
+      {
+        "name": "Appearance=Error",
+        "nodeId": "1890:5161",
+        "cardStatus": "error",
+        "badge": "Shape=Pill, Accent=Red, Appearance=Pastel, label=Error",
+        "actions": ["ArrowClockwise", "X"]
+      },
+      {
+        "name": "Appearance=Disabled",
+        "nodeId": "1890:5234",
+        "cardStatus": "disabled",
+        "badge": "Shape=Pill, Accent=Neutral, Appearance=Pastel, label=Disabled",
+        "actions": []
+      }
+    ],
     "componentProperties": {
-      "Density": {
+      "Appearance": {
         "type": "VARIANT",
         "defaultValue": "Default",
-        "variantOptions": ["Default", "Compact"],
-        "codeProp": "density",
-        "codeValues": {
-          "Default": "default",
-          "Compact": "compact"
-        }
-      }
+        "variantOptions": ["Default", "Uploading", "Error", "Disabled"]
+      },
+      "Title#1866:9": {
+        "type": "TEXT",
+        "defaultValue": "Credentialing packet.pdf",
+        "linkedLayer": "File name"
+      },
+      "Metadata#1866:0": {
+        "type": "TEXT",
+        "defaultValue": "1.1 MB · image/jpeg",
+        "linkedLayer": "Metadata"
+      },
+      "Error Message#1866:3": {
+        "type": "TEXT",
+        "defaultValue": "Upload failed. Try again.",
+        "linkedLayer": "Error message"
+      },
+      "Actions#1866:12": { "type": "SLOT", "linkedLayer": "Actions" },
+      "Actions#1866:15": { "type": "SLOT" },
+      "Actions#1866:18": { "type": "SLOT" }
+    },
+    "layerNames": {
+      "root": "File upload card",
+      "row": "Card row",
+      "medallion": "Medallion",
+      "body": "Body",
+      "titleRow": "Title row",
+      "fileName": "File name",
+      "badge": "Badge",
+      "metadata": "Metadata",
+      "progress": "Progress",
+      "errorMessage": "Error message",
+      "actions": "Actions (SLOT)"
     },
     "composition": {
-      "dropzone": "FileUpload instance — Default size (default density) or XS (compact)",
-      "cards": [
-        "Credentialing packet.pdf — success / Uploaded badge",
-        "headshot.png — uploading / 62% progress",
-        "license-front.jpg — error + retry action",
-        "w9-form.pdf — disabled"
-      ],
-      "atoms": {
-        "badge": "746:341 — Accent × Pastel (Neutral, Sky, Green, Red)",
-        "progress": "inline track — uds/surface/quaternary + uds/color/primary/700",
-        "icons": "Icon Size=16 with Phosphor swaps (File, Image, Eye, DownloadSimple, ArrowClockwise, X)"
-      }
+      "medallion": "1847:5417 — Size=Default|Small, Color=Blue, Tone=Pastel + File/Image icon swap",
+      "badge": "2214:5801 — Shape=Pill, Accent × Appearance=Pastel, shared label TEXT prop",
+      "progress": "623:227 — Value=0|50|100 (8px track, uds/color/primary/700 fill)",
+      "icons": "Icon Size=16 with Phosphor swaps (File, Image, ArrowClockwise, X)"
     },
     "tokens": {
       "cardRadius": "uds/radius/8",
       "cardFill": "uds/surface/secondary",
       "cardBorder": "uds/border/primary",
-      "thumbFill": "uds/surface/tertiary",
-      "stackGapDefault": "uds/gap/16",
-      "stackGapCompact": "uds/gap/8"
-    },
-    "gridLayout": {
-      "cols": 2,
-      "cellWidth": 520,
-      "cellHeight": 720,
-      "gap": 24,
-      "padding": 40
+      "cardBorderWidth": "uds/border/width/1",
+      "cardPadding": "uds/gap/12",
+      "rowGap": "uds/gap/12",
+      "bodyGap": "uds/gap/4",
+      "titleRowGap": "uds/gap/8",
+      "actionsGap": "uds/gap/8",
+      "fileName": "Body/16/Semibold",
+      "metadata": "Body/14/Regular",
+      "errorMessage": "Body/12/Regular",
+      "badgeLabel": "Body/12/Medium (nested Badge instance label TEXT prop)"
     }
   },
   "codeAlignment": {
     "source": "src/components/ui/file-upload-cards.tsx",
     "exports": ["FileUploadCards", "FileUploadCardItem", "FileUploadCardStatus", "FileUploadCardsDensity"],
+    "dataSlots": [
+      "file-upload-cards",
+      "file-upload-cards-list",
+      "file-upload-card",
+      "card-row",
+      "medallion",
+      "body",
+      "title-row",
+      "file-name",
+      "metadata",
+      "progress",
+      "error-message",
+      "actions"
+    ],
     "notes": [
-      "Default density uses FileUpload size default; compact uses xs dropzone.",
-      "Card statuses: idle, uploading, success, error, disabled — demo shows 4 representative rows.",
-      "Action buttons are icon-only frames with 8px radius hover surface tokens."
+      "React composite wraps FileUpload dropzone + stacked cards; Figma set documents the card row atom per Appearance status.",
+      "Card thumb uses Medallion blue/pastel with File or Image icon; Badge is pill + pastel matching Figma 2214:5801.",
+      "All card padding, gaps, radius, and border width bound to uds/gap/*, uds/radius/*, uds/border/width/1.",
+      "Text props: Title, Metadata, Error Message on set; Badge status copy via nested Badge label prop.",
+      "Uploading variant uses Progress component instance (623:227); no progress percentage label.",
+      "Actions SLOT: X on Default/Uploading; ArrowClockwise + X on Error; hidden on Disabled.",
+      "Default card padding 12px, row gap 12px, body stack gap 4px; disabled cards hide Actions and use opacity 60%.",
+      "Code `density` compact scales medallion/actions/type; Figma Appearance axis maps to FileUploadCardItem.status demos."
     ]
   }
 }

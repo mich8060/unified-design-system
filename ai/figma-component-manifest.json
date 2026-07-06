@@ -23,7 +23,7 @@
       "slug": "accordion"
     },
     "Badge": {
-      "nodeId": "746:341",
+      "nodeId": "2214:5801",
       "slug": "badge"
     },
     "Input": {
@@ -244,7 +244,7 @@
     "badge": {
       "status": "in-figma",
       "figmaName": "Badge",
-      "nodeId": "746:341"
+      "nodeId": "2214:5801"
     },
     "breadcrumb": {
       "status": "deferred",
@@ -435,8 +435,13 @@
       "figmaSnapshot": "ai/figma-menu.snapshot.json"
     },
     "footer": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Footer",
+      "nodeId": "2229:5569",
+      "variantCount": 2,
+      "variantAxes": ["Links"],
+      "figmaSnapshot": "ai/figma-footer.snapshot.json",
+      "note": "Links=Off|On. 1280×40. Copyright TEXT + Content SLOT (Links=On). TEXT props: Copyright, Link 1, Link 2."
     },
     "header": {
       "status": "deferred",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T22:16:26.168Z",
+  "generatedAt": "2026-07-01T19:49:35.399Z",
   "generatedFrom": [
     "src/index.ts",
     "package.json",
@@ -7,7 +7,7 @@
   ],
   "package": {
     "name": "@chghealthcare/unified-design-system",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "primaryEntry": "@chghealthcare/unified-design-system",
     "styleImport": "@chghealthcare/unified-design-system/styles.css"
   },
@@ -478,15 +478,6 @@
       "recommendation": "allowed"
     },
     {
-      "name": "BADGE_SHAPES",
-      "exportKind": "component",
-      "module": "components/ui/badge",
-      "roles": [
-        "feedback"
-      ],
-      "recommendation": "allowed"
-    },
-    {
       "name": "BadgeAccent",
       "exportKind": "type",
       "module": "components/ui/badge",
@@ -524,15 +515,6 @@
     },
     {
       "name": "BadgeProps",
-      "exportKind": "type",
-      "module": "components/ui/badge",
-      "roles": [
-        "feedback"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "BadgeShape",
       "exportKind": "type",
       "module": "components/ui/badge",
       "roles": [
@@ -1523,136 +1505,6 @@
       "module": "components/ui/direction",
       "roles": [
         "layout"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "docsNavComponentLinkClassName",
-      "exportKind": "component",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DocsNavDisclosureCaret",
-      "exportKind": "component",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "docsNavParentChildActiveCls",
-      "exportKind": "utility",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "docsNavParentOpenBorderCls",
-      "exportKind": "utility",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "docsNavParentStickyCls",
-      "exportKind": "utility",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DocsNavRailTrigger",
-      "exportKind": "component",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DocsNavRailTriggerProps",
-      "exportKind": "type",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DocsNavSectionColumn",
-      "exportKind": "component",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DocsNavSectionHeader",
-      "exportKind": "component",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DocsNavSectionHeaderProps",
-      "exportKind": "type",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DocsNavSectionList",
-      "exportKind": "component",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "docsNavSubLinkClassName",
-      "exportKind": "component",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DocsNavSubList",
-      "exportKind": "component",
-      "module": "components/ui/docs-nav",
-      "roles": [
-        "navigation",
-        "first-party"
       ],
       "recommendation": "allowed"
     },
@@ -3199,46 +3051,6 @@
       "recommendation": "allowed"
     },
     {
-      "name": "MicroCalendar",
-      "exportKind": "component",
-      "module": "components/ui/micro-calendar",
-      "roles": [
-        "data-display",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "MicroCalendarDateData",
-      "exportKind": "type",
-      "module": "components/ui/micro-calendar",
-      "roles": [
-        "data-display",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "MicroCalendarProps",
-      "exportKind": "type",
-      "module": "components/ui/micro-calendar",
-      "roles": [
-        "data-display",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "MicroCalendarTile",
-      "exportKind": "component",
-      "module": "components/ui/micro-calendar",
-      "roles": [
-        "data-display",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
       "name": "MinusIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -3643,33 +3455,6 @@
       "roles": [
         "utility",
         "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "ResizableHandle",
-      "exportKind": "component",
-      "module": "components/ui/resizable",
-      "roles": [
-        "layout"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "ResizablePanel",
-      "exportKind": "component",
-      "module": "components/ui/resizable",
-      "roles": [
-        "layout"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "ResizablePanelGroup",
-      "exportKind": "component",
-      "module": "components/ui/resizable",
-      "roles": [
-        "layout"
       ],
       "recommendation": "allowed"
     },
@@ -4617,15 +4402,6 @@
       "module": "components/ui/time-step-input",
       "roles": [
         "input"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "Toaster",
-      "exportKind": "component",
-      "module": "components/ui/sonner",
-      "roles": [
-        "feedback"
       ],
       "recommendation": "allowed"
     },

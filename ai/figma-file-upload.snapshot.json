@@ -1,13 +1,13 @@
 {
   "fileKey": "3bTua8rojOOC7tYWIEWJl0",
   "pageName": "UDS Components",
-  "syncedAt": "2026-06-12",
+  "syncedAt": "2026-07-01",
   "nodes": {
     "FileUpload": {
       "nodeId": "1887:5090",
       "name": "FileUpload",
       "width": 1688,
-      "height": 1088
+      "height": 632
     }
   },
   "FileUpload": {
@@ -15,17 +15,6 @@
     "description": "Dashed-border dropzone with Blue solid Medallion (UploadSimple bold), instruction and helper text. Size drives layout density; State covers default, disabled, and drag-hover chrome.",
     "variantAxes": ["Size", "State"],
     "variantCount": 9,
-    "variants": [
-      "Size=Default, State=Default",
-      "Size=Default, State=Disabled",
-      "Size=Default, State=Dragging",
-      "Size=Small, State=Default",
-      "Size=Small, State=Disabled",
-      "Size=Small, State=Dragging",
-      "Size=XS, State=Default",
-      "Size=XS, State=Disabled",
-      "Size=XS, State=Dragging"
-    ],
     "componentProperties": {
       "Size": {
         "type": "VARIANT",
@@ -48,12 +37,73 @@
           "Disabled": "disabled",
           "Dragging": "drag-hover (prototype)"
         }
+      },
+      "title": {
+        "type": "TEXT",
+        "defaultValue": "Drop file here or click to upload",
+        "codeProp": "title"
+      },
+      "desc": {
+        "type": "TEXT",
+        "defaultValue": "All files up to 10MB",
+        "codeProp": "desc"
       }
     },
+    "variants": [
+      { "name": "Size=Default, State=Default", "nodeId": "1887:5012", "width": 520, "height": 168 },
+      { "name": "Size=Default, State=Disabled", "nodeId": "1887:5021", "width": 520, "height": 168 },
+      { "name": "Size=Default, State=Dragging", "nodeId": "1887:5030", "width": 520, "height": 168 },
+      { "name": "Size=Small, State=Default", "nodeId": "1887:5039", "width": 520, "height": 128 },
+      { "name": "Size=Small, State=Disabled", "nodeId": "1887:5048", "width": 520, "height": 128 },
+      { "name": "Size=Small, State=Dragging", "nodeId": "1887:5057", "width": 520, "height": 128 },
+      { "name": "Size=XS, State=Default", "nodeId": "1887:5066", "width": 520, "height": 48 },
+      { "name": "Size=XS, State=Disabled", "nodeId": "1887:5074", "width": 520, "height": 48 },
+      { "name": "Size=XS, State=Dragging", "nodeId": "1887:5082", "width": 520, "height": 48 }
+    ],
     "sizes": {
-      "Default": { "width": 480, "minHeight": 272, "padding": 24, "medallion": "Extra Large (64px)" },
-      "Small": { "width": 480, "minHeight": 128, "padding": 24, "medallion": "Small (32px)" },
-      "XS": { "width": 400, "minHeight": 48, "padding": 12, "medallion": "Extra Small (24px)", "layout": "horizontal" }
+      "Default": {
+        "width": 520,
+        "minHeight": 168,
+        "padding": 24,
+        "medallionToCopyGap": 8,
+        "copyGap": 4,
+        "medallion": "Extra Large (64px)",
+        "copyLayers": ["Instruction", "Helper"]
+      },
+      "Small": {
+        "width": 520,
+        "minHeight": 128,
+        "padding": 24,
+        "medallionToCopyGap": 4,
+        "copyGap": 4,
+        "medallion": "Small (32px)",
+        "copyLayers": ["Instruction", "Helper"]
+      },
+      "XS": {
+        "width": 520,
+        "minHeight": 48,
+        "padding": 12,
+        "medallionToCopyGap": 8,
+        "medallion": "Extra Small (24px)",
+        "layout": "horizontal",
+        "copyLayers": ["Title", "Separator", "Desc"],
+        "copyGap": 4
+      }
+    },
+    "defaultCopy": {
+      "Default": {
+        "instruction": "Drop file here or click to upload",
+        "helper": "All files up to 10MB"
+      },
+      "Small": {
+        "instruction": "Drop file or click to upload",
+        "helper": "All files up to 10MB"
+      },
+      "XS": {
+        "title": "Drop file here or click to upload",
+        "separator": "-",
+        "desc": "All files up to 10MB"
+      }
     },
     "tokens": {
       "radius": "uds/radius/8",
@@ -61,8 +111,8 @@
       "fillDragging": "uds/surface/tertiary",
       "border": "uds/border/primary (dashed)",
       "borderDragging": "uds/border/secondary (dashed)",
-      "instruction": "Body/16/Medium (default) · Body/16/Semibold (small) · Body/14/Semibold (xs inline)",
-      "helper": "Body/14/Regular (default) · Body/12/Regular (small)",
+      "instruction": "Body/16/Medium (default) · Body/16/Semibold (small) · Body/14/Semibold (xs title)",
+      "helper": "Body/14/Regular (default) · Body/12/Regular (small) · Body/14/Regular (xs desc)",
       "medallion": "Size=Extra Large|Small|Extra Small, Color=Blue, Tone=Solid + UploadSimple Weight=Bold swap"
     },
     "gridLayout": {
@@ -78,8 +128,11 @@
     "exports": ["FileUpload", "FileUploadSize", "FileUploadProps"],
     "notes": [
       "Medallion maps default→xl, small→sm, xs→xs with UploadSimpleIcon weight bold.",
-      "Dragging variant mirrors hover/drag surface and border tokens.",
-      "XS uses single-line instruction · helper copy by default."
+      "Root gap: default 8px, small 4px, xs row gap 8px; copy stack gap 4px.",
+      "Default min-height 168px (was 272px); all Figma variants are 520px wide.",
+      "XS copy is a horizontal row: semibold title, hyphen separator, regular desc.",
+      "data-state reflects default | dragging | disabled for Figma State axis.",
+      "Dragging variant mirrors hover/drag surface and border tokens."
     ]
   }
 }

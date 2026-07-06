@@ -4,10 +4,11 @@
     "kind": "badge",
     "tier": 0,
     "replaceExisting": true,
-    "gridCols": 4,
+    "gridCols": 8,
     "gridCellW": 88,
     "gridCellH": 32,
     "axes": {
+      "Shape": ["Pill", "Rect"],
       "Accent": [
         "Transparent",
         "Neutral",
@@ -28,10 +29,14 @@
       "Appearance": ["Subtle", "Pastel", "Outlined", "Solid"]
     },
     "label": "Label",
-    "paddingH": 8,
-    "gapVar": "uds/gap/8",
+    "labelTextStyle": "Body/12/Medium",
+    "paddingHVar": "uds/gap/8",
+    "paddingVVar": "uds/gap/4",
+    "paddingHVarBySize": { "Small": "uds/gap/6" },
+    "paddingVVarBySize": { "Small": "uds/gap/2" },
+    "gapVar": "uds/gap/4",
     "radiusByShape": { "Pill": "uds/radius/9999", "Rect": "uds/radius/2" },
-    "figmaMatrixNote": "Primary code API: accent × appearance (see BADGE_ACCENTS). Default pill shape; add Badge Size/Shape sets separately if needed."
+    "figmaMatrixNote": "120 variants (2 shapes × 15 accents × 4 appearances). Shape maps to code `shape` (`pill` | `rect`); Pill uses uds/radius/9999, Rect uses uds/radius/2. Padding/gap bound to uds/gap/* (default px-2/py-1/gap-1). Label layer uses Body/12/Medium + accent fill token. Code `size` (default | sm) remains a separate layout prop."
   },
   "input": {
     "figmaName": "Input",
@@ -468,6 +473,23 @@
     "axes": { "State": ["Default", "Hover"] },
     "label": "Link text"
   },
+  "footer": {
+    "figmaName": "Footer",
+    "kind": "footer",
+    "tier": 2,
+    "gridCols": 2,
+    "gridCellW": 1320,
+    "gridCellH": 48,
+    "width": 1280,
+    "height": 40,
+    "axes": { "Links": ["Off", "On"] },
+    "fillVar": "uds/surface/primary",
+    "strokeVar": "uds/border/primary",
+    "copyright": "© 2026 CHG Management, Inc. All rights reserved.",
+    "link1": "Privacy Policy",
+    "link2": "Terms & Conditions",
+    "figmaSnapshot": "ai/figma-footer.snapshot.json"
+  },
   "avatar": {
     "figmaName": "Avatar",
     "kind": "avatar",
@@ -816,8 +838,8 @@
       "Size": ["Default", "Small", "XS"],
       "State": ["Default", "Disabled", "Dragging"]
     },
-    "width": 480,
-    "widthXs": 400,
+    "width": 520,
+    "widthXs": 520,
     "medallionSetNodeId": "1847:5417",
     "uploadSimpleIconKey": "58381645f3f638a5348482f5deda708fdec4f12e",
     "iconSetNodeId": "501:6"
@@ -836,7 +858,9 @@
     },
     "width": 480,
     "fileUploadSetNodeId": "1887:5090",
-    "badgeSetNodeId": "746:341",
+    "badgeSetNodeId": "2214:5801",
+    "progressSetNodeId": "623:227",
+    "medallionSetNodeId": "1847:5417",
     "iconSetNodeId": "501:6",
     "uploadSimpleIconKey": "58381645f3f638a5348482f5deda708fdec4f12e",
     "fileIconKey": "b6abfee2cc2369d1fa0b5decc772e806ad8e8436",
