@@ -1,217 +1,40 @@
-# CHG Design System (UDS) — AI Rules
+# UDS (Unified Design System) — Cursor rules
 
-You are working within the CHG Design System, a React component library published as `@mich8060/chg-design-system`.
+Package: `@chghealthcare/unified-design-system`
 
-## Architecture
+**Canonical sources (read before generating UI):**
+- [`ai/uds-contract.json`](./ai/uds-contract.json) — machine-readable contract (also `@chghealthcare/unified-design-system/contract` when installed)
+- [`AGENTS.md`](./AGENTS.md) — agent rules summary
+- [`setup.md`](./setup.md) — consumer bootstrap
+- [`AI_USAGE.md`](./AI_USAGE.md) — allowed imports and anti-patterns
+- [`figma.component.rules.md`](./figma.component.rules.md) — Figma build/update rules
 
-- **Component location**: `src/ui/<ComponentName>/`
-- **Each component folder** contains: `ComponentName.jsx`, `ComponentName.scss`, `index.js`, and optionally `ComponentName.ai.md` (AI context)
-- **Design tokens**: CSS custom properties prefixed with `--uds-` (defined in `src/styles/tokens.css`)
-- **Icons**: Use the `Icon` component with Phosphor icon names (e.g., `<Icon name="House" size={20} />`)
-- **Styling**: BEM-like class naming with `uds-` prefix (e.g., `uds-button`, `uds-button__label`, `uds-button--primary`)
+## Imports (consumers)
 
-## Import Patterns
-
-```jsx
-// Named imports from the library index
-import { Button, Card, Avatar, Tag, UDS } from "@mich8060/chg-design-system";
-
-// Or direct component imports
-import Button from "@mich8060/chg-design-system/Button";
-
-// Styles (required)
-import "@mich8060/chg-design-system/styles.css";
-
-// Design tokens (optional, for custom components)
-import "@mich8060/chg-design-system/tokens.css";
+```tsx
+import { AppShell, Button, Card, Menu } from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"
 ```
 
-## Component Conventions
+**Do not** import from `src/components/ui/*`, `dist/*`, `@/*`, or `*-base` / `*-core` / `*-theme` / `*-uds` modules.
 
-1. **All components** accept `className` prop for custom styling and spread `...rest` props onto the root element
-2. **Form components** (Input, Textarea, Dropdown, Checkbox, Radio, Toggle) support `state` prop: `"default"` | `"focused"` | `"error"` | `"disabled"`
-3. **Interactive components** render as `<button>` when `onClick` is provided, otherwise `<span>` or `<div>`
-4. **Size variants** when available: `"xsmall"` | `"small"` | `"default"` | `"large"`
-5. **Icons** are referenced by Phosphor icon name strings (e.g., `icon="ArrowRight"`), not imported icon components
+Legacy package `@mich8060/chg-design-system` and the old `src/ui/` folder layout are **not** this repo.
 
-## UDS Application Wrapper
+## Authenticated screens
 
-The `UDS` component is a comprehensive application shell. When building full applications, always wrap with `<UDS>`:
+- Default shell: **`AppShell`** with **`Menu`** in the menu slot (not `Sidebar*` unless you own rail CSS).
+- Page content: **`AppShell.Main`**. Set **`enableRouterOutlet={false}`** for static apps.
+- Menu brand: default **`chg`**; override with **`brand`** prop. Use **`headerVariant="title"`** for internal tools — see `ai/guides/menu-header-identity.md`.
+- Screen patterns: `ai/recipes/*.md` and `ai/examples/*.tsx`.
 
-```jsx
-<UDS>
-  <UDS.Sidebar brand={<Logo />} brandTitle="App Name" navItems={navItems} />
-  <UDS.ContentArea>
-    <UDS.PageHeader title="Page Title" breadcrumbs={["Home", "Page"]} />
-    <UDS.Main>{/* Page content */}</UDS.Main>
-  </UDS.ContentArea>
-  <UDS.ListView>{/* Optional left list */}</UDS.ListView>
-  <UDS.SidePanel>{/* Optional right panel */}</UDS.SidePanel>
-  <UDS.Modal>{/* Optional modal */}</UDS.Modal>
-</UDS>
-```
+## Styling
 
-Use the `useUDS()` hook to programmatically control panels: `openSidePanel()`, `closeModal()`, `toggleListView()`, etc.
+- Design tokens: CSS variables `--uds-*` (semantic colors, spacing, radius).
+- Rectangle corner radius **≤ 12px**; `rounded-full` only for circles/pills.
+- Icons: Phosphor via package icon components (e.g. `HouseIcon`), not ad-hoc SVG chevrons.
 
-### Mandatory UDS Shell Rule (All AI Agents)
+## Figma (when using MCP / use_figma)
 
-- Treat `UDS` as the required top-level application shell, not a leaf widget.
-- Build application pages and layouts inside `<UDS>` and compose with `UDS.Menu`, `UDS.Content`, `UDS.Main`, `UDS.Listview`, and `UDS.Panel`.
-- Do not propose app-level layouts that bypass `UDS` unless the user explicitly asks for a non-UDS layout.
+Follow [`figma.component.rules.md`](./figma.component.rules.md): in-place updates, variable-bound padding/gap/radius/strokes, local text styles, TEXT component properties for editable copy.
 
-## Design Token Usage
-
-When writing custom CSS that should match the design system:
-- **Colors**: `var(--uds-color-*)` (e.g., `--uds-color-blue-500`, `--uds-color-neutral-100`)
-- **Typography**: `var(--uds-font-size-*)`, `var(--uds-font-weight-*)`, `var(--uds-line-*)`
-- **Spacing**: `var(--uds-space-*)` (e.g., `--uds-space-8`, `--uds-space-16`)
-- **Radius**: `var(--uds-radius-*)` (e.g., `--uds-radius-4`, `--uds-radius-8`)
-- **Shadows**: `var(--uds-shadow-*)`
-
-## Component Composition Patterns
-
-### Form fields
-Always wrap form inputs with `<Field>` for labels, validation, and helper text:
-```jsx
-<Field label="Email" required helperMessage="Enter your work email">
-  <Input type="email" placeholder="you@company.com" />
-</Field>
-```
-
-### Data display
-Combine `Avatar`, `Tag`, `Badge`, `Status`, `DotStatus` inside `Table` cells, `Card` components, or list items.
-
-### Layout
-Use `Flex` for quick layouts. Use `Divider` to separate content sections. Use `Card` for contained content blocks.
-
-## AI Context Files
-
-Each component folder contains a `ComponentName.ai.md` file with detailed AI-friendly documentation including:
-- Purpose and when to use the component
-- Complete props reference with types, defaults, and valid values
-- Code examples from basic to advanced
-- Composition patterns with other components
-- Do's and Don'ts
-- Accessibility notes
-
-### How to Find and Read AI Context Files
-
-**Before generating code that uses any component, always read its `.ai.md` file first.**
-
-All AI context files follow the pattern:
-
-```
-src/ui/<ComponentName>/<ComponentName>.ai.md
-```
-
-To discover all available files, search for the glob pattern `src/ui/**/*.ai.md`.
-
-### Complete Component AI File Manifest
-
-| Component | AI Context File Path |
-|-----------|---------------------|
-| Accordion | `src/ui/Accordion/Accordion.ai.md` |
-| ActionMenu | `src/ui/ActionMenu/ActionMenu.ai.md` |
-| Avatar | `src/ui/Avatar/Avatar.ai.md` |
-| Badge | `src/ui/Badge/Badge.ai.md` |
-| Branding | `src/ui/Branding/Branding.ai.md` |
-| Breadcrumb | `src/ui/Breadcrumb/Breadcrumb.ai.md` |
-| Button | `src/ui/Button/Button.ai.md` |
-| Calendar | `src/ui/Calendar/Calendar.ai.md` |
-| Card | `src/ui/Card/Card.ai.md` |
-| Checkbox | `src/ui/Checkbox/Checkbox.ai.md` |
-| Chip | `src/ui/Chip/Chip.ai.md` |
-| Datepicker | `src/ui/Datepicker/Datepicker.ai.md` |
-| Divider | `src/ui/Divider/Divider.ai.md` |
-| DotStatus | `src/ui/DotStatus/DotStatus.ai.md` |
-| Dropdown | `src/ui/Dropdown/Dropdown.ai.md` |
-| EventCard | `src/ui/EventCard/EventCard.ai.md` |
-| Field | `src/ui/Field/Field.ai.md` |
-| FileUpload | `src/ui/FileUpload/FileUpload.ai.md` |
-| Flex | `src/ui/Flex/Flex.ai.md` |
-| Icon | `src/ui/Icon/Icon.ai.md` |
-| ImageAspect | `src/ui/ImageAspect/ImageAspect.ai.md` |
-| Input | `src/ui/Input/Input.ai.md` |
-| Key | `src/ui/Key/Key.ai.md` |
-| Menu | `src/ui/Menu/Menu.ai.md` |
-| MicroCalendar | `src/ui/MicroCalendar/MicroCalendar.ai.md` |
-| Modal | `src/ui/Modal/Modal.ai.md` |
-| Pagination | `src/ui/Pagination/Pagination.ai.md` |
-| PillToggle | `src/ui/PillToggle/PillToggle.ai.md` |
-| Playground | `src/ui/Playground/Playground.ai.md` |
-| ProgressCircle | `src/ui/ProgressCircle/ProgressCircle.ai.md` |
-| ProgressIndicator | `src/ui/ProgressIndicator/ProgressIndicator.ai.md` |
-| Radio | `src/ui/Radio/Radio.ai.md` |
-| Slider | `src/ui/Slider/Slider.ai.md` |
-| Status | `src/ui/Status/Status.ai.md` |
-| Steps | `src/ui/Steps/Steps.ai.md` |
-| Table | `src/ui/Table/Table.ai.md` |
-| Tabs | `src/ui/Tabs/Tabs.ai.md` |
-| Tag | `src/ui/Tag/Tag.ai.md` |
-| Textarea | `src/ui/Textarea/Textarea.ai.md` |
-| Toast | `src/ui/Toast/Toast.ai.md` |
-| Toggle | `src/ui/Toggle/Toggle.ai.md` |
-| Tooltip | `src/ui/Tooltip/Tooltip.ai.md` |
-
-### Lookup Instructions for AI Agents
-
-1. **When asked to use a specific component**: Read `src/ui/<ComponentName>/<ComponentName>.ai.md` to understand its props, patterns, and constraints before writing any code.
-2. **When building a feature that combines multiple components**: Read the `.ai.md` file for each component you plan to use. Pay special attention to the "Composition" sections which describe how components work together.
-3. **When unsure which component to use**: Refer to the "Available Components" section below, then read the `.ai.md` files of candidate components to compare their intended use cases.
-4. **When customizing styles**: Read the component's `.ai.md` file for CSS class references and design token usage, then consult `src/styles/tokens.css` for available token values.
-
-## Available Components
-
-### Layout & Structure
-- `Accordion` / `AccordionItem` — Expandable content sections
-- `UDS` — Full application wrapper with sidebar, panels, modals
-- `Card` — Contained content block with optional header/footer
-- `Divider` — Visual separator line
-- `Flex` — Flexbox layout utility
-- `ImageAspect` — Image with aspect ratio constraint
-- `Steps` — Step indicator / wizard progress
-- `Table` — Data table with sortable/filterable columns
-- `Tabs` / `TabItem` — Tabbed navigation
-
-### Navigation
-- `ActionMenu` — Contextual action dropdown menu
-- `Breadcrumb` — Page hierarchy breadcrumb trail
-- `Dropdown` — Select-style dropdown input
-- `Menu` — Full sidebar navigation with brand, search, sections
-- `Pagination` — Page navigation controls
-
-### Form Controls
-- `Button` — Primary action trigger (multiple appearances, sizes, layouts)
-- `Checkbox` — Binary toggle with label
-- `Chip` — Filter/selection chip with optional icon and badge
-- `Datepicker` — Date selection input
-- `Field` — Form field wrapper (label, validation, helper text)
-- `FileUpload` — File upload with drag-and-drop
-- `Input` — Single-line text input
-- `PillToggle` — Segmented control / pill toggle
-- `Radio` — Radio button selection
-- `Slider` — Range slider input
-- `Textarea` — Multi-line text input
-- `Toggle` — On/off switch
-
-### Data Display
-- `Avatar` — User photo or initials circle
-- `Badge` — Numeric badge indicator
-- `DotStatus` — Colored status dot
-- `Icon` — Phosphor icon wrapper (1000+ icons available)
-- `Key` — Keyboard shortcut indicator
-- `ProgressCircle` — Circular progress indicator
-- `ProgressIndicator` — Linear progress bar
-- `Status` — Status label with colored dot
-- `Tag` — Colored label tag
-
-### Feedback
-- `Toast` — Notification message (success, error, warning, info)
-- `Tooltip` — Hover tooltip
-
-### Branding
-- `Branding` — Brand logo and identity display
-
-### Utilities
-- `MicroCalendar` — Compact calendar widget
-- `Playground` — Interactive component playground
+Inventory: `ai/figma-component-manifest.json`, props map: `ai/figma-component-props.json`.

@@ -132,6 +132,14 @@ Consumers and AI tools should import only from:
 - `@chghealthcare/unified-design-system`
 - `@chghealthcare/unified-design-system/styles.css`
 
+AI governance artifacts ship in the npm tarball (see [`AI_USAGE.md`](./AI_USAGE.md)):
+
+- `@chghealthcare/unified-design-system/contract`
+- `@chghealthcare/unified-design-system/setup`
+- `@chghealthcare/unified-design-system/figma-rules`
+- `@chghealthcare/unified-design-system/figma-component-manifest`
+- `@chghealthcare/unified-design-system/figma-component-props`
+
 Do not infer public API from internal implementation files under `src/components/ui`.
 
 ## Consumer typography (Tailwind v4 + Vite)

@@ -23,7 +23,13 @@
     "dist",
     "README.md",
     "AI_USAGE.md",
+    "AGENTS.md",
+    "setup.md",
+    "figma.component.rules.md",
     "LICENSE",
+    "ai/uds-contract.json",
+    "ai/figma-component-manifest.json",
+    "ai/figma-component-props.json",
     "ai/recipes",
     "ai/examples",
     "ai/guides",
@@ -96,7 +102,12 @@
       "import": "./dist/components/ui/input-otp.js",
       "require": "./dist/components/ui/input-otp.cjs"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./contract": "./ai/uds-contract.json",
+    "./figma-component-manifest": "./ai/figma-component-manifest.json",
+    "./figma-component-props": "./ai/figma-component-props.json",
+    "./figma-rules": "./figma.component.rules.md",
+    "./setup": "./setup.md"
   },
   "volta": {
     "node": "22.22.2"
@@ -125,7 +136,10 @@
     "ci:bundle": "node ./scripts/ci-bundle.mjs",
     "test:consumer-fixture": "node ./scripts/test-consumer-fixture.mjs",
     "test:docs-versions": "node --test ./scripts/lib/docs-version-policy.test.mjs && node ./scripts/docs-versions-smoke.mjs",
-    "validate:uds": "node ./scripts/validate-uds-compliance.mjs"
+    "validate:uds": "node ./scripts/validate-uds-compliance.mjs",
+    "validate:figma": "node ./scripts/validate-figma-artifacts.mjs",
+    "validate:ai": "node ./scripts/validate-uds-compliance.mjs && node ./scripts/validate-figma-artifacts.mjs",
+    "test": "node --test ./scripts/lib/docs-version-policy.test.mjs ./scripts/lib/figma-variable-scopes.test.mjs ./scripts/lib/figma-artifacts-drift.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",

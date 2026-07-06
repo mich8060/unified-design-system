@@ -29,5 +29,17 @@ jobs:
       - name: Build library (publish surface)
         run: npm run build:lib
 
+      - name: Unit tests (scripts)
+        run: npm test
+
+      - name: Validate Figma artifact consistency
+        run: npm run validate:figma
+
+      - name: Validate UDS consumer examples
+        run: npm run validate:uds
+
+      - name: Per-component bundle gzip budgets
+        run: npm run ci:bundle
+
       - name: Verify npm pack contents
         run: npm run pack:check

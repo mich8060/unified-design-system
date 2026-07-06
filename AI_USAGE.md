@@ -2,6 +2,17 @@
 
 Source of truth: [`ai/uds-contract.json`](./ai/uds-contract.json)
 
+When installed from npm, the same artifacts ship with the package:
+
+| Path | Purpose |
+|------|---------|
+| `@chghealthcare/unified-design-system/contract` | Machine-readable UDS contract (JSON) |
+| `@chghealthcare/unified-design-system/setup` | Bootstrap starter doc |
+| `@chghealthcare/unified-design-system/figma-rules` | Figma build/update rules |
+| `@chghealthcare/unified-design-system/figma-component-manifest` | In-Figma inventory |
+| `@chghealthcare/unified-design-system/figma-component-props` | Figma ↔ React prop map |
+| `ai/recipes`, `ai/examples`, `ai/guides` | Screen patterns (in tarball) |
+
 Use this package as a published dependency, not as a source-code template. When prose docs disagree, follow the contract JSON and the recipe/example fixtures under [`ai/`](./ai).
 
 ## Consumer install (no shadcn init)
