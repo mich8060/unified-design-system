@@ -1,0 +1,79 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Link": {
+      "nodeId": "635:225",
+      "name": "Link",
+      "width": 106,
+      "height": 176
+    }
+  },
+  "Link": {
+    "nodeId": "635:225",
+    "description": "Standalone text link. Appearance selects primary vs secondary token pair; State=Hover previews underline + hover fill.",
+    "variants": [
+      "Appearance=Primary, State=Default",
+      "Appearance=Primary, State=Hover",
+      "Appearance=Secondary, State=Default",
+      "Appearance=Secondary, State=Hover"
+    ],
+    "variantCount": 4,
+    "variantNodeIds": {
+      "Appearance=Primary, State=Default": "635:221",
+      "Appearance=Primary, State=Hover": "635:223",
+      "Appearance=Secondary, State=Default": "2320:6458",
+      "Appearance=Secondary, State=Hover": "2320:6460"
+    },
+    "gridLayout": {
+      "cols": 2,
+      "rows": 2,
+      "note": "Col 0: Primary Default/Hover. Col 1: Secondary Default/Hover."
+    },
+    "componentProperties": {
+      "Appearance": {
+        "type": "VARIANT",
+        "defaultValue": "Primary",
+        "variantOptions": ["Primary", "Secondary"],
+        "codeProp": "appearance",
+        "codeValues": {
+          "Primary": "primary",
+          "Secondary": "secondary"
+        }
+      },
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Hover"],
+        "codeProp": "CSS :hover preview only",
+        "note": "Not a React prop — hover styles applied via CSS on the anchor."
+      }
+    },
+    "layerNaming": {
+      "Link text": "Body/16/Medium equivalent — Inter Medium 16px; underline on Hover state only"
+    },
+    "tokens": {
+      "primaryDefault": "uds/text/link/primary/default",
+      "primaryHover": "uds/text/link/primary/hover",
+      "secondaryDefault": "uds/text/link/secondary/default",
+      "secondaryHover": "uds/text/link/secondary/hover",
+      "typography": "Body/16/Medium"
+    },
+    "states": {
+      "Default": "text-decoration: none",
+      "Hover": "text-decoration: underline"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/link.tsx",
+    "exports": ["Link"],
+    "structure": {
+      "Link": "Anchor with appearance primary|secondary; hover underline + hover color token"
+    },
+    "notes": [
+      "Figma State axis documents hover; code uses hover: pseudo-class.",
+      "external + showExternalIcon add trailing ArrowUpRight icon (not in Figma set)."
+    ]
+  }
+}

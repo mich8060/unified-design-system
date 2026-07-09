@@ -116,7 +116,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Input Group combines fields with addons and inline text so formatted inputs read as a single control.',
   },
   'input-otp': {
-    summary: 'Input OTP breaks one-time code entry into predictable slots for faster scanning and correction.',
+    summary:
+      'Input OTP splits one-time codes into six slots with optional Minus separator. Size=Default (64×70, Display/48) or Size=Compact (44×48, Display/36) for mobile; code uses `inputSize="sm"` or responsive auto-compress below 768px.',
   },
   item: {
     summary: 'Item is a composable content row for list-like layouts with media, text, metadata, and trailing actions.',
@@ -132,7 +133,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
       'Layout is a flexbox primitive for rows and columns with typed `direction`, `alignItems`, `justifyContent`, `gap`, and `wrap` props (numbers use the theme spacing scale; strings pass through as CSS).',
   },
   link: {
-    summary: 'Link provides styled inline navigation and external-link affordances using design-system typography and color tokens.',
+    summary:
+      'Link renders primary or secondary inline links with hover underline and optional external icon.',
   },
   medallion: {
     summary:
@@ -158,7 +160,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Pagination moves users through large result sets with page links, boundaries, and jump controls.',
   },
   'password-input': {
-    summary: 'Password Input presets Input for secure credential entry with password autofill semantics.',
+    summary:
+      'Password Input uses a 600px Input-aligned shell with Placeholder|Value text layers and a trailing Eye icon button (pl uds/gap/12, pr uds/gap/8).',
   },
   'phone-input': {
     summary: 'Phone Input presets Input for telephone formatting and keypad-friendly mobile entry.',
@@ -238,13 +241,16 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Textarea supports multiline freeform input for notes, descriptions, and longer responses.',
   },
   'time-input': {
-    summary: 'Time Input presets Input for native time selection while retaining package sizing and validation styling.',
+    summary:
+      'Time Input uses a 600px InputGroup shell with segmented hours, minutes, meridiem, and optional timezone TEXT (Timezone boolean) plus a trailing Clock icon.',
   },
   'time-step-input': {
-    summary: 'Time Step Input combines a text field with a dropdown time list generated from configurable minute increments.',
+    summary:
+      'Time Step Input uses a 600px read-only shell with centered Placeholder|Value text, optional timezone label (Timezone boolean), and a trailing Clock icon.',
   },
   'token-input': {
-    summary: 'Token Input turns free text into removable chip tokens so tags, recipients, and filters can be entered as discrete items.',
+    summary:
+      'TokenInput composes removable token chips as Outline Buttons (Small / 32px default, Extra Small / 24px when inputSize=sm) plus an inline draft field in uds/surface/secondary shell.',
   },
   toggle: {
     summary: 'Toggle applies a pressed/unpressed state to a single formatting or preference control.',
@@ -259,7 +265,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Tooltip adds short explanatory text to controls and indicators when labels alone are insufficient.',
   },
   'url-input': {
-    summary: 'URL Input mirrors the Input Group URL pattern with a fixed protocol addon and an editable domain/path field.',
+    summary:
+      'URL Input mirrors the Input Group URL pattern with a fixed https:// protocol addon and an editable domain/path field (412px Figma ref width).',
   },
 }
 

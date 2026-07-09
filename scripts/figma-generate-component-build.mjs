@@ -16,9 +16,10 @@ const runtimePath = path.join(root, 'scripts/figma-build-runtime.js')
 const slug = process.argv[2]
 const write = process.argv.includes('--write')
 const minimal = process.argv.includes('--minimal')
+const patch = process.argv.includes('--patch')
 if (!slug) {
   console.error(
-    'Usage: node scripts/figma-generate-component-build.mjs <slug> [--write] [--minimal]',
+    'Usage: node scripts/figma-generate-component-build.mjs <slug> [--write] [--minimal] [--patch]',
   )
   process.exit(1)
 }
@@ -66,6 +67,8 @@ const KIND_BY_SLUG = {
   'dropdown-menu': 'dropdown-menu',
   branding: 'branding',
   menu: 'menu',
+  'menu-nav-parent': 'menu-nav-parent',
+  'menu-nav-child': 'menu-nav-child',
 }
 
 const BRANDING_SVG_FILES = {
@@ -330,18 +333,174 @@ function fileUploadCardsMinimalCode() {
     .join('\n\n')
 }
 
-function menuMinimalCode() {
-  const constBlocks = [
+function menuNavSharedConsts() {
+  return [
     runtime.match(/const GLYPH_COMPONENT_CACHE = \{\}/m)?.[0],
     extractFunction('importGlyphComponent'),
+  ].filter(Boolean)
+}
+
+function menuNavParentMinimalCode() {
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindStroke',
+    'bindStrokeWeight',
+    'bindRadius',
+    'bindGap',
+    'bindPaddingAxis',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'applyLocalTextStyle',
+    'bindIconFill',
+    'createMenuGlyph',
+    'createMenuDefaultIconInstance',
+    'findComponentPropertyId',
+    'ensureTextComponentProperty',
+    'ensureSlotComponentProperty',
+    'getMenuNavPartComponent',
+    'instantiateMenuNavPart',
+    'setMenuNavInstanceLabel',
+    'findMenuNavParentLabelLayer',
+    'linkMenuNavParentProperties',
+    'buildMenuNavParentExpandedRow',
+    'buildMenuNavParentVariant',
+  ]
+  const tail = atomVariantBuildTail('buildMenuNavParentVariant').replace(
+    'gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 48, spec.gridCellH ?? 48);',
+    `gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 48, spec.gridCellH ?? 48);
+linkMenuNavParentProperties(set, spec);`,
+  )
+  return [...menuNavSharedConsts(), ...fnNames.map(extractFunction), tail]
+    .filter(Boolean)
+    .join('\n\n')
+}
+
+function menuNavParentPatchCode() {
+  const fnNames = [
+    'findVar',
+    'bindFill',
+    'bindStroke',
+    'bindStrokeWeight',
+    'bindRadius',
+    'bindGap',
+    'bindPaddingAxis',
+    'loadInter',
+    'applyLocalTextStyle',
+    'bindIconFill',
+    'createMenuGlyph',
+    'createMenuDefaultIconInstance',
+    'variantName',
+    'gridLayoutVariants',
+    'ensurePage',
+    'findComponentPropertyId',
+    'ensureTextComponentProperty',
+    'ensureSlotComponentProperty',
+    'getMenuNavPartComponent',
+    'instantiateMenuNavPart',
+    'setMenuNavInstanceLabel',
+    'findMenuNavParentLabelLayer',
+    'linkMenuNavParentProperties',
+    'buildMenuNavParentExpandedRow',
+    'buildMenuNavParentVariant',
+  ]
+  return `${menuNavSharedConsts().join('\n\n')}
+
+${fnNames.map(extractFunction).join('\n\n')}
+
+const spec = ${JSON.stringify(fullSpec, null, 2)};
+
+const MENU_NAV_PARENT_SET_ID = '2369:6204';
+
+function parseMenuNavParentVariantAxis(name) {
+  const axis = {};
+  for (const part of String(name).split(', ')) {
+    const eq = part.indexOf('=');
+    if (eq === -1) continue;
+    axis[part.slice(0, eq).trim()] = part.slice(eq + 1).trim();
+  }
+  return axis;
+}
+
+async function patchMenuNavParentInPlace() {
+  await ensurePage('UDS Components');
+  const set = await figma.getNodeByIdAsync(MENU_NAV_PARENT_SET_ID);
+  if (!set || set.type !== 'COMPONENT_SET') {
+    throw new Error('Menu nav parent set not found: ' + MENU_NAV_PARENT_SET_ID);
+  }
+  await loadInter();
+  let patched = 0;
+  for (const variant of set.children) {
+    if (variant.type !== 'COMPONENT') continue;
+    const axis = parseMenuNavParentVariantAxis(variant.name);
+    while (variant.children.length > 0) variant.children[0].remove();
+    await buildMenuNavParentVariant(variant, spec, axis);
+    patched += 1;
+  }
+  gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 300, spec.gridCellH ?? 140);
+  linkMenuNavParentProperties(set, spec);
+  return { nodeId: set.id, name: set.name, patched, variantCount: set.children.length };
+}
+
+return await patchMenuNavParentInPlace();`
+}
+
+function menuNavChildMinimalCode() {
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindStroke',
+    'bindStrokeWeight',
+    'bindPaddingAxis',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'applyLocalTextStyle',
+    'buildMenuNavChildVariant',
+    'linkTextComponentProperty',
+  ]
+  const tail = atomVariantBuildTail('buildMenuNavChildVariant').replace(
+    'gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 48, spec.gridCellH ?? 48);',
+    `gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 48, spec.gridCellH ?? 48);
+linkTextComponentProperty(set, { propertyName: 'label', layerName: 'Label', defaultValue: spec.copy?.label ?? 'Open requisitions' });`,
+  )
+  return [...fnNames.map(extractFunction), tail].filter(Boolean).join('\n\n')
+}
+
+function menuCoreCode() {
+  const constBlocks = [
+    runtime.match(/const GLYPH_COMPONENT_CACHE = \{\}/m)?.[0],
+    runtime.match(/const MENU_BRAND_AXIS_TO_EXTENSION = \{[\s\S]*?\n\}/m)?.[0],
+    'const MENU_WORDMARK_CLIP = { width: 140, height: 56 }',
+    'const MENU_TOGGLE_SIZE = { width: 20, height: 44 }',
+    'const MENU_MARK_CLIP = { width: 36, height: 36 }',
+    runtime.match(/let menuBrandExtensionCache = null/m)?.[0],
+    extractFunction('importGlyphComponent'),
+    extractFunction('menuBranchSubtreeActive'),
+    extractFunction('instantiateMenuNavPart'),
+    extractFunction('getMenuNavPartComponent'),
+    extractFunction('setMenuNavInstanceLabel'),
+    extractFunction('createMenuDefaultIconInstance'),
+    extractFunction('findMenuNavParentIconSlot'),
+    extractFunction('swapMenuNavParentIcon'),
+    extractFunction('configureMenuNavParentBranchChildren'),
   ].filter(Boolean)
   const fnNames = [
     'cartesianProduct',
     'findVar',
     'bindFill',
     'bindStroke',
+    'bindStrokeWeight',
     'bindRadius',
     'bindGap',
+    'bindPaddingAxis',
     'loadInter',
     'variantName',
     'gridLayoutVariants',
@@ -349,6 +508,9 @@ function menuMinimalCode() {
     'ensurePage',
     'applyLocalTextStyle',
     'createBrandingInstance',
+    'getMenuBrandExtensionCollection',
+    'applyMenuBrandVariableMode',
+    'fitMenuBrandingInstance',
     'bindIconFill',
     'createMenuGlyph',
     'createMenuToggleButton',
@@ -360,9 +522,103 @@ function menuMinimalCode() {
     'appendMenuNavigation',
     'buildMenuVariant',
   ]
-  return [...constBlocks, ...fnNames.map(extractFunction), atomVariantBuildTail('buildMenuVariant')]
-    .filter(Boolean)
-    .join('\n\n')
+  return [...constBlocks, ...fnNames.map(extractFunction)].filter(Boolean).join('\n\n')
+}
+
+function menuMinimalCode() {
+  return [menuCoreCode(), atomVariantBuildTail('buildMenuVariant')].filter(Boolean).join('\n\n')
+}
+
+function menuNavChildPatchCode() {
+  const fnNames = [
+    'findVar',
+    'bindFill',
+    'bindStroke',
+    'bindStrokeWeight',
+    'bindPaddingAxis',
+    'loadInter',
+    'applyLocalTextStyle',
+    'gridLayoutVariants',
+    'buildMenuNavChildVariant',
+    'linkTextComponentProperty',
+  ]
+  return `${fnNames.map(extractFunction).join('\n\n')}
+
+const spec = ${JSON.stringify(fullSpec, null, 2)};
+
+const MENU_NAV_CHILD_SET_ID = '2369:6219';
+
+function parseMenuNavChildVariantAxis(name) {
+  const axis = {};
+  for (const part of String(name).split(', ')) {
+    const eq = part.indexOf('=');
+    if (eq === -1) continue;
+    axis[part.slice(0, eq).trim()] = part.slice(eq + 1).trim();
+  }
+  return axis;
+}
+
+async function patchMenuNavChildInPlace() {
+  const set = await figma.getNodeByIdAsync(MENU_NAV_CHILD_SET_ID);
+  if (!set || set.type !== 'COMPONENT_SET') {
+    throw new Error('Menu nav child set not found: ' + MENU_NAV_CHILD_SET_ID);
+  }
+  await loadInter();
+  let patched = 0;
+  for (const variant of set.children) {
+    if (variant.type !== 'COMPONENT') continue;
+    const axis = parseMenuNavChildVariantAxis(variant.name);
+    while (variant.children.length > 0) variant.children[0].remove();
+    await buildMenuNavChildVariant(variant, spec, axis);
+    patched += 1;
+  }
+  gridLayoutVariants(set, spec.gridCols ?? 2, spec.gridCellW ?? 300, spec.gridCellH ?? 56);
+  linkTextComponentProperty(set, {
+    propertyName: 'label',
+    layerName: 'Label',
+    defaultValue: spec.copy?.label ?? 'Open requisitions',
+  });
+  return { nodeId: set.id, name: set.name, patched, variantCount: set.children.length };
+}
+
+return await patchMenuNavChildInPlace();`
+}
+
+function menuPatchCode() {
+  return `${menuCoreCode()}
+
+const spec = ${JSON.stringify(fullSpec, null, 2)};
+
+const MENU_SET_ID = '1895:6336';
+
+function parseMenuVariantAxis(name) {
+  const axis = {};
+  for (const part of String(name).split(', ')) {
+    const eq = part.indexOf('=');
+    if (eq === -1) continue;
+    axis[part.slice(0, eq).trim()] = part.slice(eq + 1).trim();
+  }
+  return axis;
+}
+
+async function patchMenuInPlace() {
+  const set = await figma.getNodeByIdAsync(MENU_SET_ID);
+  if (!set || set.type !== 'COMPONENT_SET') {
+    throw new Error('Menu component set not found: ' + MENU_SET_ID);
+  }
+  await loadInter();
+  let patched = 0;
+  for (const variant of set.children) {
+    if (variant.type !== 'COMPONENT') continue;
+    const axis = parseMenuVariantAxis(variant.name);
+    while (variant.children.length > 0) variant.children[0].remove();
+    await buildMenuVariant(variant, spec, axis);
+    patched += 1;
+  }
+  return { nodeId: set.id, name: set.name, patched, variantCount: set.children.length };
+}
+
+return await patchMenuInPlace();`
 }
 
 function footerMinimalCode() {
@@ -382,6 +638,7 @@ function footerMinimalCode() {
     'applyLocalTextStyle',
     'findComponentPropertyId',
     'ensureTextComponentProperty',
+    'linkInstanceComponentProperty',
     'linkFooterTextProperties',
     'buildFooterVariant',
   ]
@@ -393,6 +650,93 @@ linkFooterTextProperties(set, spec);`,
   return [...fnNames.map(extractFunction), tail].filter(Boolean).join('\n\n')
 }
 
+function timeInputMinimalCode() {
+  const constBlocks = [
+    runtime.match(/const GLYPH_COMPONENT_CACHE = \{\}/m)?.[0],
+    extractFunction('importGlyphComponent'),
+  ].filter(Boolean)
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindStroke',
+    'bindStrokeWeight',
+    'bindRadius',
+    'bindGap',
+    'bindPaddingAxis',
+    'bindText',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'applyLocalTextStyle',
+    'applyLocalEffectStyle',
+    'linkTextComponentProperty',
+    'resolveGlyphComponentId',
+    'createIconInstance',
+    'createIcon16Instance',
+    'createInputGroupIconButton',
+    'createInputGroupAddonFrame',
+    'applyInputGroupShell',
+    'createMeridiemLabel',
+    'createTimezoneLabel',
+    'buildTimeInputVariant',
+    'linkTimeInputProperties',
+  ]
+  const tail = atomVariantBuildTail('buildTimeInputVariant').replace(
+    'gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 48, spec.gridCellH ?? 48);',
+    `gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 480, spec.gridCellH ?? 64);
+linkTimeInputProperties(set, spec);`,
+  )
+  return [...constBlocks, ...fnNames.map(extractFunction), tail].filter(Boolean).join('\n\n')
+}
+
+function headerMinimalCode() {
+  const fnNames = [
+    'cartesianProduct',
+    'findVar',
+    'bindFill',
+    'bindStroke',
+    'bindStrokeWeight',
+    'bindGap',
+    'bindPaddingAxis',
+    'bindRadius',
+    'bindText',
+    'loadInter',
+    'variantName',
+    'gridLayoutVariants',
+    'nextCanvasY',
+    'ensurePage',
+    'applyLocalTextStyle',
+    'findComponentPropertyId',
+    'ensureTextComponentProperty',
+    'linkInstanceComponentProperty',
+    'importGlyphComponent',
+    'bindIconFill',
+    'createMenuGlyph',
+    'createSearchInputInstance',
+    'applyInputGroupShell',
+    'createInputGroupAddonFrame',
+    'createInputGroupControlFrame',
+    'createKbdShortcutFrame',
+    'createHeaderGlyph',
+    'createHeaderIconButton',
+    'createHeaderAccountButton',
+    'appendHeaderTrailingDefaults',
+    'applyInlineHeaderSearchField',
+    'linkHeaderProperties',
+    'buildHeaderVariant',
+  ]
+  const tail = atomVariantBuildTail('buildHeaderVariant').replace(
+    'gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 48, spec.gridCellH ?? 48);',
+    `gridLayoutVariants(set, spec.gridCols ?? 4, spec.gridCellW ?? 48, spec.gridCellH ?? 48);
+linkHeaderProperties(set, spec);`,
+  )
+  const glyphCache = 'const GLYPH_COMPONENT_CACHE = {}'
+  return [glyphCache, ...fnNames.map(extractFunction), tail].filter(Boolean).join('\n\n')
+}
+
 const MINIMAL_BUILDERS = {
   medallion: medallionMinimalCode,
   'medallion-layout': medallionMinimalCode,
@@ -402,12 +746,23 @@ const MINIMAL_BUILDERS = {
   'file-upload': fileUploadMinimalCode,
   'file-upload-cards': fileUploadCardsMinimalCode,
   menu: menuMinimalCode,
+  'menu-nav-parent': menuNavParentMinimalCode,
+  'menu-nav-child': menuNavChildMinimalCode,
   footer: footerMinimalCode,
+  header: headerMinimalCode,
+  'time-input': timeInputMinimalCode,
 }
 
-const code = minimal && MINIMAL_BUILDERS[slug]
-  ? MINIMAL_BUILDERS[slug]()
-  : `
+const code =
+  patch && slug === 'menu'
+    ? menuPatchCode()
+    : patch && slug === 'menu-nav-child'
+      ? menuNavChildPatchCode()
+      : patch && slug === 'menu-nav-parent'
+        ? menuNavParentPatchCode()
+        : minimal && MINIMAL_BUILDERS[slug]
+      ? MINIMAL_BUILDERS[slug]()
+      : `
 ${runtime}
 ${brandingSvgsBlock}
 const spec = ${JSON.stringify(fullSpec, null, 2)};
@@ -415,12 +770,18 @@ return await buildFromSpec(spec);
 `.trim()
 
 const outDir = path.join(root, '.tmp/figma-build')
-const outPath = path.join(outDir, `${slug}${minimal ? '-minimal' : ''}.js`)
-const mcpPath = path.join(outDir, `${slug}-mcp-args.json`)
+const outPath = path.join(
+  outDir,
+  `${slug}${patch ? '-patch' : minimal ? '-minimal' : ''}.js`,
+)
+const mcpPath = path.join(
+  outDir,
+  `${slug}${patch ? '-patch' : minimal ? '-minimal' : ''}-mcp-args.json`,
+)
 if (write) {
   fs.mkdirSync(outDir, { recursive: true })
   fs.writeFileSync(outPath, code)
-  if (minimal) {
+  if (minimal || patch) {
     fs.writeFileSync(
       mcpPath,
       JSON.stringify({

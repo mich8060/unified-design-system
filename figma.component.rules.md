@@ -52,6 +52,7 @@ One component per page by default (related families like Input + Field may share
 Model the same prop axes as the code. Mirror the React API: form components expose state = default | focused | error | disabled; size axes use xsmall | small | default | large where the component supports them.
 Variant naming: Property=Value, Property=Value (e.g. Size=Default, State=Error). After combineAsVariants, manually grid-layout and resize — variants stack at (0,0) otherwise.
 Cap the variant matrix. If Size × Style × State > ~30 combinations, split into a sub-component instead of exploding variants.
+When create variants that either hide or show something please use true/false properties.
 Component properties: use TEXT for labels, placeholders, titles, and any user-facing copy; BOOLEAN for optional slots; INSTANCE_SWAP for icons — **and link each property to its child node in every variant**. See C.2 for text-style + TEXT property requirements.
 ## E. Icons, radius & visual constraints
 Icons via INSTANCE_SWAP, never a variant per icon. Icons are Phosphor glyphs; expose an instance-swap slot rather than enumerating icons as variants.

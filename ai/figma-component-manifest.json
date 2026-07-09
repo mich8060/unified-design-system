@@ -154,6 +154,14 @@
       "nodeId": "1895:6336",
       "slug": "menu"
     },
+    ".menu-nav-parent": {
+      "nodeId": "2369:6204",
+      "slug": "menu-nav-parent"
+    },
+    ".menu-nav-child": {
+      "nodeId": "2369:6219",
+      "slug": "menu-nav-child"
+    },
     ".command-item": {
       "nodeId": "1711:4580",
       "slug": "command"
@@ -257,8 +265,11 @@
     },
     "button": {
       "status": "in-figma",
-      "figmaName": "button",
-      "nodeId": "554:268"
+      "figmaName": "Button",
+      "nodeId": "554:268",
+      "variantCount": 30,
+      "variantAxes": ["Appearance", "Size"],
+      "note": "30 variants (6 Appearance × 5 Size: Extra Small 24px, Small 32px, Medium 36px, Default 44px, Large 52px). Props: ai/figma-component-props.json"
     },
     "button-group": {
       "status": "deferred",
@@ -432,7 +443,26 @@
       "nodeId": "1895:6336",
       "variantCount": 18,
       "variantAxes": ["Brand", "Rail"],
-      "figmaSnapshot": "ai/figma-menu.snapshot.json"
+      "figmaSnapshot": "ai/figma-menu.snapshot.json",
+      "note": "Navigation composes .menu-nav-parent + .menu-nav-child instances. Expanded: 20×44 toggle, 140×56 wordmark clip, per-brand Brand extension. Collapsed: 36×36 mark, 44×44 parent nav icons. Wireframe uses Icon default (House)."
+    },
+    "menu-nav-parent": {
+      "status": "in-figma",
+      "figmaName": ".menu-nav-parent",
+      "nodeId": "2369:6204",
+      "variantCount": 16,
+      "variantAxes": ["Rail", "Kind", "State", "Open"],
+      "figmaSnapshot": "ai/figma-menu-nav-parent.snapshot.json",
+      "note": "Parent nav atom: Item or Branch × Expanded/Collapsed × Default/Active × Open for branch caret/Children slot."
+    },
+    "menu-nav-child": {
+      "status": "in-figma",
+      "figmaName": ".menu-nav-child",
+      "nodeId": "2369:6219",
+      "variantCount": 4,
+      "variantAxes": ["Rail", "State"],
+      "figmaSnapshot": "ai/figma-menu-nav-child.snapshot.json",
+      "note": "Nested leaf under expanded branch; TEXT label property."
     },
     "footer": {
       "status": "in-figma",
@@ -444,32 +474,56 @@
       "note": "Links=Off|On. 1280×40. Copyright TEXT + Content SLOT (Links=On). TEXT props: Copyright, Link 1, Link 2."
     },
     "header": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Header",
+      "nodeId": "2271:5692",
+      "variantCount": 4,
+      "variantAxes": ["Leading", "Trailing"],
+      "figmaSnapshot": "ai/figma-header.snapshot.json",
+      "note": "Leading=Search|Custom × Trailing=Off|On. 1280×56. SearchInput instance (Shortcut/Small/Default) or Content SLOT; Actions SLOT (Icon×2 + Avatar instances) when Trailing=On."
     },
     "hover-card": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "HoverCard",
+      "nodeId": "2329:6009",
+      "variantCount": 1,
+      "figmaSnapshot": "ai/figma-hover-card.snapshot.json",
+      "note": "Content panel (HoverCardContent). Content SLOT + default title/description. Padding uds/spacing/8 on slot."
     },
     "input": {
       "status": "in-figma",
       "figmaName": "Input",
       "nodeId": "589:236",
-      "note": "Size=Compact|Default × State. uds/surface/primary fill (error/disabled: secondary). Placeholder TEXT layer. Snapshot: ai/figma-input.snapshot.json"
+      "variantCount": 16,
+      "variantAxes": ["Size", "State", "Content"],
+      "note": "Size × State × Content (16). Placeholder|Filled text layers; TEXT props placeholder + value. Snapshot: ai/figma-input.snapshot.json"
     },
     "input-group": {
       "status": "in-figma",
       "figmaName": "InputGroup",
-      "nodeId": "1731:4599",
-      "note": "Size × State shell with embedded .input-group-control frame. TEXT prop: placeholder. Snapshot: ai/figma-input-group.snapshot.json"
+      "nodeId": "2291:5885",
+      "variantCount": 16,
+      "variantAxes": ["Size", "State", "Content"],
+      "figmaSnapshot": "ai/figma-input-group.snapshot.json",
+      "note": "Size × State × Content (16). 560px ref width; Start/End addon SLOTs + showStartAddon/showEndAddon. Snapshot: ai/figma-input-group.snapshot.json"
     },
     "input-otp": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Input OTP",
+      "nodeId": "2292:6251",
+      "variantCount": 24,
+      "variantAxes": ["Size", "State", "Progress"],
+      "figmaSnapshot": "ai/figma-input-otp.snapshot.json",
+      "note": "Size × State × Progress (24). Default 64×70 + Compact 44×48 mobile. Snapshot: ai/figma-input-otp.snapshot.json"
     },
     "item": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "Item",
+      "nodeId": "2334:6087",
+      "variantCount": 12,
+      "variantAxes": ["Appearance", "State", "Size"],
+      "figmaSnapshot": "ai/figma-item.snapshot.json",
+      "note": "Appearance List|Box × State Default|Outline|Muted × Size Default|Compact (12). BOOLEAN Media/Description/Actions. Padding uds/spacing/12×8."
     },
     "kbd": {
       "status": "in-figma",
@@ -489,7 +543,11 @@
     "link": {
       "status": "in-figma",
       "figmaName": "Link",
-      "nodeId": "635:225"
+      "nodeId": "635:225",
+      "variantCount": 4,
+      "variantAxes": ["Appearance", "State"],
+      "figmaSnapshot": "ai/figma-link.snapshot.json",
+      "note": "Appearance Primary|Secondary × State Default|Hover (4). Body/16/Medium link text; underline on Hover."
     },
     "medallion": {
       "status": "in-figma",
@@ -516,16 +574,26 @@
       "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
     },
     "number-input": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "NumberInput",
+      "nodeId": "2291:5938",
+      "variantCount": 16,
+      "variantAxes": ["Size", "State", "Content"],
+      "figmaSnapshot": "ai/figma-number-input.snapshot.json",
+      "note": "Input-aligned (16). Placeholder 0 / value 42."
     },
     "pagination": {
       "status": "deferred",
       "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
     },
     "password-input": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "PasswordInput",
+      "nodeId": "2291:6139",
+      "variantCount": 16,
+      "variantAxes": ["Size", "State", "Content"],
+      "figmaSnapshot": "ai/figma-password-input.snapshot.json",
+      "note": "Text frame + trailing Eye .input-group-button (16). 600×44/36, pl uds/gap/12, pr uds/gap/8. Snapshot: ai/figma-password-input.snapshot.json"
     },
     "phone-input": {
       "status": "deferred",
@@ -563,8 +631,10 @@
     "search-input": {
       "status": "in-figma",
       "figmaName": "SearchInput",
-      "nodeId": "1733:4633",
-      "note": "Recipe=Default|Shortcut × Size. MagnifyingGlass inline-start addon + optional Kbd shortcut. Snapshot: ai/figma-search-input.snapshot.json"
+      "nodeId": "2275:5874",
+      "variantCount": 32,
+      "variantAxes": ["Recipe", "Size", "State", "Content"],
+      "note": "Recipe × Size × State × Content (32). Placeholder|Filled in .input-group-control; TEXT props placeholder + value. Snapshot: ai/figma-search-input.snapshot.json"
     },
     "select": {
       "status": "deferred",
@@ -650,16 +720,31 @@
       "nodeId": "620:229"
     },
     "time-input": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "TimeInput",
+      "nodeId": "2314:6456",
+      "variantCount": 32,
+      "variantAxes": ["Size", "State", "Content", "Meridiem"],
+      "figmaSnapshot": "ai/figma-time-input.snapshot.json",
+      "note": "InputGroup time field (32). Segmented hours/minutes; meridiem-timezone subframe (uds/spacing/4); Timezone boolean toggles timezone TEXT. 600×44/36."
     },
     "time-step-input": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "TimeStepInput",
+      "nodeId": "2291:6288",
+      "variantCount": 16,
+      "variantAxes": ["Size", "State", "Content"],
+      "figmaSnapshot": "ai/figma-time-step-input.snapshot.json",
+      "note": "Centered Text frame (uds/spacing/4); Timezone boolean toggles timezone TEXT; trailing Clock icon. 600×44/36."
     },
     "token-input": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "TokenInput",
+      "nodeId": "2292:6065",
+      "variantCount": 8,
+      "variantAxes": ["Size", "State"],
+      "figmaSnapshot": "ai/figma-token-input.snapshot.json",
+      "note": "Size × State (8). Content SLOT with Button Outline chips — Small 32px (Default) / Extra Small 24px (Small). Snapshot: ai/figma-token-input.snapshot.json"
     },
     "toggle": {
       "status": "in-figma",
@@ -679,15 +764,20 @@
       "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
     },
     "url-input": {
-      "status": "deferred",
-      "note": "Composite/layout or capture via docs — build atom/sub-component in Figma first"
+      "status": "in-figma",
+      "figmaName": "URLInput",
+      "nodeId": "2292:5933",
+      "variantCount": 16,
+      "variantAxes": ["Size", "State", "Content"],
+      "figmaSnapshot": "ai/figma-url-input.snapshot.json",
+      "note": "InputGroup + https:// protocol addon; 412px ref width (16 variants)."
     }
   },
   "summary": {
     "total": 83,
-    "inFigma": 31,
+    "inFigma": 38,
     "specReady": 0,
-    "deferred": 52,
+    "deferred": 45,
     "needsSpec": 0
   }
 }

@@ -1,0 +1,139 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-07-06",
+  "lastFigmaEdit": "Timezone BOOLEAN (default false) toggles timezone TEXT; meridiem-timezone subframe uds/spacing/4; control uds/spacing/2",
+  "nodes": {
+    "TimeInput": {
+      "nodeId": "2314:6456",
+      "name": "TimeInput",
+      "width": 600,
+      "height": 1044
+    }
+  },
+  "TimeInput": {
+    "nodeId": "2314:6456",
+    "description": "InputGroup time field with segmented hours, separator, minutes, meridiem TEXT, and timezone TEXT in .input-group-control, plus trailing Clock icon in .input-group-addon. Content=Placeholder uses uds/text/disabled on segments; Content=Filled uses uds/text/primary.",
+    "referenceWidth": 600,
+    "variantCount": 32,
+    "variantAxes": ["Size", "State", "Content", "Meridiem"],
+    "sizes": {
+      "Default": { "shellHeight": 44, "typography": "Body/16/Regular", "iconButton": "16×24" },
+      "Compact": { "shellHeight": 36, "typography": "Body/14/Regular", "iconButton": "16×24" }
+    },
+    "componentProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "variantOptions": ["Compact", "Default"],
+        "codeProp": "inputSize",
+        "codeValues": { "Default": "default", "Compact": "sm" }
+      },
+      "State": {
+        "type": "VARIANT",
+        "variantOptions": ["Default", "Focused", "Error", "Disabled"]
+      },
+      "Content": {
+        "type": "VARIANT",
+        "variantOptions": ["Placeholder", "Filled"],
+        "note": "Same segment copy in both; Placeholder tints hours/minutes/meridiem uds/text/disabled, Filled uses uds/text/primary."
+      },
+      "Meridiem": {
+        "type": "VARIANT",
+        "variantOptions": ["AM", "PM"]
+      },
+      "hours": {
+        "type": "TEXT",
+        "linkedLayer": "hours",
+        "figmaProperty": "hours#2314:0",
+        "defaultValue": "09"
+      },
+      "minutes": {
+        "type": "TEXT",
+        "linkedLayer": "minutes",
+        "figmaProperty": "minutes#2314:33",
+        "defaultValue": "30"
+      },
+      "timezone": {
+        "type": "TEXT",
+        "linkedLayer": "timezone",
+        "figmaProperty": "timezone#2321:17",
+        "defaultValue": "EST",
+        "visibilityProperty": "Timezone#2320:26",
+        "visibilityDefault": false
+      }
+    },
+    "structure": {
+      "root": "TimeInput — HORIZONTAL InputGroup shell, pl/pr uds/spacing/4, uds/radius/4",
+      "control": ".input-group-control — pl uds/gap/8, uds/spacing/2 segment gap; hours, separator (:), minutes, meridiem-timezone frame (meridiem + timezone with uds/spacing/4)",
+      "trailingAddon": ".input-group-addon — pr uds/gap/8, .input-group-button, Clock Size=16 icon"
+    },
+    "copySamples": {
+      "hours": "09",
+      "minutes": "30",
+      "meridiemAM": "AM",
+      "meridiemPM": "PM",
+      "displayAM": "09:30 AM EST",
+      "displayPM": "09:30 PM EST"
+    },
+    "tokens": {
+      "shellPadding": "uds/spacing/4",
+      "controlPaddingStart": "uds/gap/8",
+      "addonPaddingEnd": "uds/gap/8",
+      "segmentGap": "uds/spacing/2",
+      "segmentGapPx": 2,
+      "meridiemTimezoneGap": "uds/spacing/4",
+      "meridiemTimezoneGapPx": 4,
+      "gapCollectionNote": "uds/gap/2 (2px, GAP scope) added to foundations; TimeInput control itemSpacing bound to uds/spacing/2",
+      "radius": "uds/radius/4",
+      "fillDefault": "uds/surface/primary",
+      "fillError": "uds/surface/secondary",
+      "strokeDefault": "uds/border/primary",
+      "strokeFocused": "uds/focus/ring/border",
+      "strokeError": "uds/button/border/primary/destructive",
+      "strokeDisabled": "uds/border/disabled",
+      "segmentPlaceholder": "uds/text/disabled",
+      "segmentFilled": "uds/text/primary",
+      "separator": "uds/text/secondary",
+      "effectFocused": "Focus/ring/focus",
+      "effectError": "Focus/ring/error"
+    },
+    "variantNodeIds": {
+      "Size=Compact, State=Default, Content=Placeholder, Meridiem=AM": "2314:6073",
+      "Size=Compact, State=Default, Content=Placeholder, Meridiem=PM": "2314:6084",
+      "Size=Compact, State=Default, Content=Filled, Meridiem=AM": "2314:6096",
+      "Size=Compact, State=Default, Content=Filled, Meridiem=PM": "2314:6108",
+      "Size=Compact, State=Focused, Content=Placeholder, Meridiem=AM": "2314:6120",
+      "Size=Compact, State=Focused, Content=Placeholder, Meridiem=PM": "2314:6132",
+      "Size=Compact, State=Focused, Content=Filled, Meridiem=AM": "2314:6144",
+      "Size=Compact, State=Focused, Content=Filled, Meridiem=PM": "2314:6156",
+      "Size=Compact, State=Error, Content=Placeholder, Meridiem=AM": "2314:6168",
+      "Size=Compact, State=Error, Content=Placeholder, Meridiem=PM": "2314:6180",
+      "Size=Compact, State=Error, Content=Filled, Meridiem=AM": "2314:6192",
+      "Size=Compact, State=Error, Content=Filled, Meridiem=PM": "2314:6204",
+      "Size=Compact, State=Disabled, Content=Placeholder, Meridiem=AM": "2314:6216",
+      "Size=Compact, State=Disabled, Content=Placeholder, Meridiem=PM": "2314:6228",
+      "Size=Compact, State=Disabled, Content=Filled, Meridiem=AM": "2314:6240",
+      "Size=Compact, State=Disabled, Content=Filled, Meridiem=PM": "2314:6252",
+      "Size=Default, State=Default, Content=Placeholder, Meridiem=AM": "2314:6264",
+      "Size=Default, State=Default, Content=Placeholder, Meridiem=PM": "2314:6276",
+      "Size=Default, State=Default, Content=Filled, Meridiem=AM": "2314:6288",
+      "Size=Default, State=Default, Content=Filled, Meridiem=PM": "2314:6300",
+      "Size=Default, State=Focused, Content=Placeholder, Meridiem=AM": "2314:6312",
+      "Size=Default, State=Focused, Content=Placeholder, Meridiem=PM": "2314:6324",
+      "Size=Default, State=Focused, Content=Filled, Meridiem=AM": "2314:6336",
+      "Size=Default, State=Focused, Content=Filled, Meridiem=PM": "2314:6348",
+      "Size=Default, State=Error, Content=Placeholder, Meridiem=AM": "2314:6360",
+      "Size=Default, State=Error, Content=Placeholder, Meridiem=PM": "2314:6372",
+      "Size=Default, State=Error, Content=Filled, Meridiem=AM": "2314:6384",
+      "Size=Default, State=Error, Content=Filled, Meridiem=PM": "2314:6396",
+      "Size=Default, State=Disabled, Content=Placeholder, Meridiem=AM": "2314:6408",
+      "Size=Default, State=Disabled, Content=Placeholder, Meridiem=PM": "2314:6420",
+      "Size=Default, State=Disabled, Content=Filled, Meridiem=AM": "2314:6432",
+      "Size=Default, State=Disabled, Content=Filled, Meridiem=PM": "2314:6444"
+    },
+    "codeAlignment": {
+      "source": "src/components/ui/time-input.tsx",
+      "composition": "Segmented hours/minutes + meridiem label + trailing Clock icon (InputGroup-aligned)"
+    }
+  }
+}

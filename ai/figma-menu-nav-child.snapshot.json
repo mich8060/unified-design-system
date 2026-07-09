@@ -1,0 +1,63 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-07-07",
+  "nodes": {
+    ".menu-nav-child": {
+      "nodeId": "2369:6219",
+      "name": ".menu-nav-child",
+      "width": 704,
+      "height": 216
+    }
+  },
+  ".menu-nav-child": {
+    "nodeId": "2369:6219",
+    "description": "Nested navigation leaf under an expanded branch parent (e.g. Open requisitions under Pooling). Composed as sibling instances below .menu-nav-parent branch rows inside Menu Navigation.",
+    "variantAxes": ["Rail", "State"],
+    "variantCount": 4,
+    "variants": [
+      "Rail=Expanded, State=Default",
+      "Rail=Expanded, State=Active",
+      "Rail=Collapsed, State=Default",
+      "Rail=Collapsed, State=Active"
+    ],
+    "variantNodeIds": {
+      "Rail=Expanded, State=Default": "2369:6209",
+      "Rail=Expanded, State=Active": "2369:6212",
+      "Rail=Collapsed, State=Default": "2369:6215",
+      "Rail=Collapsed, State=Active": "2369:6217"
+    },
+    "componentProperties": {
+      "Rail": {
+        "type": "VARIANT",
+        "defaultValue": "Expanded",
+        "variantOptions": ["Expanded", "Collapsed"]
+      },
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Active"]
+      },
+      "label": {
+        "type": "TEXT",
+        "defaultValue": "Open requisitions",
+        "linkedLayer": "Label"
+      }
+    },
+    "layerNaming": {
+      "expanded": "Branch row (HUG) → Content (border-left only) + Label",
+      "collapsed": "Compact text row template"
+    },
+    "tokens": {
+      "rowHeight": "36px",
+      "indentPadding": "uds/gap/16 + uds/gap/24",
+      "activeBorder": "uds/surface/brand/quaternary 2px",
+      "inactiveBorder": "uds/border/primary 1px",
+      "activeBg": "uds/color/neutrals/50"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/menu.tsx",
+    "note": "Maps to MenuNavLeaf nested under MenuNavBranch when branch is expanded."
+  }
+}

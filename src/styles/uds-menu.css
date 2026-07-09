@@ -1,116 +1,120 @@
-@reference "../../styles.css";
+/**
+ * Menu product rail — nav rows, branch/leaf states, utility links, collapsed rail.
+ * Consumed by `Menu` (`src/components/ui/menu.tsx`). Shipped in styles.css only
+ * (not styles/base.css).
+ */
+@layer components {
+  /* ── Row layout (shared base for leaf & root rows) ──── */
 
-/* ── Row layout (shared base for leaf & root rows) ──── */
-
-.menu-nav-row-layout {
+  .menu-nav-row-layout {
     @apply flex h-11 min-h-11 w-full shrink-0 cursor-pointer items-center gap-3 rounded-none py-0 text-left font-sans transition-colors outline-none;
     @apply focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
     @apply dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950;
     font-family: var(--font-inter);
-}
+  }
 
-.menu-nav-row-root-type {
+  .menu-nav-row-root-type {
     @apply text-uds-16 font-uds-medium leading-uds-16;
-}
+  }
 
-.menu-nav-row-pad-x {
+  .menu-nav-row-pad-x {
     @apply pl-4 pr-4;
-}
+  }
 
-.menu-nav-row {
+  .menu-nav-row {
     @apply flex h-11 min-h-11 w-full shrink-0 cursor-pointer items-center gap-3 rounded-none py-0 text-left font-sans transition-colors outline-none;
     @apply focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
     @apply dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950;
     @apply text-uds-16 font-uds-medium leading-uds-16;
     @apply pl-4 pr-4;
     font-family: var(--font-inter);
-}
+  }
 
-/* ── Branch (expandable parent) row ── */
+  /* ── Branch (expandable parent) row ── */
 
-.menu-nav-branch-row {
+  .menu-nav-branch-row {
     @apply flex h-11 min-h-11 w-full shrink-0 cursor-pointer items-stretch overflow-hidden rounded-none border-0 py-0 pl-0 pr-1 text-left font-sans transition-colors outline-none;
     @apply focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
     @apply dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950;
     font-family: var(--font-inter);
-}
+  }
 
-/* ── Active / inactive states ── */
+  /* ── Active / inactive states ── */
 
-.menu-nav-active {
+  .menu-nav-active {
     background-color: var(--uds-surface-brand-quaternary);
     color: var(--uds-text-inverse);
     @apply dark:bg-[var(--uds-color-primary-300)];
-}
+  }
 
-.menu-nav-active svg {
+  .menu-nav-active svg {
     color: var(--uds-text-inverse);
-}
+  }
 
-.menu-nav-parent-inactive {
+  .menu-nav-parent-inactive {
     color: var(--uds-text-primary);
     @apply hover:bg-neutral-100 dark:hover:bg-neutral-800;
-}
+  }
 
-.menu-nav-parent-sticky {
+  .menu-nav-parent-sticky {
     @apply sticky top-0 z-10 bg-white dark:bg-neutral-950;
-}
+  }
 
-.menu-nav-parent-sticky.menu-nav-active {
+  .menu-nav-parent-sticky.menu-nav-active {
     background-color: var(--uds-surface-brand-quaternary);
     @apply dark:bg-[var(--uds-color-primary-300)];
-}
+  }
 
-/* ── Nested leaf rows ── */
+  /* ── Nested leaf rows ── */
 
-.menu-nav-leaf-inactive {
+  .menu-nav-leaf-inactive {
     color: var(--uds-text-tertiary);
-}
+  }
 
-.menu-nav-leaf-inactive:hover {
+  .menu-nav-leaf-inactive:hover {
     background-color: var(--uds-system-action-quaternary);
-}
+  }
 
-.menu-nav-leaf-border-inactive {
+  .menu-nav-leaf-border-inactive {
     @apply ml-4 gap-0 border-l border-solid border-neutral-200 pl-6;
     @apply dark:border-neutral-600;
-}
+  }
 
-.menu-nav-leaf-border-active {
+  .menu-nav-leaf-border-active {
     @apply ml-4 gap-0 pl-6;
     border-left: 2px solid var(--uds-surface-brand-quaternary);
-}
+  }
 
-.dark .menu-nav-leaf-border-active {
+  .dark .menu-nav-leaf-border-active {
     border-left-color: var(--uds-color-primary-300);
-}
+  }
 
-.menu-nav-leaf-active-bg {
+  .menu-nav-leaf-active-bg {
     background-color: var(--uds-color-neutrals-50);
-}
+  }
 
-.menu-nav-leaf-type {
+  .menu-nav-leaf-type {
     @apply text-uds-14 font-uds-regular leading-uds-14;
-}
+  }
 
-.menu-nav-leaf-height {
+  .menu-nav-leaf-height {
     @apply h-9 min-h-9;
-}
+  }
 
-/* ── Collapsed rail ── */
+  /* ── Collapsed rail ── */
 
-.menu-nav-collapsed-focus-ring {
+  .menu-nav-collapsed-focus-ring {
     @apply outline-none focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
     @apply dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950;
-}
+  }
 
-.menu-nav-collapsed-radius {
+  .menu-nav-collapsed-radius {
     @apply rounded-[4px];
-}
+  }
 
-/* ── Utility links ── */
+  /* ── Utility links ── */
 
-.menu-utility-link-expanded {
+  .menu-utility-link-expanded {
     @apply flex h-9 min-h-9 w-full shrink-0 cursor-pointer items-center gap-3 rounded-none border-0 bg-transparent px-4 py-0 text-left font-sans no-underline transition-colors outline-none;
     @apply text-uds-14 font-uds-medium leading-uds-14;
     @apply focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
@@ -118,42 +122,43 @@
     @apply hover:bg-neutral-100 dark:hover:bg-neutral-800;
     font-family: var(--font-inter);
     color: var(--uds-text-primary);
-}
+  }
 
-.menu-utility-link-collapsed {
+  .menu-utility-link-collapsed {
     @apply flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-[4px] border-0 bg-transparent p-0 no-underline transition-colors;
     @apply outline-none focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
     @apply dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950;
     @apply hover:bg-neutral-100 dark:hover:bg-neutral-800;
     color: var(--uds-text-primary);
-}
+  }
 
-.menu-utility-link-expanded-active {
+  .menu-utility-link-expanded-active {
     background-color: var(--uds-surface-brand-quaternary);
     color: var(--uds-text-inverse);
     @apply dark:bg-[var(--uds-color-primary-300)];
-}
+  }
 
-.menu-utility-link-expanded-active svg {
+  .menu-utility-link-expanded-active svg {
     color: var(--uds-text-inverse);
-}
+  }
 
-.menu-utility-link-expanded-active:hover {
+  .menu-utility-link-expanded-active:hover {
     background-color: var(--uds-surface-brand-quaternary);
     @apply dark:bg-[var(--uds-color-primary-300)];
-}
+  }
 
-.menu-utility-link-collapsed-active {
+  .menu-utility-link-collapsed-active {
     background-color: var(--uds-surface-brand-quaternary);
     color: var(--uds-text-inverse);
     @apply dark:bg-[var(--uds-color-primary-300)];
-}
+  }
 
-.menu-utility-link-collapsed-active svg {
+  .menu-utility-link-collapsed-active svg {
     color: var(--uds-text-inverse);
-}
+  }
 
-.menu-utility-link-collapsed-active:hover {
+  .menu-utility-link-collapsed-active:hover {
     background-color: var(--uds-surface-brand-quaternary);
     @apply dark:bg-[var(--uds-color-primary-300)];
+  }
 }

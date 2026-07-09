@@ -1,0 +1,124 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-07-06",
+  "lastFigmaEdit": "User: Actions slot uses direct Icon + Avatar instances; SearchInput instance 600×36",
+  "nodes": {
+    "Header": {
+      "nodeId": "2271:5692",
+      "name": "Header",
+      "width": 1280,
+      "height": 324
+    }
+  },
+  "Header": {
+    "nodeId": "2271:5692",
+    "description": "App-level top bar. Leading=Search nests SearchInput instance (Shortcut/Small/Default). Leading=Custom uses Content slot. Trailing=On exposes Actions slot with Icon instances + Avatar.",
+    "variants": [
+      "Leading=Search, Trailing=Off",
+      "Leading=Search, Trailing=On",
+      "Leading=Custom, Trailing=Off",
+      "Leading=Custom, Trailing=On"
+    ],
+    "variantCount": 4,
+    "variantNodeIds": {
+      "Leading=Search, Trailing=Off": "2271:5566",
+      "Leading=Search, Trailing=On": "2271:5601",
+      "Leading=Custom, Trailing=Off": "2271:5668",
+      "Leading=Custom, Trailing=On": "2271:5671"
+    },
+    "width": 1280,
+    "height": 56,
+    "gridLayout": {
+      "cols": 2,
+      "cellWidth": 1320,
+      "cellHeight": 72
+    },
+    "componentProperties": {
+      "Leading": {
+        "type": "VARIANT",
+        "defaultValue": "Search",
+        "variantOptions": ["Search", "Custom"],
+        "codeMapping": {
+          "Search": "default SearchInput in leading area (children omitted)",
+          "Custom": "children replaces default search"
+        }
+      },
+      "Trailing": {
+        "type": "VARIANT",
+        "defaultValue": "Off",
+        "variantOptions": ["Off", "On"],
+        "codeMapping": {
+          "Off": "trailing prop omitted",
+          "On": "trailing prop with actions"
+        }
+      },
+      "placeholder": {
+        "type": "TEXT",
+        "propertyId": "placeholder#2271:0",
+        "defaultValue": "Search…",
+        "codeProp": "searchProps.placeholder",
+        "note": "Leading=Search only. Nested SearchInput placeholder property."
+      },
+      "Content": {
+        "type": "SLOT",
+        "propertyId": "Content#2271:5",
+        "codeProp": "children",
+        "linkedLayer": "Content",
+        "note": "Leading=Custom only."
+      },
+      "Actions": {
+        "type": "SLOT",
+        "propertyId": "Actions#2271:10",
+        "codeProp": "trailing",
+        "linkedLayer": "Actions",
+        "note": "Trailing=On. Default: Icon Size=20 (Question), Icon Size=20 (Bell), Avatar Initials Extra Small."
+      }
+    },
+    "layerNaming": {
+      "searchWrap": ".search-wrap",
+      "searchInput": "SearchInput",
+      "contentSlot": "Content",
+      "pageTitleDefault": ".page-title",
+      "trailingSlot": "Actions",
+      "spacer": ".spacer"
+    },
+    "dependencies": {
+      "SearchInput": {
+        "nodeId": "2275:5874",
+        "variant": "Recipe=Shortcut, Size=Small, State=Default, Content=Placeholder",
+        "instanceSizeInHeader": { "width": 600, "height": 36 },
+        "note": "Nested instance; component reference width 472px, fill uds/surface/secondary"
+      },
+      "Icon": {
+        "nodeId": "501:6",
+        "variants": { "search": "Size=16 (nested in SearchInput)", "actions": "Size=20 (direct in Actions slot)" },
+        "glyphs": ["MagnifyingGlass", "Question", "Bell"]
+      },
+      "Avatar": {
+        "nodeId": "818:512",
+        "variant": "Appearance=Initials, Size=Extra Small, Accessory=None"
+      }
+    },
+    "tokens": {
+      "fill": "uds/surface/primary",
+      "stroke": "uds/border/primary",
+      "strokeWeight": "uds/border/width/1",
+      "strokeEdge": "bottom",
+      "paddingX": "uds/gap/16",
+      "itemGap": "uds/gap/16",
+      "trailingGap": "uds/gap/4",
+      "searchMaxWidth": 600,
+      "pageTitleTypography": "Body/16/Medium",
+      "pageTitleFill": "uds/text/primary"
+    },
+    "composition": {
+      "AppShell.Header": "Place Header instance in AppShell header region; pairs with Menu rail layout."
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/header.tsx",
+    "exports": ["Header", "HeaderProps"],
+    "docsExamples": "src/docs/shadcn-examples/registry.tsx — default with search + trailing icon buttons and avatar"
+  }
+}

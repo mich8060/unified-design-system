@@ -29,10 +29,12 @@
         "Size": {
           "codeProp": "size",
           "values": {
+            "Extra Small": "2x-sm",
+            "2X Small": "2x-sm",
             "Xs": "xs",
-            "Extra Small": "xs",
+            "Small": "xs",
             "Sm": "sm",
-            "Small": "sm",
+            "Medium": "sm",
             "Default": "default",
             "Lg": "lg",
             "Large": "lg",
@@ -45,8 +47,9 @@
             "Icon Large": "icon-lg"
           },
           "figmaLabels": {
-            "xs": "Extra Small",
-            "sm": "Small",
+            "2x-sm": "Extra Small",
+            "xs": "Small",
+            "sm": "Medium",
             "default": "Default",
             "lg": "Large",
             "icon": "Icon",
@@ -54,7 +57,7 @@
             "icon-sm": "Icon Small",
             "icon-lg": "Icon Large"
           },
-          "figmaMatrixNote": "Figma Button component set currently ships 4 text sizes (Default, Extra Small, Small, Large) × 6 appearances. Icon-only sizes exist in code; extend the Figma matrix when icon-only button variants are added."
+          "figmaMatrixNote": "Figma Button ships 5 text sizes (Extra Small 24px, Small 32px, Medium 36px, Default 44px, Large 52px) × 6 appearances. Extra Small uses Body/10/Medium and uds/gap/4; slot icons 12/16/16/20/24 px. Icon-only sizes exist in code only."
         },
         "gapPx": 8,
         "gapToken": "--uds-gap-8",
@@ -81,7 +84,7 @@
           "figmaProperty": "Label#555:0"
         }
       },
-      "figmaMatrixNote": "24 variants (6 Appearance × 4 Size). Slot wrappers: HORIZONTAL, HUG×HUG, centered, clipsContent true, bound to Show slot start/end. Slot nodes: HUG×FIXED square per size (16/16/20/24 px). Child order: Slot start wrapper → Button label → Slot end wrapper. Reference layout: node 554:266 (Link, Large)."
+      "figmaMatrixNote": "30 variants (6 Appearance × 5 Size). Slot wrappers: HORIZONTAL, HUG×HUG, centered, clipsContent true, bound to Show slot start/end. Slot nodes: HUG×FIXED square per size (12/16/16/20/24 px). Child order: Slot start wrapper → Button label → Slot end wrapper."
     },
     "Icon": {
       "nodeId": "501:6",
@@ -304,16 +307,73 @@
         },
         "headerBranding": {
           "codeProp": "Branding appearance + symbol",
-          "linkedLayer": "Branding wordmark / Branding mark",
-          "note": "Instance from Branding set 1103:533. Symbol=False when Expanded; Symbol=True when Collapsed."
+          "linkedLayer": "Brand clip → Branding wordmark / Branding mark",
+          "note": "Instance from Branding set 1103:533. Expanded: wordmark fitted in 140×56 clip (object-contain from 200×80). Collapsed: mark in 36×36 clip."
+        },
+        "menuToggle": {
+          "codeProp": "MenuDefaultHeader list toggle",
+          "linkedLayer": "Menu toggle",
+          "note": "20×44 ghost frame with List Size=20 Bold icon inside 44×56 Toggle slot."
         },
         "navigationItems": {
           "codeProp": "navigationItems / getDefaultNavigation(brand)",
           "linkedLayer": "Navigation",
-          "note": "Per-brand demo nav with Duotone Phosphor icons via Icon Size=24; expanded branch children for Pooling/Documents on applicable brands."
+          "note": "Per-brand demo nav. Expanded rows use .menu-nav-parent instances (Item or Branch Open=True/False); nested leaves use .menu-nav-child instances stacked below branch parents. Wireframe brand uses Icon Size=24 default House glyph."
         }
       },
-      "figmaMatrixNote": "18 variants (Brand × Rail). Header 56px; nav active row uds/surface/brand/quaternary. Wireframe brand uses placeholder bars instead of icons."
+      "figmaMatrixNote": "18 variants (Brand × Rail). Header 56px with 20×44 toggle, 140×56 wordmark clip, Brand extension Light per brand. Collapsed: 44×44 .menu-nav-parent in Nav item row."
+    },
+    ".menu-nav-parent": {
+      "nodeId": "2369:6204",
+      "figmaSnapshot": "ai/figma-menu-nav-parent.snapshot.json",
+      "properties": {
+        "Rail": {
+          "codeProp": "data-expanded / collapsed rail",
+          "figmaLabels": { "expanded": "Expanded", "collapsed": "Collapsed" }
+        },
+        "Kind": {
+          "codeProp": "branch vs leaf",
+          "figmaLabels": { "item": "Item", "branch": "Branch" }
+        },
+        "State": {
+          "codeProp": "active (subtree)",
+          "figmaLabels": { "default": "Default", "active": "Active" }
+        },
+        "Open": {
+          "codeProp": "branch expanded",
+          "figmaLabels": { "false": "False", "true": "True" },
+          "note": "Branch only. Open=True rotates CaretDown 180° and shows Children slot in atom template."
+        },
+        "label": {
+          "codeProp": "label",
+          "linkedLayer": "Label"
+        },
+        "Children": {
+          "codeProp": "children (nested nav items)",
+          "linkedLayer": "Children",
+          "note": "SLOT on Branch Open=True variants. Compose .menu-nav-child instances inside the Children frame."
+        }
+      },
+      "figmaMatrixNote": "16 variants (Rail × Kind × State × Open). Branch Open=True: 116px with Children SLOT containing 2× .menu-nav-child demo instances."
+    },
+    ".menu-nav-child": {
+      "nodeId": "2369:6219",
+      "figmaSnapshot": "ai/figma-menu-nav-child.snapshot.json",
+      "properties": {
+        "Rail": {
+          "codeProp": "data-expanded / collapsed rail",
+          "figmaLabels": { "expanded": "Expanded", "collapsed": "Collapsed" }
+        },
+        "State": {
+          "codeProp": "active",
+          "figmaLabels": { "default": "Default", "active": "Active" }
+        },
+        "label": {
+          "codeProp": "label",
+          "linkedLayer": "Label"
+        }
+      },
+      "figmaMatrixNote": "4 variants (Rail × State). Expanded: 36px leaf row with left border indent. Collapsed: compact text row template."
     },
     "ContextMenu": {
       "nodeId": "1671:4687",
@@ -403,8 +463,9 @@
       }
     },
     "InputGroup": {
-      "nodeId": "1731:4599",
+      "nodeId": "2291:5885",
       "figmaSnapshot": "ai/figma-input-group.snapshot.json",
+      "referenceWidth": 560,
       "properties": {
         "Size": {
           "codeProp": "inputSize",
@@ -419,12 +480,349 @@
             "disabled": "Disabled"
           }
         },
+        "Content": {
+          "codeProp": "value presence",
+          "figmaLabels": { "Placeholder": "Placeholder", "Filled": "Filled" }
+        },
         "placeholder": {
           "codeProp": "placeholder",
           "linkedLayer": "placeholder",
-          "figmaProperty": "placeholder#1735:0"
+          "figmaProperty": "placeholder#2291:0"
+        },
+        "value": {
+          "codeProp": "value",
+          "linkedLayer": "value",
+          "figmaProperty": "value#2291:17"
+        },
+        "Start addon": {
+          "codeProp": "InputGroupAddon align=inline-start children",
+          "linkedLayer": "Start addon",
+          "figmaProperty": "Start addon#2297:0",
+          "note": "SLOT — drop Icon or .input-group-text frame"
+        },
+        "End addon": {
+          "codeProp": "InputGroupAddon align=inline-end children",
+          "linkedLayer": "End addon",
+          "figmaProperty": "End addon#2297:17",
+          "note": "SLOT — drop Icon or .input-group-text frame"
+        },
+        "showStartAddon": {
+          "codeProp": "optional visibility",
+          "figmaProperty": "showStartAddon#2297:34",
+          "default": false
+        },
+        "showEndAddon": {
+          "codeProp": "optional visibility",
+          "figmaProperty": "showEndAddon#2297:51",
+          "default": false
         }
       }
+    },
+    "Input OTP": {
+      "nodeId": "2292:6251",
+      "figmaSnapshot": "ai/figma-input-otp.snapshot.json",
+      "referenceWidth": 480,
+      "properties": {
+        "Size": {
+          "codeProp": "InputOTPGroup.inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Compact" },
+          "figmaMatrixNote": "Default: 64×70 slots, Display/48/Medium, gap uds/gap/8, Minus 32. Compact: 44×48, Display/36/Medium, gap uds/gap/4, Minus 20."
+        },
+        "State": {
+          "codeProp": "data-active / aria-invalid / disabled",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          }
+        },
+        "Progress": {
+          "codeProp": "value length",
+          "figmaLabels": {
+            "Empty": "no digits",
+            "Partial": "partial entry + caret on active slot",
+            "Filled": "all slots filled"
+          }
+        }
+      },
+      "figmaMatrixNote": "24 variants (Size × State × Progress). Default: six 64×70 slots, Display/48/Medium, uds/gap/8, Minus 32. Compact (mobile): 44×48, Display/36/Medium, uds/gap/4, Minus 20."
+    },
+    "Item": {
+      "nodeId": "2334:6087",
+      "figmaSnapshot": "ai/figma-item.snapshot.json",
+      "referenceWidth": 400,
+      "properties": {
+        "Appearance": {
+          "codeProp": "appearance",
+          "figmaLabels": {
+            "list": "List",
+            "box": "Box"
+          },
+          "note": "List: radius 0. Box: uds/radius/4."
+        },
+        "State": {
+          "codeProp": "variant",
+          "figmaLabels": {
+            "default": "Default",
+            "outline": "Outline",
+            "muted": "Muted"
+          }
+        },
+        "Size": {
+          "codeProp": "size",
+          "figmaLabels": {
+            "default": "Default",
+            "sm": "Compact"
+          },
+          "note": "Compact → Body/14 title + Body/12 description."
+        },
+        "title": {
+          "codeProp": "ItemTitle children",
+          "figmaProperty": "title#2334:0",
+          "defaultValue": "Item title",
+          "linkedLayer": ".content/.title"
+        },
+        "description": {
+          "codeProp": "ItemDescription children",
+          "figmaProperty": "description#2334:7",
+          "defaultValue": "Supporting line of text.",
+          "linkedLayer": ".content/.description"
+        },
+        "Media": {
+          "codeProp": "ItemMedia",
+          "figmaProperty": "Media#2334:14",
+          "default": false,
+          "linkedLayer": ".media"
+        },
+        "Description": {
+          "codeProp": "ItemDescription",
+          "figmaProperty": "Description#2334:21",
+          "default": true,
+          "linkedLayer": ".content/.description"
+        },
+        "Actions": {
+          "codeProp": "ItemActions",
+          "figmaProperty": "Actions#2334:28",
+          "default": true,
+          "linkedLayer": ".actions"
+        }
+      },
+      "figmaMatrixNote": "12 variants (Appearance List|Box × State Default|Outline|Muted × Size Default|Compact). 400×60 default, 400×52 compact. Padding uds/spacing/12 H, uds/spacing/8 V."
+    },
+    "URLInput": {
+      "nodeId": "2292:5933",
+      "figmaSnapshot": "ai/figma-url-input.snapshot.json",
+      "referenceWidth": 412,
+      "properties": {
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Small" }
+        },
+        "State": {
+          "codeProp": "disabled / aria-invalid / focus-within",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          }
+        },
+        "Content": {
+          "codeProp": "placeholder vs value",
+          "figmaLabels": { "placeholder": "Placeholder", "filled": "Filled" }
+        },
+        "protocol": {
+          "codeProp": "protocol",
+          "linkedLayer": "protocol",
+          "defaultValue": "https://"
+        },
+        "placeholder": {
+          "codeProp": "placeholder",
+          "linkedLayer": "placeholder"
+        },
+        "value": {
+          "codeProp": "value",
+          "linkedLayer": "value"
+        }
+      },
+      "figmaMatrixNote": "16 variants (Size Default|Small × State × Content). 412×44/36 shell, uds/spacing/4 gap, protocol addon pl uds/gap/12, control pr uds/gap/12."
+    },
+    "PasswordInput": {
+      "nodeId": "2291:6139",
+      "figmaSnapshot": "ai/figma-password-input.snapshot.json",
+      "referenceWidth": 600,
+      "properties": {
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Compact" }
+        },
+        "State": {
+          "codeProp": "disabled / aria-invalid / focus-within",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          }
+        },
+        "Content": {
+          "codeProp": "placeholder vs masked value",
+          "figmaLabels": { "placeholder": "Placeholder", "filled": "Filled" },
+          "note": "Filled shows Value layer (••••••••, uds/text/primary); Placeholder shows Placeholder layer."
+        },
+        "placeholder": {
+          "codeProp": "placeholder",
+          "linkedLayer": "Placeholder",
+          "figmaProperty": "placeholder#2291:102",
+          "defaultValue": "Password"
+        },
+        "value": {
+          "codeProp": "value (masked in Figma)",
+          "linkedLayer": "Value",
+          "figmaProperty": "value#2291:119",
+          "defaultValue": "••••••••"
+        }
+      },
+      "figmaMatrixNote": "16 variants (Size Compact|Default × State × Content). 600×44/36 shell, Text frame + trailing Eye .input-group-button, pl uds/gap/12, pr uds/gap/8."
+    },
+    "TimeStepInput": {
+      "nodeId": "2291:6288",
+      "figmaSnapshot": "ai/figma-time-step-input.snapshot.json",
+      "referenceWidth": 600,
+      "properties": {
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Compact" }
+        },
+        "State": {
+          "codeProp": "disabled / aria-invalid / focus-within",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          }
+        },
+        "Content": {
+          "codeProp": "placeholder vs selected label",
+          "figmaLabels": { "placeholder": "Placeholder", "filled": "Filled" },
+          "note": "Filled shows Value layer (9:30 AM, uds/text/primary); Placeholder shows Select time. timezone TEXT follows the same fill token."
+        },
+        "placeholder": {
+          "codeProp": "placeholder",
+          "linkedLayer": "Placeholder",
+          "figmaProperty": "placeholder#2291:136",
+          "defaultValue": "Select time"
+        },
+        "value": {
+          "codeProp": "display label (12-hour formatted)",
+          "linkedLayer": "Value",
+          "figmaProperty": "value#2291:153",
+          "defaultValue": "9:30 AM"
+        },
+        "timezone": {
+          "codeProp": "timezone",
+          "linkedLayer": "timezone",
+          "figmaProperty": "timezone#2321:0",
+          "defaultValue": "EST"
+        },
+        "Timezone": {
+          "codeProp": "showTimezone",
+          "linkedLayer": "timezone",
+          "figmaProperty": "Timezone#2320:9",
+          "type": "BOOLEAN",
+          "defaultValue": false
+        }
+      },
+      "figmaMatrixNote": "16 variants (Size Compact|Default × State × Content). 600×44/36 shell, centered Text frame uds/spacing/4 gap; Timezone boolean toggles timezone TEXT; trailing Clock icon."
+    },
+    "TokenInput": {
+      "nodeId": "2292:6065",
+      "figmaSnapshot": "ai/figma-token-input.snapshot.json",
+      "referenceWidth": 600,
+      "properties": {
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Small" },
+          "chipButtonSize": { "Default": "Small", "Small": "Extra Small" }
+        },
+        "State": {
+          "codeProp": "disabled / aria-invalid / focus-within",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          }
+        },
+        "placeholder": {
+          "codeProp": "placeholder",
+          "linkedLayer": "placeholder"
+        },
+        "Content": {
+          "codeProp": "tokens (Button Outline chips in SLOT)",
+          "linkedLayer": "Content",
+          "note": "Removable token chips — Button with Show slot end + X Icon"
+        }
+      },
+      "figmaMatrixNote": "8 variants (Size Default|Small × State). 600×44/36 shell, uds/gap/8, Content SLOT with sample chips, .token-input-area placeholder TEXT."
+    },
+    "TimeInput": {
+      "nodeId": "2314:6456",
+      "figmaSnapshot": "ai/figma-time-input.snapshot.json",
+      "referenceWidth": 600,
+      "properties": {
+        "Size": {
+          "codeProp": "inputSize",
+          "figmaLabels": { "default": "Default", "sm": "Compact" }
+        },
+        "State": {
+          "codeProp": "disabled / aria-invalid / focus-within",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          }
+        },
+        "Content": {
+          "codeProp": "empty vs filled segment color",
+          "figmaLabels": { "placeholder": "Placeholder", "filled": "Filled" },
+          "note": "Same 09:30 AM|PM copy in both; Placeholder uses uds/text/disabled on hours/minutes/meridiem/timezone, Filled uses uds/text/primary."
+        },
+        "Meridiem": {
+          "codeProp": "period (AM | PM)",
+          "figmaLabels": { "am": "AM", "pm": "PM" },
+          "note": "Single meridiem TEXT label driven by Meridiem variant axis."
+        },
+        "hours": {
+          "codeProp": "hours segment",
+          "linkedLayer": "hours",
+          "figmaProperty": "hours#2314:0",
+          "defaultValue": "09"
+        },
+        "minutes": {
+          "codeProp": "minutes segment",
+          "linkedLayer": "minutes",
+          "figmaProperty": "minutes#2314:33",
+          "defaultValue": "30"
+        },
+        "timezone": {
+          "codeProp": "timezone",
+          "linkedLayer": "timezone",
+          "figmaProperty": "timezone#2321:17",
+          "defaultValue": "EST"
+        },
+        "Timezone": {
+          "codeProp": "showTimezone",
+          "linkedLayer": "timezone",
+          "figmaProperty": "Timezone#2320:26",
+          "type": "BOOLEAN",
+          "defaultValue": false
+        }
+      },
+      "figmaMatrixNote": "32 variants (Size Compact|Default × State × Content × Meridiem). 600×44/36 InputGroup shell; uds/spacing/2 segment gap; meridiem-timezone subframe uds/spacing/4; Timezone boolean toggles timezone TEXT."
     },
     "Field": {
       "nodeId": "1857:5033",
@@ -561,11 +959,32 @@
             "error": "Error",
             "disabled": "Disabled"
           }
+        },
+        "Content": {
+          "codeProp": "value presence",
+          "figmaLabels": {
+            "placeholder": "Placeholder",
+            "filled": "Filled"
+          },
+          "note": "Placeholder shows Placeholder layer (uds/text/disabled); Filled shows Value layer (uds/text/primary)."
+        },
+        "placeholder": {
+          "codeProp": "placeholder",
+          "linkedLayer": "Placeholder",
+          "figmaProperty": "placeholder#2280:0",
+          "defaultValue": "Placeholder"
+        },
+        "value": {
+          "codeProp": "value",
+          "linkedLayer": "Value",
+          "figmaProperty": "value#2280:17",
+          "defaultValue": "Entered value"
         }
-      }
+      },
+      "figmaMatrixNote": "16 variants (Size × State × Content). Content=Filled swaps Placeholder for Value with primary text color."
     },
     "SearchInput": {
-      "nodeId": "1733:4633",
+      "nodeId": "2275:5874",
       "figmaSnapshot": "ai/figma-search-input.snapshot.json",
       "properties": {
         "Recipe": {
@@ -574,14 +993,41 @@
         },
         "Size": {
           "codeProp": "inputSize",
-          "figmaLabels": { "default": "Default", "sm": "Small" }
+          "figmaLabels": { "default": "Default", "sm": "Small" },
+          "note": "Figma default Size=Small."
+        },
+        "State": {
+          "codeProp": "disabled / aria-invalid / focus-visible",
+          "figmaLabels": {
+            "default": "Default",
+            "focused": "Focused",
+            "error": "Error",
+            "disabled": "Disabled"
+          },
+          "note": "Mirrors Input component states and tokens."
+        },
+        "Content": {
+          "codeProp": "value presence",
+          "figmaLabels": {
+            "placeholder": "Placeholder",
+            "filled": "Filled"
+          },
+          "note": "Placeholder shows placeholder layer; Filled shows value layer (uds/text/primary)."
         },
         "placeholder": {
           "codeProp": "placeholder",
           "linkedLayer": "placeholder",
-          "figmaProperty": "placeholder#1735:9"
+          "figmaProperty": "placeholder#2275:15",
+          "defaultValue": "Search…"
+        },
+        "value": {
+          "codeProp": "value",
+          "linkedLayer": "value",
+          "figmaProperty": "value#2280:34",
+          "defaultValue": "Entered value"
         }
-      }
+      },
+      "figmaMatrixNote": "32 variants (Recipe × Size × State × Content). Content=Filled shows entered value with uds/text/primary. Reference 472×36/44."
     },
     "Date Input": {
       "nodeId": "1739:4557",
@@ -691,6 +1137,90 @@
         }
       },
       "figmaMatrixNote": "1280×40 horizontal bar. uds/surface/primary fill, top border uds/border/primary + uds/border/width/1. Padding uds/gap/16 (H) / uds/gap/8 (V). Links=Off: .copyright HUG left. Links=On: .copyright FILL + Content slot (horizontal, uds/gap/16). Body/12/Regular, uds/text/tertiary."
+    },
+    "Header": {
+      "nodeId": "2271:5692",
+      "figmaSnapshot": "ai/figma-header.snapshot.json",
+      "properties": {
+        "Leading": {
+          "codeProp": "children",
+          "figmaLabels": {
+            "Search": "Default SearchInput (shortcut, sm)",
+            "Custom": "Custom leading via Content slot"
+          },
+          "note": "Search when children omitted; Custom when children provided."
+        },
+        "Trailing": {
+          "codeProp": "trailing",
+          "figmaLabels": {
+            "Off": "No trailing actions",
+            "On": "Trailing actions via Actions slot"
+          }
+        },
+        "placeholder": {
+          "codeProp": "searchProps.placeholder",
+          "defaultValue": "Search…",
+          "note": "Leading=Search only. Bound to nested SearchInput placeholder."
+        },
+        "Content": {
+          "codeProp": "children",
+          "linkedLayer": "Content",
+          "note": "Leading=Custom only. Breadcrumbs, page title, etc."
+        },
+        "Actions": {
+          "codeProp": "trailing",
+          "linkedLayer": "Actions",
+          "note": "Trailing=On only. Default slot: Icon Size=20 (Question), Icon Size=20 (Bell), Avatar Initials Extra Small — direct instances, no wrapper frames."
+        }
+      },
+      "figmaMatrixNote": "1280×56 (h-14). uds/surface/primary fill, bottom border uds/border/primary. Padding uds/gap/16 (H), gap uds/gap/16. Search leading: SearchInput instance (Recipe=Shortcut, Size=Small, State=Default, max 600×36). Custom leading: Content slot. Trailing=On: Actions slot (uds/gap/4) with Icon + Avatar instances."
+    },
+    "HoverCard": {
+      "nodeId": "2329:6009",
+      "figmaSnapshot": "ai/figma-hover-card.snapshot.json",
+      "properties": {
+        "Content": {
+          "codeProp": "HoverCardContent children",
+          "figmaProperty": "Content#2320:59",
+          "linkedLayer": "Content",
+          "note": "SLOT — default nests title + description."
+        },
+        "title": {
+          "codeProp": "default slot title",
+          "figmaProperty": "title#2329:0",
+          "defaultValue": "@mstevens",
+          "linkedLayer": "Content/title"
+        },
+        "description": {
+          "codeProp": "default slot description",
+          "figmaProperty": "description#2329:1",
+          "defaultValue": "Design system maintainer and documentation owner.",
+          "linkedLayer": "Content/description"
+        }
+      },
+      "figmaMatrixNote": "256px panel. Root: uds/surface/primary, uds/border/primary, uds/radius/4, uds/shadow/10. Content slot: uds/spacing/8 padding, uds/spacing/4 gap. Description uds/text/secondary."
+    },
+    "Link": {
+      "nodeId": "635:225",
+      "figmaSnapshot": "ai/figma-link.snapshot.json",
+      "properties": {
+        "Appearance": {
+          "codeProp": "appearance",
+          "figmaLabels": {
+            "primary": "Primary",
+            "secondary": "Secondary"
+          }
+        },
+        "State": {
+          "codeProp": "CSS :hover",
+          "figmaLabels": {
+            "default": "Default",
+            "hover": "Hover"
+          },
+          "note": "Figma preview axis only."
+        }
+      },
+      "figmaMatrixNote": "4 variants. Primary: uds/text/link/primary/default → hover + underline. Secondary: uds/text/link/secondary/default → hover + underline. Inter Medium 16px."
     },
     "DotStatus": {
       "nodeId": "1813:4697",

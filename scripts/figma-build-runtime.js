@@ -78,6 +78,19 @@ async function applyLocalTextStyle(node, styleName, fillVarName) {
   return style
 }
 
+/** Apply a local Figma effect style (e.g. `Focus/ring/focus`) — the focus/error ring used by Input + InputGroup. Pass a falsy styleName to clear effects. */
+async function applyLocalEffectStyle(node, styleName) {
+  if (!('effects' in node)) return null
+  if (!styleName) {
+    node.effects = []
+    return null
+  }
+  const style = (await figma.getLocalEffectStylesAsync()).find((s) => s.name === styleName)
+  if (!style) return null
+  await node.setEffectStyleIdAsync(style.id)
+  return style
+}
+
 async function loadInter() {
   await figma.loadFontAsync({ family: 'Inter', style: 'Regular' })
   await figma.loadFontAsync({ family: 'Inter', style: 'Medium' })
@@ -142,6 +155,18 @@ function ensureTextComponentProperty(componentSet, propertyName, defaultValue) {
   const existing = findComponentPropertyId(componentSet, propertyName)
   if (existing) return existing
   return componentSet.addComponentProperty(propertyName, 'TEXT', defaultValue)
+}
+
+function ensureBooleanComponentProperty(componentSet, propertyName, defaultValue = false) {
+  const existing = findComponentPropertyId(componentSet, propertyName)
+  if (existing) return existing
+  return componentSet.addComponentProperty(propertyName, 'BOOLEAN', defaultValue)
+}
+
+function ensureSlotComponentProperty(componentSet, propertyName) {
+  const existing = findComponentPropertyId(componentSet, propertyName)
+  if (existing) return existing
+  return componentSet.addComponentProperty(propertyName, 'SLOT', '')
 }
 
 /** Link FileUploadCards card-row text layers to shared TEXT properties on the set. */
@@ -336,6 +361,8 @@ async function buildFromSpec(spec) {
       await buildLinkVariant(comp, spec, axis)
     } else if (spec.kind === 'footer') {
       await buildFooterVariant(comp, spec, axis)
+    } else if (spec.kind === 'header') {
+      await buildHeaderVariant(comp, spec, axis)
     } else if (spec.kind === 'text') {
       await buildTextVariant(comp, spec, axis)
     } else if (spec.kind === 'status') {
@@ -346,6 +373,16 @@ async function buildFromSpec(spec) {
       await buildCardVariant(comp, spec, axis)
     } else if (spec.kind === 'input-group') {
       await buildInputGroupVariant(comp, spec, axis)
+    } else if (spec.kind === 'password-input' || spec.kind === 'time-step-input') {
+      await buildInputWithTrailingActionVariant(comp, spec, axis)
+    } else if (spec.kind === 'url-input') {
+      await buildUrlInputVariant(comp, spec, axis)
+    } else if (spec.kind === 'time-input') {
+      await buildTimeInputVariant(comp, spec, axis)
+    } else if (spec.kind === 'token-input') {
+      await buildTokenInputVariant(comp, spec, axis)
+    } else if (spec.kind === 'input-otp') {
+      await buildInputOtpVariant(comp, spec, axis)
     } else if (spec.kind === 'search-input') {
       await buildSearchInputVariant(comp, spec, axis)
     } else if (spec.kind === 'date-input') {
@@ -364,6 +401,10 @@ async function buildFromSpec(spec) {
       await buildFileUploadCardsVariant(comp, spec, axis)
     } else if (spec.kind === 'menu') {
       await buildMenuVariant(comp, spec, axis)
+    } else if (spec.kind === 'menu-nav-parent') {
+      await buildMenuNavParentVariant(comp, spec, axis)
+    } else if (spec.kind === 'menu-nav-child') {
+      await buildMenuNavChildVariant(comp, spec, axis)
     } else if (spec.kind === 'check-list' || spec.kind === 'check-list-control') {
       await buildCheckListVariant(comp, spec, axis)
     } else if (spec.kind === 'collapsible') {
@@ -416,12 +457,85 @@ async function buildFromSpec(spec) {
     })
   }
 
+  if (spec.kind === 'input') {
+    linkTextComponentProperty(set, {
+      propertyName: 'placeholder',
+      layerName: 'Placeholder',
+      defaultValue: spec.label ?? 'Placeholder',
+    })
+    linkTextComponentProperty(set, {
+      propertyName: 'value',
+      layerName: 'Value',
+      defaultValue: spec.valueDefault ?? 'Entered value',
+    })
+  }
+
+  if (spec.kind === 'input-group') {
+    linkInputGroupProperties(set, spec)
+  }
+
+  if (spec.kind === 'url-input') {
+    linkSearchInputProperties(set, spec)
+  }
+
+  if (spec.kind === 'password-input' || spec.kind === 'time-step-input') {
+    linkTextComponentProperty(set, {
+      propertyName: 'placeholder',
+      layerName: 'Placeholder',
+      defaultValue: spec.label ?? 'Placeholder',
+    })
+    linkTextComponentProperty(set, {
+      propertyName: 'value',
+      layerName: 'Value',
+      defaultValue: spec.valueDefault ?? 'Entered value',
+    })
+    if (spec.kind === 'time-step-input') {
+      linkTimezoneLayerProperties(set, {
+        textDefault: spec.copy?.timezone ?? 'EST',
+      })
+    }
+  }
+
+  if (spec.kind === 'token-input') {
+    linkTokenInputProperties(set, spec)
+  }
+
+  if (spec.kind === 'url-input') {
+    linkTextComponentProperty(set, {
+      propertyName: 'protocol',
+      layerName: 'protocol',
+      defaultValue: spec.copy?.protocol ?? 'https://',
+    })
+  }
+
+  if (spec.kind === 'time-input') {
+    linkTimeInputProperties(set, spec)
+  }
+
   if (spec.kind === 'file-upload-cards') {
     linkFileUploadCardTextProperties(set, spec)
   }
 
   if (spec.kind === 'footer') {
     linkFooterTextProperties(set, spec)
+  }
+
+  if (spec.kind === 'header') {
+    linkHeaderProperties(set, spec)
+  }
+
+  if (spec.kind === 'menu-nav-parent') {
+    linkMenuNavParentProperties(set, spec)
+  } else if (spec.kind === 'menu-nav-child') {
+    linkTextComponentProperty(set, {
+      propertyName: 'label',
+      layerName: 'Label',
+      defaultValue: spec.copy?.label ?? 'Dashboard',
+    })
+  }
+
+  if (spec.kind === 'search-input') {
+    linkSearchInputProperties(set, spec)
   }
 
   return {
@@ -666,15 +780,31 @@ async function buildInputVariant(comp, spec, axis) {
   if (stroke) await bindStroke(comp, stroke)
   if (axis.State === 'Disabled') comp.opacity = 0.5
 
-  const text = figma.createText()
-  text.name = 'Placeholder'
-  text.fontName = { family: 'Inter', style: 'Regular' }
-  text.fontSize = sizeKey === 'Compact' || axis.Size === 'Small' ? 14 : 16
-  text.characters = spec.label ?? 'Placeholder'
-  await bindText(text, { fill: 'uds/text/disabled' })
-  comp.appendChild(text)
-  text.layoutGrow = 1
-  text.layoutSizingHorizontal = 'FILL'
+  const isFilled = axis.Content === 'Filled'
+  const textStyle =
+    sizeKey === 'Compact' || axis.Size === 'Small' ? 'Body/14/Regular' : 'Body/16/Regular'
+
+  const placeholder = figma.createText()
+  placeholder.name = 'Placeholder'
+  placeholder.fontName = { family: 'Inter', style: 'Regular' }
+  placeholder.fontSize = sizeKey === 'Compact' || axis.Size === 'Small' ? 14 : 16
+  placeholder.characters = spec.label ?? 'Placeholder'
+  await applyLocalTextStyle(placeholder, textStyle, 'uds/text/disabled')
+  placeholder.visible = !isFilled
+  comp.appendChild(placeholder)
+  placeholder.layoutGrow = 1
+  placeholder.layoutSizingHorizontal = 'FILL'
+
+  const value = figma.createText()
+  value.name = 'Value'
+  value.fontName = { family: 'Inter', style: 'Regular' }
+  value.fontSize = sizeKey === 'Compact' || axis.Size === 'Small' ? 14 : 16
+  value.characters = spec.valueDefault ?? 'Entered value'
+  await applyLocalTextStyle(value, textStyle, 'uds/text/primary')
+  value.visible = isFilled
+  comp.appendChild(value)
+  value.layoutGrow = 1
+  value.layoutSizingHorizontal = 'FILL'
 }
 
 async function buildCheckboxVariant(comp, spec, axis) {
@@ -1333,6 +1463,426 @@ async function buildFooterVariant(comp, spec, axis) {
   }
 }
 
+async function createSearchInputInstance(spec, recipe = 'Shortcut', size = 'Small') {
+  const setId = spec.searchInputSetNodeId ?? '1733:4633'
+  let set = setId ? await figma.getNodeByIdAsync(setId) : null
+  if (!set || set.type !== 'COMPONENT_SET') {
+    const page = figma.currentPage
+    set = page.findOne((n) => n.type === 'COMPONENT_SET' && n.name === 'SearchInput')
+  }
+  if (set?.type !== 'COMPONENT_SET') return null
+  const withState = `Recipe=${recipe}, Size=${size}, State=Default, Content=Placeholder`
+  const legacy = `Recipe=${recipe}, Size=${size}, State=Default`
+  const legacyNoState = `Recipe=${recipe}, Size=${size}`
+  const variant =
+    set.children.find((c) => c.name === withState) ??
+    set.children.find((c) => c.name === legacy) ??
+    set.children.find((c) => c.name === legacyNoState)
+  if (variant?.type !== 'COMPONENT') return null
+  return variant.createInstance()
+}
+
+async function createAvatarInstance(
+  spec,
+  appearance = 'Initials',
+  size = 'Small',
+  accessory = 'None',
+) {
+  const setId = spec.avatarSetNodeId ?? '818:512'
+  let set = setId ? await figma.getNodeByIdAsync(setId) : null
+  if (!set || set.type !== 'COMPONENT_SET') {
+    const page = figma.currentPage
+    set = page.findOne((n) => n.type === 'COMPONENT_SET' && n.name === 'Avatar')
+  }
+  if (set?.type !== 'COMPONENT_SET') return null
+  const variantName = `Appearance=${appearance}, Size=${size}, Accessory=${accessory}`
+  const variant = set.children.find((c) => c.name === variantName)
+  if (variant?.type !== 'COMPONENT') return null
+  return variant.createInstance()
+}
+
+async function createHeaderGlyph(spec, iconName, sizePx) {
+  return createIconInstance(spec, sizePx, iconName, null)
+}
+
+async function createHeaderIconButton(spec, iconName, options = {}) {
+  const { notificationDot = false } = options
+  const outer = figma.createFrame()
+  outer.name = iconName
+  outer.resize(32, 32)
+  outer.layoutMode = 'HORIZONTAL'
+  outer.primaryAxisAlignItems = 'CENTER'
+  outer.counterAxisAlignItems = 'CENTER'
+  outer.fills = []
+  outer.strokes = []
+  outer.clipsContent = false
+
+  const icon = await createHeaderGlyph(spec, iconName, 20)
+  if (icon) {
+    outer.appendChild(icon)
+    icon.layoutSizingHorizontal = 'HUG'
+    icon.layoutSizingVertical = 'HUG'
+  }
+
+  if (notificationDot) {
+    const dot = figma.createEllipse()
+    dot.name = '.notification-dot'
+    dot.resize(8, 8)
+    dot.layoutPositioning = 'ABSOLUTE'
+    dot.x = 20
+    dot.y = 4
+    await bindFill(dot, 'uds/color/accent/red/500')
+    await bindStroke(dot, 'uds/surface/primary')
+    dot.strokeWeight = 2
+    outer.appendChild(dot)
+  }
+
+  return outer
+}
+
+async function createHeaderAccountButton(spec) {
+  const avatar = await createAvatarInstance(spec, 'Initials', 'Extra Small', 'None')
+  if (avatar) {
+    avatar.name = 'Avatar'
+    return avatar
+  }
+
+  const fallback = figma.createFrame()
+  fallback.name = 'Avatar'
+  fallback.resize(32, 32)
+  fallback.layoutMode = 'HORIZONTAL'
+  fallback.primaryAxisAlignItems = 'CENTER'
+  fallback.counterAxisAlignItems = 'CENTER'
+  fallback.clipsContent = true
+  await bindRadius(fallback, 'uds/radius/9999')
+  await bindFill(fallback, 'uds/color/primary/700')
+  const initials = figma.createText()
+  initials.name = 'Initials'
+  initials.characters = spec.accountInitials ?? 'MT'
+  await applyLocalTextStyle(initials, 'Body/12/Medium', 'uds/text/inverse')
+  fallback.appendChild(initials)
+  initials.layoutSizingHorizontal = 'HUG'
+  return fallback
+}
+
+async function appendHeaderTrailingDefaults(trailing, spec) {
+  const help = await createHeaderGlyph(spec, 'Question', 20)
+  if (help) {
+    trailing.appendChild(help)
+    help.layoutSizingHorizontal = 'HUG'
+    help.layoutSizingVertical = 'HUG'
+  }
+
+  const bell = await createHeaderGlyph(spec, 'Bell', 20)
+  if (bell) {
+    trailing.appendChild(bell)
+    bell.layoutSizingHorizontal = 'HUG'
+    bell.layoutSizingVertical = 'HUG'
+  }
+
+  const avatar = await createHeaderAccountButton(spec)
+  trailing.appendChild(avatar)
+  if ('layoutSizingHorizontal' in avatar) avatar.layoutSizingHorizontal = 'HUG'
+}
+
+/** Inline SearchInput (shortcut/sm) matching header.tsx + search-input.tsx when no SearchInput set exists. */
+async function applyInlineHeaderSearchField(frame, spec, width = 600) {
+  const searchSpec = {
+    ...spec,
+    width,
+    fillVar: 'uds/surface/primary',
+    strokeByState: { Default: 'uds/border/primary' },
+    heightBySize: { Small: 36, Compact: 36, Default: 44 },
+    iconSetNodeId: spec.iconSetNodeId ?? '501:6',
+    kbdSetNodeId: spec.kbdSetNodeId ?? '1686:4530',
+  }
+
+  frame.name = 'SearchInput'
+  await applyInputGroupShell(frame, searchSpec, { Size: 'Small', State: 'Default' })
+  await bindStroke(frame, 'uds/border/primary')
+
+  const iconBtn = figma.createFrame()
+  iconBtn.name = '.input-group-button'
+  iconBtn.resize(24, 24)
+  iconBtn.layoutMode = 'HORIZONTAL'
+  iconBtn.primaryAxisAlignItems = 'CENTER'
+  iconBtn.counterAxisAlignItems = 'CENTER'
+  iconBtn.fills = []
+  iconBtn.strokes = []
+  await bindRadius(iconBtn, 'uds/radius/4')
+  const searchIcon = await createHeaderGlyph(searchSpec, 'MagnifyingGlass', 16)
+  if (searchIcon) iconBtn.appendChild(searchIcon)
+
+  const startAddon = await createInputGroupAddonFrame(searchSpec, 'inline-start', iconBtn)
+  startAddon.name = '.input-group-addon'
+  startAddon.paddingTop = 0
+  startAddon.paddingBottom = 0
+  await bindPaddingAxis(startAddon, 'uds/gap/8', 'paddingLeft')
+  startAddon.paddingRight = 0
+  frame.appendChild(startAddon)
+  startAddon.layoutSizingHorizontal = 'HUG'
+  startAddon.layoutSizingVertical = 'FILL'
+
+  const control = await createInputGroupControlFrame(searchSpec, { Size: 'Small' }, spec.placeholder ?? 'Search…')
+  control.name = '.input-group-control'
+  control.paddingLeft = 0
+  control.paddingRight = 12
+  frame.appendChild(control)
+  control.layoutGrow = 1
+  control.layoutSizingHorizontal = 'FILL'
+  control.layoutSizingVertical = 'FILL'
+
+  const shortcut = await createKbdShortcutFrame(searchSpec, ['⌘', 'K'])
+  if (shortcut) {
+    const endAddon = await createInputGroupAddonFrame(searchSpec, 'inline-end', shortcut)
+    endAddon.name = '.input-group-addon'
+    endAddon.paddingTop = 0
+    endAddon.paddingBottom = 0
+    frame.appendChild(endAddon)
+    endAddon.layoutSizingHorizontal = 'HUG'
+    endAddon.layoutSizingVertical = 'FILL'
+  }
+}
+
+/** Link Header slots, placeholder TEXT, and search placeholder layer on the set. */
+function linkHeaderProperties(componentSet, spec = {}) {
+  const placeholderProp = ensureTextComponentProperty(
+    componentSet,
+    'placeholder',
+    spec.placeholder ?? 'Search…',
+  )
+
+  let contentPropId = findComponentPropertyId(componentSet, 'Content')
+  if (!contentPropId) {
+    contentPropId = componentSet.addComponentProperty('Content', 'SLOT', '')
+  }
+
+  let trailingPropId = findComponentPropertyId(componentSet, 'Actions')
+  if (!trailingPropId) {
+    trailingPropId = componentSet.addComponentProperty('Actions', 'SLOT', '')
+  }
+
+  let linked = 0
+  for (const variant of componentSet.children) {
+    const searchInst = variant.findOne(
+      (n) =>
+        n.type === 'INSTANCE' &&
+        (n.name === 'SearchInput' ||
+          n.mainComponent?.parent?.name === 'SearchInput' ||
+          n.mainComponent?.name?.startsWith('Recipe=')),
+    )
+    if (searchInst && linkInstanceComponentProperty(searchInst, 'placeholder', placeholderProp)) {
+      linked++
+    }
+
+    const placeholderText = variant.findOne(
+      (n) => n.type === 'TEXT' && (n.name === 'placeholder' || n.parent?.name === '.input-group-control'),
+    )
+    if (placeholderText) {
+      placeholderText.componentPropertyReferences = {
+        ...(placeholderText.componentPropertyReferences ?? {}),
+        characters: placeholderProp,
+      }
+      linked++
+    }
+
+    const content = variant.findOne((n) => n.name === 'Content')
+    if (content) {
+      content.componentPropertyReferences = {
+        ...(content.componentPropertyReferences ?? {}),
+        slotContentId: contentPropId,
+      }
+    }
+
+    const trailing = variant.findOne((n) => n.name === 'Actions' || n.name === 'Trailing')
+    if (trailing) {
+      trailing.componentPropertyReferences = {
+        ...(trailing.componentPropertyReferences ?? {}),
+        slotContentId: trailingPropId,
+      }
+    }
+  }
+  return { placeholderProp, contentPropId, trailingPropId, linked }
+}
+
+/** Link InputGroup placeholder/value TEXT, start/end SLOT frames, and addon visibility booleans. */
+function linkInputGroupProperties(componentSet, spec = {}) {
+  const placeholderLink = linkTextComponentProperty(componentSet, {
+    propertyName: 'placeholder',
+    layerName: 'placeholder',
+    defaultValue: spec.label ?? 'Placeholder',
+  })
+  const valueLink = linkTextComponentProperty(componentSet, {
+    propertyName: 'value',
+    layerName: 'value',
+    defaultValue: spec.valueDefault ?? 'Entered value',
+  })
+
+  const startSlotProp = ensureSlotComponentProperty(componentSet, 'Start addon')
+  const endSlotProp = ensureSlotComponentProperty(componentSet, 'End addon')
+  const showStartProp = ensureBooleanComponentProperty(componentSet, 'showStartAddon', false)
+  const showEndProp = ensureBooleanComponentProperty(componentSet, 'showEndAddon', false)
+
+  let linked = 0
+  for (const variant of componentSet.children) {
+    const startSlot = variant.findOne((n) => n.name === 'Start addon')
+    const endSlot = variant.findOne((n) => n.name === 'End addon')
+
+    if (startSlot) {
+      startSlot.componentPropertyReferences = {
+        ...(startSlot.componentPropertyReferences ?? {}),
+        slotContentId: startSlotProp,
+      }
+      linked++
+    }
+    if (endSlot) {
+      endSlot.componentPropertyReferences = {
+        ...(endSlot.componentPropertyReferences ?? {}),
+        slotContentId: endSlotProp,
+      }
+      linked++
+    }
+
+    const startAddon = startSlot?.parent
+    if (startAddon?.name === '.input-group-addon') {
+      startAddon.componentPropertyReferences = {
+        ...(startAddon.componentPropertyReferences ?? {}),
+        visible: showStartProp,
+      }
+      linked++
+    }
+
+    const endAddon = endSlot?.parent
+    if (endAddon?.name === '.input-group-addon') {
+      endAddon.componentPropertyReferences = {
+        ...(endAddon.componentPropertyReferences ?? {}),
+        visible: showEndProp,
+      }
+      linked++
+    }
+  }
+
+  return {
+    ...placeholderLink,
+    valueLink,
+    startSlotProp,
+    endSlotProp,
+    showStartProp,
+    showEndProp,
+    linked,
+  }
+}
+
+/** Link SearchInput placeholder + value TEXT on the set. */
+function linkSearchInputProperties(componentSet, spec = {}) {
+  const defaultPlaceholder =
+    spec.copy?.shortcutPlaceholder ?? spec.copy?.placeholder ?? 'Search…'
+  const placeholderLink = linkTextComponentProperty(componentSet, {
+    propertyName: 'placeholder',
+    layerName: 'placeholder',
+    defaultValue: defaultPlaceholder,
+  })
+  const valueLink = linkTextComponentProperty(componentSet, {
+    propertyName: 'value',
+    layerName: 'value',
+    defaultValue: spec.copy?.value ?? spec.valueDefault ?? 'Entered value',
+  })
+  return { ...placeholderLink, valueLink }
+}
+
+async function buildHeaderVariant(comp, spec, axis) {
+  const isSearch = axis.Leading === 'Search'
+  const showTrailing = axis.Trailing === 'On'
+  const width = spec.width ?? 1280
+  const height = spec.height ?? 56
+  const searchWidth = spec.searchMaxWidth ?? 600
+
+  comp.layoutMode = 'HORIZONTAL'
+  comp.primaryAxisAlignItems = 'MIN'
+  comp.counterAxisAlignItems = 'CENTER'
+  comp.layoutSizingHorizontal = 'FIXED'
+  comp.layoutSizingVertical = 'FIXED'
+  comp.clipsContent = false
+  comp.resize(width, height)
+
+  await bindFill(comp, spec.fillVar ?? 'uds/surface/primary')
+  await bindStroke(comp, spec.strokeVar ?? 'uds/border/primary')
+  comp.strokeTopWeight = 0
+  comp.strokeRightWeight = 0
+  comp.strokeBottomWeight = 1
+  comp.strokeLeftWeight = 0
+
+  await bindPaddingAxis(comp, 'uds/gap/16', 'paddingLeft')
+  await bindPaddingAxis(comp, 'uds/gap/16', 'paddingRight')
+  await bindGap(comp, spec.itemGapVar ?? 'uds/gap/16')
+
+  if (isSearch) {
+    const searchWrap = figma.createFrame()
+    searchWrap.name = '.search-wrap'
+    searchWrap.layoutMode = 'HORIZONTAL'
+    searchWrap.primaryAxisAlignItems = 'MIN'
+    searchWrap.counterAxisAlignItems = 'CENTER'
+    searchWrap.fills = []
+    searchWrap.clipsContent = false
+
+    let searchField = await createSearchInputInstance(spec, 'Shortcut', 'Small')
+    if (searchField) {
+      searchField.name = 'SearchInput'
+    } else {
+      searchField = figma.createFrame()
+      await applyInlineHeaderSearchField(searchField, spec, searchWidth)
+    }
+
+    searchWrap.appendChild(searchField)
+    comp.appendChild(searchWrap)
+    searchWrap.resize(searchWidth, 36)
+    searchWrap.layoutSizingHorizontal = 'FIXED'
+    searchWrap.layoutSizingVertical = 'FIXED'
+    searchField.layoutSizingHorizontal = 'FILL'
+    searchField.layoutGrow = 1
+  } else {
+    const content = figma.createFrame()
+    content.name = 'Content'
+    content.layoutMode = 'HORIZONTAL'
+    content.primaryAxisAlignItems = 'MIN'
+    content.counterAxisAlignItems = 'CENTER'
+    content.fills = []
+
+    const title = figma.createText()
+    title.name = '.page-title'
+    title.characters = spec.pageTitle ?? 'Page title'
+    await applyLocalTextStyle(title, 'Body/16/Medium', 'uds/text/primary')
+    content.appendChild(title)
+    title.layoutSizingHorizontal = 'HUG'
+
+    comp.appendChild(content)
+    content.layoutSizingHorizontal = 'FILL'
+    content.layoutGrow = 1
+  }
+
+  if (showTrailing) {
+    const spacer = figma.createFrame()
+    spacer.name = '.spacer'
+    spacer.fills = []
+    comp.appendChild(spacer)
+    spacer.layoutSizingHorizontal = 'FILL'
+    spacer.layoutGrow = 1
+
+    const trailing = figma.createFrame()
+    trailing.name = 'Actions'
+    trailing.layoutMode = 'HORIZONTAL'
+    trailing.primaryAxisAlignItems = 'MIN'
+    trailing.counterAxisAlignItems = 'CENTER'
+    trailing.fills = []
+    await bindGap(trailing, 'uds/gap/4')
+
+    await appendHeaderTrailingDefaults(trailing, spec)
+
+    comp.appendChild(trailing)
+    trailing.layoutSizingHorizontal = 'HUG'
+  }
+}
+
 async function buildTextVariant(comp, spec, axis) {
   comp.layoutMode = 'HORIZONTAL'
   comp.layoutSizingHorizontal = 'HUG'
@@ -1393,6 +1943,21 @@ async function createButtonInstance(buttonSetId, appearance, label, size = 'Defa
   const btnComp = set.children.find((c) => c.name === variantName)
   if (btnComp?.type !== 'COMPONENT') return null
   const inst = btnComp.createInstance()
+  const text = inst.findOne((n) => n.type === 'TEXT')
+  if (text) {
+    await figma.loadFontAsync(text.fontName)
+    text.characters = label
+  }
+  return inst
+}
+
+async function createToggleInstance(toggleSetId, appearance, size, pressed, label) {
+  const set = await figma.getNodeByIdAsync(toggleSetId ?? '611:237')
+  if (set?.type !== 'COMPONENT_SET') return null
+  const variantName = `Appearance=${appearance}, Size=${size}, Pressed=${pressed ? 'True' : 'False'}`
+  const toggleComp = set.children.find((c) => c.name === variantName)
+  if (toggleComp?.type !== 'COMPONENT') return null
+  const inst = toggleComp.createInstance()
   const text = inst.findOne((n) => n.type === 'TEXT')
   if (text) {
     await figma.loadFontAsync(text.fontName)
@@ -3000,6 +3565,55 @@ async function createBrandingInstance(spec, appearance, symbol) {
   return inst
 }
 
+/** Menu variant Brand axis → Figma Brand extension collection name. */
+const MENU_BRAND_AXIS_TO_EXTENSION = {
+  Default: 'CHG',
+  CHG: 'CHG',
+  CompHealth: 'CompHealth',
+  Weatherby: 'Weatherby',
+  Connect: 'Connect',
+  Locumsmart: 'LocumSmart',
+  Modio: 'Modio',
+  GMS: 'GMS',
+  Wireframe: 'Wireframe',
+}
+
+let menuBrandExtensionCache = null
+
+async function getMenuBrandExtensionCollection(brandKey) {
+  const extName = MENU_BRAND_AXIS_TO_EXTENSION[brandKey] ?? 'CHG'
+  if (!menuBrandExtensionCache) {
+    const cols = await figma.variables.getLocalVariableCollectionsAsync()
+    const base = cols.find((c) => c.name === 'Brand')
+    menuBrandExtensionCache = { base, byName: {} }
+    for (const c of cols) {
+      if (c.isExtension && c.parentVariableCollectionId === base?.id) {
+        menuBrandExtensionCache.byName[c.name] = c
+      }
+    }
+  }
+  return menuBrandExtensionCache.byName[extName] ?? null
+}
+
+/** Apply per-brand semantic colors (Brand extension Light mode). */
+async function applyMenuBrandVariableMode(node, brandKey) {
+  const ext = await getMenuBrandExtensionCollection(brandKey)
+  if (!ext) return
+  const lightModeId = ext.modes.find((m) => m.name === 'Light')?.modeId
+  if (!lightModeId) return
+  node.setExplicitVariableModeForCollection(ext, lightModeId)
+}
+
+/** Scale a Branding instance to fit a clip frame (object-contain), matching React `object-contain`. */
+function fitMenuBrandingInstance(inst, clipW, clipH) {
+  if (!inst?.mainComponent) return
+  const nw = inst.mainComponent.width
+  const nh = inst.mainComponent.height
+  inst.resize(nw, nh)
+  const scale = Math.min(clipW / nw, clipH / nh)
+  inst.resize(Math.max(1, nw * scale), Math.max(1, nh * scale))
+}
+
 async function bindIconFill(iconInst, fillToken) {
   if (!iconInst || !fillToken) return
   const nodes = iconInst.findAll(
@@ -3027,10 +3641,17 @@ async function createMenuGlyph(spec, iconName, sizePx, fillToken, weight = 'Duot
   return inst
 }
 
+/** Fitted wordmark box after object-contain in 56px header (200×80 → 140×56). */
+const MENU_WORDMARK_CLIP = { width: 140, height: 56 }
+/** Ghost list toggle in expanded header (20px icon, 44px row height). */
+const MENU_TOGGLE_SIZE = { width: 20, height: 44 }
+/** Collapsed rail brand mark clip (64×64 native → 36×36). */
+const MENU_MARK_CLIP = { width: 36, height: 36 }
+
 async function createMenuToggleButton(spec) {
   const btn = figma.createFrame()
   btn.name = 'Menu toggle'
-  btn.resize(44, 44)
+  btn.resize(MENU_TOGGLE_SIZE.width, MENU_TOGGLE_SIZE.height)
   btn.layoutMode = 'HORIZONTAL'
   btn.primaryAxisAlignItems = 'CENTER'
   btn.counterAxisAlignItems = 'CENTER'
@@ -3041,104 +3662,439 @@ async function createMenuToggleButton(spec) {
   return btn
 }
 
-async function appendMenuNavLeaf(parent, spec, item, active) {
-  const row = figma.createFrame()
-  row.name = 'Nav leaf'
-  row.layoutMode = 'HORIZONTAL'
-  row.primaryAxisAlignItems = 'CENTER'
-  row.counterAxisAlignItems = 'CENTER'
-  row.resize(parent.width, 36)
-  row.paddingLeft = 24
-  row.paddingRight = 16
-  row.fills = []
-  row.strokes = []
-  row.strokeLeftWeight = active ? 2 : 1
-  await bindStroke(row, active ? 'uds/surface/brand/quaternary' : 'uds/border/primary')
-  if (active) await bindFill(row, 'uds/color/neutrals/50')
+function menuBranchSubtreeActive(item) {
+  if (item.active) return true
+  return item.children?.some((child) => child.active) ?? false
+}
+
+async function instantiateMenuNavPart(setName, axis) {
+  await ensurePage('UDS Components')
+  const comp = getMenuNavPartComponent(setName, axis)
+  if (!comp) return null
+  return comp.createInstance()
+}
+
+function getMenuNavPartComponent(setName, axis) {
+  let set = null
+  for (const page of figma.root.children) {
+    if (page.type !== 'PAGE') continue
+    set = page.findOne((n) => n.type === 'COMPONENT_SET' && n.name === setName)
+    if (set) break
+  }
+  if (!set) return null
+  const targetName = variantName(Object.keys(axis), Object.values(axis))
+  const variant =
+    set.children.find((c) => c.name === targetName) ??
+    set.children.find((c) =>
+      Object.entries(axis).every(([k, v]) => c.name.includes(`${k}=${v}`)),
+    )
+  return variant?.type === 'COMPONENT' ? variant : null
+}
+
+function findMenuNavParentLabelLayer(variant) {
+  const branchRow = variant.findOne((n) => n.name === 'Branch row')
+  if (branchRow) {
+    return branchRow.findOne((n) => n.name === 'Label' && n.type === 'TEXT')
+  }
+  const content = variant.children.find((n) => n.name === 'Content')
+  return content?.findOne((n) => n.name === 'Label' && n.type === 'TEXT') ?? null
+}
+
+/** Link parent row label TEXT + Children SLOT on `.menu-nav-parent`. */
+function linkMenuNavParentProperties(componentSet, spec = {}) {
+  const labelProp = ensureTextComponentProperty(
+    componentSet,
+    'label',
+    spec.copy?.label ?? 'Dashboard',
+  )
+  const childrenPropId = ensureSlotComponentProperty(componentSet, 'Children')
+
+  let linkedLabels = 0
+  let linkedSlots = 0
+  for (const variant of componentSet.children) {
+    const label = findMenuNavParentLabelLayer(variant)
+    if (label) {
+      label.name = 'Label'
+      label.componentPropertyReferences = {
+        ...(label.componentPropertyReferences ?? {}),
+        characters: labelProp,
+      }
+      linkedLabels++
+    }
+
+    const children = variant.findOne((n) => n.name === 'Children')
+    if (children) {
+      children.componentPropertyReferences = {
+        ...(children.componentPropertyReferences ?? {}),
+        slotContentId: childrenPropId,
+      }
+      linkedSlots++
+    }
+  }
+
+  return { labelProp, childrenPropId, linkedLabels, linkedSlots }
+}
+
+/** Populate `.menu-nav-child` instances into a parent instance Children slot (Menu composition only). */
+async function configureMenuNavParentBranchChildren(parentInst, spec, item) {
+  if (!parentInst || !item.children?.length) return
+  const slot = parentInst.findOne((n) => n.name === 'Children')
+  if (!slot) return
+
+  while (slot.children.length > 0) slot.children[0].remove()
+
+  for (const childItem of item.children) {
+    const childInst = await instantiateMenuNavPart('.menu-nav-child', {
+      Rail: 'Expanded',
+      State: childItem.active ? 'Active' : 'Default',
+    })
+    if (!childInst) continue
+    setMenuNavInstanceLabel(childInst, childItem.label)
+    slot.appendChild(childInst)
+    childInst.layoutSizingHorizontal = 'FILL'
+  }
+}
+
+function setMenuNavInstanceLabel(inst, text) {
+  if (!inst || inst.type !== 'INSTANCE') return
+  const props = inst.componentProperties ?? {}
+  const labelKey = Object.keys(props).find(
+    (key) => key === 'label' || key.startsWith('label#'),
+  )
+  if (labelKey) {
+    inst.setProperties({ [labelKey]: text })
+    return
+  }
+  const label = inst.findOne((n) => n.name === 'Label' && n.type === 'TEXT')
+  if (label) label.characters = text
+}
+
+/** Icon set instance with default glyph (House) — for Wireframe menu rows. */
+async function createMenuDefaultIconInstance(spec, fillToken, sizePx = 24) {
+  const iconSet = await figma.getNodeByIdAsync(spec.iconSetNodeId ?? '501:6')
+  const sizeName = sizePx <= 16 ? 'Size=16' : sizePx <= 20 ? 'Size=20' : 'Size=24'
+  const iconComp = iconSet?.children?.find((c) => c.name === sizeName)
+  if (iconComp?.type !== 'COMPONENT') return null
+  const inst = iconComp.createInstance()
+  inst.name = 'Icon'
+  inst.resize(sizePx, sizePx)
+  await bindIconFill(inst, fillToken ?? 'uds/text/primary')
+  return inst
+}
+
+function findMenuNavParentIconSlot(inst) {
+  if (!inst) return null
+  const branchRow = inst.findOne((n) => n.name === 'Branch row')
+  const content =
+    branchRow?.findOne((n) => n.name === 'Content') ??
+    inst.findOne((n) => n.name === 'Content')
+  if (content) {
+    return content.findOne((n) => n.name === 'Icon' && n.type === 'INSTANCE')
+  }
+  return inst.findOne((n) => n.name === 'Icon' && n.type === 'INSTANCE')
+}
+
+async function swapMenuNavParentIcon(inst, spec, iconName, active, useDefaultIcon) {
+  if (!inst) return
+  const slot = findMenuNavParentIconSlot(inst)
+  if (!slot || slot.type !== 'INSTANCE') return
+  const inner = slot.findOne((n) => n.type === 'INSTANCE')
+  if (!inner) return
+
+  const fill = active ? 'uds/text/inverse' : 'uds/text/primary'
+
+  if (useDefaultIcon) {
+    await bindIconFill(slot, fill)
+    return
+  }
+  if (!iconName) return
+
+  const key = spec.iconKeys?.[iconName]
+  if (!key) return
+  const glyphComp = await importGlyphComponent(key, 'Duotone')
+  if (glyphComp?.type === 'COMPONENT') {
+    inner.swapComponent(glyphComp)
+    await bindIconFill(slot, fill)
+  }
+}
+
+async function buildMenuNavParentExpandedRow(comp, spec, axis, options = {}) {
+  const active = axis.State === 'Active'
+  const isBranch = axis.Kind === 'Branch'
+  const open = axis.Open === 'True'
+  const w = spec.width ?? 280
+  const fill = active ? 'uds/text/inverse' : 'uds/text/primary'
+
+  comp.layoutMode = 'HORIZONTAL'
+  comp.primaryAxisAlignItems = 'CENTER'
+  comp.counterAxisAlignItems = 'CENTER'
+  comp.itemSpacing = 0
+  comp.resize(w, 44)
+  comp.fills = []
+  if (active) await bindFill(comp, 'uds/surface/brand/quaternary')
+
+  const content = figma.createFrame()
+  content.name = 'Content'
+  content.layoutMode = 'HORIZONTAL'
+  content.primaryAxisAlignItems = 'CENTER'
+  content.counterAxisAlignItems = 'CENTER'
+  content.itemSpacing = 12
+  content.fills = []
+  content.paddingLeft = 16
+  content.paddingRight = 16
+  content.layoutGrow = 1
+  await bindGap(content, 'uds/gap/12')
+  await bindPaddingAxis(content, 'uds/gap/16', 'paddingLeft')
+  await bindPaddingAxis(content, 'uds/gap/16', 'paddingRight')
+
+  let icon
+  if (options.useDefaultIcon) {
+    icon = await createMenuDefaultIconInstance(spec, fill, 24)
+  } else {
+    icon = await createMenuGlyph(spec, options.iconName ?? 'Layout', 24, fill)
+  }
+  if (icon) {
+    content.appendChild(icon)
+    icon.name = 'Icon'
+    icon.layoutSizingHorizontal = 'HUG'
+  }
 
   const label = figma.createText()
   label.name = 'Label'
-  label.characters = item.label
+  label.characters = options.label ?? (isBranch ? 'Pooling' : 'Dashboard')
+  label.textAutoResize = 'WIDTH_AND_HEIGHT'
+  await applyLocalTextStyle(label, 'Body/16/Medium', fill)
+  content.appendChild(label)
+  label.layoutGrow = 1
+  label.layoutSizingHorizontal = 'FILL'
+  comp.appendChild(content)
+  content.layoutSizingHorizontal = 'FILL'
+
+  if (isBranch) {
+    const caretSlot = figma.createFrame()
+    caretSlot.name = 'Caret slot'
+    caretSlot.resize(32, 44)
+    caretSlot.layoutMode = 'HORIZONTAL'
+    caretSlot.primaryAxisAlignItems = 'CENTER'
+    caretSlot.counterAxisAlignItems = 'CENTER'
+    caretSlot.fills = []
+    const caret = await createMenuGlyph(spec, 'CaretDown', 16, fill, 'Bold')
+    if (caret) {
+      if (open) caret.rotation = 180
+      caret.name = 'Caret'
+      caretSlot.appendChild(caret)
+    }
+    comp.appendChild(caretSlot)
+    caretSlot.minWidth = 32
+    caretSlot.maxWidth = 32
+    caretSlot.layoutSizingHorizontal = 'FIXED'
+    if (open) {
+      await bindStroke(comp, 'uds/border/primary')
+      await bindStrokeWeight(comp, 'uds/border/width/1')
+      comp.strokeBottomWeight = 1
+      comp.strokeTopWeight = 0
+      comp.strokeLeftWeight = 0
+      comp.strokeRightWeight = 0
+    }
+  }
+}
+
+async function buildMenuNavParentVariant(comp, spec, axis) {
+  const rail = axis.Rail ?? 'Expanded'
+  const kind = axis.Kind ?? 'Item'
+  const state = axis.State ?? 'Default'
+  const open = axis.Open ?? 'False'
+  const active = state === 'Active'
+  const w = rail === 'Expanded' ? (spec.width ?? 280) : 44
+  const fill = active ? 'uds/text/inverse' : 'uds/text/primary'
+
+  comp.fills = []
+  comp.strokes = []
+
+  if (rail === 'Collapsed') {
+    comp.layoutMode = 'HORIZONTAL'
+    comp.primaryAxisAlignItems = 'CENTER'
+    comp.counterAxisAlignItems = 'CENTER'
+    comp.resize(44, 44)
+    comp.cornerRadius = 4
+    await bindRadius(comp, 'uds/radius/4')
+    if (active) await bindFill(comp, 'uds/surface/brand/quaternary')
+    const icon = await createMenuGlyph(
+      spec,
+      kind === 'Branch' ? 'UserList' : 'Layout',
+      24,
+      fill,
+    )
+    if (icon) {
+      icon.name = 'Icon'
+      comp.appendChild(icon)
+    }
+    return
+  }
+
+  if (kind === 'Item') {
+    await buildMenuNavParentExpandedRow(comp, spec, axis, {
+      label: 'Dashboard',
+      iconName: 'Layout',
+    })
+    return
+  }
+
+  comp.layoutMode = 'VERTICAL'
+  comp.primaryAxisAlignItems = 'MIN'
+  comp.counterAxisAlignItems = 'MIN'
+  comp.itemSpacing = 0
+  comp.resize(w, 44)
+
+  const branchRow = figma.createFrame()
+  branchRow.name = 'Branch row'
+  branchRow.fills = []
+  branchRow.strokes = []
+  await buildMenuNavParentExpandedRow(branchRow, spec, axis, {
+    label: 'Pooling',
+    iconName: 'UserList',
+  })
+  comp.appendChild(branchRow)
+  branchRow.layoutSizingHorizontal = 'FILL'
+
+  if (open === 'True') {
+    const children = figma.createFrame()
+    children.name = 'Children'
+    children.layoutMode = 'VERTICAL'
+    children.primaryAxisAlignItems = 'MIN'
+    children.counterAxisAlignItems = 'MIN'
+    children.itemSpacing = 0
+    children.fills = []
+    children.strokes = []
+    children.paddingLeft = 12
+    await bindPaddingAxis(children, 'uds/gap/12', 'paddingLeft')
+    comp.appendChild(children)
+    children.layoutSizingHorizontal = 'FILL'
+    children.layoutSizingVertical = 'HUG'
+    comp.resize(w, 44)
+  }
+}
+
+async function buildMenuNavChildVariant(comp, spec, axis) {
+  const rail = axis.Rail ?? 'Expanded'
+  const active = axis.State === 'Active'
+  const w = spec.width ?? 280
+
+  comp.fills = []
+  comp.strokes = []
+
+  if (rail === 'Collapsed') {
+    comp.layoutMode = 'HORIZONTAL'
+    comp.primaryAxisAlignItems = 'CENTER'
+    comp.counterAxisAlignItems = 'CENTER'
+    comp.resize(w, 36)
+    comp.paddingLeft = 16
+    comp.paddingRight = 16
+    await bindPaddingAxis(comp, 'uds/gap/16', 'paddingLeft')
+    await bindPaddingAxis(comp, 'uds/gap/16', 'paddingRight')
+    const label = figma.createText()
+    label.name = 'Label'
+    label.characters = 'Nested item'
+    label.textAutoResize = 'WIDTH_AND_HEIGHT'
+    await applyLocalTextStyle(
+      label,
+      'Body/14/Regular',
+      active ? 'uds/text/primary' : 'uds/text/tertiary',
+    )
+    comp.appendChild(label)
+    label.layoutGrow = 1
+    return
+  }
+
+  comp.layoutMode = 'HORIZONTAL'
+  comp.primaryAxisAlignItems = 'MIN'
+  comp.counterAxisAlignItems = 'CENTER'
+  comp.paddingLeft = 16
+  comp.fills = []
+  comp.strokes = []
+  await bindPaddingAxis(comp, 'uds/gap/16', 'paddingLeft')
+
+  const branchRow = figma.createFrame()
+  branchRow.name = 'Branch row'
+  branchRow.layoutMode = 'HORIZONTAL'
+  branchRow.primaryAxisAlignItems = 'CENTER'
+  branchRow.counterAxisAlignItems = 'CENTER'
+  branchRow.fills = []
+  branchRow.strokes = []
+  branchRow.paddingLeft = 16
+  await bindPaddingAxis(branchRow, 'uds/gap/16', 'paddingLeft')
+
+  const content = figma.createFrame()
+  content.name = 'Content'
+  content.layoutMode = 'HORIZONTAL'
+  content.primaryAxisAlignItems = 'CENTER'
+  content.counterAxisAlignItems = 'CENTER'
+  content.resize(100, 36)
+  content.paddingLeft = 24
+  content.paddingRight = 8
+  content.fills = []
+  content.strokes = []
+  await bindPaddingAxis(content, 'uds/gap/24', 'paddingLeft')
+  await bindPaddingAxis(content, 'uds/gap/8', 'paddingRight')
+  await bindStroke(content, active ? 'uds/surface/brand/quaternary' : 'uds/border/primary')
+  content.strokeTopWeight = 0
+  content.strokeRightWeight = 0
+  content.strokeBottomWeight = 0
+  content.strokeLeftWeight = active ? 2 : 1
+  if (active) await bindFill(content, 'uds/color/neutrals/50')
+
+  const label = figma.createText()
+  label.name = 'Label'
+  label.characters = 'Open requisitions'
   label.textAutoResize = 'WIDTH_AND_HEIGHT'
   await applyLocalTextStyle(
     label,
     'Body/14/Regular',
     active ? 'uds/text/primary' : 'uds/text/tertiary',
   )
-  row.appendChild(label)
-  parent.appendChild(row)
-  row.layoutSizingHorizontal = 'FILL'
-  return row
+  content.appendChild(label)
+  label.layoutGrow = 1
+  label.layoutSizingHorizontal = 'FILL'
+  branchRow.appendChild(content)
+  content.layoutSizingHorizontal = 'HUG'
+  content.layoutSizingVertical = 'FIXED'
+  branchRow.layoutSizingHorizontal = 'HUG'
+  branchRow.layoutSizingVertical = 'HUG'
+  comp.appendChild(branchRow)
+  comp.resize(w, 36)
+}
+
+async function appendMenuNavLeaf(parent, spec, item, active) {
+  const inst = await instantiateMenuNavPart('.menu-nav-child', {
+    Rail: 'Expanded',
+    State: active ? 'Active' : 'Default',
+  })
+  if (!inst) return
+  setMenuNavInstanceLabel(inst, item.label)
+  parent.appendChild(inst)
+  inst.layoutSizingHorizontal = 'FILL'
 }
 
 async function appendMenuNavBranch(parent, spec, item, width, activeChild) {
-  const branchActive = item.active || false
-  const branchRow = figma.createFrame()
-  branchRow.name = 'Nav branch'
-  branchRow.layoutMode = 'HORIZONTAL'
-  branchRow.primaryAxisAlignItems = 'CENTER'
-  branchRow.counterAxisAlignItems = 'CENTER'
-  branchRow.itemSpacing = 12
-  branchRow.resize(width, 44)
-  branchRow.paddingLeft = 16
-  branchRow.paddingRight = 8
-  branchRow.fills = []
-  await bindGap(branchRow, 'uds/gap/12')
+  const branchActive = menuBranchSubtreeActive(item)
+  const open = Boolean(item.expanded && item.children?.length)
+  const useDefaultIcon = spec.brandKey === 'Wireframe' && !item.icon
 
-  const icon = await createMenuGlyph(
-    spec,
-    item.icon,
-    24,
-    branchActive ? 'uds/text/inverse' : 'uds/text/primary',
-  )
-  if (icon) {
-    branchRow.appendChild(icon)
-    icon.layoutSizingHorizontal = 'HUG'
-  }
+  const inst = await instantiateMenuNavPart('.menu-nav-parent', {
+    Rail: 'Expanded',
+    Kind: 'Branch',
+    State: branchActive ? 'Active' : 'Default',
+    Open: open ? 'True' : 'False',
+  })
+  if (!inst) return
 
-  const label = figma.createText()
-  label.name = 'Label'
-  label.characters = item.label
-  label.textAutoResize = 'WIDTH_AND_HEIGHT'
-  await applyLocalTextStyle(
-    label,
-    'Body/16/Medium',
-    branchActive ? 'uds/text/inverse' : 'uds/text/primary',
-  )
-  branchRow.appendChild(label)
-  label.layoutGrow = 1
-  label.layoutSizingHorizontal = 'FILL'
+  setMenuNavInstanceLabel(inst, item.label)
+  parent.appendChild(inst)
+  inst.layoutSizingHorizontal = 'FILL'
+  await swapMenuNavParentIcon(inst, spec, item.icon, branchActive, useDefaultIcon)
 
-  const caret = await createMenuGlyph(
-    spec,
-    'CaretDown',
-    16,
-    branchActive ? 'uds/text/inverse' : 'uds/text/primary',
-    'Regular',
-  )
-  if (caret) {
-    branchRow.appendChild(caret)
-    caret.layoutSizingHorizontal = 'HUG'
-  }
-
-  parent.appendChild(branchRow)
-  branchRow.layoutSizingHorizontal = 'FILL'
-
-  if (item.expanded && item.children?.length) {
-    const childrenWrap = figma.createFrame()
-    childrenWrap.name = 'Nav children'
-    childrenWrap.layoutMode = 'VERTICAL'
-    childrenWrap.primaryAxisAlignItems = 'MIN'
-    childrenWrap.counterAxisAlignItems = 'MIN'
-    childrenWrap.itemSpacing = 0
-    childrenWrap.fills = []
-    childrenWrap.resize(width, 10)
-    parent.appendChild(childrenWrap)
-    childrenWrap.layoutSizingHorizontal = 'FILL'
-    for (const child of item.children) {
-      await appendMenuNavLeaf(childrenWrap, spec, child, child.label === activeChild)
-    }
-    childrenWrap.resize(width, childrenWrap.height)
+  if (open) {
+    await configureMenuNavParentBranchChildren(inst, spec, item)
   }
 }
 
@@ -3149,88 +4105,50 @@ async function appendMenuNavRow(parent, spec, item, width) {
     return
   }
 
+  const useDefaultIcon = spec.brandKey === 'Wireframe' && !item.icon
+  const inst = await instantiateMenuNavPart('.menu-nav-parent', {
+    Rail: 'Expanded',
+    Kind: 'Item',
+    State: active ? 'Active' : 'Default',
+    Open: 'False',
+  })
+  if (!inst) return
+  setMenuNavInstanceLabel(inst, item.label)
+  parent.appendChild(inst)
+  inst.layoutSizingHorizontal = 'FILL'
+  await swapMenuNavParentIcon(inst, spec, item.icon, active, useDefaultIcon)
+}
+
+async function appendMenuNavCollapsed(parent, spec, item, railWidth) {
+  const active = menuBranchSubtreeActive(item)
+  const useDefaultIcon = spec.brandKey === 'Wireframe' && !item.icon
   const row = figma.createFrame()
-  row.name = 'Nav item'
+  row.name = 'Nav item row'
   row.layoutMode = 'HORIZONTAL'
   row.primaryAxisAlignItems = 'CENTER'
   row.counterAxisAlignItems = 'CENTER'
-  row.itemSpacing = 12
-  row.resize(width, 44)
-  row.paddingLeft = 16
-  row.paddingRight = 16
   row.fills = []
   row.strokes = []
-  await bindGap(row, 'uds/gap/12')
-  if (active) await bindFill(row, 'uds/surface/brand/quaternary')
+  row.resize(railWidth ?? parent.width, 44)
 
-  if (item.icon) {
-    const icon = await createMenuGlyph(
-      spec,
-      item.icon,
-      24,
-      active ? 'uds/text/inverse' : 'uds/text/primary',
-    )
-    if (icon) {
-      row.appendChild(icon)
-      icon.layoutSizingHorizontal = 'HUG'
-    }
-  } else if (spec.brandKey === 'Wireframe') {
-    const bar = figma.createRectangle()
-    bar.name = 'Wireframe icon'
-    bar.resize(24, 24)
-    await bindFill(bar, 'uds/surface/tertiary')
-    await bindRadius(bar, 'uds/radius/4')
-    row.appendChild(bar)
+  const inst = await instantiateMenuNavPart('.menu-nav-parent', {
+    Rail: 'Collapsed',
+    Kind: item.children?.length ? 'Branch' : 'Item',
+    State: active ? 'Active' : 'Default',
+    Open: 'False',
+  })
+  if (inst) {
+    setMenuNavInstanceLabel(inst, item.label)
+    row.appendChild(inst)
+    inst.minWidth = 44
+    inst.maxWidth = 44
+    inst.layoutSizingHorizontal = 'FIXED'
+    inst.layoutSizingVertical = 'FIXED'
+    await swapMenuNavParentIcon(inst, spec, item.icon, active, useDefaultIcon)
   }
-
-  const label = figma.createText()
-  label.name = 'Label'
-  label.characters = item.label
-  label.textAutoResize = 'WIDTH_AND_HEIGHT'
-  await applyLocalTextStyle(
-    label,
-    'Body/16/Medium',
-    active ? 'uds/text/inverse' : 'uds/text/primary',
-  )
-  row.appendChild(label)
-  label.layoutGrow = 1
-  label.layoutSizingHorizontal = 'FILL'
 
   parent.appendChild(row)
   row.layoutSizingHorizontal = 'FILL'
-}
-
-async function appendMenuNavCollapsed(parent, spec, item) {
-  const active = Boolean(item.active)
-  const btn = figma.createFrame()
-  btn.name = 'Nav item'
-  btn.resize(44, 44)
-  btn.layoutMode = 'HORIZONTAL'
-  btn.primaryAxisAlignItems = 'CENTER'
-  btn.counterAxisAlignItems = 'CENTER'
-  btn.fills = []
-  btn.strokes = []
-  btn.cornerRadius = 4
-  if (active) await bindFill(btn, 'uds/surface/brand/quaternary')
-
-  if (item.icon) {
-    const icon = await createMenuGlyph(
-      spec,
-      item.icon,
-      24,
-      active ? 'uds/text/inverse' : 'uds/text/primary',
-    )
-    if (icon) btn.appendChild(icon)
-  } else {
-    const bar = figma.createRectangle()
-    bar.resize(20, 20)
-    await bindFill(bar, active ? 'uds/text/inverse' : 'uds/surface/tertiary')
-    bar.cornerRadius = 4
-    btn.appendChild(bar)
-  }
-
-  parent.appendChild(btn)
-  btn.layoutSizingHorizontal = 'HUG'
 }
 
 async function appendMenuHeader(parent, spec, appearance, expanded) {
@@ -3241,14 +4159,20 @@ async function appendMenuHeader(parent, spec, appearance, expanded) {
   header.counterAxisAlignItems = 'CENTER'
   header.itemSpacing = 0
   header.resize(parent.width, 56)
+  header.clipsContent = true
   header.fills = []
   header.strokes = []
+  header.paddingLeft = 8
+  header.paddingRight = 8
   await bindFill(header, 'uds/surface/primary')
   await bindStroke(header, 'uds/border/primary')
+  await bindStrokeWeight(header, 'uds/border/width/1')
   header.strokeBottomWeight = 1
   header.strokeTopWeight = 0
   header.strokeLeftWeight = 0
   header.strokeRightWeight = 0
+  await bindPaddingAxis(header, 'uds/gap/8', 'paddingLeft')
+  await bindPaddingAxis(header, 'uds/gap/8', 'paddingRight')
 
   if (expanded) {
     const toggleSlot = figma.createFrame()
@@ -3261,6 +4185,10 @@ async function appendMenuHeader(parent, spec, appearance, expanded) {
     const toggle = await createMenuToggleButton(spec)
     toggleSlot.appendChild(toggle)
     header.appendChild(toggleSlot)
+    toggleSlot.minWidth = 44
+    toggleSlot.maxWidth = 44
+    toggleSlot.layoutSizingHorizontal = 'FIXED'
+    toggleSlot.layoutSizingVertical = 'FILL'
 
     const brandSlot = figma.createFrame()
     brandSlot.name = 'Brand slot'
@@ -3268,20 +4196,35 @@ async function appendMenuHeader(parent, spec, appearance, expanded) {
     brandSlot.primaryAxisAlignItems = 'CENTER'
     brandSlot.counterAxisAlignItems = 'CENTER'
     brandSlot.fills = []
+    brandSlot.clipsContent = true
     brandSlot.layoutGrow = 1
+    const brandClip = figma.createFrame()
+    brandClip.name = 'Brand clip'
+    brandClip.resize(MENU_WORDMARK_CLIP.width, MENU_WORDMARK_CLIP.height)
+    brandClip.clipsContent = true
+    brandClip.layoutMode = 'HORIZONTAL'
+    brandClip.primaryAxisAlignItems = 'CENTER'
+    brandClip.counterAxisAlignItems = 'CENTER'
+    brandClip.fills = []
     const branding = await createBrandingInstance(spec, appearance, false)
     if (branding) {
-      branding.resize(188, 56)
-      brandSlot.appendChild(branding)
+      fitMenuBrandingInstance(branding, MENU_WORDMARK_CLIP.width, MENU_WORDMARK_CLIP.height)
+      brandClip.appendChild(branding)
     }
+    brandSlot.appendChild(brandClip)
     header.appendChild(brandSlot)
     brandSlot.layoutSizingHorizontal = 'FILL'
+    brandSlot.layoutSizingVertical = 'FILL'
 
     const spacer = figma.createFrame()
     spacer.name = 'Header spacer'
     spacer.resize(44, 56)
     spacer.fills = []
     header.appendChild(spacer)
+    spacer.minWidth = 44
+    spacer.maxWidth = 44
+    spacer.layoutSizingHorizontal = 'FIXED'
+    spacer.layoutSizingVertical = 'FILL'
   } else {
     const brandSlot = figma.createFrame()
     brandSlot.name = 'Brand slot'
@@ -3289,14 +4232,25 @@ async function appendMenuHeader(parent, spec, appearance, expanded) {
     brandSlot.primaryAxisAlignItems = 'CENTER'
     brandSlot.counterAxisAlignItems = 'CENTER'
     brandSlot.fills = []
+    brandSlot.clipsContent = true
     brandSlot.layoutGrow = 1
+    const brandClip = figma.createFrame()
+    brandClip.name = 'Brand clip'
+    brandClip.resize(MENU_MARK_CLIP.width, MENU_MARK_CLIP.height)
+    brandClip.clipsContent = true
+    brandClip.layoutMode = 'HORIZONTAL'
+    brandClip.primaryAxisAlignItems = 'CENTER'
+    brandClip.counterAxisAlignItems = 'CENTER'
+    brandClip.fills = []
     const branding = await createBrandingInstance(spec, appearance, true)
     if (branding) {
-      branding.resize(36, 36)
-      brandSlot.appendChild(branding)
+      fitMenuBrandingInstance(branding, MENU_MARK_CLIP.width, MENU_MARK_CLIP.height)
+      brandClip.appendChild(branding)
     }
+    brandSlot.appendChild(brandClip)
     header.appendChild(brandSlot)
     brandSlot.layoutSizingHorizontal = 'FILL'
+    brandSlot.layoutSizingVertical = 'FILL'
   }
 
   parent.appendChild(header)
@@ -3320,9 +4274,14 @@ async function appendMenuNavigation(parent, spec, brandKey, expanded) {
       await appendMenuNavRow(nav, { ...spec, brandKey }, item, parent.width)
     }
   } else {
+    nav.paddingTop = 8
+    nav.paddingBottom = 8
+    await bindPaddingAxis(nav, 'uds/gap/8', 'paddingTop')
+    await bindPaddingAxis(nav, 'uds/gap/8', 'paddingBottom')
+    nav.itemSpacing = 4
+    await bindGap(nav, 'uds/gap/4')
     for (const item of items) {
-      if (item.children?.length) continue
-      await appendMenuNavCollapsed(nav, spec, item)
+      await appendMenuNavCollapsed(nav, spec, item, parent.width)
     }
   }
 
@@ -3344,6 +4303,7 @@ async function buildMenuVariant(comp, spec, axis) {
   comp.itemSpacing = 0
   comp.resize(w, h)
   comp.clipsContent = true
+  await applyMenuBrandVariableMode(comp, brandKey)
   await bindFill(comp, 'uds/surface/primary')
   await bindStroke(comp, 'uds/border/primary')
   comp.strokeRightWeight = 1
@@ -4173,23 +5133,45 @@ async function buildDropdownMenuVariant(comp, spec, axis) {
   content.layoutSizingVertical = 'HUG'
 }
 
-async function createIcon16Instance(spec, glyphComponentId) {
+async function resolveGlyphComponentId(spec, iconName, glyphComponentId) {
+  if (glyphComponentId) {
+    const node = await figma.getNodeByIdAsync(glyphComponentId)
+    if (node?.type === 'COMPONENT') return node.id
+  }
+  const key = iconName ? spec.iconKeys?.[iconName] : null
+  if (!key) return null
+  const glyph = await importGlyphComponent(key, 'Regular')
+  return glyph?.type === 'COMPONENT' ? glyph.id : null
+}
+
+async function createIconInstance(spec, sizePx, iconName, glyphComponentId) {
   const iconSetId = spec.iconSetNodeId ?? '501:6'
   const iconSet = await figma.getNodeByIdAsync(iconSetId)
-  const size16 = iconSet?.children?.find((c) => c.name === 'Size=16')
-  if (!size16?.type || size16.type !== 'COMPONENT') return null
-  const inst = size16.createInstance()
-  inst.name = 'icon'
-  inst.resize(16, 16)
-  const glyph = glyphComponentId ? await figma.getNodeByIdAsync(glyphComponentId) : null
+  const sizeName =
+    sizePx <= 16 ? 'Size=16' : sizePx <= 20 ? 'Size=20' : sizePx <= 24 ? 'Size=24' : 'Size=32'
+  const sizeComp = iconSet?.children?.find((c) => c.name === sizeName)
+  if (sizeComp?.type !== 'COMPONENT') return null
+  const inst = sizeComp.createInstance()
+  inst.name = 'Icon'
+  inst.resize(sizePx, sizePx)
+  const glyphId = await resolveGlyphComponentId(spec, iconName, glyphComponentId)
   const inner = inst.findOne((n) => n.type === 'INSTANCE')
-  if (inner && glyph?.type === 'COMPONENT') inner.swapComponent(glyph)
+  if (inner && glyphId) {
+    const glyph = await figma.getNodeByIdAsync(glyphId)
+    if (glyph?.type === 'COMPONENT') inner.swapComponent(glyph)
+  }
   return inst
 }
 
+async function createIcon16Instance(spec, glyphComponentId, iconName) {
+  return createIconInstance(spec, 16, iconName, glyphComponentId)
+}
+
 async function createInputGroupControlFrame(spec, axis, placeholder) {
-  const padH = 12
   const fontSize = axis.Size === 'Small' || axis.Size === 'Compact' ? 14 : 16
+  const textStyle =
+    axis.Size === 'Small' || axis.Size === 'Compact' ? 'Body/14/Regular' : 'Body/16/Regular'
+  const isFilled = axis.Content === 'Filled'
   const control = figma.createFrame()
   control.name = '.input-group-control'
   control.layoutMode = 'HORIZONTAL'
@@ -4197,8 +5179,8 @@ async function createInputGroupControlFrame(spec, axis, placeholder) {
   control.counterAxisAlignItems = 'CENTER'
   control.fills = []
   control.strokes = []
-  control.paddingLeft = padH
-  control.paddingRight = padH
+  await bindPaddingAxis(control, 'uds/gap/8', 'paddingLeft')
+  await bindPaddingAxis(control, 'uds/gap/8', 'paddingRight')
   control.paddingTop = 0
   control.paddingBottom = 0
 
@@ -4207,9 +5189,21 @@ async function createInputGroupControlFrame(spec, axis, placeholder) {
   ph.characters = placeholder ?? spec.label ?? 'Placeholder'
   ph.fontName = { family: 'Inter', style: 'Regular' }
   ph.fontSize = fontSize
-  await bindText(ph, { fill: 'uds/text/disabled' })
+  await applyLocalTextStyle(ph, textStyle, 'uds/text/disabled')
+  ph.visible = !isFilled
   control.appendChild(ph)
   ph.layoutGrow = 1
+
+  const val = figma.createText()
+  val.name = 'value'
+  val.characters = spec.copy?.value ?? spec.valueDefault ?? 'Entered value'
+  val.fontName = { family: 'Inter', style: 'Regular' }
+  val.fontSize = fontSize
+  await applyLocalTextStyle(val, textStyle, 'uds/text/primary')
+  val.visible = isFilled
+  control.appendChild(val)
+  val.layoutGrow = 1
+
   return control
 }
 
@@ -4222,16 +5216,17 @@ async function applyInputGroupShell(comp, spec, axis) {
   comp.primaryAxisAlignItems = 'CENTER'
   comp.counterAxisAlignItems = 'CENTER'
   comp.itemSpacing = 0
-  comp.paddingLeft = 0
-  comp.paddingRight = 0
   comp.paddingTop = 0
   comp.paddingBottom = 0
+  await bindPaddingAxis(comp, 'uds/spacing/4', 'paddingLeft')
+  await bindPaddingAxis(comp, 'uds/spacing/4', 'paddingRight')
   const fill =
     spec.fillByState?.[axis.State ?? 'Default'] ?? spec.fillVar ?? 'uds/surface/primary'
   await bindFill(comp, fill)
   await bindRadius(comp, spec.radiusVar ?? 'uds/radius/4')
-  const stroke = spec.strokeByState?.[axis.State ?? 'Default']
-  if (stroke) await bindStroke(comp, stroke)
+  const stroke = spec.strokeByState?.[axis.State ?? 'Default'] ?? 'uds/border/primary'
+  await bindStroke(comp, stroke, spec.strokeWeightVar ?? 'uds/border/width/1')
+  await applyLocalEffectStyle(comp, spec.effectByState?.[axis.State ?? 'Default'] ?? null)
   if (axis.State === 'Disabled') comp.opacity = 0.5
 }
 
@@ -4260,25 +5255,57 @@ async function createInputGroupAddonFrame(spec, align, child) {
   return addon
 }
 
+async function createInputGroupAddonSlotFrame(spec, align) {
+  const slot = figma.createFrame()
+  slot.name = align === 'inline-start' ? 'Start addon' : 'End addon'
+  slot.layoutMode = 'HORIZONTAL'
+  slot.primaryAxisAlignItems = 'CENTER'
+  slot.counterAxisAlignItems = 'CENTER'
+  slot.fills = []
+  slot.strokes = []
+  slot.clipsContent = false
+  slot.resize(24, 24)
+  slot.layoutSizingHorizontal = align === 'inline-end' ? 'FIXED' : 'HUG'
+  slot.layoutSizingVertical = 'HUG'
+
+  const addon = await createInputGroupAddonFrame(spec, align, slot)
+  addon.visible = false
+  return { addon, slot }
+}
+
 async function buildInputGroupVariant(comp, spec, axis) {
   await applyInputGroupShell(comp, spec, axis)
+
+  const start = await createInputGroupAddonSlotFrame(spec, 'inline-start')
+  comp.appendChild(start.addon)
+  start.addon.layoutSizingHorizontal = 'HUG'
+  start.addon.layoutSizingVertical = 'FILL'
+
   const control = await createInputGroupControlFrame(spec, axis)
   comp.appendChild(control)
   control.layoutGrow = 1
   control.layoutSizingHorizontal = 'FILL'
   control.layoutSizingVertical = 'FILL'
+
+  const end = await createInputGroupAddonSlotFrame(spec, 'inline-end')
+  comp.appendChild(end.addon)
+  end.addon.layoutSizingHorizontal = 'HUG'
+  end.addon.layoutSizingVertical = 'FILL'
 }
 
 async function buildSearchInputVariant(comp, spec, axis) {
-  const shellAxis = { Size: axis.Size, State: 'Default' }
+  const shellAxis = { Size: axis.Size, State: axis.State ?? 'Default' }
   await applyInputGroupShell(comp, spec, shellAxis)
 
-  const searchIcon = await createIcon16Instance(
-    spec,
-    spec.magnifyingGlassGlyphId ?? '1730:4',
-  )
-  if (searchIcon) {
-    const startAddon = await createInputGroupAddonFrame(spec, 'inline-start', searchIcon)
+  const glyphId = await resolveGlyphComponentId(spec, 'MagnifyingGlass', spec.magnifyingGlassGlyphId)
+  const iconBtn = await createInputGroupIconButton(spec, glyphId, 'MagnifyingGlass')
+  if (iconBtn) {
+    const startAddon = await createInputGroupAddonFrame(spec, 'inline-start', iconBtn)
+    startAddon.name = '.input-group-addon'
+    startAddon.paddingTop = 0
+    startAddon.paddingBottom = 0
+    await bindPaddingAxis(startAddon, 'uds/gap/8', 'paddingLeft')
+    startAddon.paddingRight = 0
     comp.appendChild(startAddon)
     startAddon.layoutSizingHorizontal = 'HUG'
     startAddon.layoutSizingVertical = 'FILL'
@@ -4289,7 +5316,7 @@ async function buildSearchInputVariant(comp, spec, axis) {
       ? (spec.copy?.shortcutPlaceholder ?? 'Search…')
       : (spec.copy?.placeholder ?? 'Search')
   const control = await createInputGroupControlFrame(spec, axis, placeholder)
-  control.paddingLeft = axis.Size === 'Small' ? 0 : 0
+  control.paddingLeft = 0
   comp.appendChild(control)
   control.layoutGrow = 1
   control.layoutSizingHorizontal = 'FILL'
@@ -4299,11 +5326,543 @@ async function buildSearchInputVariant(comp, spec, axis) {
     const shortcut = await createKbdShortcutFrame(spec, ['⌘', 'K'])
     if (shortcut) {
       const endAddon = await createInputGroupAddonFrame(spec, 'inline-end', shortcut)
+      endAddon.name = '.input-group-addon'
+      endAddon.paddingTop = 0
+      endAddon.paddingBottom = 0
       comp.appendChild(endAddon)
       endAddon.layoutSizingHorizontal = 'HUG'
       endAddon.layoutSizingVertical = 'FILL'
     }
   }
+}
+
+async function buildInputWithTrailingActionVariant(comp, spec, axis) {
+  const sizeKey = axis.Size === 'Compact' ? 'Compact' : 'Default'
+  const h = spec.heightBySize?.[axis.Size] ?? (sizeKey === 'Compact' ? 36 : 44)
+  const w = spec.width ?? 452
+  comp.resize(w, h)
+  comp.layoutMode = 'HORIZONTAL'
+  comp.primaryAxisAlignItems = 'CENTER'
+  comp.counterAxisAlignItems = 'CENTER'
+  comp.itemSpacing = 0
+  await bindPaddingAxis(comp, 'uds/gap/12', 'paddingLeft')
+  await bindPaddingAxis(comp, 'uds/gap/8', 'paddingRight')
+  const fill =
+    spec.fillByState?.[axis.State] ?? spec.fillVar ?? 'uds/surface/primary'
+  await bindFill(comp, fill)
+  await bindRadius(comp, spec.radiusVar ?? 'uds/radius/4')
+  const stroke = spec.strokeByState?.[axis.State] ?? 'uds/border/primary'
+  if (stroke) await bindStroke(comp, stroke)
+  await applyLocalEffectStyle(comp, spec.effectByState?.[axis.State] ?? null)
+  if (axis.State === 'Disabled') comp.opacity = 0.5
+
+  const isFilled = axis.Content === 'Filled'
+  const textStyle = sizeKey === 'Compact' ? 'Body/14/Regular' : 'Body/16/Regular'
+  const fontSize = sizeKey === 'Compact' ? 14 : 16
+
+  const textWrap = figma.createFrame()
+  textWrap.name = 'Text'
+  textWrap.layoutMode = 'HORIZONTAL'
+  textWrap.primaryAxisAlignItems = 'CENTER'
+  textWrap.counterAxisAlignItems = 'CENTER'
+  textWrap.fills = []
+  textWrap.strokes = []
+  textWrap.layoutGrow = 1
+  await bindGap(textWrap, spec.textWrapGapVar ?? 'uds/spacing/4')
+
+  const placeholder = figma.createText()
+  placeholder.name = 'Placeholder'
+  placeholder.fontName = { family: 'Inter', style: 'Regular' }
+  placeholder.fontSize = fontSize
+  placeholder.characters = spec.label ?? 'Placeholder'
+  await applyLocalTextStyle(placeholder, textStyle, 'uds/text/disabled')
+  placeholder.visible = !isFilled
+  textWrap.appendChild(placeholder)
+  placeholder.layoutGrow = 1
+  placeholder.layoutSizingHorizontal = 'FILL'
+
+  const value = figma.createText()
+  value.name = 'Value'
+  value.fontName = { family: 'Inter', style: 'Regular' }
+  value.fontSize = fontSize
+  value.characters = spec.valueDefault ?? 'Entered value'
+  await applyLocalTextStyle(value, textStyle, 'uds/text/primary')
+  value.visible = isFilled
+  textWrap.appendChild(value)
+  value.layoutGrow = 1
+  value.layoutSizingHorizontal = 'FILL'
+
+  if (spec.timezoneEnabled || spec.copy?.timezone) {
+    const timezone = figma.createText()
+    timezone.name = 'timezone'
+    timezone.fontName = { family: 'Inter', style: 'Regular' }
+    timezone.fontSize = fontSize
+    timezone.characters = spec.copy?.timezone ?? 'EST'
+    const timezoneColor = isFilled ? 'uds/text/primary' : 'uds/text/disabled'
+    await applyLocalTextStyle(timezone, textStyle, timezoneColor)
+    textWrap.appendChild(timezone)
+    timezone.layoutSizingHorizontal = 'HUG'
+    timezone.visible = false
+  }
+
+  comp.appendChild(textWrap)
+  textWrap.layoutSizingHorizontal = 'FILL'
+
+  const iconName = spec.trailingIcon ?? 'Eye'
+  const glyphId = await resolveGlyphComponentId(spec, iconName, null)
+  const iconBtn = await createInputGroupIconButton(spec, glyphId, iconName)
+  if (iconBtn) {
+    iconBtn.name = '.input-group-button'
+    comp.appendChild(iconBtn)
+    iconBtn.layoutSizingHorizontal = 'HUG'
+    iconBtn.layoutSizingVertical = 'HUG'
+  }
+}
+
+async function createTimezoneLabel(axis, sizeKey, spec) {
+  const fontSize = sizeKey === 'Compact' ? 14 : 16
+  const textStyle = sizeKey === 'Compact' ? 'Body/14/Regular' : 'Body/16/Regular'
+  const isFilled = axis.Content === 'Filled'
+  const segmentColor = isFilled ? 'uds/text/primary' : 'uds/text/disabled'
+
+  const label = figma.createText()
+  label.name = 'timezone'
+  label.fontName = { family: 'Inter', style: 'Regular' }
+  label.fontSize = fontSize
+  label.characters = spec.copy?.timezone ?? 'EST'
+  await applyLocalTextStyle(label, textStyle, segmentColor)
+  label.textAlignHorizontal = 'CENTER'
+  label.visible = false
+  return label
+}
+
+async function createMeridiemLabel(axis, sizeKey) {
+  const fontSize = sizeKey === 'Compact' ? 14 : 16
+  const textStyle = sizeKey === 'Compact' ? 'Body/14/Regular' : 'Body/16/Regular'
+  const isFilled = axis.Content === 'Filled'
+  const segmentColor = isFilled ? 'uds/text/primary' : 'uds/text/disabled'
+  const meridiem = axis.Meridiem ?? 'AM'
+
+  const label = figma.createText()
+  label.name = 'meridiem'
+  label.fontName = { family: 'Inter', style: 'Regular' }
+  label.fontSize = fontSize
+  label.characters = meridiem
+  await applyLocalTextStyle(label, textStyle, segmentColor)
+  label.textAlignHorizontal = 'CENTER'
+  return label
+}
+
+async function buildTimeInputVariant(comp, spec, axis) {
+  const sizeKey = axis.Size === 'Compact' ? 'Compact' : 'Default'
+  const shellSize = axis.Size === 'Compact' ? 'Small' : 'Default'
+  await applyInputGroupShell(comp, spec, { Size: shellSize, State: axis.State ?? 'Default' })
+
+  const fontSize = sizeKey === 'Compact' ? 14 : 16
+  const textStyle = sizeKey === 'Compact' ? 'Body/14/Regular' : 'Body/16/Regular'
+  const isFilled = axis.Content === 'Filled'
+  const meridiem = axis.Meridiem ?? 'AM'
+  const copy = spec.copy ?? {}
+  const hoursVal = copy.hours ?? copy.hoursFilled ?? '09'
+  const minutesVal = copy.minutes ?? copy.minutesFilled ?? '30'
+  const segmentColor = isFilled ? 'uds/text/primary' : 'uds/text/disabled'
+
+  const control = figma.createFrame()
+  control.name = '.input-group-control'
+  control.layoutMode = 'HORIZONTAL'
+  control.primaryAxisAlignItems = 'CENTER'
+  control.counterAxisAlignItems = 'CENTER'
+  control.fills = []
+  control.strokes = []
+  await bindPaddingAxis(control, 'uds/gap/8', 'paddingLeft')
+  control.paddingRight = 0
+  control.paddingTop = 0
+  control.paddingBottom = 0
+  await bindGap(control, spec.controlGapVar ?? 'uds/spacing/2')
+
+  const hours = figma.createText()
+  hours.name = 'hours'
+  hours.fontName = { family: 'Inter', style: 'Regular' }
+  hours.fontSize = fontSize
+  hours.characters = hoursVal
+  await applyLocalTextStyle(hours, textStyle, segmentColor)
+  hours.textAlignHorizontal = 'CENTER'
+  hours.resize(28, fontSize + 8)
+  control.appendChild(hours)
+  hours.layoutSizingHorizontal = 'HUG'
+
+  const colon = figma.createText()
+  colon.name = 'separator'
+  colon.fontName = { family: 'Inter', style: 'Regular' }
+  colon.fontSize = fontSize
+  colon.characters = ':'
+  await applyLocalTextStyle(colon, textStyle, 'uds/text/secondary')
+  control.appendChild(colon)
+  colon.layoutSizingHorizontal = 'HUG'
+
+  const minutes = figma.createText()
+  minutes.name = 'minutes'
+  minutes.fontName = { family: 'Inter', style: 'Regular' }
+  minutes.fontSize = fontSize
+  minutes.characters = minutesVal
+  await applyLocalTextStyle(minutes, textStyle, segmentColor)
+  minutes.textAlignHorizontal = 'CENTER'
+  control.appendChild(minutes)
+  minutes.layoutSizingHorizontal = 'HUG'
+
+  const meridiemLabel = await createMeridiemLabel(axis, sizeKey)
+  const timezoneLabel = await createTimezoneLabel(axis, sizeKey, spec)
+
+  const meridiemTimezoneWrap = figma.createFrame()
+  meridiemTimezoneWrap.name = 'meridiem-timezone'
+  meridiemTimezoneWrap.layoutMode = 'HORIZONTAL'
+  meridiemTimezoneWrap.primaryAxisAlignItems = 'CENTER'
+  meridiemTimezoneWrap.counterAxisAlignItems = 'CENTER'
+  meridiemTimezoneWrap.fills = []
+  meridiemTimezoneWrap.strokes = []
+  await bindGap(meridiemTimezoneWrap, spec.meridiemTimezoneGapVar ?? 'uds/spacing/4')
+  meridiemTimezoneWrap.appendChild(meridiemLabel)
+  meridiemLabel.layoutSizingHorizontal = 'HUG'
+  meridiemTimezoneWrap.appendChild(timezoneLabel)
+  timezoneLabel.layoutSizingHorizontal = 'HUG'
+  control.appendChild(meridiemTimezoneWrap)
+  meridiemTimezoneWrap.layoutSizingHorizontal = 'HUG'
+  meridiemTimezoneWrap.layoutSizingVertical = 'HUG'
+
+  comp.appendChild(control)
+  control.layoutGrow = 1
+  control.layoutSizingHorizontal = 'FILL'
+  control.layoutSizingVertical = 'FILL'
+
+  const iconName = spec.trailingIcon ?? 'Clock'
+  const glyphId = await resolveGlyphComponentId(spec, iconName, spec.iconKeys?.[iconName])
+  const iconBtn = await createInputGroupIconButton(spec, glyphId, iconName)
+  if (iconBtn) {
+    const endAddon = await createInputGroupAddonFrame(spec, 'inline-end', iconBtn)
+    endAddon.name = '.input-group-addon'
+    endAddon.paddingTop = 0
+    endAddon.paddingBottom = 0
+    endAddon.paddingLeft = 0
+    comp.appendChild(endAddon)
+    endAddon.layoutSizingHorizontal = 'HUG'
+    endAddon.layoutSizingVertical = 'FILL'
+  }
+}
+
+function linkTimezoneLayerProperties(componentSet, options = {}) {
+  const {
+    layerName = 'timezone',
+    textPropertyName = 'timezone',
+    booleanPropertyName = 'Timezone',
+    textDefault = 'EST',
+    booleanDefault = false,
+  } = options
+  const visiblePropId = ensureBooleanComponentProperty(
+    componentSet,
+    booleanPropertyName,
+    booleanDefault,
+  )
+  linkTextComponentProperty(componentSet, {
+    propertyName: textPropertyName,
+    layerName,
+    defaultValue: textDefault,
+  })
+  const textPropId = findComponentPropertyId(componentSet, textPropertyName)
+  for (const variant of componentSet.children) {
+    const text = variant.findOne((n) => n.type === 'TEXT' && n.name === layerName)
+    if (!text) continue
+    text.componentPropertyReferences = {
+      ...(text.componentPropertyReferences ?? {}),
+      visible: visiblePropId,
+      ...(textPropId ? { characters: textPropId } : {}),
+    }
+    text.visible = booleanDefault
+  }
+  return { visiblePropId, textPropId }
+}
+
+function linkTimeInputProperties(componentSet, spec = {}) {
+  linkTextComponentProperty(componentSet, {
+    propertyName: 'hours',
+    layerName: 'hours',
+    defaultValue: spec.copy?.hours ?? spec.copy?.hoursFilled ?? '09',
+  })
+  linkTextComponentProperty(componentSet, {
+    propertyName: 'minutes',
+    layerName: 'minutes',
+    defaultValue: spec.copy?.minutes ?? spec.copy?.minutesFilled ?? '30',
+  })
+  linkTimezoneLayerProperties(componentSet, {
+    textDefault: spec.copy?.timezone ?? 'EST',
+  })
+}
+
+async function buildUrlInputVariant(comp, spec, axis) {
+  const shellSize = axis.Size === 'Small' ? 'Small' : 'Default'
+  await applyInputGroupShell(comp, spec, { Size: shellSize, State: axis.State ?? 'Default' })
+  await bindGap(comp, spec.shellGapVar ?? 'uds/spacing/4')
+
+  const fontSize = shellSize === 'Small' ? 14 : 16
+  const textStyle = shellSize === 'Small' ? 'Body/14/Regular' : 'Body/16/Regular'
+
+  const protocolText = figma.createText()
+  protocolText.name = 'protocol'
+  protocolText.characters = spec.copy?.protocol ?? 'https://'
+  protocolText.fontName = { family: 'Inter', style: 'Regular' }
+  protocolText.fontSize = fontSize
+  await applyLocalTextStyle(protocolText, textStyle, 'uds/text/secondary')
+
+  const protocolWrap = figma.createFrame()
+  protocolWrap.name = '.input-group-text'
+  protocolWrap.layoutMode = 'HORIZONTAL'
+  protocolWrap.primaryAxisAlignItems = 'CENTER'
+  protocolWrap.counterAxisAlignItems = 'CENTER'
+  protocolWrap.fills = []
+  protocolWrap.strokes = []
+  protocolWrap.appendChild(protocolText)
+  protocolText.layoutSizingHorizontal = 'HUG'
+
+  const startAddon = await createInputGroupAddonFrame(spec, 'inline-start', protocolWrap)
+  startAddon.paddingLeft = 0
+  startAddon.paddingRight = 0
+  await bindPaddingAxis(startAddon, spec.addonPaddingStartVar ?? 'uds/gap/12', 'paddingLeft')
+  comp.appendChild(startAddon)
+  startAddon.layoutSizingHorizontal = 'HUG'
+  startAddon.layoutSizingVertical = 'FILL'
+
+  const control = await createInputGroupControlFrame(spec, axis, spec.label ?? 'example.com')
+  control.paddingLeft = 0
+  await bindPaddingAxis(control, spec.controlPaddingEndVar ?? 'uds/gap/12', 'paddingRight')
+  comp.appendChild(control)
+  control.layoutGrow = 1
+  control.layoutSizingHorizontal = 'FILL'
+  control.layoutSizingVertical = 'FILL'
+}
+
+async function createTokenChipButtonInstance(spec, label, shellSize) {
+  const buttonSize =
+    spec.chipButtonSizeByShell?.[shellSize] ??
+    (shellSize === 'Small' ? 'Extra Small' : 'Small')
+  const inst = await createButtonInstance(
+    spec.buttonSetNodeId ?? '554:268',
+    'Outline',
+    label,
+    buttonSize,
+  )
+  if (!inst) return null
+  inst.name = 'Button'
+  const propKeys = Object.keys(inst.componentProperties ?? {})
+  const showEndKey = propKeys.find((k) => k.startsWith('Show slot end'))
+  if (showEndKey) inst.setProperties({ [showEndKey]: true })
+  return inst
+}
+
+async function buildTokenInputVariant(comp, spec, axis) {
+  const shellSize = axis.Size === 'Small' ? 'Small' : 'Default'
+  const h = spec.heightBySize?.[shellSize] ?? (shellSize === 'Small' ? 36 : 44)
+  const w = spec.width ?? 600
+  comp.resize(w, h)
+  comp.layoutMode = 'HORIZONTAL'
+  comp.primaryAxisAlignItems = 'CENTER'
+  comp.counterAxisAlignItems = 'CENTER'
+  comp.layoutWrap = 'WRAP'
+  await bindGap(comp, spec.slotGapVar ?? 'uds/gap/8')
+  await bindPaddingAxis(comp, 'uds/gap/8', 'paddingLeft')
+  await bindPaddingAxis(comp, 'uds/gap/8', 'paddingRight')
+  await bindPaddingAxis(comp, 'uds/gap/4', 'paddingTop')
+  await bindPaddingAxis(comp, 'uds/gap/4', 'paddingBottom')
+  await bindFill(comp, spec.fillVar ?? 'uds/surface/secondary')
+  await bindRadius(comp, spec.radiusVar ?? 'uds/radius/4')
+  const stroke = spec.strokeByState?.[axis.State] ?? 'uds/border/primary'
+  if (stroke) await bindStroke(comp, stroke)
+  await applyLocalEffectStyle(comp, spec.effectByState?.[axis.State] ?? null)
+  if (axis.State === 'Disabled') comp.opacity = 0.5
+
+  const content = figma.createFrame()
+  content.name = 'Content'
+  content.layoutMode = 'HORIZONTAL'
+  content.primaryAxisAlignItems = 'CENTER'
+  content.counterAxisAlignItems = 'CENTER'
+  content.fills = []
+  content.strokes = []
+  await bindGap(content, spec.slotGapVar ?? 'uds/gap/8')
+  comp.appendChild(content)
+  content.layoutSizingHorizontal = 'HUG'
+
+  const tokens = spec.copy?.tokens ?? ['Design', 'Engineering']
+  for (const token of tokens) {
+    const chip = await createTokenChipButtonInstance(spec, token, shellSize)
+    if (chip) {
+      content.appendChild(chip)
+      chip.layoutSizingHorizontal = 'HUG'
+    }
+  }
+
+  const inputArea = figma.createFrame()
+  inputArea.name = '.token-input-area'
+  inputArea.layoutMode = 'HORIZONTAL'
+  inputArea.primaryAxisAlignItems = 'CENTER'
+  inputArea.counterAxisAlignItems = 'CENTER'
+  inputArea.fills = []
+  inputArea.strokes = []
+  inputArea.layoutGrow = 1
+  inputArea.minWidth = 120
+
+  const ph = figma.createText()
+  ph.name = 'placeholder'
+  ph.characters = spec.label ?? 'Add token'
+  ph.fontName = { family: 'Inter', style: 'Regular' }
+  ph.fontSize = shellSize === 'Small' ? 14 : 16
+  await applyLocalTextStyle(
+    ph,
+    shellSize === 'Small' ? 'Body/14/Regular' : 'Body/16/Regular',
+    'uds/text/disabled',
+  )
+  inputArea.appendChild(ph)
+  ph.layoutGrow = 1
+  ph.layoutSizingHorizontal = 'FILL'
+
+  comp.appendChild(inputArea)
+  inputArea.layoutSizingHorizontal = 'FILL'
+}
+
+function linkTokenInputProperties(componentSet, spec = {}) {
+  const placeholderLink = linkTextComponentProperty(componentSet, {
+    propertyName: 'placeholder',
+    layerName: 'placeholder',
+    defaultValue: spec.label ?? 'Add token',
+  })
+  let contentPropId = findComponentPropertyId(componentSet, 'Content')
+  if (!contentPropId) {
+    contentPropId = componentSet.addComponentProperty('Content', 'SLOT', '')
+  }
+  let linked = 0
+  for (const variant of componentSet.children) {
+    const content = variant.findOne((n) => n.name === 'Content')
+    if (content) {
+      content.componentPropertyReferences = {
+        ...(content.componentPropertyReferences ?? {}),
+        slotContentId: contentPropId,
+      }
+      linked++
+    }
+  }
+  return { ...placeholderLink, contentPropId, linked }
+}
+
+async function buildInputOtpSlot(spec, axis, index, char, isActive) {
+  const isCompact = axis.Size === 'Compact'
+  const slotSize = isCompact
+    ? (spec.slotSizeCompact ?? 44)
+    : (spec.slotSize ?? 64)
+  const slot = figma.createFrame()
+  slot.name = `Slot ${index + 1}`
+  slot.layoutMode = 'HORIZONTAL'
+  slot.primaryAxisAlignItems = 'CENTER'
+  slot.counterAxisAlignItems = 'CENTER'
+  slot.resize(slotSize, Math.round(slotSize * 1.1))
+  await bindFill(slot, spec.fillVar ?? 'uds/surface/secondary')
+  await bindRadius(slot, spec.radiusVar ?? 'uds/radius/8')
+  const stroke = spec.strokeByState?.[axis.State] ?? 'uds/border/primary'
+  if (stroke) await bindStroke(slot, stroke)
+  if (isActive && axis.State === 'Focused') {
+    await applyLocalEffectStyle(slot, spec.effectByState?.Focused ?? null)
+  }
+  if (axis.State === 'Error' && isActive) {
+    await applyLocalEffectStyle(slot, spec.effectByState?.Error ?? null)
+  }
+  if (char) {
+    const digit = figma.createText()
+    digit.name = 'digit'
+    digit.characters = char
+    digit.textAlignHorizontal = 'CENTER'
+    await applyLocalTextStyle(
+      digit,
+      isCompact
+        ? (spec.digitTextStyleCompact ?? 'Display/36/Medium')
+        : (spec.digitTextStyle ?? 'Display/48/Medium'),
+      'uds/text/primary',
+    )
+    slot.appendChild(digit)
+    digit.layoutSizingHorizontal = 'HUG'
+  } else if (isActive && axis.State === 'Focused') {
+    const caret = figma.createFrame()
+    caret.name = 'caret'
+    caret.resize(2, isCompact ? 18 : 24)
+    caret.fills = [{ type: 'SOLID', color: { r: 0.1, g: 0.1, b: 0.1 }, visible: true }]
+    await bindFill(caret, 'uds/text/primary')
+    slot.appendChild(caret)
+    caret.layoutSizingHorizontal = 'HUG'
+  }
+  if (axis.State === 'Disabled') slot.opacity = 0.5
+  return slot
+}
+
+async function buildInputOtpVariant(comp, spec, axis) {
+  const isCompact = axis.Size === 'Compact'
+  const slotCount = spec.slotCount ?? 6
+  const slotSize = isCompact
+    ? (spec.slotSizeCompact ?? 44)
+    : (spec.slotSize ?? 64)
+  const digits = spec.copy?.digits ?? ['1', '2', '3', '4', '5', '6']
+  const filledCount =
+    axis.Progress === 'Empty' ? 0 : axis.Progress === 'Partial' ? 3 : slotCount
+  const activeIndex =
+    axis.Progress === 'Partial' ? 3 : axis.Progress === 'Filled' ? slotCount - 1 : -1
+  const sepIconSize = isCompact
+    ? (spec.separatorIconSizeCompact ?? 20)
+    : (spec.separatorIconSize ?? 32)
+  const sepPadVar = isCompact
+    ? (spec.slotGapVarCompact ?? 'uds/gap/4')
+    : (spec.slotGapVar ?? 'uds/gap/8')
+
+  comp.layoutMode = 'HORIZONTAL'
+  comp.primaryAxisAlignItems = 'CENTER'
+  comp.counterAxisAlignItems = 'CENTER'
+  comp.fills = []
+  comp.strokes = []
+  await bindGap(
+    comp,
+    isCompact ? (spec.slotGapVarCompact ?? 'uds/gap/4') : (spec.slotGapVar ?? 'uds/gap/8'),
+  )
+
+  for (let i = 0; i < slotCount; i++) {
+    if (i === 3) {
+      const sep = figma.createFrame()
+      sep.name = 'Separator'
+      sep.layoutMode = 'HORIZONTAL'
+      sep.primaryAxisAlignItems = 'CENTER'
+      sep.counterAxisAlignItems = 'CENTER'
+      sep.fills = []
+      sep.strokes = []
+      sep.resize(sepIconSize + 16, slotSize)
+      await bindPaddingAxis(sep, sepPadVar, 'paddingLeft')
+      await bindPaddingAxis(sep, sepPadVar, 'paddingRight')
+      const minusGlyphId = await resolveGlyphComponentId(spec, 'Minus', null)
+      const minusIcon = await createIconInstance(spec, sepIconSize, 'Minus', minusGlyphId)
+      if (minusIcon) {
+        minusIcon.name = 'Icon'
+        sep.appendChild(minusIcon)
+        minusIcon.layoutSizingHorizontal = 'HUG'
+        await bindIconFill(minusIcon, 'uds/text/secondary')
+      }
+      comp.appendChild(sep)
+      sep.layoutSizingHorizontal = 'HUG'
+    }
+    const char = i < filledCount ? digits[i] ?? '·' : null
+    const isActive = i === activeIndex
+    const slot = await buildInputOtpSlot(spec, axis, i, char, isActive)
+    comp.appendChild(slot)
+    slot.layoutSizingHorizontal = 'HUG'
+  }
+
+  const gap = comp.itemSpacing ?? (isCompact ? 4 : 8)
+  const totalW =
+    comp.children.reduce((sum, child) => sum + child.width, 0) +
+    Math.max(0, comp.children.length - 1) * gap
+  const totalH = Math.max(...comp.children.map((child) => child.height))
+  comp.resize(totalW, totalH)
+  comp.layoutSizingHorizontal = 'HUG'
 }
 
 async function applyInputShellStateEffects(comp, axis) {
@@ -4507,7 +6066,7 @@ async function buildDateRangeInputVariant(comp, spec, axis) {
   }
 }
 
-async function createInputGroupIconButton(spec, glyphId) {
+async function createInputGroupIconButton(spec, glyphId, iconName) {
   const btn = figma.createFrame()
   btn.name = '.input-group-button'
   btn.resize(24, 24)
@@ -4516,9 +6075,9 @@ async function createInputGroupIconButton(spec, glyphId) {
   btn.counterAxisAlignItems = 'CENTER'
   btn.fills = []
   btn.strokes = []
-  const icon = await createIcon16Instance(spec, glyphId ?? '1033:1857')
+  const icon = await createIcon16Instance(spec, glyphId, iconName)
   if (icon) {
-    icon.name = 'icon'
+    icon.name = 'Icon'
     btn.appendChild(icon)
     icon.layoutSizingHorizontal = 'HUG'
     icon.layoutSizingVertical = 'HUG'

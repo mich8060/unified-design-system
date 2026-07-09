@@ -1,0 +1,72 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "HoverCard": {
+      "nodeId": "2329:6009",
+      "name": "HoverCard",
+      "width": 256,
+      "height": 80
+    }
+  },
+  "HoverCard": {
+    "nodeId": "2329:6009",
+    "type": "COMPONENT",
+    "description": "HoverCard content panel (HoverCardContent). Content SLOT holds default title + description; swap slot for custom layouts.",
+    "variantCount": 1,
+    "sizes": {
+      "default": { "width": 256, "height": 80 }
+    },
+    "componentProperties": {
+      "Content#2320:59": {
+        "type": "SLOT",
+        "codeProp": "HoverCardContent children",
+        "linkedLayer": "Content",
+        "note": "Default slot content: title + description text layers. Replace for custom hover card bodies."
+      },
+      "title#2329:0": {
+        "type": "TEXT",
+        "defaultValue": "@mstevens",
+        "codeProp": "default slot title (design-time)",
+        "linkedLayer": "Content/title",
+        "note": "Defined on component; swap Content slot or edit nested title in instances."
+      },
+      "description#2329:1": {
+        "type": "TEXT",
+        "defaultValue": "Design system maintainer and documentation owner.",
+        "codeProp": "default slot description (design-time)",
+        "linkedLayer": "Content/description"
+      }
+    },
+    "layerNaming": {
+      "root": "Panel chrome — fill, border, radius, shadow (no padding)",
+      "Content": "Vertical SLOT — padding uds/spacing/8, gap uds/spacing/4",
+      "title": "Body/14/Semibold, uds/text/primary",
+      "description": "Body/14/Regular, uds/text/secondary, HEIGHT auto-resize"
+    },
+    "tokens": {
+      "width": "256px",
+      "fill": "uds/surface/primary",
+      "stroke": "uds/border/primary",
+      "strokeWeight": "uds/border/width/1",
+      "radius": "uds/radius/4",
+      "contentPadding": "uds/spacing/8",
+      "contentGap": "uds/spacing/4",
+      "shadow": "uds/shadow/10"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/hover-card.tsx",
+    "exports": ["HoverCard", "HoverCardTrigger", "HoverCardContent"],
+    "structure": {
+      "HoverCard": "Radix root — not in Figma",
+      "HoverCardTrigger": "Use Link or Button link in layouts",
+      "HoverCardContent": "Maps to HoverCard root + Content slot padding/gap"
+    },
+    "notes": [
+      "Figma padding lives on Content slot (uds/spacing/8); code uses p-2 on HoverCardContent.",
+      "Default docs: title + description as children inside HoverCardContent."
+    ]
+  }
+}

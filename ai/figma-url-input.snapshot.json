@@ -1,0 +1,102 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-07-06",
+  "lastFigmaEdit": "Renamed URLInput; 412px ref width; InputGroup shell with https:// inline-start addon (uds/gap/12) + .input-group-control (uds/gap/12 trailing)",
+  "nodes": {
+    "URLInput": {
+      "nodeId": "2292:5933",
+      "name": "URLInput",
+      "width": 452,
+      "height": 1044
+    }
+  },
+  "URLInput": {
+    "nodeId": "2292:5933",
+    "description": "InputGroup recipe with inline-start protocol addon (.input-group-text https://) + borderless .input-group-control for domain/path. Shell gap uds/spacing/4 between addon and control.",
+    "referenceWidth": 412,
+    "variantCount": 16,
+    "variantAxes": ["Size", "State", "Content"],
+    "variants": [
+      "Size=Default, State=Default, Content=Placeholder",
+      "Size=Default, State=Default, Content=Filled",
+      "Size=Default, State=Focused, Content=Placeholder",
+      "Size=Default, State=Focused, Content=Filled",
+      "Size=Default, State=Error, Content=Placeholder",
+      "Size=Default, State=Error, Content=Filled",
+      "Size=Default, State=Disabled, Content=Placeholder",
+      "Size=Default, State=Disabled, Content=Filled",
+      "Size=Small, State=Default, Content=Placeholder",
+      "Size=Small, State=Default, Content=Filled",
+      "Size=Small, State=Focused, Content=Placeholder",
+      "Size=Small, State=Focused, Content=Filled",
+      "Size=Small, State=Error, Content=Placeholder",
+      "Size=Small, State=Error, Content=Filled",
+      "Size=Small, State=Disabled, Content=Placeholder",
+      "Size=Small, State=Disabled, Content=Filled"
+    ],
+    "sizes": {
+      "Default": {
+        "shellHeight": 44,
+        "typography": "Body/16/Regular",
+        "protocolStyle": "Body/16/Regular uds/text/secondary"
+      },
+      "Small": {
+        "shellHeight": 36,
+        "typography": "Body/14/Regular",
+        "protocolStyle": "Body/14/Regular uds/text/secondary"
+      }
+    },
+    "componentProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "variantOptions": ["Default", "Small"],
+        "codeProp": "inputSize",
+        "codeValues": { "Default": "default", "Small": "sm" }
+      },
+      "State": {
+        "type": "VARIANT",
+        "variantOptions": ["Default", "Focused", "Error", "Disabled"]
+      },
+      "Content": {
+        "type": "VARIANT",
+        "variantOptions": ["Placeholder", "Filled"]
+      },
+      "protocol": {
+        "type": "TEXT",
+        "linkedLayer": "protocol",
+        "defaultValue": "https://"
+      },
+      "placeholder": {
+        "type": "TEXT",
+        "linkedLayer": "placeholder",
+        "defaultValue": "example.com"
+      },
+      "value": {
+        "type": "TEXT",
+        "linkedLayer": "value",
+        "defaultValue": "example.com"
+      }
+    },
+    "structure": {
+      "root": "URLInput — HORIZONTAL shell, uds/spacing/4 gap, uds/surface/primary, uds/border/primary, uds/radius/4",
+      "startAddon": ".input-group-addon — pl uds/gap/12, .input-group-text protocol",
+      "control": ".input-group-control — flex-1, pr uds/gap/12, placeholder|value TEXT layers"
+    },
+    "tokens": {
+      "shellGap": "uds/spacing/4",
+      "addonPaddingStart": "uds/gap/12",
+      "controlPaddingEnd": "uds/gap/12",
+      "radius": "uds/radius/4",
+      "fillDefault": "uds/surface/primary",
+      "fillError": "uds/surface/secondary",
+      "strokeDefault": "uds/border/primary",
+      "strokeFocused": "uds/focus/ring/border",
+      "strokeError": "uds/button/border/primary/destructive"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/url-input.tsx",
+    "composition": "InputGroup + InputGroupAddon(InputGroupText protocol) + InputGroupInput"
+  }
+}

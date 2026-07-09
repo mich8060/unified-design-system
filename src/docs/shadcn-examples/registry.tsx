@@ -122,7 +122,7 @@ import {
     InputGroupInput,
     InputGroupText,
 } from '@chghealthcare/unified-design-system'
-import { InputOTP, InputOTPGroup, InputOTPSlot } from '@chghealthcare/unified-design-system'
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@chghealthcare/unified-design-system'
 import {
     Item,
     ItemActions,
@@ -624,9 +624,29 @@ function InputOTPDemo() {
     return (
         <InputOTP maxLength={6}>
             <InputOTPGroup>
-                {Array.from({ length: 6 }).map((_, i) => (
-                    <InputOTPSlot key={i} index={i} />
-                ))}
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+                <InputOTPSeparator />
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
+            </InputOTPGroup>
+        </InputOTP>
+    )
+}
+
+function InputOTPCompactDemo() {
+    return (
+        <InputOTP maxLength={6}>
+            <InputOTPGroup inputSize="sm" responsive={false}>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+                <InputOTPSeparator />
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
             </InputOTPGroup>
         </InputOTP>
     )
@@ -1764,26 +1784,29 @@ const RATIOS = [9 / 16, 2 / 3, 3 / 4, 4 / 5, 1, 5 / 4, 4 / 3, 3 / 2, 16 / 10, 16
             'Sizes',
             (
                 <div className="flex flex-wrap items-center gap-2">
-                    {(['xs', 'sm', 'default', 'lg', 'icon'] as const).map((size) => (
+                    {(['2x-sm', 'xs', 'sm', 'default', 'lg', 'icon'] as const).map((size) => (
                         <Button key={size} type="button" size={size} variant="outline">
                             {size === 'icon'
                                 ? '↗'
-                                : size === 'xs'
+                                : size === '2x-sm'
                                   ? 'Extra Small'
-                                  : size === 'sm'
+                                  : size === 'xs'
                                     ? 'Small'
-                                    : size === 'lg'
-                                      ? 'Large'
-                                      : 'Default'}
+                                    : size === 'sm'
+                                      ? 'Medium'
+                                      : size === 'lg'
+                                        ? 'Large'
+                                        : 'Default'}
                         </Button>
                     ))}
                 </div>
             ),
             `<div className="flex flex-wrap items-center gap-2">
-  <Button size="xs" variant="outline" type="button">xs</Button>
-  <Button size="sm" variant="outline" type="button">sm</Button>
-  <Button size="default" variant="outline" type="button">default</Button>
-  <Button size="lg" variant="outline" type="button">lg</Button>
+  <Button size="2x-sm" variant="outline" type="button">Extra Small</Button>
+  <Button size="xs" variant="outline" type="button">Small</Button>
+  <Button size="sm" variant="outline" type="button">Medium</Button>
+  <Button size="default" variant="outline" type="button">Default</Button>
+  <Button size="lg" variant="outline" type="button">Large</Button>
   <Button size="icon" variant="outline" type="button" aria-label="Open link">↗</Button>
 </div>`,
         ),
@@ -2924,12 +2947,16 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             (
                 <div className="flex flex-col gap-2">
                     <Link href="#">Internal detail page</Link>
+                    <Link href="#" appearance="secondary">
+                        Secondary link style
+                    </Link>
                     <Link href="https://example.com" external>
                         External policy reference
                     </Link>
                 </div>
             ),
             `<Link href="#">Internal detail page</Link>
+<Link href="#" appearance="secondary">Secondary link style</Link>
 <Link href="https://example.com" external>External policy reference</Link>`,
         ),
         E(
@@ -3471,23 +3498,40 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
         ),
     ],
     'input-otp': [
-        E('six', 'Six digits', <InputOTPDemo />, `<InputOTP maxLength={6}>
+        E('six', 'Six digits with separator', <InputOTPDemo />, `<InputOTP maxLength={6}>
   <InputOTPGroup>
     <InputOTPSlot index={0} />
     <InputOTPSlot index={1} />
     <InputOTPSlot index={2} />
+    <InputOTPSeparator />
     <InputOTPSlot index={3} />
     <InputOTPSlot index={4} />
     <InputOTPSlot index={5} />
   </InputOTPGroup>
 </InputOTP>`),
+        E(
+            'compact',
+            'Compact (mobile)',
+            <InputOTPCompactDemo />,
+            `<InputOTP maxLength={6}>
+  <InputOTPGroup inputSize="sm" responsive={false}>
+    <InputOTPSlot index={0} />
+    <InputOTPSlot index={1} />
+    <InputOTPSlot index={2} />
+    <InputOTPSeparator />
+    <InputOTPSlot index={3} />
+    <InputOTPSlot index={4} />
+    <InputOTPSlot index={5} />
+  </InputOTPGroup>
+</InputOTP>`,
+        ),
     ],
     item: [
         E(
             'row',
             'List item',
             (
-                <Item variant="outline" className="max-w-md">
+                <Item appearance="box" variant="outline" className="max-w-md">
                     <ItemContent>
                         <ItemTitle>Item title</ItemTitle>
                         <ItemDescription>Supporting line of text.</ItemDescription>
@@ -3499,7 +3543,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             ),
             `import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@chghealthcare/unified-design-system"
 
-<Item variant="outline" className="max-w-md">
+<Item appearance="box" variant="outline" className="max-w-md">
   <ItemContent>
     <ItemTitle>Item title</ItemTitle>
     <ItemDescription>Supporting line of text.</ItemDescription>
@@ -4792,20 +4836,48 @@ import { toast } from "sonner"
         E(
             'clock',
             'Time field',
-            <TimeInput className="max-w-sm" aria-label="Start time" />,
-            `<TimeInput className="max-w-sm" aria-label="Start time" />`,
+            <TimeInput className="max-w-sm" defaultValue="09:30" aria-label="Start time" />,
+            `<TimeInput className="max-w-sm" defaultValue="09:30" aria-label="Start time" />`,
+        ),
+        E(
+            'clock-timezone',
+            'With timezone',
+            <TimeInput className="max-w-sm" defaultValue="09:30" showTimezone timezone="EST" aria-label="Start time" />,
+            `<TimeInput
+  className="max-w-sm"
+  defaultValue="09:30"
+  showTimezone
+  timezone="EST"
+  aria-label="Start time"
+/>`,
         ),
     ],
     'time-step-input': [
         E(
             'steps',
             'Stepped dropdown times',
-            <TimeStepInput className="max-w-sm" stepMinutes={15} startTime="08:00" endTime="17:00" aria-label="Start time in 15-minute steps" />,
+            <TimeStepInput className="max-w-sm" stepMinutes={15} startTime="08:00" endTime="17:00" defaultValue="09:30" aria-label="Start time in 15-minute steps" />,
             `<TimeStepInput
   className="max-w-sm"
   stepMinutes={15}
   startTime="08:00"
   endTime="17:00"
+  defaultValue="09:30"
+  aria-label="Start time in 15-minute steps"
+/>`,
+        ),
+        E(
+            'steps-timezone',
+            'With timezone',
+            <TimeStepInput className="max-w-sm" stepMinutes={15} startTime="08:00" endTime="17:00" defaultValue="09:30" showTimezone timezone="EST" aria-label="Start time in 15-minute steps" />,
+            `<TimeStepInput
+  className="max-w-sm"
+  stepMinutes={15}
+  startTime="08:00"
+  endTime="17:00"
+  defaultValue="09:30"
+  showTimezone
+  timezone="EST"
   aria-label="Start time in 15-minute steps"
 />`,
         ),
@@ -4820,6 +4892,18 @@ import { toast } from "sonner"
   placeholder="Add skill and press Enter"
   defaultTokens={["React", "TypeScript"]}
   aria-label="Skills"
+/>`,
+        ),
+        E(
+            'small',
+            'Small (mobile)',
+            <TokenInput inputSize="sm" className="max-w-md" placeholder="Add token" defaultTokens={["Design", "Engineering"]} aria-label="Tags" />,
+            `<TokenInput
+  inputSize="sm"
+  className="max-w-md"
+  placeholder="Add token"
+  defaultTokens={["Design", "Engineering"]}
+  aria-label="Tags"
 />`,
         ),
     ],
@@ -4879,8 +4963,14 @@ import { toast } from "sonner"
         E(
             'website',
             'URL field',
-            <UrlInput className="max-w-sm" placeholder="example.com" aria-label="Website URL" />,
-            `<UrlInput className="max-w-sm" placeholder="example.com" aria-label="Website URL" />`,
+            <UrlInput className="max-w-[412px]" placeholder="example.com" aria-label="Website URL" />,
+            `<UrlInput className="max-w-[412px]" placeholder="example.com" aria-label="Website URL" />`,
+        ),
+        E(
+            'small',
+            'Small',
+            <UrlInput className="max-w-[412px]" inputSize="sm" placeholder="example.com" aria-label="Website URL" />,
+            `<UrlInput className="max-w-[412px]" inputSize="sm" placeholder="example.com" aria-label="Website URL" />`,
         ),
     ],
 }

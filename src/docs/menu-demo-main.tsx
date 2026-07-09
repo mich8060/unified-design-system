@@ -13,7 +13,6 @@ import interUrl from '@/assets/fonts/Inter-Variable.woff2?url'
 import '@/fonts.css'
 import '@chghealthcare/unified-design-system/styles.css'
 import '@/components/ui/app-shell.css'
-import '@/components/ui/menu.css'
 
 const _fontPreload = Object.assign(document.createElement('link'), {
   rel: 'preload', as: 'font', type: 'font/woff2', crossOrigin: 'anonymous', href: interUrl,

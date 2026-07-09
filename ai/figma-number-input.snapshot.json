@@ -1,0 +1,17 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-07-06",
+  "nodes": { "NumberInput": { "nodeId": "2291:5938", "name": "NumberInput" } },
+  "NumberInput": {
+    "nodeId": "2291:5938",
+    "description": "Input-aligned number field (type=number). Same axes/tokens as Input; placeholder 0, filled sample 42.",
+    "variantCount": 16,
+    "variantAxes": ["Size", "State", "Content"],
+    "componentProperties": {
+      "placeholder": { "type": "TEXT", "linkedLayer": "Placeholder", "defaultValue": "0" },
+      "value": { "type": "TEXT", "linkedLayer": "Value", "defaultValue": "42" }
+    },
+    "codeAlignment": { "source": "src/components/ui/number-input.tsx" }
+  }
+}

@@ -25,4 +25,4 @@
 @import "./styles/uds-semantic-components.css";
 @import "./styles/uds-chrome-media.css";
 @import "./components/ui/app-shell.css";
-@import "./components/ui/menu.css";
+@import "./styles/uds-menu.css";

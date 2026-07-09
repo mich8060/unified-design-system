@@ -49,9 +49,11 @@
     "gridCellH": 56,
     "axes": {
       "Size": ["Compact", "Default"],
-      "State": ["Default", "Focused", "Error", "Disabled"]
+      "State": ["Default", "Focused", "Error", "Disabled"],
+      "Content": ["Placeholder", "Filled"]
     },
     "label": "Placeholder",
+    "valueDefault": "Entered value",
     "width": 452,
     "paddingH": 12,
     "heightBySize": { "Default": 44, "Compact": 36 },
@@ -74,16 +76,56 @@
     "kind": "input-group",
     "replaceExisting": true,
     "tier": 1,
-    "gridCols": 4,
-    "gridCellW": 300,
+    "figmaSnapshot": "ai/figma-input-group.snapshot.json",
+    "gridCols": 1,
+    "gridCellW": 580,
     "gridCellH": 56,
     "axes": {
       "Size": ["Default", "Small"],
-      "State": ["Default", "Focused", "Error", "Disabled"]
+      "State": ["Default", "Focused", "Error", "Disabled"],
+      "Content": ["Placeholder", "Filled"]
     },
     "label": "Placeholder",
-    "width": 280,
+    "valueDefault": "Entered value",
+    "width": 560,
     "heightBySize": { "Default": 44, "Small": 36 },
+    "radiusVar": "uds/radius/4",
+    "fillByState": {
+      "Default": "uds/surface/primary",
+      "Focused": "uds/surface/primary",
+      "Error": "uds/surface/secondary",
+      "Disabled": "uds/surface/secondary"
+    },
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    },
+    "effectByState": {
+      "Focused": "Focus/ring/focus",
+      "Error": "Focus/ring/error"
+    }
+  },
+  "number-input": {
+    "figmaName": "NumberInput",
+    "kind": "input",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-number-input.snapshot.json",
+    "gridCols": 1,
+    "gridCellW": 500,
+    "gridCellH": 56,
+    "axes": {
+      "Size": ["Compact", "Default"],
+      "State": ["Default", "Focused", "Error", "Disabled"],
+      "Content": ["Placeholder", "Filled"]
+    },
+    "label": "0",
+    "valueDefault": "42",
+    "width": 600,
+    "paddingH": 12,
+    "heightBySize": { "Default": 44, "Compact": 36 },
     "radiusVar": "uds/radius/4",
     "fillByState": {
       "Default": "uds/surface/primary",
@@ -98,31 +140,309 @@
       "Disabled": "uds/border/disabled"
     }
   },
+  "time-input": {
+    "figmaName": "TimeInput",
+    "kind": "time-input",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-time-input.snapshot.json",
+    "gridCols": 4,
+    "gridCellW": 480,
+    "gridCellH": 64,
+    "axes": {
+      "Size": ["Compact", "Default"],
+      "State": ["Default", "Focused", "Error", "Disabled"],
+      "Content": ["Placeholder", "Filled"],
+      "Meridiem": ["AM", "PM"]
+    },
+    "width": 600,
+    "heightBySize": { "Default": 44, "Compact": 36 },
+    "radiusVar": "uds/radius/4",
+    "fillByState": {
+      "Default": "uds/surface/primary",
+      "Focused": "uds/surface/primary",
+      "Error": "uds/surface/secondary",
+      "Disabled": "uds/surface/secondary"
+    },
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    },
+    "effectByState": {
+      "Focused": "Focus/ring/focus",
+      "Error": "Focus/ring/error"
+    },
+    "iconSetNodeId": "501:6",
+    "controlGapVar": "uds/spacing/2",
+    "meridiemTimezoneGapVar": "uds/spacing/4",
+    "trailingIcon": "Clock",
+    "iconKeys": {
+      "Clock": "eb5696acad5002e0ee3c32b68abda01b8067d481"
+    },
+    "copy": {
+      "hours": "09",
+      "minutes": "30",
+      "timezone": "EST"
+    }
+  },
+  "password-input": {
+    "figmaName": "PasswordInput",
+    "kind": "password-input",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-password-input.snapshot.json",
+    "gridCols": 1,
+    "gridCellW": 500,
+    "gridCellH": 56,
+    "axes": {
+      "Size": ["Compact", "Default"],
+      "State": ["Default", "Focused", "Error", "Disabled"],
+      "Content": ["Placeholder", "Filled"]
+    },
+    "label": "Password",
+    "valueDefault": "••••••••",
+    "width": 600,
+    "heightBySize": { "Default": 44, "Compact": 36 },
+    "radiusVar": "uds/radius/4",
+    "fillByState": {
+      "Default": "uds/surface/primary",
+      "Focused": "uds/surface/primary",
+      "Error": "uds/surface/secondary",
+      "Disabled": "uds/surface/secondary"
+    },
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    },
+    "effectByState": {
+      "Focused": "Focus/ring/focus",
+      "Error": "Focus/ring/error"
+    },
+    "iconSetNodeId": "501:6",
+    "trailingIcon": "Eye",
+    "iconKeys": {
+      "Eye": "f5ccd714d3f6cb4441e56c7d4626c31224301113",
+      "EyeSlash": "0e7373a2c55dff04f2621563f57e237727c94e57"
+    }
+  },
+  "time-step-input": {
+    "figmaName": "TimeStepInput",
+    "kind": "time-step-input",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-time-step-input.snapshot.json",
+    "gridCols": 1,
+    "gridCellW": 500,
+    "gridCellH": 56,
+    "axes": {
+      "Size": ["Compact", "Default"],
+      "State": ["Default", "Focused", "Error", "Disabled"],
+      "Content": ["Placeholder", "Filled"]
+    },
+    "label": "Select time",
+    "valueDefault": "9:30 AM",
+    "width": 600,
+    "heightBySize": { "Default": 44, "Compact": 36 },
+    "radiusVar": "uds/radius/4",
+    "fillByState": {
+      "Default": "uds/surface/primary",
+      "Focused": "uds/surface/primary",
+      "Error": "uds/surface/secondary",
+      "Disabled": "uds/surface/secondary"
+    },
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    },
+    "effectByState": {
+      "Focused": "Focus/ring/focus",
+      "Error": "Focus/ring/error"
+    },
+    "iconSetNodeId": "501:6",
+    "trailingIcon": "Clock",
+    "timezoneEnabled": true,
+    "textWrapGapVar": "uds/spacing/4",
+    "iconKeys": {
+      "Clock": "eb5696acad5002e0ee3c32b68abda01b8067d481"
+    },
+    "copy": {
+      "timezone": "EST"
+    }
+  },
+  "url-input": {
+    "figmaName": "URLInput",
+    "kind": "url-input",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-url-input.snapshot.json",
+    "gridCols": 1,
+    "gridCellW": 432,
+    "gridCellH": 56,
+    "axes": {
+      "Size": ["Default", "Small"],
+      "State": ["Default", "Focused", "Error", "Disabled"],
+      "Content": ["Placeholder", "Filled"]
+    },
+    "label": "example.com",
+    "valueDefault": "example.com",
+    "width": 412,
+    "shellGapVar": "uds/spacing/4",
+    "controlPaddingEndVar": "uds/gap/12",
+    "addonPaddingStartVar": "uds/gap/12",
+    "heightBySize": { "Default": 44, "Small": 36 },
+    "radiusVar": "uds/radius/4",
+    "fillByState": {
+      "Default": "uds/surface/primary",
+      "Focused": "uds/surface/primary",
+      "Error": "uds/surface/secondary",
+      "Disabled": "uds/surface/secondary"
+    },
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    },
+    "effectByState": {
+      "Focused": "Focus/ring/focus",
+      "Error": "Focus/ring/error"
+    },
+    "copy": {
+      "protocol": "https://",
+      "value": "example.com"
+    }
+  },
+  "token-input": {
+    "figmaName": "TokenInput",
+    "kind": "token-input",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-token-input.snapshot.json",
+    "gridCols": 1,
+    "gridCellW": 500,
+    "gridCellH": 72,
+    "axes": {
+      "Size": ["Default", "Small"],
+      "State": ["Default", "Focused", "Error", "Disabled"]
+    },
+    "label": "Add token",
+    "width": 600,
+    "heightBySize": { "Default": 44, "Small": 36 },
+    "slotGapVar": "uds/gap/8",
+    "buttonSetNodeId": "554:268",
+    "chipButtonSizeByShell": { "Default": "Small", "Small": "Extra Small" },
+    "radiusVar": "uds/radius/4",
+    "fillVar": "uds/surface/secondary",
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    },
+    "effectByState": {
+      "Focused": "Focus/ring/focus",
+      "Error": "Focus/ring/error"
+    },
+    "iconSetNodeId": "501:6",
+    "iconKeys": {
+      "X": "51df6cfead413600e416d3fe72013237453a0194"
+    },
+    "copy": {
+      "tokens": ["Design", "Engineering"]
+    }
+  },
+  "input-otp": {
+    "figmaName": "Input OTP",
+    "kind": "input-otp",
+    "replaceExisting": true,
+    "tier": 2,
+    "figmaSnapshot": "ai/figma-input-otp.snapshot.json",
+    "gridCols": 1,
+    "gridCellW": 560,
+    "gridCellH": 120,
+    "axes": {
+      "Size": ["Default", "Compact"],
+      "State": ["Default", "Focused", "Error", "Disabled"],
+      "Progress": ["Empty", "Partial", "Filled"]
+    },
+    "slotCount": 6,
+    "slotSize": 64,
+    "slotSizeCompact": 44,
+    "digitTextStyle": "Display/48/Medium",
+    "digitTextStyleCompact": "Display/36/Medium",
+    "slotGapVar": "uds/gap/8",
+    "slotGapVarCompact": "uds/gap/4",
+    "separatorIconSize": 32,
+    "separatorIconSizeCompact": 20,
+    "radiusVar": "uds/radius/8",
+    "fillVar": "uds/surface/secondary",
+    "strokeByState": {
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    },
+    "effectByState": {
+      "Focused": "Focus/ring/focus",
+      "Error": "Focus/ring/error"
+    },
+    "iconSetNodeId": "501:6",
+    "iconKeys": {
+      "Minus": "dbccca51ba7588c223a2b2278ac2ed9d6d9fc513"
+    },
+    "copy": {
+      "digits": ["1", "2", "3", "4", "5", "6"]
+    }
+  },
   "search-input": {
     "figmaName": "SearchInput",
     "kind": "search-input",
     "replaceExisting": true,
     "tier": 2,
-    "gridCols": 2,
-    "gridCellW": 320,
+    "figmaSnapshot": "ai/figma-search-input.snapshot.json",
+    "gridCols": 1,
+    "gridCellW": 512,
     "gridCellH": 56,
     "axes": {
       "Recipe": ["Default", "Shortcut"],
-      "Size": ["Default", "Small"]
+      "Size": ["Default", "Small"],
+      "State": ["Default", "Focused", "Error", "Disabled"],
+      "Content": ["Placeholder", "Filled"]
     },
-    "width": 300,
+    "width": 472,
     "heightBySize": { "Default": 44, "Small": 36 },
     "radiusVar": "uds/radius/4",
-    "fillVar": "uds/surface/secondary",
+    "fillByState": {
+      "Default": "uds/surface/secondary",
+      "Focused": "uds/surface/secondary",
+      "Error": "uds/surface/secondary",
+      "Disabled": "uds/surface/secondary"
+    },
     "strokeByState": {
-      "Default": "uds/border/secondary"
+      "Default": "uds/border/primary",
+      "Focused": "uds/focus/ring/border",
+      "Error": "uds/button/border/primary/destructive",
+      "Disabled": "uds/border/disabled"
+    },
+    "effectByState": {
+      "Focused": "Focus/ring/focus",
+      "Error": "Focus/ring/error"
     },
     "iconSetNodeId": "501:6",
-    "magnifyingGlassGlyphId": "1733:4",
     "kbdSetNodeId": "1686:4530",
+    "iconKeys": {
+      "MagnifyingGlass": "b0fcb917c5787188499bb75f42ddc33ea616a523"
+    },
     "copy": {
-      "placeholder": "Search",
-      "shortcutPlaceholder": "Search…"
+      "placeholder": "Search…",
+      "shortcutPlaceholder": "Search…",
+      "value": "Entered value"
     }
   },
   "date-input": {
@@ -489,6 +809,35 @@
     "link1": "Privacy Policy",
     "link2": "Terms & Conditions",
     "figmaSnapshot": "ai/figma-footer.snapshot.json"
+  },
+  "header": {
+    "figmaName": "Header",
+    "kind": "header",
+    "tier": 2,
+    "gridCols": 2,
+    "gridCellW": 1320,
+    "gridCellH": 72,
+    "width": 1280,
+    "height": 56,
+    "axes": {
+      "Leading": ["Search", "Custom"],
+      "Trailing": ["Off", "On"]
+    },
+    "fillVar": "uds/surface/primary",
+    "strokeVar": "uds/border/primary",
+    "placeholder": "Search…",
+    "searchMaxWidth": 600,
+    "itemGapVar": "uds/gap/16",
+    "searchInputSetNodeId": "2275:5874",
+    "avatarSetNodeId": "818:512",
+    "iconSetNodeId": "501:6",
+    "kbdSetNodeId": "1686:4530",
+    "iconKeys": {
+      "MagnifyingGlass": "b0fcb917c5787188499bb75f42ddc33ea616a523",
+      "Question": "039b2fec0ca4c7f4cb4bf214945f0f9ce702a60c",
+      "Bell": "adcf2df57a77db5b89fddb2e2a9f2810305938d7"
+    },
+    "figmaSnapshot": "ai/figma-header.snapshot.json"
   },
   "avatar": {
     "figmaName": "Avatar",
@@ -898,6 +1247,50 @@
       }
     ]
   },
+  "menu-nav-parent": {
+    "figmaName": ".menu-nav-parent",
+    "kind": "menu-nav-parent",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 4,
+    "gridCellW": 300,
+    "gridCellH": 140,
+    "axes": {
+      "Rail": ["Expanded", "Collapsed"],
+      "Kind": ["Item", "Branch"],
+      "State": ["Default", "Active"],
+      "Open": ["False", "True"]
+    },
+    "width": 280,
+    "iconSetNodeId": "501:6",
+    "iconKeys": {
+      "Layout": "b22ad50f11f6ec80e9b42867f038c232aea7efef",
+      "UserList": "59e14ae03754311f6e1f33fb84d56780ead27fc1",
+      "CaretDown": "7ed34575164e200e597689be8a9c1d7e3a24abbe"
+    },
+    "copy": {
+      "label": "Dashboard"
+    },
+    "figmaMatrixNote": "Parent nav row: leaf or branch with caret. Branch Open=True exposes an empty Children slot (populated only in Menu). Collapsed rail shows icon-only 44×44 button."
+  },
+  "menu-nav-child": {
+    "figmaName": ".menu-nav-child",
+    "kind": "menu-nav-child",
+    "replaceExisting": true,
+    "tier": 2,
+    "gridCols": 2,
+    "gridCellW": 300,
+    "gridCellH": 56,
+    "axes": {
+      "Rail": ["Expanded", "Collapsed"],
+      "State": ["Default", "Active"]
+    },
+    "width": 280,
+    "copy": {
+      "label": "Open requisitions"
+    },
+    "figmaMatrixNote": "Nested nav leaf under a branch parent. Expanded shows bordered indent row; Collapsed is a compact text row template."
+  },
   "menu": {
     "figmaName": "Menu",
     "kind": "menu",
@@ -946,7 +1339,7 @@
       "List": "6327b25b8432edff80f7d995fce355780e00932c",
       "CaretDown": "7ed34575164e200e597689be8a9c1d7e3a24abbe"
     },
-    "figmaMatrixNote": "9 brands × Expanded/Collapsed rail (280px / 64px). Header uses Branding wordmark or mark; nav uses per-brand default tree from menu-default-navigation."
+    "figmaMatrixNote": "9 brands × Expanded/Collapsed rail (280px / 64px). Expanded header: 20×44 List toggle in 44px slot, 140×56 fitted wordmark clip, Brand extension Light per brand. Collapsed: 36×36 mark, 44×44 icon rows in Nav item row."
   },
   "collapsible": {
     "figmaName": "Collapsible",

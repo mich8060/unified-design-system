@@ -1,29 +1,58 @@
 {
   "fileKey": "3bTua8rojOOC7tYWIEWJl0",
   "pageName": "UDS Components",
-  "syncedAt": "2026-06-12",
+  "syncedAt": "2026-07-06",
+  "lastFigmaEdit": "Synced from Figma: 560px ref width, shell uds/spacing/4 padding, control uds/gap/8 padding, Start/End addon SLOTs with showStartAddon/showEndAddon booleans",
   "nodes": {
     "InputGroup": {
-      "nodeId": "1731:4599",
+      "nodeId": "2291:5885",
       "name": "InputGroup",
-      "width": 1352,
-      "height": 216
+      "width": 600,
+      "height": 980
     }
   },
   "InputGroup": {
-    "nodeId": "1731:4599",
-    "description": "Bordered flex shell for grouped inputs (InputGroup). Embeds borderless .input-group-control frame — addons compose as sibling .input-group-addon frames (see SearchInput).",
+    "nodeId": "2291:5885",
+    "description": "Bordered flex shell for grouped inputs. Embeds borderless .input-group-control with Placeholder|Filled layers. Start addon and End addon SLOT frames inside .input-group-addon wrappers accept icons (.input-group-button) or text (.input-group-text). Toggle showStartAddon / showEndAddon to reveal slots.",
+    "referenceWidth": 560,
+    "variantCount": 16,
+    "variantAxes": ["Size", "State", "Content"],
     "variants": [
-      "Size=Default, State=Default",
-      "Size=Default, State=Focused",
-      "Size=Default, State=Error",
-      "Size=Default, State=Disabled",
-      "Size=Small, State=Default",
-      "Size=Small, State=Focused",
-      "Size=Small, State=Error",
-      "Size=Small, State=Disabled"
+      "Size=Default, State=Default, Content=Placeholder",
+      "Size=Default, State=Default, Content=Filled",
+      "Size=Default, State=Focused, Content=Placeholder",
+      "Size=Default, State=Focused, Content=Filled",
+      "Size=Default, State=Error, Content=Placeholder",
+      "Size=Default, State=Error, Content=Filled",
+      "Size=Default, State=Disabled, Content=Placeholder",
+      "Size=Default, State=Disabled, Content=Filled",
+      "Size=Small, State=Default, Content=Placeholder",
+      "Size=Small, State=Default, Content=Filled",
+      "Size=Small, State=Focused, Content=Placeholder",
+      "Size=Small, State=Focused, Content=Filled",
+      "Size=Small, State=Error, Content=Placeholder",
+      "Size=Small, State=Error, Content=Filled",
+      "Size=Small, State=Disabled, Content=Placeholder",
+      "Size=Small, State=Disabled, Content=Filled"
     ],
-    "variantCount": 8,
+    "variantNodeIds": {
+      "Size=Default, State=Default, Content=Placeholder": "2291:5821",
+      "Size=Default, State=Default, Content=Filled": "2291:5825",
+      "Size=Default, State=Focused, Content=Placeholder": "2291:5829",
+      "Size=Default, State=Focused, Content=Filled": "2291:5833",
+      "Size=Default, State=Error, Content=Placeholder": "2291:5837",
+      "Size=Default, State=Error, Content=Filled": "2291:5841",
+      "Size=Default, State=Disabled, Content=Placeholder": "2291:5845",
+      "Size=Default, State=Disabled, Content=Filled": "2291:5849",
+      "Size=Small, State=Default, Content=Placeholder": "2291:5853",
+      "Size=Small, State=Default, Content=Filled": "2291:5857",
+      "Size=Small, State=Focused, Content=Placeholder": "2291:5861",
+      "Size=Small, State=Focused, Content=Filled": "2291:5865",
+      "Size=Small, State=Error, Content=Placeholder": "2291:5869",
+      "Size=Small, State=Error, Content=Filled": "2291:5873",
+      "Size=Small, State=Disabled, Content=Placeholder": "2291:5877",
+      "Size=Small, State=Disabled, Content=Filled": "2291:5881"
+    },
     "componentProperties": {
       "Size": {
         "type": "VARIANT",
@@ -35,55 +64,92 @@
       "State": {
         "type": "VARIANT",
         "defaultValue": "Default",
-        "variantOptions": ["Default", "Focused", "Error", "Disabled"],
+        "variantOptions": ["Default", "Focused", "Error", "Disabled"]
+      },
+      "Content": {
+        "type": "VARIANT",
+        "defaultValue": "Placeholder",
+        "variantOptions": ["Placeholder", "Filled"],
         "codeMapping": {
-          "Default": "default",
-          "Focused": "focus-visible",
-          "Error": "aria-invalid",
-          "Disabled": "disabled"
+          "Placeholder": "empty — placeholder visible",
+          "Filled": "value entered — value layer visible"
         }
       },
       "placeholder": {
         "type": "TEXT",
-        "propertyId": "placeholder#1735:0",
+        "propertyId": "placeholder#2291:0",
+        "defaultValue": "Placeholder",
         "linkedLayer": "placeholder",
-        "codeProp": "placeholder on InputGroupInput / embedded control"
+        "codeProp": "placeholder"
+      },
+      "value": {
+        "type": "TEXT",
+        "propertyId": "value#2291:17",
+        "defaultValue": "Entered value",
+        "linkedLayer": "value",
+        "codeProp": "value"
+      },
+      "Start addon": {
+        "type": "SLOT",
+        "propertyId": "Start addon#2297:0",
+        "linkedLayer": "Start addon",
+        "align": "inline-start",
+        "codeProp": "InputGroupAddon align=inline-start children"
+      },
+      "End addon": {
+        "type": "SLOT",
+        "propertyId": "End addon#2297:17",
+        "linkedLayer": "End addon",
+        "align": "inline-end",
+        "codeProp": "InputGroupAddon align=inline-end children"
+      },
+      "showStartAddon": {
+        "type": "BOOLEAN",
+        "propertyId": "showStartAddon#2297:34",
+        "defaultValue": false,
+        "linkedLayer": ".input-group-addon (start)",
+        "refKey": "visible"
+      },
+      "showEndAddon": {
+        "type": "BOOLEAN",
+        "propertyId": "showEndAddon#2297:51",
+        "defaultValue": false,
+        "linkedLayer": ".input-group-addon (end)",
+        "refKey": "visible"
       }
     },
     "structure": {
-      "root": "InputGroup — horizontal auto-layout shell (border + fill)",
-      "control": ".input-group-control (FRAME) — borderless embedded input area",
-      "placeholder": "placeholder (TEXT)"
+      "root": "InputGroup — horizontal auto-layout shell (560px ref width, uds/spacing/4 shell padding)",
+      "startAddon": ".input-group-addon (inline-start, showStartAddon) → Start addon SLOT (24×24 drop zone)",
+      "control": ".input-group-control — borderless embedded input area (uds/gap/8 horizontal padding)",
+      "endAddon": ".input-group-addon (inline-end, showEndAddon) → End addon SLOT (24×24 drop zone)"
     },
     "tokens": {
-      "fillDefault": "uds/surface/primary",
-      "fillError": "uds/surface/secondary",
-      "fillDisabled": "uds/surface/secondary",
+      "shellPaddingH": "uds/spacing/4",
+      "controlPaddingH": "uds/gap/8",
+      "addonPaddingStart": "uds/gap/8 (paddingLeft)",
+      "addonPaddingEnd": "uds/gap/8 (paddingRight)",
       "radius": "uds/radius/4",
+      "strokeWeight": "uds/border/width/1",
+      "fillDefault": "uds/surface/primary",
+      "fillErrorDisabled": "uds/surface/secondary",
       "strokeDefault": "uds/border/primary",
       "strokeFocused": "uds/focus/ring/border",
       "strokeError": "uds/button/border/primary/destructive",
       "strokeDisabled": "uds/border/disabled",
-      "heightDefault": "44px",
-      "heightSmall": "36px"
+      "placeholderText": "uds/text/disabled",
+      "valueText": "uds/text/primary",
+      "heightDefault": 44,
+      "heightSmall": 36,
+      "textStyleDefault": "Body/16/Regular",
+      "textStyleSmall": "Body/14/Regular"
+    },
+    "effectsByState": {
+      "Focused": "Focus/ring/focus",
+      "Error": "Focus/ring/error"
     }
   },
   "codeAlignment": {
-    "source": "src/components/ui/input-group.tsx",
-    "exports": [
-      "InputGroup",
-      "InputGroupAddon",
-      "InputGroupButton",
-      "InputGroupInput",
-      "InputGroupText",
-      "InputGroupTextarea"
-    ],
-    "pattern": "Shell provides border/chrome; InputGroupInput uses data-slot=input-group-control (no outer border). Compose addons as inline-start/end frames."
-  },
-  "inputFamilyStrategy": {
-    "tier0_atoms": ["Input (589:236)", "Textarea (620:229)", "Label", "Checkbox", "Radio", "Switch", "Toggle", "Slider"],
-    "tier1_shell": "InputGroup — shared bordered row for addons + embedded control",
-    "tier2_recipes": ["SearchInput", "Command inline .command-input", "ComboboxInput", "Select trigger (deferred)"],
-    "tier3_thin_wrappers": "number-input, url-input, phone-input → use Input atom only; password-input → Input + overlay button (deferred)"
+    "source": "src/components/ui/input-group.tsx"
   }
 }

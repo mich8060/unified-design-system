@@ -1,7 +1,7 @@
 {
   "fileKey": "3bTua8rojOOC7tYWIEWJl0",
   "pageName": "UDS Components",
-  "syncedAt": "2026-06-12",
+  "syncedAt": "2026-07-07",
   "nodes": {
     "Menu": {
       "nodeId": "1895:6336",
@@ -95,15 +95,45 @@
       }
     },
     "sizes": {
-      "Expanded": { "width": 280, "height": 720, "headerHeight": 56 },
-      "Collapsed": { "width": 64, "height": 720, "headerHeight": 56 }
+      "Expanded": {
+        "width": 280,
+        "height": 720,
+        "headerHeight": 56,
+        "headerPaddingX": 8,
+        "toggleSlotWidth": 44,
+        "toggleSize": { "width": 20, "height": 44 },
+        "brandClipWordmark": { "width": 140, "height": 56 },
+        "headerSpacerWidth": 44
+      },
+      "Collapsed": {
+        "width": 64,
+        "height": 720,
+        "headerHeight": 56,
+        "headerPaddingX": 8,
+        "brandClipMark": { "width": 36, "height": 36 },
+        "navPaddingY": 8,
+        "navItemGap": 4,
+        "navItemSize": { "width": 44, "height": 44 }
+      }
     },
     "layers": {
       "header": "Menu header",
+      "toggleSlot": "Toggle slot",
       "toggle": "Menu toggle",
+      "brandSlot": "Brand slot",
+      "brandClip": "Brand clip",
       "brandingWordmark": "Branding wordmark",
       "brandingMark": "Branding mark",
-      "navigation": "Navigation"
+      "headerSpacer": "Header spacer",
+      "navigation": "Navigation",
+      "navItem": "Nav item",
+      "navItemRow": "Nav item row",
+      "navBranch": "Nav branch",
+      "branchContent": "Branch content",
+      "caretSlot": "Caret slot",
+      "navChildren": "Nav children",
+      "navLeaf": "Nav leaf",
+      "leafRow": "Leaf row"
     },
     "composeFrom": {
       "branding": { "componentSet": "Branding", "nodeId": "1103:533" },
@@ -120,6 +150,17 @@
       "GMS": "Design System",
       "Wireframe": "Wireframe"
     },
+    "brandToExtension": {
+      "Default": "CHG",
+      "CHG": "CHG",
+      "CompHealth": "CompHealth",
+      "Weatherby": "Weatherby",
+      "Connect": "Connect",
+      "Locumsmart": "LocumSmart",
+      "Modio": "Modio",
+      "GMS": "GMS",
+      "Wireframe": "Wireframe"
+    },
     "tokens": {
       "surface": "uds/surface/primary",
       "border": "uds/border/primary",
@@ -127,8 +168,14 @@
       "navActiveLabel": "uds/text/inverse",
       "navInactiveLabel": "uds/text/primary",
       "navLeafBorder": "uds/border/primary",
-      "navLeafActiveBorder": "uds/surface/brand/quaternary"
+      "navLeafActiveBorder": "uds/surface/brand/quaternary",
+      "navLeafActiveFill": "uds/color/neutrals/50",
+      "navLeafLabel": "uds/text/tertiary"
     },
-    "figmaMatrixNote": "9 brands × Expanded/Collapsed. Expanded shows List toggle, Branding wordmark, full nav (Dashboard active; branch children for Pooling/Documents where applicable). Collapsed shows Branding mark + icon-only root items (branches omitted)."
+    "typography": {
+      "navRoot": "Body/16/Medium",
+      "navLeaf": "Body/14/Regular"
+    },
+    "figmaMatrixNote": "9 brands × Expanded/Collapsed. Expanded: 56px header (8px pad, 44px toggle slot with 20×44 List icon, 140×56 fitted wordmark clip, 44px spacer), full nav with Duotone icons. Collapsed: 36×36 mark, 44×44 icon rows in Nav item row wrappers (8px nav pad, 4px gap). Brand extension Light mode per Brand axis for uds/surface/brand/quaternary."
   }
 }

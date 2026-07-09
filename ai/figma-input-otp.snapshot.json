@@ -1,0 +1,69 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-07-06",
+  "lastFigmaEdit": "Size=Default | Size=Compact (mobile): 44×48 slots, Display/36/Medium, uds/gap/4, Minus Icon 20",
+  "nodes": { "Input OTP": { "nodeId": "2292:6251", "name": "Input OTP", "width": 600, "height": 1960 } },
+  "Input OTP": {
+    "nodeId": "2292:6251",
+    "description": "Six OTP slots with Minus separator after slot 3. Size=Default for desktop; Size=Compact for mobile (44×48, tighter gap). State × Progress for focus, error, and fill progress.",
+    "variantCount": 24,
+    "variantAxes": ["Size", "State", "Progress"],
+    "sizes": {
+      "Default": {
+        "slotWidth": 64,
+        "slotHeight": 70,
+        "referenceWidth": 480,
+        "groupGap": "uds/gap/8",
+        "digitTextStyle": "Display/48/Medium",
+        "separatorIconSize": 32
+      },
+      "Compact": {
+        "slotWidth": 44,
+        "slotHeight": 48,
+        "referenceWidth": 316,
+        "groupGap": "uds/gap/4",
+        "digitTextStyle": "Display/36/Medium",
+        "separatorIconSize": 20,
+        "codeProp": "inputSize=\"sm\" or responsive default below 768px"
+      }
+    },
+    "componentProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "variantOptions": ["Default", "Compact"],
+        "codeProp": "InputOTPGroup.inputSize",
+        "codeValues": { "Default": "default", "Compact": "sm" }
+      },
+      "State": {
+        "type": "VARIANT",
+        "variantOptions": ["Default", "Focused", "Error", "Disabled"]
+      },
+      "Progress": {
+        "type": "VARIANT",
+        "variantOptions": ["Empty", "Partial", "Filled"]
+      }
+    },
+    "structure": {
+      "root": "Input OTP — horizontal row",
+      "slots": "Slot 1–6 (FRAME)",
+      "separator": "Separator — Minus Icon after slot 3",
+      "digit": "digit (TEXT) when Progress includes entry",
+      "caret": "caret on active slot when State=Focused, Progress=Partial"
+    },
+    "tokens": {
+      "radius": "uds/radius/8",
+      "fill": "uds/surface/secondary",
+      "digitFill": "uds/text/primary",
+      "separatorIconFill": "uds/text/secondary"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/input-otp.tsx",
+    "exports": ["InputOTP", "InputOTPGroup", "InputOTPSlot", "InputOTPSeparator"],
+    "notes": [
+      "inputSize default | sm maps to Figma Size Default | Compact",
+      "responsive=true (default) compresses on viewport < 768px without explicit sm"
+    ]
+  }
+}

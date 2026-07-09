@@ -4,6 +4,7 @@ import * as React from "react"
 import { XIcon } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
+import { resolveButtonClasses, type ButtonSize } from "@/components/ui/button"
 import { type InputProps } from "@/components/ui/input"
 
 export type TokenInputProps = Omit<InputProps, "type" | "value" | "defaultValue"> & {
@@ -15,6 +16,10 @@ export type TokenInputProps = Omit<InputProps, "type" | "value" | "defaultValue"
   allowDuplicates?: boolean
   separators?: string[]
   onTokensChange?: (tokens: string[]) => void
+}
+
+function tokenChipButtonSize(inputSize: InputProps["inputSize"]): ButtonSize {
+  return inputSize === "sm" ? "2x-sm" : "xs"
 }
 
 function TokenInput({
@@ -49,6 +54,7 @@ function TokenInput({
   const selectedTokens = tokens ?? internalTokens
   const draftValue = value == null ? internalValue : String(value)
   const canEdit = !disabled && !readOnly
+  const chipSize = tokenChipButtonSize(inputSize)
   const normalizedSeparators = React.useMemo(
     () => separators.map((key) => key.toLowerCase()),
     [separators]
@@ -90,79 +96,88 @@ function TokenInput({
   return (
     <div
       className={cn(
-        "flex w-full min-w-0 flex-wrap items-center gap-1 rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-secondary)] [font-family:var(--font-inter)] transition-colors outline-none focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 has-[input:disabled]:pointer-events-none has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50 has-[input:disabled]:bg-[var(--uds-surface-disabled)]",
+        "flex w-full min-w-0 flex-wrap items-center gap-2 rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-secondary)] [font-family:var(--font-inter)] transition-colors outline-none focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 has-[input:disabled]:pointer-events-none has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50 has-[input:disabled]:bg-[var(--uds-surface-disabled)]",
         inputSize === "sm"
           ? "min-h-9 px-2 py-1 text-uds-14 leading-uds-14"
-          : "min-h-11 px-2 py-1.5 text-uds-16 leading-uds-16",
+          : "min-h-11 px-2 py-1 text-uds-16 leading-uds-16",
         className
       )}
       onClick={() => inputRef.current?.focus()}
     >
       {selectedTokens.map((token, index) => (
-        <span
+        <div
           key={`${token}-${index}`}
-          className="inline-flex h-8 items-center gap-1 rounded-[4px] border border-[var(--uds-border-primary)] bg-[var(--uds-color-white)] px-2 text-uds-14 font-uds-regular leading-uds-14 text-[var(--uds-text-primary)]"
+          className={cn(
+            resolveButtonClasses({ variant: "outline", size: chipSize }),
+            "max-w-[200px] shrink-0"
+          )}
         >
-          <span className="truncate max-w-[180px]">{token}</span>
+          <span className="truncate">{token}</span>
           {canEdit ? (
             <button
               type="button"
               aria-label={`Remove ${token}`}
+              data-icon="inline-end"
               onClick={(event) => {
                 event.stopPropagation()
                 removeTokenAt(index)
               }}
-              className="inline-flex size-4 cursor-pointer items-center justify-center rounded text-[var(--uds-text-secondary)] transition-colors hover:text-[var(--uds-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+              className="inline-flex shrink-0 cursor-pointer items-center justify-center rounded text-[var(--uds-text-secondary)] transition-colors hover:text-[var(--uds-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
             >
               <XIcon aria-hidden className="size-3" />
             </button>
           ) : null}
-        </span>
+        </div>
       ))}
-      <input
-        ref={inputRef}
-        type="text"
-        value={draftValue}
-        placeholder={selectedTokens.length === 0 ? placeholder : undefined}
-        disabled={disabled}
-        readOnly={readOnly}
-        autoComplete={autoComplete}
-        autoCapitalize={autoCapitalize}
-        autoCorrect={autoCorrect}
-        spellCheck={spellCheck}
-        className={cn(
-          "min-w-[120px] flex-1 bg-transparent text-foreground outline-none placeholder:text-muted-foreground",
-          inputSize === "sm" ? "h-7" : "h-8"
-        )}
-        onChange={(event) => {
-          if (value === undefined) {
-            setInternalValue(event.currentTarget.value)
-          }
-          onChange?.(event)
-        }}
-        onKeyDown={(event) => {
-          const key = event.key.toLowerCase()
-          const shouldCommit = normalizedSeparators.includes(key)
-          if (shouldCommit) {
-            event.preventDefault()
+      <div
+        data-slot="token-input-area"
+        className="flex min-w-[120px] flex-1 items-center"
+      >
+        <input
+          ref={inputRef}
+          type="text"
+          value={draftValue}
+          placeholder={selectedTokens.length === 0 ? placeholder : undefined}
+          disabled={disabled}
+          readOnly={readOnly}
+          autoComplete={autoComplete}
+          autoCapitalize={autoCapitalize}
+          autoCorrect={autoCorrect}
+          spellCheck={spellCheck}
+          className={cn(
+            "w-full min-w-0 bg-transparent text-foreground outline-none placeholder:text-muted-foreground",
+            inputSize === "sm" ? "h-5" : "h-6"
+          )}
+          onChange={(event) => {
+            if (value === undefined) {
+              setInternalValue(event.currentTarget.value)
+            }
+            onChange?.(event)
+          }}
+          onKeyDown={(event) => {
+            const key = event.key.toLowerCase()
+            const shouldCommit = normalizedSeparators.includes(key)
+            if (shouldCommit) {
+              event.preventDefault()
+              commitDraftValue()
+            } else if (
+              key === "backspace" &&
+              draftValue.length === 0 &&
+              selectedTokens.length > 0 &&
+              canEdit
+            ) {
+              event.preventDefault()
+              removeTokenAt(selectedTokens.length - 1)
+            }
+            onKeyDown?.(event)
+          }}
+          onBlur={(event) => {
             commitDraftValue()
-          } else if (
-            key === "backspace" &&
-            draftValue.length === 0 &&
-            selectedTokens.length > 0 &&
-            canEdit
-          ) {
-            event.preventDefault()
-            removeTokenAt(selectedTokens.length - 1)
-          }
-          onKeyDown?.(event)
-        }}
-        onBlur={(event) => {
-          commitDraftValue()
-          onBlur?.(event)
-        }}
-        {...props}
-      />
+            onBlur?.(event)
+          }}
+          {...props}
+        />
+      </div>
     </div>
   )
 }

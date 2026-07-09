@@ -1,0 +1,103 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-07-06",
+  "lastFigmaEdit": "Timezone BOOLEAN (default false) toggles timezone TEXT; Text frame centered with uds/spacing/4 gap",
+  "nodes": {
+    "TimeStepInput": {
+      "nodeId": "2291:6288",
+      "name": "TimeStepInput",
+      "width": 600,
+      "height": 1044
+    }
+  },
+  "TimeStepInput": {
+    "nodeId": "2291:6288",
+    "description": "Read-only time step picker trigger: centered Text frame (Placeholder|Value + optional timezone) with uds/spacing/4 gap, plus trailing Clock icon button.",
+    "referenceWidth": 600,
+    "variantCount": 16,
+    "variantAxes": ["Size", "State", "Content"],
+    "sizes": {
+      "Default": { "shellHeight": 44, "typography": "Body/16/Regular", "iconButton": "16×16" },
+      "Compact": { "shellHeight": 36, "typography": "Body/14/Regular", "iconButton": "16×16" }
+    },
+    "componentProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "variantOptions": ["Compact", "Default"],
+        "codeProp": "inputSize",
+        "codeValues": { "Default": "default", "Compact": "sm" }
+      },
+      "State": {
+        "type": "VARIANT",
+        "variantOptions": ["Default", "Focused", "Error", "Disabled"]
+      },
+      "Content": {
+        "type": "VARIANT",
+        "variantOptions": ["Placeholder", "Filled"]
+      },
+      "placeholder": {
+        "type": "TEXT",
+        "linkedLayer": "Placeholder",
+        "figmaProperty": "placeholder#2291:136",
+        "defaultValue": "Select time"
+      },
+      "value": {
+        "type": "TEXT",
+        "linkedLayer": "Value",
+        "figmaProperty": "value#2291:153",
+        "defaultValue": "9:30 AM"
+      },
+      "timezone": {
+        "type": "TEXT",
+        "linkedLayer": "timezone",
+        "figmaProperty": "timezone#2321:0",
+        "defaultValue": "EST",
+        "visibilityProperty": "Timezone#2320:9",
+        "visibilityDefault": false
+      }
+    },
+    "structure": {
+      "root": "TimeStepInput — HORIZONTAL shell, pl uds/gap/12, pr uds/gap/8, uds/radius/4",
+      "control": "Text — flex-1 frame, centered, uds/spacing/4 gap; Placeholder | Value | timezone (Timezone boolean)",
+      "trailingAction": ".input-group-button — Size=16 Icon (Clock glyph)"
+    },
+    "tokens": {
+      "paddingLeft": "uds/gap/12",
+      "paddingRight": "uds/gap/8",
+      "textWrapGap": "uds/spacing/4",
+      "textWrapGapPx": 4,
+      "radius": "uds/radius/4",
+      "fillDefault": "uds/surface/primary",
+      "fillError": "uds/surface/secondary",
+      "strokeDefault": "uds/border/primary",
+      "strokeFocused": "uds/focus/ring/border",
+      "strokeError": "uds/button/border/primary/destructive",
+      "strokeDisabled": "uds/border/disabled",
+      "effectFocused": "Focus/ring/focus",
+      "effectError": "Focus/ring/error"
+    },
+    "variantNodeIds": {
+      "Size=Compact, State=Default, Content=Placeholder": "2291:6145",
+      "Size=Compact, State=Default, Content=Filled": "2291:6153",
+      "Size=Compact, State=Focused, Content=Placeholder": "2291:6162",
+      "Size=Compact, State=Focused, Content=Filled": "2291:6171",
+      "Size=Compact, State=Error, Content=Placeholder": "2291:6180",
+      "Size=Compact, State=Error, Content=Filled": "2291:6189",
+      "Size=Compact, State=Disabled, Content=Placeholder": "2291:6198",
+      "Size=Compact, State=Disabled, Content=Filled": "2291:6207",
+      "Size=Default, State=Default, Content=Placeholder": "2291:6216",
+      "Size=Default, State=Default, Content=Filled": "2291:6225",
+      "Size=Default, State=Focused, Content=Placeholder": "2291:6234",
+      "Size=Default, State=Focused, Content=Filled": "2291:6243",
+      "Size=Default, State=Error, Content=Placeholder": "2291:6252",
+      "Size=Default, State=Error, Content=Filled": "2291:6261",
+      "Size=Default, State=Disabled, Content=Placeholder": "2291:6270",
+      "Size=Default, State=Disabled, Content=Filled": "2291:6279"
+    },
+    "codeAlignment": {
+      "source": "src/components/ui/time-step-input.tsx",
+      "composition": "Read-only Input + DropdownMenu time list + trailing Clock icon"
+    }
+  }
+}

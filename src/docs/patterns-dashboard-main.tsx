@@ -15,7 +15,6 @@ const _fontPreload = Object.assign(document.createElement('link'), {
 document.head.prepend(_fontPreload)
 import '@chghealthcare/unified-design-system/styles.css'
 import '@/components/ui/app-shell.css'
-import '@/components/ui/menu.css'
 
 const DASHBOARD_DEMO_BRAND = 'default' as const
 applyDocsBrandToDocument(DASHBOARD_DEMO_BRAND)

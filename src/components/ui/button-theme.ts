@@ -5,6 +5,7 @@ import { baseButtonVariants } from "@/components/ui/button-base"
 
 const buttonSizeToBaseSize = {
   default: "default",
+  "2x-sm": "sm",
   xs: "sm",
   sm: "sm",
   lg: "lg",
@@ -33,7 +34,9 @@ const buttonThemeVariants = cva(
       size: {
         default:
           "h-11 rounded-[4px] gap-[length:var(--uds-gap-8)] px-4 text-base has-data-[icon=inline-end]:pr-3.5 has-data-[icon=inline-start]:pl-3.5",
-        xs: "h-[32px] rounded-[4px] gap-[length:var(--uds-gap-8)] px-[10px] text-[10px] has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-3",
+        xs: "h-[32px] rounded-[4px] gap-[length:var(--uds-gap-8)] px-[10px] text-xs leading-4 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-4",
+        "2x-sm":
+          "h-6 rounded-[4px] gap-1 px-1.5 text-[10px] leading-[14px] has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-[36px] rounded-[4px] gap-[length:var(--uds-gap-8)] px-3 text-sm has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5 [&_svg:not([class*='size-'])]:size-3.5",
         lg: "h-[52px] rounded-[4px] gap-[length:var(--uds-gap-8)] px-[18px] text-lg has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
         icon: "size-8 rounded-[4px] p-0 text-base",

@@ -1,0 +1,104 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-07-07",
+  "nodes": {
+    ".menu-nav-parent": {
+      "nodeId": "2369:6204",
+      "name": ".menu-nav-parent",
+      "width": 1352,
+      "height": 712
+    }
+  },
+  ".menu-nav-parent": {
+    "nodeId": "2369:6204",
+    "description": "Parent navigation row for Menu — top-level leaf or expandable branch (Pooling, Documents). Branch Open=True exposes an empty Children slot in the atom template; Menu composition stacks .menu-nav-child instances as siblings below the branch instance.",
+    "variantAxes": ["Rail", "Kind", "State", "Open"],
+    "variantCount": 16,
+    "variants": [
+      "Rail=Expanded, Kind=Item, State=Default, Open=False",
+      "Rail=Expanded, Kind=Item, State=Default, Open=True",
+      "Rail=Expanded, Kind=Item, State=Active, Open=False",
+      "Rail=Expanded, Kind=Item, State=Active, Open=True",
+      "Rail=Expanded, Kind=Branch, State=Default, Open=False",
+      "Rail=Expanded, Kind=Branch, State=Default, Open=True",
+      "Rail=Expanded, Kind=Branch, State=Active, Open=False",
+      "Rail=Expanded, Kind=Branch, State=Active, Open=True",
+      "Rail=Collapsed, Kind=Item, State=Default, Open=False",
+      "Rail=Collapsed, Kind=Item, State=Default, Open=True",
+      "Rail=Collapsed, Kind=Item, State=Active, Open=False",
+      "Rail=Collapsed, Kind=Item, State=Active, Open=True",
+      "Rail=Collapsed, Kind=Branch, State=Default, Open=False",
+      "Rail=Collapsed, Kind=Branch, State=Default, Open=True",
+      "Rail=Collapsed, Kind=Branch, State=Active, Open=False",
+      "Rail=Collapsed, Kind=Branch, State=Active, Open=True"
+    ],
+    "variantNodeIds": {
+      "Rail=Expanded, Kind=Item, State=Default, Open=False": "2369:6066",
+      "Rail=Expanded, Kind=Item, State=Default, Open=True": "2369:6074",
+      "Rail=Expanded, Kind=Item, State=Active, Open=False": "2369:6082",
+      "Rail=Expanded, Kind=Item, State=Active, Open=True": "2369:6090",
+      "Rail=Expanded, Kind=Branch, State=Default, Open=False": "2369:6098",
+      "Rail=Expanded, Kind=Branch, State=Default, Open=True": "2369:6112",
+      "Rail=Expanded, Kind=Branch, State=Active, Open=False": "2369:6127",
+      "Rail=Expanded, Kind=Branch, State=Active, Open=True": "2369:6141",
+      "Rail=Collapsed, Kind=Item, State=Default, Open=False": "2369:6156",
+      "Rail=Collapsed, Kind=Item, State=Default, Open=True": "2369:6162",
+      "Rail=Collapsed, Kind=Item, State=Active, Open=False": "2369:6168",
+      "Rail=Collapsed, Kind=Item, State=Active, Open=True": "2369:6174",
+      "Rail=Collapsed, Kind=Branch, State=Default, Open=False": "2369:6180",
+      "Rail=Collapsed, Kind=Branch, State=Default, Open=True": "2369:6186",
+      "Rail=Collapsed, Kind=Branch, State=Active, Open=False": "2369:6192",
+      "Rail=Collapsed, Kind=Branch, State=Active, Open=True": "2369:6198"
+    },
+    "componentProperties": {
+      "Rail": {
+        "type": "VARIANT",
+        "defaultValue": "Expanded",
+        "variantOptions": ["Expanded", "Collapsed"]
+      },
+      "Kind": {
+        "type": "VARIANT",
+        "defaultValue": "Item",
+        "variantOptions": ["Item", "Branch"]
+      },
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Active"]
+      },
+      "Open": {
+        "type": "VARIANT",
+        "defaultValue": "False",
+        "variantOptions": ["False", "True"]
+      },
+      "label": {
+        "type": "TEXT",
+        "defaultValue": "Dashboard",
+        "linkedLayer": "Label"
+      },
+      "Children": {
+        "type": "SLOT",
+        "linkedLayer": "Children",
+        "note": "Branch Open=True only. Holds .menu-nav-child instances."
+      }
+    },
+    "layerNaming": {
+      "expandedLeaf": "Content → Icon + Label",
+      "expandedBranch": "Branch row → Content + Caret slot; Open=True adds Children frame",
+      "collapsed": "44×44 icon button, uds/radius/4"
+    },
+    "tokens": {
+      "rowHeight": "44px",
+      "collapsedSize": "44px",
+      "activeFill": "uds/surface/brand/quaternary",
+      "labelStyle": "Body/16/Medium",
+      "iconSize": "Icon Size=24",
+      "caret": "CaretDown Size=16 Bold"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/menu.tsx",
+    "note": "Branch expand/collapse maps to MenuNavBranch + MenuNavItem; Wireframe brand uses Icon default glyph (House) instead of placeholder rectangles."
+  }
+}

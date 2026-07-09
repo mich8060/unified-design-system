@@ -1,0 +1,165 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-06-12",
+  "nodes": {
+    "Item": {
+      "nodeId": "2334:6087",
+      "name": "Item",
+      "width": 440,
+      "height": 932
+    }
+  },
+  "Item": {
+    "nodeId": "2334:6087",
+    "description": "Composable list/box row with optional media, title, description, and trailing actions. Appearance=List is flush (radius 0); Appearance=Box uses uds/radius/4.",
+    "variants": [
+      "Appearance=List, State=Default, Size=Default",
+      "Appearance=List, State=Outline, Size=Default",
+      "Appearance=List, State=Muted, Size=Default",
+      "Appearance=List, State=Default, Size=Compact",
+      "Appearance=List, State=Outline, Size=Compact",
+      "Appearance=List, State=Muted, Size=Compact",
+      "Appearance=Box, State=Default, Size=Default",
+      "Appearance=Box, State=Outline, Size=Default",
+      "Appearance=Box, State=Muted, Size=Default",
+      "Appearance=Box, State=Default, Size=Compact",
+      "Appearance=Box, State=Outline, Size=Compact",
+      "Appearance=Box, State=Muted, Size=Compact"
+    ],
+    "variantCount": 12,
+    "variantNodeIds": {
+      "Appearance=List, State=Default, Size=Default": "2320:6501",
+      "Appearance=List, State=Outline, Size=Default": "2320:6509",
+      "Appearance=List, State=Muted, Size=Default": "2320:6517",
+      "Appearance=List, State=Default, Size=Compact": "2320:6525",
+      "Appearance=List, State=Outline, Size=Compact": "2320:6533",
+      "Appearance=List, State=Muted, Size=Compact": "2320:6541",
+      "Appearance=Box, State=Default, Size=Default": "2334:6009",
+      "Appearance=Box, State=Outline, Size=Default": "2334:6022",
+      "Appearance=Box, State=Muted, Size=Default": "2334:6035",
+      "Appearance=Box, State=Default, Size=Compact": "2334:6048",
+      "Appearance=Box, State=Outline, Size=Compact": "2334:6061",
+      "Appearance=Box, State=Muted, Size=Compact": "2334:6074"
+    },
+    "sizes": {
+      "default": { "width": 400, "height": 60 },
+      "compact": { "width": 400, "height": 52 }
+    },
+    "gridLayout": {
+      "cols": 3,
+      "rows": 4,
+      "note": "Columns: State Default|Outline|Muted. Rows: List Default/Compact, Box Default/Compact."
+    },
+    "componentProperties": {
+      "Appearance": {
+        "type": "VARIANT",
+        "defaultValue": "List",
+        "variantOptions": ["List", "Box"],
+        "codeProp": "appearance",
+        "codeValues": {
+          "List": "list",
+          "Box": "box"
+        },
+        "note": "List → radius 0. Box → uds/radius/4."
+      },
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Outline", "Muted"],
+        "codeProp": "variant",
+        "codeValues": {
+          "Default": "default",
+          "Outline": "outline",
+          "Muted": "muted"
+        }
+      },
+      "Size": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Compact"],
+        "codeProp": "size",
+        "codeValues": {
+          "Default": "default",
+          "Compact": "sm"
+        },
+        "note": "Compact uses Body/14 + Body/12 typography and uds/gap/8 row gap."
+      },
+      "title#2334:0": {
+        "type": "TEXT",
+        "defaultValue": "Item title",
+        "codeProp": "ItemTitle children",
+        "linkedLayer": ".content/.title"
+      },
+      "description#2334:7": {
+        "type": "TEXT",
+        "defaultValue": "Supporting line of text.",
+        "codeProp": "ItemDescription children",
+        "linkedLayer": ".content/.description"
+      },
+      "Media#2334:14": {
+        "type": "BOOLEAN",
+        "defaultValue": false,
+        "codeProp": "ItemMedia",
+        "linkedLayer": ".media"
+      },
+      "Description#2334:21": {
+        "type": "BOOLEAN",
+        "defaultValue": true,
+        "codeProp": "ItemDescription",
+        "linkedLayer": ".content/.description"
+      },
+      "Actions#2334:28": {
+        "type": "BOOLEAN",
+        "defaultValue": true,
+        "codeProp": "ItemActions",
+        "linkedLayer": ".actions"
+      }
+    },
+    "layerNaming": {
+      "root": "Horizontal row — padding uds/spacing/12 (H) × uds/spacing/8 (V)",
+      ".media": "ItemMedia — BOOLEAN Media",
+      ".content": "ItemContent — vertical stack",
+      ".title": "ItemTitle — Body/16/Semibold (Default) or Body/14/Semibold (Compact)",
+      ".description": "ItemDescription — Body/14/Regular (Default) or Body/12/Regular (Compact), uds/text/tertiary",
+      ".actions": "ItemActions — trailing CaretRight Icon 16px"
+    },
+    "tokens": {
+      "paddingX": "uds/spacing/12",
+      "paddingY": "uds/spacing/8",
+      "gapCompact": "uds/gap/8",
+      "radiusList": "uds/radius/0",
+      "radiusBox": "uds/radius/4",
+      "fillDefault": "uds/surface/primary",
+      "fillMuted": "uds/surface/secondary",
+      "strokeOutline": "uds/border/primary"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/item.tsx",
+    "exports": [
+      "Item",
+      "ItemMedia",
+      "ItemContent",
+      "ItemTitle",
+      "ItemDescription",
+      "ItemActions",
+      "ItemGroup",
+      "ItemSeparator",
+      "ItemHeader",
+      "ItemFooter"
+    ],
+    "structure": {
+      "Item": "appearance list|box + variant (State) + size (Compact→sm)",
+      "ItemMedia": ".media",
+      "ItemContent": ".content",
+      "ItemTitle": ".title",
+      "ItemDescription": ".description",
+      "ItemActions": ".actions"
+    },
+    "notes": [
+      "Docs default example: appearance=box variant=outline (bordered card row).",
+      "Figma State axis maps to React variant prop; Appearance is a separate prop."
+    ]
+  }
+}

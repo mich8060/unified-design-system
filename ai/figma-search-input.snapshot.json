@@ -1,30 +1,54 @@
 {
   "fileKey": "3bTua8rojOOC7tYWIEWJl0",
   "pageName": "UDS Components",
-  "syncedAt": "2026-06-12",
+  "syncedAt": "2026-07-06",
+  "lastFigmaEdit": "Content=Placeholder|Filled axis; value layer (uds/text/primary) in .input-group-control",
   "nodes": {
     "SearchInput": {
-      "nodeId": "1733:4633",
+      "nodeId": "2275:5874",
       "name": "SearchInput",
-      "width": 744,
-      "height": 216
+      "width": 512,
+      "height": 980
     }
   },
   "SearchInput": {
-    "nodeId": "1733:4633",
-    "description": "Search field built on InputGroup pattern: magnifying glass inline-start addon + embedded control; Shortcut recipe adds trailing Kbd ⌘K hint.",
-    "variants": [
-      "Recipe=Default, Size=Default",
-      "Recipe=Default, Size=Small",
-      "Recipe=Shortcut, Size=Default",
-      "Recipe=Shortcut, Size=Small"
-    ],
-    "variantCount": 4,
+    "nodeId": "2275:5874",
+    "description": "Search field on InputGroup shell. Content=Placeholder shows placeholder (uds/text/disabled); Content=Filled shows value (uds/text/primary). State/stroke/effect parity with Input.",
+    "referenceWidth": 472,
+    "variantCount": 32,
     "variantNodeIds": {
-      "Recipe=Default, Size=Default": "1733:4589",
-      "Recipe=Default, Size=Small": "1733:4596",
-      "Recipe=Shortcut, Size=Default": "1733:4604",
-      "Recipe=Shortcut, Size=Small": "1733:4619"
+      "Recipe=Default, Size=Small, State=Default, Content=Placeholder": "2275:5834",
+      "Recipe=Default, Size=Default, State=Default, Content=Placeholder": "2275:5826",
+      "Recipe=Shortcut, Size=Small, State=Default, Content=Placeholder": "2275:5859",
+      "Recipe=Shortcut, Size=Default, State=Default, Content=Placeholder": "2275:5843",
+      "Recipe=Default, Size=Small, State=Focused, Content=Placeholder": "2277:31",
+      "Recipe=Default, Size=Small, State=Error, Content=Placeholder": "2277:37",
+      "Recipe=Default, Size=Small, State=Disabled, Content=Placeholder": "2277:43",
+      "Recipe=Default, Size=Default, State=Focused, Content=Placeholder": "2277:49",
+      "Recipe=Default, Size=Default, State=Error, Content=Placeholder": "2277:55",
+      "Recipe=Default, Size=Default, State=Disabled, Content=Placeholder": "2277:61",
+      "Recipe=Shortcut, Size=Small, State=Focused, Content=Placeholder": "2277:67",
+      "Recipe=Shortcut, Size=Small, State=Error, Content=Placeholder": "2277:77",
+      "Recipe=Shortcut, Size=Small, State=Disabled, Content=Placeholder": "2277:87",
+      "Recipe=Shortcut, Size=Default, State=Focused, Content=Placeholder": "2277:97",
+      "Recipe=Shortcut, Size=Default, State=Error, Content=Placeholder": "2277:107",
+      "Recipe=Shortcut, Size=Default, State=Disabled, Content=Placeholder": "2277:117",
+      "Recipe=Default, Size=Small, State=Default, Content=Filled": "2280:69",
+      "Recipe=Default, Size=Default, State=Default, Content=Filled": "2280:81",
+      "Recipe=Shortcut, Size=Small, State=Default, Content=Filled": "2280:95",
+      "Recipe=Shortcut, Size=Default, State=Default, Content=Filled": "2280:115",
+      "Recipe=Default, Size=Small, State=Focused, Content=Filled": "2280:133",
+      "Recipe=Default, Size=Small, State=Error, Content=Filled": "2280:145",
+      "Recipe=Default, Size=Small, State=Disabled, Content=Filled": "2280:157",
+      "Recipe=Default, Size=Default, State=Focused, Content=Filled": "2280:169",
+      "Recipe=Default, Size=Default, State=Error, Content=Filled": "2280:181",
+      "Recipe=Default, Size=Default, State=Disabled, Content=Filled": "2280:193",
+      "Recipe=Shortcut, Size=Small, State=Focused, Content=Filled": "2280:207",
+      "Recipe=Shortcut, Size=Small, State=Error, Content=Filled": "2280:227",
+      "Recipe=Shortcut, Size=Small, State=Disabled, Content=Filled": "2280:247",
+      "Recipe=Shortcut, Size=Default, State=Focused, Content=Filled": "2280:267",
+      "Recipe=Shortcut, Size=Default, State=Error, Content=Filled": "2280:287",
+      "Recipe=Shortcut, Size=Default, State=Disabled, Content=Filled": "2280:307"
     },
     "componentProperties": {
       "Recipe": {
@@ -36,38 +60,64 @@
       },
       "Size": {
         "type": "VARIANT",
-        "defaultValue": "Default",
+        "defaultValue": "Small",
         "variantOptions": ["Default", "Small"],
         "codeProp": "inputSize",
         "codeValues": { "Default": "default", "Small": "sm" }
       },
+      "State": {
+        "type": "VARIANT",
+        "defaultValue": "Default",
+        "variantOptions": ["Default", "Focused", "Error", "Disabled"],
+        "codeProp": "disabled / aria-invalid / focus-visible"
+      },
+      "Content": {
+        "type": "VARIANT",
+        "defaultValue": "Placeholder",
+        "variantOptions": ["Placeholder", "Filled"],
+        "codeProp": "value presence",
+        "codeMapping": {
+          "Placeholder": "empty — placeholder visible",
+          "Filled": "value entered — value layer visible"
+        }
+      },
       "placeholder": {
         "type": "TEXT",
-        "propertyId": "placeholder#1735:9",
+        "propertyId": "placeholder#2275:15",
+        "defaultValue": "Search…",
         "linkedLayer": "placeholder",
         "codeProp": "placeholder"
+      },
+      "value": {
+        "type": "TEXT",
+        "propertyId": "value#2280:34",
+        "defaultValue": "Entered value",
+        "linkedLayer": "value",
+        "codeProp": "value"
       }
     },
     "structure": {
-      "root": "SearchInput — InputGroup shell (uds-search-field)",
-      "startAddon": ".input-group-addon — MagnifyingGlass Icon Size=16",
-      "control": ".input-group-control — type=search placeholder",
-      "endAddon": ".input-group-addon — shortcut Kbd group (Recipe=Shortcut only)"
+      "root": "SearchInput — horizontal InputGroup shell",
+      "startAddon": ".input-group-addon — Icon Size=16 MagnifyingGlass",
+      "control": ".input-group-control — placeholder (disabled color) OR value (primary color)",
+      "endAddon": ".input-group-addon — Kbd shortcut (Recipe=Shortcut only)"
     },
     "tokens": {
       "fill": "uds/surface/secondary",
-      "radius": "uds/radius/4",
-      "stroke": "uds/border/secondary",
-      "icon": "MagnifyingGlass Weight=Regular (1733:4)",
-      "shortcutKbd": "Kbd Appearance=Default (1686:4530)"
+      "placeholderText": "uds/text/disabled",
+      "valueText": "uds/text/primary",
+      "heightSmall": 36,
+      "heightDefault": 44
+    },
+    "dependencies": {
+      "Input": { "nodeId": "589:236", "note": "Content + State parity" },
+      "Icon": { "nodeId": "501:6", "variant": "Size=16" },
+      "Kbd": { "nodeId": "1686:4530", "variant": "Appearance=Default" }
     }
   },
   "codeAlignment": {
     "source": "src/components/ui/search-input.tsx",
     "exports": ["SearchInput"],
-    "variantShortcut": "variant=\"shortcut\" renders KbdGroup (⌘ + K) in inline-end InputGroupAddon before search icon submit",
-    "iconSetNodeId": "501:6",
-    "magnifyingGlassGlyphId": "1733:4",
-    "kbdSetNodeId": "1686:4530"
+    "headerUsage": "Recipe=Shortcut, Size=Small, State=Default, Content=Placeholder in Header .search-wrap"
   }
 }

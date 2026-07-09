@@ -16,8 +16,9 @@ export const BUTTON_APPEARANCE_FIGMA_LABEL: Record<string, string> = {
 
 export const BUTTON_SIZE_FIGMA_LABEL: Record<string, string> = {
   default: 'Default',
-  xs: 'Extra Small',
-  sm: 'Small',
+  '2x-sm': 'Extra Small',
+  xs: 'Small',
+  sm: 'Medium',
   lg: 'Large',
   icon: 'Icon',
   'icon-xs': 'Icon Extra Small',

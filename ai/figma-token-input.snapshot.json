@@ -1,0 +1,72 @@
+{
+  "fileKey": "3bTua8rojOOC7tYWIEWJl0",
+  "pageName": "UDS Components",
+  "syncedAt": "2026-07-06",
+  "lastFigmaEdit": "Content SLOT with Outline Button chips; Size=Default uses Button Small (32px); Size=Small uses Button Extra Small (24px)",
+  "nodes": { "TokenInput": { "nodeId": "2292:6065", "name": "TokenInput", "width": 640, "height": 500 } },
+  "TokenInput": {
+    "nodeId": "2292:6065",
+    "description": "Secondary-surface multi-token field. Content SLOT holds removable token chips (Button Outline). Size=Default → Small chips (32px); Size=Small → Extra Small chips (24px). Inline .token-input-area for draft entry.",
+    "referenceWidth": 600,
+    "variantCount": 8,
+    "variantAxes": ["Size", "State"],
+    "sizes": {
+      "Default": {
+        "shellHeight": 44,
+        "chipButton": "Appearance=Outline, Size=Small (32px)",
+        "placeholderStyle": "Body/16/Regular"
+      },
+      "Small": {
+        "shellHeight": 36,
+        "chipButton": "Appearance=Outline, Size=Extra Small (24px)",
+        "placeholderStyle": "Body/14/Regular"
+      }
+    },
+    "componentProperties": {
+      "Size": {
+        "type": "VARIANT",
+        "variantOptions": ["Default", "Small"],
+        "codeProp": "inputSize",
+        "codeValues": { "Default": "default", "Small": "sm" }
+      },
+      "State": {
+        "type": "VARIANT",
+        "variantOptions": ["Default", "Focused", "Error", "Disabled"]
+      },
+      "placeholder": {
+        "type": "TEXT",
+        "propertyId": "placeholder#2292:0",
+        "defaultValue": "Add token",
+        "linkedLayer": "placeholder"
+      },
+      "Content": {
+        "type": "SLOT",
+        "linkedLayer": "Content",
+        "note": "Token chips — Button Outline instances with trailing X icon in Slot end"
+      }
+    },
+    "structure": {
+      "root": "TokenInput — wrap row, uds/gap/8, uds/surface/secondary, 600px ref width",
+      "content": "Content (SLOT) — sample Button chips Design + Engineering",
+      "inputArea": ".token-input-area — min-width 120px, placeholder TEXT"
+    },
+    "tokens": {
+      "shellGap": "uds/gap/8",
+      "shellPaddingH": "uds/gap/8",
+      "shellPaddingV": "uds/gap/4",
+      "radius": "uds/radius/4",
+      "fill": "uds/surface/secondary"
+    }
+  },
+  "codeAlignment": {
+    "source": "src/components/ui/token-input.tsx",
+    "chipMapping": {
+      "Default": "resolveButtonClasses outline + size xs (Small / 32px)",
+      "Small": "resolveButtonClasses outline + size 2x-sm (Extra Small / 24px)"
+    },
+    "dependencies": {
+      "Button": { "nodeId": "554:268", "sizes": ["Small", "Extra Small"] },
+      "Icon": { "nodeId": "501:6", "trailingRemove": "X Size=12 in chip" }
+    }
+  }
+}

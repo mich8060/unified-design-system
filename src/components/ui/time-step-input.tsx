@@ -9,7 +9,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input, type InputProps } from "@/components/ui/input"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupText,
+} from "@/components/ui/input-group"
+import { type InputProps } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
 export type TimeStepInputProps = Omit<
@@ -23,6 +29,8 @@ export type TimeStepInputProps = Omit<
   startTime?: string
   endTime?: string
   format12Hour?: boolean
+  showTimezone?: boolean
+  timezone?: string
   inputClassName?: string
 }
 
@@ -79,6 +87,7 @@ function buildOptions(
 function TimeStepInput({
   className,
   inputClassName,
+  inputSize,
   value,
   defaultValue,
   onValueChange,
@@ -86,6 +95,8 @@ function TimeStepInput({
   startTime = "08:00",
   endTime = "18:00",
   format12Hour = true,
+  showTimezone = false,
+  timezone = "EST",
   placeholder = "Select time",
   disabled,
   readOnly,
@@ -103,28 +114,47 @@ function TimeStepInput({
     : ""
 
   const canInteract = !disabled && !readOnly
+  const valueTone = selectedLabel ? "text-foreground" : "text-uds-text-disabled"
 
   return (
     <DropdownMenu>
-      <div className={cn("relative w-full", className)}>
+      <InputGroup inputSize={inputSize} className={cn("w-full min-w-0", className)}>
         <DropdownMenuTrigger asChild disabled={!canInteract}>
-          <div className="w-full">
-            <Input
-              type="text"
-              value={selectedLabel}
-              placeholder={placeholder}
-              readOnly
-              disabled={disabled}
-              className={cn("pr-10", canInteract && "cursor-pointer", inputClassName)}
-              {...props}
-            />
-          </div>
+          <button
+            type="button"
+            disabled={disabled}
+            className={cn(
+              "flex min-w-0 flex-1 items-center justify-center gap-[length:var(--uds-spacing-4)] border-0 bg-transparent px-3 text-left outline-none",
+              inputSize === "sm" ? "text-uds-14 leading-uds-14" : "text-uds-16 leading-uds-16",
+              canInteract && "cursor-pointer",
+              inputClassName,
+            )}
+            {...props}
+          >
+            <span className={cn("shrink-0", valueTone)}>
+              {selectedLabel || placeholder}
+            </span>
+            {showTimezone && timezone ? (
+              <InputGroupText className={cn("shrink-0 px-0", valueTone)}>
+                {timezone}
+              </InputGroupText>
+            ) : null}
+          </button>
         </DropdownMenuTrigger>
-        <ClockIcon
-          aria-hidden
-          className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground"
-        />
-      </div>
+        <InputGroupAddon align="inline-end" className="pr-2">
+          <InputGroupButton
+            type="button"
+            variant="ghost"
+            size="icon-xs"
+            aria-label="Open time options"
+            disabled={!canInteract}
+            className="pointer-events-none text-muted-foreground hover:bg-transparent"
+            tabIndex={-1}
+          >
+            <ClockIcon aria-hidden className="size-4" weight="regular" />
+          </InputGroupButton>
+        </InputGroupAddon>
+      </InputGroup>
       <DropdownMenuContent className="max-h-72 w-[var(--radix-dropdown-menu-trigger-width)] overflow-y-auto">
         {options.map((option) => (
           <DropdownMenuItem

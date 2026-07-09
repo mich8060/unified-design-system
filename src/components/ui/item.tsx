@@ -34,21 +34,27 @@ function ItemSeparator({
 }
 
 const itemVariants = cva(
-  "group/item flex w-full flex-wrap items-center rounded-[length:var(--uds-radius-4)] border text-sm transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors [a]:hover:bg-muted",
+  "group/item flex w-full flex-wrap items-center border text-sm transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors [a]:hover:bg-muted",
   {
     variants: {
+      appearance: {
+        list: "rounded-none",
+        box: "rounded-[length:var(--uds-radius-4)]",
+      },
       variant: {
-        default: "border-transparent",
-        outline: "border-border",
-        muted: "border-transparent bg-muted/50",
+        default: "border-transparent bg-[var(--uds-surface-primary)]",
+        outline: "border-border bg-[var(--uds-surface-primary)]",
+        muted: "border-transparent bg-[var(--uds-surface-secondary)]",
       },
       size: {
-        default: "gap-2.5 px-3 py-2.5",
-        sm: "gap-2.5 px-3 py-2.5",
-        xs: "gap-2 px-2.5 py-2 in-data-[slot=dropdown-menu-content]:p-0",
+        default:
+          "gap-2.5 px-[length:var(--uds-spacing-12)] py-[length:var(--uds-spacing-8)]",
+        sm: "gap-[length:var(--uds-gap-8)] px-[length:var(--uds-spacing-12)] py-[length:var(--uds-spacing-8)]",
+        xs: "gap-[length:var(--uds-gap-8)] px-[length:var(--uds-spacing-12)] py-[length:var(--uds-spacing-8)] in-data-[slot=dropdown-menu-content]:p-0",
       },
     },
     defaultVariants: {
+      appearance: "box",
       variant: "default",
       size: "default",
     },
@@ -57,6 +63,7 @@ const itemVariants = cva(
 
 function Item({
   className,
+  appearance = "box",
   variant = "default",
   size = "default",
   asChild = false,
@@ -67,9 +74,10 @@ function Item({
   return (
     <Comp
       data-slot="item"
+      data-appearance={appearance}
       data-variant={variant}
       data-size={size}
-      className={cn(itemVariants({ variant, size, className }))}
+      className={cn(itemVariants({ appearance, variant, size, className }))}
       {...props}
     />
   )
@@ -125,7 +133,7 @@ function ItemTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="item-title"
       className={cn(
-        "line-clamp-1 flex w-fit items-center gap-2 font-sans text-uds-16 font-uds-semibold leading-uds-16 underline-offset-4 [font-family:var(--font-inter)]",
+        "line-clamp-1 flex w-fit items-center gap-2 font-sans text-uds-16 font-uds-semibold leading-uds-16 underline-offset-4 group-data-[size=sm]/item:text-uds-14 group-data-[size=sm]/item:leading-uds-14 group-data-[size=xs]/item:text-uds-14 group-data-[size=xs]/item:leading-uds-14 [font-family:var(--font-inter)]",
         className
       )}
       {...props}
@@ -138,7 +146,7 @@ function ItemDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="item-description"
       className={cn(
-        "line-clamp-2 text-left font-sans text-uds-14 font-uds-regular leading-uds-14 text-uds-text-tertiary [font-family:var(--font-inter)] [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+        "line-clamp-2 text-left font-sans text-uds-14 font-uds-regular leading-uds-14 text-uds-text-tertiary group-data-[size=sm]/item:text-uds-12 group-data-[size=sm]/item:leading-uds-12 group-data-[size=xs]/item:text-uds-12 group-data-[size=xs]/item:leading-uds-12 [font-family:var(--font-inter)] [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
         className
       )}
       {...props}

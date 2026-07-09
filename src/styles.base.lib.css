@@ -2,7 +2,7 @@
  * Base library stylesheet (dist/styles-base.css).
  *
  * Identical to styles.lib.css but WITHOUT AppShell/Menu chrome CSS
- * (app-shell.css and menu.css). Use this entry when your app does not use
+ * (app-shell.css and uds-menu.css). Use this entry when your app does not use
  * AppShell or Menu and you want to avoid shipping their layout chrome.
  *
  * Full stylesheet (with chrome): import "@chghealthcare/unified-design-system/styles.css"
