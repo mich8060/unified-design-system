@@ -97,10 +97,16 @@ function TimeInput({
   const [minutesDraft, setMinutesDraft] = React.useState(String(parsed.minutes).padStart(2, "0"))
 
   React.useEffect(() => {
-    const next = from24HourValue(selectedValue) ?? initial
+    const next =
+      from24HourValue(selectedValue) ??
+      from24HourValue(defaultValue ?? "09:30") ?? {
+        hours12: 9,
+        minutes: 30,
+        period: defaultPeriod,
+      }
     setHoursDraft(String(next.hours12).padStart(2, "0"))
     setMinutesDraft(String(next.minutes).padStart(2, "0"))
-  }, [selectedValue])
+  }, [selectedValue, defaultValue, defaultPeriod])
 
   const commitSegment = (nextHours: string, nextMinutes: string, nextPeriod = selectedPeriod) => {
     const hoursNum = Number(nextHours)

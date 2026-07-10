@@ -100,7 +100,8 @@ function TimeStepInput({
   placeholder = "Select time",
   disabled,
   readOnly,
-  ...props
+  "aria-label": ariaLabel = "Time",
+  ...rest
 }: TimeStepInputProps) {
   const [internalValue, setInternalValue] = React.useState(defaultValue ?? "")
   const selectedValue = value ?? internalValue
@@ -118,18 +119,22 @@ function TimeStepInput({
 
   return (
     <DropdownMenu>
-      <InputGroup inputSize={inputSize} className={cn("w-full min-w-0", className)}>
+      <InputGroup
+        inputSize={inputSize}
+        className={cn("w-full min-w-0", className)}
+        {...rest}
+      >
         <DropdownMenuTrigger asChild disabled={!canInteract}>
           <button
             type="button"
             disabled={disabled}
+            aria-label={ariaLabel}
             className={cn(
               "flex min-w-0 flex-1 items-center justify-center gap-[length:var(--uds-spacing-4)] border-0 bg-transparent px-3 text-left outline-none",
               inputSize === "sm" ? "text-uds-14 leading-uds-14" : "text-uds-16 leading-uds-16",
               canInteract && "cursor-pointer",
               inputClassName,
             )}
-            {...props}
           >
             <span className={cn("shrink-0", valueTone)}>
               {selectedLabel || placeholder}
