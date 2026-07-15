@@ -14,7 +14,7 @@
   }
 
   .menu-nav-row-root-type {
-    @apply text-uds-16 font-uds-medium leading-uds-16;
+    @apply text-uds-14 font-uds-medium leading-uds-14;
   }
 
   .menu-nav-row-pad-x {
@@ -25,7 +25,7 @@
     @apply flex h-11 min-h-11 w-full shrink-0 cursor-pointer items-center gap-3 rounded-none py-0 text-left font-sans transition-colors outline-none;
     @apply focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
     @apply dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950;
-    @apply text-uds-16 font-uds-medium leading-uds-16;
+    @apply text-uds-14 font-uds-medium leading-uds-14;
     @apply pl-4 pr-4;
     font-family: var(--font-inter);
   }

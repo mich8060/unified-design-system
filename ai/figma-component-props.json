@@ -178,7 +178,7 @@
     },
     ".context-menu-item": {
       "nodeId": "1669:4570",
-      "figmaSnapshot": "ai/figma-context-menu.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-context-menu.snapshot.json",
       "properties": {
         "Type": {
           "codeProp": "variant / component kind",
@@ -213,7 +213,7 @@
     },
     ".context-menu-label": {
       "nodeId": "1670:4547",
-      "figmaSnapshot": "ai/figma-context-menu.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-context-menu.snapshot.json",
       "properties": {
         "sectionLabel": {
           "codeProp": "children",
@@ -223,7 +223,7 @@
     },
     "Empty": {
       "nodeId": "1845:4755",
-      "figmaSnapshot": "ai/figma-empty.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-empty.snapshot.json",
       "properties": {
         "Recipe": {
           "codeProp": "docs example composition",
@@ -255,7 +255,7 @@
     },
     "DropdownMenu": {
       "nodeId": "1827:4726",
-      "figmaSnapshot": "ai/figma-dropdown-menu.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-dropdown-menu.snapshot.json",
       "properties": {
         "Recipe": {
           "codeProp": "docs example composition",
@@ -280,7 +280,7 @@
     },
     "Menu": {
       "nodeId": "1895:6336",
-      "figmaSnapshot": "ai/figma-menu.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-menu.snapshot.json",
       "properties": {
         "Brand": {
           "codeProp": "brand",
@@ -325,7 +325,7 @@
     },
     ".menu-nav-parent": {
       "nodeId": "2369:6204",
-      "figmaSnapshot": "ai/figma-menu-nav-parent.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-menu-nav-parent.snapshot.json",
       "properties": {
         "Rail": {
           "codeProp": "data-expanded / collapsed rail",
@@ -358,7 +358,7 @@
     },
     ".menu-nav-child": {
       "nodeId": "2369:6219",
-      "figmaSnapshot": "ai/figma-menu-nav-child.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-menu-nav-child.snapshot.json",
       "properties": {
         "Rail": {
           "codeProp": "data-expanded / collapsed rail",
@@ -377,7 +377,7 @@
     },
     "ContextMenu": {
       "nodeId": "1671:4687",
-      "figmaSnapshot": "ai/figma-context-menu.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-context-menu.snapshot.json",
       "properties": {
         "Recipe": {
           "codeProp": "docs composition",
@@ -394,7 +394,7 @@
     },
     ".command-item": {
       "nodeId": "1711:4580",
-      "figmaSnapshot": "ai/figma-command.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-command.snapshot.json",
       "properties": {
         "State": {
           "codeProp": "data-selected / disabled / shortcut",
@@ -413,7 +413,7 @@
     },
     ".command-group-heading": {
       "nodeId": "1711:4587",
-      "figmaSnapshot": "ai/figma-command.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-command.snapshot.json",
       "properties": {
         "heading": {
           "codeProp": "heading on CommandGroup",
@@ -423,7 +423,7 @@
     },
     "ComboboxInput": {
       "nodeId": "1791:4702",
-      "figmaSnapshot": "ai/figma-combobox.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-combobox.snapshot.json",
       "properties": {
         "Selected": {
           "codeProp": "placeholder",
@@ -442,7 +442,7 @@
     },
     "Command": {
       "nodeId": "1713:4626",
-      "figmaSnapshot": "ai/figma-command.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-command.snapshot.json",
       "properties": {
         "Recipe": {
           "codeProp": "composition",
@@ -464,7 +464,7 @@
     },
     "InputGroup": {
       "nodeId": "2291:5885",
-      "figmaSnapshot": "ai/figma-input-group.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-input-group.snapshot.json",
       "referenceWidth": 560,
       "properties": {
         "Size": {
@@ -520,7 +520,7 @@
     },
     "Input OTP": {
       "nodeId": "2292:6251",
-      "figmaSnapshot": "ai/figma-input-otp.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-input-otp.snapshot.json",
       "referenceWidth": 480,
       "properties": {
         "Size": {
@@ -550,7 +550,7 @@
     },
     "Item": {
       "nodeId": "2334:6087",
-      "figmaSnapshot": "ai/figma-item.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-item.snapshot.json",
       "referenceWidth": 400,
       "properties": {
         "Appearance": {
@@ -612,7 +612,7 @@
     },
     "URLInput": {
       "nodeId": "2292:5933",
-      "figmaSnapshot": "ai/figma-url-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-url-input.snapshot.json",
       "referenceWidth": 412,
       "properties": {
         "Size": {
@@ -650,7 +650,7 @@
     },
     "PasswordInput": {
       "nodeId": "2291:6139",
-      "figmaSnapshot": "ai/figma-password-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-password-input.snapshot.json",
       "referenceWidth": 600,
       "properties": {
         "Size": {
@@ -688,7 +688,7 @@
     },
     "TimeStepInput": {
       "nodeId": "2291:6288",
-      "figmaSnapshot": "ai/figma-time-step-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-time-step-input.snapshot.json",
       "referenceWidth": 600,
       "properties": {
         "Size": {
@@ -739,7 +739,7 @@
     },
     "TokenInput": {
       "nodeId": "2292:6065",
-      "figmaSnapshot": "ai/figma-token-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-token-input.snapshot.json",
       "referenceWidth": 600,
       "properties": {
         "Size": {
@@ -770,7 +770,7 @@
     },
     "TimeInput": {
       "nodeId": "2314:6456",
-      "figmaSnapshot": "ai/figma-time-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-time-input.snapshot.json",
       "referenceWidth": 600,
       "properties": {
         "Size": {
@@ -826,7 +826,7 @@
     },
     "Field": {
       "nodeId": "1857:5033",
-      "figmaSnapshot": "ai/figma-field.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-field.snapshot.json",
       "properties": {
         "Appearance": {
           "codeProp": "orientation",
@@ -867,7 +867,7 @@
     },
     "FileUpload": {
       "nodeId": "1887:5090",
-      "figmaSnapshot": "ai/figma-file-upload.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-file-upload.snapshot.json",
       "properties": {
         "Size": {
           "codeProp": "size",
@@ -901,7 +901,7 @@
     },
     "FileUploadCards": {
       "nodeId": "1888:5350",
-      "figmaSnapshot": "ai/figma-file-upload-cards.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-file-upload-cards.snapshot.json",
       "properties": {
         "Appearance": {
           "codeProp": "status (demo)",
@@ -945,7 +945,7 @@
     },
     "Input": {
       "nodeId": "589:236",
-      "figmaSnapshot": "ai/figma-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-input.snapshot.json",
       "properties": {
         "Size": {
           "codeProp": "inputSize",
@@ -985,7 +985,7 @@
     },
     "SearchInput": {
       "nodeId": "2275:5874",
-      "figmaSnapshot": "ai/figma-search-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-search-input.snapshot.json",
       "properties": {
         "Recipe": {
           "codeProp": "variant",
@@ -1031,7 +1031,7 @@
     },
     "Date Input": {
       "nodeId": "1739:4557",
-      "figmaSnapshot": "ai/figma-date-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-date-input.snapshot.json",
       "properties": {
         "Size": {
           "codeProp": "inputSize",
@@ -1065,7 +1065,7 @@
     },
     "Date Range Input": {
       "nodeId": "1761:4731",
-      "figmaSnapshot": "ai/figma-date-range-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-date-range-input.snapshot.json",
       "properties": {
         "Size": {
           "codeProp": "inputSize",
@@ -1089,7 +1089,7 @@
     },
     "Kbd": {
       "nodeId": "1686:4530",
-      "figmaSnapshot": "ai/figma-kbd.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-kbd.snapshot.json",
       "properties": {
         "Appearance": {
           "codeProp": "className / parent context",
@@ -1108,7 +1108,7 @@
     },
     "Footer": {
       "nodeId": "2229:5569",
-      "figmaSnapshot": "ai/figma-footer.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-footer.snapshot.json",
       "properties": {
         "Links": {
           "codeProp": "links",
@@ -1140,7 +1140,7 @@
     },
     "Header": {
       "nodeId": "2271:5692",
-      "figmaSnapshot": "ai/figma-header.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-header.snapshot.json",
       "properties": {
         "Leading": {
           "codeProp": "children",
@@ -1177,7 +1177,7 @@
     },
     "HoverCard": {
       "nodeId": "2329:6009",
-      "figmaSnapshot": "ai/figma-hover-card.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-hover-card.snapshot.json",
       "properties": {
         "Content": {
           "codeProp": "HoverCardContent children",
@@ -1202,7 +1202,7 @@
     },
     "Link": {
       "nodeId": "635:225",
-      "figmaSnapshot": "ai/figma-link.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-link.snapshot.json",
       "properties": {
         "Appearance": {
           "codeProp": "appearance",
@@ -1224,7 +1224,7 @@
     },
     "DotStatus": {
       "nodeId": "1813:4697",
-      "figmaSnapshot": "ai/figma-dot-status.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-dot-status.snapshot.json",
       "properties": {
         "Variant": {
           "codeProp": "variant",
@@ -1260,7 +1260,7 @@
     },
     "Radio": {
       "nodeId": "1849:5009",
-      "figmaSnapshot": "ai/figma-radio.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-radio.snapshot.json",
       "properties": {
         "State": {
           "codeProp": "checked / aria-invalid",
@@ -1283,7 +1283,7 @@
     },
     "Switch": {
       "nodeId": "1854:5019",
-      "figmaSnapshot": "ai/figma-switch.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-switch.snapshot.json",
       "properties": {
         "Size": {
           "codeProp": "size",
@@ -1306,7 +1306,7 @@
     },
     "Collapsible": {
       "nodeId": "1642:55",
-      "figmaSnapshot": "ai/figma-collapsible.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-collapsible.snapshot.json",
       "properties": {
         "Variant": {
           "codeProp": "variant",
@@ -1356,7 +1356,7 @@
     },
     "Dialog": {
       "nodeId": "1812:4665",
-      "figmaSnapshot": "ai/figma-dialog.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-dialog.snapshot.json",
       "properties": {
         "Size": {
           "codeProp": "size on DialogContent",
@@ -1398,7 +1398,7 @@
     },
     "Drawer": {
       "nodeId": "1821:4739",
-      "figmaSnapshot": "ai/figma-drawer.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-drawer.snapshot.json",
       "properties": {
         "Direction": {
           "codeProp": "direction on Drawer",
@@ -1429,7 +1429,7 @@
     },
     "AspectRatio": {
       "nodeId": "1111:543",
-      "figmaSnapshot": "ai/figma-aspect-ratio.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-aspect-ratio.snapshot.json",
       "properties": {
         "Ratio": {
           "codeProp": "ratio",
@@ -1590,7 +1590,7 @@
     },
     "Medallion": {
       "nodeId": "1847:5417",
-      "figmaSnapshot": "ai/figma-medallion.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-medallion.snapshot.json",
       "properties": {
         "Size": {
           "codeProp": "size",
@@ -1644,7 +1644,7 @@
     },
     "Calendar": {
       "nodeId": "1188:807",
-      "figmaSnapshot": "ai/figma-calendar.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-calendar.snapshot.json",
       "properties": {
         "Mode": {
           "codeProp": "mode",
@@ -1705,7 +1705,7 @@
     },
     "Card": {
       "nodeId": "1340:4222",
-      "figmaSnapshot": "ai/figma-card.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-card.snapshot.json",
       "properties": {
         "Size": {
           "codeProp": "size",
@@ -1746,7 +1746,7 @@
     },
     ".calendar-day": {
       "nodeId": "1186:575",
-      "figmaSnapshot": "ai/figma-calendar.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-calendar.snapshot.json",
       "properties": {
         "State": {
           "codeProp": "dayState",
@@ -1779,11 +1779,11 @@
           "note": "Visible day number; empty for Blank cells. Set per grid position when building month layouts."
         }
       },
-      "figmaMatrixNote": "9 states × 40×40 cell. Selected + range states: uds/surface/brand/primary fill. Default/today labels: uds/text/secondary (today Body/14/Medium). Outside: uds/surface/tertiary. All states: uds/border/primary stroke. Token bindings in ai/figma-calendar.snapshot.json."
+      "figmaMatrixNote": "9 states × 40×40 cell. Selected + range states: uds/surface/brand/primary fill. Default/today labels: uds/text/secondary (today Body/14/Medium). Outside: uds/surface/tertiary. All states: uds/border/primary stroke. Token bindings in ai/figma/snapshots/figma-calendar.snapshot.json."
     },
     ".calendar-month": {
       "nodeId": "1188:639",
-      "figmaSnapshot": "ai/figma-calendar.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-calendar.snapshot.json",
       "properties": {
         "Caption": {
           "figmaProperty": "Caption#1247:0",
@@ -1794,7 +1794,7 @@
     },
     "Table": {
       "nodeId": "1430:4180",
-      "figmaSnapshot": "ai/figma-table.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-table.snapshot.json",
       "properties": {
         "Content": {
           "codeProp": "children",
@@ -1814,7 +1814,7 @@
     },
     ".table-row": {
       "nodeId": "1436:4245",
-      "figmaSnapshot": "ai/figma-table.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-table.snapshot.json",
       "properties": {
         "Content": {
           "codeProp": "children",
@@ -1828,7 +1828,7 @@
     },
     ".table-cell": {
       "nodeId": "1436:4192",
-      "figmaSnapshot": "ai/figma-table.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-table.snapshot.json",
       "properties": {
         "Appearance": {
           "codeProp": "element",

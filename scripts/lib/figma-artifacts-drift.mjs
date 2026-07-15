@@ -147,8 +147,10 @@ export function validateFigmaArtifacts(root) {
     }
   }
 
-  const aiDir = path.join(root, "ai")
-  const snapshotFiles = readdirSync(aiDir).filter((f) => f.endsWith(".snapshot.json"))
+  const snapshotsDir = path.join(root, "ai/figma/snapshots")
+  const snapshotFiles = existsSync(snapshotsDir)
+    ? readdirSync(snapshotsDir).filter((f) => f.endsWith(".snapshot.json"))
+    : []
   /** @type {Set<string>} */
   const referencedSnapshots = new Set()
   for (const entry of Object.values(statusBySlug)) {
@@ -163,7 +165,7 @@ export function validateFigmaArtifacts(root) {
   }
 
   for (const file of snapshotFiles) {
-    const rel = `ai/${file}`
+    const rel = `ai/figma/snapshots/${file}`
     if (!referencedSnapshots.has(rel)) {
       warnings.push(`orphan snapshot (not linked from manifest note/figmaSnapshot or props): ${rel}`)
     }
@@ -175,6 +177,6 @@ export function validateFigmaArtifacts(root) {
 /** @param {unknown} note */
 function extractSnapshotFromNote(note) {
   if (typeof note !== "string") return null
-  const m = note.match(/ai\/figma-[a-z0-9-]+\.snapshot\.json/)
+  const m = note.match(/ai\/figma\/snapshots\/figma-[a-z0-9-]+\.snapshot\.json/)
   return m ? m[0] : null
 }

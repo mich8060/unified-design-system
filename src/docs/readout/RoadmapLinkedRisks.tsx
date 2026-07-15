@@ -12,29 +12,6 @@ type Props = {
   summary?: ReactNode
 }
 
-function LocumsmartPendingDetail() {
-  return (
-    <div
-      className="executive-risk-pending rounded-[length:var(--uds-radius-12)] py-3 pl-4 pr-3 sm:py-4 sm:pl-5 sm:pr-4"
-      data-pending-detail="locumsmart"
-    >
-      <div className="mb-2 flex flex-wrap items-center gap-2 sm:mb-3">
-        <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-          Locumsmart Deployment
-        </h3>
-        <RoadmapStatusBadge status="Pending" className="executive-badge-pending" />
-      </div>
-      <p className={docPageProseClassName}>
-        We are working with Matt Patterson and Arpi Khanpapyan to prioritize the Locumsmart
-        refactoring. Full deployment on design-system patterns stays pending until that work is
-        sequenced alongside other product commitments. Tate met with Matt Patterson on 04/23 to
-        kick-off the discussion. Deeper conversations about DS integration will occur first week
-        in May.
-      </p>
-    </div>
-  )
-}
-
 export function RoadmapLinkedRisks({ rows, className = '', summary }: Props) {
   const riskRows = rows ?? roadmapRowsWithRiskDetail()
   const hasRiskCallouts = riskRows.length > 0
@@ -127,21 +104,19 @@ export function RoadmapLinkedRisks({ rows, className = '', summary }: Props) {
                         <p>
                           The design system has no named partners in Product or Engineering. Without
                           them, every adoption conversation, exception request, and contribution goes
-                          through one person, which caps how fast the system can scale past the
-                          Documents pilot.
+                          through one person, which caps how fast the system can scale.
                         </p>
                         <p>
-                          Capacity is also split. One person currently spans both design-system design
-                          and engineering work, which forces a weekly tradeoff between building the
-                          foundation and supporting teams trying to adopt it. Neither side gets what it
-                          needs.
+                          I am no longer alone on the team—UX Designer Casey Jennings and Principal
+                          Designer Leo Vroegindewey are helping with the DSL, Figma-to-production
+                          alignment, and AI-ready data contracts. That adds design capacity, but we still
+                          do not have named partners in Product or Engineering.
                         </p>
                         <p>
-                          Contribution, intake, and exception-handling paths are drafted but not yet
-                          operating. Until they are, teams don&apos;t know how to request components,
-                          when custom work is acceptable, or how their contributions get reviewed. That
-                          ambiguity slows adoption and pushes squads back toward building their own
-                          one-off components.
+                          Without Product and Engineering support, I am still caught between designer,
+                          strategy, and developer roles. We still lack a dedicated developer to align the
+                          codebase to CHG engineering standards—without that, foundation work and adoption
+                          support keep competing for the same capacity.
                         </p>
                       </dd>
                     </div>
@@ -151,16 +126,21 @@ export function RoadmapLinkedRisks({ rows, className = '', summary }: Props) {
                       </dt>
                       <dd className={cn(docPageProseClassName, 'mt-2 space-y-3')}>
                         <p>
-                          Building the React foundation and supporting the Documents MVT pilot as the
-                          first production adoption case.
+                          I now have UX Designer Casey Jennings assigned to help with the Design System
+                          Language (DSL) and to align our Figma components to production.
                         </p>
                         <p>
-                          Drafting the intake, review, and exception paths so the system can operate as
-                          shared infrastructure rather than a request queue.
+                          Principal Designer Leo Vroegindewey has stepped in to help with the Design
+                          System Language (DSL) data contracts and ensure they are easily consumable by
+                          AI.
+                        </p>
+                        <p>
+                          I met with Rachel Heitz to discuss what would help us unblock on the
+                          Engineering side of things.
                         </p>
                         <p>
                           Surfacing capacity data to leadership so the depth-versus-breadth tradeoff is
-                          explicit, and making the case for named Product and Engineering partners
+                          explicit, and making the case for named Product and Engineering partners.
                         </p>
                       </dd>
                     </div>
@@ -224,11 +204,8 @@ export function RoadmapLinkedRisks({ rows, className = '', summary }: Props) {
               </div>
             )
           })}
-          <LocumsmartPendingDetail />
         </Layout>
-      ) : (
-        <LocumsmartPendingDetail />
-      )}
+      ) : null}
     </ReadoutDocSection>
   )
 }

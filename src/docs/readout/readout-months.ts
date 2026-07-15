@@ -1,8 +1,16 @@
+import { july2026Content } from './content/july-2026'
 import { may2026Content } from './content/may-2026'
 import { june2026Content } from './content/june-2026'
 import type { ReadoutMonth, ReadoutMonthId } from './types'
 
 export const READOUT_MONTHS: ReadoutMonth[] = [
+  {
+    id: '2026-07',
+    label: 'July 2026',
+    authorLine: 'Michael Stevens, Design System Manager',
+    route: '/docs/readout/2026-07',
+    content: july2026Content,
+  },
   {
     id: '2026-06',
     label: 'June 2026',
@@ -19,7 +27,7 @@ export const READOUT_MONTHS: ReadoutMonth[] = [
   },
 ]
 
-export const LATEST_READOUT_MONTH_ID: ReadoutMonthId = '2026-06'
+export const LATEST_READOUT_MONTH_ID: ReadoutMonthId = '2026-07'
 
 export const LATEST_READOUT_ROUTE = `/docs/readout/${LATEST_READOUT_MONTH_ID}`
 

@@ -29,7 +29,7 @@ import {
 } from './roadmapStatus'
 import { RoadmapLinkedRisks } from './RoadmapLinkedRisks'
 import { ReadoutDocSection } from './ReadoutDocSection'
-import type { ReadoutMonthContent } from './types'
+import type { ReadoutMonthContent, ReadoutProgressItem } from './types'
 import { withBasePath } from '../base-path'
 
 const tableCellClass =
@@ -47,6 +47,40 @@ const roadmapTableColumns = [
   'Next Milestone',
   'Status',
 ] as const
+
+function ProgressCard({ item }: { item: ReadoutProgressItem }) {
+  return (
+    <div
+      className={cn(
+        docPagePanelClassName,
+        'min-w-0 overflow-hidden',
+        item.inMotion ? 'executive-progress-motion' : 'executive-progress-done',
+      )}
+    >
+      <Item className="executive-progress-item h-full min-w-0 gap-3 p-4 sm:gap-4 sm:p-5">
+        <ItemMedia variant="icon" className="shrink-0">
+          <span
+            className={cn(
+              'executive-progress-icon',
+              item.inMotion ? 'executive-progress-icon--motion' : 'executive-progress-icon--done',
+            )}
+            aria-hidden
+          >
+            <Icon
+              name={item.inMotion ? 'CaretRightIcon' : 'CheckIcon'}
+              size={14}
+              weight="bold"
+              color="#ffffff"
+            />
+          </span>
+        </ItemMedia>
+        <ItemContent className="min-w-0 flex-1">
+          <p className={docPageProseClassName}>{item.body}</p>
+        </ItemContent>
+      </Item>
+    </div>
+  )
+}
 
 function RoadmapStatusSection({ rows }: { rows: RoadmapStatusRow[] }) {
   return (
@@ -151,6 +185,8 @@ function RoadmapEmbed({ src }: { src: string }) {
 
 export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent }) {
   const roadmapRows = content.roadmapRows ?? roadmapStatusRows
+  const inMotionItems = content.progressItems.filter((item) => item.inMotion)
+  const completeItems = content.progressItems.filter((item) => !item.inMotion)
 
   return (
     <>
@@ -159,41 +195,17 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
       </div>
 
       <ReadoutDocSection title="Progress This Month">
-        <div className="executive-progress-grid w-full">
-          {content.progressItems.map((item, i) => (
-            <div
-              key={i}
-              className={cn(
-                docPagePanelClassName,
-                'min-w-0',
-                item.inMotion ? 'executive-progress-motion' : 'executive-progress-done',
-              )}
-            >
-              <Item className="executive-progress-item h-full min-w-0 gap-3 p-4 sm:gap-4 sm:p-5">
-                <ItemMedia variant="icon" className="shrink-0">
-                  <span
-                    className={cn(
-                      'executive-progress-icon',
-                      item.inMotion
-                        ? 'executive-progress-icon--motion'
-                        : 'executive-progress-icon--done',
-                    )}
-                    aria-hidden
-                  >
-                    <Icon
-                      name={item.inMotion ? 'CaretRightIcon' : 'CheckIcon'}
-                      size={14}
-                      weight="bold"
-                      color="#ffffff"
-                    />
-                  </span>
-                </ItemMedia>
-                <ItemContent className="min-w-0 flex-1">
-                  <p className={docPageProseClassName}>{item.body}</p>
-                </ItemContent>
-              </Item>
-            </div>
-          ))}
+        <div className="executive-progress-columns w-full">
+          <div className="executive-progress-column">
+            {inMotionItems.map((item, i) => (
+              <ProgressCard key={`motion-${i}`} item={item} />
+            ))}
+          </div>
+          <div className="executive-progress-column">
+            {completeItems.map((item, i) => (
+              <ProgressCard key={`done-${i}`} item={item} />
+            ))}
+          </div>
         </div>
       </ReadoutDocSection>
 
@@ -345,8 +357,9 @@ export function ExecutiveOnePager({ content }: { content: ReadoutMonthContent })
             )}
           >
             <Link
-              href={withBasePath('/docs/introduction')}
-              showExternalIcon={false}
+              href="https://crispy-giggle-y73p3j9.pages.github.io/docs/introduction"
+              external
+              showExternalIcon
               className="flex w-full p-4 text-sm font-semibold text-neutral-900 no-underline hover:text-[var(--uds-text-link-primary-hover)] dark:text-neutral-100 sm:p-5 md:p-6"
             >
               Unified DS Documentation

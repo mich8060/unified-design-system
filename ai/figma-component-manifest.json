@@ -4,7 +4,7 @@
   "rulesDoc": "figma.component.rules.md",
   "buildScript": "node scripts/figma-generate-component-build.mjs <slug> --write",
   "lastInventoryAt": "2026-06-11",
-  "figmaCalendarSnapshot": "ai/figma-calendar.snapshot.json",
+  "figmaCalendarSnapshot": "ai/figma/snapshots/figma-calendar.snapshot.json",
   "inFigma": {
     "Button": {
       "nodeId": "554:268",
@@ -279,7 +279,7 @@
       "status": "in-figma",
       "figmaName": "Calendar",
       "nodeId": "1188:807",
-      "note": "Composite with .calendar-day (1186:575) and .calendar-month (1188:639). Snapshot: ai/figma-calendar.snapshot.json"
+      "note": "Composite with .calendar-day (1186:575) and .calendar-month (1188:639). Snapshot: ai/figma/snapshots/figma-calendar.snapshot.json"
     },
     "calendar-day": {
       "status": "in-figma",
@@ -290,49 +290,49 @@
       "status": "in-figma",
       "figmaName": "Card",
       "nodeId": "1340:4222",
-      "note": "Size=Default|Compact. Content slot (.title + .description default), Image/Footer booleans, AspectRatio media. Snapshot: ai/figma-card.snapshot.json"
+      "note": "Size=Default|Compact. Content slot (.title + .description default), Image/Footer booleans, AspectRatio media. Snapshot: ai/figma/snapshots/figma-card.snapshot.json"
     },
     "chart": {
       "status": "in-figma",
       "figmaName": "Chart",
       "nodeId": "1521:4549",
-      "note": "Chart recipes (412×242, 24px pad) embed self-contained series instances directly (y-axis 23px, plot 333px, Points=2..12). ChartPlot removed. Snapshot: ai/figma-chart.snapshot.json"
+      "note": "Chart recipes (412×242, 24px pad) embed self-contained series instances directly (y-axis 23px, plot 333px, Points=2..12). ChartPlot removed. Snapshot: ai/figma/snapshots/figma-chart.snapshot.json"
     },
     "check-list": {
       "status": "in-figma",
       "figmaName": "CheckList",
       "nodeId": "1629:4568",
-      "note": "Item-level task row (8 variants: Checked × Disabled × Description). TEXT props: task, descriptionLabel. Compose instances for lists. Snapshot: ai/figma-check-list.snapshot.json"
+      "note": "Item-level task row (8 variants: Checked × Disabled × Description). TEXT props: task, descriptionLabel. Compose instances for lists. Snapshot: ai/figma/snapshots/figma-check-list.snapshot.json"
     },
     "checkbox": {
       "status": "in-figma",
       "figmaName": "Checkbox",
       "nodeId": "590:230",
-      "note": "6 variants (State × Disabled). Snapshot: ai/figma-checkbox.snapshot.json"
+      "note": "6 variants (State × Disabled). Snapshot: ai/figma/snapshots/figma-checkbox.snapshot.json"
     },
     "collapsible": {
       "status": "in-figma",
       "figmaName": "Collapsible",
       "nodeId": "1642:55",
-      "note": "Variant × State × IconPosition=Right|Left (8 variants). Content + .content slots. Snapshot: ai/figma-collapsible.snapshot.json"
+      "note": "Variant × State × IconPosition=Right|Left (8 variants). Content + .content slots. Snapshot: ai/figma/snapshots/figma-collapsible.snapshot.json"
     },
     "combobox": {
       "status": "in-figma",
       "figmaName": "ComboboxInput",
       "nodeId": "1791:4702",
-      "note": "Figma atom: ComboboxInput only (1791:4702). List/popover parts (ComboboxContent, ComboboxItem) are code-only. Snapshot: ai/figma-combobox.snapshot.json"
+      "note": "Figma atom: ComboboxInput only (1791:4702). List/popover parts (ComboboxContent, ComboboxItem) are code-only. Snapshot: ai/figma/snapshots/figma-combobox.snapshot.json"
     },
     "command": {
       "status": "in-figma",
       "figmaName": "Command",
       "nodeId": "1713:4626",
-      "note": "Inline .command-input frame on Command (not a child component). Content slot for .command-item, .command-group-heading, .command-empty, .command-separator. Recipe=Default. Snapshot: ai/figma-command.snapshot.json"
+      "note": "Inline .command-input frame on Command (not a child component). Content slot for .command-item, .command-group-heading, .command-empty, .command-separator. Recipe=Default. Snapshot: ai/figma/snapshots/figma-command.snapshot.json"
     },
     "context-menu": {
       "status": "in-figma",
       "figmaName": "ContextMenu",
       "nodeId": "1671:4687",
-      "note": "Child parts: .context-menu-item (10 Type variants + Submenu/Slot on SubTrigger), .context-menu-label, .context-menu-separator. ContextMenu Content slot (Recipe=Default). Snapshot: ai/figma-context-menu.snapshot.json"
+      "note": "Child parts: .context-menu-item (10 Type variants + Submenu/Slot on SubTrigger), .context-menu-label, .context-menu-separator. ContextMenu Content slot (Recipe=Default). Snapshot: ai/figma/snapshots/figma-context-menu.snapshot.json"
     },
     "description-list": {
       "status": "deferred",
@@ -381,7 +381,7 @@
       "variantCount": 4,
       "variantAxis": "Direction",
       "variants": ["Bottom", "Top", "Left", "Right"],
-      "note": "720×520 open preview per variant (overlay included). Snapshot: ai/figma-drawer.snapshot.json"
+      "note": "720×520 open preview per variant (overlay included). Snapshot: ai/figma/snapshots/figma-drawer.snapshot.json"
     },
     "dropdown-menu": {
       "status": "in-figma",
@@ -390,19 +390,19 @@
       "variantCount": 2,
       "variantAxis": "Recipe",
       "variants": ["Default", "Account"],
-      "note": "Button trigger (554:268) + Content panel from .context-menu-* parts. Snapshot: ai/figma-dropdown-menu.snapshot.json"
+      "note": "Button trigger (554:268) + Content panel from .context-menu-* parts. Snapshot: ai/figma/snapshots/figma-dropdown-menu.snapshot.json"
     },
     "date-input": {
       "status": "in-figma",
       "figmaName": "Date Input",
       "nodeId": "1739:4557",
-      "note": "Size=Compact|Default × State. Segmented mm/dd/yyyy + CalendarBlank; tokens aligned with Input. Snapshot: ai/figma-date-input.snapshot.json"
+      "note": "Size=Compact|Default × State. Segmented mm/dd/yyyy + CalendarBlank; tokens aligned with Input. Snapshot: ai/figma/snapshots/figma-date-input.snapshot.json"
     },
     "date-range-input": {
       "status": "in-figma",
       "figmaName": "Date Range Input",
       "nodeId": "1761:4731",
-      "note": "Cloned from Date Input (1739:4557). Size=Compact|Default × State; mm/dd/yyyy – mm/dd/yyyy + CalendarBlank. Snapshot: ai/figma-date-range-input.snapshot.json"
+      "note": "Cloned from Date Input (1739:4557). Size=Compact|Default × State; mm/dd/yyyy – mm/dd/yyyy + CalendarBlank. Snapshot: ai/figma/snapshots/figma-date-range-input.snapshot.json"
     },
     "empty": {
       "status": "in-figma",
@@ -411,7 +411,7 @@
       "variantCount": 4,
       "variantAxis": "Recipe",
       "variants": ["Default", "SingleAction", "TwoActions", "Search404"],
-      "note": "Medallion Blue Pastel 64px + docs recipes. Snapshot: ai/figma-empty.snapshot.json"
+      "note": "Medallion Blue Pastel 64px + docs recipes. Snapshot: ai/figma/snapshots/figma-empty.snapshot.json"
     },
     "field": {
       "status": "in-figma",
@@ -419,7 +419,7 @@
       "nodeId": "1857:5033",
       "variantCount": 4,
       "variantAxes": ["Appearance", "State"],
-      "figmaSnapshot": "ai/figma-field.snapshot.json"
+      "figmaSnapshot": "ai/figma/snapshots/figma-field.snapshot.json"
     },
     "file-upload": {
       "status": "in-figma",
@@ -427,7 +427,7 @@
       "nodeId": "1887:5090",
       "variantCount": 9,
       "variantAxes": ["Size", "State"],
-      "figmaSnapshot": "ai/figma-file-upload.snapshot.json"
+      "figmaSnapshot": "ai/figma/snapshots/figma-file-upload.snapshot.json"
     },
     "file-upload-cards": {
       "status": "in-figma",
@@ -435,7 +435,7 @@
       "nodeId": "1888:5350",
       "variantCount": 2,
       "variantAxes": ["Density"],
-      "figmaSnapshot": "ai/figma-file-upload-cards.snapshot.json"
+      "figmaSnapshot": "ai/figma/snapshots/figma-file-upload-cards.snapshot.json"
     },
     "menu": {
       "status": "in-figma",
@@ -443,7 +443,7 @@
       "nodeId": "1895:6336",
       "variantCount": 18,
       "variantAxes": ["Brand", "Rail"],
-      "figmaSnapshot": "ai/figma-menu.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-menu.snapshot.json",
       "note": "Navigation composes .menu-nav-parent + .menu-nav-child instances. Expanded: 20×44 toggle, 140×56 wordmark clip, per-brand Brand extension. Collapsed: 36×36 mark, 44×44 parent nav icons. Wireframe uses Icon default (House)."
     },
     "menu-nav-parent": {
@@ -452,7 +452,7 @@
       "nodeId": "2369:6204",
       "variantCount": 16,
       "variantAxes": ["Rail", "Kind", "State", "Open"],
-      "figmaSnapshot": "ai/figma-menu-nav-parent.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-menu-nav-parent.snapshot.json",
       "note": "Parent nav atom: Item or Branch × Expanded/Collapsed × Default/Active × Open for branch caret/Children slot."
     },
     "menu-nav-child": {
@@ -461,7 +461,7 @@
       "nodeId": "2369:6219",
       "variantCount": 4,
       "variantAxes": ["Rail", "State"],
-      "figmaSnapshot": "ai/figma-menu-nav-child.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-menu-nav-child.snapshot.json",
       "note": "Nested leaf under expanded branch; TEXT label property."
     },
     "footer": {
@@ -470,7 +470,7 @@
       "nodeId": "2229:5569",
       "variantCount": 2,
       "variantAxes": ["Links"],
-      "figmaSnapshot": "ai/figma-footer.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-footer.snapshot.json",
       "note": "Links=Off|On. 1280×40. Copyright TEXT + Content SLOT (Links=On). TEXT props: Copyright, Link 1, Link 2."
     },
     "header": {
@@ -479,7 +479,7 @@
       "nodeId": "2271:5692",
       "variantCount": 4,
       "variantAxes": ["Leading", "Trailing"],
-      "figmaSnapshot": "ai/figma-header.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-header.snapshot.json",
       "note": "Leading=Search|Custom × Trailing=Off|On. 1280×56. SearchInput instance (Shortcut/Small/Default) or Content SLOT; Actions SLOT (Icon×2 + Avatar instances) when Trailing=On."
     },
     "hover-card": {
@@ -487,7 +487,7 @@
       "figmaName": "HoverCard",
       "nodeId": "2329:6009",
       "variantCount": 1,
-      "figmaSnapshot": "ai/figma-hover-card.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-hover-card.snapshot.json",
       "note": "Content panel (HoverCardContent). Content SLOT + default title/description. Padding uds/spacing/8 on slot."
     },
     "input": {
@@ -496,7 +496,7 @@
       "nodeId": "589:236",
       "variantCount": 16,
       "variantAxes": ["Size", "State", "Content"],
-      "note": "Size × State × Content (16). Placeholder|Filled text layers; TEXT props placeholder + value. Snapshot: ai/figma-input.snapshot.json"
+      "note": "Size × State × Content (16). Placeholder|Filled text layers; TEXT props placeholder + value. Snapshot: ai/figma/snapshots/figma-input.snapshot.json"
     },
     "input-group": {
       "status": "in-figma",
@@ -504,8 +504,8 @@
       "nodeId": "2291:5885",
       "variantCount": 16,
       "variantAxes": ["Size", "State", "Content"],
-      "figmaSnapshot": "ai/figma-input-group.snapshot.json",
-      "note": "Size × State × Content (16). 560px ref width; Start/End addon SLOTs + showStartAddon/showEndAddon. Snapshot: ai/figma-input-group.snapshot.json"
+      "figmaSnapshot": "ai/figma/snapshots/figma-input-group.snapshot.json",
+      "note": "Size × State × Content (16). 560px ref width; Start/End addon SLOTs + showStartAddon/showEndAddon. Snapshot: ai/figma/snapshots/figma-input-group.snapshot.json"
     },
     "input-otp": {
       "status": "in-figma",
@@ -513,8 +513,8 @@
       "nodeId": "2292:6251",
       "variantCount": 24,
       "variantAxes": ["Size", "State", "Progress"],
-      "figmaSnapshot": "ai/figma-input-otp.snapshot.json",
-      "note": "Size × State × Progress (24). Default 64×70 + Compact 44×48 mobile. Snapshot: ai/figma-input-otp.snapshot.json"
+      "figmaSnapshot": "ai/figma/snapshots/figma-input-otp.snapshot.json",
+      "note": "Size × State × Progress (24). Default 64×70 + Compact 44×48 mobile. Snapshot: ai/figma/snapshots/figma-input-otp.snapshot.json"
     },
     "item": {
       "status": "in-figma",
@@ -522,14 +522,14 @@
       "nodeId": "2334:6087",
       "variantCount": 12,
       "variantAxes": ["Appearance", "State", "Size"],
-      "figmaSnapshot": "ai/figma-item.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-item.snapshot.json",
       "note": "Appearance List|Box × State Default|Outline|Muted × Size Default|Compact (12). BOOLEAN Media/Description/Actions. Padding uds/spacing/12×8."
     },
     "kbd": {
       "status": "in-figma",
       "figmaName": "Kbd",
       "nodeId": "1686:4530",
-      "note": "Appearance=Default|Black|Tooltip (3 variants). TEXT prop: key. Snapshot: ai/figma-kbd.snapshot.json"
+      "note": "Appearance=Default|Black|Tooltip (3 variants). TEXT prop: key. Snapshot: ai/figma/snapshots/figma-kbd.snapshot.json"
     },
     "label": {
       "status": "in-figma",
@@ -546,7 +546,7 @@
       "nodeId": "635:225",
       "variantCount": 4,
       "variantAxes": ["Appearance", "State"],
-      "figmaSnapshot": "ai/figma-link.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-link.snapshot.json",
       "note": "Appearance Primary|Secondary × State Default|Hover (4). Body/16/Medium link text; underline on Hover."
     },
     "medallion": {
@@ -555,7 +555,7 @@
       "nodeId": "1847:5417",
       "variantCount": 180,
       "variantAxes": ["Size", "Color", "Tone"],
-      "figmaSnapshot": "ai/figma-medallion.snapshot.json"
+      "figmaSnapshot": "ai/figma/snapshots/figma-medallion.snapshot.json"
     },
     "menubar": {
       "status": "deferred",
@@ -579,7 +579,7 @@
       "nodeId": "2291:5938",
       "variantCount": 16,
       "variantAxes": ["Size", "State", "Content"],
-      "figmaSnapshot": "ai/figma-number-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-number-input.snapshot.json",
       "note": "Input-aligned (16). Placeholder 0 / value 42."
     },
     "pagination": {
@@ -592,8 +592,8 @@
       "nodeId": "2291:6139",
       "variantCount": 16,
       "variantAxes": ["Size", "State", "Content"],
-      "figmaSnapshot": "ai/figma-password-input.snapshot.json",
-      "note": "Text frame + trailing Eye .input-group-button (16). 600×44/36, pl uds/gap/12, pr uds/gap/8. Snapshot: ai/figma-password-input.snapshot.json"
+      "figmaSnapshot": "ai/figma/snapshots/figma-password-input.snapshot.json",
+      "note": "Text frame + trailing Eye .input-group-button (16). 600×44/36, pl uds/gap/12, pr uds/gap/8. Snapshot: ai/figma/snapshots/figma-password-input.snapshot.json"
     },
     "phone-input": {
       "status": "deferred",
@@ -618,7 +618,7 @@
       "nodeId": "1849:5009",
       "variantCount": 6,
       "variantAxes": ["State", "Disabled"],
-      "figmaSnapshot": "ai/figma-radio.snapshot.json"
+      "figmaSnapshot": "ai/figma/snapshots/figma-radio.snapshot.json"
     },
     "resizable": {
       "status": "deferred",
@@ -634,7 +634,7 @@
       "nodeId": "2275:5874",
       "variantCount": 32,
       "variantAxes": ["Recipe", "Size", "State", "Content"],
-      "note": "Recipe × Size × State × Content (32). Placeholder|Filled in .input-group-control; TEXT props placeholder + value. Snapshot: ai/figma-search-input.snapshot.json"
+      "note": "Recipe × Size × State × Content (32). Placeholder|Filled in .input-group-control; TEXT props placeholder + value. Snapshot: ai/figma/snapshots/figma-search-input.snapshot.json"
     },
     "select": {
       "status": "deferred",
@@ -695,13 +695,13 @@
       "nodeId": "1854:5019",
       "variantCount": 6,
       "variantAxes": ["Size", "Checked"],
-      "figmaSnapshot": "ai/figma-switch.snapshot.json"
+      "figmaSnapshot": "ai/figma/snapshots/figma-switch.snapshot.json"
     },
     "table": {
       "status": "in-figma",
       "figmaName": "Table",
       "nodeId": "1430:4180",
-      "note": "Hierarchy Table (1430:4180) \u2192 .table-row (1436:4245) \u2192 .table-cell (1436:4192, Appearance=Body|Head). Restricted slots (allowPreferredValuesOnly) enforce nesting. Snapshot: ai/figma-table.snapshot.json"
+      "note": "Hierarchy Table (1430:4180) \u2192 .table-row (1436:4245) \u2192 .table-cell (1436:4192, Appearance=Body|Head). Restricted slots (allowPreferredValuesOnly) enforce nesting. Snapshot: ai/figma/snapshots/figma-table.snapshot.json"
     },
     "tabs": {
       "status": "in-figma",
@@ -725,7 +725,7 @@
       "nodeId": "2314:6456",
       "variantCount": 32,
       "variantAxes": ["Size", "State", "Content", "Meridiem"],
-      "figmaSnapshot": "ai/figma-time-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-time-input.snapshot.json",
       "note": "InputGroup time field (32). Segmented hours/minutes; meridiem-timezone subframe (uds/spacing/4); Timezone boolean toggles timezone TEXT. 600×44/36."
     },
     "time-step-input": {
@@ -734,7 +734,7 @@
       "nodeId": "2291:6288",
       "variantCount": 16,
       "variantAxes": ["Size", "State", "Content"],
-      "figmaSnapshot": "ai/figma-time-step-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-time-step-input.snapshot.json",
       "note": "Centered Text frame (uds/spacing/4); Timezone boolean toggles timezone TEXT; trailing Clock icon. 600×44/36."
     },
     "token-input": {
@@ -743,8 +743,8 @@
       "nodeId": "2292:6065",
       "variantCount": 8,
       "variantAxes": ["Size", "State"],
-      "figmaSnapshot": "ai/figma-token-input.snapshot.json",
-      "note": "Size × State (8). Content SLOT with Button Outline chips — Small 32px (Default) / Extra Small 24px (Small). Snapshot: ai/figma-token-input.snapshot.json"
+      "figmaSnapshot": "ai/figma/snapshots/figma-token-input.snapshot.json",
+      "note": "Size × State (8). Content SLOT with Button Outline chips — Small 32px (Default) / Extra Small 24px (Small). Snapshot: ai/figma/snapshots/figma-token-input.snapshot.json"
     },
     "toggle": {
       "status": "in-figma",
@@ -769,7 +769,7 @@
       "nodeId": "2292:5933",
       "variantCount": 16,
       "variantAxes": ["Size", "State", "Content"],
-      "figmaSnapshot": "ai/figma-url-input.snapshot.json",
+      "figmaSnapshot": "ai/figma/snapshots/figma-url-input.snapshot.json",
       "note": "InputGroup + https:// protocol addon; 412px ref width (16 variants)."
     }
   },

@@ -58,7 +58,7 @@ Property mapping: [`ai/figma-component-props.json`](../figma-component-props.jso
 Figma is source of truth for the Calendar composite after manual design edits. Pull structure into the repo via:
 
 1. Inspect `Calendar` (`1188:807`), `.calendar-day` (`1186:575`), and `.calendar-month` (`1188:639`) on **UDS Components**.
-2. Update [`ai/figma-calendar.snapshot.json`](../figma-calendar.snapshot.json) — node IDs, layer naming, state token bindings, nav glyphs, and demo grid mapping.
+2. Update [`ai/figma/snapshots/figma-calendar.snapshot.json`](../figma/snapshots/figma-calendar.snapshot.json) — node IDs, layer naming, state token bindings, nav glyphs, and demo grid mapping.
 3. Mirror token/state changes into [`scripts/figma-component-build-specs.json`](../scripts/figma-component-build-specs.json) and [`ai/figma-component-props.json`](../figma-component-props.json).
 4. Align `src/components/ui/calendar.tsx` modifiers with `.calendar-day` states (see snapshot `codeModifierMap`).
 

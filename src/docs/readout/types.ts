@@ -40,7 +40,7 @@ export type ReadoutMonthContent = {
   accomplishments?: readonly string[]
 }
 
-export type ReadoutMonthId = '2026-05' | '2026-06'
+export type ReadoutMonthId = '2026-05' | '2026-06' | '2026-07'
 
 export type ReadoutMonth = {
   id: ReadoutMonthId
