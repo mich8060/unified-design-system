@@ -27,6 +27,7 @@
     "setup.md",
     "figma.component.rules.md",
     "LICENSE",
+    "design-language",
     "ai/uds-contract.json",
     "ai/figma-component-manifest.json",
     "ai/figma-component-props.json",
@@ -107,6 +108,7 @@
     "./figma-component-manifest": "./ai/figma-component-manifest.json",
     "./figma-component-props": "./ai/figma-component-props.json",
     "./figma-rules": "./figma.component.rules.md",
+    "./design-language": "./design-language",
     "./setup": "./setup.md"
   },
   "volta": {
