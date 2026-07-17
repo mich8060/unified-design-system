@@ -96,7 +96,10 @@ function TimeInput({
   const [hoursDraft, setHoursDraft] = React.useState(String(parsed.hours12).padStart(2, "0"))
   const [minutesDraft, setMinutesDraft] = React.useState(String(parsed.minutes).padStart(2, "0"))
 
-  React.useEffect(() => {
+  const valueSyncKey = `${selectedValue}|${defaultValue ?? ""}|${defaultPeriod}`
+  const [prevValueSyncKey, setPrevValueSyncKey] = React.useState(valueSyncKey)
+  if (prevValueSyncKey !== valueSyncKey) {
+    setPrevValueSyncKey(valueSyncKey)
     const next =
       from24HourValue(selectedValue) ??
       from24HourValue(defaultValue ?? "09:30") ?? {
@@ -106,7 +109,7 @@ function TimeInput({
       }
     setHoursDraft(String(next.hours12).padStart(2, "0"))
     setMinutesDraft(String(next.minutes).padStart(2, "0"))
-  }, [selectedValue, defaultValue, defaultPeriod])
+  }
 
   const commitSegment = (nextHours: string, nextMinutes: string, nextPeriod = selectedPeriod) => {
     const hoursNum = Number(nextHours)

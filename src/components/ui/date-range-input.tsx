@@ -98,10 +98,12 @@ function DateRangeInput({
 
   const [text, setText] = React.useState(() => formatRange(selectedRange, separator))
 
-  const rangeKey = `${selectedRange?.from?.getTime() ?? ""}_${selectedRange?.to?.getTime() ?? ""}`
-  React.useEffect(() => {
+  const rangeKey = `${selectedRange?.from?.getTime() ?? ""}_${selectedRange?.to?.getTime() ?? ""}_${separator}`
+  const [prevRangeKey, setPrevRangeKey] = React.useState(rangeKey)
+  if (prevRangeKey !== rangeKey) {
+    setPrevRangeKey(rangeKey)
     setText(formatRange(selectedRange, separator))
-  }, [rangeKey, separator, selectedRange])
+  }
 
   const flipSide = useFlipPopoverSide(open, rootRef, popoverRef, { fallbackHeight: 440 })
 

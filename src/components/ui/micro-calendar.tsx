@@ -145,11 +145,13 @@ function MicroCalendar({
   )
 
   const monthPropTime = monthProp ? startOfMonth(monthProp).getTime() : null
-  React.useEffect(() => {
+  const [prevMonthPropTime, setPrevMonthPropTime] = React.useState(monthPropTime)
+  if (monthPropTime !== prevMonthPropTime) {
+    setPrevMonthPropTime(monthPropTime)
     if (monthPropTime != null) {
       setCurrentMonth(startOfMonth(new Date(monthPropTime)))
     }
-  }, [monthPropTime])
+  }
 
   const year = currentMonth.getFullYear()
   const monthIndex = currentMonth.getMonth()

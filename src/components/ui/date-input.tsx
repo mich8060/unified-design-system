@@ -95,9 +95,11 @@ function DateInput({
   const [text, setText] = React.useState(() => (selectedDate ? formatDate(selectedDate) : ""))
 
   const selectedKey = selectedDate?.getTime() ?? "none"
-  React.useEffect(() => {
+  const [prevSelectedKey, setPrevSelectedKey] = React.useState(selectedKey)
+  if (prevSelectedKey !== selectedKey) {
+    setPrevSelectedKey(selectedKey)
     setText(selectedDate ? formatDate(selectedDate) : "")
-  }, [selectedKey, selectedDate])
+  }
 
   const flipSide = useFlipPopoverSide(open, rootRef, popoverRef, { fallbackHeight: 360 })
 

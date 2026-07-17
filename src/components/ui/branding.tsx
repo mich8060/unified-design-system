@@ -73,12 +73,15 @@ function Branding({
   const cacheKey = `${appearance}:${variant}`
 
   const [src, setSrc] = React.useState<string>(() => urlCache.get(cacheKey) ?? "")
+  const [loadedKey, setLoadedKey] = React.useState(cacheKey)
+
+  if (loadedKey !== cacheKey) {
+    setLoadedKey(cacheKey)
+    setSrc(urlCache.get(cacheKey) ?? "")
+  }
 
   React.useEffect(() => {
-    if (urlCache.has(cacheKey)) {
-      setSrc(urlCache.get(cacheKey)!)
-      return
-    }
+    if (urlCache.has(cacheKey)) return
     let active = true
     SVG_LOADERS[appearance]?.[variant]?.().then(url => {
       urlCache.set(cacheKey, url)

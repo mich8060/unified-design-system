@@ -785,42 +785,42 @@ function MenuNavigation({
     : ""
 
   const [expandedGroupIds, setExpandedGroupIds] = React.useState<Set<string>>(() => new Set())
+  /** Null sentinels force an initial sync so active-item ancestors expand on mount. */
+  const [prevStructureKey, setPrevStructureKey] = React.useState<string | null>(null)
+  const [prevActiveId, setPrevActiveId] = React.useState<string | undefined | null>(null)
 
-  React.useEffect(() => {
-    if (!navigationItems) return
-    const ids = collectNavigationGroupIds(navigationItems)
-    const allowed = new Set(ids)
+  if (
+    navigationItems &&
+    (prevStructureKey !== groupStructureKey || prevActiveId !== activeId)
+  ) {
+    const structureChanged = prevStructureKey !== groupStructureKey
+    setPrevStructureKey(groupStructureKey)
+    setPrevActiveId(activeId)
     setExpandedGroupIds((prev) => {
       const next = new Set(prev)
       let changed = false
-      for (const id of next) {
-        if (!allowed.has(id)) {
-          next.delete(id)
-          changed = true
+
+      if (structureChanged) {
+        const allowed = new Set(collectNavigationGroupIds(navigationItems))
+        for (const id of next) {
+          if (!allowed.has(id)) {
+            next.delete(id)
+            changed = true
+          }
         }
       }
-      return changed ? next : prev
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groupStructureKey])
 
-  React.useEffect(() => {
-    if (!navigationItems) return
-    const ancestorIds = collectAncestorBranchIdsForActiveItem(navigationItems, activeId)
-    if (ancestorIds.length === 0) return
-    setExpandedGroupIds((prev) => {
-      const next = new Set(prev)
-      let changed = false
+      const ancestorIds = collectAncestorBranchIdsForActiveItem(navigationItems, activeId)
       for (const id of ancestorIds) {
         if (!next.has(id)) {
           next.add(id)
           changed = true
         }
       }
+
       return changed ? next : prev
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeId, groupStructureKey])
+  }
 
   const toggleGroup = React.useCallback((id: string) => {
     setExpandedGroupIds((prev) => {
@@ -1319,21 +1319,22 @@ function MenuDefault({
     resolveMenuBrand({ brand, defaultBrand: resolvedDefaultBrand, brandStorageKey }),
   )
 
+  const brandFromProp = brand != null ? brand : activeBrand
+  const brandInOptions =
+    !brandOptions?.length || brandOptions.some((option) => option.value === brandFromProp)
+  const fallbackBrand = brandOptions?.[0]?.value
+  const resolvedBrand =
+    !brandInOptions && fallbackBrand && isUdsBrandId(fallbackBrand)
+      ? fallbackBrand
+      : brandFromProp
+
+  if (resolvedBrand !== activeBrand) {
+    setActiveBrand(resolvedBrand)
+  }
+
   React.useLayoutEffect(() => {
     applyUdsBrandToDocument(activeBrand)
   }, [activeBrand])
-
-  React.useLayoutEffect(() => {
-    if (brand == null) return
-    setActiveBrand(brand)
-  }, [brand])
-
-  React.useEffect(() => {
-    if (!brandOptions?.length) return
-    if (brandOptions.some((option) => option.value === activeBrand)) return
-    const next = brandOptions[0]?.value
-    if (next && isUdsBrandId(next)) setActiveBrand(next)
-  }, [activeBrand, brandOptions])
 
   const handleBrandChange = React.useCallback(
     (value: string) => {
