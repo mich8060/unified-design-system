@@ -45,7 +45,7 @@ function CommandInput({
           className={cn(commandInputClass, className)}
           {...props}
         />
-        <InputGroupAddon>
+        <InputGroupAddon align="inline-end">
           <MagnifyingGlassIcon className="size-4 shrink-0 opacity-50" />
         </InputGroupAddon>
       </InputGroup>

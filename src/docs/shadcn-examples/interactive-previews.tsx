@@ -656,13 +656,14 @@ export function ComboboxDemo() {
 
 export function CommandInlineDemo() {
   return (
-    <Command className="max-h-56 border shadow-md">
+    <Command className="max-h-56 border border-[var(--uds-border-primary)] shadow-md">
       <CommandInput placeholder="Search…" />
       <CommandList>
         <CommandEmpty>No matches.</CommandEmpty>
         <CommandGroup heading="Suggestions">
           <CommandItem>Calendar</CommandItem>
           <CommandItem>Settings</CommandItem>
+          <CommandItem>Calculator</CommandItem>
         </CommandGroup>
       </CommandList>
     </Command>

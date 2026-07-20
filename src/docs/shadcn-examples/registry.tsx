@@ -2231,13 +2231,13 @@ const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
             'palette',
             'Command list',
             <CommandInlineDemo />,
-            `<Command className="rounded-lg border shadow-sm">
-  <CommandInput placeholder="Type a command or search..." />
+            `<Command className="border border-[var(--uds-border-primary)] shadow-md">
+  <CommandInput placeholder="Search…" />
   <CommandList>
-    <CommandEmpty>No results found.</CommandEmpty>
+    <CommandEmpty>No matches.</CommandEmpty>
     <CommandGroup heading="Suggestions">
       <CommandItem>Calendar</CommandItem>
-      <CommandItem>Search Emoji</CommandItem>
+      <CommandItem>Settings</CommandItem>
       <CommandItem>Calculator</CommandItem>
     </CommandGroup>
   </CommandList>

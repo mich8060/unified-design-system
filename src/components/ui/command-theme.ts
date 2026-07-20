@@ -7,7 +7,7 @@ export const commandDialogContentClass =
 export const commandInputWrapperClass = "p-1 pb-0"
 
 export const commandInputGroupClass =
-  "rounded-[length:var(--uds-radius-4)]! border-input/30 bg-[var(--uds-surface-secondary)] shadow-none! *:data-[slot=input-group-addon]:pl-2!"
+  "h-8! rounded-[length:var(--uds-radius-4)]! border-[var(--uds-border-secondary)] bg-[var(--uds-surface-secondary)] shadow-none! *:data-[slot=input-group-addon]:pl-2!"
 
 export const commandInputClass =
   "h-full min-h-0 w-full bg-transparent px-2.5 text-uds-14 font-uds-regular leading-uds-14 [font-family:var(--font-inter)] outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
