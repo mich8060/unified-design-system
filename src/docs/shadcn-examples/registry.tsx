@@ -78,7 +78,7 @@ import {
 import { FileUpload, FileUploadCards } from '@chghealthcare/unified-design-system'
 import { Footer } from '@chghealthcare/unified-design-system'
 import { Header } from '@chghealthcare/unified-design-system'
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@chghealthcare/unified-design-system'
+import { Popover, PopoverContent, PopoverTrigger } from '@chghealthcare/unified-design-system'
 import {
     CheckList,
     CheckListControl,
@@ -485,19 +485,19 @@ function InputIconExamples() {
     )
 }
 
-function HoverCardDemo() {
+function PopoverHoverDemo() {
     return (
-        <HoverCard>
-            <HoverCardTrigger asChild>
+        <Popover trigger="hover">
+            <PopoverTrigger asChild>
                 <Button variant="link" className="h-auto p-0 text-foreground">
                     Hover for profile
                 </Button>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-64 rounded-[4px]">
+            </PopoverTrigger>
+            <PopoverContent className="w-64 rounded-[4px]">
                 <p className="text-sm font-medium">Preview card</p>
                 <p className="mt-1 text-xs text-muted-foreground">Rich hover content lives here.</p>
-            </HoverCardContent>
-        </HoverCard>
+            </PopoverContent>
+        </Popover>
     )
 }
 
@@ -3470,21 +3470,6 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
 />`,
         ),
     ],
-    'hover-card': [
-        E('preview', 'Hover preview', <HoverCardDemo />, `import { HoverCard, HoverCardContent, HoverCardTrigger } from "@chghealthcare/unified-design-system"
-
-<HoverCard>
-  <HoverCardTrigger asChild>
-    <Button variant="link" className="px-0">@mstevens</Button>
-  </HoverCardTrigger>
-  <HoverCardContent className="w-80 rounded-[4px]">
-    <div className="space-y-1">
-      <h4 className="text-sm font-semibold">@mstevens</h4>
-      <p className="text-sm text-muted-foreground">Design system maintainer and documentation owner.</p>
-    </div>
-  </HoverCardContent>
-</HoverCard>`),
-    ],
     input: [
         E(
             'default',
@@ -4022,7 +4007,8 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
 </PaginationLink>`,
         ),
     ],
-    popover: [E('anchored', 'Popover', <PopoverVariants />, `<Popover>
+    popover: [
+        E('anchored', 'Click trigger', <PopoverVariants />, `<Popover>
   <PopoverTrigger asChild>
     <Button variant="outline">Open popover</Button>
   </PopoverTrigger>
@@ -4032,7 +4018,24 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
       <p className="text-sm text-muted-foreground">Copy a secure link or send the profile directly.</p>
     </div>
   </PopoverContent>
-</Popover>`)],
+</Popover>`),
+        E(
+            'hover',
+            'Hover trigger',
+            <PopoverHoverDemo />,
+            `<Popover trigger="hover">
+  <PopoverTrigger asChild>
+    <Button variant="link" className="px-0">@mstevens</Button>
+  </PopoverTrigger>
+  <PopoverContent className="w-80 rounded-[4px]">
+    <div className="space-y-1">
+      <h4 className="text-sm font-semibold">@mstevens</h4>
+      <p className="text-sm text-muted-foreground">Design system maintainer and documentation owner.</p>
+    </div>
+  </PopoverContent>
+</Popover>`,
+        ),
+    ],
     progress: [
         E(
             'value',

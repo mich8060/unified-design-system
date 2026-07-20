@@ -109,9 +109,6 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
   header: {
     summary: 'Header provides a top bar above the main content area with leading content (search, breadcrumbs) and trailing utility actions.',
   },
-  'hover-card': {
-    summary: 'Hover Card previews richer metadata on demand without forcing a full navigation or modal interruption.',
-  },
   input: {
     summary: 'Input handles short-form text entry with the package sizing, focus, and validation styling defaults.',
   },
@@ -170,7 +167,7 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Phone Input presets Input for telephone formatting and keypad-friendly mobile entry.',
   },
   popover: {
-    summary: 'Popover anchors lightweight content to a trigger for inline detail, helper UI, or compact forms.',
+    summary: 'Popover anchors lightweight content to a trigger for inline detail, helper UI, or compact forms — pass `trigger="hover"` for a hover-preview card instead of click-to-open.',
   },
   progress: {
     summary: 'Progress communicates completion status for uploads, workflows, or long-running tasks at a glance.',

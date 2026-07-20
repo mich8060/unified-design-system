@@ -523,12 +523,6 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     CN,
     MORE,
   ],
-  'hover-card': [
-    r('open / onOpenChange', 'boolean / fn', 'Popover visibility.'),
-    r('openDelay / closeDelay', 'number', 'Hover timing (ms).'),
-    CN,
-    MORE,
-  ],
   input: [
     r('inputSize', "'default' | 'sm'", 'Field height and typography. Figma `Size=Default` → `default` (44px); `Size=Compact` → `sm` (36px).', 'default'),
     r('type', 'string', 'HTML input type.', 'text'),
@@ -735,8 +729,15 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     MORE,
   ],
   popover: [
+    r(
+      'trigger',
+      '"click" | "hover"',
+      '"click" renders Radix Popover (keyboard/click, supports `modal`); "hover" renders Radix HoverCard (hover/focus-in, supports `openDelay`/`closeDelay`).',
+      '"click"',
+    ),
     r('open / onOpenChange', 'boolean / fn', 'Popover visibility.'),
-    r('modal', 'boolean', 'Modal focus behavior.', 'false'),
+    r('modal', 'boolean', 'Modal focus behavior. Only applies when `trigger="click"`.', 'false'),
+    r('openDelay / closeDelay', 'number', 'Hover timing (ms). Only applies when `trigger="hover"`.', '700 / 300'),
     CN,
     MORE,
   ],

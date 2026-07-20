@@ -34,7 +34,6 @@ export const SHADCN_UI_SLUGS = [
   'file-upload-cards',
   'footer',
   'header',
-  'hover-card',
   'input',
   'input-group',
   'input-otp',
