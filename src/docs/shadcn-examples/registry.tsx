@@ -62,6 +62,13 @@ import {
 import { DirectionProvider } from '@chghealthcare/unified-design-system'
 import { DotStatus, DOT_STATUS_VARIANTS } from '@chghealthcare/unified-design-system'
 import {
+    EVENT_CARD_COLORS,
+    EventCard,
+    EventCardDetail,
+    EventCardRoute,
+    EventCardTypeLabel,
+} from '@chghealthcare/unified-design-system'
+import {
     Field,
     FieldContent,
     FieldDescription,
@@ -216,17 +223,21 @@ import { Toggle } from '@chghealthcare/unified-design-system'
 import { ToggleGroup, ToggleGroupItem } from '@chghealthcare/unified-design-system'
 import { cn } from '@chghealthcare/unified-design-system'
 import {
+    AirplaneIcon,
     ArrowRightIcon,
     BellIcon,
+    CarIcon,
     CaretDownIcon,
     CaretRightIcon,
     DownloadSimpleIcon,
     EnvelopeIcon,
     FileTextIcon,
+    HospitalIcon,
     HouseIcon,
     Icon,
     InfoIcon,
     MagnifyingGlassIcon,
+    PhoneIcon,
     PlusIcon,
     QuestionIcon,
     UserIcon,
@@ -2517,6 +2528,136 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
     </p>
   </EmptyContent>
 </Empty>`,
+        ),
+    ],
+    'event-card': [
+        E(
+            'on-call',
+            'On Call',
+            <EventCard
+                color="sky"
+                title="Kansas City, KS"
+                type={
+                    <EventCardTypeLabel icon={<PhoneIcon weight="fill" />}>On Call</EventCardTypeLabel>
+                }
+            >
+                <EventCardDetail>Providence Medical Center</EventCardDetail>
+                <EventCardDetail>9:00a - 6:00p</EventCardDetail>
+            </EventCard>,
+            `<EventCard
+  color="sky"
+  title="Kansas City, KS"
+  type={<EventCardTypeLabel icon={<PhoneIcon weight="fill" />}>On Call</EventCardTypeLabel>}
+>
+  <EventCardDetail>Providence Medical Center</EventCardDetail>
+  <EventCardDetail>9:00a - 6:00p</EventCardDetail>
+</EventCard>`,
+        ),
+        E(
+            'on-site',
+            'On Site',
+            <EventCard
+                color="sky"
+                title="Kansas City, KS"
+                type={
+                    <EventCardTypeLabel icon={<HospitalIcon weight="fill" />}>On Site</EventCardTypeLabel>
+                }
+            >
+                <EventCardDetail>Providence Medical Center</EventCardDetail>
+                <EventCardDetail>9:00a - 6:00p</EventCardDetail>
+            </EventCard>,
+            `<EventCard
+  color="sky"
+  title="Kansas City, KS"
+  type={<EventCardTypeLabel icon={<HospitalIcon weight="fill" />}>On Site</EventCardTypeLabel>}
+>
+  <EventCardDetail>Providence Medical Center</EventCardDetail>
+  <EventCardDetail>9:00a - 6:00p</EventCardDetail>
+</EventCard>`,
+        ),
+        E(
+            'hotel',
+            'Hotel',
+            <EventCard
+                color="emerald"
+                title="Hamp Inn Kansas City The Legend"
+                type={<EventCardTypeLabel icon={<HouseIcon weight="fill" />}>Hotel</EventCardTypeLabel>}
+            >
+                <EventCardDetail>1400 VILLAGE WEST PKWY,</EventCardDetail>
+                <EventCardDetail>KANSAS CITY, KS 66111</EventCardDetail>
+                <EventCardDetail>Check out: 11:00am</EventCardDetail>
+            </EventCard>,
+            `<EventCard
+  color="emerald"
+  title="Hamp Inn Kansas City The Legend"
+  type={<EventCardTypeLabel icon={<HouseIcon weight="fill" />}>Hotel</EventCardTypeLabel>}
+>
+  <EventCardDetail>1400 VILLAGE WEST PKWY,</EventCardDetail>
+  <EventCardDetail>KANSAS CITY, KS 66111</EventCardDetail>
+  <EventCardDetail>Check out: 11:00am</EventCardDetail>
+</EventCard>`,
+        ),
+        E(
+            'flight',
+            'Flight',
+            <EventCard
+                color="emerald"
+                title="American Airlines"
+                type={<EventCardTypeLabel icon={<AirplaneIcon weight="fill" />}>Flight</EventCardTypeLabel>}
+            >
+                <EventCardRoute from="Kansas City, MO" to="Minneapolis, MN" />
+                <EventCardDetail>Departure: 11:14am</EventCardDetail>
+            </EventCard>,
+            `<EventCard
+  color="emerald"
+  title="American Airlines"
+  type={<EventCardTypeLabel icon={<AirplaneIcon weight="fill" />}>Flight</EventCardTypeLabel>}
+>
+  <EventCardRoute from="Kansas City, MO" to="Minneapolis, MN" />
+  <EventCardDetail>Departure: 11:14am</EventCardDetail>
+</EventCard>`,
+        ),
+        E(
+            'car-rental',
+            'Car Rental',
+            <EventCard
+                color="emerald"
+                title="Hertz Rental Car"
+                type={<EventCardTypeLabel icon={<CarIcon weight="fill" />}>Car Rental</EventCardTypeLabel>}
+            >
+                <EventCardDetail>132 CARSON RD,</EventCardDetail>
+                <EventCardDetail>NEWARK, NJ 07114</EventCardDetail>
+                <EventCardDetail>Drop off: 10:00am</EventCardDetail>
+            </EventCard>,
+            `<EventCard
+  color="emerald"
+  title="Hertz Rental Car"
+  type={<EventCardTypeLabel icon={<CarIcon weight="fill" />}>Car Rental</EventCardTypeLabel>}
+>
+  <EventCardDetail>132 CARSON RD,</EventCardDetail>
+  <EventCardDetail>NEWARK, NJ 07114</EventCardDetail>
+  <EventCardDetail>Drop off: 10:00am</EventCardDetail>
+</EventCard>`,
+        ),
+        E(
+            'accent-colors',
+            'Accent colors',
+            (
+                <div className="flex flex-col gap-2">
+                    {EVENT_CARD_COLORS.map((color) => (
+                        <EventCard key={color} color={color} title={color}>
+                            <EventCardDetail className="capitalize">{color} accent</EventCardDetail>
+                        </EventCard>
+                    ))}
+                </div>
+            ),
+            `import { EventCard, EventCardDetail, EVENT_CARD_COLORS } from "@chghealthcare/unified-design-system"
+
+{EVENT_CARD_COLORS.map((color) => (
+  <EventCard key={color} color={color} title={color}>
+    <EventCardDetail className="capitalize">{color} accent</EventCardDetail>
+  </EventCard>
+))}`,
         ),
     ],
     field: [

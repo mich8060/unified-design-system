@@ -28,6 +28,7 @@ export const SHADCN_UI_SLUGS = [
   'date-input',
   'date-range-input',
   'empty',
+  'event-card',
   'field',
   'file-upload',
   'file-upload-cards',

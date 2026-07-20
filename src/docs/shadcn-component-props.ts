@@ -440,6 +440,27 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     r('children', 'ReactNode', 'Title, description, media, actions.'),
     MORE,
   ],
+  'event-card': [
+    r(
+      'color',
+      '"sky" | "emerald" | "red" | "amber" | "aqua" | "blue" | "cyan" | "fuchsia" | "green" | "indigo" | "lime" | "magenta" | "orange" | "purple" | "rose" | "violet" | "yellow"',
+      'Left-border and background accent color. Full UDS accent palette (17 hues).',
+      '"sky"',
+    ),
+    r('title', 'ReactNode', 'Bold heading line (location or vendor name).'),
+    r(
+      'type',
+      'ReactNode',
+      'Right-aligned slot — an icon, a label, a badge, or any combination of components. Compose with EventCardTypeLabel for the icon + label pattern.',
+    ),
+    r(
+      'children',
+      'ReactNode',
+      'Detail rows under the title — compose with EventCardDetail / EventCardRoute or plain text.',
+    ),
+    CN,
+    MORE,
+  ],
   field: [
     r('FieldSet.name', 'string', 'Group name for nested controls.'),
     r('FieldLegend', 'ReactNode', 'Accessible group label.'),

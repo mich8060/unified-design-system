@@ -91,6 +91,9 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
   empty: {
     summary: 'Empty states explain missing content, set expectations, and point users toward the next useful action.',
   },
+  'event-card': {
+    summary: 'Event Card summarizes a single scheduled item with a titled heading, an accent color from the full UDS palette, a detail-rows slot, and a right-aligned type slot for an icon and label.',
+  },
   field: {
     summary: 'Field standardizes labels, legends, and help text so form controls read consistently as one input unit.',
   },
