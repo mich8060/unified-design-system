@@ -899,8 +899,20 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
   ],
   status: [
     r('variant', '"neutral" | "success" | "warning" | "error" | "info"', 'Semantic status color style.', 'neutral'),
+    r(
+      'appearance',
+      '"solid" | "outlined" | "text-only"',
+      '"solid" fills the badge; "outlined" is border-only (transparent fill); "text-only" drops the container entirely (label + dot only).',
+      'solid',
+    ),
+    r(
+      'color',
+      '"pastel" | "default"',
+      '"pastel" is a soft tint; "default" is a deeper, more saturated treatment of the same appearance.',
+      'pastel',
+    ),
     r('size', '"default" | "compact"', 'Default uses 14px type and an 8px dot; compact uses 12px type and a 6px dot.', 'default'),
-    r('dot', 'boolean', 'Show/hide leading status indicator dot.', 'true'),
+    r('dot', 'boolean', 'Show/hide leading status indicator dot. In "text-only" appearance the dot uses a distinct (softer or bolder) tone from the label text.', 'true'),
     CN,
     MORE,
   ],

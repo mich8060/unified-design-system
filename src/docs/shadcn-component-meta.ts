@@ -219,7 +219,7 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Statistics provides labeled metric cards for dashboards and summary rails with values and helper context.',
   },
   status: {
-    summary: 'Status displays semantic state labels with optional indicator dots for readiness, success, warning, and error states.',
+    summary: 'Status displays semantic state labels with optional indicator dots for readiness, success, warning, and error states — with solid, outlined, and text-only appearances, each in a pastel or deeper "default" color treatment.',
   },
   steps: {
     summary: 'Steps presents ordered workflow progress with upcoming/current/complete markers and descriptive guidance.',

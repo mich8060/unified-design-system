@@ -3266,6 +3266,59 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             ),
             `<Status size="compact" variant="success">Approved</Status>`,
         ),
+        E(
+            'appearances',
+            'Appearances',
+            (
+                <div className="flex flex-col gap-2">
+                    {(['solid', 'outlined', 'text-only'] as const).map((appearance) => (
+                        <div key={appearance} className="flex flex-wrap items-center gap-2">
+                            <Status appearance={appearance} variant="info">
+                                In review
+                            </Status>
+                            <Status appearance={appearance} variant="success">
+                                Approved
+                            </Status>
+                            <Status appearance={appearance} variant="warning">
+                                Needs follow-up
+                            </Status>
+                            <Status appearance={appearance} variant="error">
+                                Blocked
+                            </Status>
+                        </div>
+                    ))}
+                </div>
+            ),
+            `<Status appearance="solid" variant="success">Approved</Status>
+<Status appearance="outlined" variant="success">Approved</Status>
+<Status appearance="text-only" variant="success">Approved</Status>`,
+        ),
+        E(
+            'colors',
+            'Pastel vs. default color',
+            (
+                <div className="flex flex-col gap-2">
+                    {(['pastel', 'default'] as const).map((color) => (
+                        <div key={color} className="flex flex-wrap items-center gap-2">
+                            <Status color={color} variant="info">
+                                In review
+                            </Status>
+                            <Status color={color} variant="success">
+                                Approved
+                            </Status>
+                            <Status color={color} variant="warning">
+                                Needs follow-up
+                            </Status>
+                            <Status color={color} variant="error">
+                                Blocked
+                            </Status>
+                        </div>
+                    ))}
+                </div>
+            ),
+            `<Status color="pastel" variant="success">Approved</Status>
+<Status color="default" variant="success">Approved</Status>`,
+        ),
     ],
     steps: [
         E(
