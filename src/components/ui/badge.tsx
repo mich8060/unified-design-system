@@ -94,6 +94,26 @@ function isChromaticAccent(
   return (CHROMATIC_ACCENTS as readonly string[]).includes(a)
 }
 
+/**
+ * Solid-appearance background shade per accent. Matches the official Figma Badge
+ * component, where each hue was individually tuned to clear WCAG AA (4.5:1) against
+ * its paired text color — a flat step (e.g. always 500) fails contrast for most hues.
+ */
+const SOLID_BG_SHADE: Record<(typeof CHROMATIC_ACCENTS)[number], number> = {
+  red: 700,
+  orange: 300,
+  yellow: 500,
+  emerald: 700,
+  green: 600,
+  sky: 700,
+  cyan: 700,
+  blue: 700,
+  indigo: 700,
+  purple: 700,
+  fuchsia: 700,
+  magenta: 700,
+}
+
 /** Chromatic accents use inline styles so Tailwind does not need literal class names for every hue (dynamic classes are tree-shaken). */
 function chromaticAccentStyle(
   accent: (typeof CHROMATIC_ACCENTS)[number],
@@ -115,14 +135,14 @@ function chromaticAccentStyle(
       }
     case "outlined":
       return {
-        color: v(600),
+        color: v(1000),
         backgroundColor: "transparent",
         borderColor: v(500),
       }
     case "solid": {
       const darkFg = accent === "yellow" || accent === "orange"
       return {
-        backgroundColor: v(500),
+        backgroundColor: v(SOLID_BG_SHADE[accent]),
         borderColor: "transparent",
         color: darkFg ? "var(--uds-color-black)" : "var(--uds-color-white)",
       }

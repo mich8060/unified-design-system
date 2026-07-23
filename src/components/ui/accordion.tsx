@@ -4,7 +4,7 @@ import { Accordion as AccordionPrimitive } from "radix-ui"
 import { cn } from "@/lib/utils"
 import { CaretDownIcon, CaretUpIcon } from "@phosphor-icons/react"
 
-export type AccordionVariant = "boxed" | "boxed-filled" | "divided"
+export type AccordionVariant = "boxed" | "boxed-filled" | "divided" | "separated"
 
 const AccordionVariantContext = React.createContext<AccordionVariant>("divided")
 
@@ -26,6 +26,7 @@ function Accordion({
             "overflow-hidden rounded-[4px] border border-border bg-background",
           variant === "boxed-filled" &&
             "overflow-hidden rounded-[4px] border border-border bg-uds-surface-secondary",
+          variant === "separated" && "gap-[length:var(--uds-gap-12)]",
           className,
         )}
         {...props}
@@ -38,11 +39,14 @@ function AccordionItem({
   className,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
+  const variant = React.useContext(AccordionVariantContext)
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
       className={cn(
-        "border-b border-border last:border-b-0",
+        variant === "separated"
+          ? "overflow-hidden rounded-[4px] border border-uds-border-secondary bg-uds-surface-secondary"
+          : "border-b border-border last:border-b-0",
         className,
       )}
       {...props}

@@ -22,7 +22,7 @@ function Avatar({
     <AvatarBase
       data-size={size}
       className={cn(
-        "group/avatar relative shrink-0 rounded-full after:absolute after:inset-0 after:rounded-full after:border after:border-border after:mix-blend-darken data-[size=default]:size-12 data-[size=lg]:size-16 data-[size=sm]:size-9 data-[size=xs]:size-8 dark:after:mix-blend-lighten",
+        "group/avatar relative shrink-0 rounded-full after:absolute after:inset-0 after:rounded-full after:border after:border-uds-border-inverse data-[size=default]:size-12 data-[size=lg]:size-16 data-[size=sm]:size-9 data-[size=xs]:size-8",
         className,
       )}
       {...props}

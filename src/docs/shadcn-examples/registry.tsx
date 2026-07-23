@@ -1081,6 +1081,32 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
 </Accordion>`,
         ),
         E(
+            'separated',
+            'Each item its own bordered, filled box (full width)',
+            (
+                <Accordion type="single" collapsible variant="separated" className="w-full">
+                    <AccordionItem value="a">
+                        <AccordionTrigger>Section one</AccordionTrigger>
+                        <AccordionContent>Content for the first section.</AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="b">
+                        <AccordionTrigger>Section two</AccordionTrigger>
+                        <AccordionContent>Content for the second section.</AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            ),
+            `<Accordion type="single" collapsible variant="separated" className="w-full">
+  <AccordionItem value="a">
+    <AccordionTrigger>Section one</AccordionTrigger>
+    <AccordionContent>Content for the first section.</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="b">
+    <AccordionTrigger>Section two</AccordionTrigger>
+    <AccordionContent>Content for the second section.</AccordionContent>
+  </AccordionItem>
+</Accordion>`,
+        ),
+        E(
             'multiple',
             'Multiple panels open (divided style)',
             (
@@ -1183,6 +1209,86 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             ),
             `<Alert variant="success" className="max-w-md">
   <Medallion color="green" icon={<CheckCircleIcon weight="bold" aria-hidden />} />
+  <AlertContent>
+    <AlertTitle>Success</AlertTitle>
+    <AlertDescription>Your changes were saved.</AlertDescription>
+  </AlertContent>
+</Alert>`,
+        ),
+        E(
+            'filled',
+            'Filled',
+            (
+                <Alert style="filled" className="max-w-md">
+                    <Medallion color="neutrals" icon={<InfoIcon weight="bold" aria-hidden />} />
+                    <AlertContent>
+                        <AlertTitle>Note</AlertTitle>
+                        <AlertDescription>Use alerts for inline status that doesn’t block the page.</AlertDescription>
+                    </AlertContent>
+                </Alert>
+            ),
+            `<Alert style="filled" className="max-w-md">
+  <Medallion color="neutrals" icon={<InfoIcon weight="bold" aria-hidden />} />
+  <AlertContent>
+    <AlertTitle>Note</AlertTitle>
+    <AlertDescription>Use alerts for inline status that doesn’t block the page.</AlertDescription>
+  </AlertContent>
+</Alert>`,
+        ),
+        E(
+            'filled-destructive',
+            'Filled destructive',
+            (
+                <Alert variant="destructive" style="filled" className="max-w-md">
+                    <Medallion color="neutrals" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+                    <AlertContent>
+                        <AlertTitle>Error</AlertTitle>
+                        <AlertDescription>Something went wrong. Try again.</AlertDescription>
+                    </AlertContent>
+                </Alert>
+            ),
+            `<Alert variant="destructive" style="filled" className="max-w-md">
+  <Medallion color="neutrals" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+  <AlertContent>
+    <AlertTitle>Error</AlertTitle>
+    <AlertDescription>Something went wrong. Try again.</AlertDescription>
+  </AlertContent>
+</Alert>`,
+        ),
+        E(
+            'filled-warning',
+            'Filled warning',
+            (
+                <Alert variant="warning" style="filled" className="max-w-md">
+                    <Medallion color="neutrals" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+                    <AlertContent>
+                        <AlertTitle>Warning</AlertTitle>
+                        <AlertDescription>Review this before you continue.</AlertDescription>
+                    </AlertContent>
+                </Alert>
+            ),
+            `<Alert variant="warning" style="filled" className="max-w-md">
+  <Medallion color="neutrals" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
+  <AlertContent>
+    <AlertTitle>Warning</AlertTitle>
+    <AlertDescription>Review this before you continue.</AlertDescription>
+  </AlertContent>
+</Alert>`,
+        ),
+        E(
+            'filled-success',
+            'Filled success',
+            (
+                <Alert variant="success" style="filled" className="max-w-md">
+                    <Medallion color="neutrals" icon={<CheckCircleIcon weight="bold" aria-hidden />} />
+                    <AlertContent>
+                        <AlertTitle>Success</AlertTitle>
+                        <AlertDescription>Your changes were saved.</AlertDescription>
+                    </AlertContent>
+                </Alert>
+            ),
+            `<Alert variant="success" style="filled" className="max-w-md">
+  <Medallion color="neutrals" icon={<CheckCircleIcon weight="bold" aria-hidden />} />
   <AlertContent>
     <AlertTitle>Success</AlertTitle>
     <AlertDescription>Your changes were saved.</AlertDescription>
@@ -1325,14 +1431,20 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                 <div className="flex flex-wrap items-start gap-3">
                     {[
                         { label: '9:16', ratio: 9 / 16 },
+                        { label: '3:5', ratio: 3 / 5 },
+                        { label: 'Golden (portrait)', ratio: 2 / (1 + Math.sqrt(5)) },
                         { label: '2:3', ratio: 2 / 3 },
+                        { label: '5:7', ratio: 5 / 7 },
                         { label: '3:4', ratio: 3 / 4 },
                         { label: '4:5', ratio: 4 / 5 },
                         { label: '1:1', ratio: 1 },
                         { label: '5:4', ratio: 5 / 4 },
                         { label: '4:3', ratio: 4 / 3 },
+                        { label: '7:5', ratio: 7 / 5 },
                         { label: '3:2', ratio: 3 / 2 },
                         { label: '16:10', ratio: 16 / 10 },
+                        { label: 'Golden', ratio: (1 + Math.sqrt(5)) / 2 },
+                        { label: '5:3', ratio: 5 / 3 },
                         { label: '16:9', ratio: 16 / 9 },
                         { label: '2:1', ratio: 2 },
                         { label: '21:9', ratio: 21 / 9 },
@@ -1351,15 +1463,21 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
             ),
             `import { AspectRatio } from "@chghealthcare/unified-design-system"
 
-// Any ratio works — pass a number (width / height).
-const RATIOS = [9 / 16, 2 / 3, 3 / 4, 4 / 5, 1, 5 / 4, 4 / 3, 3 / 2, 16 / 10, 16 / 9, 2, 21 / 9]
+// Any ratio works — pass a number (width / height). Matches the full set of
+// ratios in the official UDS Figma "Image Aspect" component (Golden, 1:1,
+// 5:4, 4:3, 7:5, 3:2, 16:10, 5:3, 16:9 — each with its portrait flip).
+const GOLDEN = (1 + Math.sqrt(5)) / 2
+const RATIOS = [
+  9 / 16, 3 / 5, 1 / GOLDEN, 2 / 3, 5 / 7, 3 / 4, 4 / 5, 1, 5 / 4, 4 / 3,
+  7 / 5, 3 / 2, 16 / 10, GOLDEN, 5 / 3, 16 / 9, 2, 21 / 9,
+]
 
 {RATIOS.map((ratio) => (
   <div key={ratio} style={{ width: Math.round(140 * ratio) }}>
     <AspectRatio ratio={ratio}>{/* media or label */}</AspectRatio>
   </div>
 ))}`,
-            'A reference strip of common aspect ratios at a shared height — portrait (9:16, 2:3, 3:4, 4:5), square (1:1), and landscape (5:4, 4:3, 3:2, 16:10, 16:9, 2:1, 21:9). Labels read `width:height`, so the value passed to the `ratio` prop is width ÷ height (e.g. `16:9` → `16 / 9`).',
+            'A reference strip of every aspect ratio in the official UDS Figma "Image Aspect" component, at a shared height — portrait (9:16, 3:5, Golden, 2:3, 5:7, 3:4, 4:5), square (1:1), and landscape (5:4, 4:3, 7:5, 3:2, 16:10, Golden, 5:3, 16:9, 2:1, 21:9). Labels read `width:height`, so the value passed to the `ratio` prop is width ÷ height (e.g. `16:9` → `16 / 9`).',
         ),
     ],
     avatar: [

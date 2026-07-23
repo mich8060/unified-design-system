@@ -35,8 +35,8 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
   accordion: [
     r(
       'variant',
-      '"boxed" | "boxed-filled" | "divided"',
-      '`divided`: dividers only, no outer frame. `boxed`: outer border, 4px radius, light gray trigger strip. `boxed-filled`: outer border with `uds-surface-secondary` fill. Figma variant labels: Divided, Boxed, Boxed Filled.',
+      '"boxed" | "boxed-filled" | "divided" | "separated"',
+      '`divided`: dividers only, no outer frame. `boxed`: outer border, 4px radius, light gray trigger strip. `boxed-filled`: outer border with `uds-surface-secondary` fill. `separated`: each item its own bordered, `uds-surface-secondary`-filled card with a 12px gap between items. Figma variant labels: Divided, Boxed, Boxed Filled, Separated.',
       'divided',
     ),
     r('type', '"single" | "multiple"', 'How many sections may be open at once.'),

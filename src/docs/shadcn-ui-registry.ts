@@ -92,6 +92,7 @@ const ACRONYMS = new Set(['otp', 'api', 'uri', 'url', 'kbd', 'npi'])
 export function formatShadcnComponentName(slug: string): string {
   if (slug === 'dot-status') return 'DotStatus'
   if (slug === 'sonner') return 'Toast'
+  if (slug === 'aspect-ratio') return 'Image Aspect'
   return slug
     .split('-')
     .map((w) => (ACRONYMS.has(w) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))

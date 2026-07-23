@@ -18,7 +18,7 @@ const baseButtonVariants = cva(
         ghost:
           "text-uds-button-text-secondary hover:bg-muted hover:text-uds-button-text-secondary",
         destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20",
+          "bg-uds-button-surface-primary-destructive text-uds-button-text-default hover:bg-[var(--uds-color-accent-red-700)]",
         link: "text-uds-button-text-tertiary underline-offset-4 hover:underline",
       },
       size: {
