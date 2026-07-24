@@ -370,7 +370,7 @@ export function EmptyVariants() {
     <div className="flex justify-center">
       <Empty className="max-w-md">
         <EmptyHeader>
-          <EmptyMedia className="[--uds-chrome-media-radius:9999px] [--uds-empty-media-bg:var(--uds-color-accent-blue-100)] [--uds-empty-media-fg:var(--uds-color-accent-blue-700)] dark:[--uds-empty-media-bg-dark:color-mix(in_srgb,var(--uds-color-accent-blue-900)_45%,transparent)] dark:[--uds-empty-media-fg-dark:var(--uds-color-accent-blue-200)]">
+          <EmptyMedia>
             <EnvelopeIcon weight="regular" aria-hidden />
           </EmptyMedia>
           <EmptyTitle>No messages</EmptyTitle>
@@ -386,7 +386,7 @@ export function EmptySingleAction() {
     <div className="flex justify-center">
       <Empty className="max-w-md gap-6">
         <EmptyHeader>
-          <EmptyMedia className="[--uds-chrome-media-radius:9999px] [--uds-empty-media-bg:var(--uds-color-accent-blue-100)] [--uds-empty-media-fg:var(--uds-color-accent-blue-700)] dark:[--uds-empty-media-bg-dark:color-mix(in_srgb,var(--uds-color-accent-blue-900)_45%,transparent)] dark:[--uds-empty-media-fg-dark:var(--uds-color-accent-blue-200)]">
+          <EmptyMedia>
             <EnvelopeIcon weight="regular" aria-hidden />
           </EmptyMedia>
           <EmptyTitle>No messages</EmptyTitle>
@@ -405,7 +405,7 @@ export function EmptyTwoActions() {
     <div className="flex justify-center">
       <Empty className="max-w-md gap-6">
         <EmptyHeader>
-          <EmptyMedia className="[--uds-chrome-media-radius:9999px] [--uds-empty-media-bg:var(--uds-color-accent-blue-100)] [--uds-empty-media-fg:var(--uds-color-accent-blue-700)] dark:[--uds-empty-media-bg-dark:color-mix(in_srgb,var(--uds-color-accent-blue-900)_45%,transparent)] dark:[--uds-empty-media-fg-dark:var(--uds-color-accent-blue-200)]">
+          <EmptyMedia>
             <EnvelopeIcon weight="regular" aria-hidden />
           </EmptyMedia>
           <EmptyTitle>Nothing queued</EmptyTitle>

@@ -12,7 +12,7 @@ function Checkbox({
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        "peer group/checkbox relative flex size-5 shrink-0 items-center justify-center rounded-[length:var(--uds-radius-4)] border border-uds-border-secondary bg-uds-surface-primary transition-colors outline-none group-has-disabled/field:opacity-50 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-[state=checked]:bg-[var(--uds-color-primary-700)] data-[state=checked]:text-[var(--uds-text-inverse)] data-[state=indeterminate]:bg-[var(--uds-color-primary-700)] data-[state=indeterminate]:text-[var(--uds-text-inverse)]",
+        "peer group/checkbox relative flex size-5 shrink-0 items-center justify-center rounded-[length:var(--uds-radius-4)] border border-uds-border-primary bg-uds-surface-primary transition-colors outline-none group-has-disabled/field:opacity-50 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-[state=checked]:border-uds-border-brand-tertiary data-[state=checked]:bg-uds-surface-brand-tertiary data-[state=checked]:text-[var(--uds-text-inverse)] data-[state=indeterminate]:border-uds-border-brand-tertiary data-[state=indeterminate]:bg-uds-surface-brand-tertiary data-[state=indeterminate]:text-[var(--uds-text-inverse)]",
         className
       )}
       {...props}

@@ -50,9 +50,9 @@
     height: var(--uds-chrome-media-size);
     min-width: var(--uds-chrome-media-size);
     min-height: var(--uds-chrome-media-size);
-    border-radius: var(--uds-chrome-media-radius);
-    background: var(--uds-empty-media-bg, var(--uds-color-neutrals-100));
-    color: var(--uds-empty-media-fg, var(--uds-color-neutrals-700));
+    border-radius: 9999px;
+    background: var(--uds-empty-media-bg, var(--uds-color-accent-blue-25));
+    color: var(--uds-empty-media-fg, var(--uds-color-accent-blue-700));
     font-family: var(--font-sans);
   }
   [data-slot="empty-icon"] svg {
@@ -63,7 +63,10 @@
 
   .dark [data-slot="empty-icon"],
   :is(.dark *) [data-slot="empty-icon"] {
-    background: var(--uds-empty-media-bg-dark, var(--uds-color-neutrals-800));
-    color: var(--uds-empty-media-fg-dark, var(--uds-color-neutrals-200));
+    background: var(
+      --uds-empty-media-bg-dark,
+      color-mix(in srgb, var(--uds-color-accent-blue-900) 45%, transparent)
+    );
+    color: var(--uds-empty-media-fg-dark, var(--uds-color-accent-blue-200));
   }
 }

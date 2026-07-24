@@ -302,7 +302,7 @@ function CollapsibleDemo() {
                         variant="divided"
                         className="w-full"
                     >
-                        <CollapsibleTrigger className="flex items-center gap-4">
+                        <CollapsibleTrigger>
                             <div className="flex min-w-0 flex-1 items-center gap-3">
                                 <div
                                     className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground"
@@ -320,12 +320,6 @@ function CollapsibleDemo() {
                                     Needs review
                                 </Badge>
                             </div>
-                            <CaretDownIcon
-                                className={cn(
-                                    'size-4 shrink-0 text-muted-foreground transition-transform',
-                                    openDividedFirst && 'rotate-180',
-                                )}
-                            />
                         </CollapsibleTrigger>
                         <CollapsibleContent contentClassName="text-muted-foreground">
                             <p>
@@ -340,7 +334,7 @@ function CollapsibleDemo() {
                         variant="divided"
                         className="w-full"
                     >
-                        <CollapsibleTrigger className="flex items-center gap-4">
+                        <CollapsibleTrigger>
                             <div className="flex min-w-0 flex-1 items-center gap-3">
                                 <div
                                     className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground"
@@ -358,12 +352,6 @@ function CollapsibleDemo() {
                                     3 channels
                                 </span>
                             </div>
-                            <CaretDownIcon
-                                className={cn(
-                                    'size-4 shrink-0 text-muted-foreground transition-transform',
-                                    openDividedSecond && 'rotate-180',
-                                )}
-                            />
                         </CollapsibleTrigger>
                         <CollapsibleContent contentClassName="text-muted-foreground">
                             <p>
@@ -380,7 +368,7 @@ function CollapsibleDemo() {
                     Boxed · framed block, header rule only while open
                 </p>
                 <Collapsible open={openBoxed} onOpenChange={setOpenBoxed} variant="boxed" className="w-full">
-                    <CollapsibleTrigger className="flex items-center gap-4">
+                    <CollapsibleTrigger>
                         <div className="flex min-w-0 flex-1 items-center gap-3">
                             <div
                                 className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary"
@@ -398,12 +386,6 @@ function CollapsibleDemo() {
                                 Live preview
                             </Badge>
                         </div>
-                        <CaretDownIcon
-                            className={cn(
-                                'size-4 shrink-0 text-muted-foreground transition-transform',
-                                openBoxed && 'rotate-180',
-                            )}
-                        />
                     </CollapsibleTrigger>
                     <CollapsibleContent contentClassName="text-muted-foreground">
                         <p>
@@ -1823,6 +1805,8 @@ const RATIOS = [
                             'Modio',
                             'MyWeatherby',
                             'MyCompHealth',
+                            'myGMS',
+                            'Aire',
                             'Design System',
                         ] as const satisfies readonly BrandingAppearance[]
                     ).map((appearance) => (
@@ -1854,6 +1838,8 @@ const RATIOS = [
                             'Modio',
                             'MyWeatherby',
                             'MyCompHealth',
+                            'myGMS',
+                            'Aire',
                             'Design System',
                         ] as const satisfies readonly BrandingAppearance[]
                     ).map((appearance) => (
@@ -2188,6 +2174,42 @@ const RATIOS = [
   </CardContent>
 </Card>`,
         ),
+        E(
+            'horizontal',
+            'Horizontal action placement',
+            (
+                <Card orientation="horizontal" className="w-full max-w-md">
+                    <CardImage>
+                        <AspectRatio
+                            ratio={16 / 9}
+                            src="/showcase/aspect-ratio-16-9.png"
+                            alt="Card media"
+                        />
+                    </CardImage>
+                    <CardContent>
+                        <p className="font-medium text-uds-text-primary">Horizontal card</p>
+                        <p className="text-uds-text-secondary">CardFooter sits beside CardContent instead of below it.</p>
+                    </CardContent>
+                    <CardFooter>
+                        <Button>Save</Button>
+                    </CardFooter>
+                </Card>
+            ),
+            `// orientation="horizontal" moves CardFooter beside CardContent.
+// CardImage (if present) always stays full-width on top.
+<Card orientation="horizontal">
+  <CardImage>
+    <AspectRatio ratio={16 / 9} src="/path/to/image.jpg" alt="Card media" />
+  </CardImage>
+  <CardContent>
+    <p className="font-medium text-uds-text-primary">Horizontal card</p>
+    <p className="text-uds-text-secondary">CardFooter sits beside CardContent instead of below it.</p>
+  </CardContent>
+  <CardFooter>
+    <Button>Save</Button>
+  </CardFooter>
+</Card>`,
+        ),
     ],
     chart: [E('bar', 'Bar chart', <ChartBarDemo />, `import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@chghealthcare/unified-design-system"
@@ -2458,7 +2480,7 @@ const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
             `import { DotStatus } from "@chghealthcare/unified-design-system"
 
 <DotStatus />`,
-            'Default: green hue, medium size, solid fill. Use outline for a 2px primary border.',
+            'Default: green hue, medium size, solid fill. Use outline for a 2px secondary border.',
         ),
         E(
             'variants',
@@ -2573,7 +2595,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             <EmptyVariants />,
             `<Empty>
   <EmptyHeader>
-    <EmptyMedia className="[--uds-chrome-media-radius:9999px] [--uds-empty-media-bg:var(--uds-color-accent-blue-100)] [--uds-empty-media-fg:var(--uds-color-accent-blue-700)] dark:[--uds-empty-media-bg-dark:color-mix(in_srgb,var(--uds-color-accent-blue-900)_45%,transparent)] dark:[--uds-empty-media-fg-dark:var(--uds-color-accent-blue-200)]">
+    <EmptyMedia>
       <EnvelopeIcon weight="regular" aria-hidden />
     </EmptyMedia>
     <EmptyTitle>No messages</EmptyTitle>
@@ -2587,7 +2609,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             <EmptySingleAction />,
             `<Empty>
   <EmptyHeader>
-    <EmptyMedia className="[--uds-chrome-media-radius:9999px] [--uds-empty-media-bg:var(--uds-color-accent-blue-100)] [--uds-empty-media-fg:var(--uds-color-accent-blue-700)] dark:[--uds-empty-media-bg-dark:color-mix(in_srgb,var(--uds-color-accent-blue-900)_45%,transparent)] dark:[--uds-empty-media-fg-dark:var(--uds-color-accent-blue-200)]">
+    <EmptyMedia>
       <EnvelopeIcon weight="regular" aria-hidden />
     </EmptyMedia>
     <EmptyTitle>No messages</EmptyTitle>
@@ -2604,7 +2626,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             <EmptyTwoActions />,
             `<Empty>
   <EmptyHeader>
-    <EmptyMedia className="[--uds-chrome-media-radius:9999px] [--uds-empty-media-bg:var(--uds-color-accent-blue-100)] [--uds-empty-media-fg:var(--uds-color-accent-blue-700)] dark:[--uds-empty-media-bg-dark:color-mix(in_srgb,var(--uds-color-accent-blue-900)_45%,transparent)] dark:[--uds-empty-media-fg-dark:var(--uds-color-accent-blue-200)]">
+    <EmptyMedia>
       <EnvelopeIcon weight="regular" aria-hidden />
     </EmptyMedia>
     <EmptyTitle>Nothing queued</EmptyTitle>

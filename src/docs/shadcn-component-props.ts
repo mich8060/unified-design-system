@@ -196,7 +196,7 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     r(
       'appearance',
       'BrandingAppearance',
-      'Product or brand variant: Connect, CHG (Unified Design System SVGs + Connect-aligned tokens via data-brand), Locumsmart, Wireframe, MyWeatherby, MyCompHealth, Modio, or Design System.',
+      'Product or brand variant: Connect, CHG (Unified Design System SVGs + Connect-aligned tokens via data-brand), Locumsmart, Wireframe, MyWeatherby, MyCompHealth, Modio, myGMS, Aire, or Design System.',
       'Wireframe',
     ),
     r(
@@ -252,6 +252,12 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
   ],
   card: [
     r('size', '"default" | "sm"', 'Card size. "sm" renders the Compact variant (Figma Size=Compact).'),
+    r(
+      'orientation',
+      '"vertical" | "horizontal"',
+      '"horizontal" moves CardFooter beside CardContent instead of below it (Figma Appearance=Horizontal). CardImage always stays full-width on top. Matches the official Figma Card’s Show Image toggle.',
+      'vertical',
+    ),
     r('children', 'ReactNode', 'Three optional slots: CardImage (images only), CardContent (any children), CardFooter (buttons only).'),
     CN,
     MORE,
@@ -287,6 +293,11 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     r('onOpenChange', '(open: boolean) => void', 'Open state callback.'),
     r('defaultOpen', 'boolean', 'Initial open when uncontrolled.', 'false'),
     r('variant', '"boxed" | "divided"', 'Chrome aligned with Accordion.', '"divided"'),
+    r(
+      'CollapsibleTrigger.children',
+      'ReactNode',
+      'Trigger label/content. A caret icon is rendered automatically after the children (right-aligned) and flips on expand, matching AccordionTrigger — do not add your own caret.',
+    ),
     r('CollapsibleContent.contentClassName', 'string', 'Classes merged onto the inner panel (default `px-4 pt-0 pb-3`).', '—'),
     CN,
     MORE,

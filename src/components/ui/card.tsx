@@ -12,15 +12,26 @@ import { cn } from "@/lib/utils"
 function Card({
     className,
     size = "default",
+    orientation = "vertical",
     ...props
-}: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
+}: React.ComponentProps<"div"> & {
+    size?: "default" | "sm"
+    /** `horizontal` moves CardFooter beside CardContent instead of below it. CardImage always stays full-width on top. */
+    orientation?: "vertical" | "horizontal"
+}) {
     return (
         <div
             data-slot="card"
             data-size={size}
+            data-orientation={orientation}
             className={cn(
                 "group/card flex h-fit w-full flex-col gap-0 self-start overflow-hidden rounded-[length:var(--uds-radius-8)] border border-uds-border-primary bg-uds-surface-primary text-sm text-uds-text-primary",
                 "[&_[data-slot=card-image]_img]:size-full [&_[data-slot=card-image]_img]:object-cover",
+                orientation === "horizontal" && [
+                    "grid grid-cols-[1fr_auto]",
+                    "[&_[data-slot=card-image]]:col-span-2",
+                    "[&_[data-slot=card-footer]]:border-t-0 [&_[data-slot=card-footer]]:border-l",
+                ],
                 className
             )}
             {...props}

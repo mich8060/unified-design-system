@@ -243,7 +243,7 @@ function Calendar({
           defaultClassNames.today
         ),
         outside: cn(
-          "bg-uds-surface-tertiary [&_button]:pointer-events-none [&_button]:text-transparent [&_button]:opacity-0",
+          "bg-uds-surface-tertiary [&_button]:pointer-events-none [&_button]:text-uds-text-primary",
           defaultClassNames.outside
         ),
         disabled: cn(

@@ -45,7 +45,7 @@ function CheckListControl({
   className?: string
 }) {
   return (
-    <div className={cn("flex items-start gap-2", className)}>
+    <div className={cn("flex items-start gap-3", className)}>
       <Checkbox
         id={id}
         checked={checked}

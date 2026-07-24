@@ -4,7 +4,7 @@ import { Separator as SeparatorPrimitive } from "radix-ui"
 import { cn } from "@/lib/utils"
 
 const separatorLabelPillClass =
-  "shrink-0 rounded-full border border-border bg-background px-3 py-1 text-uds-14 font-uds-regular leading-uds-14 text-foreground [font-family:var(--font-inter)]"
+  "shrink-0 rounded-full border border-border bg-background px-3 py-1 text-uds-10 font-uds-regular leading-uds-10 text-foreground [font-family:var(--font-inter)]"
 
 type SeparatorLabelAlign = "left" | "center" | "right"
 

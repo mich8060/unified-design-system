@@ -12,6 +12,8 @@ export type BrandingAppearance =
   | "MyCompHealth"
   | "Modio"
   | "Design System"
+  | "myGMS"
+  | "Aire"
 
 type SvgLoader = () => Promise<string>
 
@@ -47,6 +49,14 @@ const SVG_LOADERS: Record<BrandingAppearance, { mark: SvgLoader; wordmark: SvgLo
   "Design System": {
     mark: () => import("../../../public/branding/svg/unified-design-system-brand-mark.svg?url").then(m => m.default),
     wordmark: () => import("../../../public/branding/svg/unified-design-system-wordmark.svg?url").then(m => m.default),
+  },
+  myGMS: {
+    mark: () => import("../../../public/branding/svg/mygms-brand-mark.svg?url").then(m => m.default),
+    wordmark: () => import("../../../public/branding/svg/mygms-wordmark.svg?url").then(m => m.default),
+  },
+  Aire: {
+    mark: () => import("../../../public/branding/svg/aire-brand-mark.svg?url").then(m => m.default),
+    wordmark: () => import("../../../public/branding/svg/aire-wordmark.svg?url").then(m => m.default),
   },
 }
 

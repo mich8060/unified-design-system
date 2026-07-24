@@ -122,11 +122,11 @@
   --border: var(--uds-border-primary);
   --input: var(--uds-border-primary);
   --ring: var(--uds-focus-ring-border);
-  --chart-1: var(--uds-color-secondary-600);
-  --chart-2: var(--uds-color-tertiary-600);
-  --chart-3: var(--uds-color-quaternary-600);
-  --chart-4: var(--uds-color-primary-400);
-  --chart-5: var(--uds-color-secondary-400);
+  --chart-1: var(--uds-color-primary-600);
+  --chart-2: var(--uds-color-primary-700);
+  --chart-3: var(--uds-color-primary-400);
+  --chart-4: var(--uds-color-primary-800);
+  --chart-5: var(--uds-color-primary-300);
   --radius: var(--uds-radius-12);
   --sidebar: var(--uds-surface-secondary);
   --sidebar-foreground: var(--uds-text-primary);
