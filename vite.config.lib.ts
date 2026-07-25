@@ -11,23 +11,34 @@ const external = [
   ...Object.keys(pkg.peerDependencies ?? {}),
 ]
 
-// Heavy components exposed as dedicated subpath entry points so consumers can
-// import them in isolation (and so re-export-only barrels like chart/command/
-// drawer are preserved as files instead of being elided by Rollup). Keys use the
-// natural module path under src/ so preserveModules emits them at
+// Components exposed as dedicated subpath entry points (see
+// package.json#exports and TD-UDS-010). Rollup elides a module whose entire
+// body is `export * from '...'` re-exports (chart/command/drawer/combobox/
+// pagination/sidebar) unless it's declared as an explicit entry here; a
+// handful of components with real content (calendar/date-input/date-range-input/
+// menu/resizable/sonner/input-otp) are listed too as a historical holdover —
+// preserveModules already keeps those regardless of whether they're declared.
+// Keys use the natural module path under src/ so preserveModules emits them at
 // dist/components/ui/<name>.{js,cjs} alongside the rest of the tree.
+//
+// Kept in sync with src/index.ts by `node scripts/generate-subpath-exports.mjs`
+// (only the pure-re-export subset is ever added by that script; it never
+// removes an existing entry).
 const subpathEntryModules = [
-  'components/ui/chart',
-  'components/ui/command',
-  'components/ui/drawer',
   'components/ui/calendar',
+  'components/ui/chart',
+  'components/ui/combobox',
+  'components/ui/command',
   'components/ui/date-input',
   'components/ui/date-range-input',
+  'components/ui/drawer',
+  'components/ui/input-otp',
   'components/ui/menu',
   'components/ui/micro-calendar',
+  'components/ui/pagination',
   'components/ui/resizable',
+  'components/ui/sidebar',
   'components/ui/sonner',
-  'components/ui/input-otp',
 ]
 const subpathEntries = Object.fromEntries(
   subpathEntryModules.map((mod) => [mod, path.resolve(__dirname, `./src/${mod}.tsx`)]),
