@@ -91,8 +91,8 @@ The plain-leaf case (button/badge-style components) is already verified clean ag
 
 ### Phase 6 — Ship
 
-- [ ] **T023** Version bump (minor — purely additive `exports` surface) and changelog entry describing the new per-component subpaths.
-- [ ] **T024** Release.
+- [x] **T023** Before bumping, checked actual repo convention rather than assuming: `git log -- package.json` shows version bumps are always their own tiny commit (`package.json` + `package-lock.json` version fields only, message is just the bare version number), pushed directly to `main`, no PR. Also found `main` already carries an unpublished `1.0.7` (bumped in `680bc217`, never actually published — registry's latest real version is still `1.0.6`) and confirmed no `CHANGELOG.md` exists anywhere in the repo (no file for a "changelog entry" to go into, despite this task's original wording). Surfaced both gaps plus the semver-level question (additive-only change is strictly *minor*, but historical practice has bumped patch regardless of scope) to the user rather than resolving them silently. User chose **1.1.0** (minor, matching correct semver over historical convention) and **bump only, no publish**. Bumped `package.json`/`package-lock.json` version fields (exactly the 2-line diff the historical pattern uses), rebuilt (`build:lib` passes, all 97 exports still resolve), committed as `1.1.0` matching the bare-version-number message convention. No changelog file created — inventing one wasn't part of the ask and isn't this repo's convention.
+- [ ] **T024** **Not done — deliberately.** Publishing is irreversible (can't unpublish/overwrite a registry version) and, confirmed by checking actual workflow run history, every real publish to date (`1.0.5`, `1.0.6`) was a manual `workflow_dispatch` by a named maintainer — the docs' recommended "GitHub Release" trigger has zero historical runs. User explicitly chose not to trigger a publish in this session. Remains a manual step for a maintainer: merge this branch, then run `workflow_dispatch` on `publish-github-packages.yml` (dry run first).
 
 ## Acceptance criteria
 
