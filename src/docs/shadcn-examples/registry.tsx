@@ -400,6 +400,28 @@ function CollapsibleDemo() {
     )
 }
 
+function CollapsibleIconLeftDemo() {
+    const [open, setOpen] = React.useState(false)
+
+    return (
+        <Collapsible
+            open={open}
+            onOpenChange={setOpen}
+            variant="divided"
+            iconPosition="left"
+            className="w-full"
+        >
+            <CollapsibleTrigger>Advanced filters</CollapsibleTrigger>
+            <CollapsibleContent contentClassName="text-muted-foreground">
+                <p>
+                    <code className="font-mono text-xs text-foreground">iconPosition=&quot;left&quot;</code> moves the
+                    chevron in front of the trigger label instead of trailing it.
+                </p>
+            </CollapsibleContent>
+        </Collapsible>
+    )
+}
+
 function ContextMenuDemo() {
     return (
         <ContextMenu>
@@ -2294,6 +2316,15 @@ const [checked, setChecked] = React.useState<boolean | "indeterminate">("indeter
   <CollapsibleContent>Locum tenens filters and radius settings.</CollapsibleContent>
 </Collapsible>`,
         ),
+        E(
+            'icon-left',
+            'Icon on the left',
+            <CollapsibleIconLeftDemo />,
+            `<Collapsible variant="divided" iconPosition="left" className="w-full">
+  <CollapsibleTrigger>Advanced filters</CollapsibleTrigger>
+  <CollapsibleContent>iconPosition="left" moves the chevron in front of the label.</CollapsibleContent>
+</Collapsible>`,
+        ),
     ],
     combobox: [
         E(
@@ -2480,7 +2511,7 @@ const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
             `import { DotStatus } from "@chghealthcare/unified-design-system"
 
 <DotStatus />`,
-            'Default: green hue, medium size, solid fill. Use outline for a 2px secondary border.',
+            'Default: green hue, medium size, solid fill. Use outline for a 2px primary border.',
         ),
         E(
             'variants',
@@ -2816,6 +2847,53 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
     </FieldContent>
   </Field>
 </div>`,
+        ),
+        E(
+            'required',
+            'Required + info icon',
+            (
+                <FieldSet>
+                    <Field>
+                        <FieldLabel htmlFor="ex-field-required-name" required>
+                            Full name
+                        </FieldLabel>
+                        <Input id="ex-field-required-name" placeholder="Jane Doe" />
+                    </Field>
+                    <Field>
+                        <FieldLabel
+                            htmlFor="ex-field-required-npi"
+                            required
+                            showInfoIcon
+                            infoIcon={<InfoIcon className="size-4 text-uds-text-tertiary" weight="regular" aria-hidden />}
+                        >
+                            NPI number
+                        </FieldLabel>
+                        <Input id="ex-field-required-npi" placeholder="1234567890" />
+                        <FieldDescription>Your 10-digit National Provider Identifier.</FieldDescription>
+                    </Field>
+                </FieldSet>
+            ),
+            `import { FieldSet, Field, FieldLabel, FieldDescription, InfoIcon } from "@chghealthcare/unified-design-system"
+
+<FieldSet className="max-w-sm">
+  <Field>
+    <FieldLabel htmlFor="name" required>Full name</FieldLabel>
+    <Input id="name" placeholder="Jane Doe" />
+  </Field>
+
+  <Field>
+    <FieldLabel
+      htmlFor="npi"
+      required
+      showInfoIcon
+      infoIcon={<InfoIcon className="size-4 text-uds-text-tertiary" weight="regular" />}
+    >
+      NPI number
+    </FieldLabel>
+    <Input id="npi" placeholder="1234567890" />
+    <FieldDescription>Your 10-digit National Provider Identifier.</FieldDescription>
+  </Field>
+</FieldSet>`,
         ),
     ],
     'file-upload': [
@@ -4547,6 +4625,24 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
   <span>Section A</span>
   <Separator variant="band" />
   <span>Section B</span>
+</div>`,
+        ),
+        E(
+            'vertical-band-label',
+            'Vertical band & label',
+            <div className="flex h-32 w-full max-w-md items-stretch gap-4 text-sm">
+                <span className="flex items-center">Column A</span>
+                <Separator variant="band" orientation="vertical" />
+                <span className="flex items-center">Column B</span>
+                <Separator variant="label" orientation="vertical" label="or" />
+                <span className="flex items-center">Column C</span>
+            </div>,
+            `<div className="flex h-32 w-full max-w-md items-stretch gap-4">
+  <span className="flex items-center">Column A</span>
+  <Separator variant="band" orientation="vertical" />
+  <span className="flex items-center">Column B</span>
+  <Separator variant="label" orientation="vertical" label="or" />
+  <span className="flex items-center">Column C</span>
 </div>`,
         ),
     ],

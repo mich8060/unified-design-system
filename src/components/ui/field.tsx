@@ -98,10 +98,32 @@ function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+function FieldRequiredIndicator({ className }: { className?: string }) {
+  return (
+    <span
+      aria-hidden
+      data-slot="field-required-indicator"
+      className={cn("text-destructive", className)}
+    >
+      *
+    </span>
+  )
+}
+
 function FieldLabel({
   className,
+  required,
+  showInfoIcon,
+  infoIcon,
+  children,
   ...props
-}: React.ComponentProps<typeof Label>) {
+}: React.ComponentProps<typeof Label> & {
+  /** Renders a red asterisk after the label text. Purely visual — pair with the input's own `required`/`aria-required`. */
+  required?: boolean
+  /** Renders `infoIcon` after the label text (and asterisk, if any). */
+  showInfoIcon?: boolean
+  infoIcon?: React.ReactNode
+}) {
   return (
     <Label
       data-slot="field-label"
@@ -112,11 +134,28 @@ function FieldLabel({
         className
       )}
       {...props}
-    />
+    >
+      {children}
+      {required && <FieldRequiredIndicator />}
+      {showInfoIcon && infoIcon}
+    </Label>
   )
 }
 
-function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
+function FieldTitle({
+  className,
+  required,
+  showInfoIcon,
+  infoIcon,
+  children,
+  ...props
+}: React.ComponentProps<"div"> & {
+  /** Renders a red asterisk after the label text. Purely visual — pair with the input's own `required`/`aria-required`. */
+  required?: boolean
+  /** Renders `infoIcon` after the label text (and asterisk, if any). */
+  showInfoIcon?: boolean
+  infoIcon?: React.ReactNode
+}) {
   return (
     <div
       data-slot="field-label"
@@ -125,7 +164,11 @@ function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
         className
       )}
       {...props}
-    />
+    >
+      {children}
+      {required && <FieldRequiredIndicator />}
+      {showInfoIcon && infoIcon}
+    </div>
   )
 }
 
@@ -232,6 +275,7 @@ export {
   FieldError,
   FieldGroup,
   FieldLegend,
+  FieldRequiredIndicator,
   FieldSeparator,
   FieldSet,
   FieldContent,

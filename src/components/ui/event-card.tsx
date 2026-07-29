@@ -27,7 +27,7 @@ export type EventCardColor = (typeof EVENT_CARD_COLORS)[number]
 
 function eventCardAccentStyle(color: EventCardColor): React.CSSProperties {
   return {
-    backgroundColor: `var(--uds-color-accent-${color}-25)`,
+    backgroundColor: `var(--uds-color-accent-${color}-${color === "sky" ? 50 : 25})`,
     borderColor: `var(--uds-color-accent-${color}-700)`,
   }
 }

@@ -67,7 +67,10 @@ function SearchInput({
     : ariaKeyShortcutsFromInput
 
   return (
-    <InputGroup inputSize={inputSize} className={cn("uds-search-field", className)}>
+    <InputGroup
+      inputSize={inputSize}
+      className={cn("uds-search-field bg-[var(--uds-surface-secondary)]", className)}
+    >
       {!hideSubmitButton ? (
         <InputGroupAddon align="inline-start" className="uds-input-group-addon--flush-y pl-2 pr-0">
           <InputGroupButton

@@ -46,7 +46,7 @@ function AccordionItem({
       className={cn(
         variant === "separated"
           ? "overflow-hidden rounded-[4px] border border-uds-border-secondary bg-uds-surface-secondary"
-          : "border-b border-border last:border-b-0",
+          : "border-b border-uds-border-secondary last:border-b-0",
         className,
       )}
       {...props}
