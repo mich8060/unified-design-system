@@ -78,7 +78,17 @@ import {
 import { FileUpload, FileUploadCards } from '@chghealthcare/unified-design-system'
 import { Footer } from '@chghealthcare/unified-design-system'
 import { Header } from '@chghealthcare/unified-design-system'
-import { Popover, PopoverContent, PopoverTrigger } from '@chghealthcare/unified-design-system'
+import {
+    Popover,
+    PopoverArrow,
+    PopoverContent,
+    PopoverDescription,
+    PopoverFooter,
+    PopoverHeader,
+    PopoverTitle,
+    PopoverTrigger,
+} from '@chghealthcare/unified-design-system'
+import { PillToggle } from '@chghealthcare/unified-design-system'
 import {
     CheckList,
     CheckListControl,
@@ -663,65 +673,6 @@ function InputOTPCompactDemo() {
     )
 }
 
-/** `left` for absolutely positioned triggers so tooltips anchor to the fill edge (0–100). */
-function progressIndicatorAnchorLeft(value: number) {
-    return `${Math.min(100, Math.max(0, value))}%`
-}
-
-/** Info button stays fixed after the track; tooltip is positioned at the fill end via a non-interactive anchor. */
-function ProgressDocInfoTooltipRow({
-    value,
-    label,
-}: {
-    value: number
-    label: string
-}) {
-    const [open, setOpen] = React.useState(false)
-    const tipId = React.useId()
-
-    return (
-        <div className="flex items-center gap-3">
-            <span className="w-20 shrink-0 text-xs font-medium text-neutral-800 dark:text-neutral-200">
-                {label}
-            </span>
-            <div className="relative min-w-0 flex-1 py-0.5">
-                <Progress value={value} className="w-full" />
-                <Tooltip open={open} onOpenChange={setOpen}>
-                    <TooltipTrigger asChild>
-                        <span
-                            className="pointer-events-none absolute top-1/2 h-px w-px -translate-x-1/2 -translate-y-1/2 opacity-0"
-                            style={{ left: progressIndicatorAnchorLeft(value) }}
-                            aria-hidden
-                        />
-                    </TooltipTrigger>
-                    <TooltipContent
-                        id={tipId}
-                        side="top"
-                        sideOffset={8}
-                        align="center"
-                        className="tabular-nums"
-                        onPointerEnter={() => setOpen(true)}
-                        onPointerLeave={() => setOpen(false)}
-                    >
-                        {value}% complete
-                    </TooltipContent>
-                </Tooltip>
-            </div>
-            <button
-                type="button"
-                className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md border-0 bg-transparent text-neutral-500 hover:text-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:text-neutral-400 dark:hover:text-neutral-200"
-                aria-label={`Progress detail: ${value}%`}
-                aria-describedby={open ? tipId : undefined}
-                onPointerEnter={() => setOpen(true)}
-                onPointerLeave={() => setOpen(false)}
-                onFocus={() => setOpen(true)}
-                onBlur={() => setOpen(false)}
-            >
-                <InfoIcon className="size-4" weight="regular" aria-hidden />
-            </button>
-        </div>
-    )
-}
 
 function PaginationDefaultDemo() {
     const pages = getPaginationPages(1, 10, 3)
@@ -935,6 +886,32 @@ function PaginationSmallCountDemo() {
                 </PaginationItem>
             </PaginationContent>
         </Pagination>
+    )
+}
+
+function PillToggleDemo() {
+    const [selected, setSelected] = React.useState<string[]>(['full-time'])
+    const options = [
+        { value: 'full-time', label: 'Full-time' },
+        { value: 'part-time', label: 'Part-time' },
+        { value: 'contract', label: 'Contract' },
+    ]
+    return (
+        <div className="flex flex-wrap gap-2">
+            {options.map((opt) => (
+                <PillToggle
+                    key={opt.value}
+                    pressed={selected.includes(opt.value)}
+                    onPressedChange={(pressed) =>
+                        setSelected((prev) =>
+                            pressed ? [...prev, opt.value] : prev.filter((v) => v !== opt.value)
+                        )
+                    }
+                >
+                    {opt.label}
+                </PillToggle>
+            ))}
+        </div>
     )
 }
 
@@ -3880,17 +3857,13 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             <p className="text-sm">
                 Undo{' '}
                 <KbdGroup>
-                    <Kbd className="bg-black text-white shadow-sm dark:bg-black dark:text-white">
-                        ⌘
-                    </Kbd>
-                    <Kbd className="bg-black text-white shadow-sm dark:bg-black dark:text-white">
-                        Z
-                    </Kbd>
+                    <Kbd appearance="black">⌘</Kbd>
+                    <Kbd appearance="black">Z</Kbd>
                 </KbdGroup>
             </p>,
             `<KbdGroup>
-  <Kbd className="bg-black text-white shadow-sm dark:bg-black dark:text-white">⌘</Kbd>
-  <Kbd className="bg-black text-white shadow-sm dark:bg-black dark:text-white">Z</Kbd>
+  <Kbd appearance="black">⌘</Kbd>
+  <Kbd appearance="black">Z</Kbd>
 </KbdGroup>`,
         ),
     ],
@@ -4278,6 +4251,18 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
 </PaginationLink>`,
         ),
     ],
+    'pill-toggle': [
+        E(
+            'default',
+            'Selected / unselected',
+            <PillToggleDemo />,
+            `import { PillToggle } from "@chghealthcare/unified-design-system"
+
+<PillToggle pressed={selected} onPressedChange={setSelected}>
+  Full-time
+</PillToggle>`,
+        ),
+    ],
     popover: [
         E('anchored', 'Click trigger', <PopoverVariants />, `<Popover>
   <PopoverTrigger asChild>
@@ -4303,6 +4288,46 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
       <h4 className="text-sm font-semibold">@mstevens</h4>
       <p className="text-sm text-muted-foreground">Design system maintainer and documentation owner.</p>
     </div>
+  </PopoverContent>
+</Popover>`,
+        ),
+        E(
+            'coach-mark',
+            'Coach mark (title + footer nav)',
+            <Popover>
+                <PopoverTrigger asChild>
+                    <Button variant="outline">Open coach mark</Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-72">
+                    <PopoverArrow />
+                    <PopoverHeader>
+                        <PopoverTitle>Filter your results</PopoverTitle>
+                        <PopoverDescription>
+                            Use the sidebar to narrow candidates by specialty, location, and availability.
+                        </PopoverDescription>
+                    </PopoverHeader>
+                    <PopoverFooter className="mt-2.5">
+                        <Button variant="ghost" size="sm">Previous</Button>
+                        <Button size="sm">Next</Button>
+                    </PopoverFooter>
+                </PopoverContent>
+            </Popover>,
+            `<Popover>
+  <PopoverTrigger asChild>
+    <Button variant="outline">Open coach mark</Button>
+  </PopoverTrigger>
+  <PopoverContent className="w-72">
+    <PopoverArrow />
+    <PopoverHeader>
+      <PopoverTitle>Filter your results</PopoverTitle>
+      <PopoverDescription>
+        Use the sidebar to narrow candidates by specialty, location, and availability.
+      </PopoverDescription>
+    </PopoverHeader>
+    <PopoverFooter className="mt-2.5">
+      <Button variant="ghost" size="sm">Previous</Button>
+      <Button size="sm">Next</Button>
+    </PopoverFooter>
   </PopoverContent>
 </Popover>`,
         ),
@@ -4351,100 +4376,65 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
 </div>`,
         ),
         E(
+            'label-placement',
+            'Label placement',
+            (
+                <div className="flex w-full max-w-md flex-col gap-6">
+                    {(
+                        [
+                            { placement: 'left', title: 'Left' },
+                            { placement: 'right', title: 'Right' },
+                            { placement: 'below-left', title: 'Below left' },
+                            { placement: 'below-right', title: 'Below right' },
+                        ] as const
+                    ).map(({ placement, title }) => (
+                        <div key={placement} className="flex flex-col gap-1.5">
+                            <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+                                {title}
+                            </span>
+                            <Progress value={64} labelPlacement={placement} />
+                        </div>
+                    ))}
+                </div>
+            ),
+            `<Progress value={64} labelPlacement="left" />
+<Progress value={64} labelPlacement="right" />
+<Progress value={64} labelPlacement="below-left" />
+<Progress value={64} labelPlacement="below-right" />`,
+        ),
+        E(
             'tooltip-bar',
             'Value in tooltip (hover bar)',
             (
-                <TooltipProvider delayDuration={200}>
-                    <div className="flex w-full max-w-md flex-col gap-5">
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                            Hover the handle at the end of each fill — the tooltip anchors there.
-                        </p>
-                        {([28, 56, 87] as const).map((value) => (
-                            <div key={value} className="relative w-full py-0.5">
-                                <Progress value={value} className="w-full" />
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <button
-                                            type="button"
-                                            className="absolute top-1/2 z-10 flex size-6 -translate-x-1/2 -translate-y-1/2 cursor-default items-center justify-center rounded-full border-0 bg-transparent p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                                            style={{ left: progressIndicatorAnchorLeft(value) }}
-                                            aria-label={`Progress: ${value}%`}
-                                        >
-                                            <span
-                                                className="size-2 shrink-0 rounded-full bg-primary shadow-sm ring-2 ring-background"
-                                                aria-hidden
-                                            />
-                                        </button>
-                                    </TooltipTrigger>
-                                    <TooltipContent side="top" sideOffset={6} align="center">
-                                        <span className="tabular-nums">{value}%</span>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </div>
-                        ))}
-                    </div>
-                </TooltipProvider>
+                <div className="flex w-full max-w-md flex-col gap-6 pt-2">
+                    {([28, 56, 87] as const).map((value) => (
+                        <Progress key={value} value={value} labelPlacement="hover-bar" />
+                    ))}
+                </div>
             ),
-            `// Relative track + trigger positioned at the fill edge (left: value%, -translate-x-1/2)
-<div className="relative w-full py-0.5">
-  <Progress value={56} />
-  <Tooltip>
-    <TooltipTrigger asChild>
-      <button
-        type="button"
-        className="absolute top-1/2 z-10 flex size-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-transparent p-0"
-        style={{ left: "56%" }}
-        aria-label="Progress: 56%"
-      >
-        <span className="size-2 rounded-full bg-primary ring-2 ring-background" aria-hidden />
-      </button>
-    </TooltipTrigger>
-    <TooltipContent side="top" sideOffset={6}>
-      <span className="tabular-nums">56%</span>
-    </TooltipContent>
-  </Tooltip>
-</div>`,
+            `<Progress value={56} labelPlacement="hover-bar" />`,
         ),
         E(
             'tooltip-icon',
             'Value in tooltip (info trigger)',
             (
-                <TooltipProvider delayDuration={200}>
-                    <div className="flex w-full max-w-md flex-col gap-4">
-                        {(
-                            [
-                                { value: 41, label: 'Sync' },
-                                { value: 76, label: 'Upload' },
-                            ] as const
-                        ).map(({ value, label }) => (
-                            <ProgressDocInfoTooltipRow key={label} value={value} label={label} />
-                        ))}
-                    </div>
-                </TooltipProvider>
+                <div className="flex w-full max-w-md flex-col gap-4">
+                    {(
+                        [
+                            { value: 41, label: 'Sync' },
+                            { value: 76, label: 'Upload' },
+                        ] as const
+                    ).map(({ value, label }) => (
+                        <div key={label} className="flex items-center gap-3">
+                            <span className="w-20 shrink-0 text-xs font-medium text-neutral-800 dark:text-neutral-200">
+                                {label}
+                            </span>
+                            <Progress value={value} labelPlacement="tooltip" className="flex-1" />
+                        </div>
+                    ))}
+                </div>
             ),
-            `// Fixed info button; invisible 1px anchor at left: value% for tooltip position; controlled open from icon + content hover
-<Tooltip open={open} onOpenChange={setOpen}>
-  <div className="relative flex-1 py-0.5">
-    <Progress value={76} />
-    <TooltipTrigger asChild>
-      <span
-        className="pointer-events-none absolute top-1/2 h-0 w-px -translate-y-1/2"
-        style={{ left: "76%" }}
-      />
-    </TooltipTrigger>
-  </div>
-  <button
-    type="button"
-    onPointerEnter={() => setOpen(true)}
-    onPointerLeave={() => setOpen(false)}
-  >
-    <InfoIcon className="size-4" aria-hidden />
-    <span className="sr-only">Show upload progress</span>
-  </button>
-  <TooltipContent onPointerEnter={() => setOpen(true)} onPointerLeave={() => setOpen(false)}>
-    76% complete
-  </TooltipContent>
-</Tooltip>`,
+            `<Progress value={76} labelPlacement="tooltip" />`,
         ),
     ],
     'radio-group': [
@@ -4508,6 +4498,26 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                 </ScrollArea>
             ),
             `<ScrollArea className="h-28 max-w-xs rounded-md border">
+  <div className="space-y-2 p-3 text-sm">
+    {Array.from({ length: 12 }).map((_, i) => (
+      <p key={i}>Line {i + 1}</p>
+    ))}
+  </div>
+</ScrollArea>`,
+        ),
+        E(
+            'bold',
+            'Bold appearance (visible trough)',
+            (
+                <ScrollArea scrollbarAppearance="bold" className="h-28 max-w-xs rounded-md border">
+                    <div className="space-y-2 p-3 text-sm">
+                        {Array.from({ length: 12 }).map((_, i) => (
+                            <p key={i}>Line {i + 1}</p>
+                        ))}
+                    </div>
+                </ScrollArea>
+            ),
+            `<ScrollArea scrollbarAppearance="bold" className="h-28 max-w-xs rounded-md border">
   <div className="space-y-2 p-3 text-sm">
     {Array.from({ length: 12 }).map((_, i) => (
       <p key={i}>Line {i + 1}</p>
@@ -4715,6 +4725,18 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                 <Skeleton className="h-8 w-full" />
             </div>,
             `<Skeleton className="h-4 w-[200px]" />`,
+        ),
+        E(
+            'sizes',
+            'Figma size presets',
+            <div className="flex flex-col items-start gap-3">
+                <Skeleton size="small" />
+                <Skeleton size="default" />
+                <Skeleton size="large" />
+            </div>,
+            `<Skeleton size="small" />
+<Skeleton size="default" />
+<Skeleton size="large" />`,
         ),
     ],
     slider: [
@@ -5174,6 +5196,18 @@ import { toast } from "sonner"
             <Textarea className="max-w-md" placeholder="Notes…" />,
             `<Textarea className="max-w-md" placeholder="Notes…" />`,
         ),
+        E(
+            'sizes',
+            'Default & compact',
+            (
+                <div className="flex max-w-md flex-col gap-4">
+                    <Textarea size="default" placeholder="Default — 120px min height, 16px text" />
+                    <Textarea size="compact" placeholder="Compact — 80px min height, 14px text" />
+                </div>
+            ),
+            `<Textarea size="default" placeholder="Notes…" />
+<Textarea size="compact" placeholder="Notes…" />`,
+        ),
     ],
     'time-input': [
         E(
@@ -5248,6 +5282,28 @@ import { toast } from "sonner"
   defaultTokens={["Design", "Engineering"]}
   aria-label="Tags"
 />`,
+        ),
+        E(
+            'states',
+            'Error & disabled',
+            (
+                <div className="flex max-w-md flex-col gap-4">
+                    <TokenInput
+                        aria-invalid="true"
+                        placeholder="Add token"
+                        defaultTokens={["Design"]}
+                        aria-label="Tags (error)"
+                    />
+                    <TokenInput
+                        disabled
+                        placeholder="Add token"
+                        defaultTokens={["Design", "Engineering"]}
+                        aria-label="Tags (disabled)"
+                    />
+                </div>
+            ),
+            `<TokenInput aria-invalid="true" defaultTokens={["Design"]} aria-label="Tags" />
+<TokenInput disabled defaultTokens={["Design", "Engineering"]} aria-label="Tags" />`,
         ),
     ],
     toggle: [

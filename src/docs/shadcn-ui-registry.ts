@@ -51,6 +51,7 @@ export const SHADCN_UI_SLUGS = [
   'pagination',
   'password-input',
   'phone-input',
+  'pill-toggle',
   'popover',
   'progress',
   'progress-circles',

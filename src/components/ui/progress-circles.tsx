@@ -41,7 +41,7 @@ function ProgressCircle({
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke="var(--uds-color-accent-blue-500)"
+          stroke="var(--primary)"
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
           strokeDashoffset={offset}

@@ -166,6 +166,9 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
   'phone-input': {
     summary: 'Phone Input presets Input for telephone formatting and keypad-friendly mobile entry.',
   },
+  'pill-toggle': {
+    summary: 'Pill Toggle is a single fully-rounded pressed/unpressed control for compact filter or category selection.',
+  },
   popover: {
     summary: 'Popover anchors lightweight content to a trigger for inline detail, helper UI, or compact forms — pass `trigger="hover"` for a hover-preview card instead of click-to-open.',
   },

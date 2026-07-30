@@ -91,7 +91,7 @@ function TravelGlyph({ className }: { className?: string }) {
     >
       <path
         d="M17.5791 15.4736H0.865265L9.22171 1L17.5791 15.4736Z"
-        fill="var(--uds-color-accent-green-50)"
+        fill="var(--uds-color-accent-green-100)"
         stroke="var(--uds-color-accent-green-700)"
       />
     </svg>
@@ -113,8 +113,8 @@ function AssignmentGlyph({ className }: { className?: string }) {
         cx="8"
         cy="8"
         r="7.5"
-        fill="var(--uds-color-accent-blue-50)"
-        stroke="var(--uds-color-accent-blue-600)"
+        fill="var(--uds-color-accent-blue-100)"
+        stroke="var(--uds-color-accent-blue-700)"
       />
     </svg>
   )

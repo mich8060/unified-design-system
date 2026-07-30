@@ -96,7 +96,7 @@ function TokenInput({
   return (
     <div
       className={cn(
-        "flex w-full min-w-0 flex-wrap items-center gap-2 rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-secondary)] [font-family:var(--font-inter)] transition-colors outline-none focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 has-[input:disabled]:pointer-events-none has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50 has-[input:disabled]:bg-[var(--uds-surface-disabled)]",
+        "flex w-full min-w-0 flex-wrap items-center gap-2 rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-secondary)] [font-family:var(--font-inter)] transition-colors outline-none focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 has-[input:disabled]:pointer-events-none has-[input:disabled]:cursor-not-allowed has-[input:disabled]:border-uds-border-disabled has-[input[aria-invalid=true]]:border-destructive has-[input[aria-invalid=true]]:ring-3 has-[input[aria-invalid=true]]:ring-destructive/20 dark:has-[input[aria-invalid=true]]:ring-destructive/40",
         inputSize === "sm"
           ? "min-h-9 px-2 py-1 text-uds-14 leading-uds-14"
           : "min-h-11 px-2 py-1 text-uds-16 leading-uds-16",

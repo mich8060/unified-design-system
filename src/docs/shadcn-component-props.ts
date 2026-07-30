@@ -739,6 +739,13 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     CN,
     MORE,
   ],
+  'pill-toggle': [
+    r('pressed / defaultPressed', 'boolean', 'Controlled/uncontrolled selected state (Radix Toggle).'),
+    r('onPressedChange', '(pressed: boolean) => void', 'Fires when the pill is toggled.'),
+    r('disabled', 'boolean', 'Disables the control.', 'false'),
+    CN,
+    MORE,
+  ],
   popover: [
     r(
       'trigger',
