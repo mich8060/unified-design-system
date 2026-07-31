@@ -935,8 +935,14 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     MORE,
   ],
   steps: [
-    r('Step.state', '"upcoming" | "current" | "complete"', 'State used to style step marker and text.', 'upcoming'),
-    r('StepMarker.index', 'number', 'Step number when state is not complete.'),
+    r('Steps.orientation', '"horizontal" | "vertical"', 'Layout direction; propagated to each Step.', 'horizontal'),
+    r(
+      'Step.status',
+      '"complete" | "active" | "incomplete" | "disabled" | "error" | "warning"',
+      'Status used to style the marker, connector lines, and text.',
+      'incomplete',
+    ),
+    r('Step.size', '"default" | "compact"', 'Default shows an 18px marker with a status icon; compact is an 8px dot with no icon.', 'default'),
     r('StepTitle', 'ReactNode', 'Step heading content.'),
     r('StepDescription', 'ReactNode', 'Supporting step details.'),
     CN,

@@ -225,7 +225,7 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Status displays semantic state labels with optional indicator dots for readiness, success, warning, and error states — with solid, outlined, and text-only appearances, each in a pastel or deeper "default" color treatment.',
   },
   steps: {
-    summary: 'Steps presents ordered workflow progress with upcoming/current/complete markers and descriptive guidance.',
+    summary: 'Steps presents ordered workflow progress with complete/active/incomplete/disabled/error/warning markers, horizontal or vertical, in default or compact size.',
   },
   switch: {
     summary: 'Switch toggles a single on/off setting with immediate visual feedback.',

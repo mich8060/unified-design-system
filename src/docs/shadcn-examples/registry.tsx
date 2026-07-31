@@ -121,7 +121,6 @@ import {
     Step,
     StepContent,
     StepDescription,
-    StepMarker,
     StepTitle,
     Steps,
     TimeInput,
@@ -918,16 +917,13 @@ function PillToggleDemo() {
 function SliderSteppedDemo() {
     const [value, setValue] = React.useState([40])
     return (
-        <div className="flex max-w-xs flex-col gap-3 text-sm">
-            <div className="flex items-center justify-between gap-4">
-                <span className="text-muted-foreground">Level</span>
-                <span className="tabular-nums text-foreground">{value[0]}</span>
-            </div>
+        <div className="flex max-w-xs flex-col gap-2">
             <Slider
                 value={value}
                 onValueChange={setValue}
                 max={100}
                 step={10}
+                label="Level"
                 className="w-full"
             />
             <p className="text-xs text-muted-foreground">
@@ -3517,26 +3513,68 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
     ],
     steps: [
         E(
-            'workflow',
-            'Step progress',
+            'horizontal',
+            'Horizontal progress',
             (
                 <Steps className="max-w-xl">
-                    <Step state="complete">
-                        <StepMarker state="complete" />
+                    <Step status="complete">
+                        <StepTitle>Submitted</StepTitle>
+                    </Step>
+                    <Step status="active">
+                        <StepTitle>Review</StepTitle>
+                    </Step>
+                    <Step status="incomplete">
+                        <StepTitle>Approval</StepTitle>
+                    </Step>
+                </Steps>
+            ),
+            `<Steps>
+  <Step status="complete"><StepTitle>Submitted</StepTitle></Step>
+  <Step status="active"><StepTitle>Review</StepTitle></Step>
+  <Step status="incomplete"><StepTitle>Approval</StepTitle></Step>
+</Steps>`,
+        ),
+        E(
+            'statuses',
+            'Error & warning statuses',
+            (
+                <Steps className="max-w-xl">
+                    <Step status="complete">
+                        <StepTitle>Submitted</StepTitle>
+                    </Step>
+                    <Step status="error">
+                        <StepTitle>Verification</StepTitle>
+                    </Step>
+                    <Step status="warning">
+                        <StepTitle>Review</StepTitle>
+                    </Step>
+                    <Step status="disabled">
+                        <StepTitle>Approval</StepTitle>
+                    </Step>
+                </Steps>
+            ),
+            `<Step status="error"><StepTitle>Verification</StepTitle></Step>
+<Step status="warning"><StepTitle>Review</StepTitle></Step>
+<Step status="disabled"><StepTitle>Approval</StepTitle></Step>`,
+        ),
+        E(
+            'vertical',
+            'Vertical workflow',
+            (
+                <Steps orientation="vertical" className="max-w-xl">
+                    <Step orientation="vertical" status="complete">
                         <StepContent>
                             <StepTitle>Profile submitted</StepTitle>
                             <StepDescription>All clinician details were received.</StepDescription>
                         </StepContent>
                     </Step>
-                    <Step state="current">
-                        <StepMarker state="current" index={2} />
+                    <Step orientation="vertical" status="active">
                         <StepContent>
                             <StepTitle>Credential review</StepTitle>
                             <StepDescription>Compliance team is reviewing documentation.</StepDescription>
                         </StepContent>
                     </Step>
-                    <Step state="upcoming">
-                        <StepMarker state="upcoming" index={3} />
+                    <Step orientation="vertical" status="incomplete">
                         <StepContent>
                             <StepTitle>Facility approval</StepTitle>
                             <StepDescription>Awaiting final sign-off.</StepDescription>
@@ -3544,39 +3582,34 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     </Step>
                 </Steps>
             ),
-            `<Steps>
-  <Step state="current">
-    <StepMarker state="current" index={2} />
+            `<Steps orientation="vertical">
+  <Step status="complete">
     <StepContent>
-      <StepTitle>Credential review</StepTitle>
+      <StepTitle>Profile submitted</StepTitle>
+      <StepDescription>All clinician details were received.</StepDescription>
     </StepContent>
   </Step>
 </Steps>`,
         ),
         E(
-            'short',
-            'Two-step compact flow',
+            'sizes',
+            'Default & compact markers',
             (
-                <Steps className="max-w-md">
-                    <Step state="complete">
-                        <StepMarker state="complete" />
-                        <StepContent>
-                            <StepTitle>Upload resume</StepTitle>
-                        </StepContent>
-                    </Step>
-                    <Step state="current">
-                        <StepMarker state="current" index={2} />
-                        <StepContent>
-                            <StepTitle>Complete profile</StepTitle>
-                            <StepDescription>Add certifications and preferred schedule.</StepDescription>
-                        </StepContent>
-                    </Step>
-                </Steps>
+                <div className="flex max-w-xl flex-col gap-6">
+                    <Steps>
+                        <Step status="complete" />
+                        <Step status="active" />
+                        <Step status="incomplete" />
+                    </Steps>
+                    <Steps>
+                        <Step status="complete" size="compact" />
+                        <Step status="active" size="compact" />
+                        <Step status="incomplete" size="compact" />
+                    </Steps>
+                </div>
             ),
-            `<Steps>
-  <Step state="complete"><StepMarker state="complete" /><StepContent><StepTitle>Upload resume</StepTitle></StepContent></Step>
-  <Step state="current"><StepMarker state="current" index={2} /><StepContent><StepTitle>Complete profile</StepTitle></StepContent></Step>
-</Steps>`,
+            `<Step status="complete" size="default" />
+<Step status="complete" size="compact" />`,
         ),
     ],
     toolbar: [
@@ -4753,18 +4786,30 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             `<Slider defaultValue={[25, 75]} max={100} />`,
         ),
         E(
+            'sizes',
+            'Default & small',
+            (
+                <div className="flex max-w-xs flex-col gap-6">
+                    <Slider defaultValue={[60]} max={100} step={1} size="default" />
+                    <Slider defaultValue={[60]} max={100} step={1} size="small" />
+                </div>
+            ),
+            `<Slider defaultValue={[60]} size="default" />
+<Slider defaultValue={[60]} size="small" />`,
+        ),
+        E(
             'stepped',
             'Stepped movement',
             <SliderSteppedDemo />,
             `const [value, setValue] = React.useState([40])
 
-<div className="flex max-w-xs flex-col gap-3">
-  <div className="flex items-center justify-between text-sm">
-    <span className="text-muted-foreground">Level</span>
-    <span className="tabular-nums">{value[0]}</span>
-  </div>
-  <Slider value={value} onValueChange={setValue} max={100} step={10} />
-</div>`,
+<Slider
+  value={value}
+  onValueChange={setValue}
+  max={100}
+  step={10}
+  label="Level"
+/>`,
         ),
     ],
     sonner: [

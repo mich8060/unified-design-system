@@ -2054,11 +2054,11 @@ body {
   --uds-system-constructive-secondary: var(--uds-color-accent-green-400);
   --uds-system-constructive-tertiary: var(--uds-color-accent-green-300);
   --uds-system-constructive-quaternary: var(--uds-color-accent-green-50);
-  --uds-system-destructive-primary: var(--uds-color-accent-red-600);
+  --uds-system-destructive-primary: var(--uds-color-accent-red-700);
   --uds-system-destructive-secondary: var(--uds-color-accent-red-400);
   --uds-system-destructive-tertiary: var(--uds-color-accent-red-200);
   --uds-system-destructive-quaternary: var(--uds-color-accent-red-50);
-  --uds-system-warning-primary: var(--uds-color-accent-yellow-600);
+  --uds-system-warning-primary: var(--uds-color-accent-yellow-800);
   --uds-system-warning-secondary: var(--uds-color-accent-yellow-400);
   --uds-system-warning-tertiary: var(--uds-color-accent-yellow-100);
   --uds-system-warning-quaternary: var(--uds-color-accent-yellow-50);
