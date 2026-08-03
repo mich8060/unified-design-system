@@ -24,6 +24,10 @@ export const Query: Story = {
   render: () => renderExample(0),
 }
 
-export const Shortcut: Story = {
+export const OnGray: Story = {
   render: () => renderExample(1),
+}
+
+export const Shortcut: Story = {
+  render: () => renderExample(2),
 }

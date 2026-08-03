@@ -1,15 +1,12 @@
 "use client"
 
 import * as React from "react"
-import {
-  ArrowClockwiseIcon,
-  DownloadSimpleIcon,
-  EyeIcon,
-  FileIcon,
-  ImageIcon,
-  XIcon,
-} from "@phosphor-icons/react"
-
+import { ArrowClockwiseIcon } from "@phosphor-icons/react/ArrowClockwise"
+import { DownloadSimpleIcon } from "@phosphor-icons/react/DownloadSimple"
+import { EyeIcon } from "@phosphor-icons/react/Eye"
+import { FileIcon } from "@phosphor-icons/react/File"
+import { ImageIcon } from "@phosphor-icons/react/Image"
+import { XIcon } from "@phosphor-icons/react/X"
 import { Badge } from "@/components/ui/badge"
 import { FileUpload, type FileUploadProps, type FileUploadSize } from "@/components/ui/file-upload"
 import { Medallion, type MedallionSize } from "@/components/ui/medallion"

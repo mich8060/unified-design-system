@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs"
-import { mkdir, readFile, writeFile } from "node:fs/promises"
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -16,6 +16,8 @@ const INDEX_PATH = path.join(ROOT, "src/index.ts")
 const CONTRACT_PATH = path.join(ROOT, "ai/uds-contract.json")
 const REGISTRY_PATH = path.join(ROOT, "registry.json")
 const PUBLIC_REGISTRY_DIR = path.join(ROOT, "public/r")
+const DESIGN_LANGUAGE_DIR = path.join(ROOT, "design-language")
+const AI_INDEXES_DIR = path.join(ROOT, "ai/indexes")
 
 const ROLE_BY_MODULE = {
   accordion: ["data-display"],
@@ -75,6 +77,9 @@ const ROLE_BY_MODULE = {
   "radio-group": ["input"],
   resizable: ["layout"],
   "scroll-area": ["layout"],
+  "filterbar": ["layout", "navigation", "first-party"],
+  "page-header": ["layout", "navigation", "first-party"],
+  "main-content": ["layout", "first-party"],
   "search-input": ["input"],
   select: ["input"],
   separator: ["layout"],
@@ -196,6 +201,79 @@ const RECIPE_DEFINITIONS = [
     description: "Preference or admin page that keeps UDS field chrome and uses AppShell for the surrounding layout.",
     defaults: ["AppShell", "Field", "Input", "Select", "Switch", "Button"],
   },
+  {
+    id: "ops-queue-dashboard",
+    title: "Ops Queue Dashboard",
+    file: "ai/recipes/ops-queue-dashboard.md",
+    description: "Operational work queue with search/facets, sectioned Item lists, and a MicroCalendar aside.",
+    defaults: [
+      "AppShell",
+      "Menu",
+      "SectionHeader",
+      "SearchInput",
+      "Item",
+      "ItemGroup",
+      "MicroCalendar",
+      "Card",
+      "Badge",
+      "Status",
+      "Medallion",
+    ],
+  },
+  {
+    id: "triage-dashboard",
+    title: "Triage Dashboard",
+    file: "ai/recipes/triage-dashboard.md",
+    description: "Dense triage layout: KPI tiles, since-last-visit alerts, and three scrollable Item panels with line Tabs.",
+    defaults: [
+      "AppShell",
+      "Menu",
+      "SectionHeader",
+      "SearchInput",
+      "Card",
+      "Medallion",
+      "Status",
+      "Badge",
+      "Item",
+      "ItemGroup",
+      "Tabs",
+    ],
+  },
+  {
+    id: "provider-portal-home",
+    title: "Provider Portal Home",
+    file: "ai/recipes/provider-portal-home.md",
+    description:
+      "Provider home with a fixed left identity rail and a main workflow column (Steps, MicroCalendar, or Accordion variants).",
+    defaults: [
+      "AppShell",
+      "Menu",
+      "Card",
+      "Avatar",
+      "Badge",
+      "Progress",
+      "Steps",
+      "Medallion",
+      "Button",
+    ],
+  },
+  {
+    id: "analytics-overview",
+    title: "Analytics Overview",
+    file: "ai/recipes/analytics-overview.md",
+    description: "Analytics overview with a wide ChartContainer card and adjacent feed panels using Tabs and Empty.",
+    defaults: [
+      "AppShell",
+      "Menu",
+      "SectionHeader",
+      "Card",
+      "ChartContainer",
+      "Badge",
+      "Medallion",
+      "Tabs",
+      "Empty",
+    ],
+  },
 ]
 
 const REGISTRY_ITEMS = [
@@ -288,19 +366,283 @@ async function main() {
   const packageJson = JSON.parse(await readFile(PACKAGE_JSON_PATH, "utf8"))
   const exportedModules = await getIndexExports()
   const componentCatalog = await buildCatalog(exportedModules)
-  const contract = buildContract(packageJson.version, componentCatalog)
+  const dslDocs = await scanDesignLanguageDocs()
+  const contract = buildContract(packageJson.version, componentCatalog, dslDocs)
   const registry = buildRegistry(packageJson.version)
 
   await mkdir(path.dirname(CONTRACT_PATH), { recursive: true })
   await mkdir(PUBLIC_REGISTRY_DIR, { recursive: true })
+  await mkdir(AI_INDEXES_DIR, { recursive: true })
 
   await writeJson(CONTRACT_PATH, contract)
   await writeJson(REGISTRY_PATH, registry)
+  await writeDesignLanguageIndexes(dslDocs)
 
   await Promise.all(
     registry.items.map((item) =>
       writeJson(path.join(PUBLIC_REGISTRY_DIR, `${item.name}.json`), item)
     )
+  )
+}
+
+function parseFrontMatter(source) {
+  if (!source.startsWith("---\n") && !source.startsWith("---\r\n")) return null
+  const end = source.indexOf("\n---", 3)
+  if (end === -1) return null
+  const block = source.slice(4, end).replace(/\r/g, "")
+  const data = {
+    id: "",
+    category: "",
+    type: "",
+    priority: "",
+    ai_priority: "",
+    related: [],
+    components: [],
+    patterns: [],
+    tokens: [],
+    depends_on: [],
+    influences: [],
+    conflicts_with: [],
+    alternatives: [],
+    design_intent: [],
+  }
+  let listKey = null
+  for (const line of block.split("\n")) {
+    if (/^\s+-\s+/.test(line) && listKey) {
+      const item = line.replace(/^\s+-\s+/, "").trim()
+      if (item && item !== "[]") data[listKey].push(item)
+      continue
+    }
+    listKey = null
+    const m = line.match(/^([a-z_]+):\s*(.*)$/)
+    if (!m) continue
+    const [, key, raw] = m
+    if (!(key in data)) continue
+    if (Array.isArray(data[key])) {
+      if (raw.trim() === "[]" || raw.trim() === "") {
+        listKey = key
+      } else {
+        data[key] = raw
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean)
+      }
+    } else {
+      data[key] = raw.trim()
+    }
+  }
+  return data.id ? data : null
+}
+
+async function walkMarkdownFiles(dir, base = "") {
+  const entries = await readdir(dir, { withFileTypes: true })
+  const files = []
+  for (const entry of entries) {
+    const rel = path.join(base, entry.name)
+    if (entry.isDirectory()) {
+      files.push(...(await walkMarkdownFiles(path.join(dir, entry.name), rel)))
+    } else if (entry.name.endsWith(".md")) {
+      files.push(rel)
+    }
+  }
+  return files
+}
+
+async function scanDesignLanguageDocs() {
+  const relFiles = await walkMarkdownFiles(DESIGN_LANGUAGE_DIR)
+  const docs = []
+  for (const rel of relFiles) {
+    const source = await readFile(path.join(DESIGN_LANGUAGE_DIR, rel), "utf8")
+    const fm = parseFrontMatter(source)
+    if (!fm) continue
+    const titleMatch = source.match(/^#\s+(.+)$/m)
+    docs.push({
+      ...fm,
+      path: `design-language/${rel.replace(/\\/g, "/")}`,
+      title: titleMatch?.[1]?.trim() ?? fm.id,
+    })
+  }
+  docs.sort((a, b) => a.id.localeCompare(b.id))
+  return docs
+}
+
+function indexHeader(title, description) {
+  return [
+    "---",
+    `id: ${title.toLowerCase().replace(/\s+/g, "-")}`,
+    "category: index",
+    "type: index",
+    "priority: high",
+    "ai_priority: critical",
+    "confidence_default: preferred",
+    "related: []",
+    "components: []",
+    "patterns: []",
+    "tokens: []",
+    "depends_on: []",
+    "influences: []",
+    "conflicts_with: []",
+    "alternatives: []",
+    "design_intent: []",
+    "---",
+    "",
+    `# ${title}`,
+    "",
+    description,
+    "",
+    "_Generated by `scripts/generate-ai-artifacts.mjs`. Do not edit by hand._",
+    "",
+  ].join("\n")
+}
+
+async function writeDesignLanguageIndexes(docs) {
+  const byCategory = (cats) => docs.filter((d) => cats.includes(d.category))
+  const concepts = byCategory(["philosophy", "physics", "semantics", "grammar", "foundation", "composition", "interaction", "accessibility"])
+  const decisions = byCategory(["decision"])
+  const patterns = byCategory(["pattern"])
+  const ontology = byCategory(["ontology", "component"])
+  const anti = byCategory(["anti-pattern"])
+
+  const conceptRows = concepts.map(
+    (d) => `| \`${d.id}\` | ${d.category} | ${d.ai_priority || d.priority} | [\`${d.path}\`](../../${d.path}) |`
+  )
+  await writeFile(
+    path.join(AI_INDEXES_DIR, "concept-index.md"),
+    `${indexHeader(
+      "Concept index",
+      "Atomic DSL concepts for semantic search and RAG (philosophy, physics, semantics, grammar, foundations, interactions, accessibility)."
+    )}| id | category | ai_priority | path |\n|----|----------|-------------|------|\n${conceptRows.join("\n")}\n`,
+    "utf8"
+  )
+
+  const componentRows = []
+  const seenComponents = new Set()
+  for (const d of docs) {
+    for (const name of d.components ?? []) {
+      if (seenComponents.has(name)) continue
+      seenComponents.add(name)
+      componentRows.push(
+        `| ${name} | \`${d.id}\` | [\`${d.path}\`](../../${d.path}) |`
+      )
+    }
+  }
+  for (const d of ontology) {
+    componentRows.push(`| _(ontology)_ | \`${d.id}\` | [\`${d.path}\`](../../${d.path}) |`)
+  }
+  componentRows.sort()
+  await writeFile(
+    path.join(AI_INDEXES_DIR, "component-index.md"),
+    `${indexHeader(
+      "Component index",
+      "Components referenced from DSL front matter and ontology objects. Prop APIs remain in `ai/uds-contract.json` → `componentCatalog`."
+    )}| component | dsl_id | path |\n|-----------|--------|------|\n${componentRows.join("\n")}\n`,
+    "utf8"
+  )
+
+  const relRows = []
+  for (const d of docs) {
+    for (const edge of [
+      ["depends_on", d.depends_on],
+      ["influences", d.influences],
+      ["conflicts_with", d.conflicts_with],
+      ["alternatives", d.alternatives],
+      ["related", d.related],
+    ]) {
+      const [kind, list] = edge
+      for (const target of list ?? []) {
+        if (!target || target === "—") continue
+        relRows.push(`| \`${d.id}\` | ${kind} | \`${target}\` | [\`${d.path}\`](../../${d.path}) |`)
+      }
+    }
+  }
+  await writeFile(
+    path.join(AI_INDEXES_DIR, "relationship-index.md"),
+    `${indexHeader(
+      "Relationship index",
+      "Typed edges extracted from design-language YAML front matter."
+    )}| from | relation | to | path |\n|------|----------|----|------|\n${relRows.join("\n")}\n`,
+    "utf8"
+  )
+
+  const decisionRows = decisions.map(
+    (d) => `| \`${d.id}\` | ${d.type} | [\`${d.path}\`](../../${d.path}) |`
+  )
+  await writeFile(
+    path.join(AI_INDEXES_DIR, "decision-index.md"),
+    `${indexHeader(
+      "Decision index",
+      "Decision rules and trees. Start with `choosing-patterns` then open the matching tree."
+    )}| id | type | path |\n|----|------|------|\n${decisionRows.join("\n")}\n`,
+    "utf8"
+  )
+
+  const patternRows = patterns.map(
+    (d) => `| \`${d.id}\` | [\`${d.path}\`](../../${d.path}) | ${(d.patterns ?? []).join(", ")} |`
+  )
+  await writeFile(
+    path.join(AI_INDEXES_DIR, "pattern-index.md"),
+    `${indexHeader(
+      "Pattern index",
+      "DSL patterns. Pair with `ai/recipes/` and `ai/examples/` for implementation fixtures."
+    )}| id | path | related_patterns |\n|----|------|------------------|\n${patternRows.join("\n")}\n`,
+    "utf8"
+  )
+
+  const reasoningDocs = docs.filter(
+    (d) =>
+      d.category === "pattern" ||
+      d.type === "tree" ||
+      d.id === "choosing-patterns" ||
+      d.id === "intent"
+  )
+  const reasoningRows = reasoningDocs.map(
+    (d) => `| \`${d.id}\` | ${d.category}/${d.type} | [\`${d.path}\`](../../${d.path}) |`
+  )
+  await writeFile(
+    path.join(AI_INDEXES_DIR, "reasoning-index.md"),
+    `${indexHeader(
+      "Reasoning index",
+      "Documents that encode Goal → Reasoning chains or decision trees for AI composition."
+    )}| id | kind | path |\n|----|------|------|\n${reasoningRows.join("\n")}\n\n## Anti-patterns\n\n${anti.map((d) => `- [\`${d.id}\`](../../${d.path})`).join("\n")}\n`,
+    "utf8"
+  )
+
+  const intentOrder = [
+    "scanability",
+    "comparison",
+    "editing",
+    "navigation",
+    "discovery",
+    "confirmation",
+    "temporary_workspace",
+    "interrupt_workflow",
+    "prevent_harm",
+    "obtain_confirmation",
+  ]
+  const byIntent = new Map(intentOrder.map((intent) => [intent, []]))
+  for (const d of docs) {
+    for (const intent of d.design_intent ?? []) {
+      if (!byIntent.has(intent)) byIntent.set(intent, [])
+      byIntent.get(intent).push(d)
+    }
+  }
+  const intentSections = intentOrder.map((intent) => {
+    const rows = (byIntent.get(intent) ?? [])
+      .sort((a, b) => a.id.localeCompare(b.id))
+      .map((d) => `| \`${d.id}\` | ${d.category}/${d.type} | [\`${d.path}\`](../../${d.path}) |`)
+    return `## \`${intent}\`\n\n${
+      rows.length
+        ? `| id | kind | path |\n|----|------|------|\n${rows.join("\n")}`
+        : "_No documents tagged yet._"
+    }\n`
+  })
+  await writeFile(
+    path.join(AI_INDEXES_DIR, "design-intent-index.md"),
+    `${indexHeader(
+      "Design intent index",
+      "Retrieval facet: docs grouped by `design_intent` (scanability, comparison, editing, navigation, discovery, confirmation, temporary_workspace, interrupt_workflow, prevent_harm, obtain_confirmation). See `design-language/semantics/intent.md`."
+    )}${intentSections.join("\n")}`,
+    "utf8"
   )
 }
 
@@ -398,7 +740,7 @@ function getRecommendation(name, kind, roles) {
   return "allowed"
 }
 
-function buildContract(version, componentCatalog) {
+function buildContract(version, componentCatalog, dslDocs = []) {
   return {
     generatedAt: new Date().toISOString(),
     generatedFrom: ["src/index.ts", "package.json", "scripts/generate-ai-artifacts.mjs"],
@@ -476,6 +818,34 @@ function buildContract(version, componentCatalog) {
       "Do not invent a parallel component system for buttons, fields, badges, or status treatments when package exports exist.",
       "Do not default to stock shadcn layout patterns when UDS-specific first-party components are available.",
     ],
+    designLanguage: {
+      root: "design-language",
+      packageExport: "@chghealthcare/unified-design-system/design-language",
+      purpose:
+        "Why/when knowledge model (philosophy → physics → semantics → grammar → decisions → relationships → patterns → ontology → foundations). Contract remains what/how for APIs.",
+      indexes: [
+        "ai/indexes/concept-index.md",
+        "ai/indexes/component-index.md",
+        "ai/indexes/relationship-index.md",
+        "ai/indexes/decision-index.md",
+        "ai/indexes/pattern-index.md",
+        "ai/indexes/reasoning-index.md",
+        "ai/indexes/design-intent-index.md",
+      ],
+      layers: [
+        "philosophy",
+        "design-physics",
+        "semantics",
+        "grammar",
+        "decision-rules",
+        "relationships",
+        "patterns",
+        "ontology",
+        "foundations",
+        "examples",
+      ],
+      documentCount: dslDocs.length,
+    },
     references: [
       "src/index.ts",
       "examples/consumer-react/src/App.tsx",
@@ -483,9 +853,20 @@ function buildContract(version, componentCatalog) {
       "ai/examples/workspace-dashboard.tsx",
       "ai/examples/detail-with-listview.tsx",
       "ai/examples/settings-form.tsx",
+      "ai/examples/ops-queue-dashboard.tsx",
+      "ai/examples/triage-dashboard.tsx",
+      "ai/examples/provider-portal-home.tsx",
+      "ai/examples/analytics-overview.tsx",
+      "ai/examples/right-side-inspector.tsx",
       "ai/guides/appshell-navigation.md",
       "ai/appshell.schema.json",
+      "ai/indexes/concept-index.md",
+      "ai/indexes/decision-index.md",
+      "ai/indexes/pattern-index.md",
+      "design-language/README.md",
+      "design-language/decision-rules/choosing-patterns.md",
       "AI_USAGE.md",
+      "AGENTS.md",
       "setup.md",
     ],
     registry: {

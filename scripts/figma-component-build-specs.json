@@ -1792,6 +1792,6 @@
     },
     "wordmarkFrame": { "width": 200, "height": 80 },
     "markFrame": { "width": 64, "height": 64 },
-    "figmaMatrixNote": "8 appearances × wordmark (200×80) or mark (64×64). SVG sources: public/branding/svg/*.svg. Matches Branding React component."
+    "figmaMatrixNote": "8 appearances × wordmark (200×80) or mark (64×64). SVG sources: src/assets/branding/svg/*.svg. Matches Branding React component."
   }
 }

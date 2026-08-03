@@ -1,23 +1,124 @@
 .appshell {
   --appshell-menu-width-expanded: 280px;
-  --appshell-menu-width-collapsed: 64px;
-  --appshell-listview-width: 320px;
+  --appshell-menu-width-collapsed: 56px;
+  /* Listview band: 320–480px. Default 320; override via listviewWidth or this token. */
+  --appshell-listview-width-min: 320px;
+  --appshell-listview-width-max: 480px;
+  --appshell-listview-width: var(--appshell-listview-width-min);
   --appshell-header-height: 3.5rem; /* matches package Header (h-14) */
 
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  /* Lock to the viewport; chrome is fixed so pad the top for the header strip. */
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  padding-top: var(--appshell-header-height);
   width: 100%;
   background: var(--background);
   font-family: var(--font-sans);
   color: var(--foreground);
+  position: relative;
 }
 
-/* Master–detail: lock shell height so listview and main scroll independently. */
-.appshell:has(.appshell--listview-open) {
-  height: 100dvh;
-  max-height: 100dvh;
+/*
+ * Skip links — first focusable controls. Visually hidden until focused so keyboard
+ * and screen-reader users can bypass chrome into search or main content.
+ *
+ * Must not intercept pointer events while hidden. Use pointer-events: none on the
+ * container and only re-enable on the focused link.
+ */
+.appshell-skip-nav {
+  position: absolute;
+  left: var(--uds-spacing-16);
+  top: var(--uds-spacing-16);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--uds-spacing-8);
+  pointer-events: none;
+}
+
+.appshell-skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  border-radius: var(--uds-radius-8);
+  background: var(--uds-surface-primary);
+  color: var(--uds-text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--uds-font-size-14);
+  line-height: var(--uds-line-14);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.appshell-skip-link:focus,
+.appshell-skip-link:focus-visible {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: var(--uds-spacing-8) var(--uds-spacing-16);
+  overflow: visible;
+  clip: auto;
+  border: var(--uds-border-width-1) solid var(--uds-border-primary);
+  pointer-events: auto;
+  outline: 2px solid var(--uds-border-brand-primary);
+  outline-offset: 2px;
+}
+
+.appshell--main:focus {
+  outline: none;
+}
+
+.appshell--main:focus-visible {
+  outline: 2px solid var(--uds-border-brand-primary);
+  outline-offset: -2px;
+}
+
+/* Full-width app chrome — fixed to the viewport like Menu (no overscroll bounce). */
+.appshell--chrome {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 45;
+  width: 100%;
+  height: var(--appshell-header-height);
+}
+
+/* Row under chrome: fixed menu + body. */
+.appshell--workspace {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.appshell--menu {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  pointer-events: none;
+  z-index: 25;
+}
+
+.appshell--menu [data-slot="uds-menu-root"] {
+  top: var(--appshell-header-height);
+  height: calc(100dvh - var(--appshell-header-height));
+  pointer-events: auto;
+  z-index: 25;
 }
 
 .appshell--body {
@@ -29,10 +130,13 @@
   margin-left: var(--appshell-menu-width-expanded);
   width: calc(100% - var(--appshell-menu-width-expanded));
   min-width: 0;
+  /* Page canvas: surface secondary; cards/panels use surface primary on top */
+  background: var(--uds-surface-secondary);
   transition:
     margin-left 200ms ease-out,
     width 200ms ease-out;
   position: relative;
+  z-index: 1;
 }
 
 .appshell:has([data-slot="uds-menu-root"][data-expanded="false"]) .appshell--body {
@@ -40,16 +144,12 @@
   width: calc(100% - var(--appshell-menu-width-collapsed));
 }
 
-/* In-flow header: only `.appshell--main` scrolls, so no fixed offset or content padding-top is needed. */
-.appshell--header {
-  position: relative;
-  z-index: 20;
-  flex-shrink: 0;
-  width: 100%;
-  height: var(--appshell-header-height);
+/* Mobile/tablet scrim behind the drawer (shown when menu is open below lg). */
+.appshell--scrim {
+  display: none;
 }
 
-/* Region below header: listview + main share one row, constrained to viewport. */
+/* Region below chrome: listview + main share one row, constrained to viewport. */
 .appshell--content {
   display: flex;
   flex: 1 1 0;
@@ -70,29 +170,53 @@
     border-color 250ms ease-out;
 }
 
+/*
+ * Keep the pane child at the final listview width at all times. The outer
+ * .appshell--listview animates width with overflow:hidden, so rows/items do not
+ * reflow (grow/shrink) during open/close — they stay laid out at the chosen
+ * width (320–480px) and clip.
+ */
 .appshell--listview > * {
-  width: var(--appshell-listview-width);
-  min-width: var(--appshell-listview-width);
-  opacity: 0;
-  transition: opacity 250ms ease-out;
-}
-
-.appshell--listview-open {
-  width: var(--appshell-listview-width);
-  min-width: var(--appshell-listview-width);
-  overflow: hidden;
-  border-right: var(--uds-border-width-1) solid var(--border);
-}
-
-/* Direct child: full-height column; pane header stays put, body scrolls inside. */
-.appshell--listview-open > * {
-  width: 100%;
-  min-width: 0;
+  width: clamp(
+    var(--appshell-listview-width-min),
+    var(--appshell-listview-width),
+    var(--appshell-listview-width-max)
+  );
+  min-width: clamp(
+    var(--appshell-listview-width-min),
+    var(--appshell-listview-width),
+    var(--appshell-listview-width-max)
+  );
+  max-width: clamp(
+    var(--appshell-listview-width-min),
+    var(--appshell-listview-width),
+    var(--appshell-listview-width-max)
+  );
   height: 100%;
   min-height: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  opacity: 0;
+  transition: opacity 250ms ease-out;
+}
+
+.appshell--listview-open {
+  width: clamp(
+    var(--appshell-listview-width-min),
+    var(--appshell-listview-width),
+    var(--appshell-listview-width-max)
+  );
+  min-width: clamp(
+    var(--appshell-listview-width-min),
+    var(--appshell-listview-width),
+    var(--appshell-listview-width-max)
+  );
+  overflow: hidden;
+  border-right: var(--uds-border-width-1) solid var(--border);
+}
+
+.appshell--listview-open > * {
   opacity: 1;
 }
 
@@ -122,13 +246,98 @@
   min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
+  /* Page canvas — same as body; MainContent / Cards layer primary surfaces on top */
+  background: var(--uds-surface-secondary);
+  /* No built-in padding — recommend 24px (`--uds-spacing-24`) on MainContent / page wrappers */
+  padding: 0;
 }
 
+/* In-flow footer (not fixed/absolute); scrolls with page content. */
 .appshell--footer {
+  position: static;
   flex-shrink: 0;
   width: 100%;
+  margin-top: var(--uds-spacing-48);
 }
 
-.appshell--footer [data-slot="uds-footer"] {
+/* Host inside MainContent — footer portals here when MainContent is mounted. */
+[data-slot="main-content-footer"] {
+  width: 100%;
+  min-width: 0;
+  margin-top: var(--uds-spacing-48);
+}
+
+/* Avoid stacking host + footer margins when portaled into MainContent. */
+[data-slot="main-content-footer"] > .appshell--footer {
+  margin-top: 0;
+}
+
+/* Keep footer directly after content (48px gap) — do not flex-grow siblings to pin it to the scrollport. */
+.appshell--main:has(> .appshell--footer) > *:not(.appshell--footer) {
+  flex-grow: 0;
+}
+
+.appshell--main:has(> .appshell--footer) > [data-slot="main-content"] {
+  min-height: auto;
+}
+
+.appshell--footer [data-slot="uds-footer"],
+[data-slot="main-content-footer"] [data-slot="uds-footer"] {
   border-top: none;
+}
+
+/*
+ * Below lg: menu is an off-canvas drawer; body is full width.
+ * `data-expanded="true"` opens the drawer; `"false"` keeps it off-screen.
+ */
+@media (max-width: 1023px) {
+  .appshell--body {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .appshell:has([data-slot="uds-menu-root"][data-expanded="false"]) .appshell--body {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  /* Wrapper must sit above the scrim — child z-index alone stays inside this context. */
+  .appshell--menu {
+    z-index: 40;
+  }
+
+  .appshell--menu [data-slot="uds-menu-root"] {
+    width: var(--appshell-menu-width-expanded) !important;
+    transform: translateX(-100%);
+    transition:
+      transform 200ms ease-out,
+      width 200ms ease-out;
+    z-index: 40;
+    box-shadow: none;
+  }
+
+  .appshell:has([data-slot="uds-menu-root"][data-expanded="true"]) .appshell--menu [data-slot="uds-menu-root"] {
+    transform: translateX(0);
+    box-shadow: var(--uds-elevation-2, 0 8px 24px rgb(0 0 0 / 0.12));
+  }
+
+  .appshell--scrim {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 35;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: rgb(0 0 0 / 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease-out;
+    cursor: pointer;
+  }
+
+  .appshell:has([data-slot="uds-menu-root"][data-expanded="true"]) .appshell--scrim {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }

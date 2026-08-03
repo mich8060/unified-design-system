@@ -29,8 +29,14 @@ jobs:
       - name: Build library (publish surface)
         run: npm run build:lib
 
-      - name: Unit tests (scripts)
-        run: npm test
+      - name: Recipe layout utilities in styles.css
+        run: npm run test:recipe-layout-css
+
+      - name: Script unit tests
+        run: npm run test:scripts
+
+      - name: Component unit tests
+        run: npm run test:unit
 
       - name: Validate Figma artifact consistency
         run: npm run validate:figma
@@ -43,3 +49,35 @@ jobs:
 
       - name: Verify npm pack contents
         run: npm run pack:check
+
+  docs-smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build docs site
+        run: npm run build:docs
+
+      - name: Docs route smoke
+        run: npm run test:docs-smoke
+
+      # Baselines are OS-specific (*-linux.png). Generate on Ubuntu:
+      #   npm run build:docs && npm run test:visual:update
+      # then commit e2e/visual/**/*-linux.png. Until those exist, skip on CI.
+      - name: Visual baselines (narrow)
+        if: hashFiles('e2e/visual/**/*-linux.png') != ''
+        run: npm run test:visual
+

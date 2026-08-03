@@ -3,8 +3,7 @@ import { type VariantProps } from "class-variance-authority"
 
 import { inputVariants } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { CaretDownIcon } from "@phosphor-icons/react"
-
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown"
 type NativeSelectProps = Omit<React.ComponentProps<"select">, "size"> &
   VariantProps<typeof inputVariants>
 

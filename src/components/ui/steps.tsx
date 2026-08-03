@@ -1,6 +1,7 @@
 import * as React from "react"
-import { CheckIcon, WarningIcon, XIcon } from "@phosphor-icons/react"
-
+import { CheckIcon } from "@phosphor-icons/react/Check"
+import { WarningIcon } from "@phosphor-icons/react/Warning"
+import { XIcon } from "@phosphor-icons/react/X"
 import { cn } from "@/lib/utils"
 
 export type StepStatus =

@@ -1,6 +1,6 @@
 # Branding component in Figma
 
-Builds the **Branding** component set on the **UDS Components** page with all 16 variants (8 appearances × wordmark/mark).
+Builds the **Branding** component set on the **UDS Components** page with all 18 variants (9 appearances × wordmark/mark).
 
 ## Variants
 
@@ -11,6 +11,7 @@ Builds the **Branding** component set on the **UDS Components** page with all 16
 | CHG | `CHG` | `unified-design-system-wordmark.svg` | `unified-design-system-brand-mark.svg` |
 | Locumsmart | `Locumsmart` | `locumsmart-wordmark.svg` | `locumsmart-brand-mark.svg` |
 | Modio | `Modio` | `modio-wordmark.svg` | `modio-brand-mark.svg` |
+| CareerMD | `CareerMD` | `careermd-wordmark.svg` | `careermd-brand-mark.svg` |
 | MyWeatherby | `MyWeatherby` | `weatherby-wordmark.svg` | `weatherby-brand-mark.svg` |
 | MyCompHealth | `MyCompHealth` | `comphealth-wordmark.svg` | `comphealth-brand-mark.svg` |
 | Design System | `Design System` | `unified-design-system-wordmark.svg` | `unified-design-system-brand-mark.svg` |
@@ -23,7 +24,7 @@ Frames: **200×80** wordmark (`Symbol=False`), **64×64** mark (`Symbol=True`).
 node scripts/figma-run-branding-batches.mjs
 ```
 
-Writes `.tmp/figma-build/branding-batches/batch-0.js` … `batch-7.js` and `combine.js`.
+Writes `.tmp/figma-build/branding-batches/batch-0.js` … `batch-8.js` and `combine.js`.
 
 ## Run in Figma (requires Figma MCP)
 

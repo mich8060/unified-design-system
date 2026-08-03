@@ -1,8 +1,21 @@
-# Density
+---
+id: composition-density-redirect
+category: composition
+type: index
+priority: low
+ai_priority: low
+confidence_default: preferred
+related:
+  - density
+components: []
+patterns: []
+tokens: []
+depends_on: []
+influences: []
+conflicts_with: []
+alternatives: []
+---
 
-**Comfortable** (default): standard Input/Button sizes, 16px+ field spacing.
-**Compact**: tables, listviews, queue rows—use `Item`, `Table`, smaller badges; don't crush touch targets.
+# Moved
 
-## See also
-
-- ../accessibility/touch-targets.md
+This document moved to [`../semantics/density.md`](../semantics/density.md).

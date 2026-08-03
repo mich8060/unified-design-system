@@ -8,8 +8,7 @@ import {
   Nav as NavPrimitive,
   useDayPicker,
 } from "react-day-picker"
-import { CaretDownIcon } from "@phosphor-icons/react"
-
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 

@@ -1,7 +1,10 @@
 import * as React from "react"
-import { CaretDownIcon } from "@phosphor-icons/react"
-
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown"
 import { cn } from "@/lib/utils"
+
+/** Keyboard focus ring for docs rail links and disclosure controls. */
+export const docsNavFocusVisibleCls =
+  "outline-none focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-[var(--uds-focus-ring-border)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--uds-surface-primary)]"
 
 /** Filled strip when the section has an active child; uses `data-brand` tokens from package CSS. */
 export const docsNavParentChildActiveCls =
@@ -28,6 +31,7 @@ export function DocsNavDisclosureCaret({ open, inverse }: { open: boolean; inver
 /** Getting Started–style rows inside an expanded section or the docs rail flyout. */
 export function docsNavSubLinkClassName({ isActive }: { isActive: boolean }) {
   return cn(
+    docsNavFocusVisibleCls,
     "block w-full rounded-none border-l-2 px-[20px] py-[8px] text-[14px] text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100",
     isActive
       ? "border-[var(--brand-primary-700)] bg-[var(--brand-primary-50)] text-[var(--brand-primary-900)] hover:bg-[var(--brand-primary-100)] dark:border-[var(--brand-primary-400)] dark:bg-[var(--brand-primary-900)] dark:text-[var(--brand-primary-50)] dark:hover:bg-[var(--brand-primary-800)]"
@@ -38,6 +42,7 @@ export function docsNavSubLinkClassName({ isActive }: { isActive: boolean }) {
 /** Foundations / Components–style rows (medium weight when active). */
 export function docsNavComponentLinkClassName({ isActive }: { isActive: boolean }) {
   return cn(
+    docsNavFocusVisibleCls,
     "block w-full rounded-none border-l-2 px-[20px] py-[8px] text-[14px] text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800",
     isActive
       ? "border-[var(--brand-primary-700)] bg-[var(--brand-primary-50)] font-medium text-[var(--brand-primary-900)] hover:bg-[var(--brand-primary-100)] dark:border-[var(--brand-primary-400)] dark:bg-[var(--brand-primary-900)] dark:text-[var(--brand-primary-50)] dark:hover:bg-[var(--brand-primary-800)]"
@@ -45,8 +50,10 @@ export function docsNavComponentLinkClassName({ isActive }: { isActive: boolean 
   )
 }
 
-const sectionHeaderBaseCls =
-  "flex w-full items-center justify-between gap-2 px-[20px] py-[12px] text-left text-base font-medium hover:bg-neutral-100 dark:hover:bg-neutral-900"
+const sectionHeaderBaseCls = cn(
+  docsNavFocusVisibleCls,
+  "flex w-full items-center justify-between gap-2 px-[20px] py-[12px] text-left text-base font-medium hover:bg-neutral-100 dark:hover:bg-neutral-900",
+)
 
 export type DocsNavSectionHeaderProps = {
   open: boolean
@@ -106,6 +113,7 @@ export const DocsNavRailTrigger = React.forwardRef<HTMLButtonElement, DocsNavRai
         ref={ref}
         type="button"
         className={cn(
+          docsNavFocusVisibleCls,
           "flex size-12 shrink-0 items-center justify-center rounded-[4px] text-neutral-500 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-900",
           childActive && docsNavParentChildActiveCls,
           flyoutOpen && docsNavParentOpenBorderCls,

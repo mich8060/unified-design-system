@@ -32,6 +32,10 @@ function Card({
                 className={cn(
                     "group/card flex h-fit w-full flex-col gap-0 self-start overflow-hidden rounded-[length:var(--uds-radius-8)] border border-uds-border-primary bg-uds-surface-primary text-sm text-uds-text-primary",
                     "[&_[data-slot=card-image]_img]:size-full [&_[data-slot=card-image]_img]:object-cover",
+                    // Naked Cards (no CardContent / CardImage / CardFooter slots): 16px edge padding
+                    // so tables/lists cannot sit flush on the border. Slot composition keeps its own padding.
+                    // Explicit `p-*` on className wins via twMerge.
+                    "[&:not(:has(>[data-slot=card-content])):not(:has(>[data-slot=card-image])):not(:has(>[data-slot=card-footer]))]:p-[length:var(--uds-spacing-16)]",
                     orientation === "horizontal" && [
                         "grid grid-cols-[1fr_auto]",
                         "[&_[data-slot=card-image]]:col-span-2",
@@ -71,7 +75,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
         <div
             data-slot="card-content"
             className={cn(
-                "flex shrink-0 flex-col gap-1 px-[length:var(--uds-gap-16)] py-[length:var(--uds-spacing-12)]",
+                "flex shrink-0 flex-col gap-1 p-[length:var(--uds-spacing-16)]",
                 className
             )}
             {...props}

@@ -16,8 +16,10 @@ await esbuild.build({
   platform: 'node',
   format: 'esm',
   outfile: outFile,
+  jsx: 'automatic',
+  jsxImportSource: 'react',
   define: {
-    __DOCS_VERSION__: '"1.0.2"',
+    __DOCS_VERSION__: '"1.2.0"',
   },
   logLevel: 'warning',
 })

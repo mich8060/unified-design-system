@@ -64,14 +64,17 @@ import {
 } from '@chghealthcare/unified-design-system'
 import {
   Sheet,
+  SheetBody,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from '@chghealthcare/unified-design-system'
 import {
   Drawer,
+  DrawerBody,
   DrawerClose,
   DrawerContent,
   DrawerDescription,
@@ -465,6 +468,19 @@ export function SheetSidePreview() {
           <SheetTitle>Sheet panel</SheetTitle>
           <SheetDescription>Slides in from the chosen side (here: right).</SheetDescription>
         </SheetHeader>
+        <SheetBody>
+          <p className="text-sm text-muted-foreground">
+            Scrollable body between Header and Footer.
+          </p>
+        </SheetBody>
+        <SheetFooter>
+          <Button type="button" variant="outline" size="sm">
+            Close
+          </Button>
+          <Button type="button" size="sm">
+            Save
+          </Button>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   )
@@ -483,6 +499,11 @@ export function DrawerVariants() {
           <DrawerTitle>Drawer</DrawerTitle>
           <DrawerDescription>Bottom sheet pattern, often used on small viewports.</DrawerDescription>
         </DrawerHeader>
+        <DrawerBody>
+          <p className="text-sm text-muted-foreground">
+            Scrollable body between Header and Footer.
+          </p>
+        </DrawerBody>
         <DrawerFooter>
           <DrawerClose asChild>
             <Button type="button" variant="outline">

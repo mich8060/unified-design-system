@@ -1,6 +1,5 @@
 import * as React from "react"
-import { CameraIcon } from "@phosphor-icons/react"
-
+import { CameraIcon } from "@phosphor-icons/react/Camera"
 import {
   Avatar as AvatarBase,
   AvatarFallback as AvatarFallbackBase,

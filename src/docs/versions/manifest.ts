@@ -6,11 +6,11 @@ export const DOCS_PACKAGE_VERSION = __DOCS_VERSION__ as DocsVersionId
 
 export const DOCS_VERSION_MANIFEST = {
   /** Frozen snapshot loaded by default (latest minor/major docs release, not every patch). */
-  defaultVersion: '1.0.5' as DocsVersionId,
+  defaultVersion: '1.2.0' as DocsVersionId,
   versions: [
     {
-      id: '1.0.5',
-      label: `Documentation - v1.0.5`,
+      id: '1.2.0',
+      label: `Documentation - v1.2.0`,
     },
   ] satisfies DocsVersionManifestEntry[],
 }
@@ -28,7 +28,7 @@ export function getLatestDocsVersionId(): DocsVersionId {
   return DOCS_VERSION_MANIFEST.versions[0]?.id ?? DOCS_VERSION_MANIFEST.defaultVersion
 }
 
-/** False until a second minor/major docs snapshot exists (hides sidebar version selector). */
+/** Version selector removed from the docs Menu; always false. */
 export function shouldShowDocsVersionSelector(): boolean {
-  return DOCS_VERSION_MANIFEST.versions.length >= 2
+  return false
 }

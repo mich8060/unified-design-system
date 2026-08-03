@@ -1,13 +1,10 @@
 "use client"
 
 import * as React from "react"
-import {
-  CaretDownIcon,
-  CaretUpIcon,
-  CaretLeftIcon,
-  CaretRightIcon,
-} from "@phosphor-icons/react"
-
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown"
+import { CaretUpIcon } from "@phosphor-icons/react/CaretUp"
+import { CaretLeftIcon } from "@phosphor-icons/react/CaretLeft"
+import { CaretRightIcon } from "@phosphor-icons/react/CaretRight"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 

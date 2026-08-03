@@ -1,12 +1,16 @@
 import * as React from "react"
 
+import { Text } from "@/components/ui/text"
 import { cn } from "@/lib/utils"
 
 function SectionHeader({ className, ...props }: React.ComponentProps<"header">) {
     return (
         <header
             data-slot="section-header"
-            className={cn("flex flex-wrap items-start justify-between gap-3", className)}
+            className={cn(
+                "flex w-full min-w-0 flex-1 flex-wrap items-center justify-between gap-3",
+                className,
+            )}
             {...props}
         >
             {props.children}
@@ -18,40 +22,60 @@ function SectionHeaderContent({ className, ...props }: React.ComponentProps<"div
     return (
         <div
             data-slot="section-header-content"
-            className={cn("min-w-0 flex-1", className)}
+            className={cn("flex min-w-0 flex-1 flex-col gap-0", className)}
             {...props}
         />
     )
 }
 
-function SectionHeaderTitle({ className, ...props }: React.ComponentProps<"h2">) {
+/** Section title — body/20/semibold with tight line height (h2). */
+function SectionHeaderTitle({
+    className,
+    ...props
+}: React.ComponentProps<typeof Text>) {
     return (
-        <h2
+        <Text
+            as="h2"
             data-slot="section-header-title"
-            className={cn("font-sans text-uds-24 font-uds-semibold leading-uds-24 text-[var(--uds-text-primary)]", className)}
+            variant="body"
+            size="20"
+            weight="semibold"
+            lineHeight="tight"
+            appearance="primary"
+            className={cn("m-0 w-full", className)}
             {...props}
         />
     )
 }
 
+/** Optional supporting copy — body/16/regular with loose line height, text-secondary. */
 function SectionHeaderDescription({
     className,
     ...props
-}: React.ComponentProps<"p">) {
+}: React.ComponentProps<typeof Text>) {
     return (
-        <p
+        <Text
             data-slot="section-header-description"
-            className={cn("mt-2 font-sans text-uds-16 font-uds-regular leading-uds-16 text-[var(--uds-text-secondary)]", className)}
+            variant="body"
+            size="16"
+            weight="regular"
+            lineHeight="loose"
+            appearance="secondary"
+            className={cn("m-0 w-full", className)}
             {...props}
         />
     )
 }
 
+/** Open trailing slot — pass any action content (buttons, menus, toggles, links). */
 function SectionHeaderActions({ className, ...props }: React.ComponentProps<"div">) {
     return (
         <div
             data-slot="section-header-actions"
-            className={cn("flex shrink-0 items-center gap-2", className)}
+            className={cn(
+                "flex shrink-0 items-center gap-[length:var(--uds-gap-12)]",
+                className,
+            )}
             {...props}
         />
     )

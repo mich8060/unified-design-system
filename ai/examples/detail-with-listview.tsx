@@ -2,45 +2,136 @@ import "@chghealthcare/unified-design-system/styles.css"
 
 import {
   AppShell,
-  Badge,
+  Button,
   Card,
+  CardContent,
   Item,
+  ItemActions,
   ItemContent,
   ItemDescription,
   ItemGroup,
   ItemTitle,
+  MainContent,
+  MainStack,
   Menu,
+  PageHeader,
+  PageHeaderActions,
+  PageHeaderBody,
+  PageHeaderContent,
+  PageHeaderDescription,
+  PageHeaderTitle,
+  SearchInput,
   Status,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
+  Toolbar,
+  ToolbarCenter,
+  ToolbarDescription,
+  ToolbarTitle,
   TooltipProvider,
   type MenuNavigationItem,
+  type StatusVariant,
 } from "@chghealthcare/unified-design-system"
 
-const navigationItems: MenuNavigationItem[] = [{ id: "pipeline", label: "Pipeline" }]
+const navigationItems: MenuNavigationItem[] = [{ id: "clinicians", label: "Clinicians" }]
 
-const clinicians = ["Avery Stone", "Miles Carter", "Nina Patel", "Olivia Chen"]
+type ClinicianRow = {
+  id: string
+  name: string
+  meta: string
+  status: string
+  statusVariant: StatusVariant
+}
 
+const clinicians: ClinicianRow[] = [
+  {
+    id: "sam",
+    name: "Sam Okonkwo, NP",
+    meta: "Emergency Medicine · Phoenix, AZ",
+    status: "Available",
+    statusVariant: "success",
+  },
+  {
+    id: "riley",
+    name: "Riley Chen, CRNA",
+    meta: "Anesthesia · Salt Lake City, UT",
+    status: "Credentialing",
+    statusVariant: "warning",
+  },
+  {
+    id: "avery",
+    name: "Avery Patel, RN",
+    meta: "ICU · Boise, ID",
+    status: "On assignment",
+    statusVariant: "info",
+  },
+  {
+    id: "morgan",
+    name: "Morgan Blake, MD",
+    meta: "Radiology · Austin, TX",
+    status: "Available",
+    statusVariant: "success",
+  },
+  {
+    id: "casey",
+    name: "Casey Rivera, PA",
+    meta: "Orthopedics · Albuquerque, NM",
+    status: "Inactive",
+    statusVariant: "neutral",
+  },
+  {
+    id: "jordan",
+    name: "Jordan Ellis, MD",
+    meta: "Hospitalist · Denver, CO",
+    status: "On assignment",
+    statusVariant: "info",
+  },
+]
+
+/**
+ * AppShell listview master pane: Toolbar as the primary titlebar for the
+ * content below, optional SearchInput, then `Item` (or Card) rows for entities.
+ */
 export function DetailWithListviewExample() {
+  const selectedId = "jordan"
+
   const listview = (
     <div className="flex h-full min-h-0 flex-col overflow-hidden bg-background">
-      <div className="shrink-0 border-b px-4 py-3">
-        <p className="text-sm font-semibold text-foreground">Today&apos;s queue</p>
-        <p className="text-xs text-muted-foreground">{clinicians.length} patients ready for review</p>
+      <div className="shrink-0">
+        <Toolbar size="lg" aria-label="Clinician queue">
+          <ToolbarCenter>
+            <ToolbarTitle>Clinician queue</ToolbarTitle>
+            <ToolbarDescription>{clinicians.length} records</ToolbarDescription>
+          </ToolbarCenter>
+        </Toolbar>
+        <div className="border-b border-border p-[length:var(--uds-spacing-4)]">
+          <SearchInput
+            inputSize="sm"
+            placeholder="Search clinician queue…"
+            aria-label="Search clinician queue"
+          />
+        </div>
       </div>
-      <div data-slot="appshell-listview-scroll" className="p-3">
-        <ItemGroup>
-          {clinicians.map((name, index) => (
-            <Item key={name} variant={index === 0 ? "muted" : "outline"}>
+      <div data-slot="appshell-listview-scroll" className="min-h-0 flex-1">
+        <ItemGroup className="gap-0">
+          {clinicians.map((row) => (
+            <Item
+              key={row.id}
+              appearance="list"
+              variant={row.id === selectedId ? "muted" : "default"}
+              size="default"
+            >
               <ItemContent>
-                <ItemTitle>{name}</ItemTitle>
-                <ItemDescription>Follow-up requested for credentialing packet.</ItemDescription>
+                <ItemTitle>{row.name}</ItemTitle>
+                <ItemDescription>{row.meta}</ItemDescription>
               </ItemContent>
-              <Badge accent="blue" appearance="pastel" shape="rect">
-                0{index + 1}
-              </Badge>
+              <ItemActions>
+                <Status appearance="outlined" size="compact" variant={row.statusVariant}>
+                  {row.status}
+                </Status>
+              </ItemActions>
             </Item>
           ))}
         </ItemGroup>
@@ -53,41 +144,67 @@ export function DetailWithListviewExample() {
       <AppShell
         className="min-h-dvh w-full min-w-0"
         enableRouterOutlet={false}
-        menu={<Menu navigationItems={navigationItems} activeId="pipeline" onNavigationSelect={() => {}} />}
+        menu={
+          <Menu
+            navigationItems={navigationItems}
+            activeId="clinicians"
+            onNavigationSelect={() => {}}
+          />
+        }
         listview={listview}
       >
         <AppShell.Main>
-          <div className="space-y-6 p-6">
-            <Card className="rounded-[4px] p-5">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <h1 className="text-2xl font-semibold text-foreground">Olivia Chen</h1>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Main scrolls here; the queue pane stays fixed. List body uses{" "}
-                    <code className="text-xs">data-slot=&quot;appshell-listview-scroll&quot;</code>.
-                  </p>
-                </div>
-                <Status variant="info">Reviewing</Status>
-              </div>
-              <Tabs defaultValue="overview" className="mt-6">
+          <MainContent containment="edge" className="p-[length:var(--uds-spacing-24)]">
+            <PageHeader layout="inline">
+              <PageHeaderBody>
+                <PageHeaderContent>
+                  <PageHeaderTitle>Jordan Ellis, MD</PageHeaderTitle>
+                  <PageHeaderDescription>
+                    Hospitalist · Denver, CO · managed by Maya Torres. Main scrolls; listview stays
+                    fixed.
+                  </PageHeaderDescription>
+                </PageHeaderContent>
+                <PageHeaderActions>
+                  <Status appearance="outlined" variant="info">
+                    On assignment
+                  </Status>
+                  <Button variant="outline">View details</Button>
+                  <Button>Update availability</Button>
+                </PageHeaderActions>
+              </PageHeaderBody>
+            </PageHeader>
+
+            <MainStack>
+              <Tabs defaultValue="overview" className="flex flex-col gap-[length:var(--uds-gap-24)]">
                 <TabsList>
                   <TabsTrigger value="overview">Overview</TabsTrigger>
-                  <TabsTrigger value="documents">Documents</TabsTrigger>
+                  <TabsTrigger value="credentials">Credentials</TabsTrigger>
+                  <TabsTrigger value="history">History</TabsTrigger>
                 </TabsList>
-                <TabsContent value="overview" className="pt-4 text-sm text-muted-foreground">
-                  Scroll this region to verify the listview column does not move with the dashboard.
+                <TabsContent value="overview" className="text-sm text-muted-foreground">
+                  Scroll this region to verify the listview column does not move with the detail.
                 </TabsContent>
-                <TabsContent value="documents" className="pt-4 text-sm text-muted-foreground">
-                  Supporting documents and related workflow content go here.
+                <TabsContent value="credentials" className="text-sm text-muted-foreground">
+                  Licenses and credentialing packet summary.
+                </TabsContent>
+                <TabsContent value="history" className="text-sm text-muted-foreground">
+                  Assignment and activity history.
                 </TabsContent>
               </Tabs>
-            </Card>
-            {Array.from({ length: 8 }, (_, i) => (
-              <Card key={i} className="rounded-[4px] p-5">
-                <p className="text-sm text-muted-foreground">Dashboard section {i + 1} — scroll main only.</p>
-              </Card>
-            ))}
-          </div>
+              <div className="grid gap-[length:var(--uds-gap-16)] lg:grid-cols-2 lg:items-start">
+                {Array.from({ length: 4 }, (_, i) => (
+                  <Card key={i}>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">
+                        Detail section {i + 1} — section titles use SectionHeader (24), never match
+                        PageHeaderTitle (28).
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </MainStack>
+          </MainContent>
         </AppShell.Main>
       </AppShell>
     </TooltipProvider>

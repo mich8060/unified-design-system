@@ -1,8 +1,8 @@
-# Menu header identity (`brand` vs `title`)
+# Shell header identity (`brand` vs `title`)
 
-Normative for AI agents composing **`Menu`** inside **`AppShell.menu`**.
+Normative for AI agents composing **`AppShell`** + **`Menu`**. Branding and the menu toggle live in the **full-width AppShell Header** above the rail — not in Menu.
 
-Related: [`appshell-navigation.md`](./appshell-navigation.md), [`../menu-layout-prompt.md`](../menu-layout-prompt.md), [`../recipes/default-navigation.md`](../recipes/default-navigation.md).
+Related: [`appshell-navigation.md`](./appshell-navigation.md), [`../appshell-layout-prompt.md`](../appshell-layout-prompt.md), [`../recipes/default-navigation.md`](../recipes/default-navigation.md).
 
 ---
 
@@ -10,8 +10,8 @@ Related: [`appshell-navigation.md`](./appshell-navigation.md), [`../menu-layout-
 
 | Situation | `headerVariant` | Header shows |
 | --- | --- | --- |
-| CHG product app with a known brand (`connect`, `comphealth`, `weatherby`, `locumsmart`, `modio`, `gms`, `chg`, …) | **`"brand"`** (default) | SVG wordmark + symbol from **`Branding`** |
-| Internal tool, platform admin, partner white-label, MVP, or any app **without** an approved CHG product lockup | **`"title"`** | Plain text from **`headerTitle`** / **`headerShortTitle`** |
+| CHG product app with a known brand (`connect`, `comphealth`, `weatherby`, `locumsmart`, `modio`, `careermd`, `gms`, `chg`, …) | **`"brand"`** (default) | SVG **wordmark** from **`Branding`** (always visible; no collapsed mark swap) |
+| Internal tool, platform admin, partner white-label, MVP, or any app **without** an approved CHG product lockup | **`"title"`** | Plain text from **`headerTitle`** |
 | Unsure whether marketing approved a logo | **`"title"`** | Safer until brand assets are confirmed |
 
 **Do not** use `headerVariant="title"` for standard CHG product shells that already have a `brand` id in [`uds-brand`](../uds-contract.json) / `UDS_BRAND_IDS`.
@@ -23,29 +23,31 @@ Related: [`appshell-navigation.md`](./appshell-navigation.md), [`../menu-layout-
 ## API
 
 ```tsx
-import { Menu } from "@chghealthcare/unified-design-system"
+import { AppShell, Menu } from "@chghealthcare/unified-design-system"
 
-// Default — product brand logos + brand tokens
-<Menu brand="connect" navigationItems={items} />
+// Default — product brand wordmark in Header + brand tokens
+<AppShell
+  brand="connect"
+  menu={<Menu navigationItems={items} />}
+/>
 
-// Non-brand — text header; tokens still from brand prop
-<Menu
+// Non-brand — text in Header; tokens still from brand prop
+<AppShell
   headerVariant="title"
   headerTitle="Internal portal"
-  headerShortTitle="IP"
   brand="default"
-  navigationItems={items}
+  menu={<Menu navigationItems={items} />}
 />
 ```
 
-| Prop | Required | Purpose |
+| Prop (on **`AppShell`**) | Required | Purpose |
 | --- | --- | --- |
-| `headerVariant` | No (default `"brand"`) | `"brand"` → logos; `"title"` → text header |
-| `headerTitle` | **Yes** when `headerVariant="title"` | Full product name in the **expanded** rail (188px center band) |
-| `headerShortTitle` | No | Collapsed-rail label (36px tile). Defaults to first two characters of `headerTitle` |
-| `brand` | No (default `"chg"`) | Sets `document.documentElement.dataset.brand` for **design tokens only** when using `"title"`. Does **not** render a logo in title mode |
+| `headerVariant` | No (default `"brand"`) | `"brand"` → wordmark; `"title"` → text header |
+| `headerTitle` | **Yes** when `headerVariant="title"` | Full product name in the Header |
+| `headerShortTitle` | No | Legacy; unused for Header wordmark mode |
+| `brand` | No (default `"chg"`) | Header artwork + inherited Menu tokens when Menu omits `brand` |
 
-If `headerVariant="title"` and `headerTitle` is empty, the component **falls back to brand logos** (dev warning).
+Menu may still accept deprecated `headerVariant` / `headerTitle` for **standalone** Menu (no AppShell). Inside AppShell, Menu is **nav-only** (no logos, no collapse control).
 
 ---
 
@@ -63,25 +65,27 @@ Use for apps that are:
 
 Use for shipped CHG Healthcare product applications:
 
-- Connect, CompHealth, Weatherby, Locumsmart, Modio, GMS, CHG default shell
-- Any screen that should match marketing-approved wordmarks in `public/branding/svg/`
+- Connect, CompHealth, Weatherby, Locumsmart, Modio, CareerMD, GMS, CHG default shell
+- Any screen that should match marketing-approved wordmarks in `src/assets/branding/svg/`
 - When `brandOptions` lets users switch between **product** brands (not arbitrary strings)
 
 Pair with:
 
-- `brand="<uds-brand-id>"` matching the product
+- `brand="<uds-brand-id>"` on **`AppShell`** matching the product
 - `navigationItems={getDefaultNavigation(brand)}` or contract rows from `brand-menus.json` when defaults apply
-- Optional `brandStorageKey` only when persisting a **product** brand choice
+- Optional Menu `brandStorageKey` only when persisting a **product** brand choice
 
 ---
 
 ## Visual behavior
 
-**Expanded rail (280px):** `headerTitle` centered, `text-base`, up to two lines (`line-clamp-2`).
+**Header (all breakpoints):** Menu toggle (always visible) + wordmark or `headerTitle` + search + trailing. Wordmark does **not** swap to a mark when the rail collapses.
 
-**Collapsed rail (64px):** `headerShortTitle` or auto-abbreviation in a rounded neutral tile (`text-sm`). Same cross-fade / hover-to-expand toggle as brand marks.
+**Desktop (`lg+`):** Menu rail under the Header (280px expanded / 56px collapsed). Body offsets by rail width.
 
-**Tokens:** `brand` still drives `[data-brand=…]` CSS variables. For neutral internal tools, prefer `brand="default"` or `brand="wireframe"` unless a product palette is intentional.
+**Below `lg`:** Menu is an overlay drawer; Header uses compact search (icon expands the same field). Scrim + Escape close the drawer.
+
+**Tokens:** `brand` drives `[data-brand=…]` CSS variables. For neutral internal tools, prefer `brand="default"` or `brand="wireframe"` unless a product palette is intentional.
 
 ---
 
@@ -107,12 +111,11 @@ export function InternalShell({ children }: { children: React.ReactNode }) {
       <AppShell
         className="min-h-dvh w-full min-w-0"
         enableRouterOutlet={false}
+        headerVariant="title"
+        headerTitle="Credentialing hub"
+        brand="default"
         menu={
           <Menu
-            headerVariant="title"
-            headerTitle="Credentialing hub"
-            headerShortTitle="CH"
-            brand="default"
             defaultExpanded
             aria-label="Application menu"
             navigationItems={NAV}
@@ -129,33 +132,10 @@ export function InternalShell({ children }: { children: React.ReactNode }) {
 
 ---
 
-## Compound API
-
-When composing `Menu.Root` + `MenuDefaultHeader` manually:
-
-```tsx
-<MenuDefaultHeader
-  variant="title"
-  title="Internal portal"
-  shortTitle="IP"
-/>
-```
-
-Or rely on `MenuHeaderIdentityContext` from the default `<Menu />` wrapper.
-
----
-
 ## Anti-patterns
 
-| Avoid | Why |
-| --- | --- |
-| `headerVariant="title"` with a CHG `brand` id “for tokens” but a product marketing name in `headerTitle` | Confusing: users see internal text on a Connect-colored shell. Pick title mode + `default`, or brand mode + product `brand`. |
-| Custom `<img>` or text in `toolbar` to fake a header | Use `headerVariant="title"` instead |
-| `Branding` inside `Menu.Header` while also using default header | Replace header via composition; do not double-stack logos |
-| Omitting `headerTitle` in title mode | Falls back to logos; always pass a non-empty string |
-
----
-
-## Docs site note
-
-The documentation **Menu** page (`/docs/getting-started/menu`) includes live iframes for every `UDS_BRAND_OPTIONS` entry plus a **title header** example. That preview is for authors only; consumer apps must not use `docs-site-data-brand`.
+- Putting branding or the collapse control inside Menu when using AppShell
+- Swapping to a collapsed **mark** logo in the rail
+- Hiding the menu toggle when the rail is collapsed
+- Using `headerVariant="brand"` without an approved product brand id
+- Putting `SearchInput` in `AppShell.Header` / `headerRight` (trailing is for actions only)

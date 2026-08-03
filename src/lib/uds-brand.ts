@@ -11,6 +11,7 @@ export const UDS_BRAND_IDS = [
   'modio',
   'gms',
   'chg',
+  'careermd',
 ] as const
 
 export type UdsBrandId = (typeof UDS_BRAND_IDS)[number]
@@ -31,6 +32,7 @@ export const UDS_BRAND_OPTIONS: { value: UdsBrandId; label: string }[] = [
   { value: 'modio', label: 'Modio' },
   { value: 'gms', label: 'GMS' },
   { value: 'chg', label: 'CHG' },
+  { value: 'careermd', label: 'CareerMD' },
 ]
 
 export function isUdsBrandId(value: string): value is UdsBrandId {
@@ -72,6 +74,7 @@ export function udsBrandToBrandingAppearance(id: UdsBrandId): BrandingAppearance
     modio: 'Modio',
     gms: 'Design System',
     chg: 'Design System',
+    careermd: 'CareerMD',
   } as const satisfies Record<UdsBrandId, BrandingAppearance>
   return map[id]
 }

@@ -64,6 +64,7 @@ const BRANDING_PLUGIN_KEYS = {
   CHG: 'chg',
   Locumsmart: 'locumsmart',
   Modio: 'modio',
+  CareerMD: 'careermd',
   MyWeatherby: 'weatherby',
   MyCompHealth: 'comphealth',
   'Design System': 'design-system',

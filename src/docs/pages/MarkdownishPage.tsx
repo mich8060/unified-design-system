@@ -1,63 +1,33 @@
 import type { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
 import { cn } from '@chghealthcare/unified-design-system'
-import {
-  docPageHeroBandClassName,
-  docPageHeroColumnNarrowClassName,
-  docPageHeroShellClassName,
-  docPageHorizontalGutterClassName,
-} from '../doc-page-hero-classes'
+import { DocsPageShell } from '../components/DocsPageShell'
 
 type Props = {
   title: string
   kicker?: string
+  description?: ReactNode
   children: ReactNode
-  /** Merged onto the body `article` (e.g. widen prose with `max-w-[1280px]`). */
+  /** Merged onto the body stack wrapper. */
   className?: string
-  /**
-   * Footer link under the article. Default: foundations index. Pass `null` to omit, or `{ to, label }` for a custom link.
-   */
-  footerLink?: { to: string; label: string } | null
 }
 
-export function MarkdownishPage({ title, kicker, children, className, footerLink }: Props) {
-  const link =
-    footerLink === null
-      ? null
-      : footerLink ?? { to: '/docs/foundations/display', label: 'Browse foundations →' }
-
+export function MarkdownishPage({
+  title,
+  kicker,
+  description,
+  children,
+  className,
+}: Props) {
   return (
-    <div className="min-w-0 overflow-x-hidden">
-      <header className={docPageHeroBandClassName}>
-        <div className={docPageHeroShellClassName}>
-          <div className={docPageHeroColumnNarrowClassName}>
-            {kicker ? (
-              <p className="text-sm font-medium text-white/75">{kicker}</p>
-            ) : null}
-            <h1
-              className={cn(
-                'text-3xl font-bold tracking-tight text-white md:text-4xl',
-                kicker ? 'mt-1' : null,
-              )}
-            >
-              {title}
-            </h1>
-          </div>
-        </div>
-      </header>
-
-      <div className={docPageHorizontalGutterClassName}>
-        <article className={cn(docPageHeroColumnNarrowClassName, 'py-10', className)}>
-          <div className="space-y-4 text-neutral-600 dark:text-neutral-300">{children}</div>
-          {link ? (
-            <p className="mt-10 text-sm">
-              <Link to={link.to} className="docs-link font-medium">
-                {link.label}
-              </Link>
-            </p>
-          ) : null}
-        </article>
+    <DocsPageShell eyebrow={kicker} title={title} description={description}>
+      <div
+        className={cn(
+          'flex min-w-0 flex-col gap-[length:var(--uds-gap-16)] text-[length:var(--uds-type-body-14-size)] leading-[var(--uds-type-body-14-line-height)] text-[var(--uds-text-secondary)] [&_h2]:m-0 [&_h2]:pt-[length:var(--uds-spacing-8)] [&_h2]:text-[length:var(--uds-type-body-20-size)] [&_h2]:font-semibold [&_h2]:leading-[var(--uds-type-body-20-line-height)] [&_h2]:text-[var(--uds-text-primary)] [&_strong]:text-[var(--uds-text-primary)] [&_:not(pre)_>_code]:rounded-[length:var(--uds-radius-4)] [&_:not(pre)_>_code]:bg-[var(--uds-surface-secondary)] [&_:not(pre)_>_code]:px-1.5 [&_:not(pre)_>_code]:py-0.5 [&_pre_code]:rounded-none [&_pre_code]:bg-transparent [&_pre_code]:p-0',
+          className,
+        )}
+      >
+        {children}
       </div>
-    </div>
+    </DocsPageShell>
   )
 }

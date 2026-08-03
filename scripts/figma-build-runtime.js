@@ -3575,6 +3575,7 @@ const MENU_BRAND_AXIS_TO_EXTENSION = {
   Locumsmart: 'LocumSmart',
   Modio: 'Modio',
   GMS: 'GMS',
+  CareerMD: 'CareerMD',
   Wireframe: 'Wireframe',
 }
 

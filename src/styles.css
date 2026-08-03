@@ -1,10 +1,13 @@
 @import "./fonts.css";
 
-@import "tailwindcss";
+/*
+ * Docs / local stylesheet. `source(none)` disables automatic repo-wide content
+ * detection (which would otherwise scan root HTML reports and invent utilities
+ * from prose like `[font-size:var()]`). Explicit @source below is authoritative.
+ */
+@import "tailwindcss" source(none);
 
-/* Ensure every TS/TSX file under src/ is scanned when building dist/styles.css.
-   (Default detection can miss edge cases in library builds; consumers still need
-   their own @source when they run Tailwind locally — see project docs.) */
+/* Ensure every TS/TSX file under src/ is scanned when building the docs CSS. */
 @source "./**/*.{ts,tsx}";
 
 @import "tw-animate-css";

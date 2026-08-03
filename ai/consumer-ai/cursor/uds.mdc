@@ -1,0 +1,56 @@
+---
+description: UDS composition rules for apps using @chghealthcare/unified-design-system
+alwaysApply: true
+---
+
+# UDS (Unified Design System) — consumer Cursor rules
+
+Before composing UI, read from the installed package:
+
+- `node_modules/@chghealthcare/unified-design-system/AI_USAGE.md`
+- `node_modules/@chghealthcare/unified-design-system/AGENTS.md`
+- `node_modules/@chghealthcare/unified-design-system/design-language/README.md`
+- `node_modules/@chghealthcare/unified-design-system/ai/indexes/`
+
+## Imports
+
+```tsx
+import { AppShell, Button, Card, Menu } from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"
+```
+
+Do not import from `src/components/ui/*`, `dist/*`, `@/*`, or `*-base` / `*-core` / `*-theme` / `*-uds`.
+
+## Authenticated screens
+
+- `AppShell` + `Menu` in `menu` (not `Sidebar*` unless you own rail CSS)
+- Page content in `AppShell.Main` via `MainContent` (`edge` | `fixed`); keep that choice consistent across pages
+- Prefer recipes/examples under `node_modules/@chghealthcare/unified-design-system/ai/recipes/` and `ai/examples/`
+
+## Composition — Required
+
+- **Page composition** — Answer pre-layout questions (`design-language/semantics/page-composition.md`); match `design-language/patterns/screen-layout-patterns.md` (01–11); do not default to a full-width Card stack; **most content blocks ≤720px** — use columns when Main is wider. Demos: settings-form, narrow-form, settings-nav-panel, data-workflow-table, workspace-dashboard
+- StatisticCards: horizontal row, gap 16 or 24
+- No SearchInput in PageHeaderActions / Header trailing
+- **Main section gap** — Prefer `MainStack` (gap 24); FAIL: gap-3/gap-5/space-y-2
+- **Form fields** — Prefer stacked; `md:grid-cols-2` only for related pairs (first/last name) or dense forms
+- **Required: short regions share a row** — At `lg+`, lists/feeds/callouts/watchlists share `lg:grid-cols-2` (or chart `col-span-2` + aside). FAIL: skinny full-width placements/watchlist/feed/callout; Reports full-width stack. Copy `ai/examples/workspace-dashboard.tsx`
+- **Boxed padding** — Prefer `Card`+`CardContent` (16px all sides); FAIL: flush rows. Copy `ai/examples/workspace-dashboard.tsx`
+- Tabs prefer variant line (underlined, default); prefer fill={false} (condensed triggers; list still w-full); fill={true} only for equal-width triggers; **Required:** 24px between TabsList and next item
+- Table cells: body py 8px; horizontal 4px; first/last 16–24; TableHead ≥48px; compact/sm nested controls in rows; trailing actions → last cell className="w-0" (hug)
+- Status: prefer appearance outlined (default); solid only for stronger emphasis
+- Dominant variant: keep the prevalent component variant unless the problem requires a change; FAIL decorative mixing
+- Grid peers: match heights (esp. non-bottom rows); stretch if Δ ≤ 150px; bottom row may stay natural; FAIL if stretch creates >150px empty interior
+- **Headline hierarchy (Required)** — Only PageHeaderTitle is 28; prefer section/h2 at body/20/semibold; Sheet/Drawer titles 16. FAIL IF section/panel matches or exceeds page title
+- PageHeader → first content ≤ 24px
+- MainContent: same `edge`/`fixed` app-wide; fixed: outer no L/R pad, no min-height, no wrap box; inner 1000 has 24px
+- PageHeaderActions / FilterbarActions: one primary; default size; >3 → DotsThree last, weight="bold" (not fill)
+- FilterbarFilters: icon-only size="icon" immediately after SearchInput
+- Medallion: prefer size="lg"
+- Icon-only Buttons: square; size="icon" (44×44)
+- Stacked bars: touching ends radius 0
+- **Right Sheet / Drawer inspectors** — Required Header → Body → Footer; Body scrolls; side footer horizontal. Prefer Sheet. Copy `ai/examples/right-side-inspector.tsx`
+- **AppShell listview** — `Toolbar` titlebar; SearchInput **Required 4px** pad all sides + `border-b`; entities `Item` (`appearance="list"` dense) or `Card`. FAIL: custom header / flush SearchInput / ad-hoc rows. Copy `ai/examples/detail-with-listview.tsx`
+- **Card clip / stretch voids** — FAIL: Card cuts off copy; FAIL: stretch creates >150px empty Card interior (prefer items-start)
+
+Full detail: `node_modules/@chghealthcare/unified-design-system/ai/consumer-ai/COMPOSITION.md`

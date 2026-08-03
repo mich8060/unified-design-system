@@ -40,6 +40,15 @@ const MODIO_ITEMS = [
   { label: 'Tracking', icon: 'GpsFix' },
 ] as const
 
+const CAREERMD_ITEMS = [
+  { label: 'Dashboard', icon: 'Layout' },
+  { label: 'Jobs', icon: 'Briefcase' },
+  { label: 'Employers', icon: 'Buildings' },
+  { label: 'Candidates', icon: 'Users' },
+  { label: 'Messages', icon: 'Envelope' },
+  { label: 'Reporting', icon: 'ChartBar' },
+] as const
+
 const CONNECT_ITEMS = [
   { label: 'Dashboard', icon: 'Layout' },
   { label: 'Requests', icon: 'Briefcase' },
@@ -209,6 +218,10 @@ function AllBrandMenusPreview() {
 
       <BrandBlock id="brand-modio" title="modio">
         <TwoColTable rows={MODIO_ITEMS} />
+      </BrandBlock>
+
+      <BrandBlock id="brand-careermd" title="careermd">
+        <TwoColTable rows={CAREERMD_ITEMS} />
       </BrandBlock>
 
       <BrandBlock id="brand-connect" title="connect">

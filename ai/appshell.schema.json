@@ -59,10 +59,41 @@
           "description": "Merged onto root appshell div; prefer min-h-dvh w-full min-w-0 for full-viewport shells."
         },
         "menu": {
-          "description": "Sidebar rail content — canonical: <Menu /> from the same package. AppShell CSS targets [data-slot=uds-menu-root]; do not use Sidebar* here without custom rail CSS."
+          "description": "Sidebar rail content — canonical: <Menu /> from the same package (nav-only inside AppShell). Branding + collapse toggle live in the full-width Header above the rail. AppShell CSS targets [data-slot=uds-menu-root]; do not use Sidebar* here without custom rail CSS."
         },
         "sidebar": {
           "description": "Deprecated alias of menu for older docs only."
+        },
+        "brand": {
+          "type": "string",
+          "default": "chg",
+          "description": "Brand id for Header wordmark and inherited Menu tokens when Menu omits brand."
+        },
+        "headerVariant": {
+          "type": "string",
+          "enum": ["brand", "title"],
+          "default": "brand",
+          "description": "Header identity: brand wordmark (default) or plain title text. See ai/guides/menu-header-identity.md."
+        },
+        "headerTitle": {
+          "type": "string",
+          "description": "Product/app name when headerVariant is title."
+        },
+        "headerShortTitle": {
+          "type": "string",
+          "description": "Legacy short title; unused for Header wordmark mode."
+        },
+        "menuExpanded": {
+          "type": "boolean",
+          "description": "Controlled menu expanded (desktop rail) / drawer open (below lg)."
+        },
+        "defaultMenuExpanded": {
+          "type": "boolean",
+          "default": true,
+          "description": "Uncontrolled initial desktop menu expanded state. Below lg defaults to closed."
+        },
+        "onMenuExpandedChange": {
+          "description": "Called when menu expand / drawer open state changes."
         },
         "enableRouterOutlet": {
           "type": "boolean",
@@ -70,16 +101,59 @@
           "description": "When true, renders React Router <Outlet /> inside .appshell--main before main children. Set false for static apps."
         },
         "headerRight": {
-          "description": "ReactNode passed to the built-in Header as `trailing` (right actions). Not a replacement for the full <Header />; AppShell always renders Header."
+          "description": "ReactNode passed to the built-in Header as `trailing` (right actions). Not a replacement for the full <Header />; AppShell always renders Header with brand + toggle chrome."
         },
         "headerSearchProps": {
-          "description": "Forwarded to Header's default SearchInput when Header has no custom children (see Header component)."
+          "description": "Forwarded to Header's default SearchInput when search is shown (not hideSearch / headerLeading)."
+        },
+        "hideSearch": {
+          "type": "boolean",
+          "default": false,
+          "description": "When true, omit the Header SearchInput. Also suppresses skip-to-search. Does not remove brand/toggle chrome."
+        },
+        "headerLeading": {
+          "description": "Custom content that replaces the default SearchInput only (not brand/toggle). Same role as Header children for search. Implies search is not shown and skip-to-search is off."
         },
         "listview": {
           "description": "Secondary pane (master-detail, queues). Omit or pass null/undefined to collapse the listview column."
         },
+        "listviewWidth": {
+          "type": "number",
+          "default": 320,
+          "description": "Listview column width in px. Allowed band 320–480 (clamped). Default 320 (--appshell-listview-width). Widen toward 480 when row content needs more room (longer titles, Card entities)."
+        },
         "footer": {
-          "description": "Placed in appshell--footer at the end of appshell--main (after Outlet and main children); scrolls with page content, not viewport-fixed."
+          "description": "Document flow (not position fixed/absolute); 48px (--uds-spacing-48) margin-top; scrolls with page content. When MainContent is present, portals into that container (data-slot=main-content-footer); otherwise last child of appshell--main."
+        },
+        "showSkipToContent": {
+          "type": "boolean",
+          "default": true,
+          "description": "When true, renders a skip link that targets the main landmark (#uds-appshell-main by default)."
+        },
+        "skipToContentLabel": {
+          "type": "string",
+          "default": "Skip to content",
+          "description": "Visible/accessible label for the skip-to-content link."
+        },
+        "showSkipToSearch": {
+          "type": "boolean",
+          "default": true,
+          "description": "When true, renders a skip link that targets the Header search field (#uds-appshell-search by default) so keyboard users can bypass the menu rail."
+        },
+        "skipToSearchLabel": {
+          "type": "string",
+          "default": "Skip to search",
+          "description": "Visible/accessible label for the skip-to-search link."
+        },
+        "mainContentId": {
+          "type": "string",
+          "default": "uds-appshell-main",
+          "description": "Id on the <main class=appshell--main> landmark; also used as the skip-to-content href hash."
+        },
+        "searchContentId": {
+          "type": "string",
+          "default": "uds-appshell-search",
+          "description": "Id applied to Header SearchInput (unless headerSearchProps.id is set); also used as the skip-to-search href hash."
         },
         "children": {
           "description": "Unmarked children render inside appshell--main after Router <Outlet />. Prefer <AppShell.Main> for clarity."
@@ -123,7 +197,7 @@
         {
           "staticMember": "Footer",
           "mapsTo": "props.footer",
-          "description": "Footer region below main in the main column; width matches main."
+          "description": "Footer region; portals into MainContent when present, otherwise last child of appshell--main."
         }
       ]
     },
@@ -135,16 +209,18 @@
         "tree": {
           "type": "string",
           "description": "Logical DOM (abbreviated).",
-          "default": "div.appshell[data-slot=appshell] > .appshell--menu? + .appshell--body > .appshell--header (Header+Search) + .appshell--content > (.appshell--listview + .appshell--main-column > .appshell--main > Suspense>Outlet + children + .appshell--footer?)"
+          "default": "div.appshell[data-slot=appshell] > nav.appshell-skip-nav? + .appshell--chrome (Header: toggle+brand+Search#uds-appshell-search+trailing) + .appshell--workspace > (.appshell--menu? + .appshell--scrim? + .appshell--body > .appshell--content > (.appshell--listview + .appshell--main-column > main.appshell--main#uds-appshell-main > Suspense>Outlet + children + .appshell--footer?))"
         },
         "classNames": {
           "type": "object",
           "additionalProperties": { "type": "string" },
           "properties": {
             "root": { "default": "appshell" },
+            "chrome": { "default": "appshell--chrome" },
+            "workspace": { "default": "appshell--workspace" },
             "menu": { "default": "appshell--menu" },
+            "scrim": { "default": "appshell--scrim" },
             "body": { "default": "appshell--body" },
-            "header": { "default": "appshell--header" },
             "content": { "default": "appshell--content" },
             "listview": { "default": "appshell--listview; open modifier appshell--listview-open" },
             "mainColumn": { "default": "appshell--main-column" },
@@ -159,8 +235,8 @@
       "additionalProperties": { "type": "number" },
       "properties": {
         "menuExpanded": { "default": 280 },
-        "menuCollapsed": { "default": 64 },
-        "listviewWidth": { "default": 320 }
+        "menuCollapsed": { "default": 56 },
+        "listviewWidth": { "default": 320, "min": 320, "max": 480, "unit": "px" }
       }
     },
     "behavior": {
@@ -177,19 +253,19 @@
           }
         },
         "menuWidth": {
-          "default": "Body offset uses margin-left: 280px or 64px via CSS :has([data-slot=\"uds-menu-root\"][data-expanded=\"false\"]). AppShell does not own Menu expand state."
+          "default": "Desktop: body margin-left 280px or 56px via CSS :has([data-slot=\"uds-menu-root\"][data-expanded]). AppShell owns expand state (menuExpanded) and syncs Menu. Below lg: body full width; menu is overlay drawer; scrim + Escape close."
         },
         "listview": {
           "default": "Open when listview slot is non-null. In-flow column (--appshell-listview-width); pane overflow:hidden. Only .appshell--main scrolls. List body scrolls inside [data-slot=appshell-listview-scroll] on the direct child column (header shrink-0). Shell height locks to 100dvh when open."
         },
         "footer": {
-          "default": "Not position:fixed. Rendered as the last child inside .appshell--main so it scrolls with page content. Nested [data-slot=uds-footer] has border-top suppressed in shell CSS."
+          "default": "Not position:fixed or absolute (position:static). When MainContent is mounted, AppShell.Footer portals into data-slot=main-content-footer (inside the active edge/fixed container). Otherwise last child of .appshell--main. margin-top: var(--uds-spacing-48). Nested [data-slot=uds-footer] has border-top suppressed in shell CSS."
         },
         "header": {
-          "default": "In-flow at top of .appshell--body (height --appshell-header-height). Only .appshell--main scrolls; no content padding-top offset. Always uses package Header with optional trailing from AppShell.Header / headerRight."
+          "default": "Full-width .appshell--chrome above the menu (height --appshell-header-height): menu toggle + brand/title + search + trailing. Wordmark always visible (no collapsed mark). Below lg search collapses to icon. Menu rail starts under the Header."
         },
         "cssVariables": {
-          "default": "On .appshell: --appshell-menu-width-expanded (280px), --appshell-menu-width-collapsed (64px), --appshell-listview-width (320px), --appshell-header-height (3.5rem)."
+          "default": "On .appshell: --appshell-menu-width-expanded (280px), --appshell-menu-width-collapsed (56px), --appshell-listview-width-min/max (320/480px), --appshell-listview-width (default 320px; set via listviewWidth), --appshell-header-height (3.5rem)."
         }
       }
     },
@@ -199,15 +275,16 @@
       "default": [
         "Import AppShell only from @chghealthcare/unified-design-system (and styles from @chghealthcare/unified-design-system/styles.css). Never import from src/components/ui/* or dist/* in consumer code.",
         "Use AppShell as the authenticated product shell default per ai/uds-contract.json layoutDefaults.",
-        "Canonical navigation: compose the menu slot with the package Menu component only. Sidebar* belongs in in-page layouts, not AppShell.menu, unless the team owns full rail positioning CSS.",
-        "Published props: menu, listview, headerRight, footer, enableRouterOutlet, className. There is no sidebarWidth, showListview, or mainClassName. sidebar is a deprecated alias of menu.",
-        "AppShell.Header supplies only the trailing (and implicit search configuration) for the built-in Header — it does not accept a full custom header node.",
-        "Place page UI in AppShell.Main. When enableRouterOutlet is true (default), nested React Router child routes render in the bundled Outlet before main children; use one Router wrapping the layout route. Set enableRouterOutlet false for static pages.",
+        "Canonical navigation: compose the menu slot with the package Menu component only (nav-only). Branding + menu toggle live in the AppShell Header. Sidebar* belongs in in-page layouts, not AppShell.menu, unless the team owns full rail positioning CSS.",
+        "Published props: menu, brand, headerVariant, headerTitle, menuExpanded, defaultMenuExpanded, listview, listviewWidth (320–480px, default 320), headerRight, headerLeading, headerSearchProps, hideSearch, footer, enableRouterOutlet, showSkipToContent, skipToContentLabel, showSkipToSearch, skipToSearchLabel, mainContentId, searchContentId, className. sidebar is a deprecated alias of menu.",
+        "AppShell.Header supplies only the trailing actions. Brand/toggle are shell chrome on AppShell props. hideSearch / headerLeading omit or replace search only. See ai/guides/menu-header-identity.md.",
+        "Accessibility: AppShell renders skip links (default on) for main (#uds-appshell-main tabindex=-1) and Header search (#uds-appshell-search inside role=search). Skip-to-search is omitted when hideSearch or headerLeading suppresses search. Do not nest another <main> inside AppShell.Main.",
+        "Place page UI in AppShell.Main. .appshell--main uses --uds-surface-secondary. AppShell.Main and MainContent have no built-in padding — recommend p-[length:var(--uds-spacing-24)] (24px) on MainContent or the page wrapper. When enableRouterOutlet is true (default), nested React Router child routes render in the bundled Outlet before main children; use one Router wrapping the layout route. Set enableRouterOutlet false for static pages.",
         "Do not add CSS that sets .appshell--main > :first-child to max-height: 0 or otherwise hides the first main child to fix spacing.",
         "Do not assume a consumer-only BrowserRouter feeds AppShell without nesting AppShell as a layout route under the same router.",
-        "Use listview prop for master-detail or queue patterns; omit to collapse the column (no showListview prop). Structure listview as flex column: shrink-0 header + [data-slot=appshell-listview-scroll] for the list body. Do not use position:fixed on listview unless you own all offsets.",
-        "Footer is optional; when used, prefer package Footer — top border is removed inside AppShell footer region by design.",
-        "Debug: content at bottom → use AppShell.Main only, avoid flex-1 on page root; empty main → enableRouterOutlet false or add child routes; rail overlap → use Menu in menu slot. See ai/guides/appshell-navigation.md."
+        "Use listview prop for master-detail or queue patterns; omit to collapse the column (no showListview prop). Set listviewWidth between 320–480px based on content need (default 320; denser Item queues stay narrow; Card / longer meta may need up to 480). Structure listview as flex column: shrink-0 Toolbar titlebar (ToolbarTitle/Description for name/count) + optional SearchInput + [data-slot=appshell-listview-scroll] body of Item or Card entities. Do not use position:fixed on listview unless you own all offsets.",
+        "Footer is optional; when used, prefer package Footer — portals into MainContent when present (inside the active container), otherwise inline at the end of appshell--main; 48px space above; top border removed in shell footer region by design.",
+        "Debug: overlapping/duplicated page chrome → do not put <Outlet /> as AppShell children when enableRouterOutlet is true (use one outlet only); content at bottom → use AppShell.Main only, avoid flex-1 on page root; empty main → enableRouterOutlet false or add child routes; rail overlap → use Menu in menu slot. See ai/guides/appshell-navigation.md."
       ]
     }
   }

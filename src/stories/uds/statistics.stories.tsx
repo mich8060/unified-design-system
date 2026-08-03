@@ -4,7 +4,7 @@ import { getShadcnExamples } from '@/docs/shadcn-examples/registry'
 const examples = getShadcnExamples('statistics')
 
 const meta = {
-  title: 'UDS/Statistics',
+  title: 'UDS/Statistic Card',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -20,7 +20,7 @@ function renderExample(index: number) {
   return example.previewInner
 }
 
-export const Kpis: Story = {
+export const Default: Story = {
   render: () => renderExample(0),
 }
 

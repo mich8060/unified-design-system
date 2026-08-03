@@ -23,3 +23,7 @@ function renderExample(index: number) {
 export const Path: Story = {
   render: () => renderExample(0),
 }
+
+export const Compact: Story = {
+  render: () => renderExample(1),
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T19:49:35.399Z",
+  "generatedAt": "2026-07-30T19:33:00.106Z",
   "generatedFrom": [
     "src/index.ts",
     "package.json",
@@ -7,7 +7,7 @@
   ],
   "package": {
     "name": "@chghealthcare/unified-design-system",
-    "version": "1.0.7",
+    "version": "1.2.0",
     "primaryEntry": "@chghealthcare/unified-design-system",
     "styleImport": "@chghealthcare/unified-design-system/styles.css"
   },
@@ -282,6 +282,46 @@
       "recommendation": "preferred"
     },
     {
+      "name": "APPSHELL_LISTVIEW_WIDTH_MAX",
+      "exportKind": "component",
+      "module": "components/ui/app-shell",
+      "roles": [
+        "layout",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "APPSHELL_LISTVIEW_WIDTH_MIN",
+      "exportKind": "component",
+      "module": "components/ui/app-shell",
+      "roles": [
+        "layout",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "APPSHELL_MAIN_ID",
+      "exportKind": "component",
+      "module": "components/ui/app-shell",
+      "roles": [
+        "layout",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "APPSHELL_SEARCH_ID",
+      "exportKind": "component",
+      "module": "components/ui/app-shell",
+      "roles": [
+        "layout",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "AppShellProps",
       "exportKind": "type",
       "module": "components/ui/app-shell",
@@ -293,6 +333,16 @@
     },
     {
       "name": "ArrowClockwiseIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ArrowLeftIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
       "roles": [
@@ -478,6 +528,15 @@
       "recommendation": "allowed"
     },
     {
+      "name": "BADGE_SHAPES",
+      "exportKind": "component",
+      "module": "components/ui/badge",
+      "roles": [
+        "feedback"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "BadgeAccent",
       "exportKind": "type",
       "module": "components/ui/badge",
@@ -515,6 +574,15 @@
     },
     {
       "name": "BadgeProps",
+      "exportKind": "type",
+      "module": "components/ui/badge",
+      "roles": [
+        "feedback"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "BadgeShape",
       "exportKind": "type",
       "module": "components/ui/badge",
       "roles": [
@@ -651,8 +719,44 @@
       "recommendation": "allowed"
     },
     {
+      "name": "BreadcrumbProps",
+      "exportKind": "type",
+      "module": "components/ui/breadcrumb",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "BreadcrumbSeparator",
       "exportKind": "component",
+      "module": "components/ui/breadcrumb",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "BreadcrumbSize",
+      "exportKind": "type",
+      "module": "components/ui/breadcrumb",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "BreadcrumbSizeContext",
+      "exportKind": "component",
+      "module": "components/ui/breadcrumb",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "breadcrumbVariants",
+      "exportKind": "utility",
       "module": "components/ui/breadcrumb",
       "roles": [
         "navigation"
@@ -780,15 +884,6 @@
       "recommendation": "avoid-directly"
     },
     {
-      "name": "Calendar",
-      "exportKind": "component",
-      "module": "components/ui/calendar",
-      "roles": [
-        "input"
-      ],
-      "recommendation": "allowed"
-    },
-    {
       "name": "CalendarBlankIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -799,30 +894,12 @@
       "recommendation": "allowed"
     },
     {
-      "name": "CalendarDayButton",
-      "exportKind": "component",
-      "module": "components/ui/calendar",
-      "roles": [
-        "input"
-      ],
-      "recommendation": "allowed"
-    },
-    {
       "name": "CalendarPlusIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
       "roles": [
         "utility",
         "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "CalendarYearSelection",
-      "exportKind": "type",
-      "module": "components/ui/calendar",
-      "roles": [
-        "input"
       ],
       "recommendation": "allowed"
     },
@@ -871,6 +948,15 @@
         "data-display"
       ],
       "recommendation": "preferred"
+    },
+    {
+      "name": "CardSize",
+      "exportKind": "type",
+      "module": "components/ui/card",
+      "roles": [
+        "data-display"
+      ],
+      "recommendation": "allowed"
     },
     {
       "name": "CaretDoubleLeftIcon",
@@ -924,6 +1010,16 @@
     },
     {
       "name": "CaretUpIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "CarIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
       "roles": [
@@ -1081,6 +1177,15 @@
     {
       "name": "CollapsibleContent",
       "exportKind": "component",
+      "module": "components/ui/collapsible",
+      "roles": [
+        "layout"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "CollapsibleIconPosition",
+      "exportKind": "type",
       "module": "components/ui/collapsible",
       "roles": [
         "layout"
@@ -1257,82 +1362,6 @@
       "roles": [
         "utility",
         "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DateInput",
-      "exportKind": "component",
-      "module": "components/ui/date-input",
-      "roles": [
-        "input",
-        "input-group"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DateInputCaptionLayout",
-      "exportKind": "type",
-      "module": "components/ui/date-input",
-      "roles": [
-        "input",
-        "input-group"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DateInputProps",
-      "exportKind": "type",
-      "module": "components/ui/date-input",
-      "roles": [
-        "input",
-        "input-group"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DateInputYearSelection",
-      "exportKind": "type",
-      "module": "components/ui/date-input",
-      "roles": [
-        "input",
-        "input-group"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DateRangeInput",
-      "exportKind": "component",
-      "module": "components/ui/date-range-input",
-      "roles": [
-        "input"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DateRangeInputCaptionLayout",
-      "exportKind": "type",
-      "module": "components/ui/date-range-input",
-      "roles": [
-        "input"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DateRangeInputProps",
-      "exportKind": "type",
-      "module": "components/ui/date-range-input",
-      "roles": [
-        "input"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "DateRangeInputYearSelection",
-      "exportKind": "type",
-      "module": "components/ui/date-range-input",
-      "roles": [
-        "input"
       ],
       "recommendation": "allowed"
     },
@@ -1792,6 +1821,69 @@
       "recommendation": "allowed"
     },
     {
+      "name": "EVENT_CARD_COLORS",
+      "exportKind": "component",
+      "module": "components/ui/event-card",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "EventCard",
+      "exportKind": "component",
+      "module": "components/ui/event-card",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "EventCardColor",
+      "exportKind": "type",
+      "module": "components/ui/event-card",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "EventCardDetail",
+      "exportKind": "component",
+      "module": "components/ui/event-card",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "EventCardProps",
+      "exportKind": "type",
+      "module": "components/ui/event-card",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "EventCardRoute",
+      "exportKind": "component",
+      "module": "components/ui/event-card",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "EventCardTypeLabel",
+      "exportKind": "component",
+      "module": "components/ui/event-card",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "EyeIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -1867,6 +1959,15 @@
     },
     {
       "name": "FieldLegend",
+      "exportKind": "component",
+      "module": "components/ui/field",
+      "roles": [
+        "input"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "FieldRequiredIndicator",
       "exportKind": "component",
       "module": "components/ui/field",
       "roles": [
@@ -2002,6 +2103,83 @@
       "recommendation": "allowed"
     },
     {
+      "name": "Filterbar",
+      "exportKind": "component",
+      "module": "components/ui/filterbar",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "FilterbarActions",
+      "exportKind": "component",
+      "module": "components/ui/filterbar",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "FilterbarFacet",
+      "exportKind": "component",
+      "module": "components/ui/filterbar",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "FilterbarFacets",
+      "exportKind": "component",
+      "module": "components/ui/filterbar",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "FilterbarFilters",
+      "exportKind": "component",
+      "module": "components/ui/filterbar",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "FilterbarSearch",
+      "exportKind": "component",
+      "module": "components/ui/filterbar",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "FilterbarToolbar",
+      "exportKind": "component",
+      "module": "components/ui/filterbar",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "FolderOpenIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -2107,7 +2285,7 @@
       "recommendation": "allowed"
     },
     {
-      "name": "HouseIcon",
+      "name": "HospitalIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
       "roles": [
@@ -2117,29 +2295,12 @@
       "recommendation": "allowed"
     },
     {
-      "name": "HoverCard",
+      "name": "HouseIcon",
       "exportKind": "component",
-      "module": "components/ui/hover-card",
+      "module": "components/ui/uds-icons",
       "roles": [
-        "overlay"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "HoverCardContent",
-      "exportKind": "component",
-      "module": "components/ui/hover-card",
-      "roles": [
-        "overlay"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "HoverCardTrigger",
-      "exportKind": "component",
-      "module": "components/ui/hover-card",
-      "roles": [
-        "overlay"
+        "utility",
+        "first-party"
       ],
       "recommendation": "allowed"
     },
@@ -2261,42 +2422,6 @@
       "name": "InputGroupTextarea",
       "exportKind": "component",
       "module": "components/ui/input-group",
-      "roles": [
-        "input"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "InputOTP",
-      "exportKind": "component",
-      "module": "components/ui/input-otp",
-      "roles": [
-        "input"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "InputOTPGroup",
-      "exportKind": "component",
-      "module": "components/ui/input-otp",
-      "roles": [
-        "input"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "InputOTPSeparator",
-      "exportKind": "component",
-      "module": "components/ui/input-otp",
-      "roles": [
-        "input"
-      ],
-      "recommendation": "allowed"
-    },
-    {
-      "name": "InputOTPSlot",
-      "exportKind": "component",
-      "module": "components/ui/input-otp",
       "roles": [
         "input"
       ],
@@ -2547,6 +2672,16 @@
       "recommendation": "allowed"
     },
     {
+      "name": "ListChecksIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "ListIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -2562,6 +2697,76 @@
       "module": "components/ui/uds-icons",
       "roles": [
         "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "MainContent",
+      "exportKind": "component",
+      "module": "components/ui/main-content",
+      "roles": [
+        "layout",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "mainContentInnerVariants",
+      "exportKind": "utility",
+      "module": "components/ui/main-content",
+      "roles": [
+        "layout",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "MainContentProps",
+      "exportKind": "type",
+      "module": "components/ui/main-content",
+      "roles": [
+        "layout",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "mainContentVariants",
+      "exportKind": "utility",
+      "module": "components/ui/main-content",
+      "roles": [
+        "layout",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "MainStack",
+      "exportKind": "component",
+      "module": "components/ui/main-content",
+      "roles": [
+        "layout",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "MainStackProps",
+      "exportKind": "type",
+      "module": "components/ui/main-content",
+      "roles": [
+        "layout",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "mainStackVariants",
+      "exportKind": "utility",
+      "module": "components/ui/main-content",
+      "roles": [
+        "layout",
         "first-party"
       ],
       "recommendation": "allowed"
@@ -3207,6 +3412,138 @@
       "recommendation": "allowed"
     },
     {
+      "name": "PageHeader",
+      "exportKind": "component",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PageHeaderActions",
+      "exportKind": "component",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PageHeaderActionsPlacement",
+      "exportKind": "type",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PageHeaderBody",
+      "exportKind": "component",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "pageHeaderBodyVariants",
+      "exportKind": "utility",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PageHeaderContent",
+      "exportKind": "component",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PageHeaderDescription",
+      "exportKind": "component",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PageHeaderEyebrow",
+      "exportKind": "component",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PageHeaderNav",
+      "exportKind": "component",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PageHeaderProps",
+      "exportKind": "type",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PageHeaderTitle",
+      "exportKind": "component",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "pageHeaderVariants",
+      "exportKind": "utility",
+      "module": "components/ui/page-header",
+      "roles": [
+        "layout",
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "PaletteIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -3283,6 +3620,15 @@
       "recommendation": "allowed"
     },
     {
+      "name": "PillToggle",
+      "exportKind": "component",
+      "module": "components/ui/pill-toggle",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "PlusCircleIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -3321,6 +3667,15 @@
       "recommendation": "allowed"
     },
     {
+      "name": "PopoverArrow",
+      "exportKind": "component",
+      "module": "components/ui/popover",
+      "roles": [
+        "overlay"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "PopoverContent",
       "exportKind": "component",
       "module": "components/ui/popover",
@@ -3339,8 +3694,26 @@
       "recommendation": "allowed"
     },
     {
+      "name": "PopoverFooter",
+      "exportKind": "component",
+      "module": "components/ui/popover",
+      "roles": [
+        "overlay"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "PopoverHeader",
       "exportKind": "component",
+      "module": "components/ui/popover",
+      "roles": [
+        "overlay"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PopoverProps",
+      "exportKind": "type",
       "module": "components/ui/popover",
       "roles": [
         "overlay"
@@ -3359,6 +3732,15 @@
     {
       "name": "PopoverTrigger",
       "exportKind": "component",
+      "module": "components/ui/popover",
+      "roles": [
+        "overlay"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "PopoverTriggerMode",
+      "exportKind": "type",
       "module": "components/ui/popover",
       "roles": [
         "overlay"
@@ -3406,6 +3788,24 @@
       "name": "ProgressCircles",
       "exportKind": "component",
       "module": "components/ui/progress-circles",
+      "roles": [
+        "feedback"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ProgressLabelPlacement",
+      "exportKind": "type",
+      "module": "components/ui/progress",
+      "roles": [
+        "feedback"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ProgressProps",
+      "exportKind": "type",
+      "module": "components/ui/progress",
       "roles": [
         "feedback"
       ],
@@ -3499,6 +3899,15 @@
     {
       "name": "ScrollBar",
       "exportKind": "component",
+      "module": "components/ui/scroll-area",
+      "roles": [
+        "layout"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ScrollBarAppearance",
+      "exportKind": "type",
       "module": "components/ui/scroll-area",
       "roles": [
         "layout"
@@ -3709,6 +4118,16 @@
       "recommendation": "allowed"
     },
     {
+      "name": "ShapesIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "Sheet",
       "exportKind": "component",
       "module": "components/ui/sheet-uds",
@@ -3716,6 +4135,15 @@
         "overlay"
       ],
       "recommendation": "preferred"
+    },
+    {
+      "name": "SheetBody",
+      "exportKind": "component",
+      "module": "components/ui/sheet-uds",
+      "roles": [
+        "overlay"
+      ],
+      "recommendation": "allowed"
     },
     {
       "name": "SheetClose",
@@ -3827,11 +4255,40 @@
       "recommendation": "allowed"
     },
     {
+      "name": "SkeletonSize",
+      "exportKind": "type",
+      "module": "components/ui/skeleton",
+      "roles": [
+        "feedback"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "Slider",
       "exportKind": "component",
       "module": "components/ui/slider",
       "roles": [
         "input"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "SlidersIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "SortAscendingIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
       ],
       "recommendation": "allowed"
     },
@@ -3885,7 +4342,47 @@
       "recommendation": "allowed"
     },
     {
+      "name": "StatisticAction",
+      "exportKind": "component",
+      "module": "components/ui/statistics",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "StatisticCard",
+      "exportKind": "component",
+      "module": "components/ui/statistics",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "StatisticDescription",
+      "exportKind": "component",
+      "module": "components/ui/statistics",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "StatisticFooter",
+      "exportKind": "component",
+      "module": "components/ui/statistics",
+      "roles": [
+        "data-display",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "StatisticHeader",
       "exportKind": "component",
       "module": "components/ui/statistics",
       "roles": [
@@ -3915,7 +4412,7 @@
       "recommendation": "allowed"
     },
     {
-      "name": "Statistics",
+      "name": "StatisticTitle",
       "exportKind": "component",
       "module": "components/ui/statistics",
       "roles": [
@@ -3945,6 +4442,26 @@
       "recommendation": "preferred"
     },
     {
+      "name": "STATUS_APPEARANCES",
+      "exportKind": "component",
+      "module": "components/ui/status",
+      "roles": [
+        "feedback",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "STATUS_COLORS",
+      "exportKind": "component",
+      "module": "components/ui/status",
+      "roles": [
+        "feedback",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "STATUS_SIZES",
       "exportKind": "component",
       "module": "components/ui/status",
@@ -3955,7 +4472,57 @@
       "recommendation": "allowed"
     },
     {
+      "name": "STATUS_VARIANTS",
+      "exportKind": "component",
+      "module": "components/ui/status",
+      "roles": [
+        "feedback",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "StatusAppearance",
+      "exportKind": "type",
+      "module": "components/ui/status",
+      "roles": [
+        "feedback",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "StatusColor",
+      "exportKind": "type",
+      "module": "components/ui/status",
+      "roles": [
+        "feedback",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "StatusProps",
+      "exportKind": "type",
+      "module": "components/ui/status",
+      "roles": [
+        "feedback",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "StatusSize",
+      "exportKind": "type",
+      "module": "components/ui/status",
+      "roles": [
+        "feedback",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "StatusVariant",
       "exportKind": "type",
       "module": "components/ui/status",
       "roles": [
@@ -4100,6 +4667,15 @@
       "recommendation": "allowed"
     },
     {
+      "name": "TableCellProps",
+      "exportKind": "type",
+      "module": "components/ui/table",
+      "roles": [
+        "data-display"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "TableFooter",
       "exportKind": "component",
       "module": "components/ui/table",
@@ -4120,6 +4696,24 @@
     {
       "name": "TableHeader",
       "exportKind": "component",
+      "module": "components/ui/table",
+      "roles": [
+        "data-display"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TableHeadProps",
+      "exportKind": "type",
+      "module": "components/ui/table",
+      "roles": [
+        "data-display"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TableProps",
+      "exportKind": "type",
       "module": "components/ui/table",
       "roles": [
         "data-display"
@@ -4263,6 +4857,15 @@
     {
       "name": "Textarea",
       "exportKind": "component",
+      "module": "components/ui/textarea",
+      "roles": [
+        "input"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "TextareaSize",
+      "exportKind": "type",
       "module": "components/ui/textarea",
       "roles": [
         "input"
@@ -4469,7 +5072,34 @@
       "recommendation": "allowed"
     },
     {
+      "name": "ToolbarCenter",
+      "exportKind": "component",
+      "module": "components/ui/toolbar",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ToolbarDescription",
+      "exportKind": "component",
+      "module": "components/ui/toolbar",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "ToolbarDivider",
+      "exportKind": "component",
+      "module": "components/ui/toolbar",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ToolbarEnd",
       "exportKind": "component",
       "module": "components/ui/toolbar",
       "roles": [
@@ -4480,6 +5110,42 @@
     {
       "name": "ToolbarGroup",
       "exportKind": "component",
+      "module": "components/ui/toolbar",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ToolbarProps",
+      "exportKind": "type",
+      "module": "components/ui/toolbar",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ToolbarStart",
+      "exportKind": "component",
+      "module": "components/ui/toolbar",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "ToolbarTitle",
+      "exportKind": "component",
+      "module": "components/ui/toolbar",
+      "roles": [
+        "navigation"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "toolbarVariants",
+      "exportKind": "utility",
       "module": "components/ui/toolbar",
       "roles": [
         "navigation"
@@ -4814,6 +5480,78 @@
         "Switch",
         "Button"
       ]
+    },
+    {
+      "id": "ops-queue-dashboard",
+      "title": "Ops Queue Dashboard",
+      "file": "ai/recipes/ops-queue-dashboard.md",
+      "description": "Operational work queue with search/facets, sectioned Item lists, and a MicroCalendar aside.",
+      "defaults": [
+        "AppShell",
+        "Menu",
+        "SectionHeader",
+        "SearchInput",
+        "Item",
+        "ItemGroup",
+        "MicroCalendar",
+        "Card",
+        "Badge",
+        "Status",
+        "Medallion"
+      ]
+    },
+    {
+      "id": "triage-dashboard",
+      "title": "Triage Dashboard",
+      "file": "ai/recipes/triage-dashboard.md",
+      "description": "Dense triage layout: KPI tiles, since-last-visit alerts, and three scrollable Item panels with line Tabs.",
+      "defaults": [
+        "AppShell",
+        "Menu",
+        "SectionHeader",
+        "SearchInput",
+        "Card",
+        "Medallion",
+        "Status",
+        "Badge",
+        "Item",
+        "ItemGroup",
+        "Tabs"
+      ]
+    },
+    {
+      "id": "provider-portal-home",
+      "title": "Provider Portal Home",
+      "file": "ai/recipes/provider-portal-home.md",
+      "description": "Provider home with a fixed left identity rail and a main workflow column (Steps, MicroCalendar, or Accordion variants).",
+      "defaults": [
+        "AppShell",
+        "Menu",
+        "Card",
+        "Avatar",
+        "Badge",
+        "Progress",
+        "Steps",
+        "Medallion",
+        "Button"
+      ]
+    },
+    {
+      "id": "analytics-overview",
+      "title": "Analytics Overview",
+      "file": "ai/recipes/analytics-overview.md",
+      "description": "Analytics overview with a wide ChartContainer card and adjacent feed panels using Tabs and Empty.",
+      "defaults": [
+        "AppShell",
+        "Menu",
+        "SectionHeader",
+        "Card",
+        "ChartContainer",
+        "Badge",
+        "Medallion",
+        "Tabs",
+        "Empty"
+      ]
     }
   ],
   "antiPatterns": [
@@ -4826,6 +5564,33 @@
     "Do not invent a parallel component system for buttons, fields, badges, or status treatments when package exports exist.",
     "Do not default to stock shadcn layout patterns when UDS-specific first-party components are available."
   ],
+  "designLanguage": {
+    "root": "design-language",
+    "packageExport": "@chghealthcare/unified-design-system/design-language",
+    "purpose": "Why/when knowledge model (philosophy → physics → semantics → grammar → decisions → relationships → patterns → ontology → foundations). Contract remains what/how for APIs.",
+    "indexes": [
+      "ai/indexes/concept-index.md",
+      "ai/indexes/component-index.md",
+      "ai/indexes/relationship-index.md",
+      "ai/indexes/decision-index.md",
+      "ai/indexes/pattern-index.md",
+      "ai/indexes/reasoning-index.md",
+      "ai/indexes/design-intent-index.md"
+    ],
+    "layers": [
+      "philosophy",
+      "design-physics",
+      "semantics",
+      "grammar",
+      "decision-rules",
+      "relationships",
+      "patterns",
+      "ontology",
+      "foundations",
+      "examples"
+    ],
+    "documentCount": 161
+  },
   "references": [
     "src/index.ts",
     "examples/consumer-react/src/App.tsx",
@@ -4833,9 +5598,20 @@
     "ai/examples/workspace-dashboard.tsx",
     "ai/examples/detail-with-listview.tsx",
     "ai/examples/settings-form.tsx",
+    "ai/examples/ops-queue-dashboard.tsx",
+    "ai/examples/triage-dashboard.tsx",
+    "ai/examples/provider-portal-home.tsx",
+    "ai/examples/analytics-overview.tsx",
+    "ai/examples/right-side-inspector.tsx",
     "ai/guides/appshell-navigation.md",
     "ai/appshell.schema.json",
+    "ai/indexes/concept-index.md",
+    "ai/indexes/decision-index.md",
+    "ai/indexes/pattern-index.md",
+    "design-language/README.md",
+    "design-language/decision-rules/choosing-patterns.md",
     "AI_USAGE.md",
+    "AGENTS.md",
     "setup.md"
   ],
   "registry": {

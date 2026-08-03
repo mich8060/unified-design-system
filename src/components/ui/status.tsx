@@ -2,6 +2,12 @@ import * as React from "react"
 import { cva } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import {
+  ACCENT_APPEARANCES,
+  chromaticAccentDotColor,
+  chromaticAccentStyle,
+  type AccentAppearance,
+} from "@/lib/accent-appearance-styles"
 
 export const STATUS_VARIANTS = [
   "neutral",
@@ -12,24 +18,26 @@ export const STATUS_VARIANTS = [
 ] as const
 export type StatusVariant = (typeof STATUS_VARIANTS)[number]
 
-export const STATUS_APPEARANCES = ["solid", "outlined", "text-only"] as const
-export type StatusAppearance = (typeof STATUS_APPEARANCES)[number]
+/** Same appearance axis as Badge: subtle | pastel | outlined | solid. */
+export const STATUS_APPEARANCES = ACCENT_APPEARANCES
+export type StatusAppearance = AccentAppearance
 
+/**
+ * @deprecated Prefer Badge-aligned `appearance` (`pastel` / `solid` / …).
+ * Kept for compat: `pastel` + `appearance="solid"` → soft pastel fill.
+ */
 export const STATUS_COLORS = ["pastel", "default"] as const
 export type StatusColor = (typeof STATUS_COLORS)[number]
 
 export const STATUS_SIZES = ["default", "compact"] as const
 export type StatusSize = (typeof STATUS_SIZES)[number]
 
-const ACCENT_FAMILY: Record<Exclude<StatusVariant, "neutral">, string> = {
+/** Status meaning → Badge chromatic accent (same ramps / appearances). */
+const VARIANT_ACCENT: Record<Exclude<StatusVariant, "neutral">, string> = {
   success: "green",
-  warning: "amber",
+  warning: "yellow",
   error: "red",
   info: "blue",
-}
-
-function accentVar(family: string, shade: number) {
-  return `var(--uds-color-accent-${family}-${shade})`
 }
 
 type StatusColorSet = {
@@ -39,100 +47,88 @@ type StatusColorSet = {
   dotColor: string
 }
 
-/**
- * Resolves the four color roles (fill, border, text, dot) for a given
- * variant/appearance/color combination. Warning (amber) uses black text in
- * `solid` mode and a step-darker border in `outlined` mode — the amber ramp
- * doesn't have enough contrast at the same steps the other families use.
- */
-function statusColors(
-  variant: StatusVariant,
-  appearance: StatusAppearance,
-  color: StatusColor
-): StatusColorSet {
-  if (variant === "neutral") {
-    const pastel = "var(--uds-color-neutrals-300)"
-    const deep = "var(--uds-color-neutrals-700)"
-    const text = "var(--uds-text-primary)"
-
-    if (appearance === "solid") {
-      return color === "pastel"
-        ? { backgroundColor: pastel, borderColor: "transparent", color: text, dotColor: text }
-        : {
-            backgroundColor: deep,
-            borderColor: "transparent",
-            color: "var(--uds-color-white)",
-            dotColor: "var(--uds-color-neutrals-200)",
-          }
-    }
-    if (appearance === "outlined") {
+function neutralStatusColors(appearance: AccentAppearance): StatusColorSet {
+  switch (appearance) {
+    case "subtle":
       return {
         backgroundColor: "transparent",
-        borderColor: color === "pastel" ? pastel : deep,
-        color: text,
-        dotColor: text,
-      }
-    }
-    return {
-      backgroundColor: "transparent",
-      borderColor: "transparent",
-      color: text,
-      dotColor:
-        color === "pastel"
-          ? "var(--uds-color-neutrals-200)"
-          : "var(--uds-color-neutrals-500)",
-    }
-  }
-
-  const family = ACCENT_FAMILY[variant]
-  const darkForeground = variant === "warning"
-
-  if (appearance === "solid") {
-    if (color === "pastel") {
-      const text = accentVar(family, 900)
-      return { backgroundColor: accentVar(family, 300), borderColor: "transparent", color: text, dotColor: text }
-    }
-    const text = darkForeground ? "var(--uds-color-black)" : "var(--uds-color-white)"
-    return {
-      backgroundColor: accentVar(family, 600),
-      borderColor: "transparent",
-      color: text,
-      dotColor: accentVar(family, 200),
-    }
-  }
-
-  if (appearance === "outlined") {
-    if (color === "pastel") {
-      const text = accentVar(family, 700)
-      return { backgroundColor: "transparent", borderColor: accentVar(family, 300), color: text, dotColor: text }
-    }
-    const text = accentVar(family, 900)
-    return {
-      backgroundColor: "transparent",
-      borderColor: accentVar(family, darkForeground ? 700 : 600),
-      color: text,
-      dotColor: text,
-    }
-  }
-
-  // text-only
-  return color === "pastel"
-    ? {
-        backgroundColor: "transparent",
         borderColor: "transparent",
-        color: accentVar(family, 700),
-        dotColor: accentVar(family, 200),
+        color: "var(--uds-text-secondary)",
+        dotColor: "var(--uds-text-secondary)",
       }
-    : {
-        backgroundColor: "transparent",
+    case "pastel":
+      return {
+        backgroundColor: "var(--uds-color-neutrals-100)",
         borderColor: "transparent",
-        color: accentVar(family, 900),
-        dotColor: accentVar(family, 500),
+        color: "var(--uds-text-primary)",
+        dotColor: "var(--uds-text-primary)",
       }
+    case "outlined":
+      return {
+        backgroundColor: "transparent",
+        borderColor: "var(--uds-color-neutrals-400)",
+        color: "var(--uds-text-secondary)",
+        dotColor: "var(--uds-text-secondary)",
+      }
+    case "solid":
+      return {
+        backgroundColor: "var(--uds-color-neutrals-200)",
+        borderColor: "transparent",
+        color: "var(--uds-text-primary)",
+        dotColor: "var(--uds-text-primary)",
+      }
+    default:
+      return {
+        backgroundColor: "transparent",
+        borderColor: "var(--uds-color-neutrals-400)",
+        color: "var(--uds-text-secondary)",
+        dotColor: "var(--uds-text-secondary)",
+      }
+  }
+}
+
+/**
+ * Resolve Badge-aligned appearance. Legacy aliases:
+ * - `text-only` → `subtle`
+ * - `color="pastel"` with `appearance="solid"` → `pastel`
+ */
+function resolveAppearance(
+  appearance: StatusAppearance | "text-only" | undefined,
+  color: StatusColor | undefined,
+): AccentAppearance {
+  if (appearance === "text-only") return "subtle"
+  if (appearance === "solid" && color === "pastel") return "pastel"
+  if (
+    appearance === "subtle" ||
+    appearance === "pastel" ||
+    appearance === "outlined" ||
+    appearance === "solid"
+  ) {
+    return appearance
+  }
+  return "outlined"
+}
+
+function statusColors(
+  variant: StatusVariant,
+  appearance: AccentAppearance,
+): StatusColorSet {
+  if (variant === "neutral") {
+    return neutralStatusColors(appearance)
+  }
+
+  const accent = VARIANT_ACCENT[variant]
+  const style = chromaticAccentStyle(accent, appearance)
+  return {
+    backgroundColor: String(style.backgroundColor ?? "transparent"),
+    borderColor: String(style.borderColor ?? "transparent"),
+    color: String(style.color ?? "var(--uds-text-primary)"),
+    dotColor: chromaticAccentDotColor(accent, appearance),
+  }
 }
 
 const statusVariants = cva(
-  "inline-flex items-center rounded-[4px] border font-uds-medium [font-family:var(--font-inter)]",
+  "inline-flex w-fit shrink-0 items-center rounded-[4px] border font-uds-medium [font-family:var(--font-inter)]",
   {
     variants: {
       size: {
@@ -143,7 +139,7 @@ const statusVariants = cva(
     defaultVariants: {
       size: "default",
     },
-  }
+  },
 )
 
 const statusDotVariants = cva("rounded-full", {
@@ -160,9 +156,16 @@ const statusDotVariants = cva("rounded-full", {
 
 export interface StatusProps extends React.ComponentProps<"span"> {
   variant?: StatusVariant
-  /** Fill (solid), border-only (outlined), or label-only (text-only). */
-  appearance?: StatusAppearance
-  /** Soft tint ("pastel") or a deeper, more saturated treatment ("default"). */
+  /**
+   * Same axis as Badge: subtle | pastel | outlined | solid.
+   * Preferred default: outlined.
+   * Legacy: `text-only` is accepted and maps to `subtle`.
+   */
+  appearance?: StatusAppearance | "text-only"
+  /**
+   * @deprecated Use `appearance="pastel"` (soft fill) or `appearance="solid"` (saturated).
+   * `color="pastel"` with `appearance="solid"` still resolves to pastel fill.
+   */
   color?: StatusColor
   size?: StatusSize
   dot?: boolean
@@ -171,22 +174,22 @@ export interface StatusProps extends React.ComponentProps<"span"> {
 function Status({
   className,
   variant = "neutral",
-  appearance = "solid",
-  color = "pastel",
+  appearance = "outlined",
+  color,
   size,
   dot = true,
   style,
   children,
   ...props
 }: StatusProps) {
-  const colors = statusColors(variant, appearance, color)
+  const resolved = resolveAppearance(appearance, color)
+  const colors = statusColors(variant, resolved)
 
   return (
     <span
       data-slot="status"
       data-variant={variant}
-      data-appearance={appearance}
-      data-color={color}
+      data-appearance={resolved}
       data-size={size ?? "default"}
       className={cn(statusVariants({ size }), className)}
       style={{

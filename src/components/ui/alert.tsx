@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { Text } from "@/components/ui/text"
 
 const alertVariants = cva(
-  "group/alert relative flex w-full items-start gap-[length:var(--uds-gap-12)] rounded-[length:var(--uds-radius-8)] border p-4 text-left has-data-[slot=alert-action]:pr-[length:var(--uds-spacing-10)]",
+  "group/alert relative flex w-full items-start gap-[length:var(--uds-gap-12)] overflow-hidden rounded-[length:var(--uds-radius-8)] border p-4 text-left has-data-[slot=alert-action]:pr-[length:var(--uds-spacing-10)]",
   {
     variants: {
       variant: {

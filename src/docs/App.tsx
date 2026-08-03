@@ -12,13 +12,20 @@ import {
 } from 'react-router-dom'
 import {
   AppShell,
+  Avatar,
+  AvatarFallback,
+  BellIcon,
+  Button,
   Footer,
   IconContext,
   Menu,
+  QuestionIcon,
+  Tooltip,
+  TooltipContent,
   TooltipProvider,
+  TooltipTrigger,
 } from '@chghealthcare/unified-design-system'
 import { Toaster } from '@/components/ui/sonner'
-import { DocsVersionSelect } from './components/DocsVersionSelect'
 import { useDocsHeaderSearch } from './components/DocsSearch'
 import { applyDocsBrandToDocument, DOCS_SITE_DEFAULT_BRAND } from './doc-site-brand'
 import { buildDocsMenuUtilities } from './docs-menu-utilities'
@@ -43,6 +50,9 @@ const InstallPage = lazy(() =>
 )
 const UsagePage = lazy(() =>
   import('./pages/PlaceholderPages').then((m) => ({ default: m.UsagePage })),
+)
+const DesignLanguagePage = lazy(() =>
+  import('./pages/PlaceholderPages').then((m) => ({ default: m.DesignLanguagePage })),
 )
 const AppShellDemoPage = lazy(() =>
   import('./pages/PlaceholderPages').then((m) => ({ default: m.AppShellDemoPage })),
@@ -109,13 +119,42 @@ function DocsLayout() {
         <Menu
           navigationItems={navigationItems}
           defaultBrand={DOCS_SITE_DEFAULT_BRAND}
-          toolbar={<DocsVersionSelect />}
           activeId={activeId}
           onNavigationSelect={handleNavigationSelect}
           utilities={menuUtilities}
           className="min-h-0 flex-1"
         />
       </AppShell.Menu>
+      <AppShell.Header>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button type="button" variant="ghost" size="icon" aria-label="Help">
+              <QuestionIcon className="size-5" weight="bold" aria-hidden />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Help</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="relative"
+              aria-label="Notifications"
+            >
+              <BellIcon className="size-5" weight="bold" aria-hidden />
+              <span className="absolute top-1 right-1 size-2 rounded-full bg-[var(--uds-color-accent-red-500)] ring-2 ring-[var(--uds-surface-primary)]" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Notifications</TooltipContent>
+        </Tooltip>
+        <Button type="button" variant="ghost" size="icon" className="rounded-full" aria-label="Account">
+          <Avatar size="sm" className="size-8">
+            <AvatarFallback className="text-xs">DS</AvatarFallback>
+          </Avatar>
+        </Button>
+      </AppShell.Header>
       <AppShell.Footer>
         <Footer
           links={[
@@ -311,6 +350,7 @@ export default function DocsApp() {
                 <Route path="docs/welcome" element={<Navigate to="/docs/introduction" replace />} />
                 <Route path="docs/getting-started/install" element={<InstallPage />} />
                 <Route path="docs/getting-started/usage" element={<UsagePage />} />
+                <Route path="docs/getting-started/design-language" element={<DesignLanguagePage />} />
                 <Route path="docs/getting-started/app-shell" element={<AppShellDemoPage />} />
                 <Route path="docs/sections/menu" element={<MenuPage />} />
                 <Route path="docs/sections/:slug" element={<ShadcnComponentDocPage />} />
@@ -326,6 +366,26 @@ export default function DocsApp() {
                 <Route path="docs/getting-started/menu" element={<Navigate to="/docs/sections/menu" replace />} />
                 <Route path="docs/components/header" element={<Navigate to="/docs/sections/header" replace />} />
                 <Route path="docs/components/footer" element={<Navigate to="/docs/sections/footer" replace />} />
+                <Route
+                  path="docs/components/filterbar"
+                  element={<Navigate to="/docs/sections/filterbar" replace />}
+                />
+                <Route
+                  path="docs/sections/search-facets"
+                  element={<Navigate to="/docs/sections/filterbar" replace />}
+                />
+                <Route
+                  path="docs/components/search-facets"
+                  element={<Navigate to="/docs/sections/filterbar" replace />}
+                />
+                <Route
+                  path="docs/components/page-header"
+                  element={<Navigate to="/docs/sections/page-header" replace />}
+                />
+                <Route
+                  path="docs/components/main-content"
+                  element={<Navigate to="/docs/sections/main-content" replace />}
+                />
                 <Route
                   path="docs/foundations/layout-display"
                   element={<Navigate to="/docs/foundations/display" replace />}

@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react"
-
+import { EyeIcon } from "@phosphor-icons/react/Eye"
+import { EyeSlashIcon } from "@phosphor-icons/react/EyeSlash"
 import { Input, type InputProps } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 

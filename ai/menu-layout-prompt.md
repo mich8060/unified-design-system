@@ -53,7 +53,7 @@ Both APIs share the same rail expand/collapse behavior via `Menu.Root`.
 
 - `position: fixed`, `top: 0`, `left: 0`, `height: 100vh`, `z-index: 10`
 - **Expanded width:** 280px (`w-[280px]`)
-- **Collapsed width:** 64px (`w-[64px]`)
+- **Collapsed width:** 56px (`w-[56px]`)
 - Transition: `transition-[width] duration-200 ease-out`
 - Background: `bg-white` (light) / dark mode inherits
 - Border: `border-r border-neutral-200`
@@ -72,10 +72,10 @@ Both APIs share the same rail expand/collapse behavior via `Menu.Root`.
 
 The Menu lives in AppShell's `menu` slot. AppShell offsets its body:
 
-- `appshell--body` has `margin-left: 280px` (expanded) or `64px` (collapsed)
+- `appshell--body` has `margin-left: 280px` (expanded) or `56px` (collapsed)
 - AppShell detects menu state via CSS `:has([data-slot="uds-menu-root"][data-expanded="false"])`
-- AppShell's fixed `header` and `footer` also shift their `left` edge to match
-- All transitions are 200ms ease-out to stay synchronized
+- AppShell header/footer are in-flow inside the body/main column (footer is last in `.appshell--main`, not fixed)
+- Body offset transition is 200ms ease-out to stay synchronized with the Menu rail
 
 ---
 
@@ -103,34 +103,11 @@ The root `<nav>` emits `data-expanded="true"` or `"false"` for CSS hooks.
 
 ## 5. Header Slot
 
-Default header (`MenuDefaultHeader`) supports two identities (see **`ai/guides/menu-header-identity.md`** for AI decision rules):
+**Inside AppShell:** Menu does **not** render a default header. Branding + the menu toggle live in the full-width **AppShell Header**. Put `brand` / `headerVariant` / `headerTitle` on **AppShell** — see **`ai/guides/menu-header-identity.md`**.
 
-| `headerVariant` | Center content (expanded) | Collapsed tile |
-| --- | --- | --- |
-| **`"brand"`** (default) | `Branding` wordmark 188×56, centered | `Branding` symbol 36×36 |
-| **`"title"`** | `headerTitle` text (`text-base`, line-clamp-2) | `headerShortTitle` or first 2 chars (`text-sm`) |
+**Standalone Menu** (no AppShell) still renders a simplified `MenuDefaultHeader`: toggle + wordmark/title when expanded; toggle only when collapsed (no mark swap, no hover-reveal).
 
-**Use `"brand"`** for CHG product shells with an approved `brand` id. **Use `"title"`** for internal/non-product apps without a lockup.
-
-```tsx
-<Menu headerVariant="title" headerTitle="Internal portal" headerShortTitle="IP" brand="default" />
-```
-
-**Expanded (280px):**
-
-- 3-column CSS grid: `grid-cols-[2.75rem_1fr_2.75rem]`
-- Left: ListIcon toggle button (44x44)
-- Center: branding wordmark **or** title text (188px wide, centered)
-- Right: empty spacer (44x44) for symmetry
-
-**Collapsed (64px):**
-
-- Brand symbol **or** title abbreviation (36×36) centered, cross-fades with toggle button on hover/focus
-- The collapse toggle appears on `group-hover/collapsed-menu` and `group-focus-within/collapsed-menu`
-- Transition: `opacity duration-200 ease-out`
-
-To replace: pass `header={<YourComponent />}` to `Menu`. Use `Menu.Header` as the wrapper and `useMenuRail()` for state.
-To hide: pass `header={false}`.
+Deprecated on Menu when using AppShell: `headerVariant`, `headerTitle`, `headerShortTitle`.
 
 ---
 
@@ -202,6 +179,7 @@ When `navigationItems` is omitted, Menu calls `getDefaultNavigation(brand)` whic
 - `comphealth` / `gms` / `weatherby`: Dashboard, Schedule, Job Board, Application, Documents (with Credentialing + Financial children), Time Entry, Travel
 - `locumsmart`: Dashboard, Workflow, CRM, Analytics, Administration
 - `modio`: Dashboard, Reports, Providers, Facilities, Payors, Tracking
+- `careermd`: Dashboard, Jobs, Employers, Candidates, Messages, Reporting
 - `wireframe`: 5x "Menu Item" placeholders (no icons)
 
 ---
@@ -283,7 +261,7 @@ Used inside the Menu header for product logos:
 />
 ```
 
-SVGs load from `/branding/svg/`. Dark mode applies `brightness-0 invert`.
+SVGs are bundled via the `Branding` component from `src/assets/branding/svg/`. Dark mode applies `brightness-0 invert`.
 
 ---
 

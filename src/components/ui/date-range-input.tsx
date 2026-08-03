@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { CalendarBlankIcon } from "@phosphor-icons/react"
+import { CalendarBlankIcon } from "@phosphor-icons/react/CalendarBlank"
 import type { DateRange } from "react-day-picker"
 
 import { Calendar } from "@/components/ui/calendar"
@@ -240,7 +240,7 @@ function DateRangeInput({
             endMonth={endMonth ?? defaultCalendarEndMonth()}
             min={1}
             numberOfMonths={2}
-            className="rounded-lg border bg-card"
+            className="rounded-[length:var(--uds-radius-4)] border bg-card"
           />
         </div>
       ) : null}

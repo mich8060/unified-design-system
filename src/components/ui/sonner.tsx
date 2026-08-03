@@ -1,13 +1,10 @@
 import { useTheme } from "next-themes"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
-import {
-  CheckCircleIcon,
-  CircleNotchIcon,
-  InfoIcon,
-  WarningIcon,
-  XCircleIcon,
-} from "@phosphor-icons/react"
-
+import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle"
+import { CircleNotchIcon } from "@phosphor-icons/react/CircleNotch"
+import { InfoIcon } from "@phosphor-icons/react/Info"
+import { WarningIcon } from "@phosphor-icons/react/Warning"
+import { XCircleIcon } from "@phosphor-icons/react/XCircle"
 import { cn } from "@/lib/utils"
 
 const toastBody15RegularClass =

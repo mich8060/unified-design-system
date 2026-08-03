@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url'
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 const runtimePath = path.join(root, 'scripts/figma-branding-runtime-slim.js')
-const svgDir = path.join(root, 'public/branding/svg')
+const svgDir = path.join(root, 'src/assets/branding/svg')
 
 const BRANDING_SVG_FILES = {
   Wireframe: {
@@ -30,6 +30,10 @@ const BRANDING_SVG_FILES = {
     mark: 'locumsmart-brand-mark.svg',
   },
   Modio: { wordmark: 'modio-wordmark.svg', mark: 'modio-brand-mark.svg' },
+  CareerMD: {
+    wordmark: 'careermd-wordmark.svg',
+    mark: 'careermd-brand-mark.svg',
+  },
   MyWeatherby: {
     wordmark: 'weatherby-wordmark.svg',
     mark: 'weatherby-brand-mark.svg',

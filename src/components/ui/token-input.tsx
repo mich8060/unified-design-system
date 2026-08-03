@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { XIcon } from "@phosphor-icons/react"
-
+import { XIcon } from "@phosphor-icons/react/X"
 import { cn } from "@/lib/utils"
 import { resolveButtonClasses, type ButtonSize } from "@/components/ui/button"
 import { type InputProps } from "@/components/ui/input"

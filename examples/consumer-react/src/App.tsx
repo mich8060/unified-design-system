@@ -34,7 +34,7 @@ export function App() {
         }
         listview={
           <div className="flex h-full min-h-0 flex-col overflow-hidden bg-background">
-            <div className="shrink-0 border-b px-4 py-3">
+            <div className="shrink-0 border-b px-4 py-2">
               <p className="text-sm font-semibold text-foreground">Candidate queue</p>
               <p className="text-xs text-muted-foreground">4 profiles ready for review</p>
             </div>

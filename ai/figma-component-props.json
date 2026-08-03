@@ -57,7 +57,7 @@
             "icon-sm": "Icon Small",
             "icon-lg": "Icon Large"
           },
-          "figmaMatrixNote": "Figma Button ships 5 text sizes (Extra Small 24px, Small 32px, Medium 36px, Default 44px, Large 52px) × 6 appearances. Extra Small uses Body/10/Medium and uds/gap/4; slot icons 12/16/16/20/24 px. Icon-only sizes exist in code only."
+          "figmaMatrixNote": "Figma Button ships 5 text sizes (Extra Small 24px, Small 32px, Medium 36px, Default 44px, Large 52px) × 6 appearances. Extra Small uses Body/10/Medium and uds/gap/4; slot icons 12/16/16/20/24 px. Icon-only sizes in code are always square: icon-xs 24, icon-sm 36, icon 44, icon-lg 52."
         },
         "gapPx": 8,
         "gapToken": "--uds-gap-8",
@@ -293,6 +293,7 @@
             "locumsmart": "Locumsmart",
             "modio": "Modio",
             "gms": "GMS",
+            "careermd": "CareerMD",
             "wireframe": "Wireframe"
           },
           "note": "Maps to Branding Appearance + default navigation tree from menu-default-navigation / uds.ai.brand-menus."
@@ -303,7 +304,7 @@
             "expanded": "Expanded",
             "collapsed": "Collapsed"
           },
-          "note": "Expanded 280px rail with wordmark + toggle; collapsed 64px rail with brand mark and icon-only root nav."
+          "note": "Expanded 280px rail with wordmark + toggle; collapsed 56px rail with icon-only root nav."
         },
         "headerBranding": {
           "codeProp": "Branding appearance + symbol",
@@ -321,7 +322,7 @@
           "note": "Per-brand demo nav. Expanded rows use .menu-nav-parent instances (Item or Branch Open=True/False); nested leaves use .menu-nav-child instances stacked below branch parents. Wireframe brand uses Icon Size=24 default House glyph."
         }
       },
-      "figmaMatrixNote": "18 variants (Brand × Rail). Header 56px with 20×44 toggle, 140×56 wordmark clip, Brand extension Light per brand. Collapsed: 44×44 .menu-nav-parent in Nav item row."
+      "figmaMatrixNote": "20 variants (Brand × Rail). Header 56px with 20×44 toggle, 140×56 wordmark clip, Brand extension Light per brand. Collapsed: 44×44 .menu-nav-parent in Nav item row."
     },
     ".menu-nav-parent": {
       "nodeId": "2369:6204",
@@ -559,7 +560,7 @@
             "list": "List",
             "box": "Box"
           },
-          "note": "List: radius 0. Box: uds/radius/4."
+          "note": "List: radius 0 + bottom border between siblings (last drops the rule). Box: uds/radius/4."
         },
         "State": {
           "codeProp": "variant",
@@ -567,7 +568,8 @@
             "default": "Default",
             "outline": "Outline",
             "muted": "Muted"
-          }
+          },
+          "note": "React also applies CSS hover/active surface feedback on each variant (secondary/tertiary). Persistent selection → muted."
         },
         "Size": {
           "codeProp": "size",
@@ -1425,7 +1427,7 @@
           "linkedLayer": "Content"
         }
       },
-      "figmaMatrixNote": "720×520 open preview per variant (overlay included). Drawer overlay uds/scrim/50; Drawer content uds/surface/primary + single-edge uds/border/secondary + directional uds/radius/8. Bottom variant includes Drawer handle (100×4 pill, uds/surface/tertiary). Header title uds/text/primary + description uds/text/tertiary; Content body slot; footer Outline Close button."
+      "figmaMatrixNote": "720×520 open preview per variant (overlay included). Drawer overlay uds/scrim/50; Drawer content uds/surface/primary + single-edge uds/border/secondary + **0px radius** on all edges (flush to viewport; not directional radius/8). Bottom variant includes Drawer handle (100×4 pill, uds/surface/tertiary). Header title uds/text/primary + description uds/text/tertiary; Content body slot; footer Outline Close button."
     },
     "AspectRatio": {
       "nodeId": "1111:543",
@@ -1470,10 +1472,10 @@
         "Fill": {
           "codeProp": "fill",
           "figmaLabels": { "false": "Hug (w-fit)", "true": "Fill (w-full, equal triggers)" },
-          "note": "TabsList `fill` prop. Figma property Fill=false|true."
+          "note": "TabsList `fill` prop. Preferred / default false — list stays w-full, triggers condensed. fill=true for equal-width triggers. Figma Fill=false|true."
         }
       },
-      "figmaMatrixNote": "80 variants. Fill=false (hug) | Fill=true (full width). Pill list: uds/surface/secondary, radius-6, active uds/surface/brand-quaternary + inverse text. Line: border-primary bottom, active uds/text/brand-quaternary + 2px indicator."
+      "figmaMatrixNote": "80 variants. Fill=true is the horizontal default (full width, equal triggers). Fill=false hugs content (vertical rails / exceptions). Pill list: uds/surface/secondary, radius-6, active uds/surface/brand-quaternary + inverse text. Line: border-primary bottom, active uds/text/brand-quaternary + 2px indicator."
     },
     "AppShell": {
       "nodeId": "963:730",
@@ -1482,7 +1484,7 @@
           "codeProp": "menu (Menu data-expanded)",
           "figmaLabels": {
             "Expanded": "280px rail",
-            "Collapsed": "64px rail"
+            "Collapsed": "56px rail"
           },
           "note": "Compose package Menu in slot `slot / menu`. Maps to AppShell.Menu / props.menu."
         },
@@ -1490,7 +1492,7 @@
           "codeProp": "listview",
           "figmaLabels": {
             "Off": "Collapsed column",
-            "On": "320px master pane"
+            "On": "320–480px master pane"
           },
           "note": "Maps to AppShell.Listview / props.listview. Includes `slot / listview-scroll`."
         },
@@ -1572,6 +1574,7 @@
             "chg": "CHG",
             "locumsmart": "Locumsmart",
             "modio": "Modio",
+            "careermd": "CareerMD",
             "myweatherby": "MyWeatherby",
             "mycomphealth": "MyCompHealth",
             "designSystem": "Design System"
@@ -1586,7 +1589,7 @@
           "note": "False = 200×80 wordmark (left-aligned). True = 64×64 brand mark (centered)."
         }
       },
-      "figmaMatrixNote": "16 variants (8 appearances × Symbol). SVG from public/branding/svg. CHG and Design System share unified-design-system assets. Build: scripts/figma-run-branding-batches.mjs + use_figma on branding-batches/*.js."
+      "figmaMatrixNote": "18 variants (9 appearances × Symbol). SVG from src/assets/branding/svg. CHG and Design System share unified-design-system assets. Build: scripts/figma-run-branding-batches.mjs + use_figma on branding-batches/*.js."
     },
     "Medallion": {
       "nodeId": "1847:5417",
@@ -1640,7 +1643,7 @@
           }
         }
       },
-      "figmaMatrixNote": "180 variants (5 sizes × 18 colors × 2 tones). Circle shape. Container sizes: 24 / 32 / 40 / 48 / 64px with matched Icon glyph scale."
+      "figmaMatrixNote": "180 variants (5 sizes × 18 colors × 2 tones). Circle shape. Container sizes: 24 / 32 / 40 / 48 / 64px with matched Icon glyph scale. Code default size is Large (lg / 48px) — prefer that in product UI unless density requires smaller."
     },
     "Calendar": {
       "nodeId": "1188:807",
@@ -1850,7 +1853,7 @@
           "note": "Open SLOT \u2014 accepts any element."
         }
       },
-      "figmaMatrixNote": "3 variants (Appearance=Body|Head|Footer; default Head). Bottom-border-only divider (uds/border/width/1), padding uds/spacing/0, radius uds/radius/0, text uds/text/primary Inter Regular 16. Fills: Body uds/surface/primary, Head uds/surface/tertiary, Footer uds/surface/quaternary."
+      "figmaMatrixNote": "3 variants (Appearance=Body|Head|Footer; default Head). Bottom-border-only divider (uds/border/width/1). Padding: interior 4–8px; first cell left 16–24px; last cell right 16–24px (code defaults 4 / pl-16 / pr-16). Radius uds/radius/0, text uds/text/primary Inter Regular 16. Fills: Body uds/surface/primary, Head uds/surface/tertiary, Footer uds/surface/quaternary."
     }
   }
 }

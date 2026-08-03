@@ -1,4 +1,16 @@
 {
+  "css": {
+    "styles.css": {
+      "file": "dist/styles.css",
+      "gzipBytes": 50000,
+      "description": "Full published stylesheet (tokens + components + AppShell/Menu chrome). Fonts must be externalized to dist/fonts/, not base64-inlined."
+    },
+    "styles-base.css": {
+      "file": "dist/styles-base.css",
+      "gzipBytes": 50000,
+      "description": "Base stylesheet (tokens + components, no AppShell/Menu chrome). Fonts must be externalized to dist/fonts/, not base64-inlined."
+    }
+  },
   "components": {
     "button": {
       "entry": ".audit/entry-button.mjs",

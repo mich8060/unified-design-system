@@ -39,10 +39,13 @@ const buttonThemeVariants = cva(
           "h-6 rounded-[4px] gap-1 px-1.5 text-[10px] leading-[14px] has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-[36px] rounded-[4px] gap-[length:var(--uds-gap-8)] px-3 text-sm has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5 [&_svg:not([class*='size-'])]:size-4",
         lg: "h-[52px] rounded-[4px] gap-[length:var(--uds-gap-8)] px-[18px] text-lg has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4 [&_svg:not([class*='size-'])]:size-6",
-        icon: "size-8 rounded-[4px] p-0 text-base",
-        "icon-xs": "size-6 rounded-[4px] p-0 text-[10px] [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm": "size-7 rounded-[4px] p-0 text-sm",
-        "icon-lg": "size-9 rounded-[4px] p-0 text-lg",
+        icon: "size-11 aspect-square rounded-[4px] p-0 text-base [&_svg:not([class*='size-'])]:size-5",
+        "icon-xs":
+          "size-6 aspect-square rounded-[4px] p-0 text-[10px] [&_svg:not([class*='size-'])]:size-3",
+        "icon-sm":
+          "size-9 aspect-square rounded-[4px] p-0 text-sm [&_svg:not([class*='size-'])]:size-4",
+        "icon-lg":
+          "h-[52px] w-[52px] aspect-square rounded-[4px] p-0 text-lg [&_svg:not([class*='size-'])]:size-6",
       },
     },
     defaultVariants: {

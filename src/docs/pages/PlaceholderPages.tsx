@@ -1,55 +1,37 @@
 import {
   ArrowClockwiseIcon,
   Button,
-  CirclesThreeIcon,
+  Card,
+  CardContent,
+  CheckCircleIcon,
   cn,
-  DiamondsFourIcon,
   GearSixIcon,
   GitBranchIcon,
-  LightbulbIcon,
   Medallion,
-  PaletteIcon,
-  PenNibIcon,
   PresentationChartIcon,
-  SparkleIcon,
-  SquaresFourIcon,
   StackIcon,
+  Status,
   type MedallionColor,
 } from '@chghealthcare/unified-design-system'
-import { useEffect, useLayoutEffect, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { DOCS_BRAND_OPTIONS } from '../doc-site-brand'
 import type { UdsBrandId } from '@/lib/uds-brand'
-import {
-  docPageHeroBandClassName,
-  docPageHeroColumnNarrowClassName,
-  docPageHeroColumnWideClassName,
-  docPageHeroShellClassName,
-  docPageHorizontalGutterClassName,
-} from '../doc-page-hero-classes'
 import { CodePanel } from '../components/CodePanel'
+import {
+  DocsPageSection,
+  DocsPageShell,
+} from '../components/DocsPageShell'
+import { DesignLanguageContractDiagram } from '../components/DesignLanguageContractDiagram'
+import { DesignLanguageLayersDiagram } from '../components/DesignLanguageLayersDiagram'
 import { DocShellLayoutVisuals } from './DocShellLayoutVisuals'
 import { ReadoutPage } from '../readout/ReadoutPage'
 import { MarkdownishPage } from './MarkdownishPage'
 
-
-/** Custom property used by `.welcome-header-icon-flux` in docs CSS (not in React's CSSProperties index). */
-function welcomeHeaderFluxStyle(fluxBase: string, animationDelay: string): CSSProperties {
-  return {
-    '--welcome-header-icon-flux-base': fluxBase,
-    animationDelay,
-  } as CSSProperties
-}
-
-/** Welcome page article column (below the hero); wider than `MarkdownishPage` prose. */
-const WELCOME_PAGE_COLUMN = 'mx-auto min-w-0 max-w-6xl lg:max-w-7xl'
-
-const introH2 = 'text-xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50'
 const introCard =
-  'rounded-[12px] border border-neutral-200 bg-neutral-50/80 p-5 dark:border-neutral-800 dark:bg-neutral-950/60'
-const introLead = 'mt-3 text-base leading-relaxed text-neutral-600 dark:text-neutral-300'
+  'rounded-[length:var(--uds-radius-12)] border border-uds-border-primary bg-[var(--uds-surface-secondary)] p-[length:var(--uds-spacing-16)]'
 const introPrincipleCard =
-  'flex min-w-0 flex-1 basis-0 flex-col items-center rounded-[12px] border border-neutral-200/90 bg-gradient-to-b from-white to-neutral-50/90 px-3 py-6 text-center shadow-sm dark:border-neutral-700/90 dark:from-neutral-950 dark:to-neutral-900/80 sm:px-4 sm:py-7'
+  'flex min-w-0 w-full max-w-full basis-full flex-col items-center gap-[length:var(--uds-gap-12)] rounded-[length:var(--uds-radius-12)] border border-uds-border-primary bg-[var(--uds-surface-primary)] px-[length:var(--uds-spacing-16)] py-[length:var(--uds-spacing-16)] text-center sm:max-w-[calc((100%-var(--uds-gap-16))/2)] sm:basis-[calc((100%-var(--uds-gap-16))/2)] lg:max-w-[calc((100%-2*var(--uds-gap-16))/3)] lg:basis-[calc((100%-2*var(--uds-gap-16))/3)]'
 const INTRO_PRINCIPLES: {
   title: string
   body: string
@@ -85,6 +67,12 @@ const INTRO_PRINCIPLES: {
     body: 'Predictable patterns beat bespoke chrome for delivery speed.',
     color: 'violet',
     icon: <PresentationChartIcon weight="bold" aria-hidden />,
+  },
+  {
+    title: 'Accessible by default',
+    body: 'Ship inclusive patterns so accessibility is built in, not bolted on.',
+    color: 'green',
+    icon: <CheckCircleIcon weight="bold" aria-hidden />,
   },
 ]
 function useDocsRootDarkClass() {
@@ -186,18 +174,15 @@ function AllBrandMenuDemosPreview() {
   )
 }
 
-/** Matches `MarkdownishPage` text column; use inside a full-width article when only the demo is 1280px. */
-const DOC_PAGE_TEXT_COLUMN = 'mx-auto min-w-0 max-w-4xl lg:max-w-5xl'
-
 function AppShellDemoIframe() {
   const dark = useDocsRootDarkClass()
   const iframeSrc = `/app-shell-demo.html${dark ? '?dark=1' : ''}`
 
   return (
-    <div className="not-prose mx-auto w-full max-w-[1280px] px-8">
+    <div className="not-prose w-full min-w-0">
       <iframe
         title="AppShell interactive demo"
-        className="my-12 box-border block h-[min(920px,85vh)] w-full max-w-full rounded-[8px] border-2 border-black shadow-xl shadow-neutral-900/10 dark:shadow-2xl dark:shadow-black/35"
+        className="box-border block h-[min(920px,85vh)] w-full max-w-full rounded-[length:var(--uds-radius-8)] border-2 border-black shadow-xl shadow-neutral-900/10 dark:shadow-2xl dark:shadow-black/35"
         src={iframeSrc}
         key={dark ? 'dark' : 'light'}
       />
@@ -207,7 +192,11 @@ function AppShellDemoIframe() {
 
 export function InstallPage() {
   return (
-    <MarkdownishPage kicker="Getting Started" title="Install">
+    <MarkdownishPage
+      kicker="Getting Started"
+      title="Install"
+      description="Add the UDS package to a React 19 app from GitHub Packages, import styles once, and start composing from the package entry."
+    >
       <p>
         Add <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chghealthcare/unified-design-system</code>{' '}
         to a React app, import the stylesheet once at the root, and import components from the package entry. Internal
@@ -373,37 +362,6 @@ export function Smoke() {
       />
 
       <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-        Alternative: install from a tarball
-      </h2>
-      <p className="mt-3 text-neutral-600 dark:text-neutral-300">
-        For offline or vendor distribution, commit a <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">.tgz</code>{' '}
-        from <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm pack</code> and install from a local path.
-        The package name in imports stays{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chghealthcare/unified-design-system</code>.
-      </p>
-      <div className="mt-4 space-y-4">
-        <CodePanel
-          label="npm"
-          language="bash"
-          code={`npm install ./vendor/chghealthcare-unified-design-system-1.0.5.tgz`}
-        />
-        <CodePanel
-          label="package.json"
-          language="json"
-          code={`{
-  "dependencies": {
-    "@chghealthcare/unified-design-system": "file:./vendor/chghealthcare-unified-design-system-1.0.5.tgz"
-  }
-}`}
-        />
-      </div>
-      <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-        Maintainers: <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm run build:lib</code> then{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npm pack</code> produces{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">chghealthcare-unified-design-system-&lt;version&gt;.tgz</code>.
-      </p>
-
-      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
         Publishing (maintainers)
       </h2>
       <p className="mt-3 text-neutral-600 dark:text-neutral-300">
@@ -449,6 +407,178 @@ export function Smoke() {
             AppShell
           </Link>{' '}
           — authenticated product layout with menu, header, and optional listview.
+        </li>
+        <li>
+          <Link to="/docs/getting-started/design-language" className="docs-link font-medium">
+            Design Language
+          </Link>{' '}
+          — why/when reasoning for composition (Design System Language).
+        </li>
+      </ul>
+    </MarkdownishPage>
+  )
+}
+
+export function DesignLanguagePage() {
+  return (
+    <MarkdownishPage
+      kicker="Getting Started"
+      title="Design Language"
+      description="The Design System Language (DSL) explains why UDS decisions exist, when to apply them, and how humans and AI should reason about composition—not only which component to import."
+    >
+      <p>
+        Runtime components and the machine-readable contract answer <strong>what</strong> to use and{' '}
+        <strong>how</strong> the APIs work. The Design System Language answers <strong>why</strong> and{' '}
+        <strong>when</strong>: intent, hierarchy, spacing, shell regions, patterns, and anti-patterns. It ships with the
+        package as{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">
+          @chghealthcare/unified-design-system/design-language
+        </code>{' '}
+        and lives in the repo under{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">design-language/</code>.
+      </p>
+
+      <DesignLanguageContractDiagram />
+
+      <h2 className="pt-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">What it is for</h2>
+      <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600 dark:text-neutral-300">
+        <li>
+          <strong className="text-neutral-900 dark:text-neutral-100">Designers</strong> — shared philosophy, physics, and
+          patterns so specs match what ships.
+        </li>
+        <li>
+          <strong className="text-neutral-900 dark:text-neutral-100">Engineers</strong> — composition rules before inventing
+          layout chrome; prefer recipes and existing exports.
+        </li>
+        <li>
+          <strong className="text-neutral-900 dark:text-neutral-100">AI agents</strong> — a structured reasoning path
+          (intent → grammar → decision trees → patterns → components) with confidence labels and retrieval indexes.
+        </li>
+      </ul>
+
+      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Knowledge layers</h2>
+      <p className="mt-3 text-neutral-600 dark:text-neutral-300">
+        Layers only depend downward. Start high when the problem is ambiguous; drop to tokens and examples when you are
+        implementing a settled layout.
+      </p>
+      <div className="mt-4">
+        <DesignLanguageLayersDiagram />
+      </div>
+      <div className="mt-4 overflow-x-auto rounded-[length:var(--uds-radius-8)] border border-uds-border-primary">
+        <table className="w-full min-w-[min(100%,520px)] border-collapse text-left text-sm">
+          <thead>
+            <tr className="border-b border-uds-border-primary bg-[var(--uds-surface-secondary)]">
+              <th className="px-3 py-2 font-semibold text-[var(--uds-text-primary)]">Layer</th>
+              <th className="px-3 py-2 font-semibold text-[var(--uds-text-primary)]">Role</th>
+            </tr>
+          </thead>
+          <tbody className="text-[var(--uds-text-secondary)]">
+            <tr className="border-b border-uds-border-primary">
+              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Philosophy &amp; principles</td>
+              <td className="px-3 py-2">Why the system exists and default tradeoffs</td>
+            </tr>
+            <tr className="border-b border-uds-border-primary">
+              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Design physics</td>
+              <td className="px-3 py-2">Proximity, weight, contrast, stability, disclosure</td>
+            </tr>
+            <tr className="border-b border-uds-border-primary">
+              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Semantics</td>
+              <td className="px-3 py-2">Meaning: hierarchy, density, intent, shell containment</td>
+            </tr>
+            <tr className="border-b border-uds-border-primary">
+              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Grammar</td>
+              <td className="px-3 py-2">Valid AppShell regions and pattern containment</td>
+            </tr>
+            <tr className="border-b border-uds-border-primary">
+              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Decision rules</td>
+              <td className="px-3 py-2">Choosing patterns, spacing, components; decision trees</td>
+            </tr>
+            <tr className="border-b border-uds-border-primary">
+              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Patterns &amp; ontology</td>
+              <td className="px-3 py-2">Screen recipes and component knowledge objects</td>
+            </tr>
+            <tr>
+              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Foundations &amp; examples</td>
+              <td className="px-3 py-2">Tokens, composition details, and pointer examples</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">How to reason</h2>
+      <ol className="mt-3 list-decimal space-y-2 pl-5 text-neutral-600 dark:text-neutral-300">
+        <li>
+          State <strong className="text-neutral-900 dark:text-neutral-100">intent</strong> (what the user is trying to do).
+        </li>
+        <li>
+          Apply <strong className="text-neutral-900 dark:text-neutral-100">grammar</strong> — AppShell regions, listview vs
+          right panel, MainContent containment.
+        </li>
+        <li>
+          Choose a <strong className="text-neutral-900 dark:text-neutral-100">recipe / pattern</strong> via decision trees
+          before inventing layout.
+        </li>
+        <li>
+          Implement with contract <strong className="text-neutral-900 dark:text-neutral-100">components</strong> and{' '}
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/examples</code>.
+        </li>
+        <li>
+          Respect <strong className="text-neutral-900 dark:text-neutral-100">confidence</strong> labels in the DSL
+          (Required vs Strong Recommendation vs Optional).
+        </li>
+      </ol>
+
+      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Contract vs design language
+      </h2>
+      <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600 dark:text-neutral-300">
+        <li>
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/uds-contract.json</code> (package export{' '}
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">/contract</code>) is normative for APIs,
+          recipes, and anti-patterns when prose disagrees.
+        </li>
+        <li>
+          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">design-language/</code> is normative for
+          composition reasoning and design intent.
+        </li>
+        <li>
+          Retrieval indexes under <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/indexes/</code>{' '}
+          help agents find the right DSL article quickly.
+        </li>
+      </ul>
+
+      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Consumer AI bootstrap</h2>
+      <p className="mt-3 text-neutral-600 dark:text-neutral-300">
+        Setup agents (not designers/PMs) run this after install so hot-path stubs land in the app, then commit the
+        result:
+      </p>
+      <CodePanel label="From the consumer app root (agent-owned)" language="bash" code={`npx uds-copy-ai-rules`} />
+      <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+        That wires Cursor, Claude Code, AGENTS, or Copilot stubs from{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/consumer-ai/</code>. Paste-ready prompt:{' '}
+        <Link to="/docs/getting-started/usage" className="docs-link font-medium">
+          Usage → Copy-paste setup prompt
+        </Link>
+        . Full steps:{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/guides/consumer-ai-bootstrap.md</code>.
+      </p>
+
+      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Where to go next</h2>
+      <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600 dark:text-neutral-300">
+        <li>
+          <Link to="/docs/getting-started/usage" className="docs-link font-medium">
+            Usage
+          </Link>{' '}
+          — allowed imports and shell composition in product code.
+        </li>
+        <li>
+          <Link to="/docs/getting-started/app-shell" className="docs-link font-medium">
+            AppShell demo
+          </Link>{' '}
+          — the default authenticated layout regions.
+        </li>
+        <li>
+          Foundations and Components in this site — token scales and live APIs that the DSL points at.
         </li>
       </ul>
     </MarkdownishPage>
@@ -721,46 +851,16 @@ export function ApplicationMenu() {
 
 export function AppShellDemoPage() {
   return (
-    <div className="min-w-0 overflow-x-hidden">
-      <header className={docPageHeroBandClassName}>
-        <div className={docPageHeroShellClassName}>
-          <div className={docPageHeroColumnNarrowClassName}>
-            <p className="text-sm font-medium text-white/75">Getting Started</p>
-            <h1 className="mt-1 text-3xl font-bold tracking-tight text-white md:text-4xl">AppShell demo</h1>
-          </div>
-        </div>
-      </header>
-
-      <article className={docPageHorizontalGutterClassName}>
-      <div className={cn(DOC_PAGE_TEXT_COLUMN, 'mt-8 space-y-4 text-neutral-600 dark:text-neutral-300')}>
-        <p>
-          This page demonstrates the baseline application shell for product screens: a standardized{' '}
-          <strong className="text-neutral-900 dark:text-neutral-100">Menu</strong> rail (fixed header with collapse
-          control + branding), optional listview, wide content area, and optional footer.
-        </p>
-        <p>
-          <strong className="text-neutral-900 dark:text-neutral-100">AppShell</strong> is the neutral application
-          layout version of this pattern: a persistent sidebar, an optional listview column, a flexible main panel,
-          and an optional footer row.
-        </p>
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          The interactive preview loads in an isolated frame (
-          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">app-shell-demo.html</code>) so
-          documentation-only styles do not affect the shell. It uses the{' '}
-          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">AppShell</code>{' '}
-          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">menu</code> slot with{' '}
-          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">DocsRailMenu</code> (
-          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">docs-rail-menu.tsx</code>) rail and{' '}
-          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">DocsRailMenu.Flyout</code> for Documents when
-          the rail is collapsed. Theme follows this page (light/dark); toggling appearance reloads the frame.
-        </p>
-      </div>
-
-      <AppShellDemoIframe />
-
-      <div className={cn(DOC_PAGE_TEXT_COLUMN, 'mt-8 space-y-4 text-neutral-600 dark:text-neutral-300')}>
-        <CodePanel
-          code={`<AppShell>
+    <DocsPageShell
+      eyebrow="Getting Started"
+      title="AppShell demo"
+      description="Baseline application shell for product screens: Menu rail, optional listview, main content, and optional footer."
+      panelBleed={<AppShellDemoIframe />}
+      afterBleed={
+        <>
+          <DocsPageSection title="Composition">
+            <CodePanel
+              code={`<AppShell>
   <AppShell.Menu>
     <Menu />
   </AppShell.Menu>
@@ -777,25 +877,40 @@ export function AppShellDemoPage() {
     <Footer />
   </AppShell.Footer>
 </AppShell>`}
-          label="AppShell composition"
-          language="tsx"
-        />
+              label="AppShell composition"
+              language="tsx"
+            />
+          </DocsPageSection>
 
-        <h2 className="pt-2 text-lg font-semibold text-neutral-900 dark:text-neutral-100">When to use it</h2>
-        <ul className="list-disc space-y-2 pl-5">
-          <li>Keep the sidebar present when navigation must remain visible across most authenticated screens.</li>
-          <li>Enable the listview for master-detail flows like records, inboxes, queues, and search results.</li>
-          <li>Enable the footer when you need persistent actions, summary state, or workflow controls.</li>
-        </ul>
+          <DocsPageSection title="When to use it">
+            <ul className="m-0 list-disc space-y-2 pl-5 text-[var(--uds-text-secondary)]">
+              <li>Keep the sidebar present when navigation must remain visible across most authenticated screens.</li>
+              <li>Enable the listview for master-detail flows like records, inboxes, queues, and search results.</li>
+              <li>Enable the footer when you need persistent actions, summary state, or workflow controls.</li>
+            </ul>
+          </DocsPageSection>
+        </>
+      }
+    >
+      <div className="flex min-w-0 flex-col gap-[length:var(--uds-gap-16)] text-[var(--uds-text-secondary)] [&_:not(pre)_>_code]:rounded-[length:var(--uds-radius-4)] [&_:not(pre)_>_code]:bg-[var(--uds-surface-secondary)] [&_:not(pre)_>_code]:px-1.5 [&_:not(pre)_>_code]:py-0.5 [&_pre_code]:rounded-none [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_strong]:text-[var(--uds-text-primary)]">
+        <p className="m-0">
+          This page demonstrates the baseline application shell for product screens: a standardized{' '}
+          <strong>Menu</strong> rail (fixed header with collapse control + branding), optional listview, wide content
+          area, and optional footer.
+        </p>
+        <p className="m-0">
+          <strong>AppShell</strong> is the neutral application layout version of this pattern: a persistent sidebar, an
+          optional listview column, a flexible main panel, and an optional footer row.
+        </p>
+        <p className="m-0 text-sm">
+          The interactive preview loads in an isolated frame (<code>app-shell-demo.html</code>) so documentation-only
+          styles do not affect the shell. It uses the <code>AppShell</code> <code>menu</code> slot with{' '}
+          <code>DocsRailMenu</code> (<code>docs-rail-menu.tsx</code>) rail and <code>DocsRailMenu.Flyout</code> for
+          Documents when the rail is collapsed. Theme follows this page (light/dark); toggling appearance reloads the
+          frame.
+        </p>
       </div>
-
-      <p className={cn(DOC_PAGE_TEXT_COLUMN, 'mt-10 text-sm')}>
-        <Link to="/docs/foundations/display" className="docs-link font-medium">
-          Browse foundations →
-        </Link>
-      </p>
-      </article>
-    </div>
+    </DocsPageShell>
   )
 }
 
@@ -819,30 +934,141 @@ export function ProjectReadoutPage() {
   return <ReadoutPage />
 }
 
+const RELEASE_HIGHLIGHTS: { title: string; items: string[] }[] = [
+  {
+    title: 'Toolbar',
+    items: [
+      'Three regions: Start, Center (title + description), and End.',
+      'Sizes: default (44px) and lg (56px) for stacked title + meta.',
+      'Radius 0; border-bottom only.',
+    ],
+  },
+  {
+    title: 'AppShell listview',
+    items: [
+      'listviewWidth 320–480px (default 320) based on content need.',
+      'Toolbar titlebar; entities use Item or Card (dense: appearance="list").',
+    ],
+  },
+  {
+    title: 'MainContent',
+    items: [
+      'Recommended: keep edge or fixed containment consistent across the app’s pages.',
+    ],
+  },
+  {
+    title: 'AppShell Header',
+    items: ['hideSearch and headerLeading for omitting or replacing Header search.'],
+  },
+  {
+    title: 'SearchInput / Filterbar',
+    items: [
+      'surface="primary" (white) on gray parents; surface="secondary" (gray, default) on white parents.',
+      'In Filterbar on edge Main, use surface="primary".',
+    ],
+  },
+]
+
+const RELEASE_ALSO = [
+  'Drawer: left/right width clamped 320–600px.',
+  'Item appearance="list", Table plain / wrap, Alert style="filled", Status↔Badge alignment.',
+  'Inter as a separate WOFF2; branding SVGs SVGO-optimized; leaner Vite Phosphor imports.',
+  'Docs site: version dropdown removed; latest snapshot only.',
+]
+
 export function ProjectReleasesPage() {
   return (
-    <MarkdownishPage kicker="Projects" title="Releases">
-      <p>
-        Published package versions for{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">@chghealthcare/unified-design-system</code>.
-        See{' '}
-        <a
-          href="https://github.com/chghealthcare/unified-design-system/releases"
-          className="docs-link font-medium"
-          target="_blank"
-          rel="noreferrer"
-        >
-          GitHub Releases
-        </a>{' '}
-        for changelogs and install tags.
-      </p>
-    </MarkdownishPage>
+    <DocsPageShell
+      eyebrow="Projects"
+      title="Releases"
+      description={
+        <>
+          What’s shipping in{' '}
+          <code className="rounded-[length:var(--uds-radius-4)] bg-[var(--uds-surface-secondary)] px-1.5 py-0.5">
+            @chghealthcare/unified-design-system
+          </code>
+          . Published tags and full changelogs are on GitHub; draft notes also live in{' '}
+          <code className="rounded-[length:var(--uds-radius-4)] bg-[var(--uds-surface-secondary)] px-1.5 py-0.5">
+            docs/NEXT_RELEASE_NOTES.md
+          </code>
+          .
+        </>
+      }
+      actions={
+        <Button asChild variant="outline">
+          <a
+            href="https://github.com/chghealthcare/unified-design-system/releases"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <GitBranchIcon weight="bold" aria-hidden />
+            GitHub Releases
+          </a>
+        </Button>
+      }
+    >
+      <DocsPageSection
+        title="Coming next"
+        description="Highlights for the next package publish. This site’s documentation snapshot stays on v1.2.0 until the next minor or major docs freeze."
+      >
+        <div className="flex flex-wrap items-center gap-[length:var(--uds-gap-8)]">
+          <Status appearance="outlined" size="compact" variant="info">
+            Unreleased
+          </Status>
+          <Status appearance="outlined" size="compact" variant="neutral">
+            Docs snapshot v1.2.0
+          </Status>
+        </div>
+
+        <div className="flex w-full min-w-0 flex-col gap-[length:var(--uds-gap-16)]">
+          {RELEASE_HIGHLIGHTS.map((section) => (
+            <Card key={section.title}>
+              <CardContent className="flex flex-col gap-[length:var(--uds-gap-12)]">
+                <p className="m-0 text-[length:var(--uds-type-body-16-size)] font-semibold leading-[var(--uds-type-body-16-line-height)] text-[var(--uds-text-primary)]">
+                  {section.title}
+                </p>
+                <ul className="m-0 flex list-none flex-col gap-[length:var(--uds-gap-8)] p-0">
+                  {section.items.map((item) => (
+                    <li
+                      key={item}
+                      className="text-[length:var(--uds-type-body-14-size)] leading-[var(--uds-type-body-14-line-height)] text-[var(--uds-text-secondary)]"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </DocsPageSection>
+
+      <DocsPageSection
+        title="Also in this draft"
+        description="Smaller component and platform updates included in the same release notes draft."
+      >
+        <Card>
+          <CardContent className="flex flex-col gap-[length:var(--uds-gap-12)]">
+            <ul className="m-0 flex list-none flex-col gap-[length:var(--uds-gap-12)] p-0">
+              {RELEASE_ALSO.map((item) => (
+                <li
+                  key={item}
+                  className="text-[length:var(--uds-type-body-14-size)] leading-[var(--uds-type-body-14-line-height)] text-[var(--uds-text-secondary)]"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      </DocsPageSection>
+    </DocsPageShell>
   )
 }
 
 export function PatternsDashboardPage() {
   return (
-    <MarkdownishPage kicker="Patterns" title="Dashboard" className="max-w-[1280px] lg:max-w-[1280px]">
+    <MarkdownishPage kicker="Patterns" title="Dashboard">
       <p>
         Example authenticated dashboard using{' '}
         <strong className="text-neutral-900 dark:text-neutral-100">AppShell</strong> with a{' '}
@@ -911,163 +1137,82 @@ export function WelcomePage() {
   }, [])
 
   return (
-    <div className="min-w-0 overflow-x-hidden">
-      <header className={docPageHeroBandClassName}>
-        <div className={docPageHeroShellClassName}>
-          <DiamondsFourIcon
-            aria-hidden
-            weight="duotone"
-            className="welcome-header-icon-flux pointer-events-none absolute right-0 top-1/2 z-0 size-[min(36rem,110vw)] translate-x-[min(22vw,10rem)] -translate-y-1/2 rotate-[-10deg] text-white"
-            style={welcomeHeaderFluxStyle('0.07', '0s')}
-          />
-          {/* Distant marks — further left than the inner trio; sizes & rotations vary. */}
-          <CirclesThreeIcon
-            aria-hidden
-            weight="duotone"
-            className="welcome-header-icon-flux pointer-events-none absolute right-[min(44rem,68%)] top-[calc(50%-120px)] z-[1] size-[44px] -translate-y-1/2 rotate-[20deg] text-white max-md:right-[78%] max-md:top-[calc(50%-90px)] max-md:size-8"
-            style={welcomeHeaderFluxStyle('0.055', '0.35s')}
-          />
-          <PenNibIcon
-            aria-hidden
-            weight="duotone"
-            className="welcome-header-icon-flux pointer-events-none absolute right-[min(52rem,76%)] top-[calc(50%+55px)] z-[1] size-[52px] -translate-y-1/2 -rotate-[17deg] text-white max-md:right-[88%] max-md:size-9"
-            style={welcomeHeaderFluxStyle('0.05', '0.7s')}
-          />
-          <LightbulbIcon
-            aria-hidden
-            weight="duotone"
-            className="welcome-header-icon-flux pointer-events-none absolute right-[min(34rem,46%)] top-[calc(50%+175px)] z-[1] size-[32px] -translate-y-1/2 rotate-[11deg] text-white max-md:right-[58%] max-md:top-[calc(50%+140px)]"
-            style={welcomeHeaderFluxStyle('0.065', '1.05s')}
-          />
-          <GitBranchIcon
-            aria-hidden
-            weight="duotone"
-            className="welcome-header-icon-flux pointer-events-none absolute right-[min(58rem,82%)] top-[calc(50%-35px)] z-[1] size-[72px] -translate-y-1/2 -rotate-[26deg] text-white max-md:hidden"
-            style={welcomeHeaderFluxStyle('0.045', '1.4s')}
-          />
-          <SparkleIcon
-            aria-hidden
-            weight="duotone"
-            className="welcome-header-icon-flux pointer-events-none absolute right-[400px] top-[calc(50%-50px)] z-[1] size-[60px] -translate-y-1/2 text-white"
-            style={welcomeHeaderFluxStyle('0.07', '0.5s')}
-          />
-          <PaletteIcon
-            aria-hidden
-            weight="duotone"
-            className="welcome-header-icon-flux pointer-events-none absolute right-[350px] top-[calc(50%+120px)] z-[1] size-[60px] -translate-y-1/2 text-white"
-            style={welcomeHeaderFluxStyle('0.07', '0.85s')}
-          />
-          <SquaresFourIcon
-            aria-hidden
-            weight="duotone"
-            className="welcome-header-icon-flux pointer-events-none absolute right-[350px] top-[calc(50%+120px)] z-[1] size-[60px] -translate-y-1/2 translate-x-[480px] text-white"
-            style={welcomeHeaderFluxStyle('0.07', '1.2s')}
-          />
-          <div className={cn('relative z-10', docPageHeroColumnWideClassName)}>
-            <h1 className="text-4xl font-bold tracking-tight text-white">Introduction</h1>
-            <p className="mt-4 max-w-3xl text-lg font-medium text-white/90">
-              A unified design system that enables teams to build consistent, scalable, and production-ready experiences
-              across all CHG products.
+    <DocsPageShell
+      title="Introduction"
+      actionsPlacement="below"
+      description={
+        <>
+          A unified design system that enables teams to build consistent, scalable, and production-ready experiences
+          across all CHG products. Build once, ship everywhere · Faster time to market · Consistent, accessible
+          experiences
+        </>
+      }
+      actions={
+        <>
+          <Button asChild variant="default" size="default">
+            <Link to="/docs/getting-started/install">Quick start — Install</Link>
+          </Button>
+          <Button asChild variant="outline" size="default">
+            <Link to="/docs/getting-started/usage">Usage</Link>
+          </Button>
+        </>
+      }
+    >
+      <DocsPageSection
+        title="Who it's for"
+        description="Different roles enter from different doors—each should find a clear path."
+      >
+        <div className="grid min-w-0 grid-cols-3 gap-3 sm:gap-4">
+          <div className={cn(introCard, 'min-w-0')}>
+            <p className="m-0 text-sm font-semibold text-[var(--uds-text-primary)]">Designers</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--uds-text-secondary)]">
+              Build and prototype with shared components and tokens so specs match what ships.
             </p>
-            <p className="mt-6 max-w-3xl text-base text-white/85">
-              Build once, ship everywhere{' '}
-              <span className="select-none text-white/45" aria-hidden>
-                •
-              </span>{' '}
-              Faster time to market{' '}
-              <span className="select-none text-white/45" aria-hidden>
-                •
-              </span>{' '}
-              Consistent, accessible experiences
+          </div>
+          <div className={cn(introCard, 'min-w-0')}>
+            <p className="m-0 text-sm font-semibold text-[var(--uds-text-primary)]">Engineers</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--uds-text-secondary)]">
+              Import production-ready React components and a single stylesheet; compose with AppShell for product
+              screens.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="outline" size="default">
-                <Link to="/docs/getting-started/install">Quick start — Install</Link>
-              </Button>
-              <Button asChild variant="ghost" size="default" className="border border-white/25 bg-white/10 text-white hover:bg-white/20">
-                <Link to="/docs/getting-started/usage">Usage</Link>
-              </Button>
-            </div>
+          </div>
+          <div className={cn(introCard, 'min-w-0')}>
+            <p className="m-0 text-sm font-semibold text-[var(--uds-text-primary)]">Product managers</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--uds-text-secondary)]">
+              Align teams on consistent UX patterns, maturity, and scope instead of one-off widgets.
+            </p>
           </div>
         </div>
-      </header>
+      </DocsPageSection>
 
-      <div className={docPageHorizontalGutterClassName}>
-      <article className={cn(WELCOME_PAGE_COLUMN, 'py-10')}>
-        <div className="not-prose space-y-16 text-neutral-700 dark:text-neutral-300">
-          <section aria-labelledby="intro-audience">
-            <h2 id="intro-audience" className={introH2}>
-              Who it&apos;s for
-            </h2>
-            <p className={introLead}>Different roles enter from different doors—each should find a clear path.</p>
-            <div className="mt-6 grid min-w-0 grid-cols-3 gap-3 sm:gap-4">
-              <div className={cn(introCard, 'min-w-0')}>
-                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Designers</p>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                  Build and prototype with shared components and tokens so specs match what ships.
-                </p>
+      <DocsPageSection
+        title="Principles"
+        description="When documentation is silent, these defaults steer decisions."
+      >
+        <ul className="m-0 flex w-full min-w-0 list-none flex-wrap justify-center gap-[length:var(--uds-gap-16)] p-0">
+          {INTRO_PRINCIPLES.map(({ title, body, color, icon }) => (
+            <li key={title} className={introPrincipleCard}>
+              <Medallion color={color} size="xl" shape="circle" tone="pastel" icon={icon} />
+              <div className="min-w-0 w-full">
+                <p className="m-0 text-sm font-semibold tracking-tight text-[var(--uds-text-primary)]">{title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--uds-text-secondary)]">{body}</p>
               </div>
-              <div className={cn(introCard, 'min-w-0')}>
-                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Engineers</p>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                  Import production-ready React components and a single stylesheet; compose with AppShell for product
-                  screens.
-                </p>
-              </div>
-              <div className={cn(introCard, 'min-w-0')}>
-                <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Product managers</p>
-                <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-                  Align teams on consistent UX patterns, maturity, and scope instead of one-off widgets.
-                </p>
-              </div>
-            </div>
-          </section>
+            </li>
+          ))}
+        </ul>
+      </DocsPageSection>
 
-          <section aria-labelledby="intro-principles" className="text-center">
-            <h2 id="intro-principles" className={cn(introH2, 'mx-auto max-w-3xl')}>
-              Principles
-            </h2>
-            <p className={cn(introLead, 'mx-auto max-w-2xl')}>
-              When documentation is silent, these defaults steer decisions.
-            </p>
-            <ul className="mx-auto mt-10 flex w-full min-w-0 max-w-none list-none flex-nowrap justify-stretch gap-2 p-0 sm:gap-3 md:gap-4">
-              {INTRO_PRINCIPLES.map(({ title, body, color, icon }) => (
-                <li key={title} className={introPrincipleCard}>
-                  <Medallion color={color} size="xl" shape="circle" tone="pastel" icon={icon} className="mb-3 sm:mb-4 md:mb-5" />
-                  <p className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">{title}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">{body}</p>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
-
-        <section
-          aria-labelledby="intro-contribute"
-          className="not-prose mt-16 border-t border-neutral-200 pt-12 text-neutral-700 dark:border-neutral-800 dark:text-neutral-300"
-        >
-          <h2 id="intro-contribute" className={introH2}>
-            Contribution &amp; ownership
-          </h2>
-          <p className={introLead}>
-            The Design System team owns governance, prioritization, and release quality. Everyone else contributes through
-            structured requests and reviews.
-          </p>
-          <ul className="mt-4 list-disc space-y-2 pl-5">
-            <li>Raise new component or pattern needs through your product design partner or engineering lead.</li>
-            <li>Propose contributions with usage evidence, accessibility notes, and tests where applicable.</li>
-            <li>Expect changes to flow through package versioning so downstream apps stay predictable.</li>
-          </ul>
-        </section>
-
-        <p className="mt-10 text-sm">
-          <Link to="/docs/getting-started/install" className="docs-link font-medium">
-            Getting started →
-          </Link>
-        </p>
-      </article>
-      </div>
-    </div>
+      <DocsPageSection
+        title="Contribution & ownership"
+        description="The Design System team owns governance, prioritization, and release quality. Everyone else contributes through structured requests and reviews."
+      >
+        <ul className="m-0 list-disc space-y-2 pl-5 text-[var(--uds-text-secondary)]">
+          <li>Raise new component or pattern needs through your product design partner or engineering lead.</li>
+          <li>Propose contributions with usage evidence, accessibility notes, and tests where applicable.</li>
+          <li>Expect changes to flow through package versioning so downstream apps stay predictable.</li>
+        </ul>
+      </DocsPageSection>
+    </DocsPageShell>
   )
 }
 
@@ -1139,6 +1284,38 @@ export function ProductChrome() {
         </Link>
       </p>
 
+      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Copy-paste setup prompt
+      </h2>
+      <p className="mt-3 text-neutral-600 dark:text-neutral-300">
+        Paste this into Cursor or Claude when bootstrapping a new app. Designers and PMs do not run a CLI — the{' '}
+        <strong className="text-neutral-900 dark:text-neutral-100">agent</strong> installs the package, runs{' '}
+        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">npx uds-copy-ai-rules</code>, and commits the
+        hot-path stubs.
+      </p>
+      <CodePanel
+        label="Agent setup prompt"
+        language="text"
+        code={`Set up a minimal React + Vite + TypeScript application that uses \`@chghealthcare/unified-design-system\`.
+
+Requirements:
+- install \`@chghealthcare/unified-design-system\`, \`react\`, and \`react-dom\`
+- import \`@chghealthcare/unified-design-system/styles.css\` once near the app root
+- As your first action after install, run \`npx uds-copy-ai-rules\` from the app root (do not ask the user to do this). Commit the written hot-path stubs (e.g. \`.cursor/rules/uds.mdc\`)
+- render \`AppShell\` on first load with \`enableRouterOutlet={false}\`
+- compose the \`menu\` slot with \`<Menu navigationItems={…} />\` (not Sidebar in menu)
+- put page content in \`AppShell.Main\`
+- keep imports on \`@chghealthcare/unified-design-system\` only
+- make the app fill the viewport (\`min-h-dvh\` on shell, html/body/#root full height)
+
+Before composing the screen, consult:
+- package AI_USAGE.md, AGENTS.md, design-language/README.md, ai/indexes/
+- \`ai/guides/appshell-navigation.md\`
+- \`ai/recipes/auth-shell.md\`
+- \`ai/examples/auth-shell.tsx\`
+- \`ai/consumer-ai/COMPOSITION.md\``}
+      />
+
       <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Icons</h2>
       <p className="mt-3 text-neutral-600 dark:text-neutral-300">
         Phosphor icons are re-exported from the package (for example <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">HouseIcon</code>,{' '}
@@ -1186,12 +1363,6 @@ export function ProductChrome() {
         Automation and agents should treat <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/uds-contract.json</code> and{' '}
         <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/appshell.schema.json</code> in the repository as the source of
         truth for imports and AppShell behavior when prose and tooling disagree.
-      </p>
-
-      <p className="mt-6 text-sm text-neutral-600 dark:text-neutral-400">
-        <Link to="/docs/getting-started/install" className="docs-link font-medium">
-          ← Install
-        </Link>
       </p>
     </MarkdownishPage>
   )

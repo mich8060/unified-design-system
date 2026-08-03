@@ -179,6 +179,7 @@ function emitBrandExtend() {
   const baseMode = byMode.default ? 'default' : data.brand.modes[0]
   const brandLabels = {
     chg: 'CHG',
+    careermd: 'CareerMD',
     comphealth: 'CompHealth',
     connect: 'Connect',
     gms: 'GMS',
@@ -273,6 +274,7 @@ return {
 
 const BRAND_LABELS = {
   chg: 'CHG',
+  careermd: 'CareerMD',
   comphealth: 'CompHealth',
   connect: 'Connect',
   gms: 'GMS',

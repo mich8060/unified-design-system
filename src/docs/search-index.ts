@@ -42,7 +42,7 @@ const DOCS_UTILITY_SEARCH_RESULTS: DocsSearchResult[] = [
     label: 'Releases',
     route: '/docs/releases',
     group: 'Projects',
-    description: 'Published package versions and changelogs',
+    description: 'Published package versions, upcoming highlights, and changelogs',
   },
 ]
 
@@ -57,6 +57,9 @@ function descriptionForNavId(
   if (id.startsWith('component-')) {
     const entry = shadcnBySlug.get(id.slice('component-'.length))
     return entry ? `${entry.name} component documentation` : undefined
+  }
+  if (id === 'getting-started-design-language') {
+    return 'Design System Language — why/when composition reasoning for UDS'
   }
   return undefined
 }

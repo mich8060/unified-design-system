@@ -93,8 +93,6 @@ import {
     CheckList,
     CheckListControl,
     CheckListItem,
-    DateInput,
-    DateRangeInput,
     DescriptionDetail,
     DescriptionList,
     DescriptionRow,
@@ -106,16 +104,34 @@ import {
     PhoneInput,
     ProgressCircle,
     ProgressCircles,
+    PageHeader,
+    PageHeaderActions,
+    PageHeaderBody,
+    PageHeaderContent,
+    PageHeaderDescription,
+    PageHeaderEyebrow,
+    PageHeaderNav,
+    PageHeaderTitle,
+    MainContent,
+    Filterbar,
+    FilterbarActions,
+    FilterbarFacets,
+    FilterbarFilters,
+    FilterbarSearch,
+    FilterbarToolbar,
     SearchInput,
     SectionHeader,
     SectionHeaderActions,
     SectionHeaderContent,
     SectionHeaderDescription,
     SectionHeaderTitle,
+    StatisticAction,
     StatisticCard,
-    Statistics,
-    StatisticHint,
+    StatisticDescription,
+    StatisticFooter,
+    StatisticHeader,
     StatisticLabel,
+    StatisticTitle,
     StatisticValue,
     Status,
     Step,
@@ -127,22 +143,30 @@ import {
     TimeStepInput,
     TokenInput,
     Toolbar,
+    ToolbarCenter,
+    ToolbarDescription,
     ToolbarDivider,
+    ToolbarEnd,
     ToolbarGroup,
+    ToolbarStart,
+    ToolbarTitle,
     UrlInput,
 } from '@chghealthcare/unified-design-system'
+import { DateInput } from '@chghealthcare/unified-design-system/date-input'
+import { DateRangeInput } from '@chghealthcare/unified-design-system/date-range-input'
 import {
     InputGroup,
     InputGroupAddon,
     InputGroupInput,
     InputGroupText,
 } from '@chghealthcare/unified-design-system'
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@chghealthcare/unified-design-system'
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@chghealthcare/unified-design-system/input-otp'
 import {
     Item,
     ItemActions,
     ItemContent,
     ItemDescription,
+    ItemGroup,
     ItemTitle,
 } from '@chghealthcare/unified-design-system'
 import { Kbd, KbdGroup } from '@chghealthcare/unified-design-system'
@@ -188,7 +212,6 @@ import { Progress } from '@chghealthcare/unified-design-system'
 import {
     Tooltip,
     TooltipContent,
-    TooltipProvider,
     TooltipTrigger,
 } from '@chghealthcare/unified-design-system'
 import { RadioGroup, RadioGroupItem } from '@chghealthcare/unified-design-system'
@@ -229,12 +252,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@chghealthcare/unified
 import { Text, Textarea } from '@chghealthcare/unified-design-system'
 import { Toggle } from '@chghealthcare/unified-design-system'
 import { ToggleGroup, ToggleGroupItem } from '@chghealthcare/unified-design-system'
-import { cn } from '@chghealthcare/unified-design-system'
 import {
+    ArrowLeftIcon,
     ArrowRightIcon,
+    ArrowsOutIcon,
     BellIcon,
-    CaretDownIcon,
     CaretRightIcon,
+    DotsThreeVerticalIcon,
     DownloadSimpleIcon,
     EnvelopeIcon,
     FileTextIcon,
@@ -245,12 +269,15 @@ import {
     PhoneIcon,
     PlusIcon,
     QuestionIcon,
+    SlidersIcon,
+    SortAscendingIcon,
     UserIcon,
     SparkleIcon,
     TextBIcon,
     TextItalicIcon,
     WarningCircleIcon,
     CheckCircleIcon,
+    XIcon,
 } from '@chghealthcare/unified-design-system'
 import { toast } from 'sonner'
 import type { ShadcnUiSlug } from '../shadcn-ui-registry'
@@ -955,6 +982,139 @@ function MicroCalendarMonthDemo() {
             dateData={dateData}
             unavailableDates={unavailableDates}
         />
+    )
+}
+
+/** Simplified AppShell chrome so Page Header placement is visible in docs. */
+function PageHeaderAppShellMock({
+    label,
+    children,
+}: {
+    label: string
+    children: React.ReactNode
+}) {
+    return (
+        <div className="w-full overflow-hidden rounded-[length:var(--uds-radius-8)] border border-[var(--uds-border-primary)]">
+            <div className="flex min-h-[22rem]">
+                <aside
+                    className="flex w-14 shrink-0 flex-col items-center gap-3 border-r border-[var(--uds-border-primary)] py-3"
+                    style={{ background: 'var(--uds-surface-primary)' }}
+                    aria-hidden
+                >
+                    <div className="size-7 rounded-[length:var(--uds-radius-4)] bg-[var(--uds-surface-secondary)]" />
+                    <HouseIcon className="size-4 text-[var(--uds-text-secondary)]" weight="bold" />
+                    <UserIcon className="size-4 text-[var(--uds-text-tertiary)]" weight="bold" />
+                    <BellIcon className="size-4 text-[var(--uds-text-tertiary)]" weight="bold" />
+                </aside>
+                <div className="flex min-w-0 flex-1 flex-col">
+                    <div
+                        className="flex h-12 shrink-0 items-center border-b border-[var(--uds-border-primary)] px-4"
+                        style={{ background: 'var(--uds-surface-primary)' }}
+                    >
+                        <span className="text-xs font-medium text-[var(--uds-text-secondary)]">{label}</span>
+                    </div>
+                    <div
+                        className="min-h-0 flex-1 overflow-hidden"
+                        style={{ background: 'var(--uds-surface-secondary)' }}
+                        data-demo="appshell-main"
+                    >
+                        {children}
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function PageHeaderInlineComposition() {
+    return (
+        <PageHeader layout="inline" appearance="default">
+            <PageHeaderNav>
+                <Button type="button" variant="outline" size="sm" className="size-9 p-0" aria-label="Back">
+                    <ArrowLeftIcon className="size-4" weight="bold" aria-hidden />
+                </Button>
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href="#">Team</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage>Providers</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </PageHeaderNav>
+            <PageHeaderBody>
+                <PageHeaderContent>
+                    <PageHeaderEyebrow>Directory</PageHeaderEyebrow>
+                    <PageHeaderTitle>Providers</PageHeaderTitle>
+                    <PageHeaderDescription>Search and manage active provider records.</PageHeaderDescription>
+                </PageHeaderContent>
+                <PageHeaderActions>
+                    <Button type="button" variant="outline">
+                        Export
+                    </Button>
+                    <Button type="button">Add provider</Button>
+                </PageHeaderActions>
+            </PageHeaderBody>
+        </PageHeader>
+    )
+}
+
+function PageHeaderBlockComposition() {
+    return (
+        <PageHeader layout="block" appearance="default">
+            <PageHeaderNav>
+                <Button type="button" variant="outline" size="sm" className="size-9 p-0" aria-label="Back">
+                    <ArrowLeftIcon className="size-4" weight="bold" aria-hidden />
+                </Button>
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href="#">Team</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage>Providers</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </PageHeaderNav>
+            <PageHeaderBody>
+                <PageHeaderContent>
+                    <PageHeaderEyebrow>Directory</PageHeaderEyebrow>
+                    <PageHeaderTitle>Providers</PageHeaderTitle>
+                    <PageHeaderDescription>Search and manage active provider records.</PageHeaderDescription>
+                </PageHeaderContent>
+                <PageHeaderActions>
+                    <Button type="button" variant="outline">
+                        Export
+                    </Button>
+                    <Button type="button">Add provider</Button>
+                </PageHeaderActions>
+            </PageHeaderBody>
+        </PageHeader>
+    )
+}
+
+function PageHeaderDemoBody() {
+    return (
+        <div className="flex flex-col gap-[length:var(--uds-gap-16)]">
+            <Card>
+                <CardContent className="p-[length:var(--uds-spacing-16)]">
+                    <p className="m-0 text-sm font-medium text-[var(--uds-text-primary)]">Page content</p>
+                    <p className="m-0 mt-1 text-sm text-[var(--uds-text-secondary)]">
+                        Cards and sections sit below the page header in AppShell.Main.
+                    </p>
+                </CardContent>
+            </Card>
+            <Card>
+                <CardContent className="p-[length:var(--uds-spacing-16)]">
+                    <p className="m-0 text-sm text-[var(--uds-text-secondary)]">Another content block</p>
+                </CardContent>
+            </Card>
+        </div>
     )
 }
 
@@ -1783,6 +1943,50 @@ const RATIOS = [
     </BreadcrumbItem>
   </BreadcrumbList>
 </Breadcrumb>`,
+            'Default size uses body/14 typography.',
+        ),
+        E(
+            'compact',
+            'Compact (body/12)',
+            (
+                <Breadcrumb size="compact">
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href="#">
+                                <HouseIcon className="size-3.5" aria-hidden />
+                                Home
+                            </BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href="#">Library</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbPage>Data</BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+            ),
+            `<Breadcrumb size="compact">
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="#">
+        <HouseIcon className="size-3.5" aria-hidden />
+        Home
+      </BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbLink href="#">Library</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>Data</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>`,
+            'One type step smaller than default. PageHeaderNav applies compact automatically to nested Breadcrumbs.',
         ),
     ],
     branding: [
@@ -1798,6 +2002,7 @@ const RATIOS = [
                             'CHG',
                             'Locumsmart',
                             'Modio',
+                            'CareerMD',
                             'MyWeatherby',
                             'MyCompHealth',
                             'myGMS',
@@ -1831,6 +2036,7 @@ const RATIOS = [
                             'CHG',
                             'Locumsmart',
                             'Modio',
+                            'CareerMD',
                             'MyWeatherby',
                             'MyCompHealth',
                             'myGMS',
@@ -1974,12 +2180,14 @@ const RATIOS = [
                             <PlusIcon />
                         </Button>
                         <Button type="button" size="icon-lg" variant="outline" aria-label="Add">
-                            <PlusIcon className="size-5" />
+                            <PlusIcon />
                         </Button>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                        Square hit targets: <span className="font-mono">icon-xs</span> → <span className="font-mono">icon-lg</span>.
-                        Always set an accessible name (<span className="font-mono">aria-label</span> or <span className="font-mono">title</span>).
+                        Square hit targets (width = height): <span className="font-mono">icon-xs</span> 24 →{' '}
+                        <span className="font-mono">icon-sm</span> 36 → <span className="font-mono">icon</span> 44 →{' '}
+                        <span className="font-mono">icon-lg</span> 52. Always set an accessible name (
+                        <span className="font-mono">aria-label</span> or <span className="font-mono">title</span>).
                     </p>
                 </div>
             ),
@@ -2548,9 +2756,14 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
       <DrawerTitle>Assign clinician</DrawerTitle>
       <DrawerDescription>Review fit before confirming the assignment.</DrawerDescription>
     </DrawerHeader>
-    <div className="px-4 pb-4 text-sm text-muted-foreground">
+    <DrawerBody>
       Bottom sheet pattern, often used on small viewports.
-    </div>
+    </DrawerBody>
+    <DrawerFooter>
+      <DrawerClose asChild>
+        <Button variant="outline">Close</Button>
+      </DrawerClose>
+    </DrawerFooter>
   </DrawerContent>
 </Drawer>`)],
     'dropdown-menu': [E('menu', 'Dropdown', <DropdownVariants />, `<DropdownMenu>
@@ -3306,7 +3519,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             'header',
             'Title, description, actions',
             (
-                <SectionHeader className="max-w-2xl">
+                <SectionHeader>
                     <SectionHeaderContent>
                         <SectionHeaderTitle>Assignments</SectionHeaderTitle>
                         <SectionHeaderDescription>
@@ -3314,7 +3527,10 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                         </SectionHeaderDescription>
                     </SectionHeaderContent>
                     <SectionHeaderActions>
-                        <Button size="sm">Add assignment</Button>
+                        <Button type="button" variant="outline">
+                            Export
+                        </Button>
+                        <Button type="button">Add assignment</Button>
                     </SectionHeaderActions>
                 </SectionHeader>
             ),
@@ -3324,7 +3540,8 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
     <SectionHeaderDescription>Track active placements and resolve pending actions.</SectionHeaderDescription>
   </SectionHeaderContent>
   <SectionHeaderActions>
-    <Button size="sm">Add assignment</Button>
+    <Button type="button" variant="outline">Export</Button>
+    <Button type="button">Add assignment</Button>
   </SectionHeaderActions>
 </SectionHeader>`,
         ),
@@ -3332,7 +3549,7 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             'without-actions',
             'Simple title + description',
             (
-                <SectionHeader className="max-w-xl">
+                <SectionHeader>
                     <SectionHeaderContent>
                         <SectionHeaderTitle>Candidate pipeline</SectionHeaderTitle>
                         <SectionHeaderDescription>
@@ -3351,56 +3568,127 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
     ],
     statistics: [
         E(
-            'kpis',
-            'Metric cards',
+            'default',
+            'Statistic card',
             (
-                <Statistics>
-                    <StatisticCard>
-                        <StatisticLabel>Total shifts</StatisticLabel>
-                        <StatisticValue>128</StatisticValue>
-                        <StatisticHint>+12% from last month</StatisticHint>
-                    </StatisticCard>
-                    <StatisticCard>
-                        <StatisticLabel>Fill rate</StatisticLabel>
-                        <StatisticValue>91%</StatisticValue>
-                        <StatisticHint>Above target</StatisticHint>
-                    </StatisticCard>
-                </Statistics>
+                <StatisticCard className="max-w-sm">
+                    <StatisticHeader>
+                        <StatisticTitle>
+                            <StatisticLabel>Providers claimed shifts</StatisticLabel>
+                            <Medallion
+                                color="red"
+                                size="lg"
+                                shape="rounded"
+                                icon={<WarningCircleIcon weight="bold" aria-hidden />}
+                            />
+                        </StatisticTitle>
+                        <StatisticValue>04</StatisticValue>
+                    </StatisticHeader>
+                    <StatisticFooter>
+                        <StatisticDescription>Awaiting Approval</StatisticDescription>
+                        <StatisticAction href="#">Review Claims</StatisticAction>
+                    </StatisticFooter>
+                </StatisticCard>
             ),
-            `<Statistics>
-  <StatisticCard>
-    <StatisticLabel>Total shifts</StatisticLabel>
-    <StatisticValue>128</StatisticValue>
-  </StatisticCard>
-</Statistics>`,
+            `<StatisticCard>
+  <StatisticHeader>
+    <StatisticTitle>
+      <StatisticLabel>Providers claimed shifts</StatisticLabel>
+      <Medallion color="red" size="lg" shape="rounded" icon={<WarningCircleIcon weight="bold" />} />
+    </StatisticTitle>
+    <StatisticValue>04</StatisticValue>
+  </StatisticHeader>
+  <StatisticFooter>
+    <StatisticDescription>Awaiting Approval</StatisticDescription>
+    <StatisticAction href="#">Review Claims</StatisticAction>
+  </StatisticFooter>
+</StatisticCard>`,
         ),
         E(
             'four-up',
-            '4-column dashboard set',
+            'Ops attention row',
             (
-                <Statistics>
+                <div className="flex w-full flex-row items-stretch gap-[length:var(--uds-gap-16)]">
                     <StatisticCard>
-                        <StatisticLabel>Open roles</StatisticLabel>
-                        <StatisticValue>42</StatisticValue>
+                        <StatisticHeader>
+                            <StatisticTitle>
+                                <StatisticLabel>Providers claimed shifts</StatisticLabel>
+                                <Medallion
+                                    color="red"
+                                    size="lg"
+                                    shape="rounded"
+                                    icon={<WarningCircleIcon weight="bold" aria-hidden />}
+                                />
+                            </StatisticTitle>
+                            <StatisticValue>04</StatisticValue>
+                        </StatisticHeader>
+                        <StatisticFooter>
+                            <StatisticDescription>Awaiting Approval</StatisticDescription>
+                            <StatisticAction href="#">Review Claims</StatisticAction>
+                        </StatisticFooter>
                     </StatisticCard>
                     <StatisticCard>
-                        <StatisticLabel>Submissions</StatisticLabel>
-                        <StatisticValue>318</StatisticValue>
+                        <StatisticHeader>
+                            <StatisticTitle>
+                                <StatisticLabel>Shifts not accepted</StatisticLabel>
+                                <Medallion
+                                    color="red"
+                                    size="lg"
+                                    shape="rounded"
+                                    icon={<WarningCircleIcon weight="bold" aria-hidden />}
+                                />
+                            </StatisticTitle>
+                            <StatisticValue>03</StatisticValue>
+                        </StatisticHeader>
+                        <StatisticFooter>
+                            <StatisticDescription>Providers not responding</StatisticDescription>
+                            <StatisticAction href="#">Send invites</StatisticAction>
+                        </StatisticFooter>
                     </StatisticCard>
                     <StatisticCard>
-                        <StatisticLabel>Interviews</StatisticLabel>
-                        <StatisticValue>76</StatisticValue>
+                        <StatisticHeader>
+                            <StatisticTitle>
+                                <StatisticLabel>Pools below 50% fill rate</StatisticLabel>
+                                <Medallion
+                                    color="red"
+                                    size="lg"
+                                    shape="rounded"
+                                    icon={<WarningCircleIcon weight="bold" aria-hidden />}
+                                />
+                            </StatisticTitle>
+                            <StatisticValue>02</StatisticValue>
+                        </StatisticHeader>
+                        <StatisticFooter>
+                            <StatisticDescription>3 shifts at risk this week</StatisticDescription>
+                            <StatisticAction href="#">Manage Pools</StatisticAction>
+                        </StatisticFooter>
                     </StatisticCard>
                     <StatisticCard>
-                        <StatisticLabel>Placements</StatisticLabel>
-                        <StatisticValue>23</StatisticValue>
+                        <StatisticHeader>
+                            <StatisticTitle>
+                                <StatisticLabel>Unfinished shift drafts</StatisticLabel>
+                                <Medallion
+                                    color="sky"
+                                    size="lg"
+                                    shape="rounded"
+                                    icon={<FileTextIcon weight="bold" aria-hidden />}
+                                />
+                            </StatisticTitle>
+                            <StatisticValue>01</StatisticValue>
+                        </StatisticHeader>
+                        <StatisticFooter>
+                            <StatisticDescription>Needs completion</StatisticDescription>
+                            <StatisticAction href="#">View drafts</StatisticAction>
+                        </StatisticFooter>
                     </StatisticCard>
-                </Statistics>
+                </div>
             ),
-            `<Statistics>
-  <StatisticCard><StatisticLabel>Open roles</StatisticLabel><StatisticValue>42</StatisticValue></StatisticCard>
-  <StatisticCard><StatisticLabel>Submissions</StatisticLabel><StatisticValue>318</StatisticValue></StatisticCard>
-</Statistics>`,
+            `<div className="flex w-full flex-row items-stretch gap-[length:var(--uds-gap-16)]">
+  <StatisticCard>…</StatisticCard>
+  <StatisticCard>…</StatisticCard>
+  <StatisticCard>…</StatisticCard>
+  <StatisticCard>…</StatisticCard>
+</div>`,
         ),
     ],
     status: [
@@ -3459,11 +3747,14 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
         ),
         E(
             'appearances',
-            'Appearances',
+            'Appearances (same axis as Badge)',
             (
                 <div className="flex flex-col gap-2">
-                    {(['solid', 'outlined', 'text-only'] as const).map((appearance) => (
+                    {(['subtle', 'pastel', 'outlined', 'solid'] as const).map((appearance) => (
                         <div key={appearance} className="flex flex-wrap items-center gap-2">
+                            <span className="w-20 text-uds-12 text-[var(--uds-text-secondary)]">
+                                {appearance}
+                            </span>
                             <Status appearance={appearance} variant="info">
                                 In review
                             </Status>
@@ -3480,35 +3771,12 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
                     ))}
                 </div>
             ),
-            `<Status appearance="solid" variant="success">Approved</Status>
+            `{/* Preferred default — omit appearance or pass outlined (same steps as Badge) */}
+<Status variant="success">Approved</Status>
 <Status appearance="outlined" variant="success">Approved</Status>
-<Status appearance="text-only" variant="success">Approved</Status>`,
-        ),
-        E(
-            'colors',
-            'Pastel vs. default color',
-            (
-                <div className="flex flex-col gap-2">
-                    {(['pastel', 'default'] as const).map((color) => (
-                        <div key={color} className="flex flex-wrap items-center gap-2">
-                            <Status color={color} variant="info">
-                                In review
-                            </Status>
-                            <Status color={color} variant="success">
-                                Approved
-                            </Status>
-                            <Status color={color} variant="warning">
-                                Needs follow-up
-                            </Status>
-                            <Status color={color} variant="error">
-                                Blocked
-                            </Status>
-                        </div>
-                    ))}
-                </div>
-            ),
-            `<Status color="pastel" variant="success">Approved</Status>
-<Status color="default" variant="success">Approved</Status>`,
+<Status appearance="pastel" variant="success">Approved</Status>
+<Status appearance="solid" variant="success">Approved</Status>
+<Status appearance="subtle" variant="success">Approved</Status>`,
         ),
     ],
     steps: [
@@ -3614,67 +3882,105 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
     ],
     toolbar: [
         E(
-            'actions',
-            'Action toolbar',
+            'three-sections',
+            'Start, center title, end actions (default 44px)',
             (
-                <Toolbar>
-                    <ToolbarGroup>
-                        <Button size="sm" variant="outline">
-                            Save
-                        </Button>
-                        <Button size="sm" variant="outline">
-                            Share
-                        </Button>
-                    </ToolbarGroup>
-                    <ToolbarDivider />
-                    <ToolbarGroup>
-                        <Button size="sm" variant="ghost">
-                            Export
-                        </Button>
-                    </ToolbarGroup>
+                <Toolbar size="default">
+                    <ToolbarStart>
+                        <ToolbarGroup>
+                            <Button size="sm" variant="outline">
+                                Back
+                            </Button>
+                        </ToolbarGroup>
+                    </ToolbarStart>
+                    <ToolbarCenter>
+                        <ToolbarTitle>Placement review</ToolbarTitle>
+                        <ToolbarDescription>Updated 2h ago</ToolbarDescription>
+                    </ToolbarCenter>
+                    <ToolbarEnd>
+                        <ToolbarGroup>
+                            <Button size="sm" variant="outline">
+                                Share
+                            </Button>
+                            <Button size="sm">Save</Button>
+                        </ToolbarGroup>
+                    </ToolbarEnd>
                 </Toolbar>
             ),
-            `<Toolbar>
-  <ToolbarGroup>
-    <Button size="sm" variant="outline">Save</Button>
-  </ToolbarGroup>
-  <ToolbarDivider />
-  <ToolbarGroup>
-    <Button size="sm" variant="ghost">Export</Button>
-  </ToolbarGroup>
+            `<Toolbar size="default">
+  <ToolbarStart>
+    <Button size="sm" variant="outline">Back</Button>
+  </ToolbarStart>
+  <ToolbarCenter>
+    <ToolbarTitle>Placement review</ToolbarTitle>
+    <ToolbarDescription>Updated 2h ago</ToolbarDescription>
+  </ToolbarCenter>
+  <ToolbarEnd>
+    <Button size="sm" variant="outline">Share</Button>
+    <Button size="sm">Save</Button>
+  </ToolbarEnd>
 </Toolbar>`,
         ),
         E(
-            'filters',
-            'Toolbar with filters',
+            'large',
+            'Large toolbar (56px) for stacked title + description',
+            (
+                <Toolbar size="lg">
+                    <ToolbarStart>
+                        <Button size="sm" variant="ghost">
+                            Cancel
+                        </Button>
+                    </ToolbarStart>
+                    <ToolbarCenter>
+                        <ToolbarTitle>Credentialing packet</ToolbarTitle>
+                        <ToolbarDescription>3 of 8 items remaining · Due Fri</ToolbarDescription>
+                    </ToolbarCenter>
+                    <ToolbarEnd>
+                        <Button size="sm" variant="outline">
+                            Export
+                        </Button>
+                        <Button size="sm">Continue</Button>
+                    </ToolbarEnd>
+                </Toolbar>
+            ),
+            `<Toolbar size="lg">
+  <ToolbarStart>…</ToolbarStart>
+  <ToolbarCenter>
+    <ToolbarTitle>Credentialing packet</ToolbarTitle>
+    <ToolbarDescription>3 of 8 items remaining · Due Fri</ToolbarDescription>
+  </ToolbarCenter>
+  <ToolbarEnd>…</ToolbarEnd>
+</Toolbar>`,
+        ),
+        E(
+            'actions-only',
+            'Start and end actions without center copy',
             (
                 <Toolbar>
-                    <ToolbarGroup>
-                        <Button size="sm" variant="outline">
-                            Today
-                        </Button>
-                        <Button size="sm" variant="outline">
-                            This week
-                        </Button>
-                    </ToolbarGroup>
-                    <ToolbarDivider />
-                    <ToolbarGroup>
-                        <Button size="sm" variant="ghost">
-                            Clear
-                        </Button>
+                    <ToolbarStart>
+                        <ToolbarGroup>
+                            <Button size="sm" variant="outline">
+                                Today
+                            </Button>
+                            <Button size="sm" variant="outline">
+                                This week
+                            </Button>
+                            <ToolbarDivider />
+                            <Button size="sm" variant="ghost">
+                                Clear
+                            </Button>
+                        </ToolbarGroup>
+                    </ToolbarStart>
+                    <ToolbarEnd>
                         <Button size="sm">Apply</Button>
-                    </ToolbarGroup>
+                    </ToolbarEnd>
                 </Toolbar>
             ),
             `<Toolbar>
-  <ToolbarGroup>
-    <Button size="sm" variant="outline">Today</Button>
-    <Button size="sm" variant="outline">This week</Button>
-  </ToolbarGroup>
-  <ToolbarDivider />
-  <ToolbarGroup>
+  <ToolbarStart>…filters…</ToolbarStart>
+  <ToolbarEnd>
     <Button size="sm">Apply</Button>
-  </ToolbarGroup>
+  </ToolbarEnd>
 </Toolbar>`,
         ),
     ],
@@ -3845,8 +4151,8 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
     ],
     item: [
         E(
-            'row',
-            'List item',
+            'box',
+            'Box',
             (
                 <Item appearance="box" variant="outline" className="max-w-md">
                     <ItemContent>
@@ -3869,6 +4175,74 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
     <CaretRightIcon className="size-4 text-muted-foreground" />
   </ItemActions>
 </Item>`,
+            'Rounded card row (`appearance="box"`). Use in Main for outlined / stacked cards.',
+        ),
+        E(
+            'list',
+            'List',
+            (
+                <ItemGroup className="max-w-md gap-0">
+                    <Item appearance="list">
+                        <ItemContent>
+                            <ItemTitle>Jordan Lee</ItemTitle>
+                            <ItemDescription>Cardiology · Denver</ItemDescription>
+                        </ItemContent>
+                        <ItemActions>
+                            <CaretRightIcon className="size-4 text-muted-foreground" />
+                        </ItemActions>
+                    </Item>
+                    <Item appearance="list" variant="muted">
+                        <ItemContent>
+                            <ItemTitle>Samira Ortiz</ItemTitle>
+                            <ItemDescription>Family medicine · Austin</ItemDescription>
+                        </ItemContent>
+                        <ItemActions>
+                            <CaretRightIcon className="size-4 text-muted-foreground" />
+                        </ItemActions>
+                    </Item>
+                    <Item appearance="list">
+                        <ItemContent>
+                            <ItemTitle>Chris Nguyen</ItemTitle>
+                            <ItemDescription>Anesthesiology · Seattle</ItemDescription>
+                        </ItemContent>
+                        <ItemActions>
+                            <CaretRightIcon className="size-4 text-muted-foreground" />
+                        </ItemActions>
+                    </Item>
+                </ItemGroup>
+            ),
+            `import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from "@chghealthcare/unified-design-system"
+
+<ItemGroup className="gap-0">
+  <Item appearance="list">
+    <ItemContent>
+      <ItemTitle>Jordan Lee</ItemTitle>
+      <ItemDescription>Cardiology · Denver</ItemDescription>
+    </ItemContent>
+    <ItemActions>
+      <CaretRightIcon className="size-4 text-muted-foreground" />
+    </ItemActions>
+  </Item>
+  <Item appearance="list" variant="muted">
+    <ItemContent>
+      <ItemTitle>Samira Ortiz</ItemTitle>
+      <ItemDescription>Family medicine · Austin</ItemDescription>
+    </ItemContent>
+    <ItemActions>
+      <CaretRightIcon className="size-4 text-muted-foreground" />
+    </ItemActions>
+  </Item>
+  <Item appearance="list">
+    <ItemContent>
+      <ItemTitle>Chris Nguyen</ItemTitle>
+      <ItemDescription>Anesthesiology · Seattle</ItemDescription>
+    </ItemContent>
+    <ItemActions>
+      <CaretRightIcon className="size-4 text-muted-foreground" />
+    </ItemActions>
+  </Item>
+</ItemGroup>`,
+            'Flat row (`appearance="list"`): radius 0 and a bottom border between siblings (last row has none). Prefer for AppShell listview; use `ItemGroup` with `gap-0`.',
         ),
     ],
     kbd: [
@@ -3914,6 +4288,136 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
   <Label htmlFor="username">Username</Label>
   <Input id="username" placeholder="shadcn" />
 </div>`,
+        ),
+    ],
+    'main-content': [
+        E(
+            'compare',
+            'Edge vs fixed (AppShell.Main mock)',
+            (
+                <div className="flex w-full flex-col gap-8">
+                    <div className="space-y-2">
+                        <p className="m-0 text-xs font-medium text-[var(--uds-text-secondary)]">
+                            Edge — content flush with surface-secondary (no primary panel)
+                        </p>
+                        <div
+                            className="min-h-40 w-full overflow-hidden border border-[var(--uds-border-primary)]"
+                            style={{ background: 'var(--uds-surface-secondary)' }}
+                        >
+                            <MainContent
+                                containment="edge"
+                                className="p-[length:var(--uds-spacing-24)]"
+                            >
+                                <div className="rounded-[length:var(--uds-radius-4)] border border-dashed border-[var(--uds-border-primary)] bg-transparent p-4">
+                                    <p className="m-0 text-sm font-semibold text-[var(--uds-text-primary)]">
+                                        Page content (edge)
+                                    </p>
+                                    <p className="m-0 mt-1 text-sm text-[var(--uds-text-secondary)]">
+                                        Sits directly on the Main canvas — full width; recommended 24px padding.
+                                    </p>
+                                </div>
+                            </MainContent>
+                        </div>
+                    </div>
+                    <div className="space-y-2">
+                        <p className="m-0 text-xs font-medium text-[var(--uds-text-secondary)]">
+                            Fixed — 1280px primary panel (no L/R pad); inner 1000px has built-in 24px padding
+                        </p>
+                        <div
+                            className="w-full overflow-x-auto border border-[var(--uds-border-primary)]"
+                            style={{ background: 'var(--uds-surface-secondary)' }}
+                        >
+                            <div className="min-h-40 min-w-[1400px]">
+                                <MainContent containment="fixed" className="min-h-40">
+                                    <div className="rounded-[length:var(--uds-radius-4)] border border-dashed border-[var(--uds-border-primary)] p-4">
+                                        <p className="m-0 text-sm font-semibold text-[var(--uds-text-primary)]">
+                                            Inner column (1000px, left-aligned, 24px pad)
+                                        </p>
+                                        <p className="m-0 mt-1 text-sm text-[var(--uds-text-secondary)]">
+                                            Outer 1280px · primary · border-right only · no outer L/R padding · height follows content.
+                                        </p>
+                                    </div>
+                                </MainContent>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ),
+            `/* Edge */
+<AppShell.Main>
+  <MainContent containment="edge" className="p-[length:var(--uds-spacing-24)]">
+    …
+  </MainContent>
+</AppShell.Main>
+
+/* Fixed — outer 1280px (no L/R pad); inner 1000px has 24px built in */
+<AppShell.Main>
+  <MainContent containment="fixed">
+    …
+  </MainContent>
+</AppShell.Main>`,
+        ),
+        E(
+            'edge',
+            'Edge — full width on surface-secondary',
+            (
+                <div
+                    className="min-h-48 w-full border border-[var(--uds-border-primary)]"
+                    style={{ background: 'var(--uds-surface-secondary)' }}
+                >
+                    <MainContent
+                        containment="edge"
+                        className="p-[length:var(--uds-spacing-24)]"
+                    >
+                        <PageHeader layout="inline">
+                            <PageHeaderBody>
+                                <PageHeaderContent>
+                                    <PageHeaderTitle>Edge containment</PageHeaderTitle>
+                                    <PageHeaderDescription>
+                                        Content goes edge to edge on the AppShell.Main secondary canvas.
+                                    </PageHeaderDescription>
+                                </PageHeaderContent>
+                            </PageHeaderBody>
+                        </PageHeader>
+                    </MainContent>
+                </div>
+            ),
+            `<AppShell.Main>
+  <MainContent containment="edge" className="p-[length:var(--uds-spacing-24)]">
+    <PageHeader layout="inline">…</PageHeader>
+  </MainContent>
+</AppShell.Main>`,
+        ),
+        E(
+            'fixed',
+            'Fixed — 1280px panel + left-aligned 1000px inner (24px pad)',
+            (
+                <div
+                    className="w-full overflow-x-auto border border-[var(--uds-border-primary)]"
+                    style={{ background: 'var(--uds-surface-secondary)' }}
+                >
+                    <div className="min-h-48 min-w-[1400px]">
+                        <MainContent containment="fixed" className="min-h-48">
+                            <PageHeader layout="inline">
+                                <PageHeaderBody>
+                                    <PageHeaderContent>
+                                        <PageHeaderTitle>Fixed containment</PageHeaderTitle>
+                                        <PageHeaderDescription>
+                                            Outer 1280px primary panel (no L/R padding); content sits in the left-aligned
+                                            1000px inner with built-in 24px padding — no extra page box.
+                                        </PageHeaderDescription>
+                                    </PageHeaderContent>
+                                </PageHeaderBody>
+                            </PageHeader>
+                        </MainContent>
+                    </div>
+                </div>
+            ),
+            `<AppShell.Main>
+  <MainContent containment="fixed">
+    <PageHeader layout="inline">…</PageHeader>
+  </MainContent>
+</AppShell.Main>`,
         ),
     ],
     medallion: [
@@ -4151,6 +4655,194 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
             'Phone number',
             <PhoneInput className="max-w-sm" placeholder="(555) 123-4567" aria-label="Phone number" />,
             `<PhoneInput className="max-w-sm" placeholder="(555) 123-4567" aria-label="Phone number" />`,
+        ),
+    ],
+    'page-header': [
+        E(
+            'inline-in-app',
+            'Inline in AppShell.Main (edge containment)',
+            (
+                <PageHeaderAppShellMock label="App chrome · Main (surface-secondary)">
+                    <MainContent
+                        containment="edge"
+                        className="p-[length:var(--uds-spacing-24)]"
+                    >
+                        <PageHeaderInlineComposition />
+                        <PageHeaderDemoBody />
+                    </MainContent>
+                </PageHeaderAppShellMock>
+            ),
+            `<AppShell enableRouterOutlet={false} menu={<Menu … />}>
+  <AppShell.Main>
+    <MainContent containment="edge" className="p-[length:var(--uds-spacing-24)]">
+      <PageHeader layout="inline" appearance="default">
+        <PageHeaderNav>…</PageHeaderNav>
+        <PageHeaderBody>
+          <PageHeaderContent>
+            <PageHeaderTitle>Providers</PageHeaderTitle>
+            <PageHeaderDescription>…</PageHeaderDescription>
+          </PageHeaderContent>
+          <PageHeaderActions>…</PageHeaderActions>
+        </PageHeaderBody>
+      </PageHeader>
+      {/* page sections / cards flow below */}
+    </MainContent>
+  </AppShell.Main>
+</AppShell>`,
+            'Inline PageHeader sits inside MainContent and flows with the rest of the page content on the secondary canvas.',
+        ),
+        E(
+            'block-in-app',
+            'Block — edge-to-edge with AppShell.Main (outside padded content)',
+            (
+                <PageHeaderAppShellMock label="App chrome · Main (surface-secondary)">
+                    <PageHeaderBlockComposition />
+                    <MainContent
+                        containment="edge"
+                        className="p-[length:var(--uds-spacing-24)]"
+                    >
+                        <PageHeaderDemoBody />
+                    </MainContent>
+                </PageHeaderAppShellMock>
+            ),
+            `<AppShell enableRouterOutlet={false} menu={<Menu … />}>
+  <AppShell.Main>
+    <PageHeader layout="block" appearance="default">…</PageHeader>
+    {/* 24px inset only — do not add an extra top margin on the content body */}
+    <MainContent containment="edge" className="p-[length:var(--uds-spacing-24)]">
+      {/* page sections / cards */}
+    </MainContent>
+  </AppShell.Main>
+</AppShell>`,
+            'Block PageHeader spans Main edge-to-edge above MainContent. Keep a single 24px gap to content (MainContent padding) — do not stack an extra top margin.',
+        ),
+        E(
+            'block-expanded',
+            'Block expanded (48px padding) with fixed MainContent',
+            (
+                <PageHeaderAppShellMock label="App chrome · Main (surface-secondary)">
+                    <PageHeader layout="block" appearance="expanded">
+                        <PageHeaderNav>
+                            <Breadcrumb>
+                                <BreadcrumbList>
+                                    <BreadcrumbItem>
+                                        <BreadcrumbLink href="#">Team</BreadcrumbLink>
+                                    </BreadcrumbItem>
+                                    <BreadcrumbSeparator />
+                                    <BreadcrumbItem>
+                                        <BreadcrumbPage>Providers</BreadcrumbPage>
+                                    </BreadcrumbItem>
+                                </BreadcrumbList>
+                            </Breadcrumb>
+                        </PageHeaderNav>
+                        <PageHeaderBody>
+                            <PageHeaderContent>
+                                <PageHeaderEyebrow>Directory</PageHeaderEyebrow>
+                                <PageHeaderTitle>Providers</PageHeaderTitle>
+                                <PageHeaderDescription>
+                                    Search and manage active provider records.
+                                </PageHeaderDescription>
+                            </PageHeaderContent>
+                        </PageHeaderBody>
+                    </PageHeader>
+                    <MainContent containment="fixed" appearance="expanded">
+                        <PageHeaderDemoBody />
+                    </MainContent>
+                </PageHeaderAppShellMock>
+            ),
+            `<PageHeader layout="block" appearance="expanded">…</PageHeader>
+<MainContent containment="fixed" appearance="expanded">
+  {/* page sections */}
+</MainContent>`,
+            '`appearance="expanded"` uses 48px padding on the block PageHeader and the fixed MainContent inner column.',
+        ),
+        E(
+            'title-only',
+            'Title only (minimum)',
+            (
+                <PageHeader>
+                    <PageHeaderBody>
+                        <PageHeaderContent>
+                            <PageHeaderTitle>Providers</PageHeaderTitle>
+                        </PageHeaderContent>
+                    </PageHeaderBody>
+                </PageHeader>
+            ),
+            `<PageHeader>
+  <PageHeaderBody>
+    <PageHeaderContent>
+      <PageHeaderTitle>Providers</PageHeaderTitle>
+    </PageHeaderContent>
+  </PageHeaderBody>
+</PageHeader>`,
+        ),
+        E(
+            'custom-actions',
+            'Open actions slot (example contents)',
+            (
+                <PageHeader>
+                    <PageHeaderBody>
+                        <PageHeaderContent>
+                            <PageHeaderTitle>Providers</PageHeaderTitle>
+                        </PageHeaderContent>
+                        <PageHeaderActions>
+                            <Link href="#">View archive</Link>
+                            <Button type="button" variant="outline">
+                                Export
+                            </Button>
+                            <Button type="button">Add provider</Button>
+                        </PageHeaderActions>
+                    </PageHeaderBody>
+                </PageHeader>
+            ),
+            `<PageHeader>
+  <PageHeaderBody>
+    <PageHeaderContent>
+      <PageHeaderTitle>Providers</PageHeaderTitle>
+    </PageHeaderContent>
+    <PageHeaderActions>
+      {/* One primary, default size; DotsThree overflow last + weight="bold" if >3 */}
+      <Link href="#">View archive</Link>
+      <Button type="button" variant="outline">Export</Button>
+      <Button type="button">Add provider</Button>
+    </PageHeaderActions>
+  </PageHeaderBody>
+</PageHeader>`,
+        ),
+        E(
+            'actions-below',
+            'Actions below description (24px gap)',
+            (
+                <PageHeader layout="block" appearance="expanded" actionsPlacement="below">
+                    <PageHeaderBody>
+                        <PageHeaderContent>
+                            <PageHeaderTitle>Introduction</PageHeaderTitle>
+                            <PageHeaderDescription>
+                                A unified design system for consistent, scalable product experiences.
+                            </PageHeaderDescription>
+                        </PageHeaderContent>
+                        <PageHeaderActions>
+                            <Button type="button">Quick start — Install</Button>
+                            <Button type="button" variant="outline">
+                                Usage
+                            </Button>
+                        </PageHeaderActions>
+                    </PageHeaderBody>
+                </PageHeader>
+            ),
+            `<PageHeader layout="block" appearance="expanded" actionsPlacement="below">
+  <PageHeaderBody>
+    <PageHeaderContent>
+      <PageHeaderTitle>Introduction</PageHeaderTitle>
+      <PageHeaderDescription>…</PageHeaderDescription>
+    </PageHeaderContent>
+    <PageHeaderActions>
+      <Button type="button">Quick start — Install</Button>
+      <Button type="button" variant="outline">Usage</Button>
+    </PageHeaderActions>
+  </PageHeaderBody>
+</PageHeader>`,
+            '`actionsPlacement="below"` stacks actions under the description with a 24px gap at all breakpoints. Default `trailing` wraps actions below the description below `lg` (≥16px gap) and places them end-aligned on `lg+`.',
         ),
     ],
     pagination: [
@@ -4559,14 +5251,156 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
 </ScrollArea>`,
         ),
     ],
+    'filterbar': [
+        E(
+            'default',
+            'Search with open filter, actions, and facets slots',
+            (
+                <Filterbar>
+                    <FilterbarToolbar>
+                        <FilterbarSearch>
+                            <SearchInput
+                                surface="secondary"
+                                placeholder="Search…"
+                                aria-label="Search"
+                            />
+                            <FilterbarFilters>
+                                {/* Icon-only, default size — left-aligned immediately after SearchInput */}
+                                <Button type="button" variant="outline" size="icon" aria-label="Filters">
+                                    <SlidersIcon className="size-5" weight="bold" aria-hidden />
+                                </Button>
+                                <Button type="button" variant="outline" size="icon" aria-label="Sort">
+                                    <SortAscendingIcon className="size-5" weight="bold" aria-hidden />
+                                </Button>
+                            </FilterbarFilters>
+                        </FilterbarSearch>
+                        <FilterbarActions>
+                            <Button type="button" variant="outline" size="icon" aria-label="Expand">
+                                <ArrowsOutIcon className="size-5" weight="bold" aria-hidden />
+                            </Button>
+                            <Button type="button" variant="outline" size="icon" aria-label="Download">
+                                <DownloadSimpleIcon className="size-5" weight="bold" aria-hidden />
+                            </Button>
+                            <Button type="button">Primary Action</Button>
+                            <Button type="button" variant="outline" size="icon" aria-label="More">
+                                <DotsThreeVerticalIcon className="size-5" weight="bold" aria-hidden />
+                            </Button>
+                        </FilterbarActions>
+                    </FilterbarToolbar>
+                    <FilterbarFacets>
+                        <Button type="button" variant="secondary" size="sm" aria-label="Remove filter: Active">
+                            Active
+                            <XIcon data-icon="inline-end" weight="bold" aria-hidden className="size-4" />
+                        </Button>
+                        <Button type="button" variant="secondary" size="sm" aria-label="Remove filter: Last Two Weeks">
+                            Last Two Weeks
+                            <XIcon data-icon="inline-end" weight="bold" aria-hidden className="size-4" />
+                        </Button>
+                    </FilterbarFacets>
+                </Filterbar>
+            ),
+            `import {
+  Button,
+  Filterbar,
+  FilterbarActions,
+  FilterbarFacets,
+  FilterbarFilters,
+  FilterbarSearch,
+  FilterbarToolbar,
+  SearchInput,
+  XIcon,
+} from "@chghealthcare/unified-design-system"
+
+<Filterbar>
+  <FilterbarToolbar>
+    <FilterbarSearch>
+      <SearchInput placeholder="Search…" aria-label="Search" />
+      <FilterbarFilters>{/* icon-only size="icon" — immediately after SearchInput */}</FilterbarFilters>
+    </FilterbarSearch>
+    <FilterbarActions>{/* one primary, default size; DotsThree last + weight="bold" if >3 */}</FilterbarActions>
+  </FilterbarToolbar>
+  <FilterbarFacets>
+    <Button type="button" variant="secondary" size="sm">
+      Active
+      <XIcon data-icon="inline-end" weight="bold" className="size-4" />
+    </Button>
+    <Button type="button" variant="secondary" size="sm">
+      Last Two Weeks
+      <XIcon data-icon="inline-end" weight="bold" className="size-4" />
+    </Button>
+  </FilterbarFacets>
+</Filterbar>`,
+        ),
+        E(
+            'custom-actions',
+            'Custom actions slot with soft facet buttons',
+            (
+                <Filterbar>
+                    <FilterbarToolbar>
+                        <FilterbarSearch>
+                            <SearchInput placeholder="Search…" aria-label="Search" />
+                        </FilterbarSearch>
+                        <FilterbarActions>
+                            <Button type="button" variant="outline">
+                                Export CSV
+                            </Button>
+                            <Button type="button" variant="secondary">
+                                Bulk edit
+                            </Button>
+                            <Button type="button">Create shift</Button>
+                        </FilterbarActions>
+                    </FilterbarToolbar>
+                    <FilterbarFacets>
+                        <Button type="button" variant="secondary" size="sm" aria-label="Remove filter: Open">
+                            Open
+                            <XIcon data-icon="inline-end" weight="bold" aria-hidden className="size-4" />
+                        </Button>
+                        <Button type="button" variant="secondary" size="sm" aria-label="Remove filter: This week">
+                            This week
+                            <XIcon data-icon="inline-end" weight="bold" aria-hidden className="size-4" />
+                        </Button>
+                    </FilterbarFacets>
+                </Filterbar>
+            ),
+            `<Filterbar>
+  <FilterbarToolbar>
+    <FilterbarSearch>
+      <SearchInput placeholder="Search…" aria-label="Search" />
+    </FilterbarSearch>
+    <FilterbarActions>
+      <Button type="button" variant="outline">Export CSV</Button>
+      <Button type="button" variant="secondary">Bulk edit</Button>
+      <Button type="button">Create shift</Button>
+    </FilterbarActions>
+  </FilterbarToolbar>
+  <FilterbarFacets>
+    <Button type="button" variant="secondary" size="sm">
+      Open
+      <XIcon data-icon="inline-end" weight="bold" className="size-4" />
+    </Button>
+  </FilterbarFacets>
+</Filterbar>`,
+        ),
+    ],
     'search-input': [
         E(
             'query',
-            'Search query',
+            'Gray field on white (surface secondary, default)',
             <SearchInput className="max-w-sm" placeholder="Search providers" aria-label="Search providers" />,
-            `<form onSubmit={(e) => e.preventDefault()}>
-  <SearchInput className="max-w-sm" placeholder="Search providers" aria-label="Search providers" />
-</form>`,
+            `<SearchInput className="max-w-sm" placeholder="Search providers" aria-label="Search providers" />`,
+        ),
+        E(
+            'on-gray',
+            'White field on gray (surface primary — use in Filterbar on edge Main)',
+            <div className="rounded-[length:var(--uds-radius-8)] bg-[var(--uds-surface-secondary)] p-[length:var(--uds-spacing-16)]">
+                <SearchInput
+                    surface="primary"
+                    className="max-w-sm"
+                    placeholder="Search providers"
+                    aria-label="Search providers"
+                />
+            </div>,
+            `<SearchInput surface="primary" className="max-w-sm" placeholder="Search providers" aria-label="Search providers" />`,
         ),
         E(
             'shortcut',
@@ -4698,6 +5532,11 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
       <SheetTitle>Candidate details</SheetTitle>
       <SheetDescription>Review notes and contact information without leaving the list.</SheetDescription>
     </SheetHeader>
+    <SheetBody>{/* scrolls */}</SheetBody>
+    <SheetFooter>
+      <Button variant="outline">Close</Button>
+      <Button>Save</Button>
+    </SheetFooter>
   </SheetContent>
 </Sheet>`)],
     sidebar: [
@@ -4977,37 +5816,38 @@ import { toast } from "sonner"
     ],
     tabs: [
         E(
-            'default',
-            'Pill tabs (default list)',
+            'line',
+            'Underline tabs (preferred default)',
             (
-                <Tabs defaultValue="account" className="max-w-md">
+                <Tabs defaultValue="one" className="w-full max-w-xl">
                     <TabsList>
-                        <TabsTrigger value="account">Account</TabsTrigger>
-                        <TabsTrigger value="password">Password</TabsTrigger>
+                        <TabsTrigger value="one">First</TabsTrigger>
+                        <TabsTrigger value="two">Second</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="account" className="text-sm text-muted-foreground">
-                        Account settings panel.
+                    <TabsContent value="one" className="text-sm text-muted-foreground">
+                        First panel.
                     </TabsContent>
-                    <TabsContent value="password" className="text-sm text-muted-foreground">
-                        Password settings panel.
+                    <TabsContent value="two" className="text-sm text-muted-foreground">
+                        Second panel.
                     </TabsContent>
                 </Tabs>
             ),
-            `<Tabs defaultValue="account" className="max-w-md">
+            `{/* variant="line" is the preferred default — omit or pass explicitly */}
+<Tabs defaultValue="one" className="w-full max-w-xl">
   <TabsList>
-    <TabsTrigger value="account">Account</TabsTrigger>
-    <TabsTrigger value="password">Password</TabsTrigger>
+    <TabsTrigger value="one">First</TabsTrigger>
+    <TabsTrigger value="two">Second</TabsTrigger>
   </TabsList>
-  <TabsContent value="account">Account settings panel.</TabsContent>
-  <TabsContent value="password">Password settings panel.</TabsContent>
+  <TabsContent value="one">First panel.</TabsContent>
+  <TabsContent value="two">Second panel.</TabsContent>
 </Tabs>`,
         ),
         E(
-            'fill',
-            'Pill tabs (fill width)',
+            'default',
+            'Pill tabs (equal-width triggers)',
             (
-                <Tabs defaultValue="account" className="max-w-xl">
-                    <TabsList fill>
+                <Tabs defaultValue="account" className="w-full max-w-xl">
+                    <TabsList variant="default" fill={true}>
                         <TabsTrigger value="account">Account</TabsTrigger>
                         <TabsTrigger value="password">Password</TabsTrigger>
                         <TabsTrigger value="notifications">Notifications</TabsTrigger>
@@ -5023,8 +5863,8 @@ import { toast } from "sonner"
                     </TabsContent>
                 </Tabs>
             ),
-            `<Tabs defaultValue="account" className="max-w-xl">
-  <TabsList fill>
+            `<Tabs defaultValue="account" className="w-full max-w-xl">
+  <TabsList variant="default" fill={true}>
     <TabsTrigger value="account">Account</TabsTrigger>
     <TabsTrigger value="password">Password</TabsTrigger>
     <TabsTrigger value="notifications">Notifications</TabsTrigger>
@@ -5035,74 +5875,100 @@ import { toast } from "sonner"
 </Tabs>`,
         ),
         E(
-            'line',
-            'Underline tabs',
+            'hug',
+            'Pill tabs (condensed triggers, full-width list)',
             (
-                <Tabs defaultValue="one" className="max-w-md">
-                    <TabsList variant="line">
-                        <TabsTrigger value="one">First</TabsTrigger>
-                        <TabsTrigger value="two">Second</TabsTrigger>
+                <Tabs defaultValue="account" className="w-full max-w-xl">
+                    <TabsList variant="default" fill={false}>
+                        <TabsTrigger value="account">Account</TabsTrigger>
+                        <TabsTrigger value="password">Password</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="one" className="text-sm text-muted-foreground">
-                        First panel.
+                    <TabsContent value="account" className="text-sm text-muted-foreground">
+                        Account settings panel.
                     </TabsContent>
-                    <TabsContent value="two" className="text-sm text-muted-foreground">
-                        Second panel.
+                    <TabsContent value="password" className="text-sm text-muted-foreground">
+                        Password settings panel.
                     </TabsContent>
                 </Tabs>
             ),
-            `<Tabs defaultValue="one" className="max-w-md">
-  <TabsList variant="line">
-    <TabsTrigger value="one">First</TabsTrigger>
-    <TabsTrigger value="two">Second</TabsTrigger>
+            `{/* fill={false} is preferred — condensed triggers; list still w-full */}
+<Tabs defaultValue="account" className="w-full max-w-xl">
+  <TabsList variant="default" fill={false}>
+    <TabsTrigger value="account">Account</TabsTrigger>
+    <TabsTrigger value="password">Password</TabsTrigger>
   </TabsList>
-  <TabsContent value="one">First panel.</TabsContent>
-  <TabsContent value="two">Second panel.</TabsContent>
+  <TabsContent value="account">Account settings panel.</TabsContent>
+  <TabsContent value="password">Password settings panel.</TabsContent>
 </Tabs>`,
         ),
         E(
-            'vertical',
-            'Vertical tabs',
+            'vertical-line',
+            'Vertical underline tabs (preferred default)',
             (
-                <Tabs defaultValue="profile" orientation="vertical" className="max-w-3xl">
-                    <TabsList variant="line" className="w-52 border-r border-b-0 pr-2">
-                        <TabsTrigger value="profile" className="w-full justify-start">
-                            Profile
-                        </TabsTrigger>
-                        <TabsTrigger value="availability" className="w-full justify-start">
-                            Availability
-                        </TabsTrigger>
-                        <TabsTrigger value="documents" className="w-full justify-start">
-                            Documents
-                        </TabsTrigger>
+                <Tabs
+                    defaultValue="profile"
+                    orientation="vertical"
+                    className="max-w-3xl gap-[length:var(--uds-gap-24)]"
+                >
+                    <TabsList>
+                        <TabsTrigger value="profile">Profile</TabsTrigger>
+                        <TabsTrigger value="availability">Availability</TabsTrigger>
+                        <TabsTrigger value="documents">Documents</TabsTrigger>
                     </TabsList>
-                    <TabsContent
-                        value="profile"
-                        className="rounded-[8px] border border-[var(--uds-border-primary)] p-4 text-sm text-muted-foreground"
-                    >
+                    <TabsContent value="profile" className="text-sm text-muted-foreground">
                         Profile details, licenses, and credential highlights.
                     </TabsContent>
-                    <TabsContent
-                        value="availability"
-                        className="rounded-[8px] border border-[var(--uds-border-primary)] p-4 text-sm text-muted-foreground"
-                    >
+                    <TabsContent value="availability" className="text-sm text-muted-foreground">
                         Weekly availability and blackout dates.
                     </TabsContent>
-                    <TabsContent
-                        value="documents"
-                        className="rounded-[8px] border border-[var(--uds-border-primary)] p-4 text-sm text-muted-foreground"
-                    >
+                    <TabsContent value="documents" className="text-sm text-muted-foreground">
                         Document status and required upload checklist.
                     </TabsContent>
                 </Tabs>
             ),
-            `<Tabs defaultValue="profile" orientation="vertical" className="max-w-3xl">
-  <TabsList variant="line" className="w-52 border-r border-b-0 pr-2">
-    <TabsTrigger value="profile" className="w-full justify-start">Profile</TabsTrigger>
-    <TabsTrigger value="availability" className="w-full justify-start">Availability</TabsTrigger>
-    <TabsTrigger value="documents" className="w-full justify-start">Documents</TabsTrigger>
+            `{/* Same line chrome as horizontal — border-r track + active indicator on the right */}
+<Tabs defaultValue="profile" orientation="vertical" className="max-w-3xl gap-[length:var(--uds-gap-24)]">
+  <TabsList>
+    <TabsTrigger value="profile">Profile</TabsTrigger>
+    <TabsTrigger value="availability">Availability</TabsTrigger>
+    <TabsTrigger value="documents">Documents</TabsTrigger>
   </TabsList>
-  <TabsContent value="profile" className="rounded-[8px] border p-4">Profile details…</TabsContent>
+  <TabsContent value="profile">Profile details…</TabsContent>
+</Tabs>`,
+        ),
+        E(
+            'vertical-default',
+            'Vertical pill tabs',
+            (
+                <Tabs
+                    defaultValue="account"
+                    orientation="vertical"
+                    className="max-w-3xl gap-[length:var(--uds-gap-24)]"
+                >
+                    <TabsList variant="default">
+                        <TabsTrigger value="account">Account</TabsTrigger>
+                        <TabsTrigger value="password">Password</TabsTrigger>
+                        <TabsTrigger value="notifications">Notifications</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="account" className="text-sm text-muted-foreground">
+                        Account settings panel.
+                    </TabsContent>
+                    <TabsContent value="password" className="text-sm text-muted-foreground">
+                        Password settings panel.
+                    </TabsContent>
+                    <TabsContent value="notifications" className="text-sm text-muted-foreground">
+                        Notification preferences.
+                    </TabsContent>
+                </Tabs>
+            ),
+            `{/* Vertical always hugs the longest label — fill does not apply */}
+<Tabs defaultValue="account" orientation="vertical" className="max-w-3xl gap-[length:var(--uds-gap-24)]">
+  <TabsList variant="default">
+    <TabsTrigger value="account">Account</TabsTrigger>
+    <TabsTrigger value="password">Password</TabsTrigger>
+    <TabsTrigger value="notifications">Notifications</TabsTrigger>
+  </TabsList>
+  <TabsContent value="account">Account settings panel.</TabsContent>
 </Tabs>`,
         ),
     ],

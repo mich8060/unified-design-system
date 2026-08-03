@@ -5,5 +5,5 @@ export const docsVersionBundleLoaders: Record<
   DocsVersionId,
   () => Promise<{ default: DocsVersionBundle }>
 > = {
-  '1.0.5': () => import('./1.0.5'),
+  '1.2.0': () => import('./1.2.0'),
 }

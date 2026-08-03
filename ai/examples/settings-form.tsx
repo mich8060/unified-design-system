@@ -3,13 +3,20 @@ import "@chghealthcare/unified-design-system/styles.css"
 import {
   AppShell,
   Button,
-  Card,
   Field,
   FieldContent,
   FieldDescription,
   FieldLabel,
   Input,
+  MainContent,
+  MainStack,
   Menu,
+  PageHeader,
+  PageHeaderActions,
+  PageHeaderBody,
+  PageHeaderContent,
+  PageHeaderDescription,
+  PageHeaderTitle,
   SectionHeader,
   SectionHeaderContent,
   SectionHeaderDescription,
@@ -27,6 +34,11 @@ import {
 
 const navigationItems: MenuNavigationItem[] = [{ id: "notifications", label: "Notifications" }]
 
+/**
+ * Settings form: MainContent fixed (1280/1000 reading column) + PageHeader + MainStack.
+ * Group fields with SectionHeader — do not Card-wrap every field block.
+ * Stack Fields by default; md:grid-cols-2 only for related pairs (e.g. first + last name).
+ */
 export function SettingsFormExample() {
   return (
     <TooltipProvider>
@@ -36,19 +48,34 @@ export function SettingsFormExample() {
         menu={<Menu navigationItems={navigationItems} activeId="notifications" onNavigationSelect={() => {}} />}
       >
         <AppShell.Main>
-          <div className="flex flex-col gap-6 p-6">
-            <SectionHeader>
-              <SectionHeaderContent>
-                <SectionHeaderTitle>Notification routing</SectionHeaderTitle>
-                <SectionHeaderDescription>
-                  Keep configuration screens inside AppShell and use exported field surfaces for form chrome.
-                </SectionHeaderDescription>
-              </SectionHeaderContent>
-              <Status variant="success">Production</Status>
-            </SectionHeader>
+          <MainContent containment="fixed">
+            <PageHeader layout="inline">
+              <PageHeaderBody>
+                <PageHeaderContent>
+                  <PageHeaderTitle>Notification routing</PageHeaderTitle>
+                  <PageHeaderDescription>
+                    Keep configuration screens inside a fixed reading column. Group fields with
+                    SectionHeader — do not wrap every block in a Card.
+                  </PageHeaderDescription>
+                </PageHeaderContent>
+                <PageHeaderActions>
+                  <Status variant="success">Production</Status>
+                  <Button>Save changes</Button>
+                </PageHeaderActions>
+              </PageHeaderBody>
+            </PageHeader>
 
-            <Card className="rounded-[4px] p-5">
-              <div className="grid gap-4 md:grid-cols-2">
+            <MainStack>
+              <section className="flex flex-col gap-[length:var(--uds-gap-16)]">
+                <SectionHeader>
+                  <SectionHeaderContent>
+                    <SectionHeaderTitle>Delivery</SectionHeaderTitle>
+                    <SectionHeaderDescription>
+                      Sender identity and escalation policy for outbound alerts.
+                    </SectionHeaderDescription>
+                  </SectionHeaderContent>
+                </SectionHeader>
+
                 <Field>
                   <FieldLabel>Email sender</FieldLabel>
                   <FieldContent>
@@ -70,21 +97,54 @@ export function SettingsFormExample() {
                     </Select>
                   </FieldContent>
                 </Field>
+              </section>
 
-                <Field className="md:col-span-2">
+              <section className="flex flex-col gap-[length:var(--uds-gap-16)]">
+                <SectionHeader>
+                  <SectionHeaderContent>
+                    <SectionHeaderTitle>Contact</SectionHeaderTitle>
+                    <SectionHeaderDescription>
+                      Related name fields share a row; unrelated fields stay stacked.
+                    </SectionHeaderDescription>
+                  </SectionHeaderContent>
+                </SectionHeader>
+
+                <div className="grid gap-[length:var(--uds-gap-16)] md:grid-cols-2">
+                  <Field>
+                    <FieldLabel>First name</FieldLabel>
+                    <FieldContent>
+                      <Input placeholder="Alex" />
+                    </FieldContent>
+                  </Field>
+                  <Field>
+                    <FieldLabel>Last name</FieldLabel>
+                    <FieldContent>
+                      <Input placeholder="Rivera" />
+                    </FieldContent>
+                  </Field>
+                </div>
+              </section>
+
+              <section className="flex flex-col gap-[length:var(--uds-gap-16)]">
+                <SectionHeader>
+                  <SectionHeaderContent>
+                    <SectionHeaderTitle>Digests</SectionHeaderTitle>
+                    <SectionHeaderDescription>
+                      Use Switch and Status for stateful configuration instead of ad hoc badges.
+                    </SectionHeaderDescription>
+                  </SectionHeaderContent>
+                </SectionHeader>
+
+                <Field>
                   <FieldLabel>Send daily digests</FieldLabel>
-                  <FieldDescription>Use Switch and Status for stateful configuration instead of ad hoc badges.</FieldDescription>
+                  <FieldDescription>Summaries arrive at 07:00 local time for subscribed roles.</FieldDescription>
                   <FieldContent className="flex justify-start">
                     <Switch defaultChecked />
                   </FieldContent>
                 </Field>
-              </div>
-
-              <div className="mt-6 flex justify-end">
-                <Button className="rounded-[4px]">Save changes</Button>
-              </div>
-            </Card>
-          </div>
+              </section>
+            </MainStack>
+          </MainContent>
         </AppShell.Main>
       </AppShell>
     </TooltipProvider>

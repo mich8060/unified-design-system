@@ -50,6 +50,7 @@ export type MedallionProps = {
   tone?: MedallionTone
   /** Centered icon (e.g. Phosphor `<FileTextIcon weight="bold" />`) */
   icon: React.ReactNode
+  /** Defaults to `lg` (48px). Prefer large; use smaller sizes only for dense/composed chrome. */
   size?: MedallionSize
   shape?: MedallionShape
   className?: string
@@ -59,7 +60,7 @@ export function Medallion({
   color,
   tone = 'pastel',
   icon,
-  size = 'default',
+  size = 'lg',
   shape = 'circle',
   className,
   style,

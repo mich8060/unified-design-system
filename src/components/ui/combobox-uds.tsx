@@ -2,8 +2,7 @@
 
 import * as React from "react"
 import { Combobox as ComboboxPrimitive } from "@base-ui/react"
-import { XIcon } from "@phosphor-icons/react"
-
+import { XIcon } from "@phosphor-icons/react/X"
 import { Button } from "@/components/ui/button"
 import {
   InputGroupAddon,

@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ClockIcon } from "@phosphor-icons/react"
-
+import { ClockIcon } from "@phosphor-icons/react/Clock"
 import {
   InputGroup,
   InputGroupAddon,

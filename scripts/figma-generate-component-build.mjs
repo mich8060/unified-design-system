@@ -89,6 +89,10 @@ const BRANDING_SVG_FILES = {
     mark: 'locumsmart-brand-mark.svg',
   },
   Modio: { wordmark: 'modio-wordmark.svg', mark: 'modio-brand-mark.svg' },
+  CareerMD: {
+    wordmark: 'careermd-wordmark.svg',
+    mark: 'careermd-brand-mark.svg',
+  },
   MyWeatherby: {
     wordmark: 'weatherby-wordmark.svg',
     mark: 'weatherby-brand-mark.svg',
@@ -104,7 +108,7 @@ const BRANDING_SVG_FILES = {
 }
 
 function loadBrandingSvgs() {
-  const dir = path.join(root, 'public/branding/svg')
+  const dir = path.join(root, 'src/assets/branding/svg')
   const out = {}
   for (const [appearance, files] of Object.entries(BRANDING_SVG_FILES)) {
     out[appearance] = {

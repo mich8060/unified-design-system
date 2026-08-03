@@ -1,9 +1,21 @@
-# Visual weight
+---
+id: composition-visual-weight-redirect
+category: composition
+type: index
+priority: low
+ai_priority: low
+confidence_default: preferred
+related:
+  - visual-weight
+components: []
+patterns: []
+tokens: []
+depends_on: []
+influences: []
+conflicts_with: []
+alternatives: []
+---
 
-Primary actions: default/destructive `Button` variants.
-Secondary: outline/ghost.
-Status: `Badge`, `Status`, `Medallion`—not full-width color blocks.
+# Moved
 
-## See also
-
-- ../decision-rules/choosing-components.md
+This document moved to [`../semantics/visual-weight.md`](../semantics/visual-weight.md).

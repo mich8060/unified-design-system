@@ -74,9 +74,12 @@ body {
   color: color-mix(in srgb, white 42%, transparent);
 }
 
-.code-panel-shiki pre.shiki {
+.code-panel-shiki pre.shiki,
+.code-panel-shiki pre.shiki code,
+.code-panel-shiki code {
   background-color: transparent !important;
   border-radius: 0 !important;
+  padding: 0 !important;
 }
 
 @keyframes welcome-card-rise {
@@ -101,33 +104,6 @@ body {
     animation: none;
     opacity: 1;
     transform: none;
-  }
-}
-
-/* Welcome header decorative icons — opacity ±20% around --welcome-header-icon-flux-base */
-@keyframes welcome-header-icon-flux {
-  0%,
-  100% {
-    opacity: calc(var(--welcome-header-icon-flux-base, 0.06) * 0.8);
-  }
-
-  50% {
-    opacity: calc(var(--welcome-header-icon-flux-base, 0.06) * 1.2);
-  }
-}
-
-.welcome-header-icon-flux {
-  animation-name: welcome-header-icon-flux;
-  animation-duration: 3.6s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .welcome-header-icon-flux {
-    animation-name: none;
-    animation-duration: 0s;
-    opacity: var(--welcome-header-icon-flux-base, 0.06);
   }
 }
 

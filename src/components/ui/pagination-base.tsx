@@ -1,12 +1,10 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-import {
-  CaretDoubleLeftIcon,
-  CaretDoubleRightIcon,
-  CaretLeftIcon,
-  CaretRightIcon,
-} from "@phosphor-icons/react"
+import { CaretDoubleLeftIcon } from "@phosphor-icons/react/CaretDoubleLeft"
+import { CaretDoubleRightIcon } from "@phosphor-icons/react/CaretDoubleRight"
+import { CaretLeftIcon } from "@phosphor-icons/react/CaretLeft"
+import { CaretRightIcon } from "@phosphor-icons/react/CaretRight"
 import {
   paginationContentClass,
   paginationEllipsisClass,

@@ -20,15 +20,16 @@ function renderExample(index: number) {
   return example.previewInner
 }
 
-export const Default: Story = {
+/** Preferred default — underline (`variant="line"`). */
+export const Line: Story = {
   render: () => renderExample(0),
 }
 
-export const Fill: Story = {
+export const Pill: Story = {
   render: () => renderExample(1),
 }
 
-export const Line: Story = {
+export const Hug: Story = {
   render: () => renderExample(2),
 }
 

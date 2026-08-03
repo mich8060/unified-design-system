@@ -21,8 +21,9 @@ import {
 } from "@/components/ui/calendar-year-grid"
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { CaretDownIcon, CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react"
-
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown"
+import { CaretLeftIcon } from "@phosphor-icons/react/CaretLeft"
+import { CaretRightIcon } from "@phosphor-icons/react/CaretRight"
 export type CalendarYearSelection = "caption" | "grid"
 
 function Calendar({
@@ -147,7 +148,7 @@ function Calendar({
         months: cn(
           "relative flex w-full flex-col gap-0 md:flex-row md:gap-[length:var(--uds-gap-32)]",
           props.mode === "range" && [
-            "overflow-hidden rounded-[length:var(--uds-radius-8)] border border-uds-border-primary",
+            "overflow-hidden rounded-[length:var(--uds-radius-4)] border border-uds-border-primary",
             "md:[&:has(>.rdp-nav)>.rdp-month:nth-child(2)]:border-r",
             "md:[&:has(>.rdp-nav)>.rdp-month:nth-child(3)]:border-l",
             "md:[&:not(:has(>.rdp-nav))>.rdp-month:nth-child(1)]:border-r",
@@ -159,7 +160,7 @@ function Calendar({
         month: cn(
           "flex w-full flex-col gap-0 overflow-hidden",
           props.mode !== "range" &&
-            "rounded-[length:var(--uds-radius-8)] border border-uds-border-primary",
+            "rounded-[length:var(--uds-radius-4)] border border-uds-border-primary",
           defaultClassNames.month
         ),
         nav: cn(

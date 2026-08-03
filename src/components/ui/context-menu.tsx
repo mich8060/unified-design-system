@@ -2,8 +2,8 @@ import * as React from "react"
 import { ContextMenu as ContextMenuPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { CaretRightIcon, CheckIcon } from "@phosphor-icons/react"
-
+import { CaretRightIcon } from "@phosphor-icons/react/CaretRight"
+import { CheckIcon } from "@phosphor-icons/react/Check"
 function ContextMenu({
   ...props
 }: React.ComponentProps<typeof ContextMenuPrimitive.Root>) {

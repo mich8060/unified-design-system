@@ -1,18 +1,52 @@
 import * as React from "react"
 import { Slot } from "radix-ui"
-import { DotsThreeIcon } from "@phosphor-icons/react"
-
+import { cva, type VariantProps } from "class-variance-authority"
+import { DotsThreeIcon } from "@phosphor-icons/react/DotsThree"
 import { cn } from "@/lib/utils"
 
-function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
+type BreadcrumbSize = "default" | "compact"
+
+const BreadcrumbSizeContext = React.createContext<BreadcrumbSize | undefined>(
+  undefined,
+)
+
+/** Prefer compact breadcrumbs under `PageHeaderNav` (page chrome). */
+function useBreadcrumbSize(size?: BreadcrumbSize): BreadcrumbSize {
+  const fromContext = React.useContext(BreadcrumbSizeContext)
+  return size ?? fromContext ?? "default"
+}
+
+const breadcrumbVariants = cva(
+  "font-sans font-uds-regular text-[var(--uds-text-secondary)]",
+  {
+    variants: {
+      size: {
+        /** Body/14 — default trail. */
+        default:
+          "text-uds-14 leading-uds-14 [&_[data-slot=breadcrumb-separator]>svg]:size-3.5 [&_[data-slot=breadcrumb-ellipsis]]:size-5 [&_[data-slot=breadcrumb-ellipsis]>svg]:size-4",
+        /** Body/12 — one step smaller; use in PageHeader. */
+        compact:
+          "text-uds-12 leading-uds-12 [&_[data-slot=breadcrumb-separator]>svg]:size-3 [&_[data-slot=breadcrumb-ellipsis]]:size-4 [&_[data-slot=breadcrumb-ellipsis]>svg]:size-3.5",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  },
+)
+
+type BreadcrumbProps = React.ComponentProps<"nav"> &
+  VariantProps<typeof breadcrumbVariants>
+
+function Breadcrumb({ className, size, ...props }: BreadcrumbProps) {
+  const resolvedSize = useBreadcrumbSize(size ?? undefined)
+
   return (
     <nav
       aria-label="Breadcrumb"
       data-slot="breadcrumb"
-      className={cn(
-        "font-sans text-uds-14 font-uds-regular leading-uds-14 text-[var(--uds-text-secondary)]",
-        className
-      )}
+      data-size={resolvedSize}
+      className={cn(breadcrumbVariants({ size: resolvedSize }), className)}
       {...props}
     />
   )
@@ -103,10 +137,7 @@ function BreadcrumbEllipsis({
       data-slot="breadcrumb-ellipsis"
       role="presentation"
       aria-hidden="true"
-      className={cn(
-        "flex size-5 items-center justify-center [&>svg]:size-4",
-        className
-      )}
+      className={cn("flex items-center justify-center", className)}
       {...props}
     >
       <DotsThreeIcon />
@@ -123,4 +154,7 @@ export {
   BreadcrumbPage,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
+  BreadcrumbSizeContext,
+  breadcrumbVariants,
 }
+export type { BreadcrumbProps, BreadcrumbSize }

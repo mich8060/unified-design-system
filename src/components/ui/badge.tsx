@@ -3,6 +3,10 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
+import {
+  chromaticAccentStyle,
+  type AccentAppearance,
+} from "@/lib/accent-appearance-styles"
 
 /** Accent hues aligned with the UDS badge matrix (label-only / every-color). */
 export const BADGE_ACCENTS = [
@@ -25,7 +29,7 @@ export const BADGE_ACCENTS = [
 
 export type BadgeAccent = (typeof BADGE_ACCENTS)[number]
 
-export type BadgeAppearance = "subtle" | "pastel" | "outlined" | "solid"
+export type BadgeAppearance = AccentAppearance
 
 export const BADGE_SHAPES = ["pill", "rect"] as const
 export type BadgeShape = (typeof BADGE_SHAPES)[number]
@@ -92,64 +96,6 @@ function isChromaticAccent(
   a: BadgeAccent,
 ): a is (typeof CHROMATIC_ACCENTS)[number] {
   return (CHROMATIC_ACCENTS as readonly string[]).includes(a)
-}
-
-/**
- * Solid-appearance background shade per accent. Matches the official Figma Badge
- * component, where each hue was individually tuned to clear WCAG AA (4.5:1) against
- * its paired text color — a flat step (e.g. always 500) fails contrast for most hues.
- */
-const SOLID_BG_SHADE: Record<(typeof CHROMATIC_ACCENTS)[number], number> = {
-  red: 700,
-  orange: 300,
-  yellow: 500,
-  emerald: 700,
-  green: 600,
-  sky: 700,
-  cyan: 700,
-  blue: 700,
-  indigo: 700,
-  purple: 700,
-  fuchsia: 700,
-  magenta: 700,
-}
-
-/** Chromatic accents use inline styles so Tailwind does not need literal class names for every hue (dynamic classes are tree-shaken). */
-function chromaticAccentStyle(
-  accent: (typeof CHROMATIC_ACCENTS)[number],
-  appearance: BadgeAppearance,
-): React.CSSProperties {
-  const v = (step: number) => `var(--uds-color-accent-${accent}-${step})`
-  switch (appearance) {
-    case "subtle":
-      return {
-        color: v(600),
-        backgroundColor: "transparent",
-        borderColor: "transparent",
-      }
-    case "pastel":
-      return {
-        color: v(800),
-        backgroundColor: v(100),
-        borderColor: "transparent",
-      }
-    case "outlined":
-      return {
-        color: v(1000),
-        backgroundColor: "transparent",
-        borderColor: v(500),
-      }
-    case "solid": {
-      const darkFg = accent === "yellow" || accent === "orange"
-      return {
-        backgroundColor: v(SOLID_BG_SHADE[accent]),
-        borderColor: "transparent",
-        color: darkFg ? "var(--uds-color-black)" : "var(--uds-color-white)",
-      }
-    }
-    default:
-      return {}
-  }
 }
 
 function semanticAccentClassName(

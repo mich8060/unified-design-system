@@ -1,8 +1,7 @@
 import * as React from "react"
 import { type VariantProps } from "class-variance-authority"
 import { Slot } from "radix-ui"
-import { SidebarSimpleIcon } from "@phosphor-icons/react"
-
+import { SidebarSimpleIcon } from "@phosphor-icons/react/SidebarSimple"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"

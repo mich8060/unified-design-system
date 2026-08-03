@@ -48,6 +48,32 @@ For routed shells (`AppShell` with the default internal `<Outlet />`), also add 
 import "@chghealthcare/unified-design-system/styles.css"
 ```
 
+### Stylesheet & load performance
+
+- Import **`styles.css` once** at the app root (do not re-import per route or component).
+- If you do **not** need AppShell/Menu chrome, you can use the lighter **`@chghealthcare/unified-design-system/styles/base.css`** instead of full `styles.css`.
+- Prefer a **published build** that ran full `build:lib` (includes `prepare-package`). Hand-built `dist` that skipped prepare-package may still embed Inter as base64 in CSS and make pages slow to load.
+- If load is still slow after upgrading, you may be on an older tarball with inlined fonts — upgrade to a release that ships `fonts/Inter-Variable.woff2` as a separate file.
+- Optional: **preload** Inter to reduce first-paint swap — see [`setup.md`](./setup.md#fonts--preload) (`@chghealthcare/unified-design-system/fonts/Inter-Variable.woff2`).
+
+### Vite dev performance
+
+Published packages run `prepare-package`, which externalizes Inter and renames branding assets (`*.svg?url.js` → `*.svg.url.js`). With that build:
+
+- **Do not** set `optimizeDeps.exclude: ['@chghealthcare/unified-design-system']`. Excluding UDS forces Vite to fetch hundreds of unbundled `dist/` + `@base-ui` modules and makes cold load feel painfully slow.
+- **Do not** set `optimizeDeps.include: ['@chghealthcare/unified-design-system']` for the package **root** either. That force-prebundles the entire public barrel into one multi‑MB DEV chunk even when the app only needs AppShell/Menu.
+- Leave Vite’s default discovery unless you measure a real waterfall after upgrade; then include only the specific heavy deps you need (not the UDS root entry).
+- Lazy-load heavy routes (e.g. charts / `recharts`) so they are not on the initial graph.
+- Import calendar / date / OTP from subpaths (`@chghealthcare/unified-design-system/calendar`, `/date-input`, `/date-range-input`, `/input-otp`, `/micro-calendar`) — they are not on the package root.
+
+### Vite DEV Network sizes vs production
+
+Chrome’s Network **Size** for `localhost` Vite DEV is mostly **uncompressed** prebundles. Vite also serves optimized deps with **inline base64 source maps**, which inflate each chunk by roughly **3×** vs on-disk `.vite/deps`.
+
+- `react-dom_*` / `react-router-dom` look multi‑MB in DEV; that is expected framework cost, not a UDS regression.
+- The footer **Resources / Transferred** total often lands around **20–30 MB** for an AppShell + router app (UDS prebundle + framework + optional charts, all uncompressed and map-inflated). That is expected in DEV; it is not production shipping weight.
+- Judge shipping weight with `vite build && vite preview` (or Lighthouse on preview). Production JS for a typical AppShell app is far smaller than the DEV Network panel suggests.
+
 ## Consumer setup (product apps)
 
 **`npm install` is the whole install step.** The published package has no CLI, no `postinstall` script, and no project template wizard. If you see prompts such as **Table / Board / Roadmap** or **Select a template**, that is **not** from UDS — it comes from another tool (usually `npx shadcn@latest init` or `npx shadcn@latest create`) run during onboarding.
@@ -56,8 +82,16 @@ For consumer apps:
 
 1. Install `@chghealthcare/unified-design-system`, `react`, and `react-dom` (see above).
 2. Import `@chghealthcare/unified-design-system/styles.css` once at the app root.
-3. Import components from `@chghealthcare/unified-design-system` only.
+3. Import components from `@chghealthcare/unified-design-system`. Use **subpaths** for heavy modules: `/calendar`, `/date-input`, `/date-range-input`, `/input-otp`, `/micro-calendar`, `/chart`, `/drawer`, etc.
 4. Compose **`AppShell`** + **`Menu`** + **`AppShell.Main`** — see [Quick start](#quick-start-appshell--menu) and [`setup.md`](./setup.md).
+5. **AI stubs on the hot path** (required for AI-assisted work; **agent-owned**). Designers/PMs do not run a CLI. Setup agents, after install, run from the consumer app root:
+
+```bash
+npx uds-copy-ai-rules
+# or: npx uds-copy-ai-rules --tool=cursor
+```
+
+Commit the written Cursor / Claude / AGENTS / Copilot stubs (or bake them into your starter). `design-language/` in `node_modules` is cold storage until this step. Full matrix: [`ai/guides/consumer-ai-bootstrap.md`](./ai/guides/consumer-ai-bootstrap.md). Also see [`AI_USAGE.md`](./AI_USAGE.md).
 
 **Do not** run `npx shadcn init`, `npx shadcn create`, or copy UDS source from this monorepo when adopting the package. UDS is a **published dependency**, not a shadcn scaffold. The [`@uds` registry](./registry.json) in this repository is for **maintainers and docs** (`npm run generate:ai`); consumer apps do not need `components.json` or the shadcn CLI unless your team explicitly chose a copy-into-repo workflow.
 
@@ -224,7 +258,7 @@ npm run pack:check
 
 1. Bump `version` in `package.json` and merge to `main`.
 2. Ensure `npm ci`, `npm run build:lib`, and `npm run pack:check` pass locally (CI runs `build:lib` and `lint` on push/PR).
-3. **Documentation snapshots** (sidebar version history): created only on **minor** or **major** bumps, not every patch. Run `npm run build:docs` on minor/major releases and commit generated files under `src/docs/versions/`. See **[docs/docs-version-snapshots.md](./docs/docs-version-snapshots.md)**.
+3. **Documentation snapshots** (latest only; no version switcher): created only on **minor** or **major** bumps, not every patch. Run `npm run build:docs` on minor/major releases and commit generated files under `src/docs/versions/`. Older snapshot folders are pruned. See **[docs/docs-version-snapshots.md](./docs/docs-version-snapshots.md)**.
 4. Create a GitHub **Release** for that version. That triggers:
    - **GitHub Packages** — [`.github/workflows/publish-github-packages.yml`](./.github/workflows/publish-github-packages.yml) publishes to `npm.pkg.github.com`
    - **npmjs** (optional) — [`.github/workflows/publish-npm.yml`](./.github/workflows/publish-npm.yml) if `NPM_TOKEN` is configured

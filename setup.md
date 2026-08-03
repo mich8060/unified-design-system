@@ -14,11 +14,14 @@ This file is the shorter starter-oriented projection of that contract.
 
 - Install `@chghealthcare/unified-design-system`, `react`, and `react-dom` only — **do not** run `npx shadcn init` or `npx shadcn create` (Table / Board / Roadmap prompts come from shadcn scaffolding, not UDS install).
 - Import styles once with `import "@chghealthcare/unified-design-system/styles.css"`.
+- **styles.css-only is enough for AI recipe layouts** — published CSS includes multi-column utilities used by `ai/examples` (`lg:grid-cols-2`, settings nav grids, etc.). You do **not** need a consumer Tailwind build for those recipe class strings.
+- **AI stubs on the hot path** (required for AI-assisted work; **agent-owned**): after install, the setup agent runs `npx uds-copy-ai-rules` (or `--tool=cursor`) from the consumer app root — do **not** ask designers/PMs to do this. Commit the written files (e.g. `.cursor/rules/uds.mdc`). Starter templates should bake them in. Full matrix: [`ai/guides/consumer-ai-bootstrap.md`](./ai/guides/consumer-ai-bootstrap.md). Without this, agents will not load `design-language/` from `node_modules`.
+- Prefer **`MainStack`** under PageHeader for first-level section gaps (24px).
 - For authenticated product screens, default to `AppShell`.
 - Compose the **`menu`** slot with the package **`Menu`** component (not `Sidebar*`).
-- Put page content in **`AppShell.Main`**.
+- Put page content in **`AppShell.Main`** via **`MainContent`** (`edge` | `fixed`). Keep that containment choice consistent across pages.
 - Set **`enableRouterOutlet={false}`** unless you use React Router layout routes (see the navigation guide).
-- Use **`listview={…}`** for master-detail or queue flows (there is no `showListview` prop).
+- Use **`listview={…}`** for master-detail or queue flows (there is no `showListview` prop). Optional **`listviewWidth`** (**320–480**, default **320**). Compose the pane with a **`Toolbar`** titlebar and **`Item`** / **`Card`** entities.
 - Keep imports on `@chghealthcare/unified-design-system` and `@chghealthcare/unified-design-system/styles.css` only.
 - Prefer existing UDS emphasis components such as `Badge`, `Status`, `Medallion`, and `Card` before inventing custom presentation wrappers.
 
@@ -48,6 +51,24 @@ Or, if you serve the asset from a known static path, add directly to `index.html
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/Inter-Variable.woff2" />
 ```
 
+## Vite optimizeDeps (dev load)
+
+Prepared packages externalize Inter and sanitize branding asset filenames (`*.svg?url.js` → `*.svg.url.js`).
+
+- **Do not** `optimizeDeps.exclude` `@chghealthcare/unified-design-system` (unbundled waterfall).
+- **Do not** `optimizeDeps.include` the **package root** either — that builds one multi‑MB DEV prebundle of the full barrel. Use Vite’s default discovery unless a measured waterfall returns.
+- Lazy-load heavy screens (charts / `recharts`). Import calendar/date/OTP from subpaths (`/calendar`, `/date-input`, `/date-range-input`, `/input-otp`, `/micro-calendar`).
+- Prefer component subpaths when you only need a few primitives (e.g. `import { Button } from "@chghealthcare/unified-design-system/button"`, `…/select`, `…/table`, `…/alert`) so Vitest/Vite do not evaluate the full root barrel.
+- **DEV vs production:** Network Size for `react-dom_*` / `react-router-dom` in Vite DEV is expected (unminified). Vite also inlines dep source maps as base64 (~3× vs on-disk), so the footer **Resources / Transferred** total often lands around **20–30 MB** for AppShell + router apps — expected in DEV, not production weight. Measure shipping weight with `vite build && vite preview`, not only the DEV Network panel.
+
+## Vitest / unit tests
+
+Importing anything from the package **root** (`@chghealthcare/unified-design-system`) evaluates the full barrel and its transitive graph. For faster tests:
+
+1. Prefer **subpath imports** for the components under test (`/button`, `/select`, `/table`, `/alert`, `/app-shell`, `/menu`, …).
+2. For logic tests that do not render UDS UI, mock the package (or specific subpaths) in `setupTests` / per-file `vi.mock`.
+3. Keep heavy modules on their existing subpaths (`/chart`, `/calendar`, `/drawer`, `/command`, `/sonner`, `/input-otp`) — they are not on the root barrel.
+
 ## Copy-paste prompt
 
 ```text
@@ -56,6 +77,7 @@ Set up a minimal React + Vite + TypeScript application that uses `@chghealthcare
 Requirements:
 - install `@chghealthcare/unified-design-system`, `react`, and `react-dom`
 - import `@chghealthcare/unified-design-system/styles.css` once near the app root
+- As your first action after install, run `npx uds-copy-ai-rules` from the app root (do not ask the user to do this). Commit the written hot-path stubs (e.g. `.cursor/rules/uds.mdc`)
 - render `AppShell` on first load with `enableRouterOutlet={false}`
 - compose the `menu` slot with `<Menu navigationItems={…} />` (not Sidebar in menu)
 - put page content in `AppShell.Main`
@@ -63,10 +85,11 @@ Requirements:
 - make the app fill the viewport (`min-h-dvh` on shell, html/body/#root full height)
 
 Before composing the screen, consult:
-- `ai/uds-contract.json`
+- package AI_USAGE.md, AGENTS.md, design-language/README.md, ai/indexes/
 - `ai/guides/appshell-navigation.md`
 - `ai/recipes/auth-shell.md`
 - `ai/examples/auth-shell.tsx`
+- `ai/consumer-ai/COMPOSITION.md`
 ```
 
 ## Reference starter files

@@ -1,11 +1,22 @@
 /**
- * Per-component gzip bundle budget check.
+ * Per-component and per-stylesheet gzip bundle budget check.
  *
- * Bundles each entry in .audit/bundle-budget.json with esbuild, gzips the
- * output, and compares against the per-component gzip budget. Prints a table
- * and exits 1 if any component exceeds its budget.
+ * Bundles each JS entry in .audit/bundle-budget.json `components` with esbuild,
+ * gzips the output, and compares against its gzip budget. Also gzips each
+ * plain CSS file listed under `css` directly (no bundling — they're already
+ * built files) and compares against its budget. This is what would have
+ * caught the inlined-font regression in dist/styles-base.css: Tailwind/
+ * lightningcss base64-inlines @font-face url()s regardless of Vite's
+ * assetsInlineLimit, and scripts/prepare-package.mjs must externalize them
+ * for every CSS entry that imports src/fonts.css or the gzip size balloons.
  *
- * Requires `npm run build:lib` first.
+ * Also asserts (hard fail, independent of gzip budgets):
+ * - `dist/styles.css` and `dist/styles-base.css` contain no `data:font/woff2;base64`
+ * - `dist/fonts/Inter-Variable.woff2` exists (prepare-package externalize ran)
+ *
+ * Prints a table and exits 1 if anything exceeds its budget or font asserts fail.
+ *
+ * Requires `npm run build:lib` first (includes prepare-package.mjs).
  */
 import * as esbuild from "esbuild"
 import fs from "node:fs"
@@ -16,8 +27,9 @@ import { fileURLToPath } from "node:url"
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..")
 const auditDir = path.join(root, ".audit")
 const budgetPath = path.join(auditDir, "bundle-budget.json")
+const distRoot = path.join(root, "dist")
 
-const distIndex = path.join(root, "dist", "index.js")
+const distIndex = path.join(distRoot, "index.js")
 if (!fs.existsSync(distIndex)) {
   console.error("ci:bundle: dist/index.js missing — run `npm run build:lib` first.")
   process.exit(1)
@@ -34,11 +46,75 @@ function status(ok) {
   return ok ? "✓ pass" : "✗ FAIL"
 }
 
+const INLINE_FONT_RE = /data:font\/woff2;base64,/i
+const CSS_FONT_FILES = ["styles.css", "styles-base.css"]
+const EXTERNAL_FONT = path.join(distRoot, "fonts", "Inter-Variable.woff2")
+
+/** @type {string[]} */
+const fontAssertFailures = []
+
+for (const cssFileName of CSS_FONT_FILES) {
+  const cssPath = path.join(distRoot, cssFileName)
+  if (!fs.existsSync(cssPath)) {
+    fontAssertFailures.push(`missing ${cssFileName} — run \`npm run build:lib\` first`)
+    continue
+  }
+  const css = fs.readFileSync(cssPath, "utf8")
+  if (INLINE_FONT_RE.test(css)) {
+    fontAssertFailures.push(
+      `${cssFileName} still contains data:font/woff2;base64 — prepare-package must externalize fonts (do not publish a dist that skipped prepare-package.mjs)`,
+    )
+  }
+}
+
+if (!fs.existsSync(EXTERNAL_FONT)) {
+  fontAssertFailures.push(
+    "dist/fonts/Inter-Variable.woff2 missing — run full `npm run build:lib` (vite + prepare-package)",
+  )
+} else {
+  const st = fs.statSync(EXTERNAL_FONT)
+  if (st.size < 1024) {
+    fontAssertFailures.push(
+      `dist/fonts/Inter-Variable.woff2 is too small (${st.size} bytes) — expected a real WOFF2`,
+    )
+  }
+}
+
+if (fontAssertFailures.length > 0) {
+  console.error("")
+  console.error("  ci:bundle — font externalize asserts")
+  for (const msg of fontAssertFailures) {
+    console.error(`  ✗ ${msg}`)
+  }
+  console.error("")
+  process.exit(1)
+}
+
+console.log("")
+console.log("  ci:bundle — font externalize asserts")
+console.log("  ✓ no data:font/woff2;base64 in styles.css / styles-base.css")
+console.log("  ✓ dist/fonts/Inter-Variable.woff2 present")
+console.log("")
+
 const budget = JSON.parse(fs.readFileSync(budgetPath, "utf8"))
 const components = Object.entries(budget.components)
+const cssEntries = Object.entries(budget.css ?? {})
 
 /** @type {{ name: string; raw: number; gzip: number; budget: number; ok: boolean }[]} */
 const results = []
+
+for (const [name, spec] of cssEntries) {
+  const filePath = path.join(root, spec.file)
+  if (!fs.existsSync(filePath)) {
+    console.error(`ci:bundle: css entry missing for "${name}": ${spec.file} — run \`npm run build:lib\` first.`)
+    process.exit(1)
+  }
+
+  const raw = fs.readFileSync(filePath)
+  const gzipped = zlib.gzipSync(raw)
+  const ok = gzipped.byteLength <= spec.gzipBytes
+  results.push({ name, raw: raw.byteLength, gzip: gzipped.byteLength, budget: spec.gzipBytes, ok })
+}
 
 for (const [name, spec] of components) {
   const entryPath = path.join(root, spec.entry)
@@ -78,7 +154,7 @@ for (const [name, spec] of components) {
 }
 
 // Print table
-const COL = { name: 12, raw: 9, gzip: 9, budget: 9, status: 8 }
+const COL = { name: 16, raw: 9, gzip: 9, budget: 9, status: 8 }
 const header = [
   "component".padEnd(COL.name),
   "raw".padStart(COL.raw),
@@ -114,4 +190,4 @@ if (failed.length > 0) {
   process.exit(1)
 }
 
-console.log("ci:bundle: all components within gzip budget.")
+console.log("ci:bundle: all font asserts and gzip budgets passed.")

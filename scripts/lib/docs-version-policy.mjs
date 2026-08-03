@@ -82,21 +82,17 @@ export function isDifferentMinorOrMajorLine(a, b) {
 }
 
 /**
- * Sidebar history: keep the newest snapshot and at most one older minor/major line.
- * Patch-only folders are dropped so the selector never lists 1.0.1, 1.0.2, …
+ * Keep only the newest snapshot. Older minor/major lines are pruned — docs site
+ * has no version switcher.
  *
  * @param {string[]} snapshotVersions semver dirs on disk, any order
  */
 export function computeRetainedSnapshotVersions(snapshotVersions) {
   const sorted = [...snapshotVersions].sort(compareSemverDesc)
-  if (sorted.length <= 1) return sorted
-
-  const newest = sorted[0]
-  const previousLine = sorted.find((version) => isDifferentMinorOrMajorLine(version, newest))
-  return previousLine ? [newest, previousLine] : [newest]
+  return sorted.length === 0 ? [] : [sorted[0]]
 }
 
-/** Show docs version UI only when two minor/major lines are archived. */
-export function shouldShowDocsVersionSelector(retainedVersions) {
-  return retainedVersions.length >= 2
+/** Version selector removed; always false. */
+export function shouldShowDocsVersionSelector(_retainedVersions) {
+  return false
 }

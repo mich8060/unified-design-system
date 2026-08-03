@@ -1,21 +1,20 @@
-import {
-  AirplaneIcon,
-  BriefcaseIcon,
-  BuildingApartmentIcon,
-  BuildingsIcon,
-  CalendarBlankIcon,
-  CalendarPlusIcon,
-  ChartBarIcon,
-  ClockIcon,
-  FolderOpenIcon,
-  GpsFixIcon,
-  LayoutIcon,
-  NotePencilIcon,
-  SortDescendingIcon,
-  UserListIcon,
-  UsersIcon,
-  WalletIcon,
-} from "@phosphor-icons/react"
+import { AirplaneIcon } from "@phosphor-icons/react/Airplane"
+import { BriefcaseIcon } from "@phosphor-icons/react/Briefcase"
+import { BuildingApartmentIcon } from "@phosphor-icons/react/BuildingApartment"
+import { BuildingsIcon } from "@phosphor-icons/react/Buildings"
+import { CalendarBlankIcon } from "@phosphor-icons/react/CalendarBlank"
+import { CalendarPlusIcon } from "@phosphor-icons/react/CalendarPlus"
+import { ChartBarIcon } from "@phosphor-icons/react/ChartBar"
+import { ClockIcon } from "@phosphor-icons/react/Clock"
+import { EnvelopeIcon } from "@phosphor-icons/react/Envelope"
+import { FolderOpenIcon } from "@phosphor-icons/react/FolderOpen"
+import { GpsFixIcon } from "@phosphor-icons/react/GpsFix"
+import { LayoutIcon } from "@phosphor-icons/react/Layout"
+import { NotePencilIcon } from "@phosphor-icons/react/NotePencil"
+import { SortDescendingIcon } from "@phosphor-icons/react/SortDescending"
+import { UserListIcon } from "@phosphor-icons/react/UserList"
+import { UsersIcon } from "@phosphor-icons/react/Users"
+import { WalletIcon } from "@phosphor-icons/react/Wallet"
 import type { MenuNavigationItem } from "./menu"
 
 const DEFAULT_NAV: MenuNavigationItem[] = [
@@ -82,6 +81,15 @@ const MODIO_NAV: MenuNavigationItem[] = [
   { id: "tracking", label: "Tracking", icon: GpsFixIcon },
 ]
 
+const CAREERMD_NAV: MenuNavigationItem[] = [
+  { id: "dashboard", label: "Dashboard", icon: LayoutIcon },
+  { id: "jobs", label: "Jobs", icon: BriefcaseIcon },
+  { id: "employers", label: "Employers", icon: BuildingsIcon },
+  { id: "candidates", label: "Candidates", icon: UsersIcon },
+  { id: "messages", label: "Messages", icon: EnvelopeIcon },
+  { id: "reporting", label: "Reporting", icon: ChartBarIcon },
+]
+
 const WIREFRAME_NAV: MenuNavigationItem[] = Array.from({ length: 5 }, (_, i) => ({
   id: `menu-item-${i + 1}`,
   label: "Menu Item",
@@ -96,6 +104,7 @@ const BRAND_NAVIGATION: Record<string, MenuNavigationItem[]> = {
   connect: CONNECT_NAV,
   locumsmart: LOCUMSMART_NAV,
   modio: MODIO_NAV,
+  careermd: CAREERMD_NAV,
   wireframe: WIREFRAME_NAV,
 }
 

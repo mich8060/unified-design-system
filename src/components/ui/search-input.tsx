@@ -1,8 +1,7 @@
 "use client"
 
 import type { ReactNode } from "react"
-import { MagnifyingGlassIcon } from "@phosphor-icons/react"
-
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass"
 import {
   InputGroup,
   InputGroupAddon,
@@ -14,6 +13,9 @@ import { type InputProps } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
 export type SearchInputVariant = "default" | "shortcut"
+
+/** Field fill — contrast against the parent surface (gray vs white). */
+export type SearchInputSurface = "primary" | "secondary"
 
 function DefaultShortcutHint() {
   return (
@@ -29,6 +31,12 @@ export type SearchInputProps = Omit<InputProps, "type"> & {
   inputClassName?: string
   /** `shortcut`: trailing {@link Kbd} hint before the search icon (e.g. command palette). */
   variant?: SearchInputVariant
+  /**
+   * Field background for contrast with the parent:
+   * **`secondary`** (default, gray) on white / primary surfaces;
+   * **`primary`** (white) on gray / secondary surfaces (e.g. edge Main + Filterbar).
+   */
+  surface?: SearchInputSurface
   /** Replaces the default ⌘ / K hint when `variant` is `"shortcut"`. */
   shortcut?: ReactNode
   /** Optional `aria-keyshortcuts` on the field when `variant` is `"shortcut"` (defaults to `Meta+K` only if `shortcut` is omitted). */
@@ -50,6 +58,7 @@ function SearchInput({
   inputClassName,
   inputSize,
   variant = "default",
+  surface = "secondary",
   shortcut,
   ariaKeyShortcuts,
   autoComplete = "off",
@@ -69,7 +78,14 @@ function SearchInput({
   return (
     <InputGroup
       inputSize={inputSize}
-      className={cn("uds-search-field bg-[var(--uds-surface-secondary)]", className)}
+      data-surface={surface}
+      className={cn(
+        "uds-search-field",
+        surface === "primary"
+          ? "bg-[var(--uds-surface-primary)]"
+          : "bg-[var(--uds-surface-secondary)]",
+        className,
+      )}
     >
       {!hideSubmitButton ? (
         <InputGroupAddon align="inline-start" className="uds-input-group-addon--flush-y pl-2 pr-0">

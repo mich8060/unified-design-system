@@ -458,6 +458,55 @@
   --brand-quaternary-900: #3B260D;
 }
 
+/* CareerMD: Black primary + Purple (innovation) + Teal accent from brand style guide. */
+.brand-careermd,
+[data-brand=careermd] {
+  --brand-primary-25: #F7F7F7;
+  --brand-primary-50: #EFEFEF;
+  --brand-primary-100: #DCDCDC;
+  --brand-primary-200: #B8B8B8;
+  --brand-primary-300: #8F8F8F;
+  --brand-primary-400: #5C5C5C;
+  --brand-primary-500: #232323;
+  --brand-primary-600: #1E1E1E;
+  --brand-primary-700: #191919;
+  --brand-primary-800: #121212;
+  --brand-primary-900: #0A0A0A;
+  --brand-secondary-25: #F5F6FF;
+  --brand-secondary-50: #ECEEFF;
+  --brand-secondary-100: #D8DCFF;
+  --brand-secondary-200: #B4BBFF;
+  --brand-secondary-300: #919AFF;
+  --brand-secondary-400: #7A86FF;
+  --brand-secondary-500: #6B7AFF;
+  --brand-secondary-600: #5160E6;
+  --brand-secondary-700: #3F4CC4;
+  --brand-secondary-800: #323B9A;
+  --brand-secondary-900: #242A6E;
+  --brand-tertiary-25: #F2FCFA;
+  --brand-tertiary-50: #E6FAF7;
+  --brand-tertiary-100: #C9F5EE;
+  --brand-tertiary-200: #9EECE0;
+  --brand-tertiary-300: #7AE5D6;
+  --brand-tertiary-400: #5DE0D0;
+  --brand-tertiary-500: #3BC9B8;
+  --brand-tertiary-600: #24A89A;
+  --brand-tertiary-700: #1A857A;
+  --brand-tertiary-800: #15665D;
+  --brand-tertiary-900: #0F4741;
+  --brand-quaternary-25: #F8F9FA;
+  --brand-quaternary-50: #F4F6F8;
+  --brand-quaternary-100: #E8EAEC;
+  --brand-quaternary-200: #D0D3D6;
+  --brand-quaternary-300: #B4B7B9;
+  --brand-quaternary-400: #9A9DA0;
+  --brand-quaternary-500: #86888A;
+  --brand-quaternary-600: #6C6E70;
+  --brand-quaternary-700: #555759;
+  --brand-quaternary-800: #3F4143;
+  --brand-quaternary-900: #2A2C2E;
+}
+
 /* CHG / default consumer brand: Connect-aligned palette with Unified Design System SVG lockups. */
 .brand-chg,
 [data-brand=chg] {
@@ -524,7 +573,9 @@
 .brand-gms,
 [data-brand=gms],
 .brand-chg,
-[data-brand=chg] {
+[data-brand=chg],
+.brand-careermd,
+[data-brand=careermd] {
   --uds-color-primary-25: var(--brand-primary-25);
   --uds-color-primary-50: var(--brand-primary-50);
   --uds-color-primary-100: var(--brand-primary-100);
@@ -1511,6 +1562,8 @@ body {
   --uds-container-narrow: 512px;
   --uds-container-prose: 640px;
   --uds-container-content: 960px;
+  /** Inner column inside fixed MainContent (left-aligned within the 1280px panel). */
+  --uds-container-main: 1000px;
   --uds-container-wide: 1440px;
 }
 
