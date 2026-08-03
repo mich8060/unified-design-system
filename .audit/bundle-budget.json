@@ -25,12 +25,13 @@
     "branding": {
       "entry": ".audit/entry-branding.mjs",
       "gzipBytes": 37000,
-      "description": "Branding.js + all lazy SVG chunks bundled (node_modules external). SVGs load lazily per-brand at runtime."
+      "includeAsyncChunks": true,
+      "description": "Branding.js + all lazy SVG chunks (node_modules external). SVGs load lazily per-brand at runtime; budget sums entry + async chunks."
     },
     "app-shell": {
       "entry": ".audit/entry-app-shell.mjs",
       "gzipBytes": 12000,
-      "description": "AppShell subgraph, react-router-dom deferred via React.lazy (node_modules external)"
+      "description": "AppShell eager subgraph (Header/Search/Button). Lazy Branding SVG chunks excluded via code-splitting; react-router-dom deferred via React.lazy (node_modules external)."
     }
   }
 }

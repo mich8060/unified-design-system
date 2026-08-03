@@ -14,7 +14,13 @@
   "imports": {
     "allowed": [
       "@chghealthcare/unified-design-system",
-      "@chghealthcare/unified-design-system/styles.css"
+      "@chghealthcare/unified-design-system/styles.css",
+      "@chghealthcare/unified-design-system/chart",
+      "@chghealthcare/unified-design-system/micro-calendar",
+      "@chghealthcare/unified-design-system/calendar",
+      "@chghealthcare/unified-design-system/date-input",
+      "@chghealthcare/unified-design-system/date-range-input",
+      "@chghealthcare/unified-design-system/input-otp"
     ],
     "forbiddenPatterns": [
       "src/components/ui/*",

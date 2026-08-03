@@ -751,7 +751,18 @@ function buildContract(version, componentCatalog, dslDocs = []) {
       styleImport: `${PACKAGE_NAME}/styles.css`,
     },
     imports: {
-      allowed: [PACKAGE_NAME, `${PACKAGE_NAME}/styles.css`],
+      // Root + styles for most UI. Optional subpaths are kept off the barrel
+      // (heavy / peer-dependent) and are allowed when recipes call for them.
+      allowed: [
+        PACKAGE_NAME,
+        `${PACKAGE_NAME}/styles.css`,
+        `${PACKAGE_NAME}/chart`,
+        `${PACKAGE_NAME}/micro-calendar`,
+        `${PACKAGE_NAME}/calendar`,
+        `${PACKAGE_NAME}/date-input`,
+        `${PACKAGE_NAME}/date-range-input`,
+        `${PACKAGE_NAME}/input-otp`,
+      ],
       forbiddenPatterns: [
         "src/components/ui/*",
         "dist/*",

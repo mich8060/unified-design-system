@@ -111,5 +111,4 @@ export {
   useAppShellChrome,
   useAppShellMenuExpanded,
   APPSHELL_DESKTOP_MQ,
-  UDS_DEFAULT_BRAND,
 }

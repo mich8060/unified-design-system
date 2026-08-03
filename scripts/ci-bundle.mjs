@@ -123,7 +123,11 @@ for (const [name, spec] of components) {
     process.exit(1)
   }
 
-  const outFile = path.join(auditDir, `.ci-bundle-${name}.mjs`)
+  // Code-split so lazy Branding SVG chunks (and similar) are not inlined into the
+  // AppShell measurement. Default: eager entry only. Branding sets includeAsyncChunks.
+  const outDir = path.join(auditDir, `.ci-bundle-${name}`)
+  fs.rmSync(outDir, { recursive: true, force: true })
+  fs.mkdirSync(outDir, { recursive: true })
   try {
     await esbuild.build({
       entryPoints: [entryPath],
@@ -131,7 +135,8 @@ for (const [name, spec] of components) {
       bundle: true,
       platform: "node",
       format: "esm",
-      outfile: outFile,
+      splitting: true,
+      outdir: outDir,
       logLevel: "warning",
       // Treat all node_modules as external — we only measure our own component code.
       plugins: [
@@ -144,12 +149,26 @@ for (const [name, spec] of components) {
       ],
     })
 
-    const raw = fs.readFileSync(outFile)
-    const gzipped = zlib.gzipSync(raw)
-    const ok = gzipped.byteLength <= spec.gzipBytes
-    results.push({ name, raw: raw.byteLength, gzip: gzipped.byteLength, budget: spec.gzipBytes, ok })
+    const entryBase = `${path.basename(entryPath, path.extname(entryPath))}.js`
+    const files = fs.readdirSync(outDir).filter((f) => f.endsWith(".js"))
+    const includeAsync = spec.includeAsyncChunks === true
+    const measured = includeAsync ? files : files.filter((f) => f === entryBase)
+    if (measured.length === 0) {
+      console.error(`ci:bundle: no measurable output for "${name}" (expected ${entryBase})`)
+      process.exit(1)
+    }
+
+    let rawBytes = 0
+    let gzipBytes = 0
+    for (const file of measured) {
+      const buf = fs.readFileSync(path.join(outDir, file))
+      rawBytes += buf.byteLength
+      gzipBytes += zlib.gzipSync(buf).byteLength
+    }
+    const ok = gzipBytes <= spec.gzipBytes
+    results.push({ name, raw: rawBytes, gzip: gzipBytes, budget: spec.gzipBytes, ok })
   } finally {
-    if (fs.existsSync(outFile)) fs.unlinkSync(outFile)
+    fs.rmSync(outDir, { recursive: true, force: true })
   }
 }
 
