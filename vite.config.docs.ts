@@ -44,13 +44,14 @@ function createDocsUdsAliases(rootDir: string): AliasOptions {
   return aliases
 }
 
-// This repo's GitHub Pages site is served at the domain root
-// (private-repo Pages use a dedicated https://<random>.pages.github.io/ origin
-// with no /<repo>/ subpath), so the base is "/". If this ever moves to a public
-// project page at https://<org>.github.io/unified-design-system/, change this to
-// "/unified-design-system/" for production builds.
+// Private GitHub Pages hosts at domain root (`https://*.pages.github.io/`).
+// Public project Pages use `https://<user>.github.io/<repo>/` — set DOCS_BASE
+// (deploy-pages.yml) to `/<repo>/` in that case. Default "/" for local builds.
+const docsBaseEnv = process.env.DOCS_BASE?.trim() || "/"
+const docsBase = docsBaseEnv.endsWith("/") ? docsBaseEnv : `${docsBaseEnv}/`
+
 export default defineConfig(() => ({
-  base: '/',
+  base: docsBase,
   define: {
     __DOCS_VERSION__: JSON.stringify(pkg.version),
   },

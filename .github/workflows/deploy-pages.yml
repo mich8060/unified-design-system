@@ -30,7 +30,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Resolve docs base path
+        id: docs_base
+        run: |
+          if [ "${{ github.event.repository.private }}" = "true" ]; then
+            echo "path=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=/${{ github.event.repository.name }}/" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build docs site
+        env:
+          DOCS_BASE: ${{ steps.docs_base.outputs.path }}
         run: npm run build:docs
 
       - name: Add SPA fallback (404 -> index.html)
