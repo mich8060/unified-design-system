@@ -1,5 +1,9 @@
 # UDS Contract
 
+This file covers **consuming** UDS in a product app. Working on the UDS package itself (adding a
+component, running repo checks, publishing a release)? See [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+instead.
+
 Use [`ai/uds-contract.json`](./ai/uds-contract.json) as the source of truth for **what** (APIs, recipes, anti-patterns).
 
 Use [`design-language/`](./design-language/) as the Design System Language for **why/when** reasoning (philosophy → physics → semantics → grammar → decisions → patterns → ontology → tokens).
