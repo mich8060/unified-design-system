@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { CalendarBlankIcon } from "@phosphor-icons/react"
-
+import { CalendarBlankIcon } from "@phosphor-icons/react/CalendarBlank"
 import { Calendar } from "@/components/ui/calendar"
 import {
   formatDigitsAsMmDdYyyy,
@@ -218,7 +217,7 @@ function DateInput({
             captionLayout={yearSelection === "caption" ? captionLayout : "label"}
             startMonth={startMonth ?? defaultCalendarStartMonth()}
             endMonth={endMonth ?? defaultCalendarEndMonth()}
-            className="rounded-lg border bg-card"
+            className="rounded-[length:var(--uds-radius-4)] border bg-card"
           />
         </div>
       ) : null}

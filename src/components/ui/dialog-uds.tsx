@@ -17,8 +17,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { XIcon } from "@phosphor-icons/react"
-
+import { XIcon } from "@phosphor-icons/react/X"
 type DialogSize = "sm" | "md" | "lg" | "xl" | "2xl"
 
 const dialogSizeClasses: Record<DialogSize, string> = {

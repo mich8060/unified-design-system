@@ -12,7 +12,7 @@
   },
   "Menu": {
     "nodeId": "1895:6336",
-    "description": "Product sidebar rail with brand header and per-brand default navigation. Compose inside AppShell slot `menu`. Expanded rail is 280px with wordmark + toggle; collapsed rail is 64px with brand mark and icon-only root nav.",
+    "description": "Product sidebar rail with brand header and per-brand default navigation. Compose inside AppShell slot `menu`. Expanded rail is 280px; collapsed rail is 56px with icon-only root nav.",
     "variantAxes": ["Brand", "Rail"],
     "variantCount": 18,
     "variants": [
@@ -68,6 +68,7 @@
           "Locumsmart",
           "Modio",
           "GMS",
+          "CareerMD",
           "Wireframe"
         ],
         "codeProp": "brand",
@@ -80,6 +81,7 @@
           "Locumsmart": "locumsmart",
           "Modio": "modio",
           "GMS": "gms",
+          "CareerMD": "careermd",
           "Wireframe": "wireframe"
         }
       },
@@ -90,7 +92,7 @@
         "codeProp": "data-expanded / collapsed",
         "codeMapping": {
           "Expanded": "expanded (280px rail)",
-          "Collapsed": "collapsed (64px rail)"
+          "Collapsed": "collapsed (56px rail)"
         }
       }
     },

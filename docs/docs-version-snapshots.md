@@ -1,6 +1,6 @@
 # Documentation version snapshots
 
-The docs site can show **frozen** navigation/catalog bundles per semver under `src/docs/versions/<version>/`. The sync script runs before every `npm run build:docs`.
+The docs site loads a **single frozen** navigation/catalog bundle under `src/docs/versions/<version>/` for the latest retained package line. The sync script runs before every `npm run build:docs`. There is **no** documentation version dropdown in the Menu.
 
 ## When a new snapshot is created
 
@@ -11,16 +11,11 @@ The docs site can show **frozen** navigation/catalog bundles per semver under `s
 | **Patch** (e.g. 1.0.5 → 1.0.6) | **No** — reuse the latest snapshot |
 | Same version rebuild | Refreshes existing snapshot in place |
 
-Patch releases still ship updated **live** docs (current `src/docs` source) when you run `build:docs`; only the **versioned snapshot** in the sidebar selector stays on the latest minor/major line until the next minor or major bump.
+Patch releases still ship updated **live** docs (current `src/docs` source) when you run `build:docs`; the frozen snapshot folder only advances on minor/major (or force).
 
-## Sidebar version selector
+## Retention
 
-The **Docs version** control is **hidden** until at least two minor/major snapshots exist (for example `1.0.5` and `1.1.0`). With a single snapshot line, there is nothing to switch between.
-
-Older patch-only folders (`1.0.1`, `1.0.2`, …) are **pruned** on sync. The manifest keeps at most:
-
-1. The newest snapshot, and  
-2. One older snapshot on a **different** minor or major line (when present).
+Only the **newest** snapshot is kept. Older semver folders are **pruned** on sync. Historical version switching is not supported.
 
 ## Maintainer commands
 

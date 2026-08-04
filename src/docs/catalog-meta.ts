@@ -309,9 +309,10 @@ export const CATALOG_META: CatalogEntry[] = [
     slug: 'accessibility',
     name: 'Accessibility',
     description:
-      'Screen-reader-only text and forced-colors adjustments from Tailwind’s accessibility utilities.',
+      'Screen-reader-only text (`sr-only`) and forced-colors utilities. Compose with package `Button` — use `aria-label` for icon-only actions, or nest `<span className="sr-only">` for extra AT copy beside a visible label.',
     props: [
-      u('sr-only / not-sr-only', 'visually hidden', 'Available to AT only.'),
+      u('sr-only / not-sr-only', 'visually hidden', 'Available to AT only — nest inside Button children when needed.'),
+      u('aria-label', 'accessible name', 'Preferred for icon-only Button (`size="icon"`).'),
       u('forced-color-adjust-*', 'forced-color-adjust', 'Respect system contrast themes.'),
     ],
   },

@@ -94,13 +94,13 @@ export function CodePanel({ code, label = 'Code', language = 'tsx' }: Props) {
       </div>
       {showHighlighted ? (
         <div
-          className="code-panel-shiki max-h-[24rem] overflow-auto p-4 text-xs leading-relaxed md:text-sm [&_code]:font-mono [&_pre]:m-0 [&_pre]:font-mono [&_pre]:leading-relaxed"
+          className="code-panel-shiki max-h-[24rem] overflow-auto p-4 text-xs leading-relaxed md:text-sm [&_code]:rounded-none [&_code]:bg-transparent [&_code]:p-0 [&_code]:font-mono [&_pre]:m-0 [&_pre]:bg-transparent [&_pre]:font-mono [&_pre]:leading-relaxed"
           // Trusted local docs snippets only
           dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (
-        <pre className="max-h-[24rem] overflow-auto p-4 text-xs leading-relaxed text-neutral-300 md:text-sm">
-          <code className="font-mono">{trimmed}</code>
+        <pre className="max-h-[24rem] overflow-auto bg-transparent p-4 text-xs leading-relaxed text-neutral-300 md:text-sm">
+          <code className="rounded-none bg-transparent p-0 font-mono">{trimmed}</code>
         </pre>
       )}
     </div>

@@ -21,6 +21,7 @@ const CONTRACT_PATH = path.join(ROOT, "ai/uds-contract.json")
 const contract = JSON.parse(readFileSync(CONTRACT_PATH, "utf8"))
 const ALLOWED_PACKAGE = contract.package.primaryEntry
 const STYLE_IMPORT = contract.package.styleImport
+const ALLOWED_IMPORTS = new Set(contract.imports?.allowed ?? [ALLOWED_PACKAGE, STYLE_IMPORT])
 const FORBIDDEN_PATTERNS = contract.imports.forbiddenPatterns
 const ANTI_PATTERNS = contract.antiPatterns ?? []
 
@@ -292,13 +293,13 @@ function validateFile(filePath) {
 
     if (
       importPath.startsWith("@chghealthcare/unified-design-system/") &&
-      importPath !== STYLE_IMPORT
+      !ALLOWED_IMPORTS.has(importPath)
     ) {
       violations.push({
         file: rel,
         rule: "deep-import",
         line: findLine(lines, importPath),
-        message: `Import from ${ALLOWED_PACKAGE} only, not subpaths like ${importPath}.`,
+        message: `Import from ${ALLOWED_PACKAGE} (or an allowed optional subpath in ai/uds-contract.json imports.allowed), not ${importPath}.`,
       })
     }
   }

@@ -20,10 +20,14 @@ function renderExample(index: number) {
   return example.previewInner
 }
 
-export const Actions: Story = {
+export const ThreeSections: Story = {
   render: () => renderExample(0),
 }
 
-export const Filters: Story = {
+export const Large: Story = {
   render: () => renderExample(1),
+}
+
+export const ActionsOnly: Story = {
+  render: () => renderExample(2),
 }

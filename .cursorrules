@@ -4,6 +4,8 @@ Package: `@chghealthcare/unified-design-system`
 
 **Canonical sources (read before generating UI):**
 - [`ai/uds-contract.json`](./ai/uds-contract.json) — machine-readable contract (also `@chghealthcare/unified-design-system/contract` when installed)
+- [`design-language/`](./design-language/) — Design System Language (why/when); start at `design-language/README.md`
+- [`ai/indexes/`](./ai/indexes/) — AI retrieval indexes (concept, decision, pattern, reasoning, …)
 - [`AGENTS.md`](./AGENTS.md) — agent rules summary
 - [`setup.md`](./setup.md) — consumer bootstrap
 - [`AI_USAGE.md`](./AI_USAGE.md) — allowed imports and anti-patterns
@@ -24,14 +26,46 @@ Legacy package `@mich8060/chg-design-system` and the old `src/ui/` folder layout
 
 - Default shell: **`AppShell`** with **`Menu`** in the menu slot (not `Sidebar*` unless you own rail CSS).
 - Page content: **`AppShell.Main`**. Set **`enableRouterOutlet={false}`** for static apps.
-- Menu brand: default **`chg`**; override with **`brand`** prop. Use **`headerVariant="title"`** for internal tools — see `ai/guides/menu-header-identity.md`.
-- Screen patterns: `ai/recipes/*.md` and `ai/examples/*.tsx`.
+- Branding + menu toggle live in the full-width **AppShell Header**; set **`brand`** / **`headerVariant`** / **`headerTitle`** on AppShell (Menu is nav-only). See `ai/guides/menu-header-identity.md`.
+- Screen patterns: `design-language/decision-rules/choosing-patterns.md` → `ai/recipes/*.md` and `ai/examples/*.tsx`.
+- Reason with `design-language/grammar/` and `design-language/decision-rules/trees/` before inventing layout.
 
 ## Styling
 
 - Design tokens: CSS variables `--uds-*` (semantic colors, spacing, radius).
 - Rectangle corner radius **≤ 12px**; `rounded-full` only for circles/pills.
 - Icons: Phosphor via package icon components (e.g. `HouseIcon`), not ad-hoc SVG chevrons.
+
+## Composition — Required (high-frequency)
+
+Same as [`AGENTS.md`](./AGENTS.md) Composition section — apply before generating screens:
+
+- Page composition: answer pre-layout questions in `design-language/semantics/page-composition.md`; match anatomy in `design-language/patterns/screen-layout-patterns.md` (01–11); do not default to a full-width Card stack; **most content blocks ≤720px** — use columns when Main is wider. Demos: workspace-dashboard, analytics-overview, settings-form, narrow-form, settings-nav-panel, data-workflow-table
+- StatisticCards: horizontal row, gap 16 or 24 — `design-language/ontology/statistic-card.md`
+- No SearchInput in PageHeaderActions / Header trailing — `design-language/ontology/page-header.md`
+- Main section gap: prefer MainStack (gap 24); FAIL: gap-3/gap-5/space-y-2 — `design-language/semantics/appshell-main-containment.md`
+- Form fields: prefer stacked; `md:grid-cols-2` only for related pairs (first/last name) or dense forms — `design-language/patterns/forms.md`
+- Required: short regions share a row at lg+ (`lg:grid-cols-2` / chart+aside); FAIL: skinny full-width list/feed/callout — `ai/examples/workspace-dashboard.tsx`
+- Boxed padding: Card+CardContent (16px); FAIL: flush on box edge — `design-language/ontology/card.md`
+- Tabs: prefer variant line; prefer fill={false} (condensed triggers; list still w-full); **Required:** 24px between TabsList and next item — `design-language/ontology/tabs.md`
+- Table cells: body py 8px; horizontal 4px; first/last 16–24; TableHead ≥48px; compact/sm controls in rows; trailing actions → last cell `w-0` (hug) — `design-language/ontology/table-list.md`
+- Status: prefer appearance outlined; colors/appearances match Badge (subtle/pastel/outlined/solid) — `design-language/ontology/status.md`
+- Badge: hug label content; FAIL IF full-width of container — `design-language/ontology/badge.md`
+- Feedback colors: error → destructive; warning → warning; success → constructive; info → action/info — `design-language/foundations/color.md`
+- Dominant variant: keep the prevalent component variant unless the problem requires a change — `design-language/semantics/dominant-variant.md`
+- Grid peers: match heights (esp. non-bottom rows); stretch if Δ ≤ 150px; bottom row may stay natural; FAIL stretch voids >150px empty — `design-language/foundations/grid.md`
+- Headline hierarchy (Required): only PageHeaderTitle is 28; sections ≤24; Sheet/Drawer titles 16 — FAIL if any other headline ≥ page title — `design-language/semantics/hierarchy.md`
+- PageHeader → first content ≤ 24px — `design-language/ontology/page-header.md`
+- MainContent: keep `edge` or `fixed` consistent across the app; fixed: no outer L/R pad, no min-height; inner 1000 padding via appearance default|expanded (24|48) — `design-language/semantics/appshell-main-containment.md`
+- PageHeaderActions / FilterbarActions: one primary; default size; >3 → DotsThree last, weight bold (not fill); prefer no Badge in PageHeaderActions — `design-language/semantics/toolbar-action-slots.md`
+- Filterbar SearchInput: gray parent → surface="primary"; white parent → surface="secondary" (default); Filters: icon-only size="icon" after search — `design-language/ontology/filterbar.md`
+- Medallion: prefer lg — `design-language/ontology/medallion.md`
+- Icon-only Buttons: square; size="icon" (44) — `design-language/semantics/button-icon-size.md`
+- Stacked bars: touching ends radius 0 — `design-language/semantics/stacked-bar-radius.md`
+- Listview: width **320–480px** (`listviewWidth`, default 320); `Toolbar` titlebar; SearchInput **Required 4px** pad all sides + `border-b` on wrapper; entities `Item`/`Card`; FAIL custom header, flush SearchInput, or ad-hoc rows — `design-language/semantics/listview-drives-main.md`
+- Card clip / stretch voids: FAIL clipped copy; FAIL stretch empty interiors >150px — `design-language/composition/overflow.md`, `foundations/grid.md`
+
+Consumer AI bootstrap (Cursor / Claude / generic): `ai/guides/consumer-ai-bootstrap.md`.
 
 ## Figma (when using MCP / use_figma)
 

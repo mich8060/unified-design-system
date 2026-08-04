@@ -1,7 +1,7 @@
 /**
- * Documentation version selector (sidebar). Frozen snapshots are added on minor/major
- * package releases only (see docs/docs-version-snapshots.md). `DOCS_SITE_PACKAGE_VERSION`
- * is always the current package.json version; the default snapshot may be an earlier patch.
+ * Docs version helpers. Only the latest frozen snapshot is retained
+ * (see docs/docs-version-snapshots.md). There is no sidebar version switcher.
+ * `DOCS_SITE_PACKAGE_VERSION` is always the current package.json version.
  */
 
 import { getDocsVersionManifest, shouldShowDocsVersionSelector } from './versions/manifest'
@@ -23,7 +23,7 @@ export const DOCS_VERSION_OPTIONS: { value: DocsVersionId; label: string }[] = g
   }),
 )
 
-/** Latest documentation snapshot (newest entry in the version manifest). */
+/** Latest (and only retained) documentation snapshot. */
 export function getDocsSiteDefaultVersion(): DocsVersionId {
   const manifest = getDocsVersionManifest()
   const latest = manifest.versions[0]?.id
@@ -33,7 +33,7 @@ export function getDocsSiteDefaultVersion(): DocsVersionId {
   return manifest.defaultVersion
 }
 
-/** Docs site always opens on the latest version; use the menu selector to view older snapshots for this session. */
+/** Docs site always opens on the latest retained snapshot. */
 export function readStoredDocsVersion(): DocsVersionId {
   return getDocsSiteDefaultVersion()
 }

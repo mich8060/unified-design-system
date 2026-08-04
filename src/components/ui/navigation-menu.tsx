@@ -2,7 +2,7 @@ import * as React from "react"
 import { NavigationMenu as NavigationMenuPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { CaretDownIcon } from "@phosphor-icons/react"
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown"
 import {
   navigationMenuContentClass,
   navigationMenuIndicatorClass,

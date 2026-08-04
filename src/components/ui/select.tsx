@@ -2,12 +2,10 @@
 
 import * as React from "react"
 import { type VariantProps } from "class-variance-authority"
-import {
-  CaretDownIcon,
-  CaretUpIcon,
-  CheckIcon,
-  MagnifyingGlassIcon,
-} from "@phosphor-icons/react"
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown"
+import { CaretUpIcon } from "@phosphor-icons/react/CaretUp"
+import { CheckIcon } from "@phosphor-icons/react/Check"
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass"
 import { Select as SelectPrimitive } from "radix-ui"
 
 import { inputVariants } from "@/components/ui/input"

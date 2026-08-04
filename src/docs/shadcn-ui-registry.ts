@@ -44,19 +44,23 @@ export const SHADCN_UI_SLUGS = [
   'link',
   'medallion',
   'menubar',
+  'main-content',
   'micro-calendar',
   'native-select',
   'navigation-menu',
   'number-input',
+  'page-header',
   'pagination',
   'password-input',
   'phone-input',
+  'pill-toggle',
   'popover',
   'progress',
   'progress-circles',
   'radio-group',
   'resizable',
   'scroll-area',
+  'filterbar',
   'search-input',
   'select',
   'separator',
@@ -93,6 +97,10 @@ export function formatShadcnComponentName(slug: string): string {
   if (slug === 'dot-status') return 'DotStatus'
   if (slug === 'sonner') return 'Toast'
   if (slug === 'aspect-ratio') return 'Image Aspect'
+  if (slug === 'statistics') return 'Statistic Card'
+  if (slug === 'filterbar') return 'Filterbar'
+  if (slug === 'page-header') return 'Page Header'
+  if (slug === 'main-content') return 'Main Content'
   return slug
     .split('-')
     .map((w) => (ACRONYMS.has(w) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))

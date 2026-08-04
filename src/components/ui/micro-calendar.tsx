@@ -1,13 +1,10 @@
 "use client"
 
 import * as React from "react"
-import {
-  CaretDownIcon,
-  CaretUpIcon,
-  CaretLeftIcon,
-  CaretRightIcon,
-} from "@phosphor-icons/react"
-
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown"
+import { CaretUpIcon } from "@phosphor-icons/react/CaretUp"
+import { CaretLeftIcon } from "@phosphor-icons/react/CaretLeft"
+import { CaretRightIcon } from "@phosphor-icons/react/CaretRight"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -91,7 +88,7 @@ function TravelGlyph({ className }: { className?: string }) {
     >
       <path
         d="M17.5791 15.4736H0.865265L9.22171 1L17.5791 15.4736Z"
-        fill="var(--uds-color-accent-green-50)"
+        fill="var(--uds-color-accent-green-100)"
         stroke="var(--uds-color-accent-green-700)"
       />
     </svg>
@@ -113,8 +110,8 @@ function AssignmentGlyph({ className }: { className?: string }) {
         cx="8"
         cy="8"
         r="7.5"
-        fill="var(--uds-color-accent-blue-50)"
-        stroke="var(--uds-color-accent-blue-600)"
+        fill="var(--uds-color-accent-blue-100)"
+        stroke="var(--uds-color-accent-blue-700)"
       />
     </svg>
   )

@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Command as CommandPrimitive } from "cmdk"
-import { CheckIcon, MagnifyingGlassIcon } from "@phosphor-icons/react"
-
+import { CheckIcon } from "@phosphor-icons/react/Check"
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass"
 import {
   InputGroup,
   InputGroupAddon,

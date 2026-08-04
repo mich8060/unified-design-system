@@ -29,7 +29,7 @@ function Footer({
     <footer
       data-slot="uds-footer"
       className={cn(
-        "flex h-10 shrink-0 items-center gap-[length:var(--uds-gap-12)] border-t border-[var(--uds-border-primary)] bg-[var(--uds-surface-primary)] px-[length:var(--uds-gap-16)] py-[length:var(--uds-gap-8)] text-xs text-[var(--uds-text-tertiary)]",
+        "flex h-10 shrink-0 items-center gap-[length:var(--uds-gap-12)] border-t border-[var(--uds-border-primary)] bg-transparent p-0 text-xs text-[var(--uds-text-tertiary)]",
         className,
       )}
       {...props}

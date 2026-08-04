@@ -1,6 +1,16 @@
 # Component regression testing plan
 
-This document describes how to add automated regression coverage for UDS React components. It is a **plan**, not an implemented test suite—the repo today has no Vitest/Jest/Playwright component tests.
+Automated regression coverage for UDS React components across three layers. **Phase 1 is implemented**; Phases 2–3 are wired as a separate CI job.
+
+## Status
+
+| Phase | Status | How to run |
+|-------|--------|------------|
+| **1 — Unit / a11y** | Implemented | `npm run test:unit` (Vitest + Testing Library; colocated `src/components/ui/*.test.tsx`) |
+| **2 — Docs smoke** | Implemented | `npm run test:docs-smoke` (Playwright × `SHADCN_UI_SLUGS`) |
+| **3 — Visual** | Narrow baselines (darwin committed; enable CI when `*-linux.png` present) | `npm run test:visual` / `test:visual:update` — see [`e2e/visual/README.md`](../e2e/visual/README.md) |
+
+Harness: [`src/test/setup.ts`](../src/test/setup.ts), [`src/test/helpers/render-with-uds.tsx`](../src/test/helpers/render-with-uds.tsx), [`vitest.config.ts`](../vitest.config.ts). Script tests remain under `npm run test:scripts`; `npm test` runs scripts then unit.
 
 ## Goals
 
@@ -11,15 +21,15 @@ This document describes how to add automated regression coverage for UDS React c
 
 ## Current state (baseline)
 
-| Area | What exists | What it does *not* do |
-|------|-------------|------------------------|
-| **CI** (`.github/workflows/ci.yml`) | `lint`, `build:lib`, `pack:check` | No component render or screenshot checks |
+| Area | What exists | Notes |
+|------|-------------|--------|
+| **CI** (`.github/workflows/ci.yml`) | `lint`, `build:lib`, `test:scripts`, `test:unit`, validators, `pack:check` | `docs-smoke` job: Playwright smoke + narrow visuals |
 | **Typecheck** | `npm run typecheck` | Types only; no DOM or CSS |
 | **Bundle budget** | `npm run ci:bundle` | Tree-shake size for `Button` import only |
 | **Consumer fixture** | `npm run test:consumer-fixture` | `.consumer-perf` app builds against `file:..` package |
-| **Docs versions** | `npm run test:docs-versions` | Frozen snapshot **manifests** load; pages are not rendered |
-| **Docs examples** | `src/docs/shadcn-examples/registry.tsx` + `SHADCN_UI_SLUGS` | Live examples for ~80+ slugs; **manual** visual review |
-| **Unit/component tests** | None (`*.test.ts(x)` absent) | — |
+| **Docs versions** | `npm run test:docs-versions` | Latest frozen snapshot **manifest** loads; pages are not rendered |
+| **Docs examples** | `src/docs/shadcn-examples/registry.tsx` + `SHADCN_UI_SLUGS` | Also driven by docs smoke / visual e2e |
+| **Unit/component tests** | First-wave colocated `*.test.tsx` | Expand per component as needed |
 
 ### Canonical sources of truth today
 
@@ -203,7 +213,7 @@ Default smoke can use docs site default (`data-brand="chg"` on `index.html`). Op
 
 ### Relationship to existing `test:docs-versions`
 
-- **`test:docs-versions`** validates frozen **bundle JSON** and loaders (`src/docs/versions/smoke-runner.ts`).
+- **`test:docs-versions`** validates the latest frozen **bundle** and loaders (`src/docs/versions/smoke-runner.ts`).
 - **Phase 2** validates the **built site** for the current source tree.
 - Keep both; they guard different failure modes.
 
@@ -381,7 +391,7 @@ Parallelize `unit` and `docs-smoke` where possible; `visual` may stay serial or 
 
 - **When adding a component:** add slug to `SHADCN_UI_SLUGS`, examples in `registry.tsx`, then Phase 1 test stub + automatic inclusion in Phase 2 URL list.
 - **When changing tokens globally:** expect Phase 3 baseline updates; batch `test:visual:update` in a dedicated PR with design sign-off.
-- **When bumping minor/major docs snapshots:** run `test:docs-versions` (existing) plus Phase 2 smoke on preview build.
+- **When bumping minor/major docs snapshots:** run `test:docs-versions` plus Phase 2 smoke on preview build (only the newest snapshot is retained).
 
 ---
 

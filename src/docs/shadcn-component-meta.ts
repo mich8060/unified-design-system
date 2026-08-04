@@ -25,7 +25,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Badge applies compact visual labeling for status, category, or emphasis inside lists, cards, and tables.',
   },
   breadcrumb: {
-    summary: 'Breadcrumb shows the current path through a hierarchy and gives users quick recovery back to parent views.',
+    summary:
+      'Breadcrumb shows the current path through a hierarchy and gives users quick recovery back to parent views. Use size="compact" (body/12) in PageHeader — PageHeaderNav applies it automatically.',
   },
   branding: {
     summary: 'Branding renders approved wordmarks and brand marks so docs and app chrome stay aligned with system assets.',
@@ -44,7 +45,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Card composes a bordered content container with header, body, footer, and supporting text slots.',
   },
   chart: {
-    summary: 'Chart wraps chart primitives with the package theme so data views inherit system colors, spacing, and type.',
+    summary:
+      'Chart wraps chart primitives with the package theme so data views inherit system colors, spacing, and type. Stacked bars: set touching segment ends to radius 0; round only the outer free ends (typically 4).',
   },
   'check-list': {
     summary: 'CheckList presents grouped checkbox tasks with labels and supporting text for setup and completion flows.',
@@ -77,7 +79,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'DotStatus shows a compact availability or severity indicator that pairs cleanly with nearby labels.',
   },
   drawer: {
-    summary: 'Drawer slides in a task surface from the edge of the viewport for mobile-first and contextual workflows.',
+    summary:
+      'Drawer slides in a task surface from the edge of the viewport. Compose Header → Body → Footer (Body scrolls; side footer actions horizontal). Panel corners are 0px (flush to the viewport).',
   },
   'dropdown-menu': {
     summary: 'Dropdown Menu groups a small set of actions behind a trigger so controls stay concise until needed.',
@@ -107,7 +110,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Footer renders a fixed 40px bottom bar with copyright and an optional Content link slot.',
   },
   header: {
-    summary: 'Header provides a top bar above the main content area with leading content (search, breadcrumbs) and trailing utility actions.',
+    summary:
+      'Header is the full-width AppShell chrome: optional menu toggle + brand/title + search (or custom children replacing search) + trailing actions. Below lg, search collapses to an icon. Do not add SearchInput in trailing / AppShell.Header.',
   },
   input: {
     summary: 'Input handles short-form text entry with the package sizing, focus, and validation styling defaults.',
@@ -120,7 +124,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
       'Input OTP splits one-time codes into six slots with optional Minus separator. Size=Default (64×70, Display/48) or Size=Compact (44×48, Display/36) for mobile; code uses `inputSize="sm"` or responsive auto-compress below 768px.',
   },
   item: {
-    summary: 'Item is a composable content row for list-like layouts with media, text, metadata, and trailing actions.',
+    summary:
+      'Item is a composable content row with two appearances: box (rounded card) and list (radius 0 + bottom border between siblings). Variants (default / outline / muted) include hover → surface-secondary and active → surface-tertiary feedback. Compose with ItemContent, ItemTitle, ItemDescription, and ItemActions; use list + ItemGroup gap-0 for AppShell listview. Persistent selection uses variant="muted".',
   },
   kbd: {
     summary: 'Kbd renders keyboard shortcuts in a compact token style that matches instructional and command-heavy UI.',
@@ -136,9 +141,13 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary:
       'Link renders primary or secondary inline links with hover underline and optional external icon.',
   },
+  'main-content': {
+    summary:
+      'Main Content wraps AppShell.Main children. Edge: full-width on surface-secondary (recommend 24px padding; appearance=expanded applies 48px). Fixed: 1280px primary panel (border-right only, no L/R padding, no min-height); inner 1000px padding from appearance (default 24 / expanded 48) — do not wrap the page in an extra box.',
+  },
   medallion: {
     summary:
-      'Medallion is a decorative icon tile with two tones: pastel (tinted surface + deeper icon, inverting in dark) and solid (500 ramp fill + white icon, same in dark).',
+      'Medallion is a decorative icon tile with two tones: pastel (tinted surface + deeper icon, inverting in dark) and solid (500 ramp fill + white icon, same in dark). Default size is large (`lg` / 48px); prefer that unless density requires a smaller size.',
   },
   menubar: {
     summary: 'Menubar organizes application-level menus into a persistent horizontal command strip.',
@@ -156,6 +165,10 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
   'number-input': {
     summary: 'Number Input presets Input for numeric entry with decimal keyboard hints and numeric browser behavior.',
   },
+  'page-header': {
+    summary:
+      'Page Header: layout inline|block; appearance default (24px block pad) or expanded (48px); actionsPlacement trailing (default) or below (actions under description, 24px gap). Match MainContent appearance when using block. PageHeaderTitle is heading/28 (largest on the page); keep SectionHeader and other headlines ≥1 size smaller. PageHeaderActions: exactly one primary Button, default size; if more than three buttons, DotsThree overflow last on the right with weight="bold". Do not put SearchInput in actions.',
+  },
   pagination: {
     summary: 'Pagination moves users through large result sets with page links, boundaries, and jump controls.',
   },
@@ -165,6 +178,9 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
   },
   'phone-input': {
     summary: 'Phone Input presets Input for telephone formatting and keypad-friendly mobile entry.',
+  },
+  'pill-toggle': {
+    summary: 'Pill Toggle is a single fully-rounded pressed/unpressed control for compact filter or category selection.',
   },
   popover: {
     summary: 'Popover anchors lightweight content to a trigger for inline detail, helper UI, or compact forms — pass `trigger="hover"` for a hover-preview card instead of click-to-open.',
@@ -184,6 +200,10 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
   'scroll-area': {
     summary: 'Scroll Area replaces default scroll containers with themed chrome while preserving native scrolling behavior.',
   },
+  filterbar: {
+    summary:
+      'Filterbar is a module toolbar for lists and tables. FilterbarFilters: icon-only default-size Buttons left-aligned immediately after SearchInput. FilterbarActions: exactly one primary Button, default size; DotsThree overflow last on the right with weight="bold" when more than three. Facets may use size sm.',
+  },
   'search-input': {
     summary: 'Search Input presets Input for query workflows with browser-native search field behavior.',
   },
@@ -194,10 +214,12 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Separator creates subtle visual division between related groups without adding extra semantic noise.',
   },
   'section-header': {
-    summary: 'Section Header composes titles, descriptions, and actions into a reusable heading row for page sections.',
+    summary:
+      'Section Header is a full-width section heading row: title (body/20/semibold as h2 — recommended) + description (body/16) with tight line height and 0px gap, plus a vertically centered open actions slot.',
   },
   sheet: {
-    summary: 'Sheet opens a dismissible edge panel for supporting tasks, settings, and contextual details.',
+    summary:
+      'Sheet opens a dismissible edge panel for inspectors and supporting tasks. Compose Header → Body → Footer (Body scrolls; side footer actions horizontal). Panel corners are 0px (flush to the viewport).',
   },
   sidebar: {
     summary: 'Sidebar establishes an application shell with persistent navigation, collapsible rails, and responsive insets.',
@@ -216,22 +238,25 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Spinner signals indeterminate loading when progress cannot be measured as a percentage.',
   },
   statistics: {
-    summary: 'Statistics provides labeled metric cards for dashboards and summary rails with values and helper context.',
+    summary:
+      'Statistic Card shows a single KPI with title, optional medallion, display-48 value, and a footer description plus action link. Layout peer cards in a horizontal flex row with gap 16 or 24px — there is no Statistics wrapper.',
   },
   status: {
-    summary: 'Status displays semantic state labels with optional indicator dots for readiness, success, warning, and error states — with solid, outlined, and text-only appearances, each in a pastel or deeper "default" color treatment.',
+    summary: 'Status displays semantic state labels with optional indicator dots for readiness, success, warning, and error states. Preferred appearance is outlined (default); also supports solid and text-only, each in a pastel or deeper "default" color treatment.',
   },
   steps: {
-    summary: 'Steps presents ordered workflow progress with upcoming/current/complete markers and descriptive guidance.',
+    summary: 'Steps presents ordered workflow progress with complete/active/incomplete/disabled/error/warning markers, horizontal or vertical, in default or compact size.',
   },
   switch: {
     summary: 'Switch toggles a single on/off setting with immediate visual feedback.',
   },
   table: {
-    summary: 'Table structures comparative data into rows and columns with consistent headers and body cells.',
+    summary:
+      'Table structures comparative data into rows and columns. Body cells use 8px top/bottom padding; horizontal interior 4px; first cell left 16–24px; last cell right 16–24px (defaults: py-8, first pl-16, last pr-16). TableHead is ≥48px tall so headers read as distinct from body rows. Inside CardContent the table outer border is dropped so the Card keeps a single 1px outline.',
   },
   tabs: {
-    summary: 'Tabs partition related views into peer panels so users can switch contexts without leaving the page.',
+    summary:
+      'Tabs partition related views into peer panels. Preferred TabsList variant is line (underlined, default); pill uses variant="default". Preferred fill=false: list stays full width while triggers stay condensed; use fill={true} for equal-width triggers.',
   },
   text: {
     summary:

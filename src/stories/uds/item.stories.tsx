@@ -20,6 +20,10 @@ function renderExample(index: number) {
   return example.previewInner
 }
 
-export const Row: Story = {
+export const Box: Story = {
   render: () => renderExample(0),
+}
+
+export const List: Story = {
+  render: () => renderExample(1),
 }

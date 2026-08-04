@@ -1,9 +1,21 @@
-# Grouping
+---
+id: composition-grouping-redirect
+category: composition
+type: index
+priority: low
+ai_priority: low
+confidence_default: preferred
+related:
+  - grouping
+components: []
+patterns: []
+tokens: []
+depends_on: []
+influences: []
+conflicts_with: []
+alternatives: []
+---
 
-Group related items with proximity, shared surfaces (`Card`, `Field`), and consistent spacing.
+# Moved
 
-Separate unrelated groups with larger gap steps (24px+) or section headers.
-
-## See also
-
-- ../composition/proximity.md
+This document moved to [`../semantics/grouping.md`](../semantics/grouping.md).

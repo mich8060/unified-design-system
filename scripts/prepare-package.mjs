@@ -56,17 +56,21 @@ async function sanitizeViteQueryAssetFilenames() {
 
 /**
  * Tailwind/lightningcss inlines @font-face `url()` as base64 data URIs in
- * styles.css, regardless of Vite's `assetsInlineLimit`. That bloated the
- * shipped CSS by the full (base64-inflated) font payload. Decode each inlined
- * font back to a real file under dist/fonts/ and rewrite the url() to a
- * relative reference so the CSS stays small and fonts cache separately.
+ * every CSS entry (styles.css and styles-base.css both import src/fonts.css),
+ * regardless of Vite's `assetsInlineLimit`. That bloated the shipped CSS by
+ * the full (base64-inflated) font payload. Decode each inlined font back to
+ * a real file under dist/fonts/ and rewrite the url() to a relative
+ * reference so the CSS stays small and fonts cache separately.
  *
  * Order of data URIs in the bundle matches @font-face order in src/fonts.css.
+ * Run once per CSS entry that imports fonts.css — currently styles.css and
+ * styles-base.css.
  */
 const FONT_NAMES_IN_ORDER = ['Inter-Variable.woff2']
 
-async function externalizeInlinedFonts() {
-  const cssPath = path.join(distRoot, 'styles.css')
+/** @param {string} cssFileName */
+async function externalizeInlinedFonts(cssFileName) {
+  const cssPath = path.join(distRoot, cssFileName)
   let css
   try {
     css = await fs.readFile(cssPath, 'utf8')
@@ -96,7 +100,9 @@ async function externalizeInlinedFonts() {
 }
 
 await sanitizeViteQueryAssetFilenames()
-await externalizeInlinedFonts()
+for (const cssFileName of ['styles.css', 'styles-base.css']) {
+  await externalizeInlinedFonts(cssFileName)
+}
 
 // Remove the dummy JS stub emitted by the base-CSS-only vite build.
 for (const stub of ['_styles-base-dummy.js', '_styles-base-dummy.cjs']) {

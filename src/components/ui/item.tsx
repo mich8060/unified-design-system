@@ -34,17 +34,22 @@ function ItemSeparator({
 }
 
 const itemVariants = cva(
-  "group/item flex w-full flex-wrap items-center border text-sm transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors [a]:hover:bg-muted",
+  "group/item flex w-full items-center border text-sm transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
   {
     variants: {
       appearance: {
-        list: "rounded-none",
-        box: "rounded-[length:var(--uds-radius-4)]",
+        // nowrap + min-w-0: AppShell listview (320–480px) truncates title/meta beside Status
+        // radius 0 + hairline bottom divider (last sibling drops the rule)
+        list: "min-w-0 flex-nowrap rounded-none",
+        box: "flex-wrap rounded-[length:var(--uds-radius-4)]",
       },
       variant: {
-        default: "border-transparent bg-[var(--uds-surface-primary)]",
-        outline: "border-border bg-[var(--uds-surface-primary)]",
-        muted: "border-transparent bg-[var(--uds-surface-secondary)]",
+        default:
+          "border-transparent bg-[var(--uds-surface-primary)] hover:bg-[var(--uds-surface-secondary)] active:bg-[var(--uds-surface-tertiary)]",
+        outline:
+          "border-border bg-[var(--uds-surface-primary)] hover:bg-[var(--uds-surface-secondary)] active:bg-[var(--uds-surface-tertiary)]",
+        muted:
+          "border-transparent bg-[var(--uds-surface-secondary)] hover:bg-[var(--uds-surface-tertiary)] active:bg-[var(--uds-surface-tertiary)]",
       },
       size: {
         default:
@@ -53,6 +58,14 @@ const itemVariants = cva(
         xs: "gap-[length:var(--uds-gap-8)] px-[length:var(--uds-spacing-12)] py-[length:var(--uds-spacing-8)] in-data-[slot=dropdown-menu-content]:p-0",
       },
     },
+    compoundVariants: [
+      {
+        appearance: "list",
+        variant: ["default", "muted"],
+        class:
+          "border-x-transparent border-t-transparent border-b-border last:border-b-transparent",
+      },
+    ],
     defaultVariants: {
       appearance: "box",
       variant: "default",
@@ -120,7 +133,7 @@ function ItemContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="item-content"
       className={cn(
-        "flex flex-1 flex-col gap-0 [&+[data-slot=item-content]]:flex-none",
+        "flex min-w-0 flex-1 flex-col gap-0 overflow-hidden [&+[data-slot=item-content]]:flex-none",
         className
       )}
       {...props}
@@ -133,7 +146,7 @@ function ItemTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="item-title"
       className={cn(
-        "line-clamp-1 flex w-fit items-center gap-2 font-sans text-uds-16 font-uds-semibold leading-uds-16 underline-offset-4 group-data-[size=sm]/item:text-uds-14 group-data-[size=sm]/item:leading-uds-14 group-data-[size=xs]/item:text-uds-14 group-data-[size=xs]/item:leading-uds-14 [font-family:var(--font-inter)]",
+        "line-clamp-1 flex min-w-0 max-w-full items-center gap-2 font-sans text-uds-16 font-uds-semibold leading-uds-16 underline-offset-4 group-data-[size=sm]/item:text-uds-14 group-data-[size=sm]/item:leading-uds-14 group-data-[size=xs]/item:text-uds-14 group-data-[size=xs]/item:leading-uds-14 [font-family:var(--font-inter)]",
         className
       )}
       {...props}
@@ -146,7 +159,7 @@ function ItemDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="item-description"
       className={cn(
-        "line-clamp-2 text-left font-sans text-uds-14 font-uds-regular leading-uds-14 text-uds-text-tertiary group-data-[size=sm]/item:text-uds-12 group-data-[size=sm]/item:leading-uds-12 group-data-[size=xs]/item:text-uds-12 group-data-[size=xs]/item:leading-uds-12 [font-family:var(--font-inter)] [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+        "min-w-0 line-clamp-2 text-left font-sans text-uds-14 font-uds-regular leading-uds-14 text-uds-text-tertiary group-data-[appearance=list]/item:line-clamp-1 group-data-[size=sm]/item:text-uds-12 group-data-[size=sm]/item:leading-uds-12 group-data-[size=xs]/item:text-uds-12 group-data-[size=xs]/item:leading-uds-12 [font-family:var(--font-inter)] [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
         className
       )}
       {...props}
@@ -158,7 +171,7 @@ function ItemActions({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="item-actions"
-      className={cn("flex items-center gap-2", className)}
+      className={cn("flex shrink-0 items-center gap-2", className)}
       {...props}
     />
   )

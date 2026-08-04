@@ -9,9 +9,21 @@
 .appshell-demo-root.appshell {
     min-height: 0;
     height: 100%;
+    max-height: 100%;
 }
 
-.appshell-demo-root [data-slot="uds-menu-root"] {
+/*
+ * Contain viewport-fixed Header + Menu inside the demo frame.
+ * Menu’s containing block is `.appshell--workspace` (already below chrome),
+ * so use top: 0 / height: 100% — not the production viewport offset.
+ */
+.appshell-demo-root.appshell .appshell--chrome {
     position: absolute;
+}
+
+.appshell-demo-root.appshell .appshell--menu [data-slot="uds-menu-root"] {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
 }

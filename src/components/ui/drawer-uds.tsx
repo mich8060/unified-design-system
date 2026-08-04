@@ -3,6 +3,7 @@ import { Drawer as DrawerPrimitive } from "vaul"
 
 import { DrawerPortal } from "@/components/ui/drawer-base"
 import {
+  drawerBodyClass,
   drawerContentClass,
   drawerDescriptionClass,
   drawerFooterClass,
@@ -26,6 +27,10 @@ function DrawerOverlay({
   )
 }
 
+/**
+ * Drawer shell. Compose **Header → Body → Footer**.
+ * Side drawers fill viewport height so Body can scroll.
+ */
 function DrawerContent({
   className,
   children,
@@ -46,6 +51,7 @@ function DrawerContent({
   )
 }
 
+/** Pinned head — title / description / badges / close. */
 function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -56,6 +62,18 @@ function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+/** Scrollable middle — Required between Header and Footer. */
+function DrawerBody({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="drawer-body"
+      className={cn(drawerBodyClass, className)}
+      {...props}
+    />
+  )
+}
+
+/** Pinned foot — actions. Side drawers use a horizontal row. */
 function DrawerFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -93,6 +111,7 @@ function DrawerDescription({
 }
 
 export {
+  DrawerBody,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,

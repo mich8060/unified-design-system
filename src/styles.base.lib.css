@@ -5,6 +5,9 @@
  * (app-shell.css and uds-menu.css). Use this entry when your app does not use
  * AppShell or Menu and you want to avoid shipping their layout chrome.
  *
+ * Includes the same recipe/example layout @source set as styles.lib.css so
+ * multi-column AI recipe utilities work for styles.css-only consumers.
+ *
  * Full stylesheet (with chrome): import "@chghealthcare/unified-design-system/styles.css"
  * Base stylesheet (without chrome): import "@chghealthcare/unified-design-system/styles/base.css"
  */
@@ -16,6 +19,8 @@
 @source "./components/**/*.{ts,tsx}";
 @source "./hooks/**/*.{ts,tsx}";
 @source "./lib/**/*.{ts,tsx}";
+@source "./styles/recipe-layout-safelist.tsx";
+@source "../ai/examples/**/*.{ts,tsx}";
 
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";

@@ -11,7 +11,7 @@ import type { ShadcnUiEntry } from '../shadcn-ui-registry'
 import type { CatalogEntry } from '../types'
 import type { DocsVersionNavigation } from './types'
 
-const SECTIONS_SLUGS = new Set(['header', 'footer'])
+const SECTIONS_SLUGS = new Set(['header', 'footer', 'filterbar', 'page-header', 'main-content'])
 
 /** Routed via Menu `utilities` (not primary navigation). */
 export const DOCS_UTILITY_NAV_ROUTES: Record<string, string> = {
@@ -46,6 +46,7 @@ export function buildDocsVersionNavigation(
         { id: 'getting-started-install', label: 'Install' },
         { id: 'getting-started-usage', label: 'Usage' },
         { id: 'getting-started-app-shell', label: 'AppShell' },
+        { id: 'getting-started-design-language', label: 'Design Language' },
       ],
     },
     {
@@ -68,6 +69,9 @@ export function buildDocsVersionNavigation(
         { id: 'section-menu', label: 'Menu' },
         { id: 'section-header', label: 'Header' },
         { id: 'section-footer', label: 'Footer' },
+        { id: 'section-filterbar', label: 'Filterbar' },
+        { id: 'section-page-header', label: 'Page Header' },
+        { id: 'section-main-content', label: 'Main Content' },
       ],
     },
     {
@@ -82,10 +86,14 @@ export function buildDocsVersionNavigation(
     introduction: '/docs/introduction',
     'getting-started-install': '/docs/getting-started/install',
     'getting-started-usage': '/docs/getting-started/usage',
+    'getting-started-design-language': '/docs/getting-started/design-language',
     'getting-started-app-shell': '/docs/getting-started/app-shell',
     'section-menu': '/docs/sections/menu',
     'section-header': '/docs/sections/header',
     'section-footer': '/docs/sections/footer',
+    'section-filterbar': '/docs/sections/filterbar',
+    'section-page-header': '/docs/sections/page-header',
+    'section-main-content': '/docs/sections/main-content',
     'pattern-dashboard': '/docs/patterns/dashboard',
     ...DOCS_UTILITY_NAV_ROUTES,
     ...Object.fromEntries(catalog.map((entry) => [`foundation-${entry.slug}`, `/docs/foundations/${entry.slug}`])),

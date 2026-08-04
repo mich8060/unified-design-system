@@ -33,14 +33,9 @@ for (const entry of manifest.versions) {
   )
 }
 
-if (manifest.versions.length >= 2) {
-  const olderId = manifest.versions[manifest.versions.length - 1]?.id
-  const currentBundle = await loadDocsVersionBundle(manifest.defaultVersion)
-  const olderBundle = await loadDocsVersionBundle(olderId)
-  assert(
-    olderBundle.shadcnSlugs.length <= currentBundle.shadcnSlugs.length,
-    'older minor/major snapshot should not expose more component slugs than the current snapshot',
-  )
-}
+assert(
+  manifest.versions.length === 1,
+  'docs site retains only the latest snapshot version',
+)
 
-console.log(`docs versions smoke: ${manifest.versions.length} bundles validated`)
+console.log(`docs versions smoke: ${manifest.versions.length} bundle validated (latest only)`)

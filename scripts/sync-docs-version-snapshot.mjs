@@ -116,9 +116,9 @@ export function getLatestDocsVersionId(): DocsVersionId {
   return DOCS_VERSION_MANIFEST.versions[0]?.id ?? DOCS_VERSION_MANIFEST.defaultVersion
 }
 
-/** False until a second minor/major docs snapshot exists (hides sidebar version selector). */
+/** Version selector removed from the docs Menu; always false. */
 export function shouldShowDocsVersionSelector(): boolean {
-  return DOCS_VERSION_MANIFEST.versions.length >= 2
+  return false
 }
 `
 }

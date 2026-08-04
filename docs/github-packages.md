@@ -19,8 +19,8 @@ Triggers:
 Until the first successful run, the workflow page may show **0 workflow runs** and only highlight the manual trigger. That is normal—the release trigger still runs when you publish a release.
 
 1. Bump `version` in `package.json` and merge to `main`.
-2. Create a **GitHub Release** for that tag (published, not draft), **or** run **Publish GitHub Package** manually on `main`.
-3. CI runs `npm run build:lib` and publishes to `https://npm.pkg.github.com` using `GITHUB_TOKEN` (`packages: write`).
+2. Create a **GitHub Release** for that tag (published, not draft), **or** run **Publish GitHub Package** manually on `main`. Paste release notes from [`docs/NEXT_RELEASE_NOTES.md`](./NEXT_RELEASE_NOTES.md) when relevant, then clear that draft for the next cycle.
+3. CI runs full `npm run build:lib` (vite + `prepare-package`, which externalizes Inter from CSS) and publishes to `https://npm.pkg.github.com` using `GITHUB_TOKEN` (`packages: write`).
 
 Manual publish:
 
@@ -88,10 +88,11 @@ If developers see **Table / Board / Roadmap**, **Select a template**, or similar
 1. Install the package (steps above).
 2. Import `@chghealthcare/unified-design-system/styles.css` once.
 3. Build the app with **`AppShell`**, **`Menu`**, and **`AppShell.Main`** — see [`setup.md`](../setup.md) and [`AI_USAGE.md`](../AI_USAGE.md).
+4. **AI stubs on the hot path** (agent-owned): after install the setup agent runs `npx uds-copy-ai-rules` and commits the result (designers/PMs do not). Full matrix: [`ai/guides/consumer-ai-bootstrap.md`](../ai/guides/consumer-ai-bootstrap.md).
 
 **Do not** use shadcn CLI scaffolding as the default way to adopt UDS. Consumer apps import from the package root; they do not need `components.json` or `npx shadcn init` unless your team deliberately uses a copy-into-repo registry workflow.
 
-For AI-assisted setup, point agents at [`setup.md`](../setup.md) and tell them **not** to run `shadcn init` / `shadcn create` when adding UDS to an existing app.
+For AI-assisted setup, point agents at [`setup.md`](../setup.md) and tell them **not** to run `shadcn init` / `shadcn create` when adding UDS to an existing app — and that **after install they must run `npx uds-copy-ai-rules` themselves** (do not ask the user) and commit the hot-path stubs.
 
 ## Other distribution channels
 

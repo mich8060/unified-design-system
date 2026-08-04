@@ -215,9 +215,12 @@ export function ColorRampTabs({
     <Tabs defaultValue={initial} className={cn('w-full min-w-0', className)}>
       <TabsList
         variant="line"
+        fill={false}
         className={cn(
-          'mb-4 h-auto w-full justify-start gap-[6px] border-0 bg-transparent p-0',
-          scrollableTabs ? 'max-w-full overflow-x-auto flex-nowrap' : 'flex-wrap',
+          'mb-4 h-auto w-fit max-w-full justify-start gap-[length:var(--uds-spacing-16)] border-0 bg-transparent p-0',
+          /* Beat line-variant TabsList bottom track. */
+          'group-data-[orientation=horizontal]/tabs:border-b-0',
+          scrollableTabs ? 'overflow-x-auto flex-nowrap' : 'flex-wrap',
         )}
       >
         {tabs.map((tab) => (
@@ -226,10 +229,11 @@ export function ColorRampTabs({
             value={tab.value}
             aria-label={tab.label}
             className={cn(
-              'group h-auto shrink-0 rounded-full border-0 bg-transparent p-0 shadow-none after:hidden',
+              'group h-auto w-auto shrink-0 rounded-full border-0 bg-transparent shadow-none after:hidden',
+              /* Beat line-variant TabsTrigger px-6/py-3 (group-data selectors). */
+              'group-data-[variant=line]/tabs-list:p-0 group-data-[variant=line]/tabs-list:px-0 group-data-[variant=line]/tabs-list:py-0',
               'focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white',
               'dark:focus-visible:ring-neutral-500 dark:focus-visible:ring-offset-neutral-950',
-              scrollableTabs ? 'shrink-0' : undefined,
             )}
           >
             <ColorRampTabSwatch token={tab.swatchToken} />

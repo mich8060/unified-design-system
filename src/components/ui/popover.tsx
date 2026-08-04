@@ -122,7 +122,7 @@ function PopoverHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="popover-header"
-      className={cn("flex flex-col gap-0.5 text-sm", className)}
+      className={cn("flex flex-col gap-0.5", className)}
       {...props}
     />
   )
@@ -132,7 +132,10 @@ function PopoverTitle({ className, ...props }: React.ComponentProps<"h2">) {
   return (
     <div
       data-slot="popover-title"
-      className={cn("font-heading font-medium", className)}
+      className={cn(
+        "text-base font-uds-semibold text-[var(--uds-text-primary)]",
+        className
+      )}
       {...props}
     />
   )
@@ -145,7 +148,36 @@ function PopoverDescription({
   return (
     <p
       data-slot="popover-description"
-      className={cn("text-muted-foreground", className)}
+      className={cn(
+        "text-uds-14 font-uds-regular text-[var(--uds-text-secondary)]",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+/** Small directional indicator pointing at the trigger. Only meaningful for `trigger="click"` — Radix HoverCard has no arrow primitive. */
+function PopoverArrow({ className, ...props }: React.ComponentProps<typeof PopoverPrimitive.Arrow>) {
+  const mode = React.useContext(PopoverModeContext)
+  if (mode === "hover") return null
+  return (
+    <PopoverPrimitive.Arrow
+      data-slot="popover-arrow"
+      width={12}
+      height={6}
+      className={cn("fill-popover", className)}
+      {...props}
+    />
+  )
+}
+
+/** Actions row, e.g. Previous/Next step navigation. Spaces children to opposite ends. */
+function PopoverFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="popover-footer"
+      className={cn("flex items-center justify-between", className)}
       {...props}
     />
   )
@@ -154,8 +186,10 @@ function PopoverDescription({
 export {
   Popover,
   PopoverAnchor,
+  PopoverArrow,
   PopoverContent,
   PopoverDescription,
+  PopoverFooter,
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,

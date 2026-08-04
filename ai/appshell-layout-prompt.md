@@ -25,9 +25,12 @@ import "uds-tailwind-test/styles.css"
 ```ts
 type AppShellProps = React.ComponentProps<"div"> & {
   menu?: React.ReactNode      // Fixed sidebar slot (typically a configured <Menu>)
-  header?: React.ReactNode    // Fixed top bar above content, beside the menu
+  headerRight?: React.ReactNode // Trailing Header actions
+  headerLeading?: React.ReactNode // Custom Header leading (replaces SearchInput)
+  hideSearch?: boolean        // Omit Header SearchInput
+  headerSearchProps?: SearchInputProps
   listview?: React.ReactNode  // Optional animated secondary pane (e.g. record list, search results)
-  footer?: React.ReactNode    // Fixed bottom bar below the content area
+  footer?: React.ReactNode    // In-flow at end of appshell--main (not fixed); 48px above
 }
 ```
 
@@ -41,22 +44,25 @@ AppShell renders this tree:
 
 ```
 div.appshell [data-slot="appshell"]
-├── div.appshell--menu          (when menu is provided)
-│   └── <Menu /> (or any sidebar content)
-├── div.appshell--body
-│   ├── div.appshell--header    (when header is provided — position: fixed)
-│   │   └── <Header />
-│   ├── div.appshell--content
-│   │   ├── div.appshell--listview [.appshell--listview-open]
-│   │   │   └── listview content (fixed-width inner, animated container)
-│   │   └── div.appshell--main
-│   │       ├── <Suspense> → <Outlet /> (React Router)
-│   │       └── {children}
-│   └── div.appshell--footer    (when footer is provided — position: fixed)
-│       └── <Footer />
+├── div.appshell--chrome        (full-width Header: toggle + brand + search + trailing)
+│   └── <Header />
+├── div.appshell--workspace
+│   ├── div.appshell--menu      (when menu is provided; under chrome)
+│   │   └── <Menu /> (nav-only; branding lives in Header)
+│   ├── button.appshell--scrim  (below lg when drawer open)
+│   └── div.appshell--body
+│       └── div.appshell--content
+│           ├── div.appshell--listview [.appshell--listview-open]
+│           │   └── listview content (fixed-width inner, animated container)
+│           └── div.appshell--main-column
+│               └── main.appshell--main
+│                   ├── <Suspense> → <Outlet /> (React Router)
+│                   ├── {children / AppShell.Main}
+│                   └── div.appshell--footer?  (in-flow after content; not fixed/absolute)
+│                       └── <Footer />
 ```
 
-`<Outlet />` from React Router is rendered automatically inside `appshell--main` via `<Suspense>`, so routed pages appear there without extra wiring. Direct `children` render after the Outlet.
+`<Outlet />` from React Router is rendered automatically inside `appshell--main` via `<Suspense>`, so routed pages appear there without extra wiring. Direct `children` / `AppShell.Main` render after the Outlet. Optional `AppShell.Footer` is the **last** child of `.appshell--main` (document flow).
 
 ---
 
@@ -67,8 +73,8 @@ div.appshell [data-slot="appshell"]
 | Token | Value | Purpose |
 |-------|-------|---------|
 | `$menu-expanded` | 280px | Menu rail width when expanded |
-| `$menu-collapsed` | 64px | Menu rail width when collapsed |
-| `$listview-width` | 320px | Secondary pane width |
+| `$menu-collapsed` | 56px | Menu rail width when collapsed |
+| `$listview-width` | 320–480px (default 320) | Secondary pane width (`listviewWidth` / `--appshell-listview-width`) |
 
 ### Root `.appshell`
 
@@ -79,25 +85,27 @@ div.appshell [data-slot="appshell"]
 ### Body `.appshell--body`
 
 - `flex: 1; flex-direction: column; min-height: 0`
-- **`margin-left: 280px`** (expanded menu) or **`64px`** (collapsed menu)
+- **`margin-left: 280px`** (expanded menu) or **`56px`** (collapsed menu)
 - `transition: margin-left 200ms ease-out`
 - Menu state is detected purely via CSS: `:has([data-slot="uds-menu-root"][data-expanded="false"])`
 
-### Header `.appshell--header`
+### Chrome `.appshell--chrome`
 
-- **`position: fixed; top: 0; right: 0; z-index: 10`**
-- **`left: 280px`** (expanded) or **`64px`** (collapsed) — same `:has()` detection
-- `transition: left 200ms ease-out`
-- When header exists, content gets automatic clearance: `appshell--content` receives `padding-top: var(--appshell-header-height, 60px)`
-- Override with CSS custom property `--appshell-header-height` if your header is taller than 60px
+- Full-width **fixed** Header at the top of the viewport (`position: fixed; top: 0`, `height: var(--appshell-header-height)` / `3.5rem`) — same pinning model as Menu (no overscroll bounce)
+- AppShell pads `padding-top: var(--appshell-header-height)` so the workspace clears the chrome
+- Contains menu toggle + brand/title + search + trailing (`brand` / `headerVariant` / `headerTitle` on AppShell)
+- Menu rail is fixed under the chrome (`top: var(--appshell-header-height)`)
+- Below `lg`: menu is an overlay drawer; `.appshell--scrim` closes it; body is full width
 
 ### Footer `.appshell--footer`
 
-- **`position: fixed; bottom: 0; right: 0; z-index: 10`**
-- **`left: 280px`** (expanded) or **`64px`** (collapsed) — same pattern
-- `transition: left 200ms ease-out`
-- When footer exists, main gets automatic clearance: `appshell--main` receives `padding-bottom: var(--appshell-footer-height, 48px)`
-- Override with CSS custom property `--appshell-footer-height` if your footer is taller than 48px
+- **Not** `position: fixed` or `absolute` — `position: static` in document flow
+- When **`MainContent`** is on the page, the footer **portals into** `data-slot="main-content-footer"` (inside the active edge/fixed container)
+- Otherwise rendered as the **last child inside `.appshell--main`** (after Outlet and main children)
+- **`margin-top: var(--uds-spacing-48)`** (48px space above the footer)
+- `flex-shrink: 0; width: 100%` — scrolls with page content
+- When present as a main sibling, preceding main children do not `flex-grow` so the footer is not pinned to the scrollport bottom
+- Nested `[data-slot="uds-footer"]` has its top border suppressed in shell CSS
 
 ### Content `.appshell--content`
 
@@ -120,16 +128,16 @@ The listview uses a reveal + fade pattern (not a squish):
 **Closed state (default):**
 - `width: 0; min-width: 0; overflow: hidden; flex-shrink: 0`
 - `border-right: 0 solid transparent`
-- Inner content (`> *`): `width: 320px; min-width: 320px; opacity: 0`
+- Inner content (`> *`): `width/min-width/max-width: var(--appshell-listview-width)` (320–480px); `opacity: 0`
 - Transition: `width 250ms ease-out, min-width 250ms ease-out, border-color 250ms ease-out`
 - Inner content transition: `opacity 250ms ease-out`
 
 **Open state `.appshell--listview-open`:**
-- `width: 320px; min-width: 320px; overflow-y: auto`
+- `width/min-width: var(--appshell-listview-width)` (320–480px); pane `overflow: hidden`
 - `border-right: var(--uds-border-width-1) solid var(--border)`
 - Inner content (`> *`): `opacity: 1`
 
-The container expands from 0 to 320px while inner content is always fixed at 320px. The container clips with `overflow: hidden`, acting as a reveal mask. Content fades in simultaneously (same 250ms timing).
+The container expands from 0 to `--appshell-listview-width` (320–480px; default 320, set via `listviewWidth`) while inner content stays fixed at that width. The container clips with `overflow: hidden`, acting as a reveal mask. Content fades in simultaneously (same 250ms timing).
 
 ### Triggering
 
@@ -151,21 +159,14 @@ AppShell does **not** manage the Menu's expand/collapse state. The Menu componen
 ```scss
 // When menu reports collapsed, shift body inward
 .appshell:has([data-slot="uds-menu-root"][data-expanded="false"]) .appshell--body {
-    margin-left: 64px;
-}
-
-// Header and footer left edges also shift
-.appshell:has([data-slot="uds-menu-root"][data-expanded="false"]) .appshell--header {
-    left: 64px;
-}
-.appshell:has([data-slot="uds-menu-root"][data-expanded="false"]) .appshell--footer {
-    left: 64px;
+    margin-left: 56px;
+    width: calc(100% - 56px);
 }
 ```
 
-All transitions are 200ms ease-out to stay synchronized with the Menu rail's width transition.
+Body `margin-left` / `width` transition is 200ms ease-out to stay synchronized with the Menu rail's width transition.
 
-The Menu rail is `position: fixed; top: 0; left: 0` and manages its own width. AppShell merely offsets the body, header, and footer to avoid overlapping it.
+The Header chrome and Menu rail are both `position: fixed` (header at `top: 0`; menu under `--appshell-header-height`). AppShell offsets `.appshell--body` via `margin-left`. Footer is **in-flow** at the end of `.appshell--main` (not separately left-offset).
 
 ---
 
@@ -180,7 +181,8 @@ import { Header } from "uds-tailwind-test"
 ```ts
 type HeaderProps = React.ComponentProps<"header"> & {
   trailing?: React.ReactNode    // Right-aligned actions (icon buttons, avatar, dropdowns)
-  searchProps?: SearchInputProps // Props for the default SearchInput (ignored when children provided)
+  searchProps?: SearchInputProps // Props for the default SearchInput (ignored when children provided or hideSearch)
+  hideSearch?: boolean // Omit default SearchInput when children are not provided
 }
 ```
 
@@ -301,8 +303,8 @@ This is automatic — no configuration needed.
 
 | Property | Default | Purpose |
 |----------|---------|---------|
-| `--appshell-header-height` | `60px` | Padding-top added to content when header is present |
-| `--appshell-footer-height` | `48px` | Padding-bottom added to main when footer is present |
+| `--appshell-header-height` | `3.5rem` | Fixed header height (matches package Header `h-14`) |
+| `--uds-spacing-48` | `48px` | Margin-top on `.appshell--footer` (space above in-flow footer) |
 | `--background` | (theme) | AppShell root background |
 | `--foreground` | (theme) | AppShell root text color |
 | `--font-sans` | Inter Variable | Font family |
@@ -442,26 +444,22 @@ function App() {
 ┌──────────────────────────────────────────────────────────────────────┐
 │ viewport                                                             │
 │ ┌────────────┬───────────────────────────────────────────────────────┐│
-│ │            │  appshell--header (fixed, z-10)                      ││
+│ │            │  appshell--header (in-flow)                          ││
 │ │            │  ┌─────────────────────────────────────────────────┐ ││
 │ │  Menu      │  │ SearchInput              [Help] [Bell] [Avatar]│ ││
 │ │  (fixed)   │  └─────────────────────────────────────────────────┘ ││
 │ │            ├───────────────────────────────────────────────────────┤│
 │ │  280px or  │  appshell--content                                   ││
-│ │   64px     │  ┌──────────┬────────────────────────────────────────┤│
-│ │            │  │ listview │  appshell--main                        ││
-│ │  Header    │  │  320px   │                                        ││
-│ │  Brand     │  │ (animated│  <Outlet /> + {children}               ││
-│ │  Workspace │  │  reveal  │                                        ││
-│ │  Nav items │  │  + fade) │                                        ││
+│ │   56px     │  ┌──────────┬────────────────────────────────────────┤│
+│ │            │  │ listview │  appshell--main (scrolls)              ││
+│ │  Header    │  │ 320–480  │    <Outlet /> + AppShell.Main          ││
+│ │  Brand     │  │ (animated│    ↕ 24px (--uds-spacing-24)           ││
+│ │  Workspace │  │  reveal  │    appshell--footer (in-flow, static)  ││
+│ │  Nav items │  │  + fade) │    © … · Privacy · Terms               ││
 │ │  Utilities │  │          │                                        ││
 │ │            │  └──────────┴────────────────────────────────────────┤│
-│ │            │  appshell--footer (fixed, z-10)                      ││
-│ │            │  ┌─────────────────────────────────────────────────┐ ││
-│ │            │  │ © 2026 CHG...          Privacy · Terms         │ ││
-│ │            │  └─────────────────────────────────────────────────┘ ││
 │ └────────────┴───────────────────────────────────────────────────────┘│
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-The Menu is `position: fixed` and owns its own width. The body column uses `margin-left` to stay clear. The header and footer are also `position: fixed` with `left` matching the menu width. All three (`margin-left`, header `left`, footer `left`) animate together at 200ms when the Menu expands or collapses.
+Header chrome and Menu are both `position: fixed`. The body column uses `margin-left` to stay clear of the menu. Footer is in-flow at the end of `.appshell--main` (after content, with 48px above) and scrolls with the page.

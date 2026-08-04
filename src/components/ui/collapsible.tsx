@@ -7,30 +7,37 @@ import { cn } from "@/lib/utils"
 import { CaretDownIcon, CaretUpIcon } from "@phosphor-icons/react"
 
 export type CollapsibleVariant = "boxed" | "divided"
+export type CollapsibleIconPosition = "left" | "right"
 
 const CollapsibleVariantContext = React.createContext<CollapsibleVariant>("divided")
+const CollapsibleIconPositionContext = React.createContext<CollapsibleIconPosition>("right")
 
 function Collapsible({
   className,
   variant = "divided",
+  iconPosition = "right",
   ...props
 }: React.ComponentProps<typeof CollapsiblePrimitive.Root> & {
   variant?: CollapsibleVariant
+  /** Chevron placement in the trigger. */
+  iconPosition?: CollapsibleIconPosition
 }) {
   return (
     <CollapsibleVariantContext.Provider value={variant}>
-      <CollapsiblePrimitive.Root
-        data-slot="collapsible"
-        data-variant={variant}
-        className={cn(
-          "flex w-full max-w-full min-w-0 flex-col gap-0 self-stretch font-inter",
-          variant === "boxed" &&
-            "overflow-hidden rounded-[4px] border border-border bg-background",
-          variant === "divided" && "border-b border-uds-border-secondary last:border-b-0",
-          className,
-        )}
-        {...props}
-      />
+      <CollapsibleIconPositionContext.Provider value={iconPosition}>
+        <CollapsiblePrimitive.Root
+          data-slot="collapsible"
+          data-variant={variant}
+          className={cn(
+            "flex w-full max-w-full min-w-0 flex-col gap-0 self-stretch font-inter",
+            variant === "boxed" &&
+              "overflow-hidden rounded-[4px] border border-border bg-background",
+            variant === "divided" && "border-b border-uds-border-secondary last:border-b-0",
+            className,
+          )}
+          {...props}
+        />
+      </CollapsibleIconPositionContext.Provider>
     </CollapsibleVariantContext.Provider>
   )
 }
@@ -41,11 +48,22 @@ function CollapsibleTrigger({
   ...props
 }: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>) {
   const variant = React.useContext(CollapsibleVariantContext)
+  const iconPosition = React.useContext(CollapsibleIconPositionContext)
+  const icons = (
+    <>
+      <CaretDownIcon data-slot="collapsible-trigger-icon" className="pointer-events-none shrink-0 group-data-[state=open]/collapsible-trigger:hidden" />
+      <CaretUpIcon data-slot="collapsible-trigger-icon" className="pointer-events-none hidden shrink-0 group-data-[state=open]/collapsible-trigger:inline" />
+    </>
+  )
   return (
     <CollapsiblePrimitive.CollapsibleTrigger
       data-slot="collapsible-trigger"
+      data-icon-position={iconPosition}
       className={cn(
-        "group/collapsible-trigger relative flex w-full min-w-0 flex-1 cursor-pointer items-center justify-between rounded-none px-4 py-3 text-left text-[16px] leading-normal font-medium transition-all outline-none focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 **:data-[slot=collapsible-trigger-icon]:ml-3 **:data-[slot=collapsible-trigger-icon]:size-4 **:data-[slot=collapsible-trigger-icon]:shrink-0 **:data-[slot=collapsible-trigger-icon]:text-muted-foreground",
+        "group/collapsible-trigger relative flex w-full min-w-0 flex-1 cursor-pointer items-center justify-between rounded-none px-4 py-3 text-left text-[16px] leading-normal font-medium transition-all outline-none focus-visible:z-10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 **:data-[slot=collapsible-trigger-icon]:size-4 **:data-[slot=collapsible-trigger-icon]:shrink-0 **:data-[slot=collapsible-trigger-icon]:text-muted-foreground",
+        iconPosition === "left"
+          ? "**:data-[slot=collapsible-trigger-icon]:mr-3"
+          : "**:data-[slot=collapsible-trigger-icon]:ml-3",
         variant === "boxed"
           ? "border-0 bg-background hover:bg-muted/50 data-[state=open]:border-b data-[state=open]:border-border"
           : "border-0",
@@ -53,9 +71,9 @@ function CollapsibleTrigger({
       )}
       {...props}
     >
+      {iconPosition === "left" ? icons : null}
       {children}
-      <CaretDownIcon data-slot="collapsible-trigger-icon" className="pointer-events-none shrink-0 group-data-[state=open]/collapsible-trigger:hidden" />
-      <CaretUpIcon data-slot="collapsible-trigger-icon" className="pointer-events-none hidden shrink-0 group-data-[state=open]/collapsible-trigger:inline" />
+      {iconPosition === "left" ? null : icons}
     </CollapsiblePrimitive.CollapsibleTrigger>
   )
 }

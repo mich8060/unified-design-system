@@ -1,7 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { ArrowUpRightIcon } from "@phosphor-icons/react"
-
+import { ArrowUpRightIcon } from "@phosphor-icons/react/ArrowUpRight"
 import { cn } from "@/lib/utils"
 
 const linkVariants = cva(

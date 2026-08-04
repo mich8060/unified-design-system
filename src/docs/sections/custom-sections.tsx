@@ -1,4 +1,4 @@
-import { Icon } from '@chghealthcare/unified-design-system'
+import { Button, Icon, XIcon } from '@chghealthcare/unified-design-system'
 import type { DocSection } from '../types'
 import { getBrandNavigationMenusSections } from './BrandNavigationMenusFoundation'
 import { getColorsFoundationSections } from './ColorsFoundation'
@@ -353,18 +353,29 @@ export function getCustomSections(slug: string): DocSection[] | undefined {
       return [
         sec(
           'sr-only',
-          'Screen reader text',
-          `<button type="button" className="rounded bg-neutral-900 px-3 py-2 text-sm text-white dark:bg-neutral-100 dark:text-neutral-900">
+          'Screen reader text on Button',
+          `import { Button, XIcon } from "@chghealthcare/unified-design-system"
+
+{/* Extra spoken context alongside a visible label */}
+<Button type="button">
   Save
   <span className="sr-only">and publish changes</span>
-</button>`,
-          <button
-            type="button"
-            className="rounded bg-neutral-900 px-3 py-2 text-sm text-white dark:bg-neutral-100 dark:text-neutral-900"
-          >
-            Save
-            <span className="sr-only">and publish changes</span>
-          </button>,
+</Button>
+
+{/* Icon-only — prefer aria-label (do not invent a custom button) */}
+<Button type="button" size="icon" variant="ghost" aria-label="Close">
+  <XIcon aria-hidden />
+</Button>`,
+          <div className="flex flex-wrap items-center gap-3">
+            <Button type="button">
+              Save
+              <span className="sr-only">and publish changes</span>
+            </Button>
+            <Button type="button" size="icon" variant="ghost" aria-label="Close">
+              <XIcon aria-hidden />
+            </Button>
+          </div>,
+          'Use package `Button` with Tailwind `sr-only` for extra AT copy, or `aria-label` on icon-only buttons. Do not hand-roll button chrome.',
         ),
       ]
     default:

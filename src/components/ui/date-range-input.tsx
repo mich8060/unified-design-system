@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { CalendarBlankIcon } from "@phosphor-icons/react"
+import { CalendarBlankIcon } from "@phosphor-icons/react/CalendarBlank"
 import type { DateRange } from "react-day-picker"
 
 import { Calendar } from "@/components/ui/calendar"
@@ -212,12 +212,15 @@ function DateRangeInput({
           setOpen(true)
           onClick?.(event)
         }}
-        className={cn("pr-10", inputClassName)}
+        className={cn(
+          "pr-10 placeholder:text-uds-text-primary disabled:placeholder:text-uds-text-disabled",
+          inputClassName
+        )}
         {...props}
       />
       <CalendarBlankIcon
         aria-hidden
-        className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground"
+        className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-uds-text-primary"
       />
       {open ? (
         <div
@@ -237,7 +240,7 @@ function DateRangeInput({
             endMonth={endMonth ?? defaultCalendarEndMonth()}
             min={1}
             numberOfMonths={2}
-            className="rounded-lg border bg-card"
+            className="rounded-[length:var(--uds-radius-4)] border bg-card"
           />
         </div>
       ) : null}

@@ -1,8 +1,4 @@
-/** Shared body layout and typography for documentation pages (foundations, components, readout). */
-export const docPageBodyColumnClassName = 'mx-auto min-w-0 max-w-4xl lg:max-w-5xl'
-
-export const docPageBodyStackClassName = 'space-y-16 py-12'
-
+/** Shared body layout and typography for documentation pages (readout one-pager sections). */
 export const docPageSectionClassName = 'space-y-6 print:break-inside-avoid'
 
 export const docPageH2ClassName = 'text-lg font-semibold text-neutral-900 dark:text-neutral-100'

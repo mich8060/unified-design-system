@@ -92,16 +92,18 @@ function typographyStyle(
   size: TextSize,
   lineHeight: TextLineHeight,
 ): React.CSSProperties {
-  const prefix = `--uds-type-${variant}-${size}` as const
+  // Concatenate token names so the Tailwind scanner does not treat `var(${…})`
+  // template fragments as an empty arbitrary font-size utility.
+  const prefix = "--uds-type-" + variant + "-" + size
   return {
-    fontSize: `var(${prefix}-font-size)`,
-    lineHeight: `var(${prefix}-line-${lineHeight})`,
-    letterSpacing: `var(${prefix}-letter-spacing)`,
-    textTransform: `var(${prefix}-text-transform)` as React.CSSProperties["textTransform"],
+    fontSize: "var(" + prefix + "-font-size)",
+    lineHeight: "var(" + prefix + "-line-" + lineHeight + ")",
+    letterSpacing: "var(" + prefix + "-letter-spacing)",
+    textTransform: ("var(" + prefix + "-text-transform)") as React.CSSProperties["textTransform"],
   }
 }
 
-type TextAs = "p" | "span" | "div" | "strong" | "em" | "label"
+type TextAs = "p" | "span" | "div" | "strong" | "em" | "label" | "h1" | "h2" | "h3" | "h4"
 
 export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, "color"> &
   VariantProps<typeof textVariants> & {

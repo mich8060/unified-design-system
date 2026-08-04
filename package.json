@@ -1,6 +1,6 @@
 {
   "name": "@chghealthcare/unified-design-system",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "packageManager": "npm@10.9.2",
   "description": "React UI primitives and styles built with Tailwind CSS v4 and shadcn-style components (UDS).",
   "license": "MIT",
@@ -34,8 +34,16 @@
     "ai/recipes",
     "ai/examples",
     "ai/guides",
-    "ai/appshell.schema.json"
+    "ai/indexes",
+    "ai/consumer-ai",
+    "ai/evals",
+    "ai/appshell.schema.json",
+    "CLAUDE.md",
+    "scripts/copy-consumer-ai.mjs"
   ],
+  "bin": {
+    "uds-copy-ai-rules": "./scripts/copy-consumer-ai.mjs"
+  },
   "sideEffects": [
     "**/*.css"
   ],
@@ -102,6 +110,171 @@
       "types": "./dist/components/ui/input-otp.d.ts",
       "import": "./dist/components/ui/input-otp.js",
       "require": "./dist/components/ui/input-otp.cjs"
+    },
+    "./accordion": {
+      "types": "./dist/components/ui/accordion.d.ts",
+      "import": "./dist/components/ui/accordion.js",
+      "require": "./dist/components/ui/accordion.cjs"
+    },
+    "./alert": {
+      "types": "./dist/components/ui/alert.d.ts",
+      "import": "./dist/components/ui/alert.js",
+      "require": "./dist/components/ui/alert.cjs"
+    },
+    "./alert-dialog": {
+      "types": "./dist/components/ui/alert-dialog-uds.d.ts",
+      "import": "./dist/components/ui/alert-dialog-uds.js",
+      "require": "./dist/components/ui/alert-dialog-uds.cjs"
+    },
+    "./app-shell": {
+      "types": "./dist/components/ui/app-shell.d.ts",
+      "import": "./dist/components/ui/app-shell.js",
+      "require": "./dist/components/ui/app-shell.cjs"
+    },
+    "./avatar": {
+      "types": "./dist/components/ui/avatar-uds.d.ts",
+      "import": "./dist/components/ui/avatar-uds.js",
+      "require": "./dist/components/ui/avatar-uds.cjs"
+    },
+    "./badge": {
+      "types": "./dist/components/ui/badge.d.ts",
+      "import": "./dist/components/ui/badge.js",
+      "require": "./dist/components/ui/badge.cjs"
+    },
+    "./button": {
+      "types": "./dist/components/ui/button.d.ts",
+      "import": "./dist/components/ui/button.js",
+      "require": "./dist/components/ui/button.cjs"
+    },
+    "./card": {
+      "types": "./dist/components/ui/card.d.ts",
+      "import": "./dist/components/ui/card.js",
+      "require": "./dist/components/ui/card.cjs"
+    },
+    "./checkbox": {
+      "types": "./dist/components/ui/checkbox.d.ts",
+      "import": "./dist/components/ui/checkbox.js",
+      "require": "./dist/components/ui/checkbox.cjs"
+    },
+    "./dialog": {
+      "types": "./dist/components/ui/dialog-uds.d.ts",
+      "import": "./dist/components/ui/dialog-uds.js",
+      "require": "./dist/components/ui/dialog-uds.cjs"
+    },
+    "./dropdown-menu": {
+      "types": "./dist/components/ui/dropdown-menu.d.ts",
+      "import": "./dist/components/ui/dropdown-menu.js",
+      "require": "./dist/components/ui/dropdown-menu.cjs"
+    },
+    "./field": {
+      "types": "./dist/components/ui/field.d.ts",
+      "import": "./dist/components/ui/field.js",
+      "require": "./dist/components/ui/field.cjs"
+    },
+    "./filterbar": {
+      "types": "./dist/components/ui/filterbar.d.ts",
+      "import": "./dist/components/ui/filterbar.js",
+      "require": "./dist/components/ui/filterbar.cjs"
+    },
+    "./header": {
+      "types": "./dist/components/ui/header.d.ts",
+      "import": "./dist/components/ui/header.js",
+      "require": "./dist/components/ui/header.cjs"
+    },
+    "./input": {
+      "types": "./dist/components/ui/input.d.ts",
+      "import": "./dist/components/ui/input.js",
+      "require": "./dist/components/ui/input.cjs"
+    },
+    "./item": {
+      "types": "./dist/components/ui/item.d.ts",
+      "import": "./dist/components/ui/item.js",
+      "require": "./dist/components/ui/item.cjs"
+    },
+    "./main-content": {
+      "types": "./dist/components/ui/main-content.d.ts",
+      "import": "./dist/components/ui/main-content.js",
+      "require": "./dist/components/ui/main-content.cjs"
+    },
+    "./medallion": {
+      "types": "./dist/components/ui/medallion.d.ts",
+      "import": "./dist/components/ui/medallion.js",
+      "require": "./dist/components/ui/medallion.cjs"
+    },
+    "./page-header": {
+      "types": "./dist/components/ui/page-header.d.ts",
+      "import": "./dist/components/ui/page-header.js",
+      "require": "./dist/components/ui/page-header.cjs"
+    },
+    "./popover": {
+      "types": "./dist/components/ui/popover.d.ts",
+      "import": "./dist/components/ui/popover.js",
+      "require": "./dist/components/ui/popover.cjs"
+    },
+    "./search-input": {
+      "types": "./dist/components/ui/search-input.d.ts",
+      "import": "./dist/components/ui/search-input.js",
+      "require": "./dist/components/ui/search-input.cjs"
+    },
+    "./select": {
+      "types": "./dist/components/ui/select.d.ts",
+      "import": "./dist/components/ui/select.js",
+      "require": "./dist/components/ui/select.cjs"
+    },
+    "./separator": {
+      "types": "./dist/components/ui/separator.d.ts",
+      "import": "./dist/components/ui/separator.js",
+      "require": "./dist/components/ui/separator.cjs"
+    },
+    "./sheet": {
+      "types": "./dist/components/ui/sheet-uds.d.ts",
+      "import": "./dist/components/ui/sheet-uds.js",
+      "require": "./dist/components/ui/sheet-uds.cjs"
+    },
+    "./sidebar": {
+      "types": "./dist/components/ui/sidebar.d.ts",
+      "import": "./dist/components/ui/sidebar.js",
+      "require": "./dist/components/ui/sidebar.cjs"
+    },
+    "./skeleton": {
+      "types": "./dist/components/ui/skeleton.d.ts",
+      "import": "./dist/components/ui/skeleton.js",
+      "require": "./dist/components/ui/skeleton.cjs"
+    },
+    "./spinner": {
+      "types": "./dist/components/ui/spinner.d.ts",
+      "import": "./dist/components/ui/spinner.js",
+      "require": "./dist/components/ui/spinner.cjs"
+    },
+    "./status": {
+      "types": "./dist/components/ui/status.d.ts",
+      "import": "./dist/components/ui/status.js",
+      "require": "./dist/components/ui/status.cjs"
+    },
+    "./switch": {
+      "types": "./dist/components/ui/switch.d.ts",
+      "import": "./dist/components/ui/switch.js",
+      "require": "./dist/components/ui/switch.cjs"
+    },
+    "./table": {
+      "types": "./dist/components/ui/table.d.ts",
+      "import": "./dist/components/ui/table.js",
+      "require": "./dist/components/ui/table.cjs"
+    },
+    "./tabs": {
+      "types": "./dist/components/ui/tabs.d.ts",
+      "import": "./dist/components/ui/tabs.js",
+      "require": "./dist/components/ui/tabs.cjs"
+    },
+    "./text": {
+      "types": "./dist/components/ui/text.d.ts",
+      "import": "./dist/components/ui/text.js",
+      "require": "./dist/components/ui/text.cjs"
+    },
+    "./tooltip": {
+      "types": "./dist/components/ui/tooltip.d.ts",
+      "import": "./dist/components/ui/tooltip.js",
+      "require": "./dist/components/ui/tooltip.cjs"
     },
     "./package.json": "./package.json",
     "./contract": "./ai/uds-contract.json",
@@ -509,15 +682,25 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.lib.json --noEmit && tsc -p tsconfig.node.json --noEmit",
-    "pack:check": "npm_config_cache=/tmp/uds-tailwind-test-npm-cache npm pack --dry-run",
+    "pack:check": "node ./scripts/ci-pack-fonts.mjs",
     "preview": "vite preview --config vite.config.docs.ts",
     "ci:bundle": "node ./scripts/ci-bundle.mjs",
+    "ci:pack": "node ./scripts/ci-pack-fonts.mjs",
+    "test:recipe-layout-css": "node ./scripts/ci-recipe-layout-css.mjs",
+    "optimize:branding-svg": "node ./scripts/optimize-branding-svg.mjs",
     "test:consumer-fixture": "node ./scripts/test-consumer-fixture.mjs",
     "test:docs-versions": "node --test ./scripts/lib/docs-version-policy.test.mjs && node ./scripts/docs-versions-smoke.mjs",
     "validate:uds": "node ./scripts/validate-uds-compliance.mjs",
     "validate:figma": "node ./scripts/validate-figma-artifacts.mjs",
-    "validate:ai": "node ./scripts/validate-uds-compliance.mjs && node ./scripts/validate-figma-artifacts.mjs",
-    "test": "node --test ./scripts/lib/docs-version-policy.test.mjs ./scripts/lib/figma-variable-scopes.test.mjs ./scripts/lib/figma-artifacts-drift.test.mjs",
+    "validate:design-language": "node ./scripts/validate-design-language.mjs",
+    "validate:ai": "node ./scripts/validate-uds-compliance.mjs && node ./scripts/validate-figma-artifacts.mjs && node ./scripts/validate-design-language.mjs",
+    "test:scripts": "node --test ./scripts/lib/docs-version-policy.test.mjs ./scripts/lib/figma-variable-scopes.test.mjs ./scripts/lib/figma-artifacts-drift.test.mjs",
+    "test:unit": "vitest run",
+    "test:watch": "vitest",
+    "test:docs-smoke": "playwright test --project=docs-smoke",
+    "test:visual": "playwright test --project=visual",
+    "test:visual:update": "playwright test --project=visual --update-snapshots",
+    "test": "npm run test:scripts && npm run test:unit",
     "generate:storybook": "node ./scripts/generate-storybook-stories.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "npm run generate:storybook && storybook build"
@@ -555,13 +738,17 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
-    "@eslint/js": "^9.39.4",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.62.1",
     "@storybook/addon-a11y": "^10.4.6",
     "@storybook/addon-docs": "^10.4.6",
-    "@storybook/addon-mcp": "^0.6.0",
+    "@storybook/addon-mcp": "^0.1.3",
     "@storybook/addon-vitest": "^10.4.6",
     "@storybook/react-vite": "^10.4.6",
     "@tailwindcss/vite": "^4.2.2",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -569,19 +756,21 @@
     "@vitest/browser-playwright": "^4.1.10",
     "@vitest/coverage-v8": "^4.1.10",
     "esbuild": "^0.28.0",
-    "eslint": "^9.39.4",
+    "eslint": "^10.8.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "eslint-plugin-storybook": "^10.4.6",
     "globals": "^17.4.0",
+    "jsdom": "^30.0.1",
     "playwright": "^1.61.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-router-dom": "^7.14.0",
+    "react-router-dom": "^7.18.2",
     "sass": "^1.99.0",
     "shadcn": "^4.2.0",
     "shiki": "^4.3.1",
     "storybook": "^10.4.6",
+    "svgo": "^4.0.2",
     "tailwindcss": "^4.2.2",
     "tw-animate-css": "^1.4.0",
     "typescript": "~6.0.2",

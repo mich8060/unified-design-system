@@ -7,6 +7,7 @@ import {
   DocsNavSectionList,
   DocsNavSubList,
   docsNavComponentLinkClassName,
+  docsNavFocusVisibleCls,
   docsNavParentChildActiveCls,
   docsNavParentStickyCls,
   docsNavSubLinkClassName,
@@ -21,11 +22,6 @@ import {
   HouseIcon,
   LayoutIcon,
   PresentationChartIcon,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
   Sidebar,
   SidebarInset,
   SidebarProvider,
@@ -38,16 +34,8 @@ import {
 } from '@chghealthcare/unified-design-system'
 import { DoctorAvatar } from '@/components/ui/doctor-avatar'
 import { applyDocsBrandToDocument, docsBrandToBrandingAppearance, readStoredDocsBrand } from '../doc-site-brand'
-import {
-  DOCS_VERSION_OPTIONS,
-  persistDocsVersion,
-  readStoredDocsVersion,
-  shouldShowDocsVersionSelector,
-  type DocsVersionId,
-} from '../doc-site-version'
 import { getAllComponents } from '../registry'
 import { getAllShadcnUiComponents } from '../shadcn-ui-registry'
-import { docPageHeroColumnNarrowClassName, docPageHorizontalGutterClassName } from '../doc-page-hero-classes'
 import { AccountMenuPanel } from './doc-shell-account-menu'
 import { DocsRailMenu, getRailFlyoutPositionFromAnchor } from './docs-rail-menu'
 import { SIDEBAR_EXPANDED_PX, SIDEBAR_MINIMIZED_PX } from './doc-shell-constants'
@@ -67,7 +55,6 @@ export function DocShell() {
   const [light, setLight] = useState(true)
   const [sidebarExpanded, setSidebarExpanded] = useState(true)
   const [railFlyout, setRailFlyout] = useState<FlyoutAnchor | null>(null)
-  const [docsVersion, setDocsVersion] = useState<DocsVersionId>(() => readStoredDocsVersion())
 
   const closeFlyout = useCallback(() => setRailFlyout(null), [])
 
@@ -86,10 +73,6 @@ export function DocShell() {
   useEffect(() => {
     applyDocsBrandToDocument(readStoredDocsBrand())
   }, [])
-
-  useEffect(() => {
-    persistDocsVersion(docsVersion)
-  }, [docsVersion])
 
   const { pathname } = useLocation()
   const gettingChildActive = pathname.startsWith('/docs/getting-started/')
@@ -166,6 +149,13 @@ export function DocShell() {
                 onClick={closeFlyout}
               >
                 AppShell demo
+              </NavLink>
+              <NavLink
+                to="/docs/getting-started/design-language"
+                className={({ isActive }) => docsNavSubLinkClassName({ isActive })}
+                onClick={closeFlyout}
+              >
+                Design Language
               </NavLink>
               <NavLink
                 to="/docs/getting-started/doc-shell"
@@ -274,32 +264,6 @@ export function DocShell() {
                   />
                 </DocsRailMenu.SidebarHeaderSlot>
 
-                {shouldShowDocsVersionSelector() ? (
-                  <DocsRailMenu.Toolbar>
-                    <div className="flex w-full min-w-0 flex-col gap-1 px-1">
-                      <label htmlFor="docs-site-version-select" className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
-                        Docs version
-                      </label>
-                      <Select value={docsVersion} onValueChange={(v) => setDocsVersion(v as DocsVersionId)}>
-                        <SelectTrigger
-                          id="docs-site-version-select"
-                          inputSize="sm"
-                          className="w-full min-w-0 max-w-full shadow-none"
-                        >
-                          <SelectValue placeholder="Documentation version" />
-                        </SelectTrigger>
-                        <SelectContent position="popper" align="start" className="min-w-[var(--radix-select-trigger-width)]">
-                          {DOCS_VERSION_OPTIONS.map((o) => (
-                            <SelectItem key={o.value} value={o.value}>
-                              {o.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </DocsRailMenu.Toolbar>
-                ) : null}
-
                 <DocsRailMenu.Nav aria-label="Documentation">
           {sidebarExpanded ? (
             <DocsNavSectionList>
@@ -308,6 +272,7 @@ export function DocShell() {
                   to="/docs/introduction"
                   className={({ isActive }) =>
                     cn(
+                      docsNavFocusVisibleCls,
                       docsNavParentStickyCls,
                       'flex w-full items-center gap-2 px-[20px] py-[12px] text-left text-base font-medium no-underline',
                       isActive
@@ -358,6 +323,12 @@ export function DocShell() {
                       className={({ isActive }) => docsNavSubLinkClassName({ isActive })}
                     >
                       AppShell demo
+                    </NavLink>
+                    <NavLink
+                      to="/docs/getting-started/design-language"
+                      className={({ isActive }) => docsNavSubLinkClassName({ isActive })}
+                    >
+                      Design Language
                     </NavLink>
                     <NavLink
                       to="/docs/getting-started/doc-shell"
@@ -453,6 +424,7 @@ export function DocShell() {
                     aria-label="Introduction"
                     className={({ isActive }) =>
                       cn(
+                        docsNavFocusVisibleCls,
                         'flex size-12 shrink-0 items-center justify-center rounded-[4px] text-neutral-500 no-underline hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-900',
                         isActive && docsNavParentChildActiveCls,
                       )
@@ -538,9 +510,9 @@ export function DocShell() {
                             <button
                               type="button"
                               className={cn(
-                                'flex w-full items-center gap-2 rounded-md px-4 py-[12px] text-left outline-none',
+                                docsNavFocusVisibleCls,
+                                'flex w-full items-center gap-2 rounded-md px-4 py-[12px] text-left',
                                 'hover:bg-neutral-100 dark:hover:bg-neutral-800',
-                                'focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600',
                               )}
                               aria-label="Account menu"
                             >
@@ -581,9 +553,9 @@ export function DocShell() {
                             <button
                               type="button"
                               className={cn(
-                                'flex w-full items-center justify-center rounded-md px-1 py-[12px] outline-none',
+                                docsNavFocusVisibleCls,
+                                'flex w-full items-center justify-center rounded-md px-1 py-[12px]',
                                 'hover:bg-neutral-100 dark:hover:bg-neutral-800',
-                                'focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600',
                               )}
                               aria-label="Account menu"
                               title="Emily Brown"
@@ -637,14 +609,14 @@ export function DocShell() {
 function DocsContentFallback() {
   return (
     <div
-      className={cn(docPageHorizontalGutterClassName, 'py-10')}
+      className="w-full p-[length:var(--uds-spacing-48)]"
       aria-busy
       aria-label="Loading page"
     >
-      <div className={cn(docPageHeroColumnNarrowClassName, 'space-y-4')}>
-      <div className="h-8 w-48 animate-pulse rounded-md bg-neutral-200 dark:bg-neutral-800" />
-      <div className="h-4 max-w-xl animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
-      <div className="h-4 max-w-lg animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
+      <div className="mx-auto flex w-full max-w-[length:var(--uds-container-xl)] flex-col gap-[length:var(--uds-gap-16)]">
+        <div className="h-8 w-48 animate-pulse rounded-md bg-[var(--uds-surface-secondary)]" />
+        <div className="h-4 max-w-xl animate-pulse rounded bg-[var(--uds-surface-secondary)]" />
+        <div className="h-4 max-w-lg animate-pulse rounded bg-[var(--uds-surface-secondary)]" />
       </div>
     </div>
   )

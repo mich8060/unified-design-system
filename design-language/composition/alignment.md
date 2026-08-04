@@ -1,5 +1,21 @@
-# Alignment
+---
+id: composition-alignment-redirect
+category: composition
+type: index
+priority: low
+ai_priority: low
+confidence_default: preferred
+related:
+  - alignment
+components: []
+patterns: []
+tokens: []
+depends_on: []
+influences: []
+conflicts_with: []
+alternatives: []
+---
 
-Align labels, inputs, and actions to a common edge within a form or toolbar.
+# Moved
 
-Use auto-layout in Figma; use flex/grid in code. Avoid mixed left/center alignment in the same form column.
+This document moved to [`../semantics/alignment.md`](../semantics/alignment.md).

@@ -7,8 +7,7 @@ import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import { typographyStyle } from "@/components/ui/text"
 import { useIsMobile } from "@/hooks/use-mobile"
-import { MinusIcon } from "@phosphor-icons/react"
-
+import { MinusIcon } from "@phosphor-icons/react/Minus"
 type InputOTPSize = "default" | "sm"
 
 type InputOTPSizeContextValue = {

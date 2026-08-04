@@ -45,15 +45,13 @@ test('shouldMaterializeDocsSnapshot refreshes existing', () => {
   assert.equal(result.reason, 'refresh-existing')
 })
 
-test('computeRetainedSnapshotVersions keeps one current line', () => {
+test('computeRetainedSnapshotVersions keeps only newest', () => {
   assert.deepEqual(computeRetainedSnapshotVersions(['1.0.5', '1.0.4', '1.0.3']), ['1.0.5'])
+  assert.deepEqual(computeRetainedSnapshotVersions(['1.1.0', '1.0.5', '1.0.4']), ['1.1.0'])
+  assert.deepEqual(computeRetainedSnapshotVersions(['2.0.0', '1.1.0']), ['2.0.0'])
 })
 
-test('computeRetainedSnapshotVersions keeps two minor lines', () => {
-  assert.deepEqual(computeRetainedSnapshotVersions(['1.1.0', '1.0.5', '1.0.4']), ['1.1.0', '1.0.5'])
-})
-
-test('shouldShowDocsVersionSelector', () => {
+test('shouldShowDocsVersionSelector always false', () => {
   assert.equal(shouldShowDocsVersionSelector(['1.0.5']), false)
-  assert.equal(shouldShowDocsVersionSelector(['1.1.0', '1.0.5']), true)
+  assert.equal(shouldShowDocsVersionSelector(['1.1.0', '1.0.5']), false)
 })

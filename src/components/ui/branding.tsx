@@ -11,6 +11,7 @@ export type BrandingAppearance =
   | "MyWeatherby"
   | "MyCompHealth"
   | "Modio"
+  | "CareerMD"
   | "Design System"
   | "myGMS"
   | "Aire"
@@ -19,36 +20,44 @@ type SvgLoader = () => Promise<string>
 
 const SVG_LOADERS: Record<BrandingAppearance, { mark: SvgLoader; wordmark: SvgLoader }> = {
   Wireframe: {
-    mark: () => import("../../../public/branding/svg/wireframe-brand-mark.svg?url").then(m => m.default),
-    wordmark: () => import("../../../public/branding/svg/wireframe-wordmark.svg?url").then(m => m.default),
+    mark: () => import("@/assets/branding/svg/wireframe-brand-mark.svg?url").then((m) => m.default),
+    wordmark: () => import("@/assets/branding/svg/wireframe-wordmark.svg?url").then((m) => m.default),
   },
   Connect: {
-    mark: () => import("../../../public/branding/svg/connect-brand-mark.svg?url").then(m => m.default),
-    wordmark: () => import("../../../public/branding/svg/connect-wordmark.svg?url").then(m => m.default),
+    mark: () => import("@/assets/branding/svg/connect-brand-mark.svg?url").then((m) => m.default),
+    wordmark: () => import("@/assets/branding/svg/connect-wordmark.svg?url").then((m) => m.default),
   },
   CHG: {
-    mark: () => import("../../../public/branding/svg/unified-design-system-brand-mark.svg?url").then(m => m.default),
-    wordmark: () => import("../../../public/branding/svg/unified-design-system-wordmark.svg?url").then(m => m.default),
+    mark: () =>
+      import("@/assets/branding/svg/unified-design-system-brand-mark.svg?url").then((m) => m.default),
+    wordmark: () =>
+      import("@/assets/branding/svg/unified-design-system-wordmark.svg?url").then((m) => m.default),
   },
   Locumsmart: {
-    mark: () => import("../../../public/branding/svg/locumsmart-brand-mark.svg?url").then(m => m.default),
-    wordmark: () => import("../../../public/branding/svg/locumsmart-wordmark.svg?url").then(m => m.default),
+    mark: () => import("@/assets/branding/svg/locumsmart-brand-mark.svg?url").then((m) => m.default),
+    wordmark: () => import("@/assets/branding/svg/locumsmart-wordmark.svg?url").then((m) => m.default),
   },
   Modio: {
-    mark: () => import("../../../public/branding/svg/modio-brand-mark.svg?url").then(m => m.default),
-    wordmark: () => import("../../../public/branding/svg/modio-wordmark.svg?url").then(m => m.default),
+    mark: () => import("@/assets/branding/svg/modio-brand-mark.svg?url").then((m) => m.default),
+    wordmark: () => import("@/assets/branding/svg/modio-wordmark.svg?url").then((m) => m.default),
+  },
+  CareerMD: {
+    mark: () => import("@/assets/branding/svg/careermd-brand-mark.svg?url").then((m) => m.default),
+    wordmark: () => import("@/assets/branding/svg/careermd-wordmark.svg?url").then((m) => m.default),
   },
   MyWeatherby: {
-    mark: () => import("../../../public/branding/svg/weatherby-brand-mark.svg?url").then(m => m.default),
-    wordmark: () => import("../../../public/branding/svg/weatherby-wordmark.svg?url").then(m => m.default),
+    mark: () => import("@/assets/branding/svg/weatherby-brand-mark.svg?url").then((m) => m.default),
+    wordmark: () => import("@/assets/branding/svg/weatherby-wordmark.svg?url").then((m) => m.default),
   },
   MyCompHealth: {
-    mark: () => import("../../../public/branding/svg/comphealth-brand-mark.svg?url").then(m => m.default),
-    wordmark: () => import("../../../public/branding/svg/comphealth-wordmark.svg?url").then(m => m.default),
+    mark: () => import("@/assets/branding/svg/comphealth-brand-mark.svg?url").then((m) => m.default),
+    wordmark: () => import("@/assets/branding/svg/comphealth-wordmark.svg?url").then((m) => m.default),
   },
   "Design System": {
-    mark: () => import("../../../public/branding/svg/unified-design-system-brand-mark.svg?url").then(m => m.default),
-    wordmark: () => import("../../../public/branding/svg/unified-design-system-wordmark.svg?url").then(m => m.default),
+    mark: () =>
+      import("@/assets/branding/svg/unified-design-system-brand-mark.svg?url").then((m) => m.default),
+    wordmark: () =>
+      import("@/assets/branding/svg/unified-design-system-wordmark.svg?url").then((m) => m.default),
   },
   myGMS: {
     mark: () => import("../../../public/branding/svg/mygms-brand-mark.svg?url").then(m => m.default),

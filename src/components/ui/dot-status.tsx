@@ -35,9 +35,9 @@ export type DotStatusSize = (typeof DOT_STATUS_SIZES)[number]
 function fillForVariant(variant: DotStatusVariant): string | undefined {
   switch (variant) {
     case 'neutral':
-      return 'var(--uds-color-neutrals-300)'
+      return 'var(--uds-color-neutrals-500)'
     case 'inverse':
-      return 'var(--uds-icon-primary)'
+      return undefined
     case 'celery':
       return 'var(--uds-color-accent-emerald-500)'
     default:
@@ -53,7 +53,7 @@ const dotStyles = cva('inline-block shrink-0 rounded-full', {
       large: 'size-3',
     },
     outline: {
-      true: 'box-border border-2 border-[var(--uds-border-secondary)]',
+      true: 'box-border border-2 border-[var(--uds-border-primary)]',
       false: '',
     },
   },
@@ -78,13 +78,17 @@ export function DotStatus({
   ...props
 }: DotStatusProps) {
   const fill = fillForVariant(variant)
+  const inverseClass =
+    variant === 'inverse'
+      ? 'bg-[var(--uds-color-black)] dark:bg-[var(--uds-color-white)]'
+      : ''
 
   return (
     <span
       data-slot="dot-status"
       role="presentation"
       aria-hidden
-      className={cn(dotStyles({ size, outline }), className)}
+      className={cn(dotStyles({ size, outline }), inverseClass, className)}
       style={{
         ...(fill ? { backgroundColor: fill } : {}),
         ...style,

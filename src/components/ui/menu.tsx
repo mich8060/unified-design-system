@@ -1,9 +1,12 @@
 "use client"
 
 import * as React from "react"
-import { CaretDownIcon, ListIcon, PlusCircleIcon } from "@phosphor-icons/react"
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown"
+import { ListIcon } from "@phosphor-icons/react/List"
+import { PlusCircleIcon } from "@phosphor-icons/react/PlusCircle"
 import type { VariantProps } from "class-variance-authority"
 
+import { useAppShellChrome } from "@/components/ui/app-shell-chrome"
 import { Branding } from "@/components/ui/branding"
 import { Button } from "@/components/ui/button"
 import {
@@ -91,12 +94,19 @@ function MenuHeaderTitle({
         "flex min-w-0 items-center justify-center font-semibold text-neutral-900 dark:text-neutral-100",
         symbol
           ? "size-9 shrink-0 rounded-[length:var(--uds-radius-8)] bg-neutral-100 text-sm tracking-tight dark:bg-neutral-800"
-          : "h-14 w-full max-w-full px-1 text-base leading-snug",
+          : "h-14 w-full max-w-full px-1 text-base leading-none",
         className,
       )}
       title={title}
     >
-      <span className={cn("min-w-0", symbol ? "uppercase" : "line-clamp-2 text-center")}>{label}</span>
+      <span
+        className={cn(
+          "min-w-0",
+          symbol ? "uppercase" : "block w-full truncate text-center",
+        )}
+      >
+        {label}
+      </span>
     </div>
   )
 }
@@ -120,11 +130,12 @@ function useMenuRail(): MenuRailContextValue {
  *
  * **Compound API:** **`Menu.Root`** with **`Menu.Header`**, **`Menu.WorkspaceSelect`**, **`Menu.Navigation`**, etc. for full control.
  *
- * Default layout: fixed left rail, **280px** expanded / **64px** collapsed (`useMenuRail` / `expanded` props).
+ * Default layout: fixed left rail, **280px** expanded / **56px** collapsed (`useMenuRail` / `expanded` props).
+ * Inside **AppShell**, the rail sits under the full-width Header (branding + toggle live there); Menu is nav-only.
  * Navigation: label + icon at the root; nested **leaf** rows omit `icon`, use square corners, a gray left border, and
  * active state per module styles. {@link MenuWorkspaceSelect} is a compact Radix **Select** when expanded; when the rail is
  * collapsed it becomes a ghost **PlusCircle** trigger with a flyout menu to the **right**. **8px** padding on the workspace band.
- * Header row is **56px** (`h-14`) with a light bottom border when you compose it.
+ * Standalone (no AppShell): optional simplified header row **56px** (`h-14`) with toggle + wordmark (no mark swap).
  *
  * Built in this module only — do not compose from Sidebar, DropdownMenu, NavigationMenu, Menubar, ContextMenu, or other primitives.
  */
@@ -143,18 +154,26 @@ function MenuRoot({
   onExpandedChange,
   ...props
 }: MenuRootProps) {
+  const chrome = useAppShellChrome()
   const [uncontrolledExpanded, setUncontrolledExpanded] = React.useState(defaultExpanded)
-  const isControlled = expandedProp !== undefined
-  const expanded = isControlled ? expandedProp : uncontrolledExpanded
+  const isPropControlled = expandedProp !== undefined
+  const usesChrome = !isPropControlled && chrome != null
+  const expanded = isPropControlled
+    ? expandedProp
+    : usesChrome
+      ? chrome.menuExpanded
+      : uncontrolledExpanded
 
   const setExpanded = React.useCallback(
     (next: boolean) => {
       onExpandedChange?.(next)
-      if (!isControlled) {
+      if (usesChrome) {
+        chrome.setMenuExpanded(next)
+      } else if (!isPropControlled) {
         setUncontrolledExpanded(next)
       }
     },
-    [isControlled, onExpandedChange],
+    [chrome, isPropControlled, onExpandedChange, usesChrome],
   )
 
   const toggleExpanded = React.useCallback(() => {
@@ -174,7 +193,7 @@ function MenuRoot({
           data-expanded={expanded ? "true" : "false"}
           className={cn(
             "font-sans fixed top-0 left-0 z-10 box-border flex h-screen flex-col overflow-hidden border-r border-solid border-neutral-200 bg-white transition-[width] duration-200 ease-out",
-            expanded ? "w-[280px]" : "w-[64px]",
+            expanded ? "w-[280px]" : "w-[56px]",
             className,
           )}
           {...props}
@@ -216,7 +235,7 @@ export type MenuWorkspaceOption = { value: string; label: string }
 
 export type MenuWorkspaceSelectProps = {
   /**
-   * Options in the dropdown (Radix `value` + visible label). When the rail is **collapsed** (64px), the control is a
+   * Options in the dropdown (Radix `value` + visible label). When the rail is **collapsed** (56px), the control is a
    * ghost button with **PlusCircle**; the same options open in a flyout menu to the **right** of the rail.
    */
   options: ReadonlyArray<MenuWorkspaceOption>
@@ -653,10 +672,15 @@ function CollapsedRootNavRow({
   item,
   activeId,
   onPick,
+  submenuOpen,
+  onSubmenuOpenChange,
 }: {
   item: MenuNavigationItem
   activeId?: string
   onPick: CollapsedNavPick
+  /** Controlled open state for branch flyouts (only one open at a time). */
+  submenuOpen?: boolean
+  onSubmenuOpenChange?: (open: boolean) => void
 }) {
   const Icon = item.icon
   const branch = Boolean(item.children?.length)
@@ -695,7 +719,7 @@ function CollapsedRootNavRow({
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={submenuOpen} onOpenChange={onSubmenuOpenChange}>
       <Tooltip>
         <TooltipTrigger asChild>
           <DropdownMenuTrigger asChild>
@@ -738,8 +762,11 @@ function MenuNavigationCollapsed({
   onNavigationSelect,
   ...props
 }: Omit<MenuNavigationProps, "children"> & { navigationItems: ReadonlyArray<MenuNavigationItem> }) {
+  const [openSubmenuId, setOpenSubmenuId] = React.useState<string | null>(null)
+
   const onPick = React.useCallback<CollapsedNavPick>(
     (id, event) => {
+      setOpenSubmenuId(null)
       onNavigationSelect?.(id, event as React.MouseEvent<HTMLButtonElement>)
     },
     [onNavigationSelect],
@@ -758,7 +785,20 @@ function MenuNavigationCollapsed({
       <ul className="m-0 flex min-h-0 flex-1 list-none flex-col items-center gap-1 overflow-y-auto py-2" role="list">
         {navigationItems.map((item) => (
           <li key={item.id} className="m-0 flex shrink-0 justify-center p-0">
-            <CollapsedRootNavRow item={item} activeId={activeId} onPick={onPick} />
+            <CollapsedRootNavRow
+              item={item}
+              activeId={activeId}
+              onPick={onPick}
+              submenuOpen={openSubmenuId === item.id}
+              onSubmenuOpenChange={(open) => {
+                if (open) {
+                  setOpenSubmenuId(item.id)
+                  return
+                }
+                // Don't clear when another branch just became open (close race).
+                setOpenSubmenuId((current) => (current === item.id ? null : current))
+              }}
+            />
           </li>
         ))}
       </ul>
@@ -1126,10 +1166,14 @@ export type MenuDefaultHeaderProps = {
   shortTitle?: string
 }
 
+/**
+ * Standalone Menu header (toggle + wordmark/title). Prefer AppShell Header chrome in product apps —
+ * inside AppShell, callable Menu omits this header.
+ * Always shows the toggle (no hover-reveal) and never swaps to a collapsed mark logo.
+ */
 function MenuDefaultHeader({
   variant: variantProp,
   title: titleProp,
-  shortTitle: shortTitleProp,
 }: MenuDefaultHeaderProps = {}) {
   const { expanded, toggleExpanded } = useMenuRail()
   const brand = React.useContext(MenuBrandContext)
@@ -1137,15 +1181,14 @@ function MenuDefaultHeader({
   const identity = React.useContext(MenuHeaderIdentityContext)
   const variant = variantProp ?? identity.variant
   const headerTitle = titleProp ?? identity.title
-  const headerShortTitle = shortTitleProp ?? identity.shortTitle
   const useTitleHeader = variant === "title" && Boolean(headerTitle?.trim())
 
   const listToggleButton = (
     <Button
       type="button"
       variant="ghost"
-      size="default"
-      className="size-11 shrink-0 p-0"
+      size="icon"
+      className="size-11 shrink-0"
       aria-label={expanded ? "Collapse menu" : "Expand menu"}
       aria-expanded={expanded}
       onClick={toggleExpanded}
@@ -1154,73 +1197,29 @@ function MenuDefaultHeader({
     </Button>
   )
 
-  const headerBrandingStack = (
-    <div className="relative h-14 w-full min-w-0 overflow-hidden">
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-200 ease-out",
-          expanded ? "opacity-100" : "opacity-0",
-        )}
-        aria-hidden={!expanded}
-      >
-        <div className="flex h-14 w-[188px] shrink-0 items-center justify-center overflow-hidden">
-          {useTitleHeader ? (
-            <MenuHeaderTitle title={headerTitle!} className="h-14 w-[188px] shrink-0" />
-          ) : (
-            <Branding
-              appearance={brandingAppearance}
-              wordmarkAlign="center"
-              className="h-14 w-[188px] min-w-[188px] max-w-[188px] shrink-0"
-            />
-          )}
-        </div>
-      </div>
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-200 ease-out",
-          expanded ? "opacity-0" : "opacity-100",
-          !expanded &&
-            "group-hover/collapsed-menu:opacity-0 group-focus-within/collapsed-menu:opacity-0",
-        )}
-        aria-hidden={expanded}
-      >
-        <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden">
-          {useTitleHeader ? (
-            <MenuHeaderTitle title={headerTitle!} shortTitle={headerShortTitle} symbol />
-          ) : (
-            <Branding appearance={brandingAppearance} symbol className="size-9 shrink-0" />
-          )}
-        </div>
-      </div>
-      {!expanded ? (
-        <div
-          className={cn(
-            "absolute inset-0 z-[2] flex items-center justify-center transition-opacity duration-200 ease-out",
-            "pointer-events-none opacity-0",
-            "group-hover/collapsed-menu:pointer-events-auto group-hover/collapsed-menu:opacity-100",
-            "group-focus-within/collapsed-menu:pointer-events-auto group-focus-within/collapsed-menu:opacity-100",
-          )}
-        >
-          {listToggleButton}
-        </div>
-      ) : null}
-    </div>
-  )
-
   return (
-    <MenuHeader
-      className={cn(
-        !expanded && "group/collapsed-menu relative isolate overflow-hidden px-0",
-      )}
-    >
+    <MenuHeader>
       {expanded ? (
         <div className="grid h-full w-full grid-cols-[2.75rem_1fr_2.75rem] items-center px-2">
           <div className="flex justify-center">{listToggleButton}</div>
-          <div className="min-w-0 overflow-hidden">{headerBrandingStack}</div>
+          <div className="flex min-w-0 items-center justify-center overflow-hidden">
+            {useTitleHeader ? (
+              <MenuHeaderTitle
+                title={headerTitle!}
+                className="h-14 w-[160px] min-w-[160px] max-w-[160px] shrink-0"
+              />
+            ) : (
+              <Branding
+                appearance={brandingAppearance}
+                wordmarkAlign="center"
+                className="h-14 w-[188px] min-w-[188px] max-w-[188px] shrink-0"
+              />
+            )}
+          </div>
           <div className="w-11 shrink-0" aria-hidden />
         </div>
       ) : (
-        <div className="flex h-14 w-full items-stretch">{headerBrandingStack}</div>
+        <div className="flex h-14 w-full items-center justify-center">{listToggleButton}</div>
       )}
     </MenuHeader>
   )
@@ -1234,20 +1233,18 @@ export type MenuDefaultProps = Omit<MenuRootProps, "children"> & {
   /** Row activation handler (same as `Menu.Navigation`). */
   onNavigationSelect?: (id: string, event: React.MouseEvent<HTMLButtonElement>) => void
   /**
-   * Header identity: **`brand`** (default) shows {@link Branding} logos; **`title`** shows plain text
-   * (`headerTitle` / `headerShortTitle`) for apps that are not on a CHG product brand.
-   *
-   * AI agents: see `ai/guides/menu-header-identity.md` for when to use each variant.
+   * @deprecated Prefer `AppShell` `headerVariant` — branding lives in the AppShell Header.
+   * Still used for standalone Menu (no AppShell) simplified header identity.
    */
   headerVariant?: MenuHeaderVariant
-  /** Product or application name when `headerVariant` is `"title"`. */
+  /** @deprecated Prefer `AppShell` `headerTitle`. */
   headerTitle?: string
-  /** Collapsed-rail abbreviation when `headerVariant` is `"title"`. */
+  /** @deprecated Prefer `AppShell` `headerShortTitle` (legacy collapsed abbreviation). */
   headerShortTitle?: string
   /**
-   * Brand id for theme tokens (`document.documentElement.dataset.brand`) and header wordmark.
-   * Defaults to **`chg`**. When `brandStorageKey` is set, storage wins unless this prop is passed.
-   * With `headerVariant="title"`, tokens still follow `brand`; only the header artwork is text.
+   * Brand id for theme tokens (`document.documentElement.dataset.brand`) and standalone header wordmark.
+   * Defaults to **`chg`**, or inherits from AppShell `brand` when composed in AppShell and this prop is omitted.
+   * When `brandStorageKey` is set, storage wins unless this prop is passed.
    */
   brand?: UdsBrandId
   /**
@@ -1268,7 +1265,7 @@ export type MenuDefaultProps = Omit<MenuRootProps, "children"> & {
   brandOptions?: ReadonlyArray<MenuBrandOption>
   /**
    * Custom control band between header and navigation (same slot as the brand switcher).
-   * When set, replaces `brandOptions` UI — use for docs version picker, etc.
+   * When set, replaces `brandOptions` UI (custom Menu toolbar content).
    */
   toolbar?: React.ReactNode
   /** Renders `Menu.WorkspaceSelect` above navigation when provided. */
@@ -1289,7 +1286,7 @@ export type MenuDefaultProps = Omit<MenuRootProps, "children"> & {
    * When true (default), workspace and navigation still mount when collapsed: workspace uses the compact control, and
    * navigation shows **icon-only** root rows (with a right flyout for nested items). **`tail`** also mounts when collapsed
    * so you can mirror icon-only utilities (compose with `useMenuRail`). Set false to keep the expanded layout (full labels)
-   * in the 64px rail.
+   * in the 56px rail.
    */
   mainOnlyWhenExpanded?: boolean
 }
@@ -1314,22 +1311,36 @@ function MenuDefault({
   mainOnlyWhenExpanded = true,
   ...rootProps
 }: MenuDefaultProps) {
-  const resolvedDefaultBrand = defaultBrand ?? UDS_DEFAULT_BRAND
-  const [activeBrand, setActiveBrand] = React.useState<UdsBrandId>(() =>
-    resolveMenuBrand({ brand, defaultBrand: resolvedDefaultBrand, brandStorageKey }),
+  const chrome = useAppShellChrome()
+  const resolvedHeaderVariant = chrome?.ownsHeaderChrome
+    ? chrome.headerVariant
+    : headerVariant
+  const resolvedHeaderTitle = chrome?.ownsHeaderChrome ? chrome.headerTitle : headerTitle
+  const resolvedHeaderShortTitle = chrome?.ownsHeaderChrome
+    ? chrome.headerShortTitle
+    : headerShortTitle
+
+  const resolvedDefaultBrand = defaultBrand ?? chrome?.brand ?? UDS_DEFAULT_BRAND
+  const [standaloneBrand, setStandaloneBrand] = React.useState<UdsBrandId>(() =>
+    resolveMenuBrand({
+      brand,
+      defaultBrand: resolvedDefaultBrand,
+      brandStorageKey,
+    }),
   )
 
-  const brandFromProp = brand != null ? brand : activeBrand
+  // AppShell chrome brand is source of truth when composed in AppShell and `brand` is omitted.
+  const brandCandidate = brand ?? chrome?.brand ?? standaloneBrand
   const brandInOptions =
-    !brandOptions?.length || brandOptions.some((option) => option.value === brandFromProp)
+    !brandOptions?.length || brandOptions.some((option) => option.value === brandCandidate)
   const fallbackBrand = brandOptions?.[0]?.value
-  const resolvedBrand =
+  const activeBrand =
     !brandInOptions && fallbackBrand && isUdsBrandId(fallbackBrand)
       ? fallbackBrand
-      : brandFromProp
+      : brandCandidate
 
-  if (resolvedBrand !== activeBrand) {
-    setActiveBrand(resolvedBrand)
+  if (chrome == null && activeBrand !== standaloneBrand) {
+    setStandaloneBrand(activeBrand)
   }
 
   React.useLayoutEffect(() => {
@@ -1339,11 +1350,15 @@ function MenuDefault({
   const handleBrandChange = React.useCallback(
     (value: string) => {
       if (!isUdsBrandId(value)) return
-      setActiveBrand(value)
       applyUdsBrandToDocument(value)
+      if (chrome) {
+        chrome.setBrand(value)
+      } else {
+        setStandaloneBrand(value)
+      }
       if (brandStorageKey) persistBrandToStorage(brandStorageKey, value)
     },
-    [brandStorageKey],
+    [brandStorageKey, chrome],
   )
 
   const resolvedNavItems = React.useMemo(
@@ -1360,44 +1375,51 @@ function MenuDefault({
 
   const headerIdentity = React.useMemo<MenuHeaderIdentity>(
     () => ({
-      variant: headerVariant,
-      title: headerTitle,
-      shortTitle: headerShortTitle,
+      variant: resolvedHeaderVariant,
+      title: resolvedHeaderTitle,
+      shortTitle: resolvedHeaderShortTitle,
     }),
-    [headerVariant, headerTitle, headerShortTitle],
+    [resolvedHeaderVariant, resolvedHeaderTitle, resolvedHeaderShortTitle],
   )
 
-  if (import.meta.env.DEV && headerVariant === "title" && !headerTitle?.trim()) {
+  if (
+    import.meta.env.DEV &&
+    resolvedHeaderVariant === "title" &&
+    !resolvedHeaderTitle?.trim() &&
+    !chrome?.ownsHeaderChrome
+  ) {
     console.warn(
-      "[Menu] headerVariant is \"title\" but headerTitle is empty; falling back to brand logos.",
+      '[Menu] headerVariant is "title" but headerTitle is empty; falling back to brand logos.',
     )
   }
+
+  const showMenuHeader = !chrome?.ownsHeaderChrome
 
   return (
     <MenuBrandContext.Provider value={activeBrand}>
       <MenuHeaderIdentityContext.Provider value={headerIdentity}>
-      <MenuRoot {...rootProps}>
-        <MenuDefaultHeader />
-      {toolbar != null ? (
-        toolbar
-      ) : brandOptions?.length ? (
-        <MenuBrandSwitcher
-          options={brandOptions}
-          value={activeBrand}
-          onValueChange={handleBrandChange}
-        />
-      ) : null}
-      <MenuMainInlays
-        mainOnlyWhenExpanded={mainOnlyWhenExpanded}
-        workspace={workspace}
-        navigationItems={resolvedNavItems}
-        activeId={activeId}
-        onNavigationSelect={onNavigationSelect}
-        navigationClassName={navigationClassName}
-        navigationProps={navigationProps}
-        tail={resolvedTail}
-      />
-      </MenuRoot>
+        <MenuRoot {...rootProps}>
+          {showMenuHeader ? <MenuDefaultHeader /> : null}
+          {toolbar != null ? (
+            toolbar
+          ) : brandOptions?.length ? (
+            <MenuBrandSwitcher
+              options={brandOptions}
+              value={activeBrand}
+              onValueChange={handleBrandChange}
+            />
+          ) : null}
+          <MenuMainInlays
+            mainOnlyWhenExpanded={mainOnlyWhenExpanded}
+            workspace={workspace}
+            navigationItems={resolvedNavItems}
+            activeId={activeId}
+            onNavigationSelect={onNavigationSelect}
+            navigationClassName={navigationClassName}
+            navigationProps={navigationProps}
+            tail={resolvedTail}
+          />
+        </MenuRoot>
       </MenuHeaderIdentityContext.Provider>
     </MenuBrandContext.Provider>
   )

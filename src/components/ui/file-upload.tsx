@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { UploadSimpleIcon } from "@phosphor-icons/react"
-
+import { UploadSimpleIcon } from "@phosphor-icons/react/UploadSimple"
 import { Medallion, type MedallionSize } from "@/components/ui/medallion"
 import { cn } from "@/lib/utils"
 

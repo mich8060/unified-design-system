@@ -1,9 +1,21 @@
-# Visual hierarchy
+---
+id: composition-hierarchy-redirect
+category: composition
+type: index
+priority: low
+ai_priority: low
+confidence_default: preferred
+related:
+  - hierarchy
+components: []
+patterns: []
+tokens: []
+depends_on: []
+influences: []
+conflicts_with: []
+alternatives: []
+---
 
-Establish order: **page title → section headers → primary content → supporting metadata**.
+# Moved
 
-Use `SectionHeader`, heading levels, and `Text` weight/appearance props—not size alone.
-
-## See also
-
-- ../composition/visual-weight.md
+This document moved to [`../semantics/hierarchy.md`](../semantics/hierarchy.md).

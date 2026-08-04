@@ -5,6 +5,7 @@ import * as React from "react"
 
 import {
   Sheet,
+  SheetBody,
   SheetClose,
   SheetContent,
   SheetDescription,
@@ -17,8 +18,7 @@ import {
 } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { XIcon } from "@phosphor-icons/react"
-
+import { XIcon } from "@phosphor-icons/react/X"
 function SheetCloseButton({
   className,
   ...props
@@ -88,6 +88,7 @@ function UdsSheetDescription({
 
 export {
   Sheet,
+  SheetBody,
   SheetClose,
   SheetOverlay,
   SheetPortal,

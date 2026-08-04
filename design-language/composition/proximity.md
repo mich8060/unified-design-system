@@ -1,9 +1,21 @@
-# Proximity
+---
+id: composition-proximity-redirect
+category: composition
+type: index
+priority: low
+ai_priority: low
+confidence_default: preferred
+related:
+  - proximity
+components: []
+patterns: []
+tokens: []
+depends_on: []
+influences: []
+conflicts_with: []
+alternatives: []
+---
 
-Elements that belong together should be closer than elements that don't.
+# Moved
 
-Label + input + helper/error: tight stack (4–8px). Fields in a section: 16–24px apart.
-
-## See also
-
-- ../composition/grouping.md
+This document moved to [`../semantics/proximity.md`](../semantics/proximity.md).

@@ -108,6 +108,19 @@ Same menu structure as **`comphealth`** and **`gms`**.
 
 ---
 
+## `careermd`
+
+| Label | Icon |
+|-------|------|
+| Dashboard | Layout |
+| Jobs | Briefcase |
+| Employers | Buildings |
+| Candidates | Users |
+| Messages | Envelope |
+| Reporting | ChartBar |
+
+---
+
 ## `connect`
 
 | Label | Icon |

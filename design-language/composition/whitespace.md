@@ -1,9 +1,23 @@
-# Whitespace
+---
+id: composition-whitespace-redirect
+category: composition
+type: index
+priority: low
+ai_priority: low
+confidence_default: preferred
+related:
+  - whitespace
+components: []
+patterns: []
+tokens: []
+depends_on: []
+influences: []
+conflicts_with: []
+alternatives: []
+---
 
-Whitespace is active structure—not empty failure.
+# Moved
 
-Prefer generous section padding in executive/readout-style pages; tighter density in data tables and queues.
+This document moved to [`../semantics/whitespace.md`](../semantics/whitespace.md).
 
-## See also
-
-- ../composition/density.md
+For Main section gaps (16/24), **2–3 columns**, and boxed padding, see [`../semantics/appshell-main-containment.md`](../semantics/appshell-main-containment.md).
