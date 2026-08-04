@@ -90,9 +90,23 @@ function buildExportsFragment(names) {
  * if a component is deleted from the barrel, its subpath is left behind for
  * a human to clean up deliberately, rather than risk deleting an unrelated
  * subpath-only entry by mistake.
+ *
+ * The merged result is sorted alphabetically by key, with the root "."
+ * entry pinned first (order carries no semantic weight for Node's exports
+ * resolution here since every key is a static string, not a "*" pattern —
+ * this is purely so diffs stay minimal and new entries land in a
+ * predictable spot instead of wherever the merge happened to place them).
  */
 function mergeExports(existingExports, fragment) {
-  return { ...existingExports, ...fragment }
+  const merged = { ...existingExports, ...fragment }
+  const keys = Object.keys(merged).sort()
+  const sorted = {}
+  if (merged["."] !== undefined) sorted["."] = merged["."]
+  for (const key of keys) {
+    if (key === ".") continue
+    sorted[key] = merged[key]
+  }
+  return sorted
 }
 
 function buildViteEntryModules(pureReexportNames) {

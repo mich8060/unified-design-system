@@ -53,64 +53,6 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./styles.css": "./dist/styles.css",
-    "./styles/base.css": "./dist/styles-base.css",
-    "./fonts/Inter-Variable.woff2": "./dist/fonts/Inter-Variable.woff2",
-    "./chart": {
-      "types": "./dist/components/ui/chart.d.ts",
-      "import": "./dist/components/ui/chart.js",
-      "require": "./dist/components/ui/chart.cjs"
-    },
-    "./menu": {
-      "types": "./dist/components/ui/menu.d.ts",
-      "import": "./dist/components/ui/menu.js",
-      "require": "./dist/components/ui/menu.cjs"
-    },
-    "./calendar": {
-      "types": "./dist/components/ui/calendar.d.ts",
-      "import": "./dist/components/ui/calendar.js",
-      "require": "./dist/components/ui/calendar.cjs"
-    },
-    "./micro-calendar": {
-      "types": "./dist/components/ui/micro-calendar.d.ts",
-      "import": "./dist/components/ui/micro-calendar.js",
-      "require": "./dist/components/ui/micro-calendar.cjs"
-    },
-    "./date-input": {
-      "types": "./dist/components/ui/date-input.d.ts",
-      "import": "./dist/components/ui/date-input.js",
-      "require": "./dist/components/ui/date-input.cjs"
-    },
-    "./date-range-input": {
-      "types": "./dist/components/ui/date-range-input.d.ts",
-      "import": "./dist/components/ui/date-range-input.js",
-      "require": "./dist/components/ui/date-range-input.cjs"
-    },
-    "./command": {
-      "types": "./dist/components/ui/command.d.ts",
-      "import": "./dist/components/ui/command.js",
-      "require": "./dist/components/ui/command.cjs"
-    },
-    "./drawer": {
-      "types": "./dist/components/ui/drawer.d.ts",
-      "import": "./dist/components/ui/drawer.js",
-      "require": "./dist/components/ui/drawer.cjs"
-    },
-    "./resizable": {
-      "types": "./dist/components/ui/resizable.d.ts",
-      "import": "./dist/components/ui/resizable.js",
-      "require": "./dist/components/ui/resizable.cjs"
-    },
-    "./sonner": {
-      "types": "./dist/components/ui/sonner.d.ts",
-      "import": "./dist/components/ui/sonner.js",
-      "require": "./dist/components/ui/sonner.cjs"
-    },
-    "./input-otp": {
-      "types": "./dist/components/ui/input-otp.d.ts",
-      "import": "./dist/components/ui/input-otp.js",
-      "require": "./dist/components/ui/input-otp.cjs"
-    },
     "./accordion": {
       "types": "./dist/components/ui/accordion.d.ts",
       "import": "./dist/components/ui/accordion.js",
@@ -125,173 +67,6 @@
       "types": "./dist/components/ui/alert-dialog-uds.d.ts",
       "import": "./dist/components/ui/alert-dialog-uds.js",
       "require": "./dist/components/ui/alert-dialog-uds.cjs"
-    },
-    "./app-shell": {
-      "types": "./dist/components/ui/app-shell.d.ts",
-      "import": "./dist/components/ui/app-shell.js",
-      "require": "./dist/components/ui/app-shell.cjs"
-    },
-    "./avatar": {
-      "types": "./dist/components/ui/avatar-uds.d.ts",
-      "import": "./dist/components/ui/avatar-uds.js",
-      "require": "./dist/components/ui/avatar-uds.cjs"
-    },
-    "./badge": {
-      "types": "./dist/components/ui/badge.d.ts",
-      "import": "./dist/components/ui/badge.js",
-      "require": "./dist/components/ui/badge.cjs"
-    },
-    "./button": {
-      "types": "./dist/components/ui/button.d.ts",
-      "import": "./dist/components/ui/button.js",
-      "require": "./dist/components/ui/button.cjs"
-    },
-    "./card": {
-      "types": "./dist/components/ui/card.d.ts",
-      "import": "./dist/components/ui/card.js",
-      "require": "./dist/components/ui/card.cjs"
-    },
-    "./checkbox": {
-      "types": "./dist/components/ui/checkbox.d.ts",
-      "import": "./dist/components/ui/checkbox.js",
-      "require": "./dist/components/ui/checkbox.cjs"
-    },
-    "./dialog": {
-      "types": "./dist/components/ui/dialog-uds.d.ts",
-      "import": "./dist/components/ui/dialog-uds.js",
-      "require": "./dist/components/ui/dialog-uds.cjs"
-    },
-    "./dropdown-menu": {
-      "types": "./dist/components/ui/dropdown-menu.d.ts",
-      "import": "./dist/components/ui/dropdown-menu.js",
-      "require": "./dist/components/ui/dropdown-menu.cjs"
-    },
-    "./field": {
-      "types": "./dist/components/ui/field.d.ts",
-      "import": "./dist/components/ui/field.js",
-      "require": "./dist/components/ui/field.cjs"
-    },
-    "./filterbar": {
-      "types": "./dist/components/ui/filterbar.d.ts",
-      "import": "./dist/components/ui/filterbar.js",
-      "require": "./dist/components/ui/filterbar.cjs"
-    },
-    "./header": {
-      "types": "./dist/components/ui/header.d.ts",
-      "import": "./dist/components/ui/header.js",
-      "require": "./dist/components/ui/header.cjs"
-    },
-    "./input": {
-      "types": "./dist/components/ui/input.d.ts",
-      "import": "./dist/components/ui/input.js",
-      "require": "./dist/components/ui/input.cjs"
-    },
-    "./item": {
-      "types": "./dist/components/ui/item.d.ts",
-      "import": "./dist/components/ui/item.js",
-      "require": "./dist/components/ui/item.cjs"
-    },
-    "./main-content": {
-      "types": "./dist/components/ui/main-content.d.ts",
-      "import": "./dist/components/ui/main-content.js",
-      "require": "./dist/components/ui/main-content.cjs"
-    },
-    "./medallion": {
-      "types": "./dist/components/ui/medallion.d.ts",
-      "import": "./dist/components/ui/medallion.js",
-      "require": "./dist/components/ui/medallion.cjs"
-    },
-    "./page-header": {
-      "types": "./dist/components/ui/page-header.d.ts",
-      "import": "./dist/components/ui/page-header.js",
-      "require": "./dist/components/ui/page-header.cjs"
-    },
-    "./popover": {
-      "types": "./dist/components/ui/popover.d.ts",
-      "import": "./dist/components/ui/popover.js",
-      "require": "./dist/components/ui/popover.cjs"
-    },
-    "./search-input": {
-      "types": "./dist/components/ui/search-input.d.ts",
-      "import": "./dist/components/ui/search-input.js",
-      "require": "./dist/components/ui/search-input.cjs"
-    },
-    "./select": {
-      "types": "./dist/components/ui/select.d.ts",
-      "import": "./dist/components/ui/select.js",
-      "require": "./dist/components/ui/select.cjs"
-    },
-    "./separator": {
-      "types": "./dist/components/ui/separator.d.ts",
-      "import": "./dist/components/ui/separator.js",
-      "require": "./dist/components/ui/separator.cjs"
-    },
-    "./sheet": {
-      "types": "./dist/components/ui/sheet-uds.d.ts",
-      "import": "./dist/components/ui/sheet-uds.js",
-      "require": "./dist/components/ui/sheet-uds.cjs"
-    },
-    "./sidebar": {
-      "types": "./dist/components/ui/sidebar.d.ts",
-      "import": "./dist/components/ui/sidebar.js",
-      "require": "./dist/components/ui/sidebar.cjs"
-    },
-    "./skeleton": {
-      "types": "./dist/components/ui/skeleton.d.ts",
-      "import": "./dist/components/ui/skeleton.js",
-      "require": "./dist/components/ui/skeleton.cjs"
-    },
-    "./spinner": {
-      "types": "./dist/components/ui/spinner.d.ts",
-      "import": "./dist/components/ui/spinner.js",
-      "require": "./dist/components/ui/spinner.cjs"
-    },
-    "./status": {
-      "types": "./dist/components/ui/status.d.ts",
-      "import": "./dist/components/ui/status.js",
-      "require": "./dist/components/ui/status.cjs"
-    },
-    "./switch": {
-      "types": "./dist/components/ui/switch.d.ts",
-      "import": "./dist/components/ui/switch.js",
-      "require": "./dist/components/ui/switch.cjs"
-    },
-    "./table": {
-      "types": "./dist/components/ui/table.d.ts",
-      "import": "./dist/components/ui/table.js",
-      "require": "./dist/components/ui/table.cjs"
-    },
-    "./tabs": {
-      "types": "./dist/components/ui/tabs.d.ts",
-      "import": "./dist/components/ui/tabs.js",
-      "require": "./dist/components/ui/tabs.cjs"
-    },
-    "./text": {
-      "types": "./dist/components/ui/text.d.ts",
-      "import": "./dist/components/ui/text.js",
-      "require": "./dist/components/ui/text.cjs"
-    },
-    "./tooltip": {
-      "types": "./dist/components/ui/tooltip.d.ts",
-      "import": "./dist/components/ui/tooltip.js",
-      "require": "./dist/components/ui/tooltip.cjs"
-    },
-    "./package.json": "./package.json",
-    "./contract": "./ai/uds-contract.json",
-    "./figma-component-manifest": "./ai/figma-component-manifest.json",
-    "./figma-component-props": "./ai/figma-component-props.json",
-    "./figma-rules": "./figma.component.rules.md",
-    "./design-language": "./design-language",
-    "./setup": "./setup.md",
-    "./accordion": {
-      "types": "./dist/components/ui/accordion.d.ts",
-      "import": "./dist/components/ui/accordion.js",
-      "require": "./dist/components/ui/accordion.cjs"
-    },
-    "./alert": {
-      "types": "./dist/components/ui/alert.d.ts",
-      "import": "./dist/components/ui/alert.js",
-      "require": "./dist/components/ui/alert.cjs"
     },
     "./alert-dialog-uds": {
       "types": "./dist/components/ui/alert-dialog-uds.d.ts",
@@ -308,10 +83,20 @@
       "import": "./dist/components/ui/aspect-ratio.js",
       "require": "./dist/components/ui/aspect-ratio.cjs"
     },
+    "./avatar": {
+      "types": "./dist/components/ui/avatar-uds.d.ts",
+      "import": "./dist/components/ui/avatar-uds.js",
+      "require": "./dist/components/ui/avatar-uds.cjs"
+    },
     "./avatar-uds": {
       "types": "./dist/components/ui/avatar-uds.d.ts",
       "import": "./dist/components/ui/avatar-uds.js",
       "require": "./dist/components/ui/avatar-uds.cjs"
+    },
+    "./badge": {
+      "types": "./dist/components/ui/badge.d.ts",
+      "import": "./dist/components/ui/badge.js",
+      "require": "./dist/components/ui/badge.cjs"
     },
     "./branding": {
       "types": "./dist/components/ui/branding.d.ts",
@@ -333,10 +118,20 @@
       "import": "./dist/components/ui/button-group.js",
       "require": "./dist/components/ui/button-group.cjs"
     },
+    "./calendar": {
+      "types": "./dist/components/ui/calendar.d.ts",
+      "import": "./dist/components/ui/calendar.js",
+      "require": "./dist/components/ui/calendar.cjs"
+    },
     "./card": {
       "types": "./dist/components/ui/card.d.ts",
       "import": "./dist/components/ui/card.js",
       "require": "./dist/components/ui/card.cjs"
+    },
+    "./chart": {
+      "types": "./dist/components/ui/chart.d.ts",
+      "import": "./dist/components/ui/chart.js",
+      "require": "./dist/components/ui/chart.cjs"
     },
     "./check-list": {
       "types": "./dist/components/ui/check-list.d.ts",
@@ -358,15 +153,37 @@
       "import": "./dist/components/ui/combobox.js",
       "require": "./dist/components/ui/combobox.cjs"
     },
+    "./command": {
+      "types": "./dist/components/ui/command.d.ts",
+      "import": "./dist/components/ui/command.js",
+      "require": "./dist/components/ui/command.cjs"
+    },
     "./context-menu": {
       "types": "./dist/components/ui/context-menu.d.ts",
       "import": "./dist/components/ui/context-menu.js",
       "require": "./dist/components/ui/context-menu.cjs"
     },
+    "./contract": "./ai/uds-contract.json",
+    "./date-input": {
+      "types": "./dist/components/ui/date-input.d.ts",
+      "import": "./dist/components/ui/date-input.js",
+      "require": "./dist/components/ui/date-input.cjs"
+    },
+    "./date-range-input": {
+      "types": "./dist/components/ui/date-range-input.d.ts",
+      "import": "./dist/components/ui/date-range-input.js",
+      "require": "./dist/components/ui/date-range-input.cjs"
+    },
     "./description-list": {
       "types": "./dist/components/ui/description-list.d.ts",
       "import": "./dist/components/ui/description-list.js",
       "require": "./dist/components/ui/description-list.cjs"
+    },
+    "./design-language": "./design-language",
+    "./dialog": {
+      "types": "./dist/components/ui/dialog-uds.d.ts",
+      "import": "./dist/components/ui/dialog-uds.js",
+      "require": "./dist/components/ui/dialog-uds.cjs"
     },
     "./dialog-uds": {
       "types": "./dist/components/ui/dialog-uds.d.ts",
@@ -382,6 +199,11 @@
       "types": "./dist/components/ui/dot-status.d.ts",
       "import": "./dist/components/ui/dot-status.js",
       "require": "./dist/components/ui/dot-status.cjs"
+    },
+    "./drawer": {
+      "types": "./dist/components/ui/drawer.d.ts",
+      "import": "./dist/components/ui/drawer.js",
+      "require": "./dist/components/ui/drawer.cjs"
     },
     "./dropdown-menu": {
       "types": "./dist/components/ui/dropdown-menu.d.ts",
@@ -403,6 +225,9 @@
       "import": "./dist/components/ui/field.js",
       "require": "./dist/components/ui/field.cjs"
     },
+    "./figma-component-manifest": "./ai/figma-component-manifest.json",
+    "./figma-component-props": "./ai/figma-component-props.json",
+    "./figma-rules": "./figma.component.rules.md",
     "./file-upload": {
       "types": "./dist/components/ui/file-upload.d.ts",
       "import": "./dist/components/ui/file-upload.js",
@@ -413,6 +238,12 @@
       "import": "./dist/components/ui/file-upload-cards.js",
       "require": "./dist/components/ui/file-upload-cards.cjs"
     },
+    "./filterbar": {
+      "types": "./dist/components/ui/filterbar.d.ts",
+      "import": "./dist/components/ui/filterbar.js",
+      "require": "./dist/components/ui/filterbar.cjs"
+    },
+    "./fonts/Inter-Variable.woff2": "./dist/fonts/Inter-Variable.woff2",
     "./footer": {
       "types": "./dist/components/ui/footer.d.ts",
       "import": "./dist/components/ui/footer.js",
@@ -432,6 +263,11 @@
       "types": "./dist/components/ui/input-group.d.ts",
       "import": "./dist/components/ui/input-group.js",
       "require": "./dist/components/ui/input-group.cjs"
+    },
+    "./input-otp": {
+      "types": "./dist/components/ui/input-otp.d.ts",
+      "import": "./dist/components/ui/input-otp.js",
+      "require": "./dist/components/ui/input-otp.cjs"
     },
     "./item": {
       "types": "./dist/components/ui/item.d.ts",
@@ -458,15 +294,30 @@
       "import": "./dist/components/ui/link.js",
       "require": "./dist/components/ui/link.cjs"
     },
+    "./main-content": {
+      "types": "./dist/components/ui/main-content.d.ts",
+      "import": "./dist/components/ui/main-content.js",
+      "require": "./dist/components/ui/main-content.cjs"
+    },
     "./medallion": {
       "types": "./dist/components/ui/medallion.d.ts",
       "import": "./dist/components/ui/medallion.js",
       "require": "./dist/components/ui/medallion.cjs"
     },
+    "./menu": {
+      "types": "./dist/components/ui/menu.d.ts",
+      "import": "./dist/components/ui/menu.js",
+      "require": "./dist/components/ui/menu.cjs"
+    },
     "./menubar": {
       "types": "./dist/components/ui/menubar.d.ts",
       "import": "./dist/components/ui/menubar.js",
       "require": "./dist/components/ui/menubar.cjs"
+    },
+    "./micro-calendar": {
+      "types": "./dist/components/ui/micro-calendar.d.ts",
+      "import": "./dist/components/ui/micro-calendar.js",
+      "require": "./dist/components/ui/micro-calendar.cjs"
     },
     "./native-select": {
       "types": "./dist/components/ui/native-select.d.ts",
@@ -483,6 +334,12 @@
       "import": "./dist/components/ui/number-input.js",
       "require": "./dist/components/ui/number-input.cjs"
     },
+    "./package.json": "./package.json",
+    "./page-header": {
+      "types": "./dist/components/ui/page-header.d.ts",
+      "import": "./dist/components/ui/page-header.js",
+      "require": "./dist/components/ui/page-header.cjs"
+    },
     "./pagination": {
       "types": "./dist/components/ui/pagination.d.ts",
       "import": "./dist/components/ui/pagination.js",
@@ -497,6 +354,11 @@
       "types": "./dist/components/ui/phone-input.d.ts",
       "import": "./dist/components/ui/phone-input.js",
       "require": "./dist/components/ui/phone-input.cjs"
+    },
+    "./pill-toggle": {
+      "types": "./dist/components/ui/pill-toggle.d.ts",
+      "import": "./dist/components/ui/pill-toggle.js",
+      "require": "./dist/components/ui/pill-toggle.cjs"
     },
     "./popover": {
       "types": "./dist/components/ui/popover.d.ts",
@@ -517,6 +379,11 @@
       "types": "./dist/components/ui/radio-group.d.ts",
       "import": "./dist/components/ui/radio-group.js",
       "require": "./dist/components/ui/radio-group.cjs"
+    },
+    "./resizable": {
+      "types": "./dist/components/ui/resizable.d.ts",
+      "import": "./dist/components/ui/resizable.js",
+      "require": "./dist/components/ui/resizable.cjs"
     },
     "./scroll-area": {
       "types": "./dist/components/ui/scroll-area.d.ts",
@@ -543,6 +410,12 @@
       "import": "./dist/components/ui/separator.js",
       "require": "./dist/components/ui/separator.cjs"
     },
+    "./setup": "./setup.md",
+    "./sheet": {
+      "types": "./dist/components/ui/sheet-uds.d.ts",
+      "import": "./dist/components/ui/sheet-uds.js",
+      "require": "./dist/components/ui/sheet-uds.cjs"
+    },
     "./sheet-uds": {
       "types": "./dist/components/ui/sheet-uds.d.ts",
       "import": "./dist/components/ui/sheet-uds.js",
@@ -562,6 +435,11 @@
       "types": "./dist/components/ui/slider.d.ts",
       "import": "./dist/components/ui/slider.js",
       "require": "./dist/components/ui/slider.cjs"
+    },
+    "./sonner": {
+      "types": "./dist/components/ui/sonner.d.ts",
+      "import": "./dist/components/ui/sonner.js",
+      "require": "./dist/components/ui/sonner.cjs"
     },
     "./spinner": {
       "types": "./dist/components/ui/spinner.d.ts",
@@ -583,6 +461,8 @@
       "import": "./dist/components/ui/steps.js",
       "require": "./dist/components/ui/steps.cjs"
     },
+    "./styles.css": "./dist/styles.css",
+    "./styles/base.css": "./dist/styles-base.css",
     "./switch": {
       "types": "./dist/components/ui/switch.d.ts",
       "import": "./dist/components/ui/switch.js",
@@ -652,11 +532,6 @@
       "types": "./dist/components/ui/url-input.d.ts",
       "import": "./dist/components/ui/url-input.js",
       "require": "./dist/components/ui/url-input.cjs"
-    },
-    "./badge": {
-      "types": "./dist/components/ui/badge.d.ts",
-      "import": "./dist/components/ui/badge.js",
-      "require": "./dist/components/ui/badge.cjs"
     }
   },
   "volta": {
