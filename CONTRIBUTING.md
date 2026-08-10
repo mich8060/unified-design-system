@@ -62,7 +62,7 @@ confirm every `exports` target actually exists on disk. If you only touch a comp
 without adding/removing a barrel export, no action is needed — the check only fires on a
 `src/index.ts` change.
 
-Background and full design rationale: [`docs/td-uds-010-test-performance-spec.md`](./docs/td-uds-010-test-performance-spec.md)
+Background and design rationale: [`docs/td-uds-010-test-performance-spec.md`](./docs/td-uds-010-test-performance-spec.md)
 and [`docs/github-packages.md`](./docs/github-packages.md#publishing-maintainers).
 
 ## Releasing (maintainers)

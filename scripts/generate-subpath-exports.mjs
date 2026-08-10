@@ -23,7 +23,8 @@
  * `./<name>` keys. An earlier version tried to enumerate which keys were
  * "safe to keep" instead of just keeping everything by default, and silently
  * deleted five live subpaths as a result; see the plain object-spread merge
- * below and TD-UDS-010's spec ("Implementation notes") for the story.
+ * below and docs/td-uds-010-test-performance-spec.md ("Why the generator's
+ * merge is additive") for the story.
  *
  * Usage:
  *   node scripts/generate-subpath-exports.mjs               # write in place
@@ -142,8 +143,8 @@ function mergeViteEntryModules(viteSrc, pureReexportModules) {
  * subpaths something in the source tree actually imports, and pack:check only
  * lists tarball contents. This is the check that catches a component whose
  * `.cjs`/`.d.ts` silently stops emitting (e.g. a real-content component gets
- * refactored into a pure re-export barrel and starts getting elided, per
- * T004's finding, without its subpathEntryModules entry being added).
+ * refactored into a pure re-export barrel and starts getting elided, per the
+ * shape rule above, without its subpathEntryModules entry being added).
  */
 function verifyExportsResolveToRealFiles(pkg) {
   const missing = []
@@ -166,7 +167,7 @@ function main() {
     if (missing.length > 0) {
       console.error(`generate-subpath-exports --verify-dist: ${missing.length} exports target(s) missing from dist/:`)
       for (const m of missing) console.error(`  ${m}`)
-      console.error("Run `npm run build:lib`, or check whether a component's shape changed (see T004 in the TD-UDS-010 spec).")
+      console.error("Run `npm run build:lib`, or check whether a component's shape changed (see \"Which components need a Vite entry\" in docs/td-uds-010-test-performance-spec.md).")
       process.exit(1)
     }
     console.log(`generate-subpath-exports --verify-dist: all ${Object.keys(pkg.exports).length} exports resolve.`)

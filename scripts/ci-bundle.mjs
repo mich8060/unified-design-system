@@ -263,8 +263,8 @@ const HEAVY_DEPS = [
   "input-otp",
 ];
 
-// Known, deliberate exceptions — see TD-UDS-010 spec's "Current state" /
-// "Framing correction": calendar/date-input/date-range-input are genuine
+// Known, deliberate exceptions — see "What the tree-shaking check covers" in
+// docs/td-uds-010-test-performance-spec.md: calendar/date-input/date-range-input are genuine
 // barrel members that pull react-day-picker, and input-otp's own component
 // legitimately depends on the identically-named input-otp package. None of
 // this leaks into any *other* component's subpath.
