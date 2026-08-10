@@ -12,7 +12,7 @@ const external = [
 ]
 
 // Components exposed as dedicated subpath entry points (see
-// package.json#exports and TD-UDS-010). Rollup elides a module whose entire
+// package.json#exports and docs/component-subpath-exports.md). Rollup elides a module whose entire
 // body is `export * from '...'` re-exports (chart/command/drawer/combobox/
 // pagination/sidebar) unless it's declared as an explicit entry here; a
 // handful of components with real content (calendar/date-input/date-range-input/

@@ -1,9 +1,10 @@
-# TD-UDS-010: per-component subpath exports
+# Component subpath exports
 
 Why every barrel component has its own `package.json#exports` subpath, and why the pieces that
-maintain it are shaped the way they are. Problem statement, before/after measurements, and the
-implementation history live in [issue #52](https://github.com/chghealthcare/unified-design-system/issues/52);
-this doc covers only the decisions a future maintainer needs to not break.
+maintain it are shaped the way they are. The motivating problem was **consumer unit-test
+performance**; problem statement, before/after measurements, and implementation history live in
+[issue #52](https://github.com/chghealthcare/unified-design-system/issues/52). This doc covers only
+the decisions a future maintainer needs to not break.
 
 Practical workflow (what to run after editing `src/index.ts`): [`CONTRIBUTING.md`](../CONTRIBUTING.md#adding-or-removing-a-public-component).
 

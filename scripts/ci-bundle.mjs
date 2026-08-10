@@ -229,7 +229,7 @@ console.log("");
 const failed = results.filter((r) => !r.ok);
 
 /**
- * TD-UDS-010 subpath tree-shaking check.
+ * Subpath tree-shaking check.
  *
  * The gzip budgets above measure a component's own code size with all of
  * node_modules externalized — that can't tell us whether importing a
@@ -264,7 +264,7 @@ const HEAVY_DEPS = [
 ];
 
 // Known, deliberate exceptions — see "What the tree-shaking check covers" in
-// docs/td-uds-010-test-performance-spec.md: calendar/date-input/date-range-input are genuine
+// docs/component-subpath-exports.md: calendar/date-input/date-range-input are genuine
 // barrel members that pull react-day-picker, and input-otp's own component
 // legitimately depends on the identically-named input-otp package. None of
 // this leaks into any *other* component's subpath.
@@ -311,7 +311,7 @@ function collectBareImports(entryFile, visited = new Set(), out = new Set()) {
 const subpathFailures = [];
 const barrelNames = barrelComponentNames();
 console.log(
-  "  ci:bundle — TD-UDS-010 subpath tree-shaking check (all barrel components)",
+  "  ci:bundle — subpath tree-shaking check (all barrel components)",
 );
 console.log("  " + divider);
 for (const name of barrelNames) {

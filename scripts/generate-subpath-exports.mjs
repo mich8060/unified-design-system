@@ -1,5 +1,6 @@
 /**
- * Single source of truth for UDS component subpath exports (TD-UDS-010).
+ * Single source of truth for UDS component subpath exports.
+ * See docs/component-subpath-exports.md for the design rationale.
  *
  * `src/index.ts` is the barrel: every `export * from './components/ui/<name>'`
  * line there is a public component. This script keeps two derived artifacts in
@@ -23,7 +24,7 @@
  * `./<name>` keys. An earlier version tried to enumerate which keys were
  * "safe to keep" instead of just keeping everything by default, and silently
  * deleted five live subpaths as a result; see the plain object-spread merge
- * below and docs/td-uds-010-test-performance-spec.md ("Why the generator's
+ * below and docs/component-subpath-exports.md ("Why the generator's
  * merge is additive") for the story.
  *
  * Usage:
@@ -167,7 +168,7 @@ function main() {
     if (missing.length > 0) {
       console.error(`generate-subpath-exports --verify-dist: ${missing.length} exports target(s) missing from dist/:`)
       for (const m of missing) console.error(`  ${m}`)
-      console.error("Run `npm run build:lib`, or check whether a component's shape changed (see \"Which components need a Vite entry\" in docs/td-uds-010-test-performance-spec.md).")
+      console.error("Run `npm run build:lib`, or check whether a component's shape changed (see \"Which components need a Vite entry\" in docs/component-subpath-exports.md).")
       process.exit(1)
     }
     console.log(`generate-subpath-exports --verify-dist: all ${Object.keys(pkg.exports).length} exports resolve.`)
