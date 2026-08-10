@@ -99,7 +99,9 @@ If an AI agent or starter script runs shadcn for you, stop it and follow [`setup
 
 ## Development (this repository)
 
-Use **Node.js 22 LTS** (or **24+**) for local installs so `npm` does not report `EBADENGINE` for `eslint-visitor-keys@5` (its `engines` field does not list Node 23). Run `nvm use` (or `fnm use`) in the repo root; the [`.nvmrc`](./.nvmrc) file pins `22`. If you use [Volta](https://volta.sh/), the repo’s `package.json` includes a matching `volta.node` pin.
+Working on UDS itself (not just consuming it)? See **[CONTRIBUTING.md](./CONTRIBUTING.md)** for
+Node version setup, local dev commands, required checks, how to add or remove a public component
+(subpath exports are generated, not hand-edited), and the release process.
 
 You may still see `npm warn deprecated node-domexception` while installing devDependencies: it is pulled in by the `shadcn` CLI via `node-fetch` / `fetch-blob`. It is safe to ignore for building this package; upstream would need to drop that chain to silence the warning.
 
@@ -243,30 +245,5 @@ npm run generate:ai
 npm run dev
 ```
 
-Useful checks:
-
-```bash
-npm run lint
-npm run typecheck
-npm run build
-npm run pack:check
-```
-
-## Releasing (maintainers)
-
-**Git:** Push branches and tags to `https://github.com/chghealthcare/unified-design-system` (remote `origin`).
-
-1. Bump `version` in `package.json` and merge to `main`.
-2. Ensure `npm ci`, `npm run build:lib`, and `npm run pack:check` pass locally (CI runs `build:lib` and `lint` on push/PR).
-3. **Documentation snapshots** (latest only; no version switcher): created only on **minor** or **major** bumps, not every patch. Run `npm run build:docs` on minor/major releases and commit generated files under `src/docs/versions/`. Older snapshot folders are pruned. See **[docs/docs-version-snapshots.md](./docs/docs-version-snapshots.md)**.
-4. Create a GitHub **Release** for that version. That triggers:
-   - **GitHub Packages** — [`.github/workflows/publish-github-packages.yml`](./.github/workflows/publish-github-packages.yml) publishes to `npm.pkg.github.com`
-   - **npmjs** (optional) — [`.github/workflows/publish-npm.yml`](./.github/workflows/publish-npm.yml) if `NPM_TOKEN` is configured
-5. Optionally build and pack a tarball from a clean checkout:
-
-   ```bash
-   npm run build:lib
-   npm pack
-   ```
-
-   This writes `chghealthcare-unified-design-system-<version>.tgz`. Distribute that file through your approved internal channel; consumers install it from a local path. `npm pack` runs `prepublishOnly` (`build:lib`) automatically.
+Full contributor workflow — required checks, adding/removing components, and releasing — lives in
+**[CONTRIBUTING.md](./CONTRIBUTING.md)**.

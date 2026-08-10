@@ -1,5 +1,9 @@
 # UDS AI Rules
 
+These rules cover **consuming** UDS in a product app. Working on the UDS package itself (adding a
+component, running repo checks, publishing a release)? See [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+instead.
+
 Canonical **what/how** contract: [`ai/uds-contract.json`](./ai/uds-contract.json)
 
 Canonical **why/when** Design System Language: [`design-language/`](./design-language/) — start at [`design-language/README.md`](./design-language/README.md) and [`ai/indexes/`](./ai/indexes/).

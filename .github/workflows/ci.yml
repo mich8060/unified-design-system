@@ -26,6 +26,12 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # Runs again inside build:lib, but as its own step the red X names the
+      # problem ("run npm run generate:subpath-exports") instead of the generic
+      # "build failed".
+      - name: Component subpath exports in sync
+        run: npm run generate:subpath-exports -- --check
+
       - name: Build library (publish surface)
         run: npm run build:lib
 
