@@ -35,8 +35,16 @@ npm run validate:ai      # UDS/Figma/design-language artifact consistency
 
 ## Adding or removing a public component
 
+> **Short version:** if CI fails with *"Component subpath exports in sync"*, run
+> `npm run generate:subpath-exports` and commit the files it changes. That's the whole fix — you
+> don't need the rest of this section.
+
 [`src/index.ts`](./src/index.ts) is the barrel — the single source of truth for the package's
 public API. Every `export * from './components/ui/<name>'` line there is a public component.
+
+Most of the time this is handled for you: while `npm run dev` is running, saving `src/index.ts`
+regenerates the exports automatically, so the change is already in your working tree — just commit
+it along with your component.
 
 **Do not hand-edit `package.json#exports` or `vite.config.lib.ts`'s `subpathEntryModules`.** Both
 are generated *from* the barrel by [`scripts/generate-subpath-exports.mjs`](./scripts/generate-subpath-exports.mjs),

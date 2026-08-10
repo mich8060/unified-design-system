@@ -202,7 +202,7 @@ function main() {
       console.error("generate-subpath-exports --check: drift detected.")
       if (pkgDrifted) console.error("  package.json#exports is out of date with src/index.ts.")
       if (viteDrifted) console.error("  vite.config.lib.ts subpathEntryModules is out of date with src/index.ts.")
-      console.error("Run `node scripts/generate-subpath-exports.mjs` to regenerate.")
+      console.error("Fix: run `npm run generate:subpath-exports` and commit the changed files.")
       process.exit(1)
     }
     console.log(`generate-subpath-exports --check: up to date (${names.length} components).`)
