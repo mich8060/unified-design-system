@@ -50,7 +50,18 @@ function loadStylesheet(id, base) {
   return { path: file, base: path.dirname(file), content: fs.readFileSync(file, "utf8") }
 }
 
-/** One utility per registered namespace, plus standard-scale classes UDS does not ship. */
+/**
+ * One utility per registered namespace, plus standard-scale classes UDS does not ship.
+ *
+ * The `TREE_SHAKEN` entries are deliberate. Tailwind tree-shakes `@theme`, so
+ * `styles.css` emits only the subset of namespaces UDS's own components used —
+ * of 11 declared `--color-uds-surface-*` just 6 survive, and of 16 type sizes
+ * just 6. For everything else the primary variable is absent at runtime and the
+ * `var(--color-uds-surface-disabled, var(--uds-surface-disabled))` fallback is
+ * the *only* thing that makes the utility work. That path covers most of the
+ * partial's surface, so it needs direct coverage rather than being exercised
+ * only by namespaces that happened to survive tree-shaking.
+ */
 const UDS_UTILITIES = [
   "bg-uds-surface-primary",
   "border-uds-border-primary",
@@ -59,6 +70,7 @@ const UDS_UTILITIES = [
   "leading-uds-24",
   "font-uds-semibold",
 ]
+const TREE_SHAKEN_UDS_UTILITIES = ["bg-uds-surface-disabled", "text-uds-48"]
 const STANDARD_UTILITIES = ["space-y-6", "max-w-6xl", "grid-cols-2"]
 
 const compiler = await compile(
@@ -70,13 +82,14 @@ const compiler = await compile(
   { base: root, onDependency() {}, loadStylesheet },
 )
 
-const css = compiler.build([...UDS_UTILITIES, ...STANDARD_UTILITIES])
+const allUtilities = [...UDS_UTILITIES, ...TREE_SHAKEN_UDS_UTILITIES, ...STANDARD_UTILITIES]
+const css = compiler.build(allUtilities)
 
 /** @type {string[]} */
 const failures = []
 
 // 1 — every namespace still generates.
-for (const utility of [...UDS_UTILITIES, ...STANDARD_UTILITIES]) {
+for (const utility of allUtilities) {
   // `space-y-*` compiles to a `:where(.space-y-6 > …)` selector, not a bare class.
   if (!css.includes(`.${utility}`)) failures.push(`${utility} — generated no rule`)
 }
@@ -102,6 +115,23 @@ if (!/var\(--color-uds-surface-primary,\s*var\(--uds-surface-primary\)\)/.test(c
   )
 }
 
+// 4 — every fallback target the partial names actually exists in the shipped
+// stylesheet. For a tree-shaken namespace the fallback is the only thing
+// standing between the utility and an invalid declaration the browser drops on
+// the floor, which is the same silent no-op this export exists to remove.
+const shippedCss = fs.readFileSync(path.join(root, "dist/styles.css"), "utf8")
+const fallbackTargets = [
+  ...new Set([...fs.readFileSync(partial, "utf8").matchAll(/var\((--uds-[a-z0-9-]+)\)/g)].map((m) => m[1])),
+].sort()
+const unresolved = fallbackTargets.filter((name) => !shippedCss.includes(`${name}:`))
+if (unresolved.length > 0) {
+  failures.push(
+    `${unresolved.length} fallback target(s) named by the partial are not defined in ` +
+      `dist/styles.css, so utilities relying on them emit an invalid declaration: ` +
+      unresolved.join(", "),
+  )
+}
+
 console.log("")
 console.log("  test:theme-partial")
 console.log(`  emitted layers: ${emittedLayers.join(", ") || "(none)"}`)
@@ -114,7 +144,11 @@ if (failures.length > 0) {
 }
 
 for (const utility of UDS_UTILITIES) console.log(`  ✓ ${utility}`)
+for (const utility of TREE_SHAKEN_UDS_UTILITIES) {
+  console.log(`  ✓ ${utility} (tree-shaken from styles.css — fallback-only)`)
+}
 for (const utility of STANDARD_UTILITIES) console.log(`  ✓ ${utility} (standard scale)`)
 console.log("  ✓ no @layer theme / @layer base emitted")
 console.log("  ✓ utilities fall back to --uds-* properties")
+console.log(`  ✓ all ${fallbackTargets.length} --uds-* fallback targets defined in styles.css`)
 console.log("")

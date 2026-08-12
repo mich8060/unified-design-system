@@ -87,6 +87,24 @@ so the local build resolves against UDS's live token values at runtime rather th
 driftable duplicate of the token scale. A consumer never has to mirror UDS's tokens, and a token
 value change in a UDS upgrade needs no consumer rebuild to take effect.
 
+### The fallback is load-bearing, not a safety net
+
+Tailwind tree-shakes `@theme`, so `styles.css` emits only the namespaces UDS's own components
+actually used. The partial registers considerably more than that: of 11 declared
+`--color-uds-surface-*` variables only 6 survive into the shipped stylesheet, and of 16 declared type
+sizes only 6. `--text-uds-48` and `--color-uds-surface-disabled` are both absent at runtime.
+
+For all of those, the **second** half of `var(--text-uds-48, var(--uds-font-size-48))` is the only
+thing that makes the utility work — the primary variable resolves to nothing, and without a valid
+fallback the browser would drop the declaration silently. That is the same silent no-op this export
+exists to remove, so it is asserted directly: `test:theme-partial` checks that every one of the 101
+`--uds-*` targets the partial names is defined in `dist/styles.css`, and covers two deliberately
+tree-shaken utilities whose only working path is the fallback.
+
+This is also why the partial must keep pointing at `--uds-*` primitives rather than at Tailwind
+namespace names. A registration whose fallback named another tree-shaken namespace would compile
+cleanly and still render nothing.
+
 ## Consumer recipe
 
 ```css
@@ -101,6 +119,10 @@ Both references are needed: ours registers the `-uds-` namespaces, Tailwind's re
 scale. `source(none)` is not optional — without it Tailwind's automatic content detection also scans
 from the compile base, which in a monorepo is usually not the app's source directory. Declaring the
 scan set explicitly is the same reason UDS's own `src/styles.lib.css` uses it.
+
+The order of the two `theme(reference)` imports does not matter. Tailwind marks its own theme values
+as defaults, so an explicitly-set value wins regardless of position — verified both ways, `.font-sans`
+compiles with UDS's Inter stack as its fallback either order.
 
 Import the compiled result **after** `styles.css` so local utility rules win ties. With
 `theme(reference)` the only thing in play is `@layer utilities`, so later-wins is the intended
