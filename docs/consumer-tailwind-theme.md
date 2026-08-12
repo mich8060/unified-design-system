@@ -177,12 +177,17 @@ and the real emit after `tsc`, then `generate-subpath-exports.mjs --verify-dist`
 
 `ci-theme-partial.mjs` drives Tailwind through its `compile()` API, which keeps the check fast and
 dependency-free. That is not the same code path as a consumer's bundler, so the recipe above was also
-verified once manually, end to end: `npm pack`, install the tarball into a throwaway Vite app with
-`@tailwindcss/vite`, and build. Result — `@chghealthcare/unified-design-system/theme` resolved
-through normal Node resolution, all six UDS token utilities and all three standard-scale utilities
-emitted, the output contained only `@layer properties` and `@layer utilities` (1.54 kB total), and
-`bg-uds-surface-primary` compiled to
-`var(--color-uds-surface-primary, var(--uds-surface-primary))` as intended.
+verified manually, end to end: `npm pack`, install the 1.4.0 tarball into a throwaway Vite app with
+`@tailwindcss/vite` and `tailwindcss@4.3.3`, and build. Results:
+
+- `@chghealthcare/unified-design-system/theme` resolved through normal Node resolution, and the
+  optional `tailwindcss` peer installed clean with no warnings.
+- All nine probed utilities emitted — token, tree-shaken, and standard-scale alike.
+- Output contained only `@layer properties` and `@layer utilities`, 1.54 kB total.
+- The tree-shaken cases came out as
+  `font-size: var(--text-uds-48, var(--uds-font-size-48))` and
+  `background-color: var(--color-uds-surface-disabled, var(--uds-surface-disabled))`, confirming
+  through a real bundler that the fallback path described above is what actually carries them.
 
 Worth re-running that manual check on a Tailwind major/minor bump or a Vite major bump, since those
 are the two things that could change the plugin's import handling without failing the compile-API
@@ -190,13 +195,21 @@ test.
 
 ## Tailwind version skew
 
-The partial's header records the Tailwind version it was generated against. Consumers should pin to
-that minor, because a namespace that changes meaning between Tailwind versions is the one thing that
-can make a shared variable name compile differently in the two builds.
+A namespace that changes meaning between Tailwind versions is the one thing that can make a shared
+variable name compile differently in the two builds, so the consumer's Tailwind version matters.
 
-Worth knowing: UDS declares `tailwindcss: ^4.2.2`, and that caret floats — 1.2.1 was built against
-4.2.2, 1.3.0 against 4.3.3. Reading the version out of the partial's header is more reliable than
-reading the declared range.
+`tailwindcss` is therefore declared as an **optional peer dependency** (`^4.2.2`). Optional because
+the overwhelming majority of consumers import the precompiled `styles.css` and never run Tailwind at
+all — a hard peer would force an install on every one of them for an export they don't use. Declared
+at all because the moment a consumer *does* use `./theme`, Tailwind stops being our private build
+tool and becomes a shared dependency whose version has to line up. Making that machine-readable means
+a package manager warns on a mismatch rather than leaving it to a comment nobody reads.
+
+The range is deliberately UDS's own supported floor rather than the exact version any given release
+was built against. Those differ, and the caret floats: 1.2.1 was built against 4.2.2, 1.3.0 against
+4.3.3, with no signal beyond the banner comment atop `dist/styles.css`. The partial's header records
+the resolved build version, so use the peer range to catch a wrong *major*, and the header when you
+need to match exactly.
 
 ## Related
 
