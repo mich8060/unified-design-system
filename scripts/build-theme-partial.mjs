@@ -1,6 +1,17 @@
 /**
- * Emits `dist/theme.css` — the published `@theme`-only partial behind the
- * `@chghealthcare/unified-design-system/theme` subpath export.
+ * Emits the two CSS partials a consumer's own Tailwind build needs:
+ *
+ *   - `dist/theme.css`    (`./theme`)    — UDS's `@theme` registrations
+ *   - `dist/variants.css` (`./variants`) — UDS's `@custom-variant` declarations
+ *
+ * The variants partial exists because Tailwind's default `dark:` is
+ * `@media (prefers-color-scheme: dark)` while UDS redefines it as class-scoped
+ * (`&:where(.dark, .dark *)`). A consumer build that doesn't apply the same
+ * definition generates every `dark:` utility with OS-media semantics and, since
+ * the consumer sheet loads after `styles.css`, overrides UDS's correct rule — so
+ * on any machine whose OS is in dark mode every `dark:` class fires with no
+ * `.dark` ancestor present. It cannot live in `theme.css`, because
+ * `@import … theme(reference)` accepts `@theme` blocks only.
  *
  * See docs/consumer-tailwind-theme.md for the design rationale and the consumer
  * recipe. The short version: a consumer app that stands up its own Tailwind v4
@@ -48,6 +59,8 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..")
 const stylesDir = path.join(root, "src/styles")
 const tokensEntry = path.join(stylesDir, "tokens.css")
 const outFile = path.join(root, "dist/theme.css")
+const variantsSource = path.join(stylesDir, "uds-variants.css")
+const variantsOutFile = path.join(root, "dist/variants.css")
 const checkOnly = process.argv.includes("--check")
 
 /** Strip CSS comments so brace counting and content classification are reliable. */
@@ -228,18 +241,56 @@ if (output.includes("/*!")) {
   process.exit(1)
 }
 
+// The variants partial ships verbatim. Guard it the same way: it must declare
+// only `@custom-variant` rules, so a consumer can import it without pulling in
+// UDS styles, and it must actually contain the dark variant — silently shipping
+// an empty file would leave every consumer's `dark:` utilities on OS-media
+// semantics, which is the failure this export exists to prevent.
+if (!fs.existsSync(variantsSource)) {
+  console.error(`build-theme-partial: ${path.relative(root, variantsSource)} is missing.`)
+  process.exit(1)
+}
+const variantsCss = fs.readFileSync(variantsSource, "utf8")
+const variantsBare = stripComments(variantsCss).trim()
+const variantNames = [...variantsBare.matchAll(/@custom-variant\s+([a-zA-Z0-9_-]+)/g)].map((m) => m[1])
+
+if (variantNames.length === 0) {
+  console.error(
+    "build-theme-partial: uds-variants.css declares no @custom-variant — refusing to write. " +
+      "Consumers rely on this file to match UDS's dark-mode semantics.",
+  )
+  process.exit(1)
+}
+if (variantsBare.replace(/@custom-variant[^;]+;/g, "").trim() !== "") {
+  console.error(
+    "build-theme-partial: uds-variants.css contains CSS other than @custom-variant declarations — " +
+      "refusing to write. Consumers import it directly, so anything else here leaks into their build.",
+  )
+  process.exit(1)
+}
+if (!variantNames.includes("dark")) {
+  console.error(
+    "build-theme-partial: uds-variants.css no longer declares a `dark` variant. If UDS genuinely " +
+      "dropped it, update this check and docs/consumer-tailwind-theme.md together.",
+  )
+  process.exit(1)
+}
+
 console.log("")
 console.log("  build-theme-partial")
 console.log(`  tailwindcss ${tailwindVersion ?? "unknown"}`)
 for (const { name } of included) console.log(`  ✓ ${name}`)
+console.log(`  ✓ uds-variants.css (${variantNames.join(", ")})`)
 
 if (checkOnly) {
-  console.log("  ✓ sources valid (--check, dist/theme.css not written)")
+  console.log("  ✓ sources valid (--check, nothing written)")
   console.log("")
   process.exit(0)
 }
 
 fs.mkdirSync(path.dirname(outFile), { recursive: true })
 fs.writeFileSync(outFile, output)
+fs.writeFileSync(variantsOutFile, variantsCss)
 console.log(`  → dist/theme.css (${output.length} bytes)`)
+console.log(`  → dist/variants.css (${variantsCss.length} bytes)`)
 console.log("")

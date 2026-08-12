@@ -534,7 +534,9 @@
       "types": "./dist/components/ui/url-input.d.ts",
       "import": "./dist/components/ui/url-input.js",
       "require": "./dist/components/ui/url-input.cjs"
-    }
+    },
+    "./variants": "./dist/variants.css",
+    "./variants.css": "./dist/variants.css"
   },
   "volta": {
     "node": "22.22.2"

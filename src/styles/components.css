@@ -1,4 +1,5 @@
-@custom-variant dark (&:where(.dark, .dark *));
+/* Single source of truth; also shipped to consumers as dist/variants.css. */
+@import "./uds-variants.css";
 
 @layer base {
   html {

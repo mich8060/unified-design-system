@@ -1,0 +1,15 @@
+/*
+ * UDS Tailwind custom variants.
+ *
+ * UDS drives dark mode with a `.dark` class, not the OS setting, so it redefines Tailwind's
+ * default `dark:` (which is `@media (prefers-color-scheme: dark)`) to be class-scoped.
+ *
+ * Kept in its own file so it can be shipped verbatim as `dist/variants.css` behind the
+ * `./variants` subpath export — a consumer running its own Tailwind build must apply the same
+ * definition or every `dark:` utility it generates carries OS-media semantics instead, and (because
+ * the consumer's sheet loads after `styles.css`) overrides UDS's correctly-scoped rule. See
+ * `scripts/build-theme-partial.mjs` and docs/consumer-tailwind-theme.md.
+ *
+ * This file must contain `@custom-variant` declarations and comments only.
+ */
+@custom-variant dark (&:where(.dark, .dark *));

@@ -110,6 +110,7 @@ cleanly and still render nothing.
 ```css
 /* app/src/tailwind-local.css — imported AFTER …/styles.css */
 @import "@chghealthcare/unified-design-system/theme" theme(reference);
+@import "@chghealthcare/unified-design-system/variants";
 @import "tailwindcss/theme.css" theme(reference);
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 @source "./";
@@ -123,6 +124,32 @@ scan set explicitly is the same reason UDS's own `src/styles.lib.css` uses it.
 The order of the two `theme(reference)` imports does not matter. Tailwind marks its own theme values
 as defaults, so an explicitly-set value wins regardless of position — verified both ways, `.font-sans`
 compiles with UDS's Inter stack as its fallback either order.
+
+### `./variants` is not optional
+
+`./variants` is a plain import, not a reference — it carries UDS's `@custom-variant` declarations,
+which `theme(reference)` cannot hold because that form accepts `@theme` blocks only.
+
+Today it contains one line:
+
+```css
+@custom-variant dark (&:where(.dark, .dark *));
+```
+
+Tailwind's default `dark:` is `@media (prefers-color-scheme: dark)`. UDS redefines it as
+class-scoped, because a consuming app drives dark mode with a `.dark` class rather than the OS
+setting. Omit this import and the local build compiles **every** `dark:` utility with OS-media
+semantics — and since the local sheet loads after `styles.css`, those rules *override* UDS's
+correctly-scoped ones. The result is that on any machine whose OS is in dark mode, every `dark:`
+class in the app fires with no `.dark` ancestor anywhere.
+
+This is not theoretical. It happened on the first real consumer build (keystone's `apps/web`),
+where five `dark:` utilities flipped on and `dark:text-white` turned an amber notification bar's
+text white-on-amber. `test:theme-partial` now asserts `dark:` compiles class-scoped, and fails if a
+`prefers-color-scheme` query appears at all.
+
+Shipping the declaration rather than documenting it is deliberate, and for the same reason `./theme`
+exists: a hand-copied `@custom-variant` silently diverges the moment UDS changes its own.
 
 Import the compiled result **after** `styles.css` so local utility rules win ties. With
 `theme(reference)` the only thing in play is `@layer utilities`, so later-wins is the intended

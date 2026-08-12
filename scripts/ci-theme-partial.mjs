@@ -30,6 +30,7 @@ import { compile } from "tailwindcss"
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..")
 const partial = path.join(root, "dist/theme.css")
+const variantsPartial = path.join(root, "dist/variants.css")
 const tailwindRoot = path.join(root, "node_modules/tailwindcss")
 
 if (!fs.existsSync(partial)) {
@@ -73,9 +74,22 @@ const UDS_UTILITIES = [
 const TREE_SHAKEN_UDS_UTILITIES = ["bg-uds-surface-disabled", "text-uds-48"]
 const STANDARD_UTILITIES = ["space-y-6", "max-w-6xl", "grid-cols-2"]
 
+/**
+ * `dark:` must compile class-scoped, matching UDS's own `@custom-variant dark`.
+ *
+ * Tailwind's default is `@media (prefers-color-scheme: dark)`. A consumer build
+ * that misses the variants partial generates that instead and, because its sheet
+ * loads after styles.css, overrides UDS's correctly-scoped rule — so every
+ * `dark:` class fires on any machine whose OS is in dark mode, with no `.dark`
+ * ancestor present. Caught in keystone's apps/web on the first real build, where
+ * it turned RuntimeContextBar's amber text white-on-amber.
+ */
+const DARK_UTILITIES = ["dark:text-white", "dark:bg-uds-surface-primary"]
+
 const compiler = await compile(
   [
     `@import "${partial.replace(/\\/g, "/")}" theme(reference);`,
+    `@import "${variantsPartial.replace(/\\/g, "/")}";`,
     `@import "tailwindcss/theme.css" theme(reference);`,
     `@import "tailwindcss/utilities.css" layer(utilities) source(none);`,
   ].join("\n"),
@@ -83,7 +97,7 @@ const compiler = await compile(
 )
 
 const allUtilities = [...UDS_UTILITIES, ...TREE_SHAKEN_UDS_UTILITIES, ...STANDARD_UTILITIES]
-const css = compiler.build(allUtilities)
+const css = compiler.build([...allUtilities, ...DARK_UTILITIES])
 
 /** @type {string[]} */
 const failures = []
@@ -132,6 +146,29 @@ if (unresolved.length > 0) {
   )
 }
 
+// 5 — the variants partial makes `dark:` class-scoped, not OS-media.
+if (/prefers-color-scheme/.test(css)) {
+  failures.push(
+    "emitted CSS contains @media (prefers-color-scheme) — dark: compiled with OS-media " +
+      "semantics, so dist/variants.css is not being applied",
+  )
+}
+for (const utility of DARK_UTILITIES) {
+  const selector = `.${utility.replace(":", "\\:")}`
+  const index = css.indexOf(selector)
+  if (index === -1) {
+    failures.push(`${utility} — generated no rule`)
+    continue
+  }
+  const emittedSelector = css.slice(index, css.indexOf("{", index))
+  if (!emittedSelector.includes(":where(.dark")) {
+    failures.push(
+      `${utility} compiled as \`${emittedSelector.trim()}\` — expected a ` +
+        `:where(.dark, .dark *) guard from dist/variants.css`,
+    )
+  }
+}
+
 console.log("")
 console.log("  test:theme-partial")
 console.log(`  emitted layers: ${emittedLayers.join(", ") || "(none)"}`)
@@ -148,6 +185,7 @@ for (const utility of TREE_SHAKEN_UDS_UTILITIES) {
   console.log(`  ✓ ${utility} (tree-shaken from styles.css — fallback-only)`)
 }
 for (const utility of STANDARD_UTILITIES) console.log(`  ✓ ${utility} (standard scale)`)
+for (const utility of DARK_UTILITIES) console.log(`  ✓ ${utility} (class-scoped, not OS-media)`)
 console.log("  ✓ no @layer theme / @layer base emitted")
 console.log("  ✓ utilities fall back to --uds-* properties")
 console.log(`  ✓ all ${fallbackTargets.length} --uds-* fallback targets defined in styles.css`)

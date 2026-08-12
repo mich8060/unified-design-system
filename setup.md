@@ -20,10 +20,13 @@ This file is the shorter starter-oriented projection of that contract.
   ```css
   /* imported AFTER …/styles.css */
   @import "@chghealthcare/unified-design-system/theme" theme(reference);
+  @import "@chghealthcare/unified-design-system/variants";
   @import "tailwindcss/theme.css" theme(reference);
   @import "tailwindcss/utilities.css" layer(utilities) source(none);
   @source "./";
   ```
+
+  All four lines are required. `./variants` carries UDS's `@custom-variant dark (&:where(.dark, .dark *))` — Tailwind's default `dark:` is `@media (prefers-color-scheme: dark)`, so **without it every `dark:` utility your build generates fires whenever the OS is in dark mode**, overriding UDS's class-scoped rules.
 
   This emits utilities only — nothing that can collide with a UDS token — and generates UDS's own token utilities (`text-uds-14`, `bg-uds-surface-primary`, `text-uds-text-link-primary-default`) as well as the standard scale, resolving both against the live tokens in `styles.css` (still required). You install `tailwindcss` yourself; UDS declares it as an **optional peer dependency** (`^4.2.2`) so your package manager flags a mismatch. To match exactly, use the version recorded in the header of `dist/theme.css`. Rationale and caveats: [`docs/consumer-tailwind-theme.md`](./docs/consumer-tailwind-theme.md).
 - **AI stubs on the hot path** (required for AI-assisted work; **agent-owned**): after install, the setup agent runs `npx uds-copy-ai-rules` (or `--tool=cursor`) from the consumer app root — do **not** ask designers/PMs to do this. Commit the written files (e.g. `.cursor/rules/uds.mdc`). Starter templates should bake them in. Full matrix: [`ai/guides/consumer-ai-bootstrap.md`](./ai/guides/consumer-ai-bootstrap.md). Without this, agents will not load `design-language/` from `node_modules`.
