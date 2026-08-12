@@ -105,21 +105,36 @@ and [`docs/github-packages.md`](./docs/github-packages.md#publishing-maintainers
 
 ## Releasing (maintainers)
 
-**Git:** push branches and tags to `https://github.com/chghealthcare/unified-design-system`
-(remote `origin`).
+**Git:** push branches to `https://github.com/chghealthcare/unified-design-system` (remote
+`origin`).
 
 1. Bump `version` in `package.json` and merge to `main`.
-2. Ensure `npm ci`, `npm run build:lib`, and `npm run pack:check` pass locally (CI runs `build:lib`
-   and `lint` on push/PR).
-3. **Documentation snapshots** (latest only; no version switcher): created only on **minor** or
-   **major** bumps, not every patch. Run `npm run build:docs` on minor/major releases and commit
-   generated files under `src/docs/versions/`. Older snapshot folders are pruned. See
+2. Run the checks CI does not cover:
+
+   ```bash
+   npm run typecheck          # pre-existing failures under src/stories/uds/; lib and node projects are clean
+   npm run validate:ai
+   npm run test:docs-versions
+   ```
+
+   Everything else runs in CI on every push and PR to `main` — `lint`, the subpath-exports check,
+   `build:lib`, unit and script tests, `validate:figma`, `validate:uds`, `ci:bundle`, `pack:check`,
+   the consumer fixture, and the docs build plus smoke tests.
+3. **On a minor or major bump only**, regenerate the documentation snapshot and commit it:
+
+   ```bash
+   npm run build:docs
+   git add src/docs/versions
+   ```
+
+   Latest snapshot only; older folders are pruned automatically. See
    [`docs/docs-version-snapshots.md`](./docs/docs-version-snapshots.md).
-4. Create a GitHub **Release** for that version. That triggers:
-   - **GitHub Packages** — [`.github/workflows/publish-github-packages.yml`](./.github/workflows/publish-github-packages.yml)
-     publishes to `npm.pkg.github.com`
-   - **npmjs** (optional) — [`.github/workflows/publish-npm.yml`](./.github/workflows/publish-npm.yml)
-     if `NPM_TOKEN` is configured
+4. Publish to GitHub Packages: **Actions → Publish GitHub Package → Run workflow** on `main`. Run it
+   with `dry_run: true` first, then again with `dry_run: false`.
+
+   Do not publish by creating a GitHub Release unless `NPM_TOKEN` is set — `release: published` also
+   triggers [`publish-npm.yml`](./.github/workflows/publish-npm.yml), which fails without that
+   secret.
 5. Optionally build and pack a tarball from a clean checkout:
 
    ```bash
