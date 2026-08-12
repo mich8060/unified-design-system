@@ -1,0 +1,24 @@
+/*
+ * UDS font families → Tailwind v4 @theme.
+ *
+ * Pins Tailwind's `--font-sans` / `--font-mono` namespaces to the UDS stacks so
+ * `font-sans` and `font-mono` resolve to Inter / Menlo rather than Tailwind's defaults.
+ *
+ * Kept in its own file (rather than inline in `./tokens.css`) so it can be
+ * concatenated verbatim into the published `dist/theme.css` partial — see
+ * `scripts/build-theme-partial.mjs` and docs/consumer-tailwind-theme.md.
+ * This file must contain `@theme` blocks and comments only.
+ */
+@theme {
+  --font-sans:
+    "Inter Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* Preflight: `html` uses `var(--default-font-family, …)` — pin to the Inter stack above. */
+  --default-font-family: var(--font-sans);
+  --font-inter:
+    "Inter Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono:
+    "Menlo", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}

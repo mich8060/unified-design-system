@@ -1,17 +1,18 @@
+/*
+ * Token + theme root.
+ *
+ * `./uds-tokens.css` holds the raw `--uds-*` custom properties (`:root`, dark
+ * mode, media queries). The `*-theme.css` siblings are `@theme`-only files that
+ * register those tokens into Tailwind namespaces, and are the authoritative set
+ * concatenated into the published `dist/theme.css` partial.
+ *
+ * Adding a new `@theme` file? Import it here and it ships in the partial
+ * automatically. Do not add `@theme` blocks to `./uds-tokens.css` or any other
+ * mixed-content file — `scripts/build-theme-partial.mjs` fails the build if you
+ * do, because `@import … theme(reference)` requires `@theme`-only files.
+ * See docs/consumer-tailwind-theme.md.
+ */
 @import "./uds-tokens.css";
 @import "./uds-semantic-colors-theme.css";
 @import "./uds-typography-theme.css";
-
-@theme {
-  --font-sans:
-    "Inter Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  /* Preflight: `html` uses `var(--default-font-family, …)` — pin to the Inter stack above. */
-  --default-font-family: var(--font-sans);
-  --font-inter:
-    "Inter Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono:
-    "Menlo", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-}
+@import "./uds-font-theme.css";

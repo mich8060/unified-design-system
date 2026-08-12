@@ -14,7 +14,18 @@ This file is the shorter starter-oriented projection of that contract.
 
 - Install `@chghealthcare/unified-design-system`, `react`, and `react-dom` only — **do not** run `npx shadcn init` or `npx shadcn create` (Table / Board / Roadmap prompts come from shadcn scaffolding, not UDS install).
 - Import styles once with `import "@chghealthcare/unified-design-system/styles.css"`.
-- **styles.css-only is enough for AI recipe layouts** — published CSS includes multi-column utilities used by `ai/examples` (`lg:grid-cols-2`, settings nav grids, etc.). You do **not** need a consumer Tailwind build for those recipe class strings.
+- **styles.css-only is enough for the AI recipe layouts** — published CSS includes the multi-column utilities used by `ai/examples` (`lg:grid-cols-2`, settings nav grids, etc.). You do **not** need a consumer Tailwind build for **those** recipe class strings. It is *not* a general Tailwind surface: published CSS contains only what UDS's own build emitted, so utilities it never emitted (`space-y-6`, bare `grid-cols-2`, arbitrary values, most negative offsets) silently do nothing rather than failing the build. Check `node_modules/@chghealthcare/unified-design-system/dist/styles.css` before relying on a class outside the recipe set — or add a local Tailwind build, next bullet.
+- **Need utilities beyond the published set?** Add a small local Tailwind v4 build and reference UDS's theme rather than re-emitting it. Do **not** prefix it, and do **not** `@import "tailwindcss"` (that emits a second `@layer theme` which, because same-named layers merge, would replace UDS's Inter `--font-sans` with Tailwind's system stack app-wide):
+
+  ```css
+  /* imported AFTER …/styles.css */
+  @import "@chghealthcare/unified-design-system/theme" theme(reference);
+  @import "tailwindcss/theme.css" theme(reference);
+  @import "tailwindcss/utilities.css" layer(utilities) source(none);
+  @source "./";
+  ```
+
+  This emits utilities only — nothing that can collide with a UDS token — and generates UDS's own token utilities (`text-uds-14`, `bg-uds-surface-primary`, `text-uds-text-link-primary-default`) as well as the standard scale, resolving both against the live tokens in `styles.css`. Pin your Tailwind to the version recorded in the header of `dist/theme.css`. Rationale and caveats: [`docs/consumer-tailwind-theme.md`](./docs/consumer-tailwind-theme.md).
 - **AI stubs on the hot path** (required for AI-assisted work; **agent-owned**): after install, the setup agent runs `npx uds-copy-ai-rules` (or `--tool=cursor`) from the consumer app root — do **not** ask designers/PMs to do this. Commit the written files (e.g. `.cursor/rules/uds.mdc`). Starter templates should bake them in. Full matrix: [`ai/guides/consumer-ai-bootstrap.md`](./ai/guides/consumer-ai-bootstrap.md). Without this, agents will not load `design-language/` from `node_modules`.
 - Prefer **`MainStack`** under PageHeader for first-level section gaps (24px).
 - For authenticated product screens, default to `AppShell`.

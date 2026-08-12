@@ -31,7 +31,37 @@ npm run build:lib       # includes the subpath-exports check — see below
 npm run test            # scripts + unit tests
 npm run pack:check       # verifies npm-pack contents
 npm run validate:ai      # UDS/Figma/design-language artifact consistency
+npm run test:theme-partial   # after build:lib — verifies dist/theme.css works as a consumer reference
 ```
+
+## Adding a Tailwind `@theme` token namespace
+
+> **Short version:** put the `@theme` block in its own `src/styles/*-theme.css` file and `@import`
+> it from [`src/styles/tokens.css`](./src/styles/tokens.css). Nothing else to do — it ships to
+> consumers automatically.
+
+UDS publishes its `@theme` registrations as `dist/theme.css` behind the
+`@chghealthcare/unified-design-system/theme` subpath, so consumer apps running their own Tailwind
+build can generate UDS token utilities (`text-uds-14`, `bg-uds-surface-primary`). The partial's file
+set is derived from `tokens.css`'s `@import` list, so a new theme file is picked up with no second
+list to update.
+
+Two rules, both enforced by [`scripts/build-theme-partial.mjs`](./scripts/build-theme-partial.mjs)
+during `build:lib`:
+
+- **A `@theme` file must contain `@theme` blocks and comments only.** Consumers import the partial
+  with `theme(reference)`, which rejects anything else — so mixed content breaks every consumer's
+  build, not just ours.
+- **Do not add `@theme` blocks to `src/styles/uds-tokens.css`** (or any other mixed-content file).
+  Raw `--uds-*` values belong there; registrations do not. A `@theme` block in a mixed file would be
+  silently absent from the published partial, so the build fails and tells you to extract it.
+
+Avoid `/*!` bang-comments in these files: Tailwind keeps them as AST nodes and `theme(reference)`
+rejects them. Plain `/* */` comments are stripped and are fine.
+
+Full rationale — including why the compiled `styles.css` can't serve as the theme, and why the
+partial deliberately ships registrations without values — is in
+[`docs/consumer-tailwind-theme.md`](./docs/consumer-tailwind-theme.md).
 
 ## Adding or removing a public component
 
