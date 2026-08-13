@@ -55,6 +55,7 @@ import "@chghealthcare/unified-design-system/styles.css"
 - Prefer a **published build** that ran full `build:lib` (includes `prepare-package`). Hand-built `dist` that skipped prepare-package may still embed Inter as base64 in CSS and make pages slow to load.
 - If load is still slow after upgrading, you may be on an older tarball with inlined fonts — upgrade to a release that ships `fonts/Inter-Variable.woff2` as a separate file.
 - Optional: **preload** Inter to reduce first-paint swap — see [`setup.md`](./setup.md#fonts--preload) (`@chghealthcare/unified-design-system/fonts/Inter-Variable.woff2`).
+- `styles.css` is a **compiled** stylesheet, not a general Tailwind surface — it contains only the utilities UDS's own build emitted, so anything else silently no-ops in a consumer app. If you need utilities beyond it, add a local Tailwind v4 build that references **`@chghealthcare/unified-design-system/theme`** (the shipped `@theme` partial) instead of re-emitting Tailwind's theme. See **[docs/consumer-tailwind-theme.md](./docs/consumer-tailwind-theme.md)**.
 
 ### Vite dev performance
 

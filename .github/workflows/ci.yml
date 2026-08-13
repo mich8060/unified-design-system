@@ -38,6 +38,13 @@ jobs:
       - name: Recipe layout utilities in styles.css
         run: npm run test:recipe-layout-css
 
+      # Compiles dist/theme.css the way a consumer app does. Catches a dropped
+      # @theme registration (silent no-op for consumer token utilities) and a
+      # regression back into emitting @layer theme (which would let a consumer
+      # sheet override UDS's --font-sans app-wide). See docs/consumer-tailwind-theme.md.
+      - name: Consumer @theme partial (dist/theme.css)
+        run: npm run test:theme-partial
+
       - name: Script unit tests
         run: npm run test:scripts
 

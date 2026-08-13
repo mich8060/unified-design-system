@@ -16,6 +16,7 @@ Use [`design-language/`](./design-language/) as the Design System Language for *
 - Pattern chooser: [`design-language/decision-rules/choosing-patterns.md`](./design-language/decision-rules/choosing-patterns.md)
 
 - Allowed imports: `@chghealthcare/unified-design-system` and `@chghealthcare/unified-design-system/styles.css`
+- **Optional, only if the app runs its own Tailwind v4 build:** `@chghealthcare/unified-design-system/theme` and `/variants` (CSS partials). `styles.css` is precompiled, so a utility UDS never emitted silently produces **no rule** — grep `dist/styles.css` first. If a genuinely-needed class is missing, this is the fix; do not hand-author it and do not prefix. Recipe: [`setup.md`](./setup.md), rationale: [`docs/consumer-tailwind-theme.md`](./docs/consumer-tailwind-theme.md)
 - Default authenticated layout: `AppShell` with **`Menu`** in the **`menu`** slot; page content in **`AppShell.Main`** via **`MainContent`** (`edge` | `fixed`). Keep that containment choice consistent across the app’s pages.
 - Branding + menu toggle live in the full-width **AppShell Header**; set `brand` / `headerVariant` / `headerTitle` on AppShell — Menu in AppShell is nav-only
 - `Sidebar*` is for in-page side panels, not the AppShell product rail unless you own rail CSS

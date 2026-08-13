@@ -1,6 +1,6 @@
 {
   "name": "@chghealthcare/unified-design-system",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "packageManager": "npm@10.9.2",
   "description": "React UI primitives and styles built with Tailwind CSS v4 and shadcn-style components (UDS).",
   "license": "MIT",
@@ -488,6 +488,8 @@
       "import": "./dist/components/ui/textarea.js",
       "require": "./dist/components/ui/textarea.cjs"
     },
+    "./theme": "./dist/theme.css",
+    "./theme.css": "./dist/theme.css",
     "./time-input": {
       "types": "./dist/components/ui/time-input.d.ts",
       "import": "./dist/components/ui/time-input.js",
@@ -532,7 +534,9 @@
       "types": "./dist/components/ui/url-input.d.ts",
       "import": "./dist/components/ui/url-input.js",
       "require": "./dist/components/ui/url-input.cjs"
-    }
+    },
+    "./variants": "./dist/variants.css",
+    "./variants.css": "./dist/variants.css"
   },
   "volta": {
     "node": "22.22.2"
@@ -551,7 +555,7 @@
     "dev": "vite --config vite.config.docs.ts",
     "build": "npm run build:lib && npm run build:docs",
     "prepublishOnly": "npm run build:lib",
-    "build:lib": "node ./scripts/generate-subpath-exports.mjs --check && vite build --config vite.config.lib.ts && vite build --config vite.config.lib-base-css.ts && tsc -p tsconfig.lib.json && node ./scripts/prepare-package.mjs && node ./scripts/generate-subpath-exports.mjs --verify-dist",
+    "build:lib": "node ./scripts/generate-subpath-exports.mjs --check && node ./scripts/build-theme-partial.mjs --check && vite build --config vite.config.lib.ts && vite build --config vite.config.lib-base-css.ts && tsc -p tsconfig.lib.json && node ./scripts/build-theme-partial.mjs && node ./scripts/prepare-package.mjs && node ./scripts/generate-subpath-exports.mjs --verify-dist",
     "generate:subpath-exports": "node ./scripts/generate-subpath-exports.mjs",
     "build:docs": "node ./scripts/sync-docs-version-snapshot.mjs && vite build --config vite.config.docs.ts",
     "lint": "eslint .",
@@ -562,6 +566,8 @@
     "ci:bundle": "node ./scripts/ci-bundle.mjs",
     "ci:pack": "node ./scripts/ci-pack-fonts.mjs",
     "test:recipe-layout-css": "node ./scripts/ci-recipe-layout-css.mjs",
+    "test:theme-partial": "node ./scripts/ci-theme-partial.mjs",
+    "generate:theme-partial": "node ./scripts/build-theme-partial.mjs",
     "optimize:branding-svg": "node ./scripts/optimize-branding-svg.mjs",
     "test:consumer-fixture": "node ./scripts/test-consumer-fixture.mjs",
     "test:docs-versions": "node --test ./scripts/lib/docs-version-policy.test.mjs && node ./scripts/docs-versions-smoke.mjs",
@@ -600,10 +606,14 @@
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^6.28.0 || ^7.0.0"
+    "react-router-dom": "^6.28.0 || ^7.0.0",
+    "tailwindcss": "^4.2.2"
   },
   "peerDependenciesMeta": {
     "react-router-dom": {
+      "optional": true
+    },
+    "tailwindcss": {
       "optional": true
     }
   },

@@ -6,7 +6,7 @@ Before generating React UI:
 
 1. Prefer patterns from `node_modules/@chghealthcare/unified-design-system/ai/examples/` and `ai/recipes/`.
 2. Follow `node_modules/@chghealthcare/unified-design-system/ai/consumer-ai/COMPOSITION.md`.
-3. Imports only from `@chghealthcare/unified-design-system` and `@chghealthcare/unified-design-system/styles.css`.
+3. Imports only from `@chghealthcare/unified-design-system` and `@chghealthcare/unified-design-system/styles.css` (plus the optional CSS partials `…/theme` and `…/variants` if this app runs its own Tailwind v4 build — see the package's `setup.md`).
 4. Authenticated pages: `AppShell` + `Menu` in `menu`; content in `AppShell.Main` + `MainContent`.
 
 ## Composition — Required (Main layout)

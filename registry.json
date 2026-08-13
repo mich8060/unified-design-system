@@ -15,9 +15,9 @@
         "theme"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "Install `uds-tailwind-test`, import `styles/uds.css` from your app entrypoint, and keep your runtime component imports on the package root.",
+      "docs": "Install `@chghealthcare/unified-design-system`, import `styles/uds.css` from your app entrypoint, and keep your runtime component imports on the package root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -28,7 +28,7 @@
           "path": "registry/uds/uds.css",
           "type": "registry:file",
           "target": "styles/uds.css",
-          "content": "@import \"uds-tailwind-test/styles.css\";\n"
+          "content": "@import \"@chghealthcare/unified-design-system/styles.css\";\n"
         }
       ]
     },
@@ -44,9 +44,9 @@
         "shell"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -57,7 +57,7 @@
           "path": "registry/uds/app-shell.tsx",
           "type": "registry:file",
           "target": "components/uds/app-shell.tsx",
-          "content": "export { AppShell } from \"uds-tailwind-test\"\n"
+          "content": "export { AppShell } from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -73,9 +73,9 @@
         "navigation"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -86,7 +86,7 @@
           "path": "registry/uds/sidebar.tsx",
           "type": "registry:file",
           "target": "components/uds/sidebar.tsx",
-          "content": "export {\n  Sidebar,\n  SidebarContent,\n  SidebarFooter,\n  SidebarGroup,\n  SidebarGroupAction,\n  SidebarGroupContent,\n  SidebarGroupLabel,\n  SidebarHeader,\n  SidebarInput,\n  SidebarInset,\n  SidebarMenu,\n  SidebarMenuAction,\n  SidebarMenuBadge,\n  SidebarMenuButton,\n  SidebarMenuItem,\n  SidebarMenuSkeleton,\n  SidebarMenuSub,\n  SidebarMenuSubButton,\n  SidebarMenuSubItem,\n  SidebarProvider,\n  SidebarRail,\n  SidebarSeparator,\n  SidebarTrigger,\n} from \"uds-tailwind-test\"\n"
+          "content": "export {\n  Sidebar,\n  SidebarContent,\n  SidebarFooter,\n  SidebarGroup,\n  SidebarGroupAction,\n  SidebarGroupContent,\n  SidebarGroupLabel,\n  SidebarHeader,\n  SidebarInput,\n  SidebarInset,\n  SidebarMenu,\n  SidebarMenuAction,\n  SidebarMenuBadge,\n  SidebarMenuButton,\n  SidebarMenuItem,\n  SidebarMenuSkeleton,\n  SidebarMenuSub,\n  SidebarMenuSubButton,\n  SidebarMenuSubItem,\n  SidebarProvider,\n  SidebarRail,\n  SidebarSeparator,\n  SidebarTrigger,\n} from \"@chghealthcare/unified-design-system\"\n"
         }
       ]
     },
@@ -101,9 +101,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -129,9 +129,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -157,9 +157,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -185,9 +185,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -213,9 +213,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -241,9 +241,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -269,9 +269,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -297,9 +297,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -325,9 +325,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -353,9 +353,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -381,9 +381,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -409,9 +409,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",
@@ -437,9 +437,9 @@
         "ui"
       ],
       "dependencies": [
-        "@chghealthcare/unified-design-system@1.2.0"
+        "@chghealthcare/unified-design-system@1.4.0"
       ],
-      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
       "meta": {
         "package": "@chghealthcare/unified-design-system",
         "registryBaseUrl": "http://localhost:5173/r",

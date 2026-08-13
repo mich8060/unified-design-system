@@ -25,6 +25,7 @@ Canonical **why/when** Design System Language: [`design-language/`](./design-lan
 
 - Import runtime components only from `@chghealthcare/unified-design-system`.
 - Import styles only from `@chghealthcare/unified-design-system/styles.css`.
+- **Optional (only if the app runs its own Tailwind v4 build):** the CSS partials `@chghealthcare/unified-design-system/theme` and `…/variants`. `styles.css` is precompiled, so a utility UDS never emitted produces **no rule** and fails silently — grep `dist/styles.css` first. If a needed class is genuinely absent, this is the fix; do not hand-author the rule and do not prefix the build. Recipe: `setup.md`.
 - Do not import from `src/components/ui/*`, `dist/*`, `@/*`, or any `*-base`, `*-core`, `*-theme`, `*-uds` module in consumer-facing code.
 - For authenticated product screens, default to `AppShell`.
 - Compose the **`AppShell` `menu` slot** with the package **`Menu`** component (canonical). Do not use `Sidebar*` in `menu` unless the product owns full rail CSS.

@@ -6,8 +6,8 @@ You are working with the AppShell layout component from the UDS (Unified Design 
 
 ## 1. Package Contract
 
-- Import components from `uds-tailwind-test`
-- Import styles from `uds-tailwind-test/styles.css`
+- Import components from `@chghealthcare/unified-design-system`
+- Import styles from `@chghealthcare/unified-design-system/styles.css`
 - Icons: use `@phosphor-icons/react` (Phosphor Icons), weight `"bold"` by default
 - Never import from internal paths like `src/components/ui/*` or `dist/*`
 
@@ -16,8 +16,8 @@ You are working with the AppShell layout component from the UDS (Unified Design 
 ## 2. Component API
 
 ```tsx
-import { AppShell, Header, Footer, Menu } from "uds-tailwind-test"
-import "uds-tailwind-test/styles.css"
+import { AppShell, Header, Footer, Menu } from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"
 ```
 
 ### AppShellProps
@@ -173,7 +173,7 @@ The Header chrome and Menu rail are both `position: fixed` (header at `top: 0`; 
 ## 7. Header Component
 
 ```tsx
-import { Header } from "uds-tailwind-test"
+import { Header } from "@chghealthcare/unified-design-system"
 ```
 
 ### HeaderProps
@@ -251,7 +251,7 @@ The built-in search field uses the `InputGroup` pattern:
 ## 8. Footer Component
 
 ```tsx
-import { Footer } from "uds-tailwind-test"
+import { Footer } from "@chghealthcare/unified-design-system"
 ```
 
 ### FooterProps
@@ -340,8 +340,8 @@ import {
   DropdownMenuTrigger,
   type MenuNavigationItem,
   type MenuUtilityItem,
-} from "uds-tailwind-test"
-import "uds-tailwind-test/styles.css"
+} from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"
 import {
   BellIcon,
   LayoutIcon,

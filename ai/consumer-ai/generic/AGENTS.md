@@ -13,6 +13,7 @@ Use with Copilot Chat, Windsurf, ChatGPT-in-IDE, or any agent that reads project
 ## Hard rules
 
 - Import only from `@chghealthcare/unified-design-system` and `…/styles.css`
+- Optional, only if this app runs its own Tailwind v4 build: the CSS partials `…/theme` and `…/variants`. `styles.css` is precompiled, so a utility UDS never emitted silently produces no rule — grep `node_modules/@chghealthcare/unified-design-system/dist/styles.css` before using a class, and reach for the local build (see the package's `setup.md`) rather than hand-authoring CSS. Do not prefix it.
 - Authenticated UI: `AppShell` + `Menu` in `menu` (not `Sidebar*` for the rail)
 - Content in `AppShell.Main` via `MainContent` (`edge` | `fixed`)
 

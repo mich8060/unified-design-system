@@ -6,11 +6,11 @@ export const DOCS_PACKAGE_VERSION = __DOCS_VERSION__ as DocsVersionId
 
 export const DOCS_VERSION_MANIFEST = {
   /** Frozen snapshot loaded by default (latest minor/major docs release, not every patch). */
-  defaultVersion: '1.3.0' as DocsVersionId,
+  defaultVersion: '1.4.0' as DocsVersionId,
   versions: [
     {
-      id: '1.3.0',
-      label: `Documentation - v1.3.0`,
+      id: '1.4.0',
+      label: `Documentation - v1.4.0`,
     },
   ] satisfies DocsVersionManifestEntry[],
 }

@@ -6,8 +6,8 @@ You are working with a React sidebar menu component from the UDS (Unified Design
 
 ## 1. Package Contract
 
-- Import components from `uds-tailwind-test`
-- Import styles from `uds-tailwind-test/styles.css`
+- Import components from `@chghealthcare/unified-design-system`
+- Import styles from `@chghealthcare/unified-design-system/styles.css`
 - Icons: use `@phosphor-icons/react` (Phosphor Icons), weight `"bold"` by default
 - Never import from internal paths like `src/components/ui/*` or `dist/*`
 
@@ -268,8 +268,8 @@ SVGs are bundled via the `Branding` component from `src/assets/branding/svg/`. D
 ## 12. Complete Usage Example
 
 ```tsx
-import { Menu, AppShell, Header, Footer, useMenuRail, Branding, type MenuNavigationItem, type MenuUtilityItem } from "uds-tailwind-test"
-import "uds-tailwind-test/styles.css"
+import { Menu, AppShell, Header, Footer, useMenuRail, Branding, type MenuNavigationItem, type MenuUtilityItem } from "@chghealthcare/unified-design-system"
+import "@chghealthcare/unified-design-system/styles.css"
 import { LayoutIcon, BriefcaseIcon, UsersIcon, PhoneIcon, ChatCircleDotsIcon, ListIcon } from "@phosphor-icons/react"
 
 const NAV_ITEMS: MenuNavigationItem[] = [
