@@ -125,28 +125,47 @@ The order of the two `theme(reference)` imports does not matter. Tailwind marks 
 as defaults, so an explicitly-set value wins regardless of position — verified both ways, `.font-sans`
 compiles with UDS's Inter stack as its fallback either order.
 
-### `./variants` is not optional
+### `./variants` — when you need it
 
-`./variants` is a plain import, not a reference — it carries UDS's `@custom-variant` declarations,
-which `theme(reference)` cannot hold because that form accepts `@theme` blocks only.
-
-Today it contains one line:
+`./variants` is a plain import, not a reference: it carries UDS's `@custom-variant` declarations,
+which `theme(reference)` cannot hold because that form accepts `@theme` blocks only. Today that is
+one line:
 
 ```css
 @custom-variant dark (&:where(.dark, .dark *));
 ```
 
-Tailwind's default `dark:` is `@media (prefers-color-scheme: dark)`. UDS redefines it as
-class-scoped, because a consuming app drives dark mode with a `.dark` class rather than the OS
-setting. Omit this import and the local build compiles **every** `dark:` utility with OS-media
-semantics — and since the local sheet loads after `styles.css`, those rules *override* UDS's
-correctly-scoped ones. The result is that on any machine whose OS is in dark mode, every `dark:`
-class in the app fires with no `.dark` ancestor anywhere.
+**It only matters if your scanned source uses a `dark:` utility.** Tailwind generates variants on
+demand, so an app with no `dark:` class anywhere produces no dark rules at all and this import
+changes nothing about the output. In that case it is genuinely opt-in.
 
-This is not theoretical. It happened on the first real consumer build (keystone's `apps/web`),
-where five `dark:` utilities flipped on and `dark:text-white` turned an amber notification bar's
-text white-on-amber. `test:theme-partial` now asserts `dark:` compiles class-scoped, and fails if a
-`prefers-color-scheme` query appears at all.
+The moment your source contains even one `dark:` class, you need it. Tailwind's default `dark:` is
+`@media (prefers-color-scheme: dark)`; UDS redefines it class-scoped, because a UDS app drives dark
+mode with a `.dark` class rather than the OS setting. Without the import your build compiles those
+utilities with OS-media semantics and — because your sheet loads after `styles.css` — *overrides*
+UDS's correctly-scoped rules. Every `dark:` class in your app then fires on any machine whose OS is
+in dark mode, with no `.dark` ancestor present.
+
+The worst version of this is an app that does **not** implement dark mode at all, which is exactly
+where it was found. keystone's `apps/web` never applies `.dark`, so the 14 `dark:` classes left in
+two of its components were dead code — until the local build made them live, and `dark:text-white`
+turned an amber notification bar's text white-on-amber. The import adds no feature there; it keeps
+inert markup inert.
+
+Deciding for your app:
+
+```bash
+grep -rE '\bdark:' src/ | head   # any output → include the import
+```
+
+The recommended default is to include it either way. It costs one line and contributes nothing to
+the output when unused, whereas the failure it prevents is silent, depends on the developer's OS
+setting, and inverts the meaning of markup already in the tree. The alternative — deleting the
+`dark:` classes instead — is cleaner if you never want dark mode, but then a single one reintroduced
+later silently brings the bug back.
+
+`test:theme-partial` asserts `dark:` compiles class-scoped and fails if a `prefers-color-scheme`
+query is emitted at all.
 
 Shipping the declaration rather than documenting it is deliberate, and for the same reason `./theme`
 exists: a hand-copied `@custom-variant` silently diverges the moment UDS changes its own.
