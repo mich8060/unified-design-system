@@ -17,6 +17,25 @@ import { AppShell, Button, Card, Menu } from "@chghealthcare/unified-design-syst
 import "@chghealthcare/unified-design-system/styles.css"
 ```
 
+`styles.css` is **precompiled**: it contains only the utilities UDS's own build emitted, so any other
+class produces no rule at all and fails silently. Before relying on a utility outside the recipe set,
+grep `node_modules/@chghealthcare/unified-design-system/dist/styles.css`. If it is genuinely missing,
+the fix is a local Tailwind v4 build referencing UDS's theme partials — **not** a hand-authored CSS
+rule and **not** a prefixed build:
+
+```css
+/* src/uds-tailwind.css — imported AFTER styles.css */
+@import "@chghealthcare/unified-design-system/theme" theme(reference);
+@import "@chghealthcare/unified-design-system/variants";
+@import "tailwindcss/theme.css" theme(reference);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+
+@source "./";
+```
+
+Requires `tailwindcss` (UDS declares it as an optional peer) and a Tailwind integration such as
+`@tailwindcss/vite`. Full steps in the package's `setup.md`.
+
 Do not import from `src/components/ui/*`, `dist/*`, `@/*`, or `*-base` / `*-core` / `*-theme` / `*-uds`.
 
 ## Shell

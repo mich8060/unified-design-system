@@ -105,25 +105,81 @@ This is also why the partial must keep pointing at `--uds-*` primitives rather t
 namespace names. A registration whose fallback named another tree-shaken namespace would compile
 cleanly and still render nothing.
 
-## Consumer recipe
+## Consumer setup (React + Vite)
+
+Four steps. Copy them as-is; nothing else is required.
+
+**1. Install Tailwind.** UDS declares `tailwindcss` as an *optional* peer, so you install it
+yourself. Pin it to the version in `dist/theme.css`'s header — the version UDS was built against.
+
+```bash
+npm install -D tailwindcss@4.3.3 @tailwindcss/vite
+```
+
+`@tailwindcss/vite` is the Vite integration and depends on `tailwindcss` itself; UDS doesn't declare
+it as a peer because the partials work equally through `@tailwindcss/postcss` or `@tailwindcss/cli`.
+Swap it for whichever integration your bundler uses.
+
+**2. Add the Vite plugin.**
+
+```ts
+// vite.config.ts
+import tailwindcss from "@tailwindcss/vite"
+import react from "@vitejs/plugin-react"
+import { defineConfig } from "vite"
+
+export default defineConfig({
+  plugins: [tailwindcss(), react()],
+})
+```
+
+**3. Add the stylesheet.** Put it next to the source you want scanned — `@source "./"` resolves
+relative to this file, so at `src/uds-tailwind.css` it scans `src/`.
 
 ```css
-/* app/src/tailwind-local.css — imported AFTER …/styles.css */
+/* src/uds-tailwind.css */
 @import "@chghealthcare/unified-design-system/theme" theme(reference);
 @import "@chghealthcare/unified-design-system/variants";
 @import "tailwindcss/theme.css" theme(reference);
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
+
 @source "./";
 ```
 
-Both references are needed: ours registers the `-uds-` namespaces, Tailwind's registers the standard
-scale. `source(none)` is not optional — without it Tailwind's automatic content detection also scans
-from the compile base, which in a monorepo is usually not the app's source directory. Declaring the
-scan set explicitly is the same reason UDS's own `src/styles.lib.css` uses it.
+**4. Import it after `styles.css`.** Order matters — see below.
 
-The order of the two `theme(reference)` imports does not matter. Tailwind marks its own theme values
-as defaults, so an explicitly-set value wins regardless of position — verified both ways, `.font-sans`
-compiles with UDS's Inter stack as its fallback either order.
+```ts
+// src/main.tsx
+import "@chghealthcare/unified-design-system/styles.css"
+import "./uds-tailwind.css"
+```
+
+That's it. `text-uds-14`, `bg-uds-surface-primary`, `space-y-6`, `max-w-6xl`, arbitrary values like
+`bg-[var(--uds-color-accent-amber-100)]` — anything your source actually uses now compiles, whether
+or not UDS's own stylesheet happened to emit it.
+
+### Why the recipe looks like that
+
+**Both `theme(reference)` lines are needed.** Ours registers the `-uds-` namespaces; Tailwind's
+registers the standard scale. Their relative order doesn't matter — Tailwind marks its own values as
+defaults, so UDS's explicit ones win either way (verified both orders: `.font-sans` keeps the Inter
+stack as its fallback).
+
+**`source(none)` is required.** Without it Tailwind's automatic content detection also scans from the
+compile base, which in a monorepo is usually not your app's source directory. Declaring the scan set
+explicitly is the same reason UDS's own `src/styles.lib.css` uses it.
+
+**Import after `styles.css`, not before.** Both sheets contribute to `@layer utilities`, and
+same-named layers merge with ties going to source order — so loading later is what lets your locally
+generated utility win over a stale one. With `theme(reference)` nothing but utilities is emitted, so
+that's the only thing the ordering decides.
+
+**Don't prefix the classes.** Standard names are what make this a fallback: a utility a future UDS
+version stops emitting is regenerated automatically from the call sites already using it.
+
+**Keep importing `styles.css`.** The partials carry registrations, not values.
+
+### `./variants` — when you need it
 
 ### `./variants` — when you need it
 

@@ -15,20 +15,47 @@ This file is the shorter starter-oriented projection of that contract.
 - Install `@chghealthcare/unified-design-system`, `react`, and `react-dom` only — **do not** run `npx shadcn init` or `npx shadcn create` (Table / Board / Roadmap prompts come from shadcn scaffolding, not UDS install).
 - Import styles once with `import "@chghealthcare/unified-design-system/styles.css"`.
 - **styles.css-only is enough for the AI recipe layouts** — published CSS includes the multi-column utilities used by `ai/examples` (`lg:grid-cols-2`, settings nav grids, etc.). You do **not** need a consumer Tailwind build for **those** recipe class strings. It is *not* a general Tailwind surface: published CSS contains only what UDS's own build emitted, so utilities it never emitted (`space-y-6`, bare `grid-cols-2`, arbitrary values, most negative offsets) silently do nothing rather than failing the build. Check `node_modules/@chghealthcare/unified-design-system/dist/styles.css` before relying on a class outside the recipe set — or add a local Tailwind build, next bullet.
-- **Need utilities beyond the published set?** Add a small local Tailwind v4 build and reference UDS's theme rather than re-emitting it. Do **not** prefix it, and do **not** `@import "tailwindcss"` (that emits a second `@layer theme` which, because same-named layers merge, would replace UDS's Inter `--font-sans` with Tailwind's system stack app-wide):
+- **Need utilities beyond the published set?** Add a local Tailwind v4 build that *references* UDS's theme rather than re-emitting it. Four steps for React + Vite:
+
+  **1.** Install Tailwind (UDS declares `tailwindcss` as an **optional peer**, so you install it; pin to the version in `dist/theme.css`'s header). `@tailwindcss/vite` is the Vite integration and brings `tailwindcss` with it — swap it for `@tailwindcss/postcss` or `@tailwindcss/cli` if you don't use Vite.
+
+  ```bash
+  npm install -D tailwindcss@4.3.3 @tailwindcss/vite
+  ```
+
+  **2.** Add the plugin in `vite.config.ts`:
+
+  ```ts
+  import tailwindcss from "@tailwindcss/vite"
+  import react from "@vitejs/plugin-react"
+  import { defineConfig } from "vite"
+
+  export default defineConfig({ plugins: [tailwindcss(), react()] })
+  ```
+
+  **3.** Add `src/uds-tailwind.css` (`@source "./"` resolves relative to this file, so here it scans `src/`):
 
   ```css
-  /* imported AFTER …/styles.css */
   @import "@chghealthcare/unified-design-system/theme" theme(reference);
   @import "@chghealthcare/unified-design-system/variants";
   @import "tailwindcss/theme.css" theme(reference);
   @import "tailwindcss/utilities.css" layer(utilities) source(none);
+
   @source "./";
   ```
 
-  The `./variants` line is only load-bearing **if your source uses any `dark:` utility** (`grep -rE '\bdark:' src/`) — it carries UDS's `@custom-variant dark (&:where(.dark, .dark *))`. Tailwind's default `dark:` is `@media (prefers-color-scheme: dark)`, so without it those utilities fire whenever the developer's OS is in dark mode and override UDS's class-scoped rules. That bites hardest in apps with **no** dark mode, where such classes are dead code until a local build makes them live. Include it by default: one line, no output when unused.
+  **4.** Import it **after** `styles.css` in `src/main.tsx`:
 
-  This emits utilities only — nothing that can collide with a UDS token — and generates UDS's own token utilities (`text-uds-14`, `bg-uds-surface-primary`, `text-uds-text-link-primary-default`) as well as the standard scale, resolving both against the live tokens in `styles.css` (still required). You install `tailwindcss` yourself; UDS declares it as an **optional peer dependency** (`^4.2.2`) so your package manager flags a mismatch. To match exactly, use the version recorded in the header of `dist/theme.css`. Rationale and caveats: [`docs/consumer-tailwind-theme.md`](./docs/consumer-tailwind-theme.md).
+  ```ts
+  import "@chghealthcare/unified-design-system/styles.css"
+  import "./uds-tailwind.css"
+  ```
+
+  Rules that matter: do **not** prefix the classes (unprefixed names are what make this a fallback for a utility UDS stops emitting), do **not** `@import "tailwindcss"` (that emits a second `@layer theme` which, because same-named layers merge, replaces UDS's Inter `--font-sans` with Tailwind's system stack app-wide), keep `source(none)`, and keep importing `styles.css` — the partials carry registrations, not token values.
+
+  The `./variants` line is only load-bearing **if your source uses any `dark:` utility** (`grep -rE '\bdark:' src/`) — it carries UDS's `@custom-variant dark (&:where(.dark, .dark *))`. Tailwind's default `dark:` is `@media (prefers-color-scheme: dark)`, so without it those utilities fire whenever the developer's OS is in dark mode and override UDS's class-scoped rules. That bites hardest in apps with **no** dark mode, where such classes are dead code until a local build makes them live. Include it by default: one line, no output when unused. Full rationale: [`docs/consumer-tailwind-theme.md`](./docs/consumer-tailwind-theme.md).
+
+  The result emits utilities only — nothing that can collide with a UDS token — and covers UDS's own token utilities (`text-uds-14`, `bg-uds-surface-primary`, `text-uds-text-link-primary-default`) as well as the standard scale.
 - **AI stubs on the hot path** (required for AI-assisted work; **agent-owned**): after install, the setup agent runs `npx uds-copy-ai-rules` (or `--tool=cursor`) from the consumer app root — do **not** ask designers/PMs to do this. Commit the written files (e.g. `.cursor/rules/uds.mdc`). Starter templates should bake them in. Full matrix: [`ai/guides/consumer-ai-bootstrap.md`](./ai/guides/consumer-ai-bootstrap.md). Without this, agents will not load `design-language/` from `node_modules`.
 - Prefer **`MainStack`** under PageHeader for first-level section gaps (24px).
 - For authenticated product screens, default to `AppShell`.
@@ -36,7 +63,7 @@ This file is the shorter starter-oriented projection of that contract.
 - Put page content in **`AppShell.Main`** via **`MainContent`** (`edge` | `fixed`). Keep that containment choice consistent across pages.
 - Set **`enableRouterOutlet={false}`** unless you use React Router layout routes (see the navigation guide).
 - Use **`listview={…}`** for master-detail or queue flows (there is no `showListview` prop). Optional **`listviewWidth`** (**320–480**, default **320**). Compose the pane with a **`Toolbar`** titlebar and **`Item`** / **`Card`** entities.
-- Keep imports on `@chghealthcare/unified-design-system` and `@chghealthcare/unified-design-system/styles.css` only.
+- Keep component imports on `@chghealthcare/unified-design-system` and styles on `@chghealthcare/unified-design-system/styles.css`. The only other allowed entries are the optional CSS partials `…/theme` and `…/variants`, and then only if the app runs its own Tailwind build (above).
 - Prefer existing UDS emphasis components such as `Badge`, `Status`, `Medallion`, and `Card` before inventing custom presentation wrappers.
 
 ## Fonts & preload

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T19:33:00.106Z",
+  "generatedAt": "2026-08-13T01:07:26.186Z",
   "generatedFrom": [
     "src/index.ts",
     "package.json",
@@ -7,14 +7,24 @@
   ],
   "package": {
     "name": "@chghealthcare/unified-design-system",
-    "version": "1.2.0",
+    "version": "1.4.0",
     "primaryEntry": "@chghealthcare/unified-design-system",
-    "styleImport": "@chghealthcare/unified-design-system/styles.css"
+    "styleImport": "@chghealthcare/unified-design-system/styles.css",
+    "tailwindBuild": {
+      "themeImport": "@chghealthcare/unified-design-system/theme",
+      "variantsImport": "@chghealthcare/unified-design-system/variants",
+      "peerDependency": "tailwindcss (optional peer; install it yourself)",
+      "required": false,
+      "whenToUse": "Only when the app needs a utility absent from the precompiled styles.css. Verify with a grep of dist/styles.css first.",
+      "docs": "docs/consumer-tailwind-theme.md"
+    }
   },
   "imports": {
     "allowed": [
       "@chghealthcare/unified-design-system",
       "@chghealthcare/unified-design-system/styles.css",
+      "@chghealthcare/unified-design-system/theme",
+      "@chghealthcare/unified-design-system/variants",
       "@chghealthcare/unified-design-system/chart",
       "@chghealthcare/unified-design-system/micro-calendar",
       "@chghealthcare/unified-design-system/calendar",
@@ -288,6 +298,15 @@
       "recommendation": "preferred"
     },
     {
+      "name": "APPSHELL_DESKTOP_MQ",
+      "exportKind": "component",
+      "module": "components/ui/app-shell-chrome",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "APPSHELL_LISTVIEW_WIDTH_MAX",
       "exportKind": "component",
       "module": "components/ui/app-shell",
@@ -324,6 +343,24 @@
       "roles": [
         "layout",
         "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "AppShellChromeContext",
+      "exportKind": "component",
+      "module": "components/ui/app-shell-chrome",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "AppShellChromeContextValue",
+      "exportKind": "type",
+      "module": "components/ui/app-shell-chrome",
+      "roles": [
+        "utility"
       ],
       "recommendation": "allowed"
     },
@@ -1362,6 +1399,15 @@
       "recommendation": "allowed"
     },
     {
+      "name": "createAppShellChromeValue",
+      "exportKind": "utility",
+      "module": "components/ui/app-shell-chrome",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "CurrencyCircleDollarIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -2268,6 +2314,16 @@
       "module": "components/ui/header",
       "roles": [
         "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "HeaderIdentityVariant",
+      "exportKind": "type",
+      "module": "components/ui/app-shell",
+      "roles": [
+        "layout",
+        "first-party"
       ],
       "recommendation": "allowed"
     },
@@ -3939,6 +3995,15 @@
       "recommendation": "allowed"
     },
     {
+      "name": "SearchInputSurface",
+      "exportKind": "type",
+      "module": "components/ui/search-input",
+      "roles": [
+        "input"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "SearchInputVariant",
       "exportKind": "type",
       "module": "components/ui/search-input",
@@ -4289,6 +4354,15 @@
       "recommendation": "allowed"
     },
     {
+      "name": "SliderSize",
+      "exportKind": "type",
+      "module": "components/ui/slider",
+      "roles": [
+        "input"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "SortAscendingIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -4578,16 +4652,6 @@
       "recommendation": "allowed"
     },
     {
-      "name": "StepMarker",
-      "exportKind": "component",
-      "module": "components/ui/steps",
-      "roles": [
-        "navigation",
-        "first-party"
-      ],
-      "recommendation": "allowed"
-    },
-    {
       "name": "Steps",
       "exportKind": "component",
       "module": "components/ui/steps",
@@ -4598,7 +4662,27 @@
       "recommendation": "allowed"
     },
     {
-      "name": "StepState",
+      "name": "StepSize",
+      "exportKind": "type",
+      "module": "components/ui/steps",
+      "roles": [
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "StepsOrientation",
+      "exportKind": "type",
+      "module": "components/ui/steps",
+      "roles": [
+        "navigation",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "StepStatus",
       "exportKind": "type",
       "module": "components/ui/steps",
       "roles": [
@@ -5247,9 +5331,9 @@
     {
       "name": "UdsBrandId",
       "exportKind": "type",
-      "module": "lib/uds-brand",
+      "module": "components/ui/app-shell",
       "roles": [
-        "utility",
+        "layout",
         "first-party"
       ],
       "recommendation": "allowed"
@@ -5289,6 +5373,33 @@
       "module": "components/ui/url-input",
       "roles": [
         "input"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "useAppShellChrome",
+      "exportKind": "utility",
+      "module": "components/ui/app-shell-chrome",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "useAppShellMenuExpanded",
+      "exportKind": "utility",
+      "module": "components/ui/app-shell-chrome",
+      "roles": [
+        "utility"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "UseAppShellMenuExpandedOptions",
+      "exportKind": "type",
+      "module": "components/ui/app-shell-chrome",
+      "roles": [
+        "utility"
       ],
       "recommendation": "allowed"
     },

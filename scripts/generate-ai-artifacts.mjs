@@ -749,13 +749,30 @@ function buildContract(version, componentCatalog, dslDocs = []) {
       version,
       primaryEntry: PACKAGE_NAME,
       styleImport: `${PACKAGE_NAME}/styles.css`,
+      // Opt-in surface for apps that run their own Tailwind v4 build. `styles.css`
+      // is precompiled, so a utility UDS never emitted silently produces no rule;
+      // these partials let a local build generate the rest, including UDS's own
+      // token utilities. They are registrations only — `styles.css` is still required.
+      tailwindBuild: {
+        themeImport: `${PACKAGE_NAME}/theme`,
+        variantsImport: `${PACKAGE_NAME}/variants`,
+        peerDependency: "tailwindcss (optional peer; install it yourself)",
+        required: false,
+        whenToUse:
+          "Only when the app needs a utility absent from the precompiled styles.css. Verify with a grep of dist/styles.css first.",
+        docs: "docs/consumer-tailwind-theme.md",
+      },
     },
     imports: {
       // Root + styles for most UI. Optional subpaths are kept off the barrel
       // (heavy / peer-dependent) and are allowed when recipes call for them.
+      // `/theme` + `/variants` are CSS partials for apps that run their own
+      // Tailwind build; they never replace `/styles.css`.
       allowed: [
         PACKAGE_NAME,
         `${PACKAGE_NAME}/styles.css`,
+        `${PACKAGE_NAME}/theme`,
+        `${PACKAGE_NAME}/variants`,
         `${PACKAGE_NAME}/chart`,
         `${PACKAGE_NAME}/micro-calendar`,
         `${PACKAGE_NAME}/calendar`,
