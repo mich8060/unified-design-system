@@ -1,6 +1,6 @@
 # Figma Make — same environment as `setup.md`
 
-Use this file in **[Figma Make](https://www.figma.com/make/)** so generated app code matches the **uds-tailwind-test** consumer setup: **React 19**, **Vite + TypeScript**, **`AppShell`**, and a single global stylesheet import.
+Use this file in **[Figma Make](https://www.figma.com/make/)** so generated app code matches the **@chghealthcare/unified-design-system** consumer setup: **React 19**, **Vite + TypeScript**, **`AppShell`**, and a single global stylesheet import.
 
 For a longer, terminal-focused agent prompt (install, `npm run dev -- --open`, etc.), use **[setup.md](./setup.md)** in Cursor or your local repo.
 
@@ -21,9 +21,9 @@ Paste and adjust the package line if you use a local `file:` path instead of npm
 ```text
 Stack: React 19 + Vite + TypeScript.
 
-UI library: uds-tailwind-test only.
-- Import components from "uds-tailwind-test" (e.g. AppShell, SidebarProvider, Sidebar, SidebarMenu, SidebarMenuButton, SidebarMenuItem, Button, Card, TooltipProvider, Badge, Status, Medallion).
-- Import global styles once in the app entry: import "uds-tailwind-test/styles.css"
+UI library: @chghealthcare/unified-design-system only.
+- Import components from "@chghealthcare/unified-design-system" (e.g. AppShell, SidebarProvider, Sidebar, SidebarMenu, SidebarMenuButton, SidebarMenuItem, Button, Card, TooltipProvider, Badge, Status, Medallion).
+- Import global styles once in the app entry: import "@chghealthcare/unified-design-system/styles.css"
 - Do NOT import from @/, dist/, or internal modules (*-base, *-core, *-theme, *-uds).
 
 Layout: Authenticated app chrome must use AppShell. Compose a real product screen: a visible primary navigation rail, a clear main body, and optional listview/footer. The **`menu`** slot (legacy `sidebar`) should compose **`SidebarProvider`**, **`Sidebar`**, and **`SidebarMenu*`** for the main rail (header/brand/nav/footer are app-specific). Optional listview and footer regions are fine; omit showListview/showFooter when not needed.
@@ -36,7 +36,7 @@ Styling: Use Tailwind utility classes that work with the shipped package CSS. Do
 
 Icons: Prefer @phosphor-icons/react if icons are needed; add it as a direct dependency. Exports use the Icon suffix (HouseIcon, MagnifyingGlassIcon, etc.). There is NO SettingsIcon—use GearSixIcon or GearIcon for settings. Match names to https://phosphoricons.com/ (PascalCase + Icon in React).
 
-npm: react and react-dom ^19; uds-tailwind-test from npm (or file:../path-to-repo for local dev).
+npm: react and react-dom ^19; @chghealthcare/unified-design-system from npm (or file:../path-to-repo for local dev).
 ```
 
 ---
@@ -46,18 +46,18 @@ npm: react and react-dom ^19; uds-tailwind-test from npm (or file:../path-to-rep
 Use this when you want Make to **produce** (or refactor to) the same starter as `setup.md`: working **AppShell**, correct imports, and runnable Vite output. This is the package-safe starter path, not the repo-local exact demo path.
 
 ````text
-Build (or refactor) this project as a React 19 + Vite + TypeScript app that uses the npm package uds-tailwind-test.
+Build (or refactor) this project as a React 19 + Vite + TypeScript app that uses the npm package @chghealthcare/unified-design-system.
 
 Requirements:
-1) Dependencies: react, react-dom (^19), uds-tailwind-test, vite, @vitejs/plugin-react, typescript, and typical @types. If I am on a local monorepo, use "uds-tailwind-test": "file:…" in package.json instead of a semver.
+1) Dependencies: react, react-dom (^19), @chghealthcare/unified-design-system, vite, @vitejs/plugin-react, typescript, and typical @types. If I am on a local monorepo, use "@chghealthcare/unified-design-system": "file:…" in package.json instead of a semver.
 
-2) Entry file (e.g. src/main.tsx): import "uds-tailwind-test/styles.css" before rendering.
+2) Entry file (e.g. src/main.tsx): import "@chghealthcare/unified-design-system/styles.css" before rendering.
 
-3) App root: wrap with TooltipProvider from uds-tailwind-test (put SidebarProvider inside the AppShell `menu` slot, not necessarily above AppShell).
+3) App root: wrap with TooltipProvider from @chghealthcare/unified-design-system (put SidebarProvider inside the AppShell `menu` slot, not necessarily above AppShell).
 
 4) Viewport: ensure full width and height—global styles for html, body, #root (no body margin; min-height 100dvh; width 100%). Import that CSS from main.tsx if needed.
 
-5) Layout: AppShell from uds-tailwind-test with className min-h-dvh w-full min-w-0. Treat AppShell as the visual page structure for the app screen, not as an empty wrapper.
+5) Layout: AppShell from @chghealthcare/unified-design-system with className min-h-dvh w-full min-w-0. Treat AppShell as the visual page structure for the app screen, not as an empty wrapper.
    - menu slot: SidebarProvider + Sidebar (collapsible="none" is fine) with SidebarHeader / SidebarContent / SidebarFooter as needed; put SidebarMenu and nav links inside the sidebar. Sync sidebarWidth with expanded vs rail width. No raw aside or non-package nav.
    - listview slot: simple scrollable list or supporting column when the page needs a master-detail or queue pattern; otherwise set showListview={false}.
    - children: main workspace with clear visual hierarchy, such as a title, supporting copy, cards, metrics, task panels, or tables.
@@ -66,9 +66,9 @@ Requirements:
    - favor the active brand palette for emphasis, tags, medallions, soft surfaces, and supporting highlights instead of generic fallback accent colors.
    - this starter should resemble examples/consumer-react/src/App.tsx, not the full docs demo sidebar.
 
-6) All component imports must be from "uds-tailwind-test" only—never @/components, never dist, never *-uds/*-core/*-theme/*-base paths.
+6) All component imports must be from "@chghealthcare/unified-design-system" only—never @/components, never dist, never *-uds/*-core/*-theme/*-base paths.
 
-7) No carousel / Embla. One global CSS import: uds-tailwind-test/styles.css. Keep border radius at 4px or less. Avoid flat gray-on-white composition; use restrained color and light-toned surfaces. Favor active brand colors over generic accent defaults. UI typography: Inter if adding fonts. If using @phosphor-icons/react, import only real named exports (e.g. GearSixIcon or GearIcon for settings—never SettingsIcon, which does not exist).
+7) No carousel / Embla. One global CSS import: @chghealthcare/unified-design-system/styles.css. Keep border radius at 4px or less. Avoid flat gray-on-white composition; use restrained color and light-toned surfaces. Favor active brand colors over generic accent defaults. UI typography: Inter if adding fonts. If using @phosphor-icons/react, import only real named exports (e.g. GearSixIcon or GearIcon for settings—never SettingsIcon, which does not exist).
 
 8) Output complete files: package.json, vite.config.ts, tsconfig, index.html, src/main.tsx, src/App.tsx, optional src/index.css for viewport reset (and vite-env.d.ts if needed) so the user can run npm install && npm run dev -- --open locally.
 
@@ -82,7 +82,7 @@ Explain briefly how to run locally and the default dev URL (usually http://local
 Use this addendum only when Figma Make is being asked to match the docs demo while working inside this repository:
 
 ````text
-You are working inside the uds-tailwind-test repository itself, not a separate consumer app. Match the existing AppShell demo instead of inventing a simplified starter sidebar.
+You are working inside the @chghealthcare/unified-design-system repository itself, not a separate consumer app. Match the existing AppShell demo instead of inventing a simplified starter sidebar.
 
 - Treat src/docs/pages/app-shell-demo-doc-sidebar.tsx as the sidebar source of truth.
 - Treat src/docs/app-shell-demo/AppShellDemoCanvas.tsx as the AppShell composition source of truth.
@@ -112,10 +112,10 @@ npm install
 npm run dev -- --open
 ```
 
-If `uds-tailwind-test` is unpublished, install from a clone:
+If `@chghealthcare/unified-design-system` is unpublished, install from a clone:
 
 ```bash
-npm install file:/absolute/path/to/uds-tailwind-test
+npm install file:/absolute/path/to/@chghealthcare/unified-design-system
 ```
 
 ---
