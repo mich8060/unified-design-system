@@ -1,6 +1,6 @@
 {
   "name": "@chghealthcare/unified-design-system",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "packageManager": "npm@10.9.2",
   "description": "React UI primitives and styles built with Tailwind CSS v4 and shadcn-style components (UDS).",
   "license": "MIT",
