@@ -126,7 +126,7 @@ function TimeInput({
   }
 
   const hasValue = Boolean(selectedValue)
-  const segmentTone = hasValue ? "text-foreground" : "text-uds-text-disabled"
+  const segmentTone = hasValue ? "text-foreground" : "text-uds-text-placeholder"
 
   return (
     <InputGroup inputSize={inputSize} className={cn("w-full min-w-0", className)} {...rest}>

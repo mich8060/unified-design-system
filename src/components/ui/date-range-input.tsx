@@ -213,7 +213,7 @@ function DateRangeInput({
           onClick?.(event)
         }}
         className={cn(
-          "pr-10 placeholder:text-uds-text-primary disabled:placeholder:text-uds-text-disabled",
+          "pr-10 placeholder:text-uds-text-placeholder disabled:placeholder:text-uds-text-disabled",
           inputClassName
         )}
         {...props}

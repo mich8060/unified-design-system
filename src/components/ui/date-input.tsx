@@ -185,7 +185,7 @@ function DateInput({
             onClick?.(event)
           }}
           className={cn(
-            "placeholder:text-uds-text-primary disabled:placeholder:text-uds-text-disabled",
+            "placeholder:text-uds-text-placeholder disabled:placeholder:text-uds-text-disabled",
             inputClassName,
           )}
           {...props}
