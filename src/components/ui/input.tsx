@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
+import { SparkleIcon } from "@phosphor-icons/react"
 
 import { cn } from "@/lib/utils"
 
@@ -17,7 +18,7 @@ const inputTypeSearchNativeDecorationReset = cn(
 )
 
 const inputVariants = cva(
-  "w-full min-w-0 rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-primary)] [font-family:var(--font-inter)] transition-colors outline-none file:inline-flex file:border-0 file:bg-transparent file:font-uds-regular file:text-foreground placeholder:text-uds-text-placeholder disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-uds-border-disabled disabled:bg-[var(--uds-surface-secondary)] disabled:opacity-50 aria-invalid:bg-[var(--uds-surface-secondary)]",
+  "peer w-full min-w-0 rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-primary)] [font-family:var(--font-inter)] transition-colors outline-none file:inline-flex file:border-0 file:bg-transparent file:font-uds-regular file:text-foreground placeholder:text-uds-text-placeholder disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-uds-border-disabled disabled:bg-[var(--uds-surface-secondary)] disabled:opacity-50 aria-invalid:bg-[var(--uds-surface-secondary)] autofill:pl-9 autofill:[-webkit-text-fill-color:var(--uds-text-primary)] autofill:[-webkit-box-shadow:0_0_0_1000px_var(--uds-color-primary-25)_inset] autofill:[transition:background-color_9999s_ease-in-out_0s]",
   {
     variants: {
       inputSize: {
@@ -55,7 +56,8 @@ export type InputProps = Omit<React.ComponentProps<"input">, "size"> &
 function Input({ className, type, inputSize, ...props }: InputProps) {
   const dataSlot = (props as { "data-slot"?: string | undefined })["data-slot"]
   const embeddedInGroup = dataSlot === "input-group-control"
-  return (
+
+  const inputEl = (
     <input
       {...props}
       type={type}
@@ -67,6 +69,22 @@ function Input({ className, type, inputSize, ...props }: InputProps) {
         className,
       )}
     />
+  )
+
+  if (embeddedInGroup) {
+    return inputEl
+  }
+
+  return (
+    <div className="relative w-full">
+      {inputEl}
+      {/* Shown only while the browser reports :autofill on the sibling input — pure CSS, no JS detection needed. */}
+      <SparkleIcon
+        aria-hidden
+        weight="fill"
+        className="pointer-events-none absolute top-1/2 left-3 hidden size-4 -translate-y-1/2 text-[var(--uds-color-accent-sky-600)] peer-autofill:block"
+      />
+    </div>
   )
 }
 
