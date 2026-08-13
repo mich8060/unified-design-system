@@ -279,7 +279,7 @@ and the real emit after `tsc`, then `generate-subpath-exports.mjs --verify-dist`
 
 `ci-theme-partial.mjs` drives Tailwind through its `compile()` API, which keeps the check fast and
 dependency-free. That is not the same code path as a consumer's bundler, so the recipe above was also
-verified manually, end to end: `npm pack`, install the 1.4.0 tarball into a throwaway Vite app with
+verified manually, end to end: `npm pack`, install the 1.4.1 tarball into a throwaway Vite app with
 `@tailwindcss/vite` and `tailwindcss@4.3.3`, and build. Results:
 
 - `@chghealthcare/unified-design-system/theme` resolved through normal Node resolution, and the
