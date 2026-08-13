@@ -12,7 +12,7 @@
   "dependencies": [
     "@chghealthcare/unified-design-system@1.4.0"
   ],
-  "docs": "Install `uds-tailwind-test`, import `styles/uds.css` from your app entrypoint, and keep your runtime component imports on the package root.",
+  "docs": "Install `@chghealthcare/unified-design-system`, import `styles/uds.css` from your app entrypoint, and keep your runtime component imports on the package root.",
   "meta": {
     "package": "@chghealthcare/unified-design-system",
     "registryBaseUrl": "http://localhost:5173/r",
@@ -23,7 +23,7 @@
       "path": "registry/uds/uds.css",
       "type": "registry:file",
       "target": "styles/uds.css",
-      "content": "@import \"uds-tailwind-test/styles.css\";\n"
+      "content": "@import \"@chghealthcare/unified-design-system/styles.css\";\n"
     }
   ]
 }

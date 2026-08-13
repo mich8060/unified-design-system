@@ -286,11 +286,11 @@ const REGISTRY_ITEMS = [
     files: [
       {
         target: "styles/uds.css",
-        content: '@import "uds-tailwind-test/styles.css";\n',
+        content: `@import "${PACKAGE_NAME}/styles.css";\n`,
       },
     ],
     docs:
-      "Install `uds-tailwind-test`, import `styles/uds.css` from your app entrypoint, and keep your runtime component imports on the package root.",
+      `Install \`${PACKAGE_NAME}\`, import \`styles/uds.css\` from your app entrypoint, and keep your runtime component imports on the package root.`,
   },
   {
     name: "app-shell",
@@ -298,7 +298,9 @@ const REGISTRY_ITEMS = [
     description: "Wrapper export for the published AppShell layout surface.",
     type: "registry:item",
     categories: ["layout", "shell"],
-    files: [{ target: "components/uds/app-shell.tsx", content: 'export { AppShell } from "uds-tailwind-test"\n' }],
+    files: [
+      { target: "components/uds/app-shell.tsx", content: `export { AppShell } from "${PACKAGE_NAME}"\n` },
+    ],
   },
   {
     name: "sidebar",
@@ -333,7 +335,7 @@ const REGISTRY_ITEMS = [
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-} from "uds-tailwind-test"
+} from "${PACKAGE_NAME}"
 `,
       },
     ],
@@ -928,7 +930,7 @@ function buildRegistryItem(item, version) {
     dependencies: [`${PACKAGE_NAME}@${version}`],
     docs:
       item.docs ??
-      "These registry items are thin wrappers around the published package surface. Import styles from `uds-tailwind-test/styles.css` at the app root.",
+      `These registry items are thin wrappers around the published package surface. Import styles from \`${PACKAGE_NAME}/styles.css\` at the app root.`,
     meta: {
       package: PACKAGE_NAME,
       registryBaseUrl: REGISTRY_BASE_URL,
