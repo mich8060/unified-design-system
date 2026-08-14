@@ -82,7 +82,7 @@ function Input({ className, type, inputSize, ...props }: InputProps) {
       <SparkleIcon
         aria-hidden
         weight="fill"
-        className="pointer-events-none absolute top-1/2 left-3 hidden size-4 -translate-y-1/2 text-[var(--uds-color-accent-sky-600)] peer-autofill:block"
+        className="pointer-events-none absolute top-1/2 left-3 hidden size-4 -translate-y-1/2 text-[var(--uds-system-action-primary)] peer-autofill:block"
       />
     </div>
   )

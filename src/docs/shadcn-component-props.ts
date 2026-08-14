@@ -1244,6 +1244,7 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
     r('format12Hour', 'boolean', 'Displays dropdown labels as 12-hour times with AM/PM.', 'true'),
     r('showTimezone', 'boolean', 'Shows the timezone label beside the value (linked Figma Timezone boolean).', 'false'),
     r('timezone', 'string', 'Timezone abbreviation when showTimezone is true (linked Figma TEXT property).', '"EST"'),
+    r('autofilled', 'boolean', 'Shows the same tint + sparkle icon as autofilled inputs. No real <input> backs this control, so it must be set explicitly rather than detected.', 'false'),
     CN,
     MORE,
   ],

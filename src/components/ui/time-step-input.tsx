@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { ClockIcon } from "@phosphor-icons/react/Clock"
+import { SparkleIcon } from "@phosphor-icons/react/Sparkle"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,6 +32,11 @@ export type TimeStepInputProps = Omit<
   showTimezone?: boolean
   timezone?: string
   inputClassName?: string
+  /**
+   * No real `<input>` backs this control (it's a button + dropdown), so autofill can't be
+   * detected via CSS `:autofill` like the other input components. Set this explicitly instead.
+   */
+  autofilled?: boolean
 }
 
 type TimeOption = { value: string; label: string }
@@ -99,6 +105,7 @@ function TimeStepInput({
   placeholder = "Select time",
   disabled,
   readOnly,
+  autofilled = false,
   "aria-label": ariaLabel = "Time",
   ...rest
 }: TimeStepInputProps) {
@@ -120,9 +127,14 @@ function TimeStepInput({
     <DropdownMenu>
       <InputGroup
         inputSize={inputSize}
-        className={cn("w-full min-w-0", className)}
+        className={cn("w-full min-w-0", autofilled && "bg-[var(--uds-color-primary-25)]", className)}
         {...rest}
       >
+        {autofilled ? (
+          <InputGroupAddon align="inline-start" aria-hidden className="pl-2">
+            <SparkleIcon weight="fill" className="size-4 text-[var(--uds-system-action-primary)]" />
+          </InputGroupAddon>
+        ) : null}
         <DropdownMenuTrigger asChild disabled={!canInteract}>
           <button
             type="button"

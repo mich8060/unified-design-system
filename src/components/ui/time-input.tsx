@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { ClockIcon } from "@phosphor-icons/react/Clock"
+import { SparkleIcon } from "@phosphor-icons/react/Sparkle"
 import {
   InputGroup,
   InputGroupAddon,
@@ -130,6 +131,13 @@ function TimeInput({
 
   return (
     <InputGroup inputSize={inputSize} className={cn("w-full min-w-0", className)} {...rest}>
+      <InputGroupAddon
+        align="inline-start"
+        aria-hidden
+        className="hidden pl-2 group-has-[input:autofill]/input-group:flex"
+      >
+        <SparkleIcon weight="fill" className="size-4 text-[var(--uds-system-action-primary)]" />
+      </InputGroupAddon>
       <div
         data-slot="input-group-control"
         aria-label={ariaLabel}

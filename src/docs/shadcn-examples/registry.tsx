@@ -6169,6 +6169,18 @@ import { toast } from "sonner"
   aria-label="Start time in 15-minute steps"
 />`,
         ),
+        E(
+            'steps-autofilled',
+            'Autofilled',
+            <TimeStepInput className="max-w-sm" stepMinutes={15} startTime="08:00" endTime="17:00" defaultValue="09:30" autofilled aria-label="Start time" />,
+            `// No real <input> backs this control, so autofill can't be detected via CSS
+// like the other input components — set the prop explicitly instead.
+<TimeStepInput
+  className="max-w-sm"
+  defaultValue="09:30"
+  autofilled
+/>`,
+        ),
     ],
     'token-input': [
         E(
