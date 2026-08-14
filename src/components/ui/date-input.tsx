@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { CalendarBlankIcon } from "@phosphor-icons/react/CalendarBlank"
+import { SparkleIcon } from "@phosphor-icons/react/Sparkle"
 import { Calendar } from "@/components/ui/calendar"
 import {
   formatDigitsAsMmDdYyyy,
@@ -160,6 +161,13 @@ function DateInput({
   return (
     <div ref={rootRef} className={cn("relative w-full", className)}>
       <InputGroup inputSize={inputSize} className="w-full min-w-0">
+        <InputGroupAddon
+          align="inline-start"
+          aria-hidden
+          className="hidden pl-3 group-has-[input:autofill]/input-group:flex"
+        >
+          <SparkleIcon weight="fill" className="size-4 text-[var(--uds-system-action-primary)]" />
+        </InputGroupAddon>
         <InputGroupInput
           type="text"
           inputSize={inputSize}
