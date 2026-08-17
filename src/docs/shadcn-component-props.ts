@@ -964,6 +964,7 @@ export const SHADCN_COMPONENT_PROPS: Record<ShadcnUiSlug, PropDefinition[]> = {
   ],
   select: [
     r('SelectTrigger.inputSize', '"default" | "sm"', 'Trigger height and typography; matches Input.', 'default'),
+    r('SelectTrigger.autofilled', 'boolean', 'Shows the same tint + sparkle icon as autofilled inputs. No real <input> backs this trigger, so it must be set explicitly rather than detected.', 'false'),
     r('value / defaultValue', 'string', 'Selected value.'),
     r('onValueChange', '(value: string) => void', 'Change callback.'),
     r('open / onOpenChange', 'boolean / fn', 'Dropdown visibility.'),

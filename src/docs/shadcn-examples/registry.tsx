@@ -5454,6 +5454,31 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
   </SelectContent>
 </Select>`,
         ),
+        E(
+            'autofilled',
+            'Autofilled',
+            (
+                <Select defaultValue="cardiology">
+                    <SelectTrigger autofilled className="w-[220px]">
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="cardiology">Cardiology</SelectItem>
+                        <SelectItem value="neurology">Neurology</SelectItem>
+                    </SelectContent>
+                </Select>
+            ),
+            `// No real <input> backs this trigger, so autofill can't be detected via CSS
+// like the other input components — set the prop explicitly instead.
+<Select defaultValue="cardiology">
+  <SelectTrigger autofilled className="w-[220px]">
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="cardiology">Cardiology</SelectItem>
+  </SelectContent>
+</Select>`,
+        ),
     ],
     separator: [
         E(

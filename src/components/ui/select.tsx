@@ -6,6 +6,7 @@ import { CaretDownIcon } from "@phosphor-icons/react/CaretDown"
 import { CaretUpIcon } from "@phosphor-icons/react/CaretUp"
 import { CheckIcon } from "@phosphor-icons/react/Check"
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass"
+import { SparkleIcon } from "@phosphor-icons/react/Sparkle"
 import { Select as SelectPrimitive } from "radix-ui"
 
 import { inputVariants } from "@/components/ui/input"
@@ -172,9 +173,13 @@ function SelectTrigger({
   className,
   inputSize,
   children,
+  autofilled = false,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> &
-  VariantProps<typeof inputVariants>) {
+  VariantProps<typeof inputVariants> & {
+    /** No real `<input>` backs this trigger, so autofill can't be detected via CSS — set this explicitly. */
+    autofilled?: boolean
+  }) {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
@@ -182,10 +187,18 @@ function SelectTrigger({
       className={cn(
         inputVariants({ inputSize }),
         "flex w-full min-w-0 cursor-default items-center justify-between gap-1.5 whitespace-nowrap select-none data-placeholder:text-uds-text-placeholder *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        autofilled && "bg-[var(--uds-color-primary-25)] text-[var(--uds-text-primary)]",
         className
       )}
       {...props}
     >
+      {autofilled ? (
+        <SparkleIcon
+          aria-hidden
+          weight="fill"
+          className="size-4 shrink-0 text-[var(--uds-system-action-primary)]"
+        />
+      ) : null}
       {children}
       <SelectPrimitive.Icon asChild>
         <CaretDownIcon className="pointer-events-none size-4 text-muted-foreground" />

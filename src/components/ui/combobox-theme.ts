@@ -35,7 +35,7 @@ export const comboboxInputGroupShellClass =
   "uds-input-group group/input-group relative flex w-full min-w-0 flex-row flex-nowrap items-center rounded-[length:var(--uds-radius-4)] border transition-colors outline-none"
 
 export const comboboxInputGroupClass =
-  "uds-combobox-field box-border w-auto border-[var(--uds-border-secondary)] bg-[var(--uds-surface-secondary)]"
+  "uds-combobox-field box-border w-auto border-[var(--uds-border-secondary)] bg-[var(--uds-surface-secondary)] has-[input:autofill]:bg-[var(--uds-color-primary-25)]"
 
 export const comboboxTriggerButtonClass =
   "group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent hover:bg-transparent"

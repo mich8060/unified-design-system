@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Combobox as ComboboxPrimitive } from "@base-ui/react"
+import { SparkleIcon } from "@phosphor-icons/react/Sparkle"
 import { XIcon } from "@phosphor-icons/react/X"
 import { Button } from "@/components/ui/button"
 import {
@@ -83,6 +84,13 @@ function ComboboxInput({
   const inputClassName = typeof className === "function" ? className : undefined
   return (
     <ComboboxInputGroupShell inputSize={size} className={groupClassName}>
+      <InputGroupAddon
+        align="inline-start"
+        aria-hidden
+        className="hidden pl-3 group-has-[input:autofill]/input-group:flex"
+      >
+        <SparkleIcon weight="fill" className="size-4 text-[var(--uds-system-action-primary)]" />
+      </InputGroupAddon>
       <ComboboxPrimitive.Input
         render={
           <InputGroupInput
