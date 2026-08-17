@@ -186,7 +186,7 @@ function SelectTrigger({
       data-input-size={inputSize ?? "default"}
       className={cn(
         inputVariants({ inputSize }),
-        "flex w-full min-w-0 cursor-default items-center justify-between gap-1.5 whitespace-nowrap select-none data-placeholder:text-uds-text-placeholder *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "flex w-full min-w-0 cursor-default items-center justify-between gap-1.5 whitespace-nowrap select-none data-placeholder:text-uds-text-placeholder disabled:bg-[var(--uds-surface-disabled)]! disabled:text-[var(--uds-text-disabled)]! disabled:[&_svg]:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         autofilled && "bg-[var(--uds-color-primary-25)] text-[var(--uds-text-primary)]",
         className
       )}

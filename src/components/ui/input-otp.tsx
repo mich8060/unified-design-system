@@ -87,7 +87,7 @@ function InputOTP({
     <OTPInput
       data-slot="input-otp"
       containerClassName={cn(
-        "flex items-center has-disabled:opacity-50",
+        "flex items-center has-disabled:[&_[data-slot=input-otp-separator]_svg]:opacity-50",
         containerClassName
       )}
       spellCheck={false}
@@ -127,6 +127,8 @@ function InputOTPGroupShell({ className, ...props }: React.ComponentProps<"div">
       className={cn(
         inputOtpGroupVariants({ compact }),
         "has-aria-invalid:[&_[data-slot=input-otp-slot][data-active=true]]:border-destructive has-aria-invalid:[&_[data-slot=input-otp-slot][data-active=true]]:ring-3 has-aria-invalid:[&_[data-slot=input-otp-slot][data-active=true]]:ring-destructive/20 dark:has-aria-invalid:[&_[data-slot=input-otp-slot][data-active=true]]:ring-destructive/40",
+        "has-disabled:[&_[data-slot=input-otp-slot]]:bg-[var(--uds-surface-disabled)]!",
+        "has-disabled:[&_[data-slot=input-otp-slot]]:text-[var(--uds-text-disabled)]!",
         className
       )}
       {...props}

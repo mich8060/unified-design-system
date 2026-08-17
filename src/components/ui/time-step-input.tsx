@@ -121,7 +121,11 @@ function TimeStepInput({
     : ""
 
   const canInteract = !disabled && !readOnly
-  const valueTone = selectedLabel ? "text-foreground" : "text-uds-text-placeholder"
+  const valueTone = disabled
+    ? "text-uds-text-disabled"
+    : selectedLabel
+      ? "text-foreground"
+      : "text-uds-text-placeholder"
 
   return (
     <DropdownMenu>

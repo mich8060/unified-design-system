@@ -18,7 +18,7 @@ const inputTypeSearchNativeDecorationReset = cn(
 )
 
 const inputVariants = cva(
-  "peer w-full min-w-0 rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-primary)] [font-family:var(--font-inter)] transition-colors outline-none file:inline-flex file:border-0 file:bg-transparent file:font-uds-regular file:text-foreground placeholder:text-uds-text-placeholder disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-uds-border-disabled disabled:bg-[var(--uds-surface-secondary)] disabled:opacity-50 aria-invalid:bg-[var(--uds-surface-secondary)] autofill:pl-9 autofill:[-webkit-text-fill-color:var(--uds-text-primary)] autofill:[-webkit-box-shadow:0_0_0_1000px_var(--uds-color-primary-25)_inset] autofill:[transition:background-color_9999s_ease-in-out_0s]",
+  "peer w-full min-w-0 rounded-[length:var(--uds-radius-4)] border border-input bg-[var(--uds-surface-primary)] [font-family:var(--font-inter)] transition-colors outline-none file:inline-flex file:border-0 file:bg-transparent file:font-uds-regular file:text-foreground placeholder:text-uds-text-placeholder disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-uds-border-disabled disabled:bg-[var(--uds-surface-disabled)] disabled:text-[var(--uds-text-disabled)] aria-invalid:bg-[var(--uds-surface-secondary)] autofill:pl-9 autofill:[-webkit-text-fill-color:var(--uds-text-primary)] autofill:[-webkit-box-shadow:0_0_0_1000px_var(--uds-color-primary-25)_inset] autofill:[transition:background-color_9999s_ease-in-out_0s]",
   {
     variants: {
       inputSize: {
@@ -35,7 +35,7 @@ const inputVariants = cva(
 
 /** Used when `data-slot="input-group-control"` — no outer field chrome (the {@link InputGroup} shell provides it). */
 const inputEmbeddedInGroupVariants = cva(
-  "w-full min-h-0 min-w-0 flex-1 border-0 bg-transparent [font-family:var(--font-inter)] transition-colors outline-none file:inline-flex file:border-0 file:bg-transparent file:font-uds-regular file:text-foreground placeholder:text-uds-text-placeholder disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-transparent focus-visible:border-transparent focus-visible:ring-0 aria-invalid:border-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent dark:aria-invalid:border-transparent dark:aria-invalid:ring-0 rounded-none py-0 shadow-none ring-0 h-full",
+  "w-full min-h-0 min-w-0 flex-1 border-0 bg-transparent [font-family:var(--font-inter)] transition-colors outline-none file:inline-flex file:border-0 file:bg-transparent file:font-uds-regular file:text-foreground placeholder:text-uds-text-placeholder disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-transparent disabled:text-[var(--uds-text-disabled)] focus-visible:border-transparent focus-visible:ring-0 aria-invalid:border-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent dark:aria-invalid:border-transparent dark:aria-invalid:ring-0 rounded-none py-0 shadow-none ring-0 h-full",
   {
     variants: {
       inputSize: {
