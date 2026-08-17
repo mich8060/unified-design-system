@@ -34,7 +34,9 @@ alternatives:
 
 Use for grouped interactive/summary units in dashboards and settings. Prefer radius ≤12. Avoid nesting Cards (see composition/nesting).
 
-**Padding:** Prefer `CardContent` (built-in **16px** on all sides) or explicit `--uds-spacing-16` / `--uds-spacing-24`. Do not flush content to the Card border. **Runtime:** a naked `Card` (no direct `CardContent` / `CardImage` / `CardFooter` child) auto-applies **16px** padding so tables/lists cannot sit flush — still prefer explicit `CardContent` for slot composition.
+**Padding:** Prefer `CardContent` (built-in **16px** on all sides) or explicit `--uds-spacing-16` / `--uds-spacing-24`. Do not flush content to the Card border. **Runtime:** a naked `Card` (no direct `CardContent` / `CardImage` / `CardFooter` / `CardHeader` child) auto-applies **16px** padding so tables/lists cannot sit flush — still prefer explicit `CardContent` for slot composition.
+
+**Titles:** Prefer title/description markup inside `CardContent`, or `SectionHeader` above the card. Deprecated shims `CardHeader` / `CardTitle` / `CardDescription` / `CardAction` exist only for 1.0.x upgrades — **FAIL IF** new screens use them as the recommended API.
 
 **Overflow:** `Card` ships with **`overflow-hidden`** so children clip to the radius and edges stay clean. Prefer the same on other content boxes unless something must escape (menus/popovers) or an inner scroll pane needs `overflow-auto`. See [`overflow`](../composition/overflow.md).
 

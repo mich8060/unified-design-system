@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T18:46:18.076Z",
+  "generatedAt": "2026-08-17T20:21:53.623Z",
   "generatedFrom": [
     "src/index.ts",
     "package.json",
@@ -7,7 +7,7 @@
   ],
   "package": {
     "name": "@chghealthcare/unified-design-system",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "primaryEntry": "@chghealthcare/unified-design-system",
     "styleImport": "@chghealthcare/unified-design-system/styles.css",
     "tailwindBuild": {
@@ -265,6 +265,15 @@
       "module": "components/ui/alert-dialog-uds",
       "roles": [
         "overlay"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "AlertProps",
+      "exportKind": "type",
+      "module": "components/ui/alert",
+      "roles": [
+        "feedback"
       ],
       "recommendation": "allowed"
     },
@@ -966,6 +975,15 @@
       "recommendation": "preferred"
     },
     {
+      "name": "CardAction",
+      "exportKind": "component",
+      "module": "components/ui/card",
+      "roles": [
+        "data-display"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "CardContent",
       "exportKind": "component",
       "module": "components/ui/card",
@@ -975,6 +993,15 @@
       "recommendation": "preferred"
     },
     {
+      "name": "CardDescription",
+      "exportKind": "component",
+      "module": "components/ui/card",
+      "roles": [
+        "data-display"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "CardFooter",
       "exportKind": "component",
       "module": "components/ui/card",
@@ -982,6 +1009,15 @@
         "data-display"
       ],
       "recommendation": "preferred"
+    },
+    {
+      "name": "CardHeader",
+      "exportKind": "component",
+      "module": "components/ui/card",
+      "roles": [
+        "data-display"
+      ],
+      "recommendation": "allowed"
     },
     {
       "name": "CardImage",
@@ -995,6 +1031,15 @@
     {
       "name": "CardSize",
       "exportKind": "type",
+      "module": "components/ui/card",
+      "roles": [
+        "data-display"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "CardTitle",
+      "exportKind": "component",
       "module": "components/ui/card",
       "roles": [
         "data-display"
@@ -1414,6 +1459,82 @@
       "roles": [
         "utility",
         "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "DateInput",
+      "exportKind": "component",
+      "module": "components/ui/date-input",
+      "roles": [
+        "input",
+        "input-group"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "DateInputCaptionLayout",
+      "exportKind": "type",
+      "module": "components/ui/date-input",
+      "roles": [
+        "input",
+        "input-group"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "DateInputProps",
+      "exportKind": "type",
+      "module": "components/ui/date-input",
+      "roles": [
+        "input",
+        "input-group"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "DateInputYearSelection",
+      "exportKind": "type",
+      "module": "components/ui/date-input",
+      "roles": [
+        "input",
+        "input-group"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "DateRangeInput",
+      "exportKind": "component",
+      "module": "components/ui/date-range-input",
+      "roles": [
+        "input"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "DateRangeInputCaptionLayout",
+      "exportKind": "type",
+      "module": "components/ui/date-range-input",
+      "roles": [
+        "input"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "DateRangeInputProps",
+      "exportKind": "type",
+      "module": "components/ui/date-range-input",
+      "roles": [
+        "input"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "DateRangeInputYearSelection",
+      "exportKind": "type",
+      "module": "components/ui/date-range-input",
+      "roles": [
+        "input"
       ],
       "recommendation": "allowed"
     },
@@ -2269,6 +2390,16 @@
       "recommendation": "allowed"
     },
     {
+      "name": "FunnelIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
       "name": "GearSixIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
@@ -2716,6 +2847,16 @@
     },
     {
       "name": "LightbulbIcon",
+      "exportKind": "component",
+      "module": "components/ui/uds-icons",
+      "roles": [
+        "utility",
+        "first-party"
+      ],
+      "recommendation": "allowed"
+    },
+    {
+      "name": "LightningIcon",
       "exportKind": "component",
       "module": "components/ui/uds-icons",
       "roles": [

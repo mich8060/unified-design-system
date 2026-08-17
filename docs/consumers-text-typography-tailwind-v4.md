@@ -119,3 +119,4 @@ This repo’s docs UI includes **Text** examples under component previews (`src/
 - `src/styles/uds-typography-theme.css` — `@theme` type scale and line tokens
 - `src/styles/uds-tokens.css` — `--uds-font-size-*`, `--uds-line-*`, `--uds-type-body-*`, `--uds-type-heading-*`, `--uds-type-display-*`
 - `src/styles.css` — Tailwind entry and `@source` for **this** package’s build (not a substitute for consumers importing `styles.css`)
+- [`consumers-tailwind-v4-preset.md`](./consumers-tailwind-v4-preset.md) — opt-in consumer Tailwind + `theme.css`

@@ -52,6 +52,7 @@ import { EyeSlashIcon } from "@phosphor-icons/react/EyeSlash"
 import { FileIcon } from "@phosphor-icons/react/File"
 import { FileTextIcon } from "@phosphor-icons/react/FileText"
 import { FolderOpenIcon } from "@phosphor-icons/react/FolderOpen"
+import { FunnelIcon } from "@phosphor-icons/react/Funnel"
 import { GearSixIcon } from "@phosphor-icons/react/GearSix"
 import { GitBranchIcon } from "@phosphor-icons/react/GitBranch"
 import { GpsFixIcon } from "@phosphor-icons/react/GpsFix"
@@ -62,6 +63,7 @@ import { ImageIcon } from "@phosphor-icons/react/Image"
 import { InfoIcon } from "@phosphor-icons/react/Info"
 import { LayoutIcon } from "@phosphor-icons/react/Layout"
 import { LightbulbIcon } from "@phosphor-icons/react/Lightbulb"
+import { LightningIcon } from "@phosphor-icons/react/Lightning"
 import { ListChecksIcon } from "@phosphor-icons/react/ListChecks"
 import { ListIcon } from "@phosphor-icons/react/List"
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass"
@@ -141,6 +143,7 @@ export { EyeSlashIcon } from "@phosphor-icons/react/EyeSlash"
 export { FileIcon } from "@phosphor-icons/react/File"
 export { FileTextIcon } from "@phosphor-icons/react/FileText"
 export { FolderOpenIcon } from "@phosphor-icons/react/FolderOpen"
+export { FunnelIcon } from "@phosphor-icons/react/Funnel"
 export { GearSixIcon } from "@phosphor-icons/react/GearSix"
 export { GitBranchIcon } from "@phosphor-icons/react/GitBranch"
 export { GpsFixIcon } from "@phosphor-icons/react/GpsFix"
@@ -151,6 +154,7 @@ export { ImageIcon } from "@phosphor-icons/react/Image"
 export { InfoIcon } from "@phosphor-icons/react/Info"
 export { LayoutIcon } from "@phosphor-icons/react/Layout"
 export { LightbulbIcon } from "@phosphor-icons/react/Lightbulb"
+export { LightningIcon } from "@phosphor-icons/react/Lightning"
 export { ListChecksIcon } from "@phosphor-icons/react/ListChecks"
 export { ListIcon } from "@phosphor-icons/react/List"
 export { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass"
@@ -232,6 +236,7 @@ const UDS_ICON_REGISTRY = {
   FileIcon,
   FileTextIcon,
   FolderOpenIcon,
+  FunnelIcon,
   GearSixIcon,
   GitBranchIcon,
   GpsFixIcon,
@@ -242,6 +247,7 @@ const UDS_ICON_REGISTRY = {
   InfoIcon,
   LayoutIcon,
   LightbulbIcon,
+  LightningIcon,
   ListChecksIcon,
   ListIcon,
   MagnifyingGlassIcon,

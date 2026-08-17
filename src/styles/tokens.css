@@ -14,5 +14,6 @@
  */
 @import "./uds-tokens.css";
 @import "./uds-semantic-colors-theme.css";
+@import "./uds-accent-amber-theme.css";
 @import "./uds-typography-theme.css";
 @import "./uds-font-theme.css";

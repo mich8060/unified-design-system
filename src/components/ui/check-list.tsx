@@ -8,7 +8,7 @@ function CheckList({ className, ...props }: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="check-list"
-      className={cn("space-y-2", className)}
+      className={cn("m-0 list-none space-y-2 p-0", className)}
       {...props}
     />
   )

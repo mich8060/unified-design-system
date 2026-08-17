@@ -55,7 +55,7 @@ export const paginationLinkVariants = cva(
 )
 
 export const paginationContentClass =
-  "flex flex-wrap items-stretch divide-x divide-border overflow-hidden rounded-none border border-input bg-background data-[pagination-style=line]:divide-x-0 data-[pagination-style=line]:border-0 data-[pagination-style=line]:border-t data-[pagination-style=line]:border-input"
+  "m-0 flex list-none flex-wrap items-stretch divide-x divide-border overflow-hidden rounded-none border border-input bg-background p-0 data-[pagination-style=line]:divide-x-0 data-[pagination-style=line]:border-0 data-[pagination-style=line]:border-t data-[pagination-style=line]:border-input"
 
 export const paginationItemClass = "flex items-stretch"
 

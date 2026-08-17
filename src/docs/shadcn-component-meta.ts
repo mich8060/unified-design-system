@@ -163,7 +163,8 @@ const SHADCN_COMPONENT_META: Record<ShadcnUiSlug, ShadcnComponentMeta> = {
     summary: 'Navigation Menu supports multi-level site or product navigation with dropdown content and link groupings.',
   },
   'number-input': {
-    summary: 'Number Input presets Input for numeric entry with decimal keyboard hints and numeric browser behavior.',
+    summary:
+      'Number Input is an InputGroup field for numeric entry with a custom up/down caret stepper (native spin buttons hidden). Sizes match Input (`inputSize` default 44px / `sm` compact 36px). Supports min/max/step, ArrowUp/ArrowDown, and `hideStepper` for a plain field.',
   },
   'page-header': {
     summary:

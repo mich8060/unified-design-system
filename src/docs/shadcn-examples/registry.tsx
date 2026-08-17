@@ -1353,10 +1353,10 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
 </Alert>`,
         ),
         E(
-            'filled',
-            'Filled',
+            'pastel',
+            'Pastel',
             (
-                <Alert style="filled" className="max-w-md">
+                <Alert appearance="pastel" className="max-w-md">
                     <Medallion color="neutrals" icon={<InfoIcon weight="bold" aria-hidden />} />
                     <AlertContent>
                         <AlertTitle>Note</AlertTitle>
@@ -1364,7 +1364,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     </AlertContent>
                 </Alert>
             ),
-            `<Alert style="filled" className="max-w-md">
+            `<Alert appearance="pastel" className="max-w-md">
   <Medallion color="neutrals" icon={<InfoIcon weight="bold" aria-hidden />} />
   <AlertContent>
     <AlertTitle>Note</AlertTitle>
@@ -1373,10 +1373,10 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
 </Alert>`,
         ),
         E(
-            'filled-destructive',
-            'Filled destructive',
+            'pastel-destructive',
+            'Pastel destructive',
             (
-                <Alert variant="destructive" style="filled" className="max-w-md">
+                <Alert variant="destructive" appearance="pastel" className="max-w-md">
                     <Medallion color="neutrals" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
                     <AlertContent>
                         <AlertTitle>Error</AlertTitle>
@@ -1384,7 +1384,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     </AlertContent>
                 </Alert>
             ),
-            `<Alert variant="destructive" style="filled" className="max-w-md">
+            `<Alert variant="destructive" appearance="pastel" className="max-w-md">
   <Medallion color="neutrals" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
   <AlertContent>
     <AlertTitle>Error</AlertTitle>
@@ -1393,10 +1393,10 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
 </Alert>`,
         ),
         E(
-            'filled-warning',
-            'Filled warning',
+            'pastel-warning',
+            'Pastel warning',
             (
-                <Alert variant="warning" style="filled" className="max-w-md">
+                <Alert variant="warning" appearance="pastel" className="max-w-md">
                     <Medallion color="neutrals" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
                     <AlertContent>
                         <AlertTitle>Warning</AlertTitle>
@@ -1404,7 +1404,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     </AlertContent>
                 </Alert>
             ),
-            `<Alert variant="warning" style="filled" className="max-w-md">
+            `<Alert variant="warning" appearance="pastel" className="max-w-md">
   <Medallion color="neutrals" icon={<WarningCircleIcon weight="bold" aria-hidden />} />
   <AlertContent>
     <AlertTitle>Warning</AlertTitle>
@@ -1413,10 +1413,10 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
 </Alert>`,
         ),
         E(
-            'filled-success',
-            'Filled success',
+            'pastel-success',
+            'Pastel success',
             (
-                <Alert variant="success" style="filled" className="max-w-md">
+                <Alert variant="success" appearance="pastel" className="max-w-md">
                     <Medallion color="neutrals" icon={<CheckCircleIcon weight="bold" aria-hidden />} />
                     <AlertContent>
                         <AlertTitle>Success</AlertTitle>
@@ -1424,7 +1424,7 @@ const EXAMPLES: Record<ShadcnUiSlug, ShadcnExampleSection[]> = {
                     </AlertContent>
                 </Alert>
             ),
-            `<Alert variant="success" style="filled" className="max-w-md">
+            `<Alert variant="success" appearance="pastel" className="max-w-md">
   <Medallion color="neutrals" icon={<CheckCircleIcon weight="bold" aria-hidden />} />
   <AlertContent>
     <AlertTitle>Success</AlertTitle>
@@ -4636,9 +4636,28 @@ DOT_STATUS_VARIANTS.map((v) => <DotStatus key={v} variant={v} />)`,
     'number-input': [
         E(
             'decimal',
-            'Numeric value',
-            <NumberInput className="max-w-sm" placeholder="0.00" aria-label="Hourly rate" />,
-            `<NumberInput className="max-w-sm" placeholder="0.00" aria-label="Hourly rate" />`,
+            'Default (44px)',
+            <NumberInput className="max-w-sm" defaultValue={42} min={0} max={100} step={1} aria-label="Quantity" />,
+            `<NumberInput className="max-w-sm" defaultValue={42} min={0} max={100} step={1} aria-label="Quantity" />`,
+        ),
+        E(
+            'compact',
+            'Compact (36px)',
+            <NumberInput inputSize="sm" className="max-w-sm" defaultValue={42} min={0} max={100} step={1} aria-label="Quantity" />,
+            `<NumberInput inputSize="sm" className="max-w-sm" defaultValue={42} min={0} max={100} step={1} aria-label="Quantity" />`,
+            'Matches Input `inputSize="sm"` — 36px height and body/14 typography for dense forms and tables.',
+        ),
+        E(
+            'step-decimal',
+            'Decimal step',
+            <NumberInput className="max-w-sm" placeholder="0.00" step={0.25} min={0} aria-label="Hourly rate" />,
+            `<NumberInput className="max-w-sm" placeholder="0.00" step={0.25} min={0} aria-label="Hourly rate" />`,
+        ),
+        E(
+            'no-stepper',
+            'Without stepper',
+            <NumberInput className="max-w-sm" hideStepper placeholder="0" aria-label="Amount" />,
+            `<NumberInput className="max-w-sm" hideStepper placeholder="0" aria-label="Amount" />`,
         ),
     ],
     'password-input': [

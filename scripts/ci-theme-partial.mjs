@@ -160,10 +160,27 @@ for (const utility of DARK_UTILITIES) {
     failures.push(`${utility} — generated no rule`)
     continue
   }
-  const emittedSelector = css.slice(index, css.indexOf("{", index))
-  if (!emittedSelector.includes(":where(.dark")) {
+  // Tailwind's compile() API emits nested CSS (Lightning CSS flattening is
+  // PostCSS/Vite/CLI only), so the guard may sit inside the rule body as
+  // `&:where(.dark, .dark *) { … }` rather than on the outer selector.
+  // Take through the matching closing brace so both shapes are covered.
+  let depth = 0
+  let end = index
+  for (; end < css.length; end++) {
+    const ch = css[end]
+    if (ch === "{") depth++
+    else if (ch === "}") {
+      depth--
+      if (depth === 0) {
+        end++
+        break
+      }
+    }
+  }
+  const rule = css.slice(index, end)
+  if (!rule.includes(":where(.dark")) {
     failures.push(
-      `${utility} compiled as \`${emittedSelector.trim()}\` — expected a ` +
+      `${utility} compiled as \`${rule.replace(/\s+/g, " ").trim()}\` — expected a ` +
         `:where(.dark, .dark *) guard from dist/variants.css`,
     )
   }

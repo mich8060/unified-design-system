@@ -100,12 +100,17 @@ async function externalizeInlinedFonts(cssFileName) {
 }
 
 await sanitizeViteQueryAssetFilenames()
-for (const cssFileName of ['styles.css', 'styles-base.css']) {
+for (const cssFileName of ['styles.css', 'styles-base.css', 'theme.css']) {
   await externalizeInlinedFonts(cssFileName)
 }
 
-// Remove the dummy JS stub emitted by the base-CSS-only vite build.
-for (const stub of ['_styles-base-dummy.js', '_styles-base-dummy.cjs']) {
+// Remove dummy JS stubs emitted by CSS-only vite builds.
+for (const stub of [
+  '_styles-base-dummy.js',
+  '_styles-base-dummy.cjs',
+  '_theme-dummy.js',
+  '_theme-dummy.cjs',
+]) {
   const stubPath = path.join(distRoot, stub)
   await fs.unlink(stubPath).catch(() => {})
 }

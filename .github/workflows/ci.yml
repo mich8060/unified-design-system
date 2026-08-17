@@ -38,6 +38,10 @@ jobs:
       - name: Recipe layout utilities in styles.css
         run: npm run test:recipe-layout-css
 
+      # TD-UDS-002 — nested &.border-t/b must not flatten into global padding rules.
+      - name: Border utility CSS collision guard
+        run: npm run test:border-utility-css
+
       # Compiles dist/theme.css the way a consumer app does. Catches a dropped
       # @theme registration (silent no-op for consumer token utilities) and a
       # regression back into emitting @layer theme (which would let a consumer

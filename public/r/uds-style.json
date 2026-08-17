@@ -10,7 +10,7 @@
     "theme"
   ],
   "dependencies": [
-    "@chghealthcare/unified-design-system@1.4.1"
+    "@chghealthcare/unified-design-system@1.4.2"
   ],
   "docs": "Install `@chghealthcare/unified-design-system`, import `styles/uds.css` from your app entrypoint, and keep your runtime component imports on the package root.",
   "meta": {

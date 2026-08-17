@@ -64,7 +64,7 @@ function toLabel(value: string, format12Hour: boolean): string {
 
   const hours24 = Math.floor(parsed / 60)
   const minutes = parsed % 60
-  const suffix = hours24 >= 12 ? "PM" : "AM"
+  const suffix = hours24 >= 12 ? "pm" : "am"
   const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12
   return `${hours12}:${String(minutes).padStart(2, "0")} ${suffix}`
 }
@@ -145,13 +145,13 @@ function TimeStepInput({
             disabled={disabled}
             aria-label={ariaLabel}
             className={cn(
-              "flex min-w-0 flex-1 items-center justify-center gap-[length:var(--uds-spacing-4)] border-0 bg-transparent px-3 text-left outline-none",
+              "flex min-w-0 flex-1 items-center justify-center gap-[length:var(--uds-spacing-2)] border-0 bg-transparent px-3 text-left outline-none",
               inputSize === "sm" ? "text-uds-14 leading-uds-14" : "text-uds-16 leading-uds-16",
               canInteract && "cursor-pointer",
               inputClassName,
             )}
           >
-            <span className={cn("shrink-0", valueTone)}>
+            <span className={cn("shrink-0 lowercase", valueTone)}>
               {selectedLabel || placeholder}
             </span>
             {showTimezone && timezone ? (
@@ -186,6 +186,7 @@ function TimeStepInput({
               onValueChange?.(option.value)
             }}
             className={cn(
+              "py-0.5 lowercase",
               selectedValue === option.value &&
                 "bg-accent text-accent-foreground"
             )}

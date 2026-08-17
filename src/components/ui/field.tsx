@@ -91,6 +91,9 @@ function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="field-content"
       className={cn(
         "group/field-content flex flex-1 flex-col gap-0.25 leading-snug",
+        /* Horizontal: +2px between the control and helper/error below it. */
+        "group-data-[orientation=horizontal]/field:gap-[calc(0.0625rem+var(--uds-spacing-2))]",
+        "group-data-[orientation=responsive]/field:@md/field-group:gap-[calc(0.0625rem+var(--uds-spacing-2))]",
         className
       )}
       {...props}
@@ -179,6 +182,9 @@ function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
       className={cn(
         "text-left font-sans text-[12px] font-uds-regular leading-4 text-uds-text-tertiary group-data-[invalid=true]/field:text-destructive group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5",
         "last:mt-0 nth-last-2:-mt-1",
+        /* Keep the horizontal FieldContent +2px gap (don't pull helper up). */
+        "group-data-[orientation=horizontal]/field:nth-last-2:mt-0",
+        "group-data-[orientation=responsive]/field:@md/field-group:nth-last-2:mt-0",
         "[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
         className
       )}

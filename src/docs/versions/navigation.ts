@@ -1,11 +1,17 @@
 import {
   DiamondsFourIcon,
   LayoutIcon,
+  LightningIcon,
   PresentationChartIcon,
   SquaresFourIcon,
   StackIcon,
   type MenuNavigationItem,
 } from '@chghealthcare/unified-design-system'
+import {
+  DESIGN_LANGUAGE_LAYERS,
+  DESIGN_LANGUAGE_OVERVIEW_NAV_ID,
+  DESIGN_LANGUAGE_OVERVIEW_ROUTE,
+} from '../design-language/layers'
 import { isReadoutMonthId, isReadoutPath, LATEST_READOUT_ROUTE, READOUT_NAV_ROUTES } from '../readout/readout-months'
 import type { ShadcnUiEntry } from '../shadcn-ui-registry'
 import type { CatalogEntry } from '../types'
@@ -46,7 +52,18 @@ export function buildDocsVersionNavigation(
         { id: 'getting-started-install', label: 'Install' },
         { id: 'getting-started-usage', label: 'Usage' },
         { id: 'getting-started-app-shell', label: 'AppShell' },
-        { id: 'getting-started-design-language', label: 'Design Language' },
+      ],
+    },
+    {
+      id: 'design-language',
+      label: 'Design Language',
+      icon: LightningIcon,
+      children: [
+        { id: DESIGN_LANGUAGE_OVERVIEW_NAV_ID, label: 'Overview' },
+        ...DESIGN_LANGUAGE_LAYERS.map((layer) => ({
+          id: layer.navId,
+          label: layer.label,
+        })),
       ],
     },
     {
@@ -86,8 +103,9 @@ export function buildDocsVersionNavigation(
     introduction: '/docs/introduction',
     'getting-started-install': '/docs/getting-started/install',
     'getting-started-usage': '/docs/getting-started/usage',
-    'getting-started-design-language': '/docs/getting-started/design-language',
     'getting-started-app-shell': '/docs/getting-started/app-shell',
+    [DESIGN_LANGUAGE_OVERVIEW_NAV_ID]: DESIGN_LANGUAGE_OVERVIEW_ROUTE,
+    ...Object.fromEntries(DESIGN_LANGUAGE_LAYERS.map((layer) => [layer.navId, layer.route])),
     'section-menu': '/docs/sections/menu',
     'section-header': '/docs/sections/header',
     'section-footer': '/docs/sections/footer',

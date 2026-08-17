@@ -18,9 +18,25 @@ Triggers:
 
 Until the first successful run, the workflow page may show **0 workflow runs** and only highlight the manual trigger. That is normal—the release trigger still runs when you publish a release.
 
+**Follow [`docs/RELEASE_CHECKLIST.md`](./RELEASE_CHECKLIST.md) every time.** That runbook covers
+backwards compatibility, tests/performance, the six migration fields (breaking / team actions /
+before-after / deprecation / risks / rollback), and rollback.
+
+CHANGELOG promote is **Required** on every publish: move `[Unreleased]` into
+`## [x.y.z] - YYYY-MM-DD` in [`CHANGELOG.md`](../CHANGELOG.md). Do not publish with only
+[`NEXT_RELEASE_NOTES.md`](./NEXT_RELEASE_NOTES.md).
+
+Publish mechanics (after the checklist):
+
 1. Bump `version` in `package.json` and merge to `main`.
-2. Create a **GitHub Release** for that tag (published, not draft), **or** run **Publish GitHub Package** manually on `main`. Paste release notes from [`docs/NEXT_RELEASE_NOTES.md`](./NEXT_RELEASE_NOTES.md) when relevant, then clear that draft for the next cycle.
-3. CI runs full `npm run build:lib` (vite + `prepare-package`, which externalizes Inter from CSS) and publishes to `https://npm.pkg.github.com` using `GITHUB_TOKEN` (`packages: write`).
+2. Promote CHANGELOG; clear or replace the `NEXT_RELEASE_NOTES` draft for the next cycle.
+3. Create a **GitHub Release** for that tag (published, not draft) using
+   [`.github/RELEASE_TEMPLATE.md`](../.github/RELEASE_TEMPLATE.md), **or** run **Publish GitHub Package**
+   manually on `main` after a dry run. Link `CHANGELOG.md` and any `docs/MIGRATION-*.md` in the body.
+4. CI runs full `npm run build:lib` (vite + `prepare-package`, which externalizes Inter from CSS) and
+   publishes to `https://npm.pkg.github.com` using `GITHUB_TOKEN` (`packages: write`).
+
+Semver expectations: [`docs/semver.md`](./semver.md).
 
 Manual publish:
 

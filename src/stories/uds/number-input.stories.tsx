@@ -20,6 +20,18 @@ function renderExample(index: number) {
   return example.previewInner
 }
 
-export const Decimal: Story = {
+export const Default: Story = {
   render: () => renderExample(0),
+}
+
+export const Compact: Story = {
+  render: () => renderExample(1),
+}
+
+export const DecimalStep: Story = {
+  render: () => renderExample(2),
+}
+
+export const WithoutStepper: Story = {
+  render: () => renderExample(3),
 }

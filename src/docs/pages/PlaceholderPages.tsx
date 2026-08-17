@@ -22,8 +22,6 @@ import {
   DocsPageSection,
   DocsPageShell,
 } from '../components/DocsPageShell'
-import { DesignLanguageContractDiagram } from '../components/DesignLanguageContractDiagram'
-import { DesignLanguageLayersDiagram } from '../components/DesignLanguageLayersDiagram'
 import { DocShellLayoutVisuals } from './DocShellLayoutVisuals'
 import { ReadoutPage } from '../readout/ReadoutPage'
 import { MarkdownishPage } from './MarkdownishPage'
@@ -409,176 +407,10 @@ export function Smoke() {
           — authenticated product layout with menu, header, and optional listview.
         </li>
         <li>
-          <Link to="/docs/getting-started/design-language" className="docs-link font-medium">
+          <Link to="/docs/design-language" className="docs-link font-medium">
             Design Language
           </Link>{' '}
           — why/when reasoning for composition (Design System Language).
-        </li>
-      </ul>
-    </MarkdownishPage>
-  )
-}
-
-export function DesignLanguagePage() {
-  return (
-    <MarkdownishPage
-      kicker="Getting Started"
-      title="Design Language"
-      description="The Design System Language (DSL) explains why UDS decisions exist, when to apply them, and how humans and AI should reason about composition—not only which component to import."
-    >
-      <p>
-        Runtime components and the machine-readable contract answer <strong>what</strong> to use and{' '}
-        <strong>how</strong> the APIs work. The Design System Language answers <strong>why</strong> and{' '}
-        <strong>when</strong>: intent, hierarchy, spacing, shell regions, patterns, and anti-patterns. It ships with the
-        package as{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">
-          @chghealthcare/unified-design-system/design-language
-        </code>{' '}
-        and lives in the repo under{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">design-language/</code>.
-      </p>
-
-      <DesignLanguageContractDiagram />
-
-      <h2 className="pt-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">What it is for</h2>
-      <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600 dark:text-neutral-300">
-        <li>
-          <strong className="text-neutral-900 dark:text-neutral-100">Designers</strong> — shared philosophy, physics, and
-          patterns so specs match what ships.
-        </li>
-        <li>
-          <strong className="text-neutral-900 dark:text-neutral-100">Engineers</strong> — composition rules before inventing
-          layout chrome; prefer recipes and existing exports.
-        </li>
-        <li>
-          <strong className="text-neutral-900 dark:text-neutral-100">AI agents</strong> — a structured reasoning path
-          (intent → grammar → decision trees → patterns → components) with confidence labels and retrieval indexes.
-        </li>
-      </ul>
-
-      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Knowledge layers</h2>
-      <p className="mt-3 text-neutral-600 dark:text-neutral-300">
-        Layers only depend downward. Start high when the problem is ambiguous; drop to tokens and examples when you are
-        implementing a settled layout.
-      </p>
-      <div className="mt-4">
-        <DesignLanguageLayersDiagram />
-      </div>
-      <div className="mt-4 overflow-x-auto rounded-[length:var(--uds-radius-8)] border border-uds-border-primary">
-        <table className="w-full min-w-[min(100%,520px)] border-collapse text-left text-sm">
-          <thead>
-            <tr className="border-b border-uds-border-primary bg-[var(--uds-surface-secondary)]">
-              <th className="px-3 py-2 font-semibold text-[var(--uds-text-primary)]">Layer</th>
-              <th className="px-3 py-2 font-semibold text-[var(--uds-text-primary)]">Role</th>
-            </tr>
-          </thead>
-          <tbody className="text-[var(--uds-text-secondary)]">
-            <tr className="border-b border-uds-border-primary">
-              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Philosophy &amp; principles</td>
-              <td className="px-3 py-2">Why the system exists and default tradeoffs</td>
-            </tr>
-            <tr className="border-b border-uds-border-primary">
-              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Design physics</td>
-              <td className="px-3 py-2">Proximity, weight, contrast, stability, disclosure</td>
-            </tr>
-            <tr className="border-b border-uds-border-primary">
-              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Semantics</td>
-              <td className="px-3 py-2">Meaning: hierarchy, density, intent, shell containment</td>
-            </tr>
-            <tr className="border-b border-uds-border-primary">
-              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Grammar</td>
-              <td className="px-3 py-2">Valid AppShell regions and pattern containment</td>
-            </tr>
-            <tr className="border-b border-uds-border-primary">
-              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Decision rules</td>
-              <td className="px-3 py-2">Choosing patterns, spacing, components; decision trees</td>
-            </tr>
-            <tr className="border-b border-uds-border-primary">
-              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Patterns &amp; ontology</td>
-              <td className="px-3 py-2">Screen recipes and component knowledge objects</td>
-            </tr>
-            <tr>
-              <td className="px-3 py-2 font-medium text-[var(--uds-text-primary)]">Foundations &amp; examples</td>
-              <td className="px-3 py-2">Tokens, composition details, and pointer examples</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">How to reason</h2>
-      <ol className="mt-3 list-decimal space-y-2 pl-5 text-neutral-600 dark:text-neutral-300">
-        <li>
-          State <strong className="text-neutral-900 dark:text-neutral-100">intent</strong> (what the user is trying to do).
-        </li>
-        <li>
-          Apply <strong className="text-neutral-900 dark:text-neutral-100">grammar</strong> — AppShell regions, listview vs
-          right panel, MainContent containment.
-        </li>
-        <li>
-          Choose a <strong className="text-neutral-900 dark:text-neutral-100">recipe / pattern</strong> via decision trees
-          before inventing layout.
-        </li>
-        <li>
-          Implement with contract <strong className="text-neutral-900 dark:text-neutral-100">components</strong> and{' '}
-          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/examples</code>.
-        </li>
-        <li>
-          Respect <strong className="text-neutral-900 dark:text-neutral-100">confidence</strong> labels in the DSL
-          (Required vs Strong Recommendation vs Optional).
-        </li>
-      </ol>
-
-      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
-        Contract vs design language
-      </h2>
-      <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600 dark:text-neutral-300">
-        <li>
-          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/uds-contract.json</code> (package export{' '}
-          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">/contract</code>) is normative for APIs,
-          recipes, and anti-patterns when prose disagrees.
-        </li>
-        <li>
-          <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">design-language/</code> is normative for
-          composition reasoning and design intent.
-        </li>
-        <li>
-          Retrieval indexes under <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/indexes/</code>{' '}
-          help agents find the right DSL article quickly.
-        </li>
-      </ul>
-
-      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Consumer AI bootstrap</h2>
-      <p className="mt-3 text-neutral-600 dark:text-neutral-300">
-        Setup agents (not designers/PMs) run this after install so hot-path stubs land in the app, then commit the
-        result:
-      </p>
-      <CodePanel label="From the consumer app root (agent-owned)" language="bash" code={`npx uds-copy-ai-rules`} />
-      <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-        That wires Cursor, Claude Code, AGENTS, or Copilot stubs from{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/consumer-ai/</code>. Paste-ready prompt:{' '}
-        <Link to="/docs/getting-started/usage" className="docs-link font-medium">
-          Usage → Copy-paste setup prompt
-        </Link>
-        . Full steps:{' '}
-        <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ai/guides/consumer-ai-bootstrap.md</code>.
-      </p>
-
-      <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">Where to go next</h2>
-      <ul className="mt-3 list-disc space-y-2 pl-5 text-neutral-600 dark:text-neutral-300">
-        <li>
-          <Link to="/docs/getting-started/usage" className="docs-link font-medium">
-            Usage
-          </Link>{' '}
-          — allowed imports and shell composition in product code.
-        </li>
-        <li>
-          <Link to="/docs/getting-started/app-shell" className="docs-link font-medium">
-            AppShell demo
-          </Link>{' '}
-          — the default authenticated layout regions.
-        </li>
-        <li>
-          Foundations and Components in this site — token scales and live APIs that the DSL points at.
         </li>
       </ul>
     </MarkdownishPage>
@@ -1282,6 +1114,13 @@ export function ProductChrome() {
         <Link to="/docs/getting-started/app-shell" className="docs-link font-medium">
           AppShell demo and composition →
         </Link>
+      </p>
+      <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+        For why/when composition reasoning, see{' '}
+        <Link to="/docs/design-language" className="docs-link font-medium">
+          Design Language
+        </Link>
+        .
       </p>
 
       <h2 className="pt-6 text-lg font-semibold text-neutral-900 dark:text-neutral-100">

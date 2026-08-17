@@ -18,6 +18,7 @@
 @source "./hooks/**/*.{ts,tsx}";
 @source "./lib/**/*.{ts,tsx}";
 @source "./styles/recipe-layout-safelist.tsx";
+@source "./styles/amber-accent-safelist.tsx";
 @source "../ai/examples/**/*.{ts,tsx}";
 
 @import "tw-animate-css";

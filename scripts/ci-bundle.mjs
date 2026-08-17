@@ -272,6 +272,8 @@ const EXPECTED_HEAVY_DEPS = {
   calendar: ["react-day-picker"],
   "date-input": ["react-day-picker"],
   "date-range-input": ["react-day-picker"],
+  // Root-barrel compatibility re-export (1.0.x upgrades); subpath still preferred for Vitest.
+  drawer: ["vaul"],
   "input-otp": ["input-otp"],
 };
 

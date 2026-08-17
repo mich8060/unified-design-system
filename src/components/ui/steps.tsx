@@ -50,7 +50,7 @@ function Steps({
       data-slot="steps"
       data-orientation={orientation}
       className={cn(
-        "flex",
+        "m-0 flex list-none p-0",
         orientation === "horizontal" ? "w-full items-start" : "flex-col items-stretch",
         className
       )}

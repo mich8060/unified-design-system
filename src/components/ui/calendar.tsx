@@ -124,7 +124,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        "group/calendar relative bg-uds-surface-primary text-uds-text-primary shadow-none [--cell-size:2.5rem] in-data-[slot=card-content]:border-0 in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:border-0 in-data-[slot=popover-content]:bg-transparent",
+        "group/calendar relative bg-[var(--uds-surface-primary)] text-uds-text-primary shadow-none [--cell-size:2.5rem] in-data-[slot=card-content]:border-0 in-data-[slot=card-content]:bg-[var(--uds-surface-primary)] in-data-[slot=popover-content]:border-0 in-data-[slot=popover-content]:bg-[var(--uds-surface-primary)]",
         props.mode === "range" ? "max-w-[672px]" : "max-w-[320px]",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,

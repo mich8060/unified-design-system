@@ -160,6 +160,13 @@ Full navigation, routing, and troubleshooting: [`ai/guides/appshell-navigation.m
 
 See [`AI_USAGE.md`](./AI_USAGE.md) for `defaultBrand`, `brandStorageKey`, and `applyUdsBrandToDocument`.
 
+## Changelog and compatibility
+
+- **[CHANGELOG.md](./CHANGELOG.md)** — durable release history (also paste notes into GitHub Releases on publish)
+- **[docs/RELEASE_CHECKLIST.md](./docs/RELEASE_CHECKLIST.md)** — **Required** maintainer runbook every publish (compat, tests, performance, CHANGELOG promote, rollback)
+- **[docs/MIGRATION-1.0-to-1.2.md](./docs/MIGRATION-1.0-to-1.2.md)** — upgrade checklist from 1.0.x pins
+- **[docs/semver.md](./docs/semver.md)** — public API / SemVer expectations going forward
+
 ## Public API model
 
 The root package entrypoint is [`src/index.ts`](./src/index.ts). That file is the canonical public API.

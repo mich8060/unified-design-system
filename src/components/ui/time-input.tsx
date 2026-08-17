@@ -58,7 +58,7 @@ function from24HourValue(value: string): {
 
 function segmentInputClass(inputSize: InputProps["inputSize"]) {
   return cn(
-    "w-7 min-w-0 border-0 bg-transparent p-0 text-center outline-none",
+    "w-[2ch] min-w-0 border-0 bg-transparent p-0 text-center tabular-nums outline-none",
     inputSize === "sm" ? "text-uds-14 leading-uds-14" : "text-uds-16 leading-uds-16",
   )
 }
@@ -146,7 +146,7 @@ function TimeInput({
         data-slot="input-group-control"
         aria-label={ariaLabel}
         className={cn(
-          "uds-input-group-control flex min-w-0 flex-1 items-center gap-[length:var(--uds-spacing-2)] pl-2",
+          "uds-input-group-control flex min-w-0 flex-1 items-center gap-0 pl-2",
           inputClassName,
         )}
       >
@@ -165,7 +165,7 @@ function TimeInput({
           onBlur={() => commitSegment(hoursDraft || "12", minutesDraft || "00")}
           className={cn(segmentInputClass(inputSize), segmentTone)}
         />
-        <span className="text-muted-foreground" aria-hidden>
+        <span className="shrink-0 text-muted-foreground" aria-hidden>
           :
         </span>
         <input
@@ -183,7 +183,7 @@ function TimeInput({
           onBlur={() => commitSegment(hoursDraft || "12", minutesDraft || "00")}
           className={cn(segmentInputClass(inputSize), segmentTone)}
         />
-        <span className="flex shrink-0 items-center gap-[length:var(--uds-spacing-4)]">
+        <span className="ml-0.5 flex shrink-0 items-center gap-0.5">
           <button
             type="button"
             disabled={disabled || readOnly}
@@ -193,12 +193,12 @@ function TimeInput({
               commitSegment(hoursDraft || "12", minutesDraft || "00", nextPeriod)
             }}
             className={cn(
-              "shrink-0 border-0 bg-transparent p-0",
+              "shrink-0 border-0 bg-transparent p-0 lowercase",
               segmentTone,
               (disabled || readOnly) && "cursor-default",
             )}
           >
-            {selectedPeriod}
+            {selectedPeriod.toLowerCase()}
           </button>
           {showTimezone && timezone ? (
             <span className={cn("shrink-0", segmentTone)} aria-label={`${ariaLabel} timezone`}>

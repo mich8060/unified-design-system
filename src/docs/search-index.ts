@@ -1,4 +1,6 @@
 import type { MenuNavigationItem } from '@chghealthcare/unified-design-system'
+import { DESIGN_LANGUAGE_ARTICLES } from './design-language/articles'
+import { DESIGN_LANGUAGE_LAYER_BY_ID } from './design-language/layers'
 import { LATEST_READOUT_ROUTE, READOUT_MONTHS } from './readout/readout-months'
 import type { ShadcnUiEntry } from './shadcn-ui-registry'
 import type { CatalogEntry } from './types'
@@ -15,6 +17,7 @@ export type DocsSearchResult = {
 const GROUP_ORDER = [
   'Documentation',
   'Getting Started',
+  'Design Language',
   'Foundations',
   'Components',
   'Modules',
@@ -58,8 +61,16 @@ function descriptionForNavId(
     const entry = shadcnBySlug.get(id.slice('component-'.length))
     return entry ? `${entry.name} component documentation` : undefined
   }
-  if (id === 'getting-started-design-language') {
+  if (id === 'design-language-overview') {
     return 'Design System Language — why/when composition reasoning for UDS'
+  }
+  if (id.startsWith('design-language-')) {
+    const layerId = id.slice('design-language-'.length)
+    return (
+      DESIGN_LANGUAGE_ARTICLES[layerId]?.summary ??
+      DESIGN_LANGUAGE_LAYER_BY_ID[layerId]?.role ??
+      'Design Language knowledge layer'
+    )
   }
   return undefined
 }

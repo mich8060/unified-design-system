@@ -14,81 +14,97 @@ const alertVariants = cva(
         warning: "",
         success: "",
       },
-      style: {
+      appearance: {
         default: "bg-uds-surface-primary",
-        filled:
+        /** Soft pastel background + border tinted to the variant color. Mirrors Badge `appearance="pastel"`. */
+        pastel:
           "[&_[data-slot=alert-title]]:text-[var(--uds-text-primary)] [&_[data-slot=alert-description]]:text-[var(--uds-text-secondary)]",
       },
     },
     compoundVariants: [
       {
         variant: "default",
-        style: "default",
+        appearance: "default",
         class:
           "border-uds-border-secondary [&_[data-slot=alert-title]]:text-[var(--uds-text-primary)] [&_[data-slot=alert-description]]:text-[var(--uds-text-secondary)]",
       },
       {
         variant: "destructive",
-        style: "default",
+        appearance: "default",
         class:
           "border-[var(--uds-button-border-primary-destructive)] [&_[data-slot=alert-title]]:text-[var(--uds-button-border-primary-destructive)] [&_[data-slot=alert-description]]:text-[var(--uds-button-border-primary-destructive)]",
       },
       {
         variant: "warning",
-        style: "default",
+        appearance: "default",
         class:
           "border-[var(--uds-system-warning-primary)] [&_[data-slot=alert-title]]:text-[var(--uds-system-warning-primary)] [&_[data-slot=alert-description]]:text-[var(--uds-system-warning-primary)]",
       },
       {
         variant: "success",
-        style: "default",
+        appearance: "default",
         class:
           "border-[var(--uds-system-constructive-primary)] [&_[data-slot=alert-title]]:text-[var(--uds-system-constructive-primary)] [&_[data-slot=alert-description]]:text-[var(--uds-system-constructive-primary)]",
       },
       {
         variant: "default",
-        style: "filled",
+        appearance: "pastel",
         class:
           "border-[var(--uds-color-accent-blue-100)] bg-[var(--uds-color-accent-blue-25)]",
       },
       {
         variant: "destructive",
-        style: "filled",
+        appearance: "pastel",
         class:
           "border-[var(--uds-color-accent-red-100)] bg-[var(--uds-color-accent-red-25)]",
       },
       {
         variant: "warning",
-        style: "filled",
+        appearance: "pastel",
         class:
           "border-[var(--uds-color-accent-orange-200)] bg-[var(--uds-color-accent-orange-25)]",
       },
       {
         variant: "success",
-        style: "filled",
+        appearance: "pastel",
         class:
           "border-[var(--uds-color-accent-green-100)] bg-[var(--uds-color-accent-green-25)]",
       },
     ],
     defaultVariants: {
       variant: "default",
-      style: "default",
+      appearance: "default",
     },
   }
 )
 
+type AlertProps = Omit<React.ComponentProps<"div">, "style"> &
+  VariantProps<typeof alertVariants> & {
+    /**
+     * Inline styles, or legacy surface token `"default" | "filled"`.
+     * Prefer `appearance="pastel"` — `"filled"` maps to pastel (Badge-aligned).
+     */
+    style?: React.CSSProperties | "default" | "filled"
+  }
+
 function Alert({
   className,
   variant,
+  appearance,
   style,
   ...props
-}: Omit<React.ComponentProps<"div">, "style"> &
-  VariantProps<typeof alertVariants>) {
+}: AlertProps) {
+  const legacyStyle = style === "default" || style === "filled"
+  const resolvedAppearance =
+    appearance ?? (style === "filled" ? "pastel" : style === "default" ? "default" : undefined)
+  const htmlStyle = legacyStyle ? undefined : style
+
   return (
     <div
       data-slot="alert"
       role="alert"
-      className={cn(alertVariants({ variant, style }), className)}
+      style={htmlStyle}
+      className={cn(alertVariants({ variant, appearance: resolvedAppearance }), className)}
       {...props}
     />
   )
@@ -151,3 +167,4 @@ function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 export { Alert, AlertContent, AlertTitle, AlertDescription, AlertAction }
+export type { AlertProps }

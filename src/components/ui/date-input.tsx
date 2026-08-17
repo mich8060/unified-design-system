@@ -213,7 +213,7 @@ function DateInput({
         <div
           ref={popoverRef}
           className={cn(
-            "absolute left-0 z-50",
+            "absolute left-0 z-50 overflow-hidden rounded-[length:var(--uds-radius-4)] border border-uds-border-primary bg-[var(--uds-surface-primary)] shadow-[var(--uds-boxshadow-md)]",
             flipSide === "bottom" ? "top-full mt-2" : "bottom-full mb-2"
           )}
         >
@@ -225,7 +225,7 @@ function DateInput({
             captionLayout={yearSelection === "caption" ? captionLayout : "label"}
             startMonth={startMonth ?? defaultCalendarStartMonth()}
             endMonth={endMonth ?? defaultCalendarEndMonth()}
-            className="rounded-[length:var(--uds-radius-4)] border bg-card"
+            className="border-0 bg-[var(--uds-surface-primary)] shadow-none"
           />
         </div>
       ) : null}

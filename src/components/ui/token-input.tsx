@@ -136,7 +136,7 @@ function TokenInput({
           ref={inputRef}
           type="text"
           value={draftValue}
-          placeholder={selectedTokens.length === 0 ? placeholder : undefined}
+          placeholder={placeholder}
           disabled={disabled}
           readOnly={readOnly}
           autoComplete={autoComplete}
@@ -144,7 +144,7 @@ function TokenInput({
           autoCorrect={autoCorrect}
           spellCheck={spellCheck}
           className={cn(
-            "w-full min-w-0 bg-transparent text-foreground outline-none placeholder:text-muted-foreground",
+            "w-full min-w-0 bg-transparent text-foreground outline-none placeholder:text-[var(--uds-text-placeholder)]",
             inputSize === "sm" ? "h-5" : "h-6"
           )}
           onChange={(event) => {

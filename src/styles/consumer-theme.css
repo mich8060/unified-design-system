@@ -1,0 +1,20 @@
+/*
+ * Consumer Tailwind v4 theme preset → published as dist/theme.css
+ * (`@chghealthcare/unified-design-system/theme.css`).
+ *
+ * - Ships `--uds-*` tokens and the same `@theme` bridges as the library build
+ * - Does **not** import `tailwindcss`, preflight, or generate utilities
+ * - Process this file in the **consumer** Tailwind/Vite CSS pipeline so app
+ *   utilities (including arbitrary values) resolve against UDS colors/spacing
+ *
+ * Recommended hybrid (avoids double preflight):
+ *   1. import "@chghealthcare/unified-design-system/styles.css" in JS (components)
+ *   2. In app CSS: import theme + utilities only, @source your app files
+ *
+ * See docs/consumers-tailwind-v4-preset.md
+ */
+
+@import "./tokens.css";
+@import "./uds-theme-bridge.css";
+
+@custom-variant dark (&:where(.dark, .dark *));

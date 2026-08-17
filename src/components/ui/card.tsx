@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils"
  *   - CardImage   — media slot (images only by convention)
  *   - CardContent — body slot (any children)
  *   - CardFooter  — actions slot (buttons only by convention)
- * There is no built-in title/description; place whatever you need in CardContent.
+ * Prefer title/description markup inside CardContent, or SectionHeader above the card.
+ * CardHeader / CardTitle / CardDescription / CardAction remain as deprecated upgrade shims.
  */
 export type CardSize = "default" | "sm"
 
@@ -32,10 +33,9 @@ function Card({
                 className={cn(
                     "group/card flex h-fit w-full flex-col gap-0 self-start overflow-hidden rounded-[length:var(--uds-radius-8)] border border-uds-border-primary bg-uds-surface-primary text-sm text-uds-text-primary",
                     "[&_[data-slot=card-image]_img]:size-full [&_[data-slot=card-image]_img]:object-cover",
-                    // Naked Cards (no CardContent / CardImage / CardFooter slots): 16px edge padding
-                    // so tables/lists cannot sit flush on the border. Slot composition keeps its own padding.
+                    // Naked Cards (no slot children): 16px edge padding so tables/lists cannot sit flush.
                     // Explicit `p-*` on className wins via twMerge.
-                    "[&:not(:has(>[data-slot=card-content])):not(:has(>[data-slot=card-image])):not(:has(>[data-slot=card-footer]))]:p-[length:var(--uds-spacing-16)]",
+                    "[&:not(:has(>[data-slot=card-content])):not(:has(>[data-slot=card-image])):not(:has(>[data-slot=card-footer])):not(:has(>[data-slot=card-header]))]:p-[length:var(--uds-spacing-16)]",
                     orientation === "horizontal" && [
                         "grid grid-cols-[1fr_auto]",
                         "[&_[data-slot=card-image]]:col-span-2",
@@ -64,6 +64,74 @@ function CardImage({ className, style, ...props }: React.ComponentProps<"div">) 
                 className
             )}
             style={{ aspectRatio: size === "sm" ? "21 / 9" : "16 / 9", ...style }}
+            {...props}
+        />
+    )
+}
+
+/**
+ * @deprecated Prefer title/description markup inside `CardContent`, or `SectionHeader` above the card.
+ * Kept as a 1.0.x upgrade shim — do not use in new code.
+ */
+function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+    return (
+        <div
+            data-slot="card-header"
+            className={cn(
+                "group/card-header @container/card-header grid shrink-0 auto-rows-min items-start gap-0 px-[length:var(--uds-gap-16)] py-[length:var(--uds-spacing-12)] has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]",
+                className
+            )}
+            {...props}
+        />
+    )
+}
+
+/**
+ * @deprecated Prefer a `font-medium` title inside `CardContent` (or `SectionHeaderTitle` outside the card).
+ * Kept as a 1.0.x upgrade shim — do not use in new code.
+ */
+function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+    return (
+        <div
+            data-slot="card-title"
+            className={cn(
+                "text-base font-medium leading-[length:var(--uds-type-body-16-line-regular,24px)] text-uds-text-primary group-data-[size=sm]/card:text-sm group-data-[size=sm]/card:leading-[length:var(--uds-type-body-14-line-regular,20px)]",
+                className
+            )}
+            {...props}
+        />
+    )
+}
+
+/**
+ * @deprecated Prefer secondary body copy inside `CardContent` (or `SectionHeaderDescription` outside the card).
+ * Kept as a 1.0.x upgrade shim — do not use in new code.
+ */
+function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
+    return (
+        <div
+            data-slot="card-description"
+            className={cn(
+                "text-sm leading-[length:var(--uds-type-body-14-line-regular,20px)] text-uds-text-secondary",
+                className
+            )}
+            {...props}
+        />
+    )
+}
+
+/**
+ * @deprecated Prefer actions in `CardFooter` or `SectionHeaderActions`.
+ * Kept as a 1.0.x upgrade shim — do not use in new code.
+ */
+function CardAction({ className, ...props }: React.ComponentProps<"div">) {
+    return (
+        <div
+            data-slot="card-action"
+            className={cn(
+                "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+                className
+            )}
             {...props}
         />
     )
@@ -100,6 +168,10 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
 export {
     Card,
     CardImage,
+    CardHeader,
+    CardTitle,
+    CardDescription,
+    CardAction,
     CardContent,
     CardFooter,
 }

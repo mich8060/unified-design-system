@@ -58,7 +58,7 @@ Copy the structure in `ai/examples/workspace-dashboard.tsx` (KPI row → **`lg:g
 </div>
 ```
 
-These grid utilities ship in published `styles.css` / `styles/base.css` — styles.css-only apps do **not** need a consumer Tailwind build for recipe multi-column layouts.
+These grid utilities ship in published `styles.css` / `styles/base.css` — styles.css-only apps do **not** need a consumer Tailwind build for recipe multi-column layouts. Product apps that need additional arbitrary utilities should opt into a local Tailwind v4 build with `@chghealthcare/unified-design-system/theme.css` — see `docs/consumers-tailwind-v4-preset.md`.
 
 **FAIL IF:** Skinny full-width placements / watchlist / feed / callout (large empty horizontal space). **FAIL IF:** Reports stacks chart→feed→chart→callout→tables all full-width.
 

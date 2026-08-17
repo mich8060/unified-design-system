@@ -1,0 +1,25 @@
+/*
+ * Amber accent ramp → Tailwind v4 @theme.
+ * Tokens live in uds-tokens.css as `--uds-color-accent-amber-*`.
+ *
+ * Examples:
+ *   bg-uds-color-accent-amber-25
+ *   text-uds-color-accent-amber-1000
+ *   border-uds-color-accent-amber-300
+ *
+ * Requires `./uds-tokens.css` imported earlier.
+ */
+@theme {
+  --color-uds-color-accent-amber-25: var(--uds-color-accent-amber-25);
+  --color-uds-color-accent-amber-50: var(--uds-color-accent-amber-50);
+  --color-uds-color-accent-amber-100: var(--uds-color-accent-amber-100);
+  --color-uds-color-accent-amber-200: var(--uds-color-accent-amber-200);
+  --color-uds-color-accent-amber-300: var(--uds-color-accent-amber-300);
+  --color-uds-color-accent-amber-400: var(--uds-color-accent-amber-400);
+  --color-uds-color-accent-amber-500: var(--uds-color-accent-amber-500);
+  --color-uds-color-accent-amber-600: var(--uds-color-accent-amber-600);
+  --color-uds-color-accent-amber-700: var(--uds-color-accent-amber-700);
+  --color-uds-color-accent-amber-800: var(--uds-color-accent-amber-800);
+  --color-uds-color-accent-amber-900: var(--uds-color-accent-amber-900);
+  --color-uds-color-accent-amber-1000: var(--uds-color-accent-amber-1000);
+}

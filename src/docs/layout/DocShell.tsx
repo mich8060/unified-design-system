@@ -151,7 +151,7 @@ export function DocShell() {
                 AppShell demo
               </NavLink>
               <NavLink
-                to="/docs/getting-started/design-language"
+                to="/docs/design-language"
                 className={({ isActive }) => docsNavSubLinkClassName({ isActive })}
                 onClick={closeFlyout}
               >
@@ -325,7 +325,7 @@ export function DocShell() {
                       AppShell demo
                     </NavLink>
                     <NavLink
-                      to="/docs/getting-started/design-language"
+                      to="/docs/design-language"
                       className={({ isActive }) => docsNavSubLinkClassName({ isActive })}
                     >
                       Design Language

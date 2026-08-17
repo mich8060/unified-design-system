@@ -51,8 +51,11 @@ const InstallPage = lazy(() =>
 const UsagePage = lazy(() =>
   import('./pages/PlaceholderPages').then((m) => ({ default: m.UsagePage })),
 )
-const DesignLanguagePage = lazy(() =>
-  import('./pages/PlaceholderPages').then((m) => ({ default: m.DesignLanguagePage })),
+const DesignLanguageOverviewPage = lazy(() =>
+  import('./pages/DesignLanguagePages').then((m) => ({ default: m.DesignLanguageOverviewPage })),
+)
+const DesignLanguageLayerPage = lazy(() =>
+  import('./pages/DesignLanguagePages').then((m) => ({ default: m.DesignLanguageLayerPage })),
 )
 const AppShellDemoPage = lazy(() =>
   import('./pages/PlaceholderPages').then((m) => ({ default: m.AppShellDemoPage })),
@@ -350,7 +353,12 @@ export default function DocsApp() {
                 <Route path="docs/welcome" element={<Navigate to="/docs/introduction" replace />} />
                 <Route path="docs/getting-started/install" element={<InstallPage />} />
                 <Route path="docs/getting-started/usage" element={<UsagePage />} />
-                <Route path="docs/getting-started/design-language" element={<DesignLanguagePage />} />
+                <Route
+                  path="docs/getting-started/design-language"
+                  element={<Navigate to="/docs/design-language" replace />}
+                />
+                <Route path="docs/design-language" element={<DesignLanguageOverviewPage />} />
+                <Route path="docs/design-language/:layerId" element={<DesignLanguageLayerPage />} />
                 <Route path="docs/getting-started/app-shell" element={<AppShellDemoPage />} />
                 <Route path="docs/sections/menu" element={<MenuPage />} />
                 <Route path="docs/sections/:slug" element={<ShadcnComponentDocPage />} />

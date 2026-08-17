@@ -1,6 +1,6 @@
 {
   "name": "@chghealthcare/unified-design-system",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "packageManager": "npm@10.9.2",
   "description": "React UI primitives and styles built with Tailwind CSS v4 and shadcn-style components (UDS).",
   "license": "MIT",
@@ -50,6 +50,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "test": "./dist/lazy-index.cjs",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
@@ -555,7 +556,7 @@
     "dev": "vite --config vite.config.docs.ts",
     "build": "npm run build:lib && npm run build:docs",
     "prepublishOnly": "npm run build:lib",
-    "build:lib": "node ./scripts/generate-subpath-exports.mjs --check && node ./scripts/build-theme-partial.mjs --check && vite build --config vite.config.lib.ts && vite build --config vite.config.lib-base-css.ts && tsc -p tsconfig.lib.json && node ./scripts/build-theme-partial.mjs && node ./scripts/prepare-package.mjs && node ./scripts/generate-subpath-exports.mjs --verify-dist",
+    "build:lib": "node ./scripts/generate-subpath-exports.mjs --check && node ./scripts/build-theme-partial.mjs --check && vite build --config vite.config.lib.ts && vite build --config vite.config.lib-base-css.ts && tsc -p tsconfig.lib.json && node ./scripts/build-theme-partial.mjs && node ./scripts/prepare-package.mjs && node ./scripts/generate-lazy-barrel.mjs && node ./scripts/generate-subpath-exports.mjs --verify-dist",
     "generate:subpath-exports": "node ./scripts/generate-subpath-exports.mjs",
     "build:docs": "node ./scripts/sync-docs-version-snapshot.mjs && vite build --config vite.config.docs.ts",
     "lint": "eslint .",
@@ -566,6 +567,7 @@
     "ci:bundle": "node ./scripts/ci-bundle.mjs",
     "ci:pack": "node ./scripts/ci-pack-fonts.mjs",
     "test:recipe-layout-css": "node ./scripts/ci-recipe-layout-css.mjs",
+    "test:border-utility-css": "node ./scripts/ci-border-utility-css.mjs",
     "test:theme-partial": "node ./scripts/ci-theme-partial.mjs",
     "generate:theme-partial": "node ./scripts/build-theme-partial.mjs",
     "optimize:branding-svg": "node ./scripts/optimize-branding-svg.mjs",

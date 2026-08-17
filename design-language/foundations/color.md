@@ -81,6 +81,18 @@ Map **meaning** to the matching **system color pattern** — do not invent paral
 
 **FAIL IF:** error UI uses warning yellow, success uses destructive red, or info uses an arbitrary accent outside the action/info pattern.
 
+## Amber accent tokens (public)
+
+Amber is a **decorative / medallion accent ramp**, not the semantic warning pattern (prefer `--uds-system-warning-*` / Badge `yellow` for warnings).
+
+| Surface | How to use |
+|---------|------------|
+| CSS variables | `--uds-color-accent-amber-25` … `--uds-color-accent-amber-1000` (light/dark via UDS tokens) |
+| Tailwind utilities (styles.css + consumer `theme.css`) | `bg-uds-color-accent-amber-*`, `text-uds-color-accent-amber-*`, `border-uds-color-accent-amber-*` |
+| Components | `Medallion color="amber"`; do not invent parallel hex ambers |
+
+Arbitrary fallback always works: `bg-[var(--uds-color-accent-amber-100)]`.
+
 Confidence: **Required** — Errors → destructive; warnings → warning; success → constructive; information → action/info.
 
 ## How AI should reason

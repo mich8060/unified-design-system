@@ -72,7 +72,7 @@ function Slider({
           data-slot="slider-thumb"
           key={index}
           className={cn(
-            "relative block shrink-0 rounded-full border border-uds-border-secondary bg-uds-surface-primary transition-[color,box-shadow] select-none after:absolute after:-inset-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
+            "relative block shrink-0 rounded-full border border-uds-border-secondary bg-uds-surface-primary shadow-[var(--uds-boxshadow-default)] transition-[color,box-shadow] select-none after:absolute after:-inset-2 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
             SLIDER_THUMB_SIZE_CLASS[size]
           )}
         />

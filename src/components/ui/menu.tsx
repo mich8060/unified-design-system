@@ -416,6 +416,10 @@ export type MenuNavigationItem = {
   icon?: MenuNavigationIcon
   /** When non-empty, the row shows an expand control and nested rows below. */
   children?: ReadonlyArray<MenuNavigationItem>
+  /** Grays out the row and prevents selection (and expand/collapse for groups). */
+  disabled?: boolean
+  /** Merged onto the row’s interactive control (`button` / collapsed trigger). */
+  className?: string
 }
 
 function collectNavigationGroupIds(items: ReadonlyArray<MenuNavigationItem>): string[] {
@@ -492,25 +496,31 @@ function MenuNavigationItemNode({
   /** Parent rows stay visually active when any descendant route is selected. */
   const active = navigationSubtreeHasActive(item, activeId)
   const nestedLeaf = depth > 0 && !branch
+  const disabled = item.disabled === true
 
   if (!branch) {
     return (
       <li className="m-0 p-0">
         <button
           type="button"
-          data-active={active ? "true" : undefined}
+          data-active={!disabled && active ? "true" : undefined}
+          aria-disabled={disabled ? "true" : undefined}
           className={cn(
             nestedLeaf ? "menu-nav-row-layout px-2" : "menu-nav-row",
             nestedLeaf && "menu-nav-leaf-height",
-            nestedLeaf && (active ? "menu-nav-leaf-border-active" : "menu-nav-leaf-border-inactive"),
-            nestedLeaf && active && "menu-nav-leaf-active-bg",
+            nestedLeaf && (!disabled && active ? "menu-nav-leaf-border-active" : "menu-nav-leaf-border-inactive"),
+            nestedLeaf && !disabled && active && "menu-nav-leaf-active-bg",
             nestedLeaf
               ? "menu-nav-leaf-inactive"
-              : active
+              : !disabled && active
                 ? "menu-nav-active"
                 : "menu-nav-parent-inactive",
+            disabled && "cursor-not-allowed opacity-40",
+            item.className,
           )}
-          onClick={(event) => onNavigationSelect?.(item.id, event)}
+          onClick={(event) => {
+            if (!disabled) onNavigationSelect?.(item.id, event)
+          }}
         >
           {!nestedLeaf && Icon ? (
             <Icon className="size-6 shrink-0" weight="duotone" aria-hidden />
@@ -533,19 +543,22 @@ function MenuNavigationItemNode({
     <li className="m-0 p-0">
       <button
         type="button"
-        data-active={active ? "true" : undefined}
+        data-active={!disabled && active ? "true" : undefined}
         aria-expanded={expanded}
         aria-controls={`uds-menu-nav-group-${item.id}`}
+        aria-disabled={disabled ? "true" : undefined}
         aria-label={expanded ? `Collapse ${item.label}` : `Expand ${item.label}`}
         className={cn(
           "menu-nav-branch-row",
           "menu-nav-parent-sticky",
           expanded && "border-b border-solid border-neutral-200 dark:border-neutral-600",
-          active ? "menu-nav-active" : "menu-nav-parent-inactive",
+          !disabled && active ? "menu-nav-active" : "menu-nav-parent-inactive",
+          disabled && "cursor-not-allowed opacity-40",
+          item.className,
         )}
         onClick={(event) => {
           event.preventDefault()
-          toggleGroup(item.id)
+          if (!disabled) toggleGroup(item.id)
         }}
       >
         <span
@@ -643,12 +656,15 @@ function CollapsedBranchMenuContent({
     <>
       {nodes.map((node) => {
         const branch = Boolean(node.children?.length)
+        const disabled = node.disabled === true
         if (!branch) {
           return (
             <DropdownMenuItem
               key={node.id}
+              disabled={disabled}
+              className={node.className}
               onSelect={(event) => {
-                onPick(node.id, event)
+                if (!disabled) onPick(node.id, event)
               }}
             >
               {node.label}
@@ -657,10 +673,14 @@ function CollapsedBranchMenuContent({
         }
         return (
           <DropdownMenuSub key={node.id}>
-            <DropdownMenuSubTrigger inset>{node.label}</DropdownMenuSubTrigger>
-            <DropdownMenuSubContent className="min-w-48">
-              <CollapsedBranchMenuContent nodes={node.children!} onPick={onPick} />
-            </DropdownMenuSubContent>
+            <DropdownMenuSubTrigger inset disabled={disabled} className={node.className}>
+              {node.label}
+            </DropdownMenuSubTrigger>
+            {!disabled ? (
+              <DropdownMenuSubContent className="min-w-48">
+                <CollapsedBranchMenuContent nodes={node.children!} onPick={onPick} />
+              </DropdownMenuSubContent>
+            ) : null}
           </DropdownMenuSub>
         )
       })}
@@ -685,6 +705,7 @@ function CollapsedRootNavRow({
   const Icon = item.icon
   const branch = Boolean(item.children?.length)
   const active = navigationSubtreeHasActive(item, activeId)
+  const disabled = item.disabled === true
 
   const iconEl = Icon ? (
     <Icon className="size-6 shrink-0" weight="duotone" aria-hidden />
@@ -698,16 +719,19 @@ function CollapsedRootNavRow({
         <TooltipTrigger asChild>
           <button
             type="button"
-            data-active={active ? "true" : undefined}
-            aria-current={active ? "page" : undefined}
+            data-active={!disabled && active ? "true" : undefined}
+            aria-current={!disabled && active ? "page" : undefined}
+            aria-disabled={disabled ? "true" : undefined}
             aria-label={item.label}
             className={cn(
               "flex size-11 shrink-0 cursor-pointer items-center justify-center transition-colors",
               "menu-nav-collapsed-radius menu-nav-collapsed-focus-ring",
-              active ? "menu-nav-active" : "menu-nav-parent-inactive",
+              !disabled && active ? "menu-nav-active" : "menu-nav-parent-inactive",
+              disabled && "cursor-not-allowed opacity-40",
+              item.className,
             )}
             onClick={(event) => {
-              onPick(item.id, event)
+              if (!disabled) onPick(item.id, event)
             }}
           >
             {iconEl}
@@ -719,19 +743,27 @@ function CollapsedRootNavRow({
   }
 
   return (
-    <DropdownMenu open={submenuOpen} onOpenChange={onSubmenuOpenChange}>
+    <DropdownMenu
+      open={disabled ? false : submenuOpen}
+      onOpenChange={(open) => {
+        if (!disabled) onSubmenuOpenChange?.(open)
+      }}
+    >
       <Tooltip>
         <TooltipTrigger asChild>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger asChild disabled={disabled}>
             <button
               type="button"
-              data-active={active ? "true" : undefined}
+              data-active={!disabled && active ? "true" : undefined}
               aria-haspopup="menu"
+              aria-disabled={disabled ? "true" : undefined}
               aria-label={item.label}
               className={cn(
                 "flex size-11 shrink-0 cursor-pointer items-center justify-center transition-colors",
                 "menu-nav-collapsed-radius menu-nav-collapsed-focus-ring",
-                active ? "menu-nav-active" : "menu-nav-parent-inactive",
+                !disabled && active ? "menu-nav-active" : "menu-nav-parent-inactive",
+                disabled && "cursor-not-allowed opacity-40",
+                item.className,
               )}
             >
               {iconEl}

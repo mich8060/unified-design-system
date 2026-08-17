@@ -98,11 +98,27 @@
   }
 
   .uds-input-group-addon--block-start {
-    @apply order-first w-full justify-start px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2;
+    @apply order-first w-full justify-start px-2.5 pt-2 group-has-[>input]/input-group:pt-2;
   }
 
   .uds-input-group-addon--block-end {
-    @apply order-last w-full justify-start px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2;
+    @apply order-last w-full justify-start px-2.5 pb-2 group-has-[>input]/input-group:pb-2;
+  }
+
+  /*
+   * Separator padding when a block addon also carries Tailwind's border-t / border-b utility.
+   * Do NOT nest `&.border-t` / `&.border-b` under these parents — Tailwind/LightningCSS flattens
+   * those into global `.border-t { padding-top }` / `.border-b { padding-bottom }` rules that
+   * break every `border-t` / `border-b` usage in the published stylesheet (TD-UDS-002).
+   * `[class~="…"]` compounds on the full UDS class keep the consumer API (`className="border-t"`)
+   * without colliding with the utility itself.
+   */
+  .uds-input-group-addon--block-start[class~="border-b"] {
+    padding-bottom: calc(var(--spacing) * 2);
+  }
+
+  .uds-input-group-addon--block-end[class~="border-t"] {
+    padding-top: calc(var(--spacing) * 2);
   }
 
   /** Optional: remove default vertical padding on an addon (e.g. icon-only trailing slot). */
