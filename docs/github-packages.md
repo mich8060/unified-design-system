@@ -115,7 +115,7 @@ For AI-assisted setup, point agents at [`setup.md`](../setup.md) and tell them *
 | Channel | Workflow / command | Registry |
 |--------|---------------------|----------|
 | **GitHub Packages** | `publish-github-packages.yml` | `npm.pkg.github.com` |
-| **npmjs** (optional) | `publish-npm.yml` + `NPM_TOKEN` | `registry.npmjs.org` |
+| **npmjs** (optional) | `publish-npm.yml` + `NPM_TOKEN` (manual dispatch only) | `registry.npmjs.org` |
 | **Tarball** | `npm pack` | Local `.tgz` |
 
 The npmjs workflow passes `--registry https://registry.npmjs.org` explicitly. `package.json` `publishConfig.registry` defaults to GitHub Packages.

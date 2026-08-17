@@ -129,12 +129,13 @@ and [`docs/github-packages.md`](./docs/github-packages.md#publishing-maintainers
 
    Latest snapshot only; older folders are pruned automatically. See
    [`docs/docs-version-snapshots.md`](./docs/docs-version-snapshots.md).
-4. Publish to GitHub Packages: **Actions → Publish GitHub Package → Run workflow** on `main`. Run it
-   with `dry_run: true` first, then again with `dry_run: false`.
+4. Publish to GitHub Packages: create a **GitHub Release** (tag `vx.y.z`) **or** **Actions →
+   Publish GitHub Package → Run workflow** on `main`. Run a `dry_run: true` first if you are
+   unsure. The workflow uses `GITHUB_TOKEN` (`packages: write`).
 
-   Do not publish by creating a GitHub Release unless `NPM_TOKEN` is set — `release: published` also
-   triggers [`publish-npm.yml`](./.github/workflows/publish-npm.yml), which fails without that
-   secret.
+   [`publish-npm.yml`](./.github/workflows/publish-npm.yml) is **optional** (public
+   `registry.npmjs.org`) and is **workflow_dispatch only**. Do not expect it to succeed until the
+   `@chghealthcare` scope exists on npmjs and `NPM_TOKEN` can publish it.
 5. Optionally build and pack a tarball from a clean checkout:
 
    ```bash

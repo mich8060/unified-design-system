@@ -1,8 +1,11 @@
 name: Publish npm package
 
+# Optional public-npmjs channel. Do not run on GitHub Release — that trigger
+# also publishes GitHub Packages, and this package is not on registry.npmjs.org
+# (`@chghealthcare/unified-design-system` lives at npm.pkg.github.com).
+# Dispatch this workflow only after the npmjs org/scope exists and NPM_TOKEN
+# can publish it.
 on:
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
       dry_run:
