@@ -10,7 +10,7 @@
     "shell"
   ],
   "dependencies": [
-    "@chghealthcare/unified-design-system@1.4.2"
+    "@chghealthcare/unified-design-system@1.4.3"
   ],
   "docs": "These registry items are thin wrappers around the published package surface. Import styles from `@chghealthcare/unified-design-system/styles.css` at the app root.",
   "meta": {

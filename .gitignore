@@ -6,6 +6,9 @@ build/
 dist/
 docs-dist/
 
+# Wrangler local state
+.wrangler/
+
 # Scratch / generated artifacts
 .npm-cache/
 .tmp/

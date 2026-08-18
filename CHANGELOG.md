@@ -10,6 +10,12 @@ Draft notes for the *next* unpublished release also live in [`docs/NEXT_RELEASE_
 
 ## [Unreleased]
 
+## [1.4.3] - 2026-08-18
+
+### Fixed
+
+- **Cloudflare docs deploy** — committed `wrangler.jsonc` with `assets.directory` `./docs-dist` so `npx wrangler deploy` uploads the docs site instead of auto-scaffolding an invalid config and rebuilding the library.
+
 ## [1.4.2] - 2026-08-17
 
 Compatibility restorations and additive APIs for apps leaving `1.0.6` pins, plus visual polish.
